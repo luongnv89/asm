@@ -162,6 +162,28 @@ describe("CLI integration: asm library list tags", () => {
     expect(await listJson("--tag", "cli")).toEqual([]);
   });
 
+  test("--tag AND composes with an overlay tombstone", async () => {
+    await setupLibrary([{ dirName: "alpha", tags: ["docs", "cli"] }]);
+    // `cli` is tombstoned locally, so requiring both tags matches nothing.
+    await writeTagOverlay("alpha", [], ["cli"]);
+
+    expect(await listJson("--tag", "docs", "--tag", "cli")).toEqual([]);
+    expect(names(await listJson("--tag", "docs"))).toEqual(["alpha"]);
+  });
+
+  test("an empty tag filter result does not claim the library is empty", async () => {
+    await setupLibrary([{ dirName: "alpha", tags: ["docs"] }]);
+
+    const res = await runCLI("library", "list", "--tag", "nothing-matches");
+    expect(res.exitCode).toBe(0);
+    expect(res.stdout).toContain(
+      "No library skills match --tag nothing-matches",
+    );
+    expect(res.stdout).not.toContain(
+      "No skills installed in the local library",
+    );
+  });
+
   test("rejects invalid and missing --tag values with exit 2", async () => {
     await setupLibrary([{ dirName: "alpha", tags: ["docs"] }]);
 

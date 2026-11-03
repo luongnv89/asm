@@ -1,6 +1,6 @@
 import { describe, test, expect, beforeEach, afterEach } from "vitest";
 import { join } from "path";
-import { mkdir, realpath, rm, writeFile } from "fs/promises";
+import { mkdir, realpath, rm, symlink, writeFile } from "fs/promises";
 import {
   loadLibrarySkills,
   partitionLibrarySkills,
@@ -26,7 +26,7 @@ async function writeLibrarySkill(
   return dir;
 }
 
-async function lockEntry(dirName: string, libraryPath: string) {
+function lockEntry(dirName: string, libraryPath: string) {
   return {
     name: dirName,
     version: "1.0.0",
@@ -57,7 +57,7 @@ describe("loadLibrarySkills", () => {
       "name: tagged-lib\ndescription: Library fixture\ntags: [cli, testing]\nversion: 2.1.0",
     );
     const lock = emptyLibraryLock();
-    lock.skills["tagged-lib"] = await lockEntry("tagged-lib", dir);
+    lock.skills["tagged-lib"] = lockEntry("tagged-lib", dir);
     await writeLibraryLock(lock);
 
     const skills = await loadLibrarySkills();
@@ -81,8 +81,8 @@ describe("loadLibrarySkills", () => {
       "name: present-lib\ndescription: Present",
     );
     const lock = emptyLibraryLock();
-    lock.skills["present-lib"] = await lockEntry("present-lib", dir);
-    lock.skills["gone-lib"] = await lockEntry(
+    lock.skills["present-lib"] = lockEntry("present-lib", dir);
+    lock.skills["gone-lib"] = lockEntry(
       "gone-lib",
       join(getLibrarySkillsDir(), "gone-lib"),
     );
@@ -96,15 +96,44 @@ describe("loadLibrarySkills", () => {
     expect(await loadLibrarySkills()).toEqual([]);
   });
 
-  test("reads a skill whose SKILL.md is unreadable without throwing", async () => {
-    const dir = join(getLibrarySkillsDir(), "broken-lib");
-    await mkdir(dir, { recursive: true });
+  test("keeps a row when SKILL.md exists but cannot be read", async () => {
+    const dir = join(getLibrarySkillsDir(), "unreadable-lib");
+    // A directory named SKILL.md passes the loader's existence check but makes
+    // readFile throw EISDIR — the row must survive on lock metadata alone.
+    await mkdir(join(dir, "SKILL.md"), { recursive: true });
     const lock = emptyLibraryLock();
-    lock.skills["broken-lib"] = await lockEntry("broken-lib", dir);
+    lock.skills["unreadable-lib"] = lockEntry("unreadable-lib", dir);
     await writeLibraryLock(lock);
 
     const skills = await loadLibrarySkills();
-    expect(skills).toHaveLength(0);
+    expect(skills).toHaveLength(1);
+    expect(skills[0].name).toBe("unreadable-lib"); // lock name fallback
+    expect(skills[0].version).toBe("1.0.0"); // lock version fallback
+    expect(skills[0].tags).toEqual([]);
+  });
+
+  test("keys a symlinked library copy by its canonical directory", async () => {
+    // CI runs on Linux, where tmpdir() is not a symlink — use an explicit
+    // symlink so the realpath() contract is exercised on every platform.
+    const realDir = await writeLibrarySkill(
+      "symlink-real",
+      "name: symlink-real\ndescription: Symlinked library copy\ntags: [linked]",
+    );
+    const aliasPath = join(getLibrarySkillsDir(), "symlink-alias");
+    await symlink(realDir, aliasPath, "dir");
+
+    const lock = emptyLibraryLock();
+    // The lock records the alias; the loader must resolve it.
+    lock.skills["symlink-alias"] = lockEntry("symlink-alias", aliasPath);
+    await writeLibraryLock(lock);
+
+    const skills = await loadLibrarySkills();
+    expect(skills).toHaveLength(1);
+    // An activated copy resolves to this same canonical path, which is what
+    // makes the activated skill and its library copy one tag record.
+    expect(skills[0].realPath).toBe(await realpath(realDir));
+    expect(skills[0].realPath).not.toBe(aliasPath);
+    expect(skills[0].path).toBe(aliasPath);
   });
 });
 

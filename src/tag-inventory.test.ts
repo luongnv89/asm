@@ -268,6 +268,33 @@ describe("tag inventory sorting and activated-only mode", () => {
     expect(inventory.missingRecordCount).toBe(5);
   });
 
+  it("breaks all-count ties on missing desc before tag name", () => {
+    // `a` and `z` both have all=1; `z` has more missing records, so it must
+    // come first even though plain name-ascending would put `a` first.
+    const inventory = buildTagInventory(
+      input({
+        activated: [skill("/skills/one", ["a", "z"])],
+        missing: [missing("/gone-1", ["z"]), missing("/gone-2", ["z"])],
+      }),
+    );
+
+    expect(inventory.tags.map((row) => row.tag)).toEqual(["z", "a"]);
+    expect(inventory.tags[0]).toEqual({
+      tag: "z",
+      all: 1,
+      activated: 1,
+      libraryOnly: 0,
+      missing: 2,
+    });
+    expect(inventory.tags[1]).toEqual({
+      tag: "a",
+      all: 1,
+      activated: 1,
+      libraryOnly: 0,
+      missing: 0,
+    });
+  });
+
   it("counts only ACTIVATED skills in activated-only mode", () => {
     const inventory = buildTagInventory(
       input({
