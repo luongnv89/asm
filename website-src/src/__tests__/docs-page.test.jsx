@@ -12,7 +12,7 @@ import { DOC_NAV } from "../components/DocsToc.jsx";
 const COMMANDS = [
   "asm list",
   "asm search <query>",
-  "asm tag add|remove|list",
+  "asm tag add|remove",
   "asm tag list",
   "asm inspect <skill-name>",
   "asm get <skill>",

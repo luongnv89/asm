@@ -134,7 +134,7 @@ Node.js 22+ required. Optional TUI: run `asm` with no arguments.
 | Live dev via symlink          | `asm link ./my-skill -p claude`                  |
 | Publish to registry           | `asm publish ./my-skill --yes`                   |
 | Install a bundle              | `asm bundle install frontend-dev --yes`          |
-| Tag an installed skill        | `asm tag add code-review testing`                |
+| Tag a skill                   | `asm tag add code-review testing`                |
 | Filter inventory by tags      | `asm list --tag cli,testing`                     |
 | Browse the tag vocabulary     | `asm tag list`                                   |
 
@@ -695,8 +695,8 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 --json                 JSON output
 --machine              Stable machine-readable JSON envelope (v1)
 -s, --scope <scope>    global, project, or both
--p, --tool <name>      Filter by tool (list, search)
---tag <tag[,tag]>      Filter by all tags; repeatable (list, search)
+-p, --tool <name>      Filter by tool (list, search, tag list)
+--tag <tag[,tag]>      Filter by all tags; repeatable (list, search, library list)
 --sort <field>         name, version, or location
 --flat                 Show one row per tool instance (list, search)
 --model-invocable      Only skills the model can invoke
@@ -740,7 +740,7 @@ Tags are local overlays (not written into `SKILL.md`). `--tag` requires every li
 ```bash
 asm tag list                    # tag vocabulary: activated, library-only, missing
 asm tag list --activated        # only skills `asm list` can see
-asm tag list --json             # same payload as --machine, for scripts
+asm tag list --json             # same data as --machine's data, for scripts
 asm tag list -p claude          # scope/provider filters imply --activated
 asm library list --tag docs     # library rows filtered by effective tags
 ```

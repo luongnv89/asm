@@ -68,8 +68,8 @@ export default function DocsPage() {
                 desc="Search installed skills and the skill index"
               />
               <Row
-                cmd="asm tag add|remove|list"
-                desc="Edit local tags for an installed or library skill, or list the tag inventory (does not rewrite SKILL.md)"
+                cmd="asm tag add|remove"
+                desc="Edit local tags for an installed or library skill (does not rewrite SKILL.md)"
               />
               <Row
                 cmd="asm tag list"
@@ -755,11 +755,19 @@ asm install ~/my-skills/awesome-skill`}</CodeBlock>
                 "(activate) Link name to create; default is the library directory name",
               ],
               ["-f, --force", "(activate) Replace an existing target"],
+              [
+                "--tag <tag[,tag]>",
+                <>
+                  (list) Require every tag; repeatable, comma-separated. AND
+                  over effective tags (frontmatter + local overlay)
+                </>,
+              ],
               ["--json", "Output as JSON object"],
             ]}
           />
           <CodeBlock>{`asm install github:user/my-skill --library -y
 asm library list
+asm library list --tag docs
 asm activate brainstorming -p claude -s global
 asm deactivate brainstorming -p claude -s global
 asm library update --all --json`}</CodeBlock>
