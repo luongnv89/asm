@@ -6,7 +6,11 @@ import {
   formatTagList,
   formatTagUpdates,
 } from "../formatter";
-import { loadLibrarySkills, partitionLibrarySkills } from "../library-skills";
+import {
+  loadLibrarySkills,
+  partitionLibrarySkills,
+  type LibrarySkill,
+} from "../library-skills";
 import { scanAllSkills } from "../scanner";
 import {
   addSkillTags,
@@ -20,7 +24,7 @@ import {
 import { buildTagInventory, type MissingSkillRecord } from "../tag-inventory";
 import { formatMachineOutput, redirectConsoleToStderr } from "../utils/machine";
 import { loadSkillState, matchSkills } from "../skill-state";
-import type { Scope } from "../utils/types";
+import type { Scope, SkillInfo, SkillTagStateFile } from "../utils/types";
 import type { ParsedArgs } from "../cli";
 import type { TagUpdateResult } from "../formatter";
 import { error, groupBySource } from "./shared";
@@ -149,8 +153,8 @@ async function cmdTagList(args: ParsedArgs): Promise<void> {
 
 /** Library skills that no scanned provider instance already covers. */
 async function loadLibraryOnlySkills(
-  activated: Awaited<ReturnType<typeof scanAllSkills>>,
-) {
+  activated: SkillInfo[],
+): Promise<LibrarySkill[]> {
   const library = await loadLibrarySkills();
   const { libraryOnly } = partitionLibrarySkills(
     library,
@@ -169,9 +173,9 @@ async function loadLibraryOnlySkills(
  * not the same as missing.
  */
 async function findMissingTagRecords(
-  state: Awaited<ReturnType<typeof loadSkillTagState>>,
-  activated: Awaited<ReturnType<typeof scanAllSkills>>,
-  libraryOnly: Awaited<ReturnType<typeof loadLibraryOnlySkills>>,
+  state: SkillTagStateFile,
+  activated: SkillInfo[],
+  libraryOnly: LibrarySkill[],
 ): Promise<MissingSkillRecord[]> {
   const known = new Set(
     [...activated, ...libraryOnly].map((skill) => skill.realPath),
