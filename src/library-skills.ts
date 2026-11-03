@@ -26,17 +26,14 @@ import { listLibrarySkills } from "./library-core";
 import { parseFrontmatter, resolveTags } from "./utils/frontmatter";
 import type { SkillInfo } from "./utils/types";
 
-/** How many library SKILL.md files are read concurrently. */
-const LIBRARY_READ_CONCURRENCY = 16;
-
 /**
  * A skill that exists in the ASM library.
  *
- * `libraryPath` is the canonical on-disk directory (symlinks resolved);
- * `realPath` carries the same value so library rows can be keyed with
- * `skillTagKey` and grouped with installed rows by canonical directory.
+ * `path` is the library directory as recorded in the lock file; `realPath`
+ * carries the canonical (symlink-resolved) directory so library rows can be
+ * keyed with `skillTagKey` and grouped with installed rows by that directory.
  */
-export interface LibrarySkill extends SkillInfo {}
+export type LibrarySkill = SkillInfo;
 
 /**
  * Load every library skill that still exists on disk.
@@ -52,9 +49,11 @@ export async function loadLibrarySkills(): Promise<LibrarySkill[]> {
   const skills = await Promise.all(
     present.map(async (entry): Promise<LibrarySkill> => {
       let frontmatter: Record<string, string> = {};
-      let content = "";
       try {
-        content = await readFile(join(entry.libraryPath, "SKILL.md"), "utf-8");
+        const content = await readFile(
+          join(entry.libraryPath, "SKILL.md"),
+          "utf-8",
+        );
         frontmatter = parseFrontmatter(content);
       } catch {
         // Unreadable SKILL.md — keep lock metadata, blank display fields.

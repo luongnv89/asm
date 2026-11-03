@@ -1,7 +1,6 @@
 import { describe, test, expect, beforeEach, afterEach } from "vitest";
 import { join } from "path";
-import { mkdir, mkdtemp, realpath, rm, writeFile } from "fs/promises";
-import { tmpdir } from "os";
+import { mkdir, realpath, rm, writeFile } from "fs/promises";
 import {
   loadLibrarySkills,
   partitionLibrarySkills,
