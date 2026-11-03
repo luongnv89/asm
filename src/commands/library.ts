@@ -29,9 +29,9 @@ ${ansi.bold("Subcommands:")}
   update --all         Update all local library skills
 
 ${ansi.bold("Options:")}
-  --tag <tag[,tag]> Require every tag; repeatable (list only)
-  --json            Output as JSON
-  -V, --verbose     Show debug output
+  --tag <tag[,tag]>   Require every tag; repeatable, list only
+  --json              Output as JSON
+  -V, --verbose       Show debug output
 
 ${ansi.bold("Examples:")}
   asm library list                  ${ansi.dim("List local library skills")}

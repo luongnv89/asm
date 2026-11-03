@@ -68,8 +68,12 @@ export default function DocsPage() {
                 desc="Search installed skills and the skill index"
               />
               <Row
-                cmd="asm tag add|remove"
-                desc="Edit local tags for an installed skill (does not rewrite SKILL.md)"
+                cmd="asm tag add|remove|list"
+                desc="Edit local tags for an installed or library skill, or list the tag inventory (does not rewrite SKILL.md)"
+              />
+              <Row
+                cmd="asm tag list"
+                desc="Show the tag vocabulary split into activated, library-only, and missing"
               />
               <Row
                 cmd="asm inspect <skill-name>"
@@ -383,10 +387,10 @@ asm search revew --fuzzy          # Fuzzy-find a global skill by a typo
 asm search "review pull requests" --root ~/work  # Also projects under ~/work`}</CodeBlock>
 
           <h3>
-            <code>asm tag</code> — Edit local tags
+            <code>asm tag</code> — Edit local tags, or list the tag inventory
           </h3>
           <p>
-            Add or remove tags on installed skills without rewriting{" "}
+            Add or remove tags on installed or library skills without rewriting{" "}
             <code>SKILL.md</code>. Values are 1–32 lowercase letters, numbers,
             hyphens, or underscores; arguments may be space- or comma-separated.{" "}
             <code>tag remove</code> prints the applied delta,{" "}
@@ -394,7 +398,22 @@ asm search "review pull requests" --root ~/work  # Also projects under ~/work`}<
               Removed tags from &lt;skill&gt;: &lt;removed&gt; — now:
               &lt;remaining&gt;
             </code>
-            , so the result reads as what changed.
+            , so the result reads as what changed. With no <code>--scope</code>/
+            <code>--tool</code> filter, skills that live only in the local
+            library are matched too, so a tag can be applied before the skill is
+            activated.
+          </p>
+          <p>
+            <code>tag list</code> counts tagged skill directories (deduplicated
+            by canonical path) and splits them into <code>ACTIVATED</code>{" "}
+            (visible to <code>asm list</code>, disabled included),{" "}
+            <code>LIBRARY_ONLY</code> (in the library, not activated), and{" "}
+            <code>MISSING</code> (<code>skill-tags.json</code> records whose
+            skill directory no longer exists). <code>ALL</code> is{" "}
+            <code>ACTIVATED + LIBRARY_ONLY</code>; missing records are reported
+            separately and never folded into <code>ALL</code>. Passing{" "}
+            <code>--activated</code> — or any <code>-s</code>/<code>-p</code>{" "}
+            filter — narrows the report to <code>ACTIVATED</code>.
           </p>
           <FlagTable
             rows={[
@@ -406,14 +425,27 @@ asm search "review pull requests" --root ~/work  # Also projects under ~/work`}<
                 </>,
               ],
               ["-p, --tool <p>", "Limit matches to one tool/provider"],
-              ["--json", "Output updated skills as JSON"],
+              [
+                "--activated",
+                <>
+                  <code>tag list</code>: count activated skills only (implied by{" "}
+                  <code>-s</code>/<code>-p</code>)
+                </>,
+              ],
+              [
+                "--json",
+                "Output updated skills, or the tag inventory, as JSON",
+              ],
               ["--machine", "Stable machine-readable v1 envelope"],
             ]}
           />
           <CodeBlock>{`asm tag add code-review testing cli
 asm tag add code-review testing,automation
 asm tag remove code-review automation
-asm list --tag cli --tag testing`}</CodeBlock>
+asm list --tag cli --tag testing
+asm tag list                  # tag vocabulary by class
+asm tag list --activated      # only skills asm list can see
+asm tag list --json           # same payload as --machine`}</CodeBlock>
 
           <h3>
             <code>asm inspect</code> — Show details for a skill
@@ -677,7 +709,7 @@ asm install ~/my-skills/awesome-skill`}</CodeBlock>
               />
               <Row
                 cmd="asm library list"
-                desc="List skills installed in the local library"
+                desc="List skills installed in the local library (--tag filters by effective tags)"
               />
               <Row
                 cmd="asm library update <skill>"
