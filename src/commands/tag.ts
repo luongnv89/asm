@@ -1,5 +1,6 @@
 import { loadConfig } from "../config";
 import { ansi, formatJSON, formatTagUpdates } from "../formatter";
+import { loadLibrarySkills, partitionLibrarySkills } from "../library-skills";
 import { scanAllSkills } from "../scanner";
 import {
   addSkillTags,
@@ -20,7 +21,8 @@ function printTagHelp(): void {
   console.log(`${ansi.bold("Usage:")} asm tag add <skill> <tag> [tag...]
        asm tag remove <skill> <tag> [tag...]
 
-Edit local tags for installed skills without changing their SKILL.md files.
+Edit local tags for installed or library skills without changing their SKILL.md
+files. With no --scope/--tool filter, unactivated library skills are matched too.
 Tags are lowercase identifiers and may also be comma-separated.
 
 ${ansi.bold("Options:")}
@@ -68,9 +70,26 @@ export async function cmdTag(args: ParsedArgs): Promise<void> {
 
   const startedAt = performance.now();
   const config = await loadConfig();
-  let skills = await scanAllSkills(config, args.flags.scope);
+  const scanned = await scanAllSkills(config, args.flags.scope);
+  let skills = scanned;
   if (args.flags.provider) {
-    skills = skills.filter((skill) => skill.provider === args.flags.provider);
+    // An explicit tool filter means "only what that tool can see"; library
+    // skills have no provider activation and stay out of the match pool.
+    skills = scanned.filter((skill) => skill.provider === args.flags.provider);
+  } else if (args.flags.scope === "both") {
+    // Library coverage: with the default both-scope and no tool filter, a
+    // skill that only exists in the ASM library is taggable too. An activated
+    // library skill is symlinked into a provider, so `scanAllSkills` already
+    // returned it under the same canonical realPath as its library copy and
+    // partitionLibrarySkills drops the library row — one group, one record.
+    // That also keeps the scanned row as the group representative, which is
+    // what the pre-existing paths expect.
+    const library = await loadLibrarySkills();
+    const { libraryOnly } = partitionLibrarySkills(
+      library,
+      new Set(scanned.map((skill) => skill.realPath)),
+    );
+    skills = [...scanned, ...libraryOnly];
   }
   const matched = matchSkills(skills, target);
   if (matched.length === 0) {
