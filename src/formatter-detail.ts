@@ -186,7 +186,7 @@ export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
   const lines: string[] = [];
   const label = (key: string, value: string) =>
     `${useColor() ? ansi.bold(key + ":") : key + ":"} ${value}`;
-  const ref = skills[0];
+  const ref = installations[0] ?? skills[0];
 
   // ── Header ──
   const title = ref.name;
@@ -310,7 +310,11 @@ export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
   }
 
   // ── Warnings (aggregate) ──
-  const allWarnings = skills.flatMap((s) => {
+  // The library row is text context for the Library section only. When an
+  // installation matches, its copy of any shared SKILL.md warning is the
+  // authoritative one; aggregating the library twin too would duplicate it.
+  const warningSources = installations.length > 0 ? installations : skills;
+  const allWarnings = warningSources.flatMap((s) => {
     if (!s.warnings || s.warnings.length === 0) return [];
     return s.warnings.map((w) => ({ ...w, provider: s.providerLabel }));
   });

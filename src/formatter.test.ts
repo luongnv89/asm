@@ -352,6 +352,48 @@ describe("formatSkillInspect", () => {
     },
   );
 
+  test.each([1, 2])(
+    "library context does not duplicate warnings reported by %i installation(s)",
+    async (count) => {
+      const libraryPath = "/opt/asm/library/test-skill";
+      const sharedWarning = {
+        category: "missing-description",
+        message: "No description",
+      };
+      const installations = [
+        makeSkill({
+          isSymlink: true,
+          symlinkTarget: libraryPath,
+          realPath: libraryPath,
+          warnings: [sharedWarning],
+        }),
+        makeSkill({
+          provider: "codex",
+          providerLabel: "Codex",
+          path: "/home/user/.codex/skills/test-skill",
+          isSymlink: true,
+          symlinkTarget: libraryPath,
+          realPath: libraryPath,
+          warnings: [sharedWarning],
+        }),
+      ].slice(0, count);
+      const output = await formatSkillInspect([
+        ...installations,
+        makeSkill({
+          provider: "library",
+          providerLabel: "Library",
+          location: "library",
+          path: libraryPath,
+          realPath: libraryPath,
+          warnings: [sharedWarning],
+        }),
+      ]);
+
+      expect(output).toContain(`  Warnings (${count})`);
+      expect(output.match(/\[missing-description\]/g)).toHaveLength(count);
+    },
+  );
+
   test("empty array returns no skills message", async () => {
     const output = await formatSkillInspect([]);
     expect(output).toBe("No skills found.");
