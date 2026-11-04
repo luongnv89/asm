@@ -1,5 +1,6 @@
 import { loadConfig } from "../config";
 import { scanAllSkills } from "../scanner";
+import { loadLibrarySkills, partitionLibrarySkills } from "../library-skills";
 import { formatSkillInspect, formatJSON, ansi } from "../formatter";
 import { applySkillTagState, loadSkillTagState } from "../skill-tags";
 import type { GetResult } from "../utils/types";
@@ -12,9 +13,10 @@ function printInspectHelp() {
 
 Show detailed information for a skill. The <skill-name> is the directory name.
 Shows version, description, file count, and all provider installations.
+Without --scope, includes library-only skills too.
 
 ${ansi.bold("Options:")}
-  -s, --scope <s>    Filter: global, project, or both (default: both)
+  -s, --scope <s>    Search provider installations only: global, project, or both
   --json             Output as JSON object
   --no-color         Disable ANSI colors
   -V, --verbose      Show debug output
@@ -40,25 +42,44 @@ export async function cmdInspect(args: ParsedArgs) {
 
   const config = await loadConfig();
   const allSkills = await scanAllSkills(config, args.flags.scope);
-  const matches = allSkills.filter((s) => s.dirName === skillName);
+  const scannedMatches = allSkills.filter((s) => s.dirName === skillName);
+  let matches = scannedMatches;
+  let textMatches = matches;
+
+  if (!args.flags.scopeExplicit) {
+    const library = await loadLibrarySkills();
+    const libraryMatch = library.find((s) => s.dirName === skillName);
+    if (scannedMatches.length === 0) {
+      const { libraryOnly } = partitionLibrarySkills(
+        library,
+        new Set(allSkills.map((s) => s.realPath)),
+      );
+      matches = libraryOnly.filter((s) => s.dirName === skillName);
+      textMatches = matches;
+    } else if (libraryMatch) {
+      // The library copy supplies text context without changing scanned JSON.
+      textMatches = [...scannedMatches, libraryMatch];
+    }
+  }
 
   if (matches.length === 0) {
     error(`Skill "${skillName}" not found.`);
     console.error(
       ansi.dim(
-        `Try ${ansi.bold("asm list")} to see all skills or ${ansi.bold(`asm search "${skillName}"`)} to search.`,
+        `Try ${ansi.bold("asm list")}${args.flags.scopeExplicit ? "" : ` or ${ansi.bold("asm library list")}`} to see all skills or ${ansi.bold(`asm search "${skillName}"`)} to search.`,
       ),
     );
     process.exit(1);
   }
 
-  await enrichWithHealth(matches);
-  applySkillTagState(matches, await loadSkillTagState());
+  const outputMatches = args.flags.json ? matches : textMatches;
+  await enrichWithHealth(outputMatches);
+  applySkillTagState(outputMatches, await loadSkillTagState());
 
   if (args.flags.json) {
     console.log(formatJSON(matches.length === 1 ? matches[0] : matches));
   } else {
-    console.log(await formatSkillInspect(matches));
+    console.log(await formatSkillInspect(textMatches));
   }
 }
 

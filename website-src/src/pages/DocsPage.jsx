@@ -454,18 +454,32 @@ asm tag list --json           # same payload as --machine`}</CodeBlock>
             Shows version, description, file count, invocability (
             <code>model</code>, <code>user</code>, or <code>both</code>), local
             tags, and all provider installations. The{" "}
-            <code>&lt;skill-name&gt;</code> argument is the directory name.
+            <code>&lt;skill-name&gt;</code> argument is the exact directory
+            name. Without <code>--scope</code>, inspect falls back to
+            library-only skills when no provider installation matches.
+          </p>
+          <p>
+            Text output includes a Library section with the library path
+            whenever a library copy exists, including activated skills.
+            Library-only skills show an empty <code>Installed in:</code> and{" "}
+            <code>Installations (0)</code>. JSON keeps the existing
+            installed-skill output, or returns the library skill when no
+            installation matches.
           </p>
           <FlagTable
             rows={[
               [
                 "-s, --scope <s>",
                 <>
-                  Filter: <code>global</code>, <code>project</code>, or{" "}
-                  <code>both</code>
+                  Search provider installations only: <code>global</code>,{" "}
+                  <code>project</code>, or <code>both</code>. Omits the Library
+                  section.
                 </>,
               ],
-              ["--json", "Output as JSON object"],
+              [
+                "--json",
+                "Output as JSON (one object, or an array for multiple matches)",
+              ],
             ]}
           />
           <CodeBlock>{`asm inspect code-review           # Show details for code-review

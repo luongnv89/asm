@@ -250,6 +250,108 @@ describe("formatSkillInspect", () => {
     expect(inspect).toBe(detail);
   });
 
+  test("library-only skill uses inspect layout with no installations", async () => {
+    const libraryPath = "/opt/asm/library/test-skill";
+    const output = await formatSkillInspect([
+      makeSkill({
+        provider: "library",
+        providerLabel: "Library",
+        location: "library",
+        path: libraryPath,
+        realPath: libraryPath,
+        tags: ["docs", "local"],
+        allowedTools: ["Read"],
+        warnings: [{ category: "missing-version", message: "No version" }],
+      }),
+    ]);
+
+    expect(output).toContain("  test-skill\n  ------------");
+    expect(output).toContain("  Tags: docs, local");
+    expect(output).toContain("  Installed in: \n");
+    expect(output).toContain("  Installations (0)");
+    expect(output).toContain("  Eval Score:");
+    expect(output).toContain("  Description:\n    A test skill");
+    expect(output).toContain("  Allowed Tools:\n    Read");
+    expect(output).toContain("  Warnings (1)");
+    expect(output).toContain("[missing-version] No version");
+    expect(output).not.toMatch(/^\s*(Tool|Scope|Location):/m);
+    expect(output).not.toContain("Library (global");
+    expect(output).toMatch(
+      /\n {2}Library\n {4}Path: \/opt\/asm\/library\/test-skill\n$/,
+    );
+  });
+
+  test("installed skill with an unactivated library twin keeps installed metadata", async () => {
+    const installed = makeSkill({ tags: ["installed"], version: "2.0.0" });
+    const libraryPath = "/opt/asm/library/test-skill";
+    const output = await formatSkillInspect([
+      installed,
+      makeSkill({
+        provider: "library",
+        providerLabel: "Library",
+        location: "library",
+        path: libraryPath,
+        realPath: libraryPath,
+        tags: ["library-tag"],
+      }),
+    ]);
+
+    expect(output).toContain("  Version: 2.0.0");
+    expect(output).toContain("  Tags: installed");
+    expect(output).not.toContain("library-tag");
+    expect(output).toContain("  Installed in: [Claude Code]\n");
+    expect(output).toContain("  Installations (1)");
+    expect(output).toContain("Claude Code (global, directory)");
+    expect(output).toContain(`Path: ${installed.path}`);
+    expect(output).not.toContain("Library (global");
+    expect(output).toMatch(
+      /\n {2}Library\n {4}Path: \/opt\/asm\/library\/test-skill\n$/,
+    );
+  });
+
+  test.each([1, 2])(
+    "activated library skill counts only its %i provider installations",
+    async (count) => {
+      const libraryPath = "/opt/asm/library/test-skill";
+      const installations = [
+        makeSkill({
+          isSymlink: true,
+          symlinkTarget: libraryPath,
+          realPath: libraryPath,
+        }),
+        makeSkill({
+          provider: "codex",
+          providerLabel: "Codex",
+          path: "/home/user/.codex/skills/test-skill",
+          isSymlink: true,
+          symlinkTarget: libraryPath,
+          realPath: libraryPath,
+        }),
+      ].slice(0, count);
+      const output = await formatSkillInspect([
+        ...installations,
+        makeSkill({
+          provider: "library",
+          providerLabel: "Library",
+          location: "library",
+          path: libraryPath,
+          realPath: libraryPath,
+        }),
+      ]);
+
+      expect(output).toContain(`  Installations (${count})`);
+      expect(output).toContain(
+        `  Installed in: [Claude Code]${count === 2 ? " [Codex]" : ""}\n`,
+      );
+      expect(output).toContain("Claude Code (global, symlink)");
+      expect(output.match(/Target:/g)).toHaveLength(count);
+      expect(output).not.toContain("Library (global");
+      expect(output).toMatch(
+        /\n {2}Library\n {4}Path: \/opt\/asm\/library\/test-skill\n$/,
+      );
+    },
+  );
+
   test("empty array returns no skills message", async () => {
     const output = await formatSkillInspect([]);
     expect(output).toBe("No skills found.");

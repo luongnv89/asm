@@ -441,6 +441,20 @@ asm inspect my-skill
 asm inspect my-skill --json
 ```
 
+Inspect matches the exact skill directory name. Without `--scope`, it falls
+back to library-only skills when no provider installation matches. Text output
+includes a Library section with the library path whenever a library copy exists,
+including activated skills. Library-only skills show an empty `Installed in:`
+and `Installations (0)`; JSON keeps the existing installed-skill output, or
+returns the library skill when no installation matches.
+
+Use `-s global`, `-s project`, or `-s both` to search provider installations
+only, without the Library section:
+
+```bash
+asm inspect my-skill -s both
+```
+
 ### Test install flow
 
 ```bash

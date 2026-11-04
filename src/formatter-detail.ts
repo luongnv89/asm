@@ -176,7 +176,12 @@ function getEvalSummaries(
 
 export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
   if (skills.length === 0) return "No skills found.";
-  if (skills.length === 1) return formatSkillDetail(skills[0]);
+  if (skills.length === 1 && skills[0].provider !== "library") {
+    return formatSkillDetail(skills[0]);
+  }
+
+  const installations = skills.filter((skill) => skill.provider !== "library");
+  const librarySkill = skills.find((skill) => skill.provider === "library");
 
   const lines: string[] = [];
   const label = (key: string, value: string) =>
@@ -221,7 +226,7 @@ export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
   }
 
   // Provider badges
-  const badges = skills
+  const badges = installations
     .map((s) => providerBadge(s.provider, s.providerLabel))
     .join(" ");
   lines.push(label("  Installed in", badges));
@@ -289,11 +294,10 @@ export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
 
   // ── Installations ──
   lines.push("");
-  const instHeader = `  Installations (${skills.length})`;
+  const instHeader = `  Installations (${installations.length})`;
   lines.push(useColor() ? ansi.bold(instHeader) : instHeader);
 
-  for (let i = 0; i < skills.length; i++) {
-    const s = skills[i];
+  for (const s of installations) {
     const provider = colorProvider(s.provider, s.providerLabel);
     const type = s.isSymlink ? "symlink" : "directory";
     const scope = ansi.dim(s.scope);
@@ -319,6 +323,13 @@ export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
       const icon = useColor() ? ansi.yellow("!") : "!";
       lines.push(`    ${icon} [${w.category}] ${w.message}`);
     }
+  }
+
+  // ── Library ──
+  if (librarySkill) {
+    lines.push("");
+    lines.push(useColor() ? ansi.bold("  Library") : "  Library");
+    lines.push(label("    Path", shortenPath(librarySkill.path)));
   }
 
   lines.push("");
