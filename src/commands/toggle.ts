@@ -2,6 +2,7 @@ import { loadConfig, resolveProviderPath } from "../config";
 import { scanAllSkills } from "../scanner";
 import {
   parseFrontmatter,
+  resolveCreator,
   resolveModelInvocable,
   resolveTags,
   resolveUserInvocable,
@@ -163,7 +164,7 @@ export async function reconstructDisabledSkills(
           name: fm.name || dirName,
           version: fm["metadata.version"] || fm.version || "0.0.0",
           description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
-          creator: fm["metadata.creator"] || "",
+          creator: resolveCreator(fm),
           license: (fm.license || "").trim(),
           compatibility: (fm.compatibility || "").trim(),
           allowedTools: [],

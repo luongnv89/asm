@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   parseFrontmatter,
   resolveVersion,
+  resolveCreator,
   resolveAllowedTools,
   resolveSkillDependencies,
   resolveTags,
@@ -372,6 +373,42 @@ dependencies:
     expect(() => parseFrontmatter(input)).toThrow(
       "use a sequence of scalar strings",
     );
+  });
+});
+
+describe("resolveCreator (#787)", () => {
+  it("returns metadata.author when it is the only key", () => {
+    expect(
+      resolveCreator({
+        "metadata.author": "Luong NGUYEN <luongnv89@gmail.com>",
+      }),
+    ).toBe("Luong NGUYEN <luongnv89@gmail.com>");
+  });
+
+  it("prefers metadata.creator over metadata.author", () => {
+    expect(
+      resolveCreator({
+        "metadata.creator": "creator-x",
+        "metadata.author": "author-y",
+      }),
+    ).toBe("creator-x");
+  });
+
+  it("falls back to top-level creator, then author", () => {
+    expect(resolveCreator({ creator: "legacy-c", author: "legacy-a" })).toBe(
+      "legacy-c",
+    );
+    expect(resolveCreator({ author: "legacy-a" })).toBe("legacy-a");
+    expect(
+      resolveCreator({ "metadata.author": "meta-a", creator: "legacy-c" }),
+    ).toBe("meta-a");
+  });
+
+  it("trims and skips blank values; empty string when none is set", () => {
+    expect(
+      resolveCreator({ "metadata.creator": "   ", "metadata.author": " a " }),
+    ).toBe("a");
+    expect(resolveCreator({ name: "x" })).toBe("");
   });
 });
 

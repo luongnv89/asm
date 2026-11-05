@@ -168,6 +168,25 @@ export function resolveVersion(fm: Record<string, string>): string {
   return fm["metadata.version"] || fm.version || "0.0.0";
 }
 
+/**
+ * Resolve a skill's display creator. `metadata.creator` wins, then
+ * `metadata.author` (the skill-creator standard), then the legacy top-level
+ * `creator` / `author` keys the evaluator already accepts. The value is kept
+ * as written (e.g. `Name <email>`), trimmed; "" when none is set.
+ */
+export function resolveCreator(fm: Record<string, string>): string {
+  for (const key of [
+    "metadata.creator",
+    "metadata.author",
+    "creator",
+    "author",
+  ]) {
+    const value = (fm[key] || "").trim();
+    if (value) return value;
+  }
+  return "";
+}
+
 export function resolveAllowedTools(fm: Record<string, string>): string[] {
   const raw = fm["allowed-tools"] || "";
   if (!raw.trim()) return [];

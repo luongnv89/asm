@@ -1720,3 +1720,73 @@ describe("readCodexMarketplaceFiles", () => {
     ]);
   });
 });
+
+// ─── creator resolution (#787) ──────────────────────────────────────────────
+
+describe("creator from metadata.author (#787)", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "scanner-creator-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  async function writeSkill(root: string, dir: string, meta: string[]) {
+    await mkdir(join(root, dir), { recursive: true });
+    await writeFile(
+      join(root, dir, "SKILL.md"),
+      ["---", `name: ${dir}`, "description: d", ...meta, "---", "Body"].join(
+        "\n",
+      ),
+    );
+  }
+
+  it("installed scan: author-only, both keys, and neither", async () => {
+    await writeSkill(tempDir, "author-only", [
+      "metadata:",
+      '  author: "Luong NGUYEN <luongnv89@gmail.com>"',
+    ]);
+    await writeSkill(tempDir, "both-keys", [
+      "metadata:",
+      "  creator: the-creator",
+      "  author: the-author",
+    ]);
+    await writeSkill(tempDir, "neither", ["metadata:", "  version: 1.0.0"]);
+
+    const skills = await scanAllSkills(makeScanConfig([tempDir]), "project");
+    const by = (n: string) => skills.find((s) => s.name === n)!;
+    expect(by("author-only").creator).toBe(
+      "Luong NGUYEN <luongnv89@gmail.com>",
+    );
+    expect(by("both-keys").creator).toBe("the-creator");
+    expect(by("neither").creator).toBe("");
+
+    // Creator search matches the metadata.author value.
+    expect(searchSkills(skills, "luong nguyen").map((s) => s.name)).toEqual([
+      "author-only",
+    ]);
+  });
+
+  it("plugin marketplace scan: author-only, both keys, and neither", async () => {
+    const skillsRoot = join(tempDir, "mkt", "skills");
+    await writeSkill(skillsRoot, "author-only", [
+      "metadata:",
+      "  author: luongnv89",
+    ]);
+    await writeSkill(skillsRoot, "both-keys", [
+      "metadata:",
+      "  creator: the-creator",
+      "  author: the-author",
+    ]);
+    await writeSkill(skillsRoot, "neither", []);
+
+    const skills = await scanPluginMarketplaces(tempDir);
+    const by = (n: string) => skills.find((s) => s.name === n)!;
+    expect(by("author-only").creator).toBe("luongnv89");
+    expect(by("both-keys").creator).toBe("the-creator");
+    expect(by("neither").creator).toBe("");
+  });
+});

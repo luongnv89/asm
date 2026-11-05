@@ -4,6 +4,7 @@ import type { LibrarySkillInfo } from "./library-core";
 import { poolAll } from "./updater-core";
 import {
   parseFrontmatter,
+  resolveCreator,
   resolveModelInvocable,
   resolveUserInvocable,
 } from "./utils/frontmatter";
@@ -51,7 +52,7 @@ export async function buildGhostSkills(
         description: (frontmatter.description || "")
           .replace(/\s*\n\s*/g, " ")
           .trim(),
-        creator: frontmatter["metadata.creator"] || "",
+        creator: resolveCreator(frontmatter),
         license: (frontmatter.license || "").trim(),
         compatibility: (frontmatter.compatibility || "").trim(),
         allowedTools: [],
