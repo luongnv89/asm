@@ -796,6 +796,25 @@ export interface SecurityAuditReport {
   totalLines: number;
   verdict: SecurityVerdict;
   verdictReason: string;
+  /**
+   * Symlinks in a local audit target that leave the audited folder, dangle,
+   * or loop (#779). Present only when non-empty; any entry raises the verdict
+   * to at least `warning`.
+   */
+  externalSymlinks?: ExternalSymlink[];
+}
+
+/**
+ * A symlink found while auditing a local folder that the audit cannot treat
+ * as part of that folder. `file`/`directory`: resolves outside the folder;
+ * its target was scanned read-only. `dangling`/`loop`: never followed.
+ */
+export interface ExternalSymlink {
+  /** Link path relative to the audited folder. */
+  path: string;
+  /** Absolute resolved target (for `dangling`, the path the link names). */
+  target: string;
+  kind: "file" | "directory" | "dangling" | "loop";
 }
 
 // ─── Bundle Types ─────────────────────────────────────────────────────────

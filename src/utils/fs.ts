@@ -1,4 +1,13 @@
-import { lstat, readdir, readFile, realpath, stat, symlink } from "fs/promises";
+import {
+  lstat,
+  readdir,
+  readFile,
+  readlink,
+  realpath,
+  stat,
+  symlink,
+} from "fs/promises";
+import type { ExternalSymlink } from "./types";
 import { dirname, isAbsolute, join, relative, resolve, sep } from "path";
 
 /**
@@ -94,14 +103,13 @@ export function isPathInside(parent: string, child: string): boolean {
 
 export interface ReadFilesRecursiveOptions {
   /**
-   * Skip any symlink whose resolved target lies outside `dir` (resolved with
-   * `realpath`), and never walk the same real directory twice. Used when the
-   * directory is an untrusted local folder (#779); the default keeps the
-   * historical follow-everything behaviour.
+   * Track symlinks against `dir` (#779). When set, every symlink that resolves
+   * outside `dir` is reported and then followed read-only, so its content is
+   * still scanned; dangling links and links that loop back into a directory
+   * being walked are reported and never followed. Without it the walk keeps
+   * its historical follow-everything behaviour.
    */
-  confineSymlinks?: boolean;
-  /** Called with the relative path of each symlink skipped by `confineSymlinks`. */
-  onSkippedSymlink?: (relPath: string) => void;
+  onExternalSymlink?: (link: ExternalSymlink) => void;
 }
 
 export async function readFilesRecursive(
@@ -109,19 +117,21 @@ export async function readFilesRecursive(
   options: ReadFilesRecursiveOptions = {},
 ): Promise<FileContent[]> {
   const results: FileContent[] = [];
-  const confine = options.confineSymlinks === true;
+  const report = options.onExternalSymlink;
   let rootReal = dir;
-  const visitedDirs = new Set<string>();
-  if (confine) {
+  if (report) {
     try {
       rootReal = await realpath(dir);
     } catch {
       return results;
     }
-    visitedDirs.add(rootReal);
   }
 
-  async function walk(currentDir: string, prefix: string) {
+  async function walk(
+    currentDir: string,
+    prefix: string,
+    ancestors: ReadonlySet<string>,
+  ) {
     let entries: string[];
     try {
       entries = await readdir(currentDir);
@@ -136,26 +146,44 @@ export async function readFilesRecursive(
       const relPath = prefix ? `${prefix}/${entry}` : entry;
 
       try {
-        if (confine && (await lstat(fullPath)).isSymbolicLink()) {
-          let target: string | null = null;
+        let linkTarget: string | null = null;
+        if (report && (await lstat(fullPath)).isSymbolicLink()) {
           try {
-            target = await realpath(fullPath);
-          } catch {
-            // dangling or looping link — nothing readable behind it
-          }
-          if (target === null || !isPathInside(rootReal, target)) {
-            options.onSkippedSymlink?.(relPath);
+            linkTarget = await realpath(fullPath);
+          } catch (err) {
+            const raw = await readlink(fullPath).catch(() => "");
+            report({
+              path: relPath,
+              target: raw ? resolve(dirname(fullPath), raw) : "",
+              kind:
+                (err as NodeJS.ErrnoException).code === "ELOOP"
+                  ? "loop"
+                  : "dangling",
+            });
             continue;
           }
         }
         const s = await stat(fullPath);
-        if (s.isDirectory()) {
-          if (confine) {
-            const real = await realpath(fullPath);
-            if (visitedDirs.has(real)) continue;
-            visitedDirs.add(real);
+        if (linkTarget !== null && report) {
+          if (s.isDirectory() && ancestors.has(linkTarget)) {
+            report({ path: relPath, target: linkTarget, kind: "loop" });
+            continue;
           }
-          await walk(fullPath, relPath);
+          if (!isPathInside(rootReal, linkTarget)) {
+            report({
+              path: relPath,
+              target: linkTarget,
+              kind: s.isDirectory() ? "directory" : "file",
+            });
+          }
+        }
+        if (s.isDirectory()) {
+          if (report) {
+            const real = linkTarget ?? (await realpath(fullPath));
+            await walk(fullPath, relPath, new Set([...ancestors, real]));
+          } else {
+            await walk(fullPath, relPath, ancestors);
+          }
         } else if (s.isFile()) {
           const ext = entry.includes(".")
             ? `.${entry.split(".").pop()!.toLowerCase()}`
@@ -180,6 +208,6 @@ export async function readFilesRecursive(
     }
   }
 
-  await walk(dir, "");
+  await walk(dir, "", new Set([rootReal]));
   return results;
 }

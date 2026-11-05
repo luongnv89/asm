@@ -18,7 +18,7 @@ import {
 } from "../installer";
 import { resolveEvalInput } from "../evaluator-batch";
 import { isPathInside } from "../utils/fs";
-import type { SecurityAuditReport } from "../utils/types";
+import type { ExternalSymlink, SecurityAuditReport } from "../utils/types";
 import { computeResidencyAudit, formatResidencyReport } from "../residency";
 import {
   detectDuplicates,
@@ -63,13 +63,16 @@ ${ansi.bold("Subcommands:")}
 
 ${ansi.bold("Security target resolution:")}
   github:… or https://github.com/…  GitHub source, cloned to a temp dir
-  ./x, ../x, /abs/x, ~/x, or any    Local folder, read without installing or
-  argument containing / or \\        running it; symlinks that leave it are
-                                    skipped. A folder with no SKILL.md is a
-                                    collection: each child skill is audited
-  anything else                     Installed skill name; when no installed
-                                    skill matches, a folder of that name in
-                                    the current directory
+  ./x, ../x, /abs/x, ~/x           Local folder, read without installing or
+                                    running it. A folder with no SKILL.md is
+                                    a collection: each child skill is audited
+  a/b (has / or \\) that exists     Local folder, as above
+  anything else                     Installed skill name (honours --scope);
+                                    a bare name never means a local folder
+
+  In a local folder, a symlink that points outside it is reported as a
+  finding (verdict at least WARNING) and its target is scanned read-only;
+  dangling and looping symlinks are reported and never followed.
 
 ${ansi.bold("Options:")}
   --json             Output as JSON
@@ -334,7 +337,7 @@ export async function cmdAuditSecurity(args: ParsedArgs, startTime: number) {
     target.startsWith("https://github.com/")
   ) {
     await cmdAuditSecuritySource(args, target, startTime);
-  } else if (looksLikeLocalAuditPath(target)) {
+  } else if (await isLocalAuditTarget(target)) {
     await cmdAuditSecurityLocal(args, target, startTime);
   } else {
     await cmdAuditSecurityInstalled(args, target, startTime);
@@ -345,14 +348,24 @@ const ACCEPTED_SECURITY_TARGETS =
   'Accepted targets: an installed skill name (see "asm list"), a local skill or collection folder (./path, ../path, /abs/path, ~/path), or a GitHub source (github:owner/repo[#ref][:subpath] or https://github.com/owner/repo[/tree/<ref>/<sub>]).';
 
 /**
- * A security target is a local path when it is path-shaped: `./`, `../`, `/`,
- * `~`, a drive letter, or any path separator. Bare names stay installed-skill
- * lookups, so an installed skill keeps winning over a same-named folder in the
- * current directory (#779).
+ * A security target is a local path when it starts with `./`, `../`, `/`, `~`
+ * (or is `.`, `..`, a drive path), or when it contains a path separator and
+ * exists. Everything else is an installed-skill name, so a bare name never
+ * resolves to a folder in the current directory (#779).
  */
-export function looksLikeLocalAuditPath(target: string): boolean {
-  return isLocalPath(target) || target.includes("/") || target.includes("\\");
+export async function isLocalAuditTarget(target: string): Promise<boolean> {
+  if (isLocalPath(target)) return true;
+  if (!target.includes("/") && !target.includes("\\")) return false;
+  try {
+    await fsStat(resolve(target));
+    return true;
+  } catch {
+    return false;
+  }
 }
+
+/** `owner/repo`-shaped input that probably meant a GitHub source. */
+const GITHUB_SHORTHAND_RE = /^[A-Za-z0-9_-][A-Za-z0-9_.-]*\/[A-Za-z0-9_.-]+$/;
 
 function printSecurityReports(
   args: ParsedArgs,
@@ -451,8 +464,11 @@ async function localSkillName(
  * `asm audit security <path>` — audit a local skill folder, or every child
  * skill of a collection folder, without installing it (#779). Resolution of
  * single-vs-collection is `asm eval`'s (`resolveEvalInput`). The folder is only
- * read: nothing in it is installed or executed, and symlinks that resolve
- * outside the audited folder are skipped and reported on stderr.
+ * read: nothing in it is installed or executed. Symlinks that resolve outside
+ * the audited folder are reported as findings (verdict at least `warning`)
+ * and their targets scanned read-only; dangling and looping links are
+ * reported and never followed. A collection child that links outside the
+ * collection is audited the same way.
  */
 export async function cmdAuditSecurityLocal(
   args: ParsedArgs,
@@ -486,56 +502,32 @@ export async function cmdAuditSecurityLocal(
     );
   }
 
-  // Collection children must not be symlinks that leave the collection.
-  const inside: string[] = [];
-  for (const dir of skillDirs) {
-    const real = await fsRealpath(dir);
-    if (isPathInside(rootReal, real)) {
-      inside.push(real);
-    } else {
-      console.error(
-        ansi.yellow(
-          `  Skipping ${basename(dir)} — it is a symlink that points outside ${shortenPath(rootReal)}.`,
-        ),
-      );
-    }
-  }
-  if (inside.length === 0) {
-    failSecurityTarget(
-      args,
-      `No skills to audit inside ${rootReal}.\n${ACCEPTED_SECURITY_TARGETS}`,
-      startTime,
-    );
-  }
-
   if (isCollection) {
     console.error(
-      `Auditing ${inside.length} local skill${inside.length > 1 ? "s" : ""} in ${shortenPath(rootReal)}...\n`,
+      `Auditing ${skillDirs.length} local skill${skillDirs.length > 1 ? "s" : ""} in ${shortenPath(rootReal)}...\n`,
     );
   }
 
   const reports: SecurityAuditReport[] = [];
-  for (const dir of inside) {
-    const name = await localSkillName(dir, dir);
+  for (const dir of skillDirs) {
+    const real = await fsRealpath(dir);
+    // A collection child that is a symlink out of the collection is audited
+    // like any other child, and the link itself is a finding.
+    const childLink: ExternalSymlink[] = isPathInside(rootReal, real)
+      ? []
+      : [{ path: basename(dir), target: real, kind: "directory" }];
+    const name = await localSkillName(real, real);
     console.error(
       isCollection
         ? `  Scanning ${ansi.bold(name)}...`
         : `Auditing local skill: ${ansi.bold(name)}...\n`,
     );
-    const skipped: string[] = [];
     reports.push(
-      await auditSkillSecurity(dir, name, undefined, undefined, {
-        confineSymlinks: true,
-        onSkippedSymlink: (relPath) => skipped.push(relPath),
+      await auditSkillSecurity(real, name, undefined, undefined, {
+        trackSymlinks: true,
+        externalSymlinks: childLink,
       }),
     );
-    if (skipped.length > 0) {
-      console.error(
-        ansi.yellow(
-          `  Skipped ${skipped.length} symlink${skipped.length > 1 ? "s" : ""} in ${name} that point outside the skill folder or cannot be resolved: ${skipped.join(", ")}`,
-        ),
-      );
-    }
   }
 
   if (isCollection) {
@@ -673,21 +665,12 @@ export async function cmdAuditSecurityInstalled(
   const matches = allSkills.filter((s) => s.dirName === target);
 
   if (matches.length === 0) {
-    // No installed skill by that name: fall back to a folder of that name in
-    // the current directory (#779). Installed skills always win.
-    let isDir = false;
-    try {
-      isDir = (await fsStat(resolve(target))).isDirectory();
-    } catch {
-      // no such folder
-    }
-    if (isDir) {
-      await cmdAuditSecurityLocal(args, target, startTime);
-      return;
-    }
+    const hint = GITHUB_SHORTHAND_RE.test(target)
+      ? ` Did you mean github:${target}?`
+      : "";
     failSecurityTarget(
       args,
-      `Skill "${target}" not found.\n${ACCEPTED_SECURITY_TARGETS}`,
+      `Skill "${target}" not found.${hint}\n${ACCEPTED_SECURITY_TARGETS}`,
       startTime,
     );
   }

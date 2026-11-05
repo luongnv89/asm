@@ -193,8 +193,10 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
 
   lines.push("");
 
+  const symlinks = report.externalSymlinks ?? [];
+
   // ── Zone B: Threat Summary ──
-  if (report.codeScans.length === 0) {
+  if (report.codeScans.length === 0 && symlinks.length === 0) {
     lines.push(
       `  ${color.green("*")} ${color.green("No suspicious patterns detected.")}`,
     );
@@ -230,7 +232,9 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
     const permLabel =
       permTypes.length > 0 ? color.dim(`Perms: ${permTypes.join(", ")}`) : "";
 
-    lines.push(`     ${countParts.join(color.dim(" | "))}    ${permLabel}`);
+    if (countParts.length > 0 || permLabel) {
+      lines.push(`     ${countParts.join(color.dim(" | "))}    ${permLabel}`);
+    }
   }
 
   lines.push("");
@@ -344,6 +348,23 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
 
       lines.push("");
     }
+  }
+
+  // ── Zone C2: Symlinks that leave the audited folder (#779) ──
+  if (symlinks.length > 0) {
+    lines.push(
+      `  ${severityIcon("critical")} ${color.bold("Symlinks outside the skill folder")} (${color.red(`${symlinks.length} critical`)})`,
+    );
+    for (const link of symlinks) {
+      const note =
+        link.kind === "dangling" || link.kind === "loop"
+          ? `${link.kind}, not followed`
+          : `${link.kind}, scanned read-only`;
+      lines.push(
+        `     ${color.dim(link.path)} -> ${link.target || color.dim("(unreadable)")} ${color.dim(`(${note})`)}`,
+      );
+    }
+    lines.push("");
   }
 
   // ── Zone D: Footer ──

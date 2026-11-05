@@ -2,7 +2,11 @@ import { describe, test, expect, beforeEach, afterEach } from "vitest";
 import { mkdtemp, writeFile, mkdir, rm } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
-import { calculateVerdict, auditSkillSecurity } from "./security-auditor";
+import {
+  calculateVerdict,
+  auditSkillSecurity,
+  applyExternalSymlinks,
+} from "./security-auditor";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { spawnCollect } from "./utils/test-spawn";
@@ -479,5 +483,41 @@ describe("CLI integration: audit security", () => {
   test("main --help includes audit security command", async () => {
     const { stdout } = await runCLI("--help");
     expect(stdout).toContain("audit security");
+  });
+});
+
+describe("applyExternalSymlinks (#779)", () => {
+  const out = {
+    path: "x.sh",
+    target: "/elsewhere/x.sh",
+    kind: "file" as const,
+  };
+  const gone = { path: "y", target: "/nowhere", kind: "dangling" as const };
+
+  test("no links leaves the verdict alone", () => {
+    expect(applyExternalSymlinks("safe", "fine.", [])).toEqual({
+      verdict: "safe",
+      reason: "fine.",
+    });
+  });
+
+  test("safe and caution are raised to warning, naming the links", () => {
+    const safe = applyExternalSymlinks("safe", "fine.", [out, gone]);
+    expect(safe.verdict).toBe("warning");
+    expect(safe.reason).toContain(
+      "1 symlink points outside the skill folder (x.sh)",
+    );
+    expect(safe.reason).toContain("1 symlink dangles or loops");
+    const caution = applyExternalSymlinks("caution", "2 warnings found.", [
+      out,
+    ]);
+    expect(caution.verdict).toBe("warning");
+    expect(caution.reason).toContain("2 warnings found.");
+  });
+
+  test("warning and dangerous keep their verdict and gain the reason", () => {
+    const d = applyExternalSymlinks("dangerous", "Exfil risk.", [out]);
+    expect(d.verdict).toBe("dangerous");
+    expect(d.reason).toMatch(/^Exfil risk\. 1 symlink/);
   });
 });

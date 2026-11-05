@@ -36,6 +36,7 @@ export function formatAuditMachineData(reports: SecurityAuditReport[]) {
       verdict_reason: r.verdictReason,
       total_files: r.totalFiles,
       total_lines: r.totalLines,
+      ...(r.externalSymlinks ? { external_symlinks: r.externalSymlinks } : {}),
     })),
     risk_score: reports.reduce(
       (sum, r) => sum + verdictToRiskScore(r.verdict),
