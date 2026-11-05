@@ -33,7 +33,7 @@ DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
 def fail(what: str, where: str, fix: str) -> None:
-    print(f"Error: {what} ({where}). Fix: {fix}", file=sys.stderr)
+    print(f"Error: {what} ({where}). Fix: {fix.rstrip('.')}.", file=sys.stderr)
     sys.exit(1)
 
 

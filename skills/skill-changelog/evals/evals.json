@@ -23,26 +23,35 @@
       "id": 2,
       "kind": "happy-path",
       "prompt": "/skill-changelog skills/demo-skill",
-      "expected_output": "Entry for the committed current version written from the range base..bump commit; backfill offered exactly once (or, with no user present, listed as available) because the file was created and history has 2+ versions",
+      "expected_output": "Entry for the committed current version written from base..bump commit; because missing_versions lists 1.0.0 and 1.1.0, backfill is offered once (or, with no user present, reported as available)",
       "files": [],
       "expectations": [
         "The diff_cmd and log_cmd printed by state were the ones run",
         "The entry version equals metadata.version in SKILL.md",
-        "Backfill was offered at most once; with no user present it was listed as 'backfill available' instead of asked",
-        "The report names the range (base..end) and the sections written"
+        "Backfill was offered at most once; with no user present it was reported as 'backfill available (N: \u2026)' instead of asked",
+        "The report names the range (base..end) and the sections written",
+        "The first line of the report states the result status",
+        "Inferred bullets or untested behaviour are labelled separately from observed checks",
+        "Each material claim points to a command result or file",
+        "The report ends with the next decision or states no approval is needed"
       ]
     },
     {
       "id": 3,
       "kind": "happy-path",
       "prompt": "I fixed the broken jq path in skills/demo-skill and bumped it to 1.2.1. demo-skill already has a CHANGELOG.md. Add the entry.",
-      "expected_output": "1.2.1 entry with a Fixed section inserted above the existing 1.2.0 entry; older entries byte-identical",
+      "expected_output": "1.2.1 entry with a Fixed section inserted above the existing 1.2.0 entry; older entries byte-identical; earlier versions without entries (1.0.0, 1.1.0) offered or reported for backfill",
       "files": [],
       "expectations": [
+        "skill_versions.py state ran before the file was edited, and check exited 0 after",
         "The new entry is above the previous top entry",
         "The entry uses a Fixed section",
         "Older entries are unchanged (diff of CHANGELOG.md shows only added lines)",
-        "No backfill question was asked because the file already existed"
+        "The versions in missing_versions (1.0.0, 1.1.0) are offered once for backfill, or reported as 'backfill available' when no user is present",
+        "The first line of the report states the result status",
+        "Inferred bullets or untested behaviour are labelled separately from observed checks",
+        "Each material claim points to a command result or file",
+        "The report ends with the next decision or states no approval is needed"
       ]
     },
     {
@@ -53,7 +62,11 @@
       "files": [],
       "expectations": [
         "CHANGELOG.md was not modified",
-        "The report result is 'already recorded'"
+        "The report result is 'already recorded'",
+        "The first line of the report states the result status",
+        "Inferred bullets or untested behaviour are labelled separately from observed checks",
+        "Each material claim points to a command result or file",
+        "The report ends with the next decision or states no approval is needed"
       ]
     },
     {
@@ -64,7 +77,11 @@
       "files": [],
       "expectations": [
         "No CHANGELOG.md was created",
-        "The report result is 'blocked' with the reason from skill_versions.py"
+        "The report result is 'blocked' with the reason from skill_versions.py",
+        "The first line of the report states the result status",
+        "Inferred bullets or untested behaviour are labelled separately from observed checks",
+        "Each material claim points to a command result or file",
+        "The report ends with the next decision or states no approval is needed"
       ]
     },
     {
@@ -95,7 +112,11 @@
       "expectations": [
         "The new top entry is 1.2.2",
         "The report names 1.2.1 under backfill available or asks one backfill question",
-        "The 1.2.0 entry is unchanged"
+        "The 1.2.0 entry is unchanged",
+        "The first line of the report states the result status",
+        "Inferred bullets or untested behaviour are labelled separately from observed checks",
+        "Each material claim points to a command result or file",
+        "The report ends with the next decision or states no approval is needed"
       ]
     },
     {
@@ -106,7 +127,11 @@
       "files": [],
       "expectations": [
         "No CHANGELOG.md was created",
-        "The report says shallow clone and names git fetch --unshallow"
+        "The report says shallow clone and names git fetch --unshallow",
+        "The first line of the report states the result status",
+        "Inferred bullets or untested behaviour are labelled separately from observed checks",
+        "Each material claim points to a command result or file",
+        "The report ends with the next decision or states no approval is needed"
       ]
     }
   ]

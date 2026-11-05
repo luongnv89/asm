@@ -13,9 +13,8 @@
 
 - Builds the entry from the skill's git diff and commit subjects since the previous version, not from memory
 - Keep a Changelog 1.1.0 format, newest first, in `CHANGELOG.md` inside the skill folder, so the history ships with every install
-- Idempotent: a version that already has an entry is never written twice
 - Offers once to backfill missing versions from git history, or backfills on request
-- Handles renamed skill folders, shallow clones (blocks), and versions bumped twice before commit
+- Stops or asks instead of guessing: shallow clones, unstaged or ambiguous renames; never writes a version twice
 - Writes files only; never commits
 
 ## When to Use
@@ -43,7 +42,7 @@ graph TD
 ## Usage
 
 ```
-/skill-changelog [<skill-dir>...]
+/skill-changelog [<skill-dir>...] [--backfill]
 ```
 
 ## Resources
