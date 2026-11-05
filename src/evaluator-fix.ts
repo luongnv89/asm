@@ -8,7 +8,7 @@
  */
 
 import { readFile, writeFile, stat, copyFile, readdir } from "fs/promises";
-import { join, resolve, basename, isAbsolute } from "path";
+import { join, resolve, basename, isAbsolute, dirname, relative } from "path";
 import type { ProviderEvalReport } from "./eval/summary";
 import { parseFrontmatter } from "./utils/frontmatter";
 import { runCommand } from "./utils/spawn";
@@ -33,6 +33,7 @@ import {
   scoreLicense,
 } from "./evaluator-core";
 import { scorePII, scoreScriptLint } from "./evaluator-pii-lint";
+import { findLicenseFileName } from "./evaluator-scorers-policy";
 
 // ─── Report aggregator ─────────────────────────────────────────────────────
 
@@ -49,8 +50,14 @@ export async function evaluateSkillContent(args: {
    * When omitted (e.g., content-only callers) those checks are skipped.
    */
   rootEntries?: string[];
+  /**
+   * Licence file inherited from the enclosing repository, as a path relative
+   * to the skill dir (see `findInheritedLicenseFile`). Issue #771.
+   */
+  inheritedLicenseFile?: string;
 }): Promise<EvaluationReport> {
-  const { content, skillPath, skillMdPath, rootEntries } = args;
+  const { content, skillPath, skillMdPath, rootEntries, inheritedLicenseFile } =
+    args;
   const fm = parseFrontmatter(content);
   const { rawFrontmatter, body } = splitSkillMd(content);
 
@@ -62,7 +69,7 @@ export async function evaluateSkillContent(args: {
     scoreContextEfficiency(fm, body),
     scoreSafety(fm, body),
     scoreTestability(fm, body),
-    scoreLicense(fm, body, rootEntries),
+    scoreLicense(fm, body, rootEntries, inheritedLicenseFile),
     scoreNaming(fm, body),
   ];
 
@@ -138,8 +145,10 @@ export function evaluateSkillContentSync(args: {
   skillPath: string;
   skillMdPath: string;
   rootEntries?: string[];
+  inheritedLicenseFile?: string;
 }): EvaluationReport {
-  const { content, skillPath, skillMdPath, rootEntries } = args;
+  const { content, skillPath, skillMdPath, rootEntries, inheritedLicenseFile } =
+    args;
   const fm = parseFrontmatter(content);
   const { rawFrontmatter, body } = splitSkillMd(content);
 
@@ -150,7 +159,7 @@ export function evaluateSkillContentSync(args: {
     scoreContextEfficiency(fm, body),
     scoreSafety(fm, body),
     scoreTestability(fm, body),
-    scoreLicense(fm, body, rootEntries),
+    scoreLicense(fm, body, rootEntries, inheritedLicenseFile),
     scoreNaming(fm, body),
     // Async-only scorers — placeholder when content-only is the only input.
     {
@@ -274,7 +283,45 @@ export async function evaluateSkill(
     skillPath: resolved,
     skillMdPath,
     rootEntries,
+    inheritedLicenseFile: findLicenseFileName(rootEntries)
+      ? undefined
+      : await findInheritedLicenseFile(resolved),
   });
+}
+
+/**
+ * Find a licence file the skill at `skillDir` inherits from its enclosing
+ * repository (issue #771). Walks from the skill's parent up to the git root
+ * — the nearest ancestor holding a `.git` dir or file (clones and worktrees
+ * included) — and returns the nearest licence file as a path relative to
+ * `skillDir`. Returns undefined when the skill is not inside a git repo, is
+ * itself the repo root, or no ancestor up to the root has a licence file, so
+ * the walk never picks up a LICENSE from outside the repository.
+ */
+export async function findInheritedLicenseFile(
+  skillDir: string,
+): Promise<string | undefined> {
+  const start = resolve(skillDir);
+  const ancestors: { dir: string; entries: string[] }[] = [];
+  let dir = start;
+  for (;;) {
+    let entries: string[];
+    try {
+      entries = await readdir(dir);
+    } catch {
+      return undefined;
+    }
+    if (dir !== start) ancestors.push({ dir, entries });
+    if (entries.includes(".git")) break;
+    const parent = dirname(dir);
+    if (parent === dir) return undefined;
+    dir = parent;
+  }
+  for (const { dir: ancestor, entries } of ancestors) {
+    const name = findLicenseFileName(entries);
+    if (name) return relative(start, join(ancestor, name));
+  }
+  return undefined;
 }
 
 // ─── Auto-fix pipeline ─────────────────────────────────────────────────────

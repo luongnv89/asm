@@ -204,30 +204,73 @@ const RECOGNISED_LICENSES = new Set([
   "OLDAP-2.8",
 ]);
 
+/** Licence file names (case-insensitive) recognised at a directory root. */
+const LICENSE_FILE_NAMES = new Set([
+  "license",
+  "license.md",
+  "license.txt",
+  "copying",
+  "copying.md",
+  "copying.txt",
+]);
+
+/** Return the first licence file name among `entries`, if any. */
+export function findLicenseFileName(entries?: string[]): string | undefined {
+  return entries?.find((e) => LICENSE_FILE_NAMES.has(e.toLowerCase()));
+}
+
+/**
+ * Declarations that mark a skill as private / proprietary rather than
+ * openly licensed: `Proprietary`, npm's `UNLICENSED`, `SEE LICENSE IN <file>`,
+ * `private`, and any "All rights reserved" notice. The SPDX `Unlicense`
+ * (public domain) is deliberately not matched.
+ */
+const PRIVATE_LICENSE_PATTERNS: RegExp[] = [
+  /^proprietary\b/i,
+  /^unlicensed$/i,
+  /^private\b/i,
+  /^see licen[cs]e in\s+\S/i,
+  /\ball rights reserved\b/i,
+];
+
+export function isPrivateLicense(license: string): boolean {
+  const id = license.trim();
+  return PRIVATE_LICENSE_PATTERNS.some((re) => re.test(id));
+}
+
 /**
  * Score whether a skill declares a license and whether that declaration is
- * a recognised SPDX identifier.
+ * a recognised SPDX identifier or a private licence (issue #771).
+ *
+ * A licence file is the skill's own LICENSE / LICENSE.md / LICENSE.txt /
+ * COPYING at the skill root, or — when the skill has none — one inherited
+ * from the enclosing repository (`inheritedLicenseFile`, a path relative to
+ * the skill dir, resolved by the caller up to the git root).
  *
  * Scoring:
- *   10 — recognised SPDX licence declared in frontmatter AND a matching
- *        LICENSE file present at the skill root.
- *    5 — recognised SPDX licence declared in frontmatter but no LICENSE file.
+ *   10 — recognised SPDX or private licence declared AND a licence file
+ *        (own or inherited) present.
+ *    8 — private licence declared (`Proprietary`, `UNLICENSED`,
+ *        `SEE LICENSE IN <file>`, `private`, "All rights reserved") with no
+ *        licence file — private terms need neither SPDX nor a LICENSE file.
+ *    5 — recognised SPDX licence declared but no licence file anywhere.
  *    2 — a licence is declared (in frontmatter or LICENSE file) but the
- *        identifier is not in the SPDX list.
- *    0 — no licence found at all.
+ *        identifier is neither SPDX nor private.
+ *    0 — no licence declared at all (an inherited file alone does not count).
  *
  * The scorer also records a `licenseStatus` tag on the result so callers can
  * surface the position without parsing free-text findings.
  */
 export interface CategoryResultWithLicense extends CategoryResult {
   /** Stable tag describing the licence position. */
-  licenseStatus?: "recognised" | "unrecognised" | "missing";
+  licenseStatus?: "recognised" | "private" | "unrecognised" | "missing";
 }
 
 export function scoreLicense(
   fm: Record<string, string>,
   body: string,
   rootEntries?: string[],
+  inheritedLicenseFile?: string,
 ): CategoryResultWithLicense {
   const findings: string[] = [];
   const suggestions: string[] = [];
@@ -236,21 +279,25 @@ export function scoreLicense(
   const fmLicense = (fm.license || "").trim();
   const hasFmLicense = Boolean(fmLicense);
 
-  // Check for a LICENSE file at the skill root
-  const licenseFile = rootEntries?.find(
-    (e) =>
-      e.toLowerCase() === "license" ||
-      e.toLowerCase() === "license.md" ||
-      e.toLowerCase() === "license.txt",
-  );
-  const hasLicenseFile = Boolean(licenseFile);
+  // Check for a LICENSE file at the skill root, else one inherited from the
+  // enclosing repository.
+  const hasLicenseFile = Boolean(findLicenseFileName(rootEntries));
+  const inherited = hasLicenseFile ? undefined : inheritedLicenseFile;
+  const licenseFileFinding = hasLicenseFile
+    ? "LICENSE file present at skill root."
+    : inherited
+      ? `LICENSE inherited from the enclosing repository (\`${inherited}\`).`
+      : undefined;
 
   // Classify
-  let licenseStatus: "recognised" | "unrecognised" | "missing" = "missing";
+  let licenseStatus: "recognised" | "private" | "unrecognised" | "missing" =
+    "missing";
 
   if (hasFmLicense) {
     if (RECOGNISED_LICENSES.has(fmLicense)) {
       licenseStatus = "recognised";
+    } else if (isPrivateLicense(fmLicense)) {
+      licenseStatus = "private";
     } else {
       licenseStatus = "unrecognised";
     }
@@ -263,15 +310,20 @@ export function scoreLicense(
 
   switch (licenseStatus) {
     case "recognised": {
-      score = hasLicenseFile ? 10 : 5;
+      score = licenseFileFinding ? 10 : 5;
       findings.push(`License declared: \`${fmLicense}\` (SPDX recognised).`);
-      if (hasLicenseFile) {
-        findings.push(`LICENSE file present at skill root.`);
-      } else {
-        findings.push(
-          `No LICENSE file found — consider adding one for clarity.`,
-        );
-      }
+      findings.push(
+        licenseFileFinding ??
+          "No LICENSE file found — consider adding one for clarity.",
+      );
+      break;
+    }
+    case "private": {
+      score = licenseFileFinding ? 10 : 8;
+      findings.push(
+        `Private licence declared: \`${fmLicense}\` — no SPDX identifier or LICENSE file required.`,
+      );
+      if (licenseFileFinding) findings.push(licenseFileFinding);
       break;
     }
     case "unrecognised": {

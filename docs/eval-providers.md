@@ -77,6 +77,27 @@ returns the highest registered version matching a range
 (`src/eval/registry.ts:200`) — so multiple versions of a provider can coexist
 and programmatic consumers can ask for a range.
 
+### License category (`quality` provider)
+
+The `license` category (`scoreLicense` in `src/evaluator-scorers-policy.ts`)
+scores the frontmatter `license:` declaration against a licence file. A licence
+file is `LICENSE`, `LICENSE.md`, `LICENSE.txt`, or `COPYING` (any case) in the
+skill folder, or, when the skill has none, the nearest one in a parent
+directory up to the git root (the clone root for remote targets). The search
+never goes above the git root, and it is skipped for skills outside a git repo.
+
+| Score | Position                                                                                                                           |
+| ----- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| 10    | SPDX or private licence declared, plus a licence file (own or inherited from the repo)                                             |
+| 8     | Private licence declared (`Proprietary`, `UNLICENSED`, `SEE LICENSE IN <file>`, `private`, "All rights reserved"), no licence file |
+| 5     | SPDX licence declared, no licence file anywhere                                                                                    |
+| 2     | A licence declared that is neither SPDX nor private, or a licence file with no `license:` field                                    |
+| 0     | No licence declared (an inherited repo LICENSE alone does not count)                                                               |
+
+The findings name the case that applied: `LICENSE file present at skill root.`,
+`LICENSE inherited from the enclosing repository (…).`, or
+`Private licence declared: …`.
+
 ### Output modes
 
 | Mode       | Flag        | Use case                             |
