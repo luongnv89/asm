@@ -61,18 +61,18 @@ Process each selected skill through Steps 2–6.
 
 Run `python3 "$SV" state <skill-dir>`. Apply the first row that matches:
 
-| Condition | Result |
-| --- | --- |
-| The command exits 1 | **blocked**: quote the script's error line. |
-| `has_frontmatter` is false or `version` is null | **blocked**: "SKILL.md has no `metadata.version`". |
-| `valid_semver` is false | **blocked**: "version `<v>` is not MAJOR.MINOR.PATCH". |
-| `shallow` is true | **blocked**: "shallow clone; run `git fetch --unshallow`". |
-| `downgrade` is true | **blocked**: ask which version is right. |
-| `unpaired_deletions` is not empty | **blocked**: "`<paths>` deleted while this skill is new; if it was renamed, stage both (`git add -A <old> <new>`)". |
-| `rename_candidate` is set | Ask once: "Is `<candidate.name>` (`<candidate.path>`) an earlier name of this skill?" Yes → re-run `state` with `--accept-rename`. No → continue; the boundary version counts as a first version. No user → **blocked** if `base` is null; otherwise continue with "history stops at `<candidate.path>`" in Notes and no backfill. |
-| `skill_at_repo_root` is true | **blocked**: ask whether the root `CHANGELOG.md` is the skill's own. |
-| `recorded` is true | Write nothing. **already recorded** (add "not on top" when `recorded_on_top` is false). If `dirty_cmd` prints anything, add "edits pending without a version bump". Go to Step 6. |
-| Anything else | Continue to Step 3. |
+| Condition                                       | Result                                                                                                                                                                                                                                                                                                                             |
+| ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| The command exits 1                             | **blocked**: quote the script's error line.                                                                                                                                                                                                                                                                                        |
+| `has_frontmatter` is false or `version` is null | **blocked**: "SKILL.md has no `metadata.version`".                                                                                                                                                                                                                                                                                 |
+| `valid_semver` is false                         | **blocked**: "version `<v>` is not MAJOR.MINOR.PATCH".                                                                                                                                                                                                                                                                             |
+| `shallow` is true                               | **blocked**: "shallow clone; run `git fetch --unshallow`".                                                                                                                                                                                                                                                                         |
+| `downgrade` is true                             | **blocked**: ask which version is right.                                                                                                                                                                                                                                                                                           |
+| `unpaired_deletions` is not empty               | **blocked**: "`<paths>` deleted while this skill is new; if it was renamed, stage both (`git add -A <old> <new>`)".                                                                                                                                                                                                                |
+| `rename_candidate` is set                       | Ask once: "Is `<candidate.name>` (`<candidate.path>`) an earlier name of this skill?" Yes → re-run `state` with `--accept-rename`. No → continue; the boundary version counts as a first version. No user → **blocked** if `base` is null; otherwise continue with "history stops at `<candidate.path>`" in Notes and no backfill. |
+| `skill_at_repo_root` is true                    | **blocked**: ask whether the root `CHANGELOG.md` is the skill's own.                                                                                                                                                                                                                                                               |
+| `recorded` is true                              | Write nothing. **already recorded** (add "not on top" when `recorded_on_top` is false). If `dirty_cmd` prints anything, add "edits pending without a version bump". Go to Step 6.                                                                                                                                                  |
+| Anything else                                   | Continue to Step 3.                                                                                                                                                                                                                                                                                                                |
 
 A request with `--backfill` or "backfill" and nothing to write goes straight to Step 6.
 

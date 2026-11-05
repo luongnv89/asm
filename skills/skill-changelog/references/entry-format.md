@@ -37,14 +37,14 @@ Insert the new entry directly above the current top version entry. With no versi
 
 ## Mapping a diff to sections
 
-| Change in the diff | Section |
-| --- | --- |
-| New step, mode, flag, script, reference, trigger phrase, supported tool | Added |
-| Reworded behaviour, new defaults, restructured steps, description rewrite, new output format | Changed |
-| Step or option marked for removal but still present | Deprecated |
-| Step, script, option or trigger deleted | Removed |
-| Corrected wrong command, path, logic or validation; typo that changed meaning | Fixed |
-| Removed a credential, tightened a permission, closed an injection path, blocked an unsafe command | Security |
+| Change in the diff                                                                                | Section    |
+| ------------------------------------------------------------------------------------------------- | ---------- |
+| New step, mode, flag, script, reference, trigger phrase, supported tool                           | Added      |
+| Reworded behaviour, new defaults, restructured steps, description rewrite, new output format      | Changed    |
+| Step or option marked for removal but still present                                               | Deprecated |
+| Step, script, option or trigger deleted                                                           | Removed    |
+| Corrected wrong command, path, logic or validation; typo that changed meaning                     | Fixed      |
+| Removed a credential, tightened a permission, closed an injection path, blocked an unsafe command | Security   |
 
 Skip changes a skill user cannot notice: whitespace, prettier reflow, the version bump itself, `docs/README.md` wording, eval fixtures. When the diff holds only such changes, write one `Changed` bullet: "Maintenance only; no behaviour change."
 

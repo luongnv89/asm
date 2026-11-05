@@ -20,12 +20,12 @@
 
 ## When to Use
 
-| Say this... | Skill will... |
-| --- | --- |
-| (automatic, right after a skill's version bump) | Write the entry for the bumped version |
-| "/skill-changelog skills/my-skill" | Write the entry for that skill's current version |
-| "write the changelog entry for this skill" | Find the bumped skill and write its entry |
-| "/skill-changelog skills/x --backfill" | Reconstruct every missing version's entry from git |
+| Say this...                                     | Skill will...                                      |
+| ----------------------------------------------- | -------------------------------------------------- |
+| (automatic, right after a skill's version bump) | Write the entry for the bumped version             |
+| "/skill-changelog skills/my-skill"              | Write the entry for that skill's current version   |
+| "write the changelog entry for this skill"      | Find the bumped skill and write its entry          |
+| "/skill-changelog skills/x --backfill"          | Reconstruct every missing version's entry from git |
 
 ## How It Works
 
@@ -48,12 +48,12 @@ graph TD
 
 ## Resources
 
-| Path | Description |
-| --- | --- |
-| `references/entry-format.md` | Header, entry template, diff-to-section mapping, bullet rules |
-| `references/backfill.md` | Reconstructing earlier entries from git history |
-| `references/edge-cases.md` | Expected result for renames, double bumps, shallow clones and other edge inputs |
-| `scripts/skill_versions.py` | `state`, `history` and `check` subcommands (stdlib Python, JSON output) |
+| Path                         | Description                                                                     |
+| ---------------------------- | ------------------------------------------------------------------------------- |
+| `references/entry-format.md` | Header, entry template, diff-to-section mapping, bullet rules                   |
+| `references/backfill.md`     | Reconstructing earlier entries from git history                                 |
+| `references/edge-cases.md`   | Expected result for renames, double bumps, shallow clones and other edge inputs |
+| `scripts/skill_versions.py`  | `state`, `history` and `check` subcommands (stdlib Python, JSON output)         |
 
 ## Output
 

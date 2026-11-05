@@ -84,9 +84,7 @@
       "prompt": "Write a commit message for my staged changes to skills/demo-skill.",
       "expected_output": "A commit message, without writing a CHANGELOG entry",
       "files": [],
-      "expectations": [
-        "No CHANGELOG.md was written or modified"
-      ]
+      "expectations": ["No CHANGELOG.md was written or modified"]
     },
     {
       "id": 8,
