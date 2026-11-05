@@ -69,16 +69,31 @@ export function isPlaceholderEmail(email: string): boolean {
   return at >= 0 && isReservedEmailDomain(email.slice(at + 1));
 }
 
+/**
+ * True when an email match may be exempted as a placeholder. The email
+ * pattern's `\b` and character classes are ASCII-only, so a non-ASCII letter
+ * or digit ends the match early: `contact@team.testé.fr` matches as
+ * `contact@team.test`. A match cut short like that does not show the real
+ * domain, so it is never exempted and stays flagged.
+ */
+function isIgnorableEmailMatch(match: string, nextChar: string): boolean {
+  if (/[\p{L}\p{N}]/u.test(nextChar)) return false;
+  return isPlaceholderEmail(match);
+}
+
 const PII_PATTERNS: {
   category: string;
   pattern: RegExp;
-  /** Matches for which this returns true are not reported. */
-  ignore?: (match: string) => boolean;
+  /**
+   * Matches for which this returns true are not reported. `nextChar` is the
+   * character right after the match ("" at end of line).
+   */
+  ignore?: (match: string, nextChar: string) => boolean;
 }[] = [
   {
     category: "email",
     pattern: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/gi,
-    ignore: isPlaceholderEmail,
+    ignore: isIgnorableEmailMatch,
   },
   {
     category: "phone",
@@ -179,9 +194,12 @@ export async function scorePII(skillPath: string): Promise<CategoryResult> {
               }
               // Skip lines inside frontmatter or code fences
               if (inFrontmatter || inCodeFence) continue;
-              const matches = (line.match(pii.pattern) ?? []).filter(
-                (m) => !pii.ignore?.(m),
-              );
+              const matches = [...line.matchAll(pii.pattern)]
+                .filter(
+                  (m) =>
+                    !pii.ignore?.(m[0], line.charAt(m.index + m[0].length)),
+                )
+                .map((m) => m[0]);
               if (matches.length > 0) {
                 if (!categoryHits.has(pii.category)) {
                   categoryHits.add(pii.category);

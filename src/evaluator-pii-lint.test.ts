@@ -193,8 +193,9 @@ const IGNORED_EMAILS = [
   "x@foo.test",
   "nobody@host.invalid",
   "svc@app.localhost",
-  // The email regex needs a dotted TLD, so this never matches at all; the
-  // filter's handling of bare `localhost` is asserted via isPlaceholderEmail.
+  // Never matched by the email regex (it needs a dotted TLD), so this case
+  // passes with or without the placeholder filter; bare `localhost` is
+  // covered by the isPlaceholderEmail assertion only.
   "dev@localhost",
 ];
 
@@ -205,6 +206,10 @@ const FLAGGED_EMAILS = [
   "user@example.co",
   "luongnv89@gmail.com",
   "admin@test.com",
+  // A non-ASCII letter ends the ASCII-only match early (`contact@team.test`,
+  // `user@example.com`); a truncated match is never exempted as a placeholder.
+  "contact@team.testé.fr",
+  "user@example.comévil.io",
 ];
 
 describe("isReservedEmailDomain", () => {
