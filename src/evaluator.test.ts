@@ -1308,6 +1308,68 @@ describe("license verification", () => {
     expect(licenseOf(await evaluateSkill(dir)).score).toBe(0);
   });
 
+  // Nit 1 on #776: an inherited licence must be a real file inside the repo.
+  async function mitSkillIn(repo: string): Promise<string> {
+    const dir = join(repo, "skills", "s1");
+    await writeSkillMd(
+      dir,
+      "---\nname: s1\ndescription: Do a thing.\nlicense: MIT\n---\nbody\n",
+    );
+    return dir;
+  }
+
+  it("does not inherit a repo-root LICENSE that is a directory (#771)", async () => {
+    const { mkdir } = await import("fs/promises");
+    const repo = await makeRepo(false);
+    await mkdir(join(repo, "LICENSE"));
+    const lic = licenseOf(await evaluateSkill(await mitSkillIn(repo)));
+    expect(lic.score).toBe(5);
+    expect(lic.findings.join("\n")).not.toMatch(/inherited/);
+  });
+
+  it("does not inherit a dangling repo-root LICENSE symlink (#771)", async () => {
+    const { symlink } = await import("fs/promises");
+    const repo = await makeRepo(false);
+    await symlink(join(repo, "missing-licence"), join(repo, "LICENSE"));
+    expect(licenseOf(await evaluateSkill(await mitSkillIn(repo))).score).toBe(
+      5,
+    );
+  });
+
+  it("does not inherit a LICENSE symlink pointing outside the repo (#771)", async () => {
+    const { symlink } = await import("fs/promises");
+    const outside = join(tempDir, "outside-LICENSE");
+    await writeFile(outside, "MIT License\n", "utf-8");
+    const repo = await makeRepo(false);
+    await symlink(outside, join(repo, "LICENSE"));
+    expect(licenseOf(await evaluateSkill(await mitSkillIn(repo))).score).toBe(
+      5,
+    );
+  });
+
+  it("inherits a LICENSE symlink that stays inside the repo (#771)", async () => {
+    const { symlink } = await import("fs/promises");
+    const repo = await makeRepo(false);
+    await writeFile(join(repo, "LICENSE-MIT"), "MIT License\n", "utf-8");
+    await symlink(join(repo, "LICENSE-MIT"), join(repo, "LICENSE"));
+    const lic = licenseOf(await evaluateSkill(await mitSkillIn(repo)));
+    expect(lic.score).toBe(10);
+    expect(lic.findings).toContain(
+      "LICENSE inherited from the enclosing repository (`../../LICENSE`).",
+    );
+  });
+
+  // Nit 2 on #776: `--fix` re-scoring must see the same licence context.
+  it("applyFix --dry-run scores the license category like plain eval (#771)", async () => {
+    const repo = await makeRepo(true);
+    const dir = await mitSkillIn(repo);
+    const plain = licenseOf(await evaluateSkill(dir));
+    const fixed = licenseOf((await applyFix(dir, { dryRun: true })).report);
+    expect(plain.score).toBe(10);
+    expect(fixed.score).toBe(plain.score);
+    expect(fixed.findings).toEqual(plain.findings);
+  });
+
   it("reports missing when no license field exists", () => {
     const report = evaluateSkillContentSync({
       content: "---\nname: x\ndescription: Do a thing.\n---\nbody\n",

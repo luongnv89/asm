@@ -214,9 +214,14 @@ const LICENSE_FILE_NAMES = new Set([
   "copying.txt",
 ]);
 
+/** Whether `name` is a recognised licence file name (case-insensitive). */
+export function isLicenseFileName(name: string): boolean {
+  return LICENSE_FILE_NAMES.has(name.toLowerCase());
+}
+
 /** Return the first licence file name among `entries`, if any. */
 export function findLicenseFileName(entries?: string[]): string | undefined {
-  return entries?.find((e) => LICENSE_FILE_NAMES.has(e.toLowerCase()));
+  return entries?.find(isLicenseFileName);
 }
 
 /**
