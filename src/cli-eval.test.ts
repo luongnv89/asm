@@ -1,5 +1,19 @@
 import { describe, test, expect, vi } from "vitest";
 import { parseArgs } from "./cli";
+
+// Remote-target tests (#771) point `cloneToTemp` at a local fixture instead of
+// cloning; every other test keeps the real installer.
+const remoteClone = vi.hoisted(() => ({ dir: null as string | null }));
+vi.mock("./installer", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("./installer")>();
+  return {
+    ...actual,
+    cloneToTemp: (...args: Parameters<typeof actual.cloneToTemp>) =>
+      remoteClone.dir
+        ? Promise.resolve(remoteClone.dir)
+        : actual.cloneToTemp(...args),
+  };
+});
 import { join } from "path";
 import { mkdtemp, rm, writeFile, mkdir, readFile } from "fs/promises";
 import { tmpdir } from "os";
@@ -344,6 +358,57 @@ describe("CLI integration: eval", () => {
     expect(exitCode).toBe(1);
     expect(stderr).toContain("escapes the repository");
     expect(stderr).not.toMatch(/Cloning|Fetching|ls-remote|fatal:/);
+  });
+
+  test("remote eval scores the license category against the clone root (#771)", async () => {
+    const clone = await mkdtemp(join(tmpdir(), "eval-remote-license-"));
+    const skill = (name: string, license?: string) =>
+      `---\nname: ${name}\ndescription: Do ${name} when asked.\n${
+        license ? `license: ${license}\n` : ""
+      }---\n\n## When to Use\n- thing\n`;
+    try {
+      await mkdir(join(clone, ".git"), { recursive: true });
+      await writeFile(join(clone, "LICENSE"), "MIT License\n", "utf-8");
+      for (const [name, license] of [
+        ["inherited", "MIT"],
+        ["private", "UNLICENSED"],
+        ["undeclared", undefined],
+      ] as const) {
+        await mkdir(join(clone, "skills", name), { recursive: true });
+        await writeFile(
+          join(clone, "skills", name, "SKILL.md"),
+          skill(name, license),
+          "utf-8",
+        );
+      }
+      remoteClone.dir = clone;
+      const { stdout, exitCode } = await runCLI(
+        "eval",
+        "github:acme/licensed:skills",
+        "--json",
+        "--keep",
+      );
+      expect(exitCode).toBe(0);
+      const parsed = JSON.parse(stdout);
+      expect(parsed.provenance.remote).toBe(true);
+      const scores = Object.fromEntries(
+        parsed.results.map(
+          (r: {
+            skillPath: string;
+            report: { categories: { id: string; score: number }[] };
+          }) => [
+            r.skillPath.split(/[\\/]/).at(-1),
+            r.report.categories.find((c) => c.id === "license")!.score,
+          ],
+        ),
+      );
+      expect(scores.inherited).toBeGreaterThanOrEqual(8);
+      expect(scores.private).toBeGreaterThanOrEqual(8);
+      expect(scores.undeclared).toBe(0);
+    } finally {
+      remoteClone.dir = null;
+      await rm(clone, { recursive: true, force: true });
+    }
   });
 
   test("eval --fix on github: shorthand is rejected with a clear error", async () => {
