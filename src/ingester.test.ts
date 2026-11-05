@@ -483,6 +483,22 @@ describe("parallel skill ingestion (issue #372)", () => {
     });
     expect(visited.sort()).toEqual([...inputOrder].sort());
   });
+
+  it("scores the license category from the cloned repo root LICENSE (#771)", async () => {
+    const cloneRoot = join(tempDir, "license-clone");
+    await writeIngestSkill(cloneRoot, join("skills", "skill-mit"), "skill-mit");
+    await mkdir(join(cloneRoot, ".git"), { recursive: true });
+    await writeFile(join(cloneRoot, "LICENSE"), "MIT License\n", "utf-8");
+    ingestMocks.cloneToTemp.mockResolvedValueOnce(cloneRoot);
+
+    const result = await ingestRepo(`github:issue-372-tests/${repoName}`);
+
+    expect(result.success).toBe(true);
+    const license = result.repoIndex!.skills[0].evalSummary!.categories.find(
+      (c) => c.id === "license",
+    )!;
+    expect(license.score).toBeGreaterThanOrEqual(8);
+  });
 });
 
 describe("ingestRepo excludeSkills", () => {

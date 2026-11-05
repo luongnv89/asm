@@ -1042,6 +1042,9 @@ asm eval ./my-skill --fix --dry-run
 asm eval ./my-skill --json
 asm eval ./my-skill --machine
 
+# Quality gate: exit 1 if any skill misses Gate 2 (overall > 85, categories >= 8)
+asm eval ./skills/ --min-score 86 --min-category 8
+
 # List registered eval providers
 asm eval-providers list`}</CodeBlock>
           <FlagTable
@@ -1056,6 +1059,14 @@ asm eval-providers list`}</CodeBlock>
               [
                 "--concurrency N",
                 "Cap parallel per-skill evals in batch mode (default: 4)",
+              ],
+              [
+                "--min-score N",
+                "Fail a skill whose overall score is below N (0-100); exit 1 if any fails",
+              ],
+              [
+                "--min-category N",
+                "Fail a skill with any category below N (0-10); exit 1 if any fails",
               ],
               ["--keep", "Preserve the temp dir used for remote clones"],
               [
