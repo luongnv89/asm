@@ -1283,7 +1283,7 @@ describe("PII detection (scorePII)", () => {
     const dir = skillDir("pii-email");
     await writeSkillMd(
       dir,
-      "---\nname: pii-email\ndescription: Test skill with PII.\n---\n# PII test\n\nContact us at user@example.com for support.\n",
+      "---\nname: pii-email\ndescription: Test skill with PII.\n---\n# PII test\n\nContact us at jane.doe@acme-corp.io for support.\n",
       "SKILL.md",
     );
     await writeSkillMd(
@@ -1371,7 +1371,7 @@ describe("PII detection (scorePII)", () => {
     const dir = skillDir("pii-warning");
     await writeSkillMd(
       dir,
-      "---\nname: pii-warning\ndescription: Test.\n---\n# Test\n\nEmail: test@example.com\n",
+      "---\nname: pii-warning\ndescription: Test.\n---\n# Test\n\nEmail: jane.doe@acme-corp.io\n",
       "SKILL.md",
     );
     const report = await evaluateSkill(dir);

@@ -1,5 +1,13 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { runLinter } from "./evaluator-pii-lint";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { mkdtemp, rm, writeFile } from "fs/promises";
+import { tmpdir } from "os";
+import { join } from "path";
+import {
+  isPlaceholderEmail,
+  isReservedEmailDomain,
+  runLinter,
+  scorePII,
+} from "./evaluator-pii-lint";
 
 // Issue #663 — shellcheck --format=json1 emits its JSON report on stdout,
 // but runLinter parsed result.stderr (runCommand keeps the streams separate,
@@ -169,5 +177,119 @@ describe("runLinter", () => {
         message: "SyntaxError: invalid syntax",
       },
     ]);
+  });
+});
+
+// Issue #772 — addresses on domains reserved for documentation and testing
+// (RFC 2606 / RFC 6761) are placeholders, not PII, so the email check must
+// ignore them while still flagging real-looking addresses and look-alikes.
+
+const IGNORED_EMAILS = [
+  "email@example.com",
+  "Your Name <you@EXAMPLE.org>",
+  "ops@example.net",
+  "dev@mail.example.com",
+  "a@b.example",
+  "x@foo.test",
+  "nobody@host.invalid",
+  "svc@app.localhost",
+  "dev@localhost",
+];
+
+const FLAGGED_EMAILS = [
+  "jane.doe@acme-corp.io",
+  "user@example.com.evil.io",
+  "user@notexample.com",
+  "user@example.co",
+  "luongnv89@gmail.com",
+  "admin@test.com",
+];
+
+describe("isReservedEmailDomain", () => {
+  it.each([
+    "example.com",
+    "EXAMPLE.ORG",
+    "example.net",
+    "sub.example.com",
+    "b.example",
+    "foo.test",
+    "host.invalid",
+    "app.localhost",
+    "localhost",
+    "example.com.",
+  ])("treats %s as reserved", (domain) => {
+    expect(isReservedEmailDomain(domain)).toBe(true);
+  });
+
+  it.each([
+    "acme-corp.io",
+    "example.com.evil.io",
+    "notexample.com",
+    "example.co",
+    "gmail.com",
+    "test.com",
+    "example.community",
+    "localhost.com",
+    "mytest",
+  ])("does not treat %s as reserved", (domain) => {
+    expect(isReservedEmailDomain(domain)).toBe(false);
+  });
+
+  it("isPlaceholderEmail checks the domain after the last @", () => {
+    expect(isPlaceholderEmail("user@example.com")).toBe(true);
+    expect(isPlaceholderEmail("user@example.com.evil.io")).toBe(false);
+    expect(isPlaceholderEmail("no-at-sign")).toBe(false);
+  });
+});
+
+describe("scorePII reserved email domains (#772)", () => {
+  let dir: string;
+
+  beforeEach(async () => {
+    dir = await mkdtemp(join(tmpdir(), "pii-772-"));
+  });
+
+  afterEach(async () => {
+    await rm(dir, { recursive: true, force: true });
+  });
+
+  async function writeSkill(body: string, extra?: [string, string]) {
+    await writeFile(
+      join(dir, "SKILL.md"),
+      `---\nname: pii-772\ndescription: Test skill.\n---\n# Test\n\n${body}\n`,
+    );
+    if (extra) await writeFile(join(dir, extra[0]), extra[1]);
+  }
+
+  it.each(IGNORED_EMAILS)("ignores %s", async (email) => {
+    await writeSkill(`Contact: ${email}`);
+    const pii = await scorePII(dir);
+    expect(pii.score).toBe(10);
+    expect(pii.findings).toEqual(["No PII detected in skill files."]);
+  });
+
+  it.each(FLAGGED_EMAILS)("still flags %s", async (email) => {
+    await writeSkill(`Contact: ${email}`);
+    const pii = await scorePII(dir);
+    expect(pii.score).toBe(8);
+    expect(pii.findings).toContain("[email] SKILL.md:7 — found 1 match(es)");
+  });
+
+  it("ignores the skill-creator scaffold placeholder in a script", async () => {
+    await writeSkill("Clean body.", [
+      "init_skill.py",
+      'TEMPLATE = """\n  author: [TODO: Your Name <email@example.com>]\n"""\n',
+    ]);
+    const pii = await scorePII(dir);
+    expect(pii.score).toBe(10);
+  });
+
+  it("counts only real addresses on a line that mixes both", async () => {
+    await writeSkill(
+      "Write to you@example.com or jane.doe@acme-corp.io or dev@foo.test",
+    );
+    const pii = await scorePII(dir);
+    expect(pii.score).toBe(8);
+    expect(pii.findings).toContain("[email] SKILL.md:7 — found 1 match(es)");
   });
 });

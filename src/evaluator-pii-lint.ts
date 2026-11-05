@@ -28,18 +28,57 @@ import type { CategoryResult } from "./evaluator-core";
  *   - Credit-card numbers (handled by a separate secrets scan)
  *   - Passport / visa numbers (jurisdictional noise)
  *
+ * Email addresses on domains reserved for documentation and testing
+ * (RFC 2606 / RFC 6761) are placeholders, not personal data, and are ignored —
+ * see isReservedEmailDomain (issue #772).
+ *
  * Severity: "warning" — a PII hit does NOT block indexing; it warns the
  * author so they can scrub examples, transcripts, or fixture data before
  * publishing.
  */
 
+/** Second-level domains reserved for documentation by RFC 2606 §3. */
+const RESERVED_EMAIL_DOMAINS = ["example.com", "example.org", "example.net"];
+
+/** Top-level domains reserved by RFC 2606 §2 and RFC 6761 §6. */
+const RESERVED_EMAIL_TLDS = new Set([
+  "example",
+  "test",
+  "invalid",
+  "localhost",
+]);
+
+/**
+ * True when `domain` is reserved for documentation or testing: example.com,
+ * example.org, example.net or a subdomain of one, any name under the
+ * .example, .test, .invalid or .localhost TLDs, or `localhost` itself.
+ * Matching is case-insensitive and on whole labels, so look-alikes such as
+ * `example.com.evil.io`, `notexample.com` and `example.co` are not reserved.
+ */
+export function isReservedEmailDomain(domain: string): boolean {
+  const d = domain.toLowerCase().replace(/\.+$/, "");
+  if (d === "localhost") return true;
+  const tld = d.slice(d.lastIndexOf(".") + 1);
+  if (RESERVED_EMAIL_TLDS.has(tld)) return true;
+  return RESERVED_EMAIL_DOMAINS.some((r) => d === r || d.endsWith("." + r));
+}
+
+/** True when an email address's domain is reserved (see isReservedEmailDomain). */
+export function isPlaceholderEmail(email: string): boolean {
+  const at = email.lastIndexOf("@");
+  return at >= 0 && isReservedEmailDomain(email.slice(at + 1));
+}
+
 const PII_PATTERNS: {
   category: string;
   pattern: RegExp;
+  /** Matches for which this returns true are not reported. */
+  ignore?: (match: string) => boolean;
 }[] = [
   {
     category: "email",
     pattern: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/gi,
+    ignore: isPlaceholderEmail,
   },
   {
     category: "phone",
@@ -140,8 +179,10 @@ export async function scorePII(skillPath: string): Promise<CategoryResult> {
               }
               // Skip lines inside frontmatter or code fences
               if (inFrontmatter || inCodeFence) continue;
-              const matches = line.match(pii.pattern);
-              if (matches && matches.length > 0) {
+              const matches = (line.match(pii.pattern) ?? []).filter(
+                (m) => !pii.ignore?.(m),
+              );
+              if (matches.length > 0) {
                 if (!categoryHits.has(pii.category)) {
                   categoryHits.add(pii.category);
                   score -= 2;
