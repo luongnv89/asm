@@ -20,6 +20,9 @@
  *   leaves it unset and keeps the live fetch and the refuse-to-publish gate.
  */
 
+import { readdirSync, readFileSync } from "fs";
+import { join } from "path";
+
 export const STAR_FETCH_CONCURRENCY = 8;
 export const STAR_FETCH_ATTEMPTS = 3;
 export const STAR_FETCH_MAX_WAIT_MS = 30_000;
@@ -226,6 +229,43 @@ export async function collectRepoStars(
     );
   }
   return { stars, failures, reasons };
+}
+
+/** The `*.json` repo index files in `indexDir`, as the catalog build reads them. */
+export function listRepoIndexFiles(indexDir: string): string[] {
+  return readdirSync(indexDir).filter((f) => f.endsWith(".json"));
+}
+
+/**
+ * The `owner/repo` key a repo index contributes to the catalog, and so to
+ * the star fetch, or `null` when it has no skills and the build skips it.
+ */
+export function catalogRepoKey(index: {
+  owner: string;
+  repo: string;
+  skills?: readonly unknown[] | null;
+}): string | null {
+  if (!index.skills || index.skills.length === 0) return null;
+  return `${index.owner}/${index.repo}`;
+}
+
+/**
+ * Every repo the catalog build resolves stars for, derived the way the
+ * build does: index files with skills, invalid JSON skipped, de-duplicated.
+ */
+export function catalogRepoKeysFromIndexDir(indexDir: string): string[] {
+  const keys = new Set<string>();
+  for (const file of listRepoIndexFiles(indexDir)) {
+    let index: Parameters<typeof catalogRepoKey>[0];
+    try {
+      index = JSON.parse(readFileSync(join(indexDir, file), "utf-8"));
+    } catch {
+      continue;
+    }
+    const key = catalogRepoKey(index);
+    if (key !== null) keys.add(key);
+  }
+  return [...keys];
 }
 
 /** Defensive parse of the committed baseline — invalid content means empty. */

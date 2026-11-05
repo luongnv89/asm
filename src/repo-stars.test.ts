@@ -1,8 +1,11 @@
-import { readFileSync } from "fs";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "fs";
+import { tmpdir } from "os";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { describe, expect, it, vi } from "vitest";
 import {
+  catalogRepoKey,
+  catalogRepoKeysFromIndexDir,
   collectRepoStars,
   describeFailedResponse,
   exceedsStarFailureThreshold,
@@ -293,7 +296,9 @@ describe("repo-stars: baseline", () => {
 describe("repo-stars: committed baseline (issue #784)", () => {
   // Offline CI builds resolve stars from this file alone, and the deploy
   // falls back to it when a fetch fails — a newly indexed repo needs one.
-  it("has a star count for every enabled repo in skill-index-resources", () => {
+  // Two sources: the resources list, and the repo set the build actually
+  // derives from data/skill-index/*.json (catalogRepoKeysFromIndexDir).
+  it("has a star count for every enabled resource and every catalog repo", () => {
     const resources = JSON.parse(
       readFileSync(
         join(REPO_ROOT, "data", "skill-index-resources.json"),
@@ -303,14 +308,49 @@ describe("repo-stars: committed baseline (issue #784)", () => {
     const baseline = parseStarBaseline(
       JSON.parse(readFileSync(join(REPO_ROOT, STAR_BASELINE_PATH), "utf-8")),
     );
-    const missing = resources.repos
+    const fromResources = resources.repos
       .filter((r) => r.enabled !== false)
-      .map((r) => `${r.owner}/${r.repo}`)
-      .filter((key) => baseline[key] === undefined);
+      .map((r) => `${r.owner}/${r.repo}`);
+    const fromIndex = catalogRepoKeysFromIndexDir(
+      join(REPO_ROOT, "data", "skill-index"),
+    );
+    expect(fromIndex.length).toBeGreaterThan(0);
+    const hint = `add to ${STAR_BASELINE_PATH}: gh api repos/<owner>/<repo> --jq .stargazers_count`;
     expect(
-      missing,
-      `add these to ${STAR_BASELINE_PATH}: gh api repos/<owner>/<repo> --jq .stargazers_count`,
+      fromResources.filter((key) => baseline[key] === undefined),
+      `skill-index-resources.json repos without a baseline; ${hint}`,
     ).toEqual([]);
+    expect(
+      fromIndex.filter((key) => baseline[key] === undefined),
+      `data/skill-index/*.json repos without a baseline; ${hint}`,
+    ).toEqual([]);
+  });
+});
+
+describe("repo-stars: catalog repo set (issue #784)", () => {
+  it("keys an index by owner/repo and skips one with no skills", () => {
+    expect(catalogRepoKey({ owner: "o", repo: "r", skills: [{}] })).toBe("o/r");
+    expect(catalogRepoKey({ owner: "o", repo: "r", skills: [] })).toBeNull();
+    expect(catalogRepoKey({ owner: "o", repo: "r" })).toBeNull();
+  });
+
+  it("reads *.json indexes, skips invalid JSON and empty repos, de-dupes", () => {
+    const dir = mkdtempSync(join(tmpdir(), "asm-stars-index-"));
+    try {
+      const write = (name: string, body: string) =>
+        writeFileSync(join(dir, name), body);
+      write("a.json", JSON.stringify({ owner: "a", repo: "x", skills: [{}] }));
+      write(
+        "a-dup.json",
+        JSON.stringify({ owner: "a", repo: "x", skills: [{}] }),
+      );
+      write("b.json", JSON.stringify({ owner: "b", repo: "y", skills: [] }));
+      write("c.json", "{ not json");
+      write("d.txt", JSON.stringify({ owner: "d", repo: "z", skills: [{}] }));
+      expect(catalogRepoKeysFromIndexDir(dir)).toEqual(["a/x"]);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 });
 

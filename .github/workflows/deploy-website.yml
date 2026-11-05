@@ -10,6 +10,7 @@ on:
       - "website/**"
       - "website-src/**"
       - "scripts/build-catalog.ts"
+      - "src/repo-stars.ts"
       - "package.json"
       - "package-lock.json"
       - ".github/workflows/deploy-website.yml"
@@ -22,6 +23,7 @@ on:
       - "website/**"
       - "website-src/**"
       - "scripts/build-catalog.ts"
+      - "src/repo-stars.ts"
       - "package.json"
       - "package-lock.json"
   workflow_dispatch:

@@ -33,8 +33,10 @@ import {
 } from "../src/repo-bundles";
 import { normalizeTags } from "../src/utils/frontmatter";
 import {
+  catalogRepoKey,
   collectRepoStars,
   exceedsStarFailureThreshold,
+  listRepoIndexFiles,
   mergeStarBaseline,
   parseStarBaseline,
   resolveRepoStars,
@@ -369,7 +371,9 @@ if (existsSync(resourcesPath)) {
 }
 
 // Read all index files
-const files = readdirSync(indexDir).filter((f) => f.endsWith(".json"));
+// Same file list and repo key as catalogRepoKeysFromIndexDir, which the
+// star-baseline coverage test uses (issue #784).
+const files = listRepoIndexFiles(indexDir);
 const repos: CatalogRepo[] = [];
 const repoDerivedBundles: Bundle[] = [];
 const skillMap = new Map<string, CatalogSkill>();
@@ -385,9 +389,8 @@ for (const file of files) {
     continue;
   }
 
-  if (!repoIndex.skills || repoIndex.skills.length === 0) continue;
-
-  const key = `${repoIndex.owner}/${repoIndex.repo}`;
+  const key = catalogRepoKey(repoIndex);
+  if (key === null) continue;
   const meta = resourcesMap.get(key);
 
   repos.push({
