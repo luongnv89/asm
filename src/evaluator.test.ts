@@ -1205,13 +1205,169 @@ describe("license verification", () => {
   it("reports unrecognised license when frontmatter id is not in SPDX", () => {
     const report = evaluateSkillContentSync({
       content:
-        "---\nname: x\ndescription: Do a thing.\nlicense: Proprietary-1.0\n---\nbody\n",
+        "---\nname: x\ndescription: Do a thing.\nlicense: Foo-Public-1.0\n---\nbody\n",
       skillPath: "/virtual/x",
       skillMdPath: "/virtual/x/SKILL.md",
     });
     const lic = report.categories.find((c) => c.id === "license")!;
     expect(lic.score).toBeLessThan(5);
     expect(lic.findings.some((f) => /not in the SPDX/i.test(f))).toBe(true);
+  });
+
+  // ─── Inherited / private licences (issue #771) ─────────────────────────────
+
+  async function makeRepo(withRootLicense: boolean): Promise<string> {
+    const { mkdir } = await import("fs/promises");
+    const repo = join(tempDir, "repo");
+    await mkdir(join(repo, ".git"), { recursive: true });
+    if (withRootLicense) {
+      await writeFile(join(repo, "LICENSE"), "MIT License\n", "utf-8");
+    }
+    return repo;
+  }
+
+  function licenseOf(report: Awaited<ReturnType<typeof evaluateSkill>>) {
+    return report.categories.find((c) => c.id === "license")!;
+  }
+
+  it("inherits the repo-root LICENSE for a skill without its own (#771)", async () => {
+    const repo = await makeRepo(true);
+    const dir = join(repo, "skills", "s1");
+    await writeSkillMd(
+      dir,
+      "---\nname: s1\ndescription: Do a thing.\nlicense: MIT\n---\nbody\n",
+    );
+    const lic = licenseOf(await evaluateSkill(dir));
+    expect(lic.score).toBeGreaterThanOrEqual(8);
+    expect(lic.findings).toContain(
+      "LICENSE inherited from the enclosing repository (`../../LICENSE`).",
+    );
+    expect(lic.findings.join("\n")).not.toMatch(/No LICENSE file found/);
+  });
+
+  it("inherits the repo root LICENSE when the repo uses a .git file (worktree)", async () => {
+    const repo = join(tempDir, "wt-repo");
+    const dir = join(repo, "skills", "s1");
+    await writeSkillMd(
+      dir,
+      "---\nname: s1\ndescription: Do a thing.\nlicense: MIT\n---\nbody\n",
+    );
+    await writeFile(join(repo, ".git"), "gitdir: /elsewhere\n", "utf-8");
+    await writeFile(join(repo, "COPYING"), "MIT\n", "utf-8");
+    const lic = licenseOf(await evaluateSkill(dir));
+    expect(lic.score).toBeGreaterThanOrEqual(8);
+    expect(lic.findings).toContain(
+      "LICENSE inherited from the enclosing repository (`../../COPYING`).",
+    );
+  });
+
+  it("does not inherit a LICENSE from outside the git repo (#771)", async () => {
+    // LICENSE sits above the repo root — it must not count.
+    await writeFile(join(tempDir, "LICENSE"), "MIT License\n", "utf-8");
+    const repo = await makeRepo(false);
+    const dir = join(repo, "skills", "s1");
+    await writeSkillMd(
+      dir,
+      "---\nname: s1\ndescription: Do a thing.\nlicense: MIT\n---\nbody\n",
+    );
+    const lic = licenseOf(await evaluateSkill(dir));
+    expect(lic.score).toBe(5);
+    expect(lic.findings).toContain(
+      "No LICENSE file found — consider adding one for clarity.",
+    );
+  });
+
+  it("does not walk up when the skill is not inside a git repo (#771)", async () => {
+    await writeFile(join(tempDir, "LICENSE"), "MIT License\n", "utf-8");
+    const dir = skillDir("standalone");
+    await writeSkillMd(
+      dir,
+      "---\nname: standalone\ndescription: Do a thing.\nlicense: MIT\n---\nbody\n",
+    );
+    expect(licenseOf(await evaluateSkill(dir)).score).toBe(5);
+  });
+
+  it("scores a standalone `Proprietary` skill >= 8 (#771)", async () => {
+    const dir = skillDir("private-skill");
+    await writeSkillMd(
+      dir,
+      "---\nname: private-skill\ndescription: Do a thing.\nlicense: Proprietary\n---\nbody\n",
+    );
+    const lic = licenseOf(await evaluateSkill(dir));
+    expect(lic.score).toBeGreaterThanOrEqual(8);
+    expect(lic.findings.some((f) => /Private licence declared/.test(f))).toBe(
+      true,
+    );
+    expect(lic.findings.join("\n")).not.toMatch(/SPDX list/);
+  });
+
+  it("keeps 0 for a skill with no licence declared inside a licensed repo (#771)", async () => {
+    const repo = await makeRepo(true);
+    const dir = join(repo, "skills", "bare");
+    await writeSkillMd(dir, "---\nname: bare\ndescription: Do a thing.\n---\n");
+    expect(licenseOf(await evaluateSkill(dir)).score).toBe(0);
+  });
+
+  // Nit 1 on #776: an inherited licence must be a real file inside the repo.
+  async function mitSkillIn(repo: string): Promise<string> {
+    const dir = join(repo, "skills", "s1");
+    await writeSkillMd(
+      dir,
+      "---\nname: s1\ndescription: Do a thing.\nlicense: MIT\n---\nbody\n",
+    );
+    return dir;
+  }
+
+  it("does not inherit a repo-root LICENSE that is a directory (#771)", async () => {
+    const { mkdir } = await import("fs/promises");
+    const repo = await makeRepo(false);
+    await mkdir(join(repo, "LICENSE"));
+    const lic = licenseOf(await evaluateSkill(await mitSkillIn(repo)));
+    expect(lic.score).toBe(5);
+    expect(lic.findings.join("\n")).not.toMatch(/inherited/);
+  });
+
+  it("does not inherit a dangling repo-root LICENSE symlink (#771)", async () => {
+    const { symlink } = await import("fs/promises");
+    const repo = await makeRepo(false);
+    await symlink(join(repo, "missing-licence"), join(repo, "LICENSE"));
+    expect(licenseOf(await evaluateSkill(await mitSkillIn(repo))).score).toBe(
+      5,
+    );
+  });
+
+  it("does not inherit a LICENSE symlink pointing outside the repo (#771)", async () => {
+    const { symlink } = await import("fs/promises");
+    const outside = join(tempDir, "outside-LICENSE");
+    await writeFile(outside, "MIT License\n", "utf-8");
+    const repo = await makeRepo(false);
+    await symlink(outside, join(repo, "LICENSE"));
+    expect(licenseOf(await evaluateSkill(await mitSkillIn(repo))).score).toBe(
+      5,
+    );
+  });
+
+  it("inherits a LICENSE symlink that stays inside the repo (#771)", async () => {
+    const { symlink } = await import("fs/promises");
+    const repo = await makeRepo(false);
+    await writeFile(join(repo, "LICENSE-MIT"), "MIT License\n", "utf-8");
+    await symlink(join(repo, "LICENSE-MIT"), join(repo, "LICENSE"));
+    const lic = licenseOf(await evaluateSkill(await mitSkillIn(repo)));
+    expect(lic.score).toBe(10);
+    expect(lic.findings).toContain(
+      "LICENSE inherited from the enclosing repository (`../../LICENSE`).",
+    );
+  });
+
+  // Nit 2 on #776: `--fix` re-scoring must see the same licence context.
+  it("applyFix --dry-run scores the license category like plain eval (#771)", async () => {
+    const repo = await makeRepo(true);
+    const dir = await mitSkillIn(repo);
+    const plain = licenseOf(await evaluateSkill(dir));
+    const fixed = licenseOf((await applyFix(dir, { dryRun: true })).report);
+    expect(plain.score).toBe(10);
+    expect(fixed.score).toBe(plain.score);
+    expect(fixed.findings).toEqual(plain.findings);
   });
 
   it("reports missing when no license field exists", () => {
@@ -1283,7 +1439,7 @@ describe("PII detection (scorePII)", () => {
     const dir = skillDir("pii-email");
     await writeSkillMd(
       dir,
-      "---\nname: pii-email\ndescription: Test skill with PII.\n---\n# PII test\n\nContact us at user@example.com for support.\n",
+      "---\nname: pii-email\ndescription: Test skill with PII.\n---\n# PII test\n\nContact us at jane.doe@acme-corp.io for support.\n",
       "SKILL.md",
     );
     await writeSkillMd(
@@ -1371,7 +1527,7 @@ describe("PII detection (scorePII)", () => {
     const dir = skillDir("pii-warning");
     await writeSkillMd(
       dir,
-      "---\nname: pii-warning\ndescription: Test.\n---\n# Test\n\nEmail: test@example.com\n",
+      "---\nname: pii-warning\ndescription: Test.\n---\n# Test\n\nEmail: jane.doe@acme-corp.io\n",
       "SKILL.md",
     );
     const report = await evaluateSkill(dir);

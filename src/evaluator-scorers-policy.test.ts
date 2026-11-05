@@ -3,6 +3,8 @@ import {
   scoreSafety,
   scoreTestability,
   scoreNaming,
+  scoreLicense,
+  isPrivateLicense,
 } from "./evaluator-scorers-policy";
 import { SAFE_BODY, TESTABLE_BODY } from "./evaluator-test-fixtures";
 describe("scoreSafety", () => {
@@ -160,5 +162,104 @@ describe("scoreNaming", () => {
         s.includes("Add a kebab-case `name` (e.g. `my-skill`)"),
       ),
     ).toBe(true);
+  });
+});
+
+describe("scoreLicense (#771)", () => {
+  const lic = (license?: string): Record<string, string> =>
+    license ? { license } : {};
+  const NO_OWN_FILE = ["SKILL.md"];
+
+  it("scores 10 for a recognised SPDX licence with its own LICENSE file", () => {
+    const r = scoreLicense(lic("MIT"), "", ["SKILL.md", "LICENSE"]);
+    expect(r.score).toBe(10);
+    expect(r.findings).toContain("LICENSE file present at skill root.");
+  });
+
+  it("recognises COPYING as the skill's own licence file", () => {
+    const r = scoreLicense(lic("GPL-3.0-only"), "", ["SKILL.md", "COPYING"]);
+    expect(r.score).toBe(10);
+  });
+
+  it("scores 10 for a recognised SPDX licence inherited from the repo root", () => {
+    const r = scoreLicense(lic("MIT"), "", NO_OWN_FILE, "../../LICENSE");
+    expect(r.score).toBe(10);
+    expect(r.licenseStatus).toBe("recognised");
+    expect(r.findings).toContain(
+      "LICENSE inherited from the enclosing repository (`../../LICENSE`).",
+    );
+    expect(r.findings.join("\n")).not.toMatch(/No LICENSE file found/);
+    expect(r.suggestions).toEqual([]);
+  });
+
+  it("prefers the skill's own LICENSE file over an inherited one", () => {
+    const r = scoreLicense(
+      lic("MIT"),
+      "",
+      ["SKILL.md", "LICENSE.md"],
+      "../../LICENSE",
+    );
+    expect(r.score).toBe(10);
+    expect(r.findings).toContain("LICENSE file present at skill root.");
+    expect(r.findings.join("\n")).not.toMatch(/inherited/);
+  });
+
+  it("keeps 5 for a recognised SPDX licence with no licence file anywhere", () => {
+    const r = scoreLicense(lic("MIT"), "", NO_OWN_FILE);
+    expect(r.score).toBe(5);
+    expect(r.findings).toContain(
+      "No LICENSE file found — consider adding one for clarity.",
+    );
+  });
+
+  it.each([
+    "Proprietary",
+    "proprietary",
+    "Proprietary-1.0",
+    "UNLICENSED",
+    "SEE LICENSE IN LICENSE.md",
+    "See license in ./terms.txt",
+    "private",
+    "Private",
+    "All rights reserved",
+    "Copyright 2026 Acme Corp. All rights reserved.",
+  ])("scores a private licence `%s` >= 8 without a licence file", (id) => {
+    const r = scoreLicense(lic(id), "", NO_OWN_FILE);
+    expect(r.score).toBe(8);
+    expect(r.licenseStatus).toBe("private");
+    expect(r.findings).toContain(
+      `Private licence declared: \`${id}\` — no SPDX identifier or LICENSE file required.`,
+    );
+    expect(r.findings.join("\n")).not.toMatch(/SPDX list/);
+    expect(r.suggestions).toEqual([]);
+  });
+
+  it("scores a private licence 10 when a licence file backs it", () => {
+    expect(scoreLicense(lic("Proprietary"), "", ["LICENSE"]).score).toBe(10);
+    expect(
+      scoreLicense(lic("UNLICENSED"), "", NO_OWN_FILE, "../LICENSE.txt").score,
+    ).toBe(10);
+  });
+
+  it("keeps 2 for a declared licence that is neither SPDX nor private", () => {
+    const r = scoreLicense(lic("Foo-Public-1.0"), "", NO_OWN_FILE);
+    expect(r.score).toBe(2);
+    expect(r.licenseStatus).toBe("unrecognised");
+    expect(r.findings).toContain(
+      "License declared as `Foo-Public-1.0` but not in the SPDX list.",
+    );
+  });
+
+  it("keeps 0 when no licence is declared, even with an inherited LICENSE", () => {
+    const r = scoreLicense(lic(), "", NO_OWN_FILE, "../../LICENSE");
+    expect(r.score).toBe(0);
+    expect(r.licenseStatus).toBe("missing");
+    expect(r.findings).toContain("No license declared.");
+  });
+
+  it("isPrivateLicense does not treat the SPDX `Unlicense` as private", () => {
+    expect(isPrivateLicense("Unlicense")).toBe(false);
+    expect(isPrivateLicense("UNLICENSED")).toBe(true);
+    expect(isPrivateLicense("MIT")).toBe(false);
   });
 });

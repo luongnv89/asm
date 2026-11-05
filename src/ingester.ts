@@ -20,7 +20,11 @@ import {
 } from "./repo-bundles";
 import { estimateTokenCount } from "./utils/token-count";
 import { errorMessage } from "./utils/errors";
-import { evaluateSkillContent, runWithConcurrency } from "./evaluator";
+import {
+  evaluateSkillContent,
+  findInheritedLicenseFile,
+  runWithConcurrency,
+} from "./evaluator";
 import { getEvalProviders } from "./eval/builtins";
 import { runProvider } from "./eval/runner";
 import { sortProviderReports, toSkillEvalSummary } from "./eval/summary";
@@ -159,9 +163,10 @@ export async function ingestRepo(
         let evalSummary: SkillEvalSummary | undefined;
         let evalSummaries: IndexedSkill["evalSummaries"] | undefined;
         if (skillMdContent) {
+          const skillDir = join(skillRoot, skill.relPath);
           let rootEntries: string[] | undefined;
           try {
-            rootEntries = await readdir(join(skillRoot, skill.relPath));
+            rootEntries = await readdir(skillDir);
           } catch {
             rootEntries = undefined;
           }
@@ -172,6 +177,8 @@ export async function ingestRepo(
               skillPath: skill.relPath || skill.name,
               skillMdPath,
               rootEntries,
+              // A skill without its own LICENSE inherits the clone root's (#771).
+              inheritedLicenseFile: await findInheritedLicenseFile(skillDir),
             });
             evalSummary = {
               overallScore: report.overallScore,
