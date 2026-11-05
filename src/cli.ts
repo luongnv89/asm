@@ -292,6 +292,14 @@ export function parseArgs(argv: string[]): ParsedArgs {
       }
       result.flags.concurrency = n;
     } else if (arg === "--min-score" || arg === "--min-category") {
+      const already =
+        arg === "--min-score"
+          ? result.flags.minScore !== null
+          : result.flags.minCategory !== null;
+      if (already) {
+        error(`${arg} was given more than once. Pass it a single time.`);
+        process.exit(2);
+      }
       i++;
       const parsed = parseThresholdValue(arg, args[i]);
       if ("error" in parsed) {

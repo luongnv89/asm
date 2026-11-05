@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import {
   checkThresholds,
   countVerdicts,
+  erroredVerdict,
   describeThresholds,
   formatThresholdSummary,
   formatVerdictLine,
@@ -74,6 +75,16 @@ describe("checkThresholds", () => {
     expect(hasThresholds(t)).toBe(false);
     expect(checkThresholds(report(10, { a: 0 }), t)).toEqual({
       passed: true,
+      errored: false,
+      overallBelowMin: false,
+      failingCategories: [],
+    });
+  });
+
+  it("fails an errored skill (no evidence never passes)", () => {
+    expect(erroredVerdict()).toEqual({
+      passed: false,
+      errored: true,
       overallBelowMin: false,
       failingCategories: [],
     });
@@ -127,32 +138,47 @@ describe("text rendering", () => {
     expect(formatVerdictLine(bad, checkThresholds(bad, GATE2), GATE2)).toBe(
       "Threshold:        FAIL  overall 53/100 < 86; categories < 8: B (0/10), C (5/10)",
     );
+    expect(formatVerdictLine(null, erroredVerdict(), GATE2)).toBe(
+      "Threshold:        ERROR  evaluation failed; counted as a failure",
+    );
   });
 
-  it("counts verdicts, skipping errored skills, and renders the summary", () => {
+  it("counts errored skills as failed and renders the summary", () => {
     const pass = checkThresholds(report(90, { a: 9 }), GATE2);
     const fail = checkThresholds(report(50, { a: 9 }), GATE2);
     const counts = countVerdicts([
       { label: "one", verdict: pass },
       { label: "two", verdict: fail },
-      { label: "broken", verdict: null },
+      { label: "broken", verdict: erroredVerdict() },
       { label: "three", verdict: fail },
     ]);
     expect(counts).toEqual({
       passed: 1,
-      failed: 2,
-      failedLabels: ["two", "three"],
+      failed: 3,
+      errored: 1,
+      failedLabels: ["two", "broken [ERROR]", "three"],
     });
     expect(formatThresholdSummary(counts, GATE2)).toBe(
       [
         "  Thresholds:            min-score 86, min-category 8",
-        "  Passed:                1/3",
-        "  Failed:                2/3  (two, three)",
+        "  Passed:                1/4",
+        "  Failed:                3/4  (two, broken [ERROR], three)",
       ].join("\n"),
     );
     expect(
+      countVerdicts([
+        { label: "x", verdict: erroredVerdict() },
+        { label: "y", verdict: erroredVerdict() },
+      ]),
+    ).toEqual({
+      passed: 0,
+      failed: 2,
+      errored: 2,
+      failedLabels: ["x [ERROR]", "y [ERROR]"],
+    });
+    expect(
       formatThresholdSummary(
-        { passed: 2, failed: 0, failedLabels: [] },
+        { passed: 2, failed: 0, errored: 0, failedLabels: [] },
         { minScore: 0, minCategory: null },
       ),
     ).toContain("  Failed:                0/2");
@@ -169,6 +195,7 @@ describe("structured shapes", () => {
     const v = checkThresholds(report(50, { a: 3 }), GATE2);
     expect(verdictMachine(v)).toEqual({
       passed: false,
+      errored: false,
       overall_below_min: true,
       failing_categories: [{ id: "a", name: "A", score: 3, max: 10 }],
     });

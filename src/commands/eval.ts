@@ -45,6 +45,7 @@ import { errorMessage } from "../utils/errors";
 import {
   checkThresholds,
   countVerdicts,
+  erroredVerdict,
   formatThresholdSummary,
   formatVerdictLine,
   hasThresholds,
@@ -92,14 +93,15 @@ ${ansi.bold("Options:")}
 ${ansi.bold("Quality gates:")}
   --min-score and --min-category are inclusive floors ("at least N") and can be
   combined. Each skill is marked PASS or FAIL; the command exits 1 when any
-  evaluated skill fails, 0 when all pass. A skill whose evaluation errors is
-  reported as an error and does not change the exit code. Gate 2 of the skill
-  standard (overall > 85 and every category >= 8) is:
+  skill fails, 0 when all pass. A gate never passes on missing evidence: a
+  skill whose evaluation errors is marked ERROR and counts as failed. Gate 2
+  of the skill standard (overall > 85 and every category >= 8) is:
     asm eval ./skills/ --min-score 86 --min-category 8
 
 ${ansi.bold("Exit codes:")}
-  0  Evaluated (and, with a gate, every evaluated skill passed)
-  1  A gate failed, or the target could not be evaluated
+  0  Evaluated (and, with a gate, every skill passed)
+  1  A gate failed (incl. a skill that errored), or the target could not be
+     evaluated
   2  Invalid arguments
 
 ${ansi.bold("Examples:")}
@@ -532,10 +534,11 @@ export async function cmdEval(args: ParsedArgs) {
       aggregate,
       results: items,
     };
-    // Per-skill verdicts (null for skills whose eval errored), only when gated.
-    const verdicts: (ThresholdVerdict | null)[] | null = gate
+    // Per-skill verdicts, only when gated. An errored eval is a failure: a
+    // gate never passes on missing evidence.
+    const verdicts: ThresholdVerdict[] | null = gate
       ? items.map((i) =>
-          i.report ? checkThresholds(i.report, thresholds) : null,
+          i.report ? checkThresholds(i.report, thresholds) : erroredVerdict(),
         )
       : null;
     const counts = verdicts
@@ -557,10 +560,11 @@ export async function cmdEval(args: ParsedArgs) {
                 ...data.aggregate,
                 threshold_passed: counts.passed,
                 threshold_failed: counts.failed,
+                threshold_errored: counts.errored,
               },
               results: data.results.map((r, idx) => ({
                 ...r,
-                threshold: verdicts[idx] ? verdictMachine(verdicts[idx]) : null,
+                threshold: verdictMachine(verdicts[idx]),
               })),
             }
           : data;
@@ -579,6 +583,7 @@ export async function cmdEval(args: ParsedArgs) {
                     ...batch.aggregate,
                     thresholdPassed: counts.passed,
                     thresholdFailed: counts.failed,
+                    thresholdErrored: counts.errored,
                   }
                 : batch.aggregate,
             ...(verdicts ? { thresholds: thresholdsJSON(thresholds) } : {}),
@@ -611,6 +616,11 @@ export async function cmdEval(args: ParsedArgs) {
         console.log(
           `  ${ansi.red("error:")} ${item.error ?? "unknown failure"}`,
         );
+        const verdict = verdicts?.[idx];
+        if (verdict) {
+          console.log("");
+          console.log(formatVerdictLine(null, verdict, thresholds));
+        }
       }
       console.log("");
     }

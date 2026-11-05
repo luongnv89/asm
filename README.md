@@ -510,7 +510,7 @@ asm eval ./my-skill --machine
 asm eval ./my-skill --fix
 ```
 
-Gate skills in CI with inclusive floors: `--min-score N` (0–100) fails a skill whose overall score is below N, and `--min-category N` (0–10) fails a skill with any category below N. Each skill is marked PASS or FAIL (naming the failing categories), the batch summary adds passed/failed counts, and the command exits `1` when any skill fails (`0` when all pass). The skill standard's Gate 2 (overall > 85, every category >= 8) is:
+Gate skills in CI with inclusive floors: `--min-score N` (0–100) fails a skill whose overall score is below N, and `--min-category N` (0–10) fails a skill with any category below N. Each skill is marked PASS or FAIL (naming the failing categories), the batch summary adds passed/failed counts, and the command exits `1` when any skill fails (`0` when all pass). A gate never passes on missing evidence: a skill whose evaluation errors is marked ERROR and counts as failed. The skill standard's Gate 2 (overall > 85, every category >= 8) is:
 
 ```bash
 asm eval ./skills/ --min-score 86 --min-category 8

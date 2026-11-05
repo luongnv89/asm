@@ -1,4 +1,4 @@
-import { describe, test, expect } from "vitest";
+import { describe, test, expect, vi } from "vitest";
 import { parseArgs } from "./cli";
 import { join } from "path";
 import { mkdtemp, rm, writeFile, mkdir, readFile } from "fs/promises";
@@ -6,6 +6,29 @@ import { tmpdir } from "os";
 import { runCLI } from "./cli-test-harness";
 
 // `asm eval` CLI tests — split from cli.test.ts (issue #678).
+
+// Pass-through runner mock: a skill whose path contains "asm-eval-error"
+// gets a provider whose run() throws, so the real runner's error wrap
+// (provider-threw) and cmdEval's errored-skill path are exercised
+// deterministically (#773). Every other skill runs unchanged.
+vi.mock("./eval/runner", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("./eval/runner")>();
+  type Args = Parameters<typeof actual.runProvider>;
+  return {
+    ...actual,
+    runProvider: (provider: Args[0], ctx: Args[1], opts?: Args[2]) => {
+      if (!ctx.skillPath.includes("asm-eval-error")) {
+        return actual.runProvider(provider, ctx, opts);
+      }
+      const failing = Object.assign(Object.create(provider), {
+        run: async () => {
+          throw new Error("simulated provider failure");
+        },
+      }) as Args[0];
+      return actual.runProvider(failing, ctx, opts);
+    },
+  };
+});
 // ─── CLI integration: eval ─────────────────────────────────────────────────
 
 describe("CLI integration: eval", () => {
@@ -552,6 +575,7 @@ describe("CLI integration: eval", () => {
       expect(b.results[0].report).toHaveProperty("overallScore");
       expect(b.results[0].threshold).toEqual({
         passed: true,
+        errored: false,
         overallBelowMin: false,
         failingCategories: [],
       });
@@ -660,6 +684,183 @@ describe("CLI integration: eval", () => {
     expect(stdout).toContain("--min-score 86 --min-category 8");
     expect(stdout).toContain("Exit codes:");
   });
+
+  // ─── #773 fix round 1: errored skills, mixed collections, repeats ────
+
+  async function addSkill(root: string, name: string, body: string) {
+    await mkdir(join(root, name), { recursive: true });
+    await writeFile(join(root, name, "SKILL.md"), body, "utf-8");
+  }
+
+  test("gated collection where every skill errors exits 1 (never a false pass)", async () => {
+    const root = await mkdtemp(join(tmpdir(), "eval-allerr-"));
+    try {
+      await addSkill(root, "asm-eval-error-a", WEAK_SKILL);
+      await addSkill(root, "asm-eval-error-b", WEAK_SKILL);
+
+      // Ungated: today's behaviour is kept (errors reported, exit 0).
+      const plain = await runCLI("eval", root);
+      expect(plain.exitCode).toBe(0);
+      expect(plain.stdout).not.toContain("Threshold:");
+
+      const text = await runCLI(
+        "eval",
+        root,
+        "--min-score",
+        "86",
+        "--min-category",
+        "8",
+      );
+      expect(text.exitCode).toBe(1);
+      expect(text.stdout).toContain("simulated provider failure");
+      expect(
+        text.stdout.match(
+          /Threshold: {8}ERROR {2}evaluation failed; counted as a failure/g,
+        ),
+      ).toHaveLength(2);
+      expect(text.stdout).toContain("  Passed:                0/2");
+      expect(text.stdout).toContain(
+        "  Failed:                2/2  (asm-eval-error-a [ERROR], asm-eval-error-b [ERROR])",
+      );
+
+      const machine = await runCLI(
+        "eval",
+        root,
+        "--machine",
+        "--min-score",
+        "86",
+      );
+      expect(machine.exitCode).toBe(1);
+      const m = JSON.parse(machine.stdout);
+      expect(m.version).toBe(1);
+      expect(m.data.aggregate.failed).toBe(2); // existing field kept
+      expect(m.data.aggregate.threshold_passed).toBe(0);
+      expect(m.data.aggregate.threshold_failed).toBe(2);
+      expect(m.data.aggregate.threshold_errored).toBe(2);
+      expect(m.data.results[0].threshold).toEqual({
+        passed: false,
+        errored: true,
+        overall_below_min: false,
+        failing_categories: [],
+      });
+
+      const json = await runCLI("eval", root, "--json", "--min-category", "8");
+      expect(json.exitCode).toBe(1);
+      const j = JSON.parse(json.stdout);
+      expect(j.aggregate.thresholdPassed).toBe(0);
+      expect(j.aggregate.thresholdFailed).toBe(2);
+      expect(j.aggregate.thresholdErrored).toBe(2);
+      expect(j.results[1].threshold.errored).toBe(true);
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
+  });
+
+  test("gated collection with one good and one errored skill exits 1", async () => {
+    const root = await mkdtemp(join(tmpdir(), "eval-mixerr-"));
+    try {
+      await addSkill(root, "asm-eval-error-x", WEAK_SKILL);
+      await addSkill(root, "good", WEAK_SKILL);
+      const { stdout, exitCode } = await runCLI(
+        "eval",
+        root,
+        "--min-score",
+        "0",
+      );
+      expect(exitCode).toBe(1);
+      expect(stdout).toContain("Threshold:        PASS  (min-score 0)");
+      expect(stdout).toContain("Threshold:        ERROR");
+      expect(stdout).toContain("  Passed:                1/2");
+      expect(stdout).toContain(
+        "  Failed:                1/2  (asm-eval-error-x [ERROR])",
+      );
+
+      const m = JSON.parse(
+        (await runCLI("eval", root, "--machine", "--min-score", "0")).stdout,
+      );
+      expect(m.data.aggregate.threshold_passed).toBe(1);
+      expect(m.data.aggregate.threshold_failed).toBe(1);
+      expect(m.data.aggregate.threshold_errored).toBe(1);
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
+  });
+
+  test("gated single errored skill exits 1, matching the batch path", async () => {
+    const parent = await mkdtemp(join(tmpdir(), "eval-singleerr-"));
+    const dir = join(parent, "asm-eval-error-single");
+    try {
+      await mkdir(dir, { recursive: true });
+      await writeFile(join(dir, "SKILL.md"), WEAK_SKILL, "utf-8");
+      const text = await runCLI("eval", dir, "--min-score", "0");
+      expect(text.exitCode).toBe(1);
+      expect(text.stderr).toContain("Error: simulated provider failure");
+      const machine = await runCLI(
+        "eval",
+        dir,
+        "--machine",
+        "--min-category",
+        "0",
+      );
+      expect(machine.exitCode).toBe(1);
+      expect(JSON.parse(machine.stdout).status).toBe("error");
+    } finally {
+      await rm(parent, { recursive: true, force: true });
+    }
+  });
+
+  test("gated mixed pass/fail collection exits 1 with Passed 1/2", async () => {
+    const root = await mkdtemp(join(tmpdir(), "eval-mixed-"));
+    try {
+      await addSkill(
+        root,
+        "strong",
+        "---\nname: strong\ndescription: Do strong things when asked.\n---\n\n## When to Use\n- thing\n\n## Instructions\n1. act\n",
+      );
+      await addSkill(root, "weak", WEAK_SKILL);
+      const scores = JSON.parse(
+        (await runCLI("eval", root, "--json")).stdout,
+      ).results.map(
+        (r: { report: { overallScore: number } }) => r.report.overallScore,
+      );
+      const [strong, weak] = scores as number[];
+      expect(strong).toBeGreaterThan(weak);
+
+      const { stdout, exitCode } = await runCLI(
+        "eval",
+        root,
+        "--min-score",
+        String(strong),
+      );
+      expect(exitCode).toBe(1);
+      expect(stdout).toContain(`Threshold:        PASS  (min-score ${strong})`);
+      expect(stdout).toContain(
+        `Threshold:        FAIL  overall ${weak}/100 < ${strong}`,
+      );
+      expect(stdout).toContain("  Passed:                1/2");
+      expect(stdout).toContain("  Failed:                1/2  (weak)");
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
+  });
+
+  test.each(["--min-score", "--min-category"])(
+    "a repeated %s is rejected with exit 2",
+    async (flag) => {
+      const { stderr, exitCode } = await runCLI(
+        "eval",
+        "./whatever",
+        flag,
+        "5",
+        flag,
+        "1",
+      );
+      expect(exitCode).toBe(2);
+      expect(stderr).toContain(
+        `Error: ${flag} was given more than once. Pass it a single time.`,
+      );
+    },
+  );
 
   test("parseArgs accepts --min-score and --min-category", () => {
     const r = parseArgs([

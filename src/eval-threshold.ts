@@ -11,6 +11,9 @@
  * This module only judges an already-computed `EvaluationReport` and renders
  * the verdict; it never changes how a report is scored. When neither flag is
  * set, callers skip it entirely so the output stays byte-identical.
+ *
+ * A gate never passes on missing evidence: a skill whose evaluation errored
+ * gets an `errored` verdict and counts as a failure.
  */
 
 import { ansi } from "./formatter";
@@ -35,6 +38,8 @@ export interface FailingCategory {
 
 export interface ThresholdVerdict {
   passed: boolean;
+  /** True when the skill could not be evaluated; always `passed: false`. */
+  errored: boolean;
   /** True when `--min-score` is set and `overallScore` is below it. */
   overallBelowMin: boolean;
   /** Categories scoring below `--min-category` (empty when unset or none). */
@@ -83,8 +88,19 @@ export function checkThresholds(
           .map((c) => ({ id: c.id, name: c.name, score: c.score, max: c.max }));
   return {
     passed: !overallBelowMin && failingCategories.length === 0,
+    errored: false,
     overallBelowMin,
     failingCategories,
+  };
+}
+
+/** Verdict for a skill whose evaluation errored: no report, so it fails. */
+export function erroredVerdict(): ThresholdVerdict {
+  return {
+    passed: false,
+    errored: true,
+    overallBelowMin: false,
+    failingCategories: [],
   };
 }
 
@@ -100,13 +116,18 @@ export function describeThresholds(t: EvalThresholds): string {
  * One-line verdict printed after a skill's report, e.g.
  *   Threshold:        PASS  (min-score 86, min-category 8)
  *   Threshold:        FAIL  overall 53/100 < 86; categories < 8: Testability (0/10)
+ *   Threshold:        ERROR  evaluation failed; counted as a failure
+ * `report` is null only for an errored verdict.
  */
 export function formatVerdictLine(
-  report: EvaluationReport,
+  report: EvaluationReport | null,
   verdict: ThresholdVerdict,
   t: EvalThresholds,
 ): string {
   const label = "Threshold:        ";
+  if (verdict.errored || !report) {
+    return `${label}${ansi.red("ERROR")}  evaluation failed; counted as a failure`;
+  }
   if (verdict.passed) {
     return `${label}${ansi.green("PASS")}  ${ansi.dim(`(${describeThresholds(t)})`)}`;
   }
@@ -124,29 +145,37 @@ export function formatVerdictLine(
 }
 
 export interface ThresholdCounts {
-  /** Evaluated skills that met every threshold. */
+  /** Skills that met every threshold. */
   passed: number;
-  /** Evaluated skills that missed at least one threshold. */
+  /** Skills that missed a threshold or errored (`passed + failed` = total). */
   failed: number;
-  /** Labels of the failing skills, in result order. */
+  /** Subset of `failed` whose evaluation errored. */
+  errored: number;
+  /** Failing skills in result order; errored ones read `label [ERROR]`. */
   failedLabels: string[];
 }
 
-/**
- * Count pass/fail across a batch. Skills whose evaluation errored have a null
- * verdict and are counted in neither bucket — they keep today's error
- * reporting (`Skills evaluated: x/y (n failed)`) and exit behaviour.
- */
+/** Count pass/fail across a batch. Errored skills count as failed. */
 export function countVerdicts(
-  items: { label: string; verdict: ThresholdVerdict | null }[],
+  items: { label: string; verdict: ThresholdVerdict }[],
 ): ThresholdCounts {
-  const counts: ThresholdCounts = { passed: 0, failed: 0, failedLabels: [] };
-  for (const item of items) {
-    if (!item.verdict) continue;
-    if (item.verdict.passed) counts.passed++;
-    else {
-      counts.failed++;
-      counts.failedLabels.push(item.label);
+  const counts: ThresholdCounts = {
+    passed: 0,
+    failed: 0,
+    errored: 0,
+    failedLabels: [],
+  };
+  for (const { label, verdict } of items) {
+    if (verdict.passed) {
+      counts.passed++;
+      continue;
+    }
+    counts.failed++;
+    if (verdict.errored) {
+      counts.errored++;
+      counts.failedLabels.push(`${label} [ERROR]`);
+    } else {
+      counts.failedLabels.push(label);
     }
   }
   return counts;
@@ -182,6 +211,7 @@ export function thresholdsMachine(t: EvalThresholds) {
 export function verdictMachine(v: ThresholdVerdict) {
   return {
     passed: v.passed,
+    errored: v.errored,
     overall_below_min: v.overallBelowMin,
     failing_categories: v.failingCategories,
   };
