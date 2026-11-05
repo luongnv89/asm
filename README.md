@@ -428,6 +428,10 @@ asm audit security ./path/to/my-skill
 ```
 
 ```bash
+asm audit security ./skills/   # every skill in a collection folder
+```
+
+```bash
 asm audit security --all
 ```
 
@@ -653,7 +657,7 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm init <name>` | Scaffold a new skill |
 | `asm link <path> [<path2> ...]` | Symlink skills for live dev |
 | `asm audit` | Detect duplicate skills |
-| `asm audit security <name>` | Security audit |
+| `asm audit security <name\|path\|source>` | Security audit (installed, local folder, or GitHub) |
 | `asm audit residency` | Rank skills that do not earn residency |
 | `asm eval <skill>` | Score skill quality |
 | `asm eval-providers list` | List eval providers |

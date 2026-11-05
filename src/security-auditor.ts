@@ -1,5 +1,5 @@
 import { debug } from "./logger";
-import { readFilesRecursive } from "./utils/fs";
+import { readFilesRecursive, type ReadFilesRecursiveOptions } from "./utils/fs";
 import type {
   SourceAnalysis,
   CodeScanCategory,
@@ -145,11 +145,12 @@ export async function auditSkillSecurity(
   skillName: string,
   sourceOwner?: string,
   sourceRepo?: string,
+  readOptions: ReadFilesRecursiveOptions = {},
 ): Promise<SecurityAuditReport> {
   debug(`security-audit: scanning ${skillPath}`);
 
   // Read all files, excluding documentation
-  const allFiles = await readFilesRecursive(skillPath);
+  const allFiles = await readFilesRecursive(skillPath, readOptions);
   const files = allFiles.filter((f) => !isDocFile(f.relPath));
   const totalLines = files.reduce((sum, f) => sum + f.lineCount, 0);
 

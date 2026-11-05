@@ -1,5 +1,5 @@
-import { readdir, readFile, stat, symlink } from "fs/promises";
-import { dirname, join, resolve } from "path";
+import { lstat, readdir, readFile, realpath, stat, symlink } from "fs/promises";
+import { dirname, isAbsolute, join, relative, resolve, sep } from "path";
 
 /**
  * Create a directory symlink that works on every platform.
@@ -83,8 +83,43 @@ export interface FileContent {
   lineCount: number;
 }
 
-export async function readFilesRecursive(dir: string): Promise<FileContent[]> {
+/** True when `child` is `parent` itself or sits below it. */
+export function isPathInside(parent: string, child: string): boolean {
+  const rel = relative(parent, child);
+  return (
+    rel === "" ||
+    (rel !== ".." && !rel.startsWith(`..${sep}`) && !isAbsolute(rel))
+  );
+}
+
+export interface ReadFilesRecursiveOptions {
+  /**
+   * Skip any symlink whose resolved target lies outside `dir` (resolved with
+   * `realpath`), and never walk the same real directory twice. Used when the
+   * directory is an untrusted local folder (#779); the default keeps the
+   * historical follow-everything behaviour.
+   */
+  confineSymlinks?: boolean;
+  /** Called with the relative path of each symlink skipped by `confineSymlinks`. */
+  onSkippedSymlink?: (relPath: string) => void;
+}
+
+export async function readFilesRecursive(
+  dir: string,
+  options: ReadFilesRecursiveOptions = {},
+): Promise<FileContent[]> {
   const results: FileContent[] = [];
+  const confine = options.confineSymlinks === true;
+  let rootReal = dir;
+  const visitedDirs = new Set<string>();
+  if (confine) {
+    try {
+      rootReal = await realpath(dir);
+    } catch {
+      return results;
+    }
+    visitedDirs.add(rootReal);
+  }
 
   async function walk(currentDir: string, prefix: string) {
     let entries: string[];
@@ -101,8 +136,25 @@ export async function readFilesRecursive(dir: string): Promise<FileContent[]> {
       const relPath = prefix ? `${prefix}/${entry}` : entry;
 
       try {
+        if (confine && (await lstat(fullPath)).isSymbolicLink()) {
+          let target: string | null = null;
+          try {
+            target = await realpath(fullPath);
+          } catch {
+            // dangling or looping link — nothing readable behind it
+          }
+          if (target === null || !isPathInside(rootReal, target)) {
+            options.onSkippedSymlink?.(relPath);
+            continue;
+          }
+        }
         const s = await stat(fullPath);
         if (s.isDirectory()) {
+          if (confine) {
+            const real = await realpath(fullPath);
+            if (visitedDirs.has(real)) continue;
+            visitedDirs.add(real);
+          }
           await walk(fullPath, relPath);
         } else if (s.isFile()) {
           const ext = entry.includes(".")

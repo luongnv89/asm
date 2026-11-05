@@ -462,7 +462,7 @@ ${ansi.bold("Commands:")}
   deactivate <skill>     Remove a library activation from a provider
   library                Manage centrally installed library skills
   audit                  Detect duplicate skills across tools
-  audit security <name>  Run security audit on a skill (or GitHub source)
+  audit security <name>  Run security audit on a skill, local folder, or GitHub source
   export                 Export skill inventory as JSON manifest
   import <file>          Import skills from a previously exported manifest
   init <name>            Scaffold a new skill with SKILL.md template
