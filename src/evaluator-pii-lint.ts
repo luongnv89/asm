@@ -71,14 +71,21 @@ export function isPlaceholderEmail(email: string): boolean {
 
 /**
  * True when an email match may be exempted as a placeholder. The email
- * pattern's `\b` and character classes are ASCII-only, so a non-ASCII letter
- * or digit ends the match early: `contact@team.testé.fr` matches as
- * `contact@team.test`. A match cut short like that does not show the real
- * domain, so it is never exempted and stays flagged.
+ * pattern's `\b` and character classes are ASCII-only, so a non-ASCII letter,
+ * combining mark (decomposed accents) or digit ends the match early:
+ * `contact@team.testé.fr` matches as `contact@team.test`. A match followed
+ * directly by one of those does not show the real domain, so it is not
+ * exempted and stays flagged.
  */
 function isIgnorableEmailMatch(match: string, nextChar: string): boolean {
-  if (/[\p{L}\p{N}]/u.test(nextChar)) return false;
+  if (/[\p{L}\p{M}\p{N}]/u.test(nextChar)) return false;
   return isPlaceholderEmail(match);
+}
+
+/** The full code point at UTF-16 index `i` of `line` ("" past the end). */
+function codePointAt(line: string, i: number): string {
+  const cp = line.codePointAt(i);
+  return cp === undefined ? "" : String.fromCodePoint(cp);
 }
 
 const PII_PATTERNS: {
@@ -86,7 +93,7 @@ const PII_PATTERNS: {
   pattern: RegExp;
   /**
    * Matches for which this returns true are not reported. `nextChar` is the
-   * character right after the match ("" at end of line).
+   * code point right after the match ("" at end of line).
    */
   ignore?: (match: string, nextChar: string) => boolean;
 }[] = [
@@ -197,7 +204,10 @@ export async function scorePII(skillPath: string): Promise<CategoryResult> {
               const matches = [...line.matchAll(pii.pattern)]
                 .filter(
                   (m) =>
-                    !pii.ignore?.(m[0], line.charAt(m.index + m[0].length)),
+                    !pii.ignore?.(
+                      m[0],
+                      codePointAt(line, m.index + m[0].length),
+                    ),
                 )
                 .map((m) => m[0]);
               if (matches.length > 0) {

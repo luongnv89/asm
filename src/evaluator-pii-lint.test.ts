@@ -206,10 +206,15 @@ const FLAGGED_EMAILS = [
   "user@example.co",
   "luongnv89@gmail.com",
   "admin@test.com",
-  // A non-ASCII letter ends the ASCII-only match early (`contact@team.test`,
-  // `user@example.com`); a truncated match is never exempted as a placeholder.
+  // A non-ASCII letter, combining mark or digit ends the ASCII-only match
+  // early (`contact@team.test`, `user@example.com`); a match followed
+  // directly by one of those is not exempted as a placeholder.
   "contact@team.testé.fr",
   "user@example.comévil.io",
+  // Decomposed accent: U+0301 COMBINING ACUTE ACCENT (\p{M}) after `example`.
+  "contact@team.example\u0301.fr",
+  // Non-BMP letter: U+1D49C MATHEMATICAL SCRIPT CAPITAL A, a surrogate pair.
+  "user@example.com\u{1D49C}",
 ];
 
 describe("isReservedEmailDomain", () => {
