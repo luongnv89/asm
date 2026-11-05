@@ -80,11 +80,28 @@ and programmatic consumers can ask for a range.
 ### License category (`quality` provider)
 
 The `license` category (`scoreLicense` in `src/evaluator-scorers-policy.ts`)
-scores the frontmatter `license:` declaration against a licence file. A licence
-file is `LICENSE`, `LICENSE.md`, `LICENSE.txt`, or `COPYING` (any case) in the
-skill folder, or, when the skill has none, the nearest one in a parent
-directory up to the git root (the clone root for remote targets). The search
-never goes above the git root, and it is skipped for skills outside a git repo.
+scores the frontmatter `license:` declaration against a licence file.
+
+- **Licence file names** (`isLicenseFileName`, matched in any case):
+  `LICENSE`, `LICENSE.md`, `LICENSE.txt`, `COPYING`, `COPYING.md`,
+  `COPYING.txt`.
+- **Own file:** one of those names in the skill folder.
+- **Inherited file:** when the skill has no file of its own, the nearest one
+  in a parent directory up to the skill's git root (the clone root for
+  remote targets). The search never goes above the git root and is skipped
+  for skills outside a git repo. An inherited file must be a regular file
+  inside the git root. Symlinks are resolved, and the target must also stay
+  inside the git root. A `LICENSE` directory, a broken symlink, or a symlink
+  to a file outside the repo does not count.
+- **Private licence:** a `license:` value that is not an SPDX identifier but
+  marks the skill as private. The accepted forms, in any case, are: a value
+  starting with `Proprietary` (e.g. `Proprietary-1.0`), exactly `UNLICENSED`
+  (npm's convention), a value starting with `private`, `SEE LICENSE IN <file>`
+  (or `SEE LICENCE IN <file>`), and any value containing "All rights
+  reserved". The SPDX `Unlicense` (public domain) is not private.
+- **`asm eval --fix`:** it scores licences the same way as plain `asm eval`,
+  with the skill folder's entries and the inherited file, so `--fix
+--dry-run` and plain eval agree.
 
 | Score | Position                                                                                                                           |
 | ----- | ---------------------------------------------------------------------------------------------------------------------------------- |
