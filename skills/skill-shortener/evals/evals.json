@@ -48,7 +48,7 @@
     {
       "id": 4,
       "kind": "edge",
-      "prompt": "Shorten ~/.claude/skills/hello-world — it's 40 lines.",
+      "prompt": "Shorten ~/.claude/skills/greet-user — it's 40 lines.",
       "expected_output": "Early exit: the body is already within both caps, so the run reports the current footprint and declines to split rather than inventing references/ files.",
       "files": [],
       "expectations": [
