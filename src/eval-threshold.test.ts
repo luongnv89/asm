@@ -55,6 +55,9 @@ describe("parseThresholdValue", () => {
     ["--min-category", "11"],
     ["--min-category", "NaN"],
     ["--min-category", "8x"],
+    ["--min-category", "0x8"],
+    ["--min-score", "1e1"],
+    ["--min-score", "+5"],
   ] as const)("rejects %s %j with a range message", (flag, raw) => {
     const r = parseThresholdValue(flag, raw);
     expect(r).toHaveProperty("error");

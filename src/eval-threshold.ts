@@ -48,8 +48,9 @@ export function hasThresholds(t: EvalThresholds): boolean {
 
 /**
  * Parse a `--min-score` / `--min-category` value. Returns the number, or an
- * error message suitable for `Error: …` output. Decimals are accepted;
- * empty, non-numeric, and out-of-range values are not.
+ * error message suitable for `Error: …` output. Plain decimals such as
+ * `85` or `7.5` are accepted; empty, non-numeric (incl. hex/exponent forms),
+ * and out-of-range values are not.
  */
 export function parseThresholdValue(
   flag: "--min-score" | "--min-category",
@@ -57,7 +58,8 @@ export function parseThresholdValue(
 ): { value: number } | { error: string } {
   const max = flag === "--min-score" ? MIN_SCORE_MAX : MIN_CATEGORY_MAX;
   const trimmed = raw?.trim() ?? "";
-  const n = trimmed === "" ? NaN : Number(trimmed);
+  // Plain decimals only: Number() alone would also accept "0x10" or "1e1".
+  const n = /^\d+(\.\d+)?$/.test(trimmed) ? Number(trimmed) : NaN;
   if (!Number.isFinite(n) || n < 0 || n > max) {
     const shown = raw === undefined ? "" : raw;
     return {
