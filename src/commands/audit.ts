@@ -63,10 +63,10 @@ ${ansi.bold("Subcommands:")}
 
 ${ansi.bold("Security target resolution:")}
   github:… or https://github.com/…  GitHub source, cloned to a temp dir
-  ./x, ../x, /abs/x, ~/x           Local folder, read without installing or
+  ./x, ../x, /abs/x, ~/x            Local folder, read without installing or
                                     running it. A folder with no SKILL.md is
                                     a collection: each child skill is audited
-  a/b (has / or \\) that exists     Local folder, as above
+  a/b (has / or \\) that exists      Local folder, as above
   anything else                     Installed skill name (honours --scope);
                                     a bare name never means a local folder
 
