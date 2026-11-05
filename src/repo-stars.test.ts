@@ -185,6 +185,12 @@ describe("repo-stars: failure reasons (issue #784)", () => {
         headers: headers({ "x-ratelimit-reset": "soon" }),
       }),
     ).toBe("HTTP 429, x-ratelimit-reset soon");
+    expect(
+      describeFailedResponse({
+        status: 429,
+        headers: headers({ "retry-after": "Thu, 05 Nov 2026 23:00:00 GMT" }),
+      }),
+    ).toBe("HTTP 429, retry-after Thu, 05 Nov 2026 23:00:00 GMT");
   });
 
   it("reports why each fetch resolved to null", async () => {

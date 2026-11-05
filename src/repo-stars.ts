@@ -74,7 +74,11 @@ export function describeFailedResponse(res: {
 }): string {
   const parts = [`HTTP ${res.status}`];
   const retryAfter = res.headers.get("retry-after");
-  if (retryAfter !== null) parts.push(`retry-after ${retryAfter}s`);
+  if (retryAfter !== null) {
+    // Seconds or an HTTP date (RFC 9110); only seconds get a unit.
+    const unit = /^\d+$/.test(retryAfter.trim()) ? "s" : "";
+    parts.push(`retry-after ${retryAfter}${unit}`);
+  }
   const reset = res.headers.get("x-ratelimit-reset");
   if (reset !== null) {
     const epoch = Number(reset);
