@@ -772,7 +772,7 @@ metadata:
               <FieldRow
                 name="license"
                 req="no"
-                desc="SPDX license identifier"
+                desc="SPDX license identifier or expression"
               />
               <FieldRow
                 name="compatibility"

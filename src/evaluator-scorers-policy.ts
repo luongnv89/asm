@@ -242,6 +242,11 @@ const IDSTRING_RE = /^[A-Za-z0-9.-]+$/;
 const LICENSE_REF_RE =
   /^(?:DocumentRef-[A-Za-z0-9.-]+:)?LicenseRef-[A-Za-z0-9.-]+$/;
 const OPERATORS = new Set(["AND", "OR", "WITH"]);
+/**
+ * Deepest parenthesis nesting the parser accepts. Recursion would otherwise
+ * overflow the stack on crafted input (a few thousand levels).
+ */
+export const MAX_SPDX_NESTING = 64;
 
 export type SpdxLeafKind = "spdx" | "ref" | "private" | "unknown";
 
@@ -251,8 +256,8 @@ export type SpdxExpressionParse =
       /** Licence ids and references, in order (any `+` stripped). */
       leaves: { id: string; kind: SpdxLeafKind }[];
       exceptions: { id: string; known: boolean }[];
-      /** Canonical deprecated ids used. */
-      deprecated: string[];
+      /** Canonical deprecated ids used; `orLater` when written with `+`. */
+      deprecated: { id: string; orLater: boolean }[];
     }
   | { ok: false; error: string };
 
@@ -289,8 +294,9 @@ export function parseSpdxExpression(input: string): SpdxExpressionParse {
 
   const leaves: { id: string; kind: SpdxLeafKind }[] = [];
   const exceptions: { id: string; known: boolean }[] = [];
-  const deprecated: string[] = [];
+  const deprecated: { id: string; orLater: boolean }[] = [];
   let pos = 0;
+  let depth = 0;
 
   class SyntaxError_ extends Error {}
   const fail = (message: string): never => {
@@ -317,17 +323,21 @@ export function parseSpdxExpression(input: string): SpdxExpressionParse {
     }
     const canonical = LICENSE_BY_LOWER.get(id.toLowerCase());
     if (canonical && DEPRECATED_LICENSES.has(canonical)) {
-      deprecated.push(canonical);
+      deprecated.push({ id: canonical, orLater: plus });
     }
     leaves.push({ id, kind: leafKind(id) });
   };
 
   const parseTerm = (): void => {
     if (tokens[pos] === "(") {
+      if (++depth > MAX_SPDX_NESTING) {
+        fail(`parentheses nested more than ${MAX_SPDX_NESTING} deep`);
+      }
       pos++;
       parseOr();
       if (tokens[pos] !== ")") fail(`expected \`)\`${after()}`);
       pos++;
+      depth--;
       if (tokens[pos] === "WITH") {
         fail("WITH must follow a single licence identifier, not `)`");
       }
@@ -459,7 +469,7 @@ function assessLicense(value: string): LicenseAssessment {
       status: "unrecognised",
       reason: parsed
         ? `but it is not a valid SPDX license expression: ${parsed.error}.`
-        : "but not in the SPDX list.",
+        : "but not in asm's list of recognised SPDX identifiers.",
     };
   }
 
@@ -473,21 +483,26 @@ function assessLicense(value: string): LicenseAssessment {
     const parts: string[] = [];
     if (unknownIds.length) {
       parts.push(
-        `${codeList(unknownIds)} ${unknownIds.length > 1 ? "are" : "is"} not in the SPDX list`,
+        `${codeList(unknownIds)} ${unknownIds.length > 1 ? "are" : "is"} not in asm's list of recognised SPDX identifiers`,
       );
     }
     if (unknownExceptions.length) {
       parts.push(
-        `${codeList(unknownExceptions)} ${unknownExceptions.length > 1 ? "are not recognised SPDX license exceptions" : "is not a recognised SPDX license exception"}`,
+        `${codeList(unknownExceptions)} ${unknownExceptions.length > 1 ? "are" : "is"} not in asm's list of recognised SPDX exceptions`,
       );
     }
     return { status: "unrecognised", reason: `but ${parts.join("; ")}.` };
   }
 
-  const suggestions = [...new Set(parsed.deprecated)].map(
-    (id) =>
-      `\`${id}\` is deprecated on the SPDX License List — use \`${id}-only\` or \`${id}-or-later\`.`,
-  );
+  const suggestions = [
+    ...new Set(
+      parsed.deprecated.map(({ id, orLater }) =>
+        orLater
+          ? `\`${id}+\` is deprecated on the SPDX License List — use \`${id}-or-later\`.`
+          : `\`${id}\` is deprecated on the SPDX License List — use \`${id}-only\` or \`${id}-or-later\`.`,
+      ),
+    ),
+  ];
   const privateTerms = parsed.leaves
     .filter((l) => l.kind === "private")
     .map((l) => l.id);
@@ -499,7 +514,7 @@ function assessLicense(value: string): LicenseAssessment {
   if (privateTerms.length) {
     return {
       status: "recognised",
-      finding: `License declared: \`${value}\` mixes SPDX terms with private terms (${codeList(privateTerms)}) — SPDX licence rule applied: the SPDX terms need a licence file; the private-licence rule (#771) covers only declarations with no SPDX identifier.${refNote}`,
+      finding: `License declared: \`${value}\` mixes SPDX terms with private terms (${codeList(privateTerms)}), so it is not valid SPDX as written (use ${codeList(privateTerms.map((t) => `LicenseRef-${t}`))} for the private terms) — SPDX licence rule applied: the SPDX terms need a licence file; the private-licence rule (#771) covers only declarations with no SPDX identifier.${refNote}`,
       suggestions,
     };
   }

@@ -6,6 +6,7 @@ import {
   scoreLicense,
   isPrivateLicense,
   parseSpdxExpression,
+  MAX_SPDX_NESTING,
 } from "./evaluator-scorers-policy";
 import { SAFE_BODY, TESTABLE_BODY } from "./evaluator-test-fixtures";
 describe("scoreSafety", () => {
@@ -247,7 +248,7 @@ describe("scoreLicense (#771)", () => {
     expect(r.score).toBe(2);
     expect(r.licenseStatus).toBe("unrecognised");
     expect(r.findings).toContain(
-      "License declared as `Foo-Public-1.0` but not in the SPDX list.",
+      "License declared as `Foo-Public-1.0` but not in asm's list of recognised SPDX identifiers.",
     );
   });
 
@@ -279,7 +280,12 @@ describe("parseSpdxExpression (#783)", () => {
       ["GPL-2.0", "spdx"],
     ]);
     expect(r.exceptions).toEqual([{ id: "LLVM-exception", known: true }]);
-    expect(r.deprecated).toEqual(["GPL-2.0"]);
+    expect(r.deprecated).toEqual([{ id: "GPL-2.0", orLater: true }]);
+  });
+
+  it("accepts nesting up to MAX_SPDX_NESTING", () => {
+    const v = `${"(".repeat(MAX_SPDX_NESTING)}MIT${")".repeat(MAX_SPDX_NESTING)}`;
+    expect(parseSpdxExpression(v).ok).toBe(true);
   });
 
   it("matches identifiers and exceptions in any case (SPDX 2.3 D.2)", () => {
@@ -317,6 +323,10 @@ describe("parseSpdxExpression (#783)", () => {
     ["(MIT OR ISC) WITH LLVM-exception", "WITH must follow a single"],
     ["Apache-2.0 WITH", "expected a licence exception after `WITH`"],
     ["MIT_2", "not a valid licence identifier"],
+    [
+      `${"(".repeat(65)}MIT${")".repeat(65)}`,
+      "parentheses nested more than 64 deep",
+    ],
   ])("rejects invalid syntax `%s`", (input, error) => {
     const r = parseSpdxExpression(input);
     expect(r.ok).toBe(false);
@@ -366,15 +376,39 @@ describe("scoreLicense with SPDX expressions (#783)", () => {
     const r = scoreLicense(lic("GPL-2.0+"), "", OWN_FILE);
     expect(r.score).toBe(10);
     expect(r.suggestions).toEqual([
-      "`GPL-2.0` is deprecated on the SPDX License List — use `GPL-2.0-only` or `GPL-2.0-or-later`.",
+      "`GPL-2.0+` is deprecated on the SPDX License List — use `GPL-2.0-or-later`.",
+    ]);
+    expect(scoreLicense(lic("GPL-3.0"), "", OWN_FILE).suggestions).toEqual([
+      "`GPL-3.0` is deprecated on the SPDX License List — use `GPL-3.0-only` or `GPL-3.0-or-later`.",
     ]);
   });
 
   it.each([
-    ["MIT OR Foo-1.0", "but `Foo-1.0` is not in the SPDX list."],
+    ["5000 nested parentheses", `${"(".repeat(5000)}MIT${")".repeat(5000)}`],
+    ["a 100 KB nested value", `${"(".repeat(50_000)}MIT${")".repeat(50_000)}`],
+  ])("scores %s 2 without throwing", (_label, v) => {
+    const r = scoreLicense(lic(v), "", OWN_FILE);
+    expect(r.score).toBe(2);
+    expect(r.licenseStatus).toBe("unrecognised");
+    expect(r.findings[0]).toMatch(
+      /not a valid SPDX license expression: parentheses nested more than 64 deep\.$/,
+    );
+  });
+
+  it("handles a 100 KB flat expression without throwing", () => {
+    const v = Array(15_000).fill("MIT").join(" OR ");
+    expect(v.length).toBeGreaterThan(100_000);
+    expect(scoreLicense(lic(v), "", OWN_FILE).score).toBe(10);
+  });
+
+  it.each([
+    [
+      "MIT OR Foo-1.0",
+      "but `Foo-1.0` is not in asm's list of recognised SPDX identifiers.",
+    ],
     [
       "Apache-2.0 WITH Foo-exception",
-      "but `Foo-exception` is not a recognised SPDX license exception.",
+      "but `Foo-exception` is not in asm's list of recognised SPDX exceptions.",
     ],
     [
       "MIT OR",
@@ -397,7 +431,7 @@ describe("scoreLicense with SPDX expressions (#783)", () => {
     expect(noFile.score).toBe(5);
     expect(noFile.licenseStatus).toBe("recognised");
     expect(noFile.findings[0]).toBe(
-      "License declared: `Apache-2.0 OR Proprietary` mixes SPDX terms with private terms (`Proprietary`) — SPDX licence rule applied: the SPDX terms need a licence file; the private-licence rule (#771) covers only declarations with no SPDX identifier.",
+      "License declared: `Apache-2.0 OR Proprietary` mixes SPDX terms with private terms (`Proprietary`), so it is not valid SPDX as written (use `LicenseRef-Proprietary` for the private terms) — SPDX licence rule applied: the SPDX terms need a licence file; the private-licence rule (#771) covers only declarations with no SPDX identifier.",
     );
     expect(scoreLicense(lic(v), "", OWN_FILE).score).toBe(10);
     expect(scoreLicense(lic(v), "", NO_OWN_FILE, INHERITED).score).toBe(10);
@@ -413,12 +447,9 @@ describe("scoreLicense with SPDX expressions (#783)", () => {
     "Proprietary OR Foo-1.0",
     "Proprietary — Fair use only",
     "UNLICENSED",
-  ])(
-    "keeps the #771 private rule for `%s` (no SPDX identifier named)",
-    (v) => {
-      const r = scoreLicense(lic(v), "", NO_OWN_FILE);
-      expect(r.score).toBe(8);
-      expect(r.licenseStatus).toBe("private");
-    },
-  );
+  ])("keeps the #771 private rule for `%s` (no SPDX identifier named)", (v) => {
+    const r = scoreLicense(lic(v), "", NO_OWN_FILE);
+    expect(r.score).toBe(8);
+    expect(r.licenseStatus).toBe("private");
+  });
 });
