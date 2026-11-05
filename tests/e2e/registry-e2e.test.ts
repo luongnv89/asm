@@ -335,8 +335,10 @@ describe("install: resolve from registry cache", () => {
   let registryCachePath: string;
 
   // A real manifest pointing to the hello-world skill we published
-  // during the workflow test. The skill lives at skills/hello-world/
-  // inside luongnv89/asm at a known commit.
+  // during the workflow test. At the pinned commit the skill lives at
+  // skills/hello-world/ inside luongnv89/asm; on main it has since moved
+  // to tests/fixtures/skills/hello-world/ (#774), so skill_path below
+  // must keep the historical path that matches `commit`.
   const HELLO_WORLD_MANIFEST = {
     name: "hello-world",
     author: "luongnv89",
