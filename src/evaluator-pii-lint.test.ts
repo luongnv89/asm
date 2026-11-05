@@ -193,6 +193,8 @@ const IGNORED_EMAILS = [
   "x@foo.test",
   "nobody@host.invalid",
   "svc@app.localhost",
+  // The email regex needs a dotted TLD, so this never matches at all; the
+  // filter's handling of bare `localhost` is asserted via isPlaceholderEmail.
   "dev@localhost",
 ];
 
@@ -237,6 +239,7 @@ describe("isReservedEmailDomain", () => {
 
   it("isPlaceholderEmail checks the domain after the last @", () => {
     expect(isPlaceholderEmail("user@example.com")).toBe(true);
+    expect(isPlaceholderEmail("dev@localhost")).toBe(true);
     expect(isPlaceholderEmail("user@example.com.evil.io")).toBe(false);
     expect(isPlaceholderEmail("no-at-sign")).toBe(false);
   });
