@@ -7,8 +7,23 @@
  * `evaluator-batch.ts`.
  */
 
-import { readFile, writeFile, stat, copyFile, readdir } from "fs/promises";
-import { join, resolve, basename, isAbsolute } from "path";
+import {
+  readFile,
+  writeFile,
+  stat,
+  copyFile,
+  readdir,
+  realpath,
+} from "fs/promises";
+import {
+  join,
+  resolve,
+  basename,
+  isAbsolute,
+  dirname,
+  relative,
+  sep,
+} from "path";
 import type { ProviderEvalReport } from "./eval/summary";
 import { parseFrontmatter } from "./utils/frontmatter";
 import { runCommand } from "./utils/spawn";
@@ -33,6 +48,10 @@ import {
   scoreLicense,
 } from "./evaluator-core";
 import { scorePII, scoreScriptLint } from "./evaluator-pii-lint";
+import {
+  findLicenseFileName,
+  isLicenseFileName,
+} from "./evaluator-scorers-policy";
 
 // ─── Report aggregator ─────────────────────────────────────────────────────
 
@@ -49,8 +68,14 @@ export async function evaluateSkillContent(args: {
    * When omitted (e.g., content-only callers) those checks are skipped.
    */
   rootEntries?: string[];
+  /**
+   * Licence file inherited from the enclosing repository, as a path relative
+   * to the skill dir (see `findInheritedLicenseFile`). Issue #771.
+   */
+  inheritedLicenseFile?: string;
 }): Promise<EvaluationReport> {
-  const { content, skillPath, skillMdPath, rootEntries } = args;
+  const { content, skillPath, skillMdPath, rootEntries, inheritedLicenseFile } =
+    args;
   const fm = parseFrontmatter(content);
   const { rawFrontmatter, body } = splitSkillMd(content);
 
@@ -62,7 +87,7 @@ export async function evaluateSkillContent(args: {
     scoreContextEfficiency(fm, body),
     scoreSafety(fm, body),
     scoreTestability(fm, body),
-    scoreLicense(fm, body, rootEntries),
+    scoreLicense(fm, body, rootEntries, inheritedLicenseFile),
     scoreNaming(fm, body),
   ];
 
@@ -138,8 +163,10 @@ export function evaluateSkillContentSync(args: {
   skillPath: string;
   skillMdPath: string;
   rootEntries?: string[];
+  inheritedLicenseFile?: string;
 }): EvaluationReport {
-  const { content, skillPath, skillMdPath, rootEntries } = args;
+  const { content, skillPath, skillMdPath, rootEntries, inheritedLicenseFile } =
+    args;
   const fm = parseFrontmatter(content);
   const { rawFrontmatter, body } = splitSkillMd(content);
 
@@ -150,7 +177,7 @@ export function evaluateSkillContentSync(args: {
     scoreContextEfficiency(fm, body),
     scoreSafety(fm, body),
     scoreTestability(fm, body),
-    scoreLicense(fm, body, rootEntries),
+    scoreLicense(fm, body, rootEntries, inheritedLicenseFile),
     scoreNaming(fm, body),
     // Async-only scorers — placeholder when content-only is the only input.
     {
@@ -262,19 +289,91 @@ export async function evaluateSkill(
     );
   }
 
-  let rootEntries: string[] | undefined;
-  try {
-    rootEntries = await readdir(resolved);
-  } catch {
-    rootEntries = undefined;
-  }
-
   return evaluateSkillContent({
     content,
     skillPath: resolved,
     skillMdPath,
-    rootEntries,
+    ...(await readSkillDirContext(resolved)),
   });
+}
+
+/**
+ * Filesystem context the scorers read for a skill directory: its root
+ * entries and, when it has no licence file of its own, the licence file it
+ * inherits from the enclosing repository. Shared by `evaluateSkill` and
+ * `applyFix` so plain eval and `--fix` score the same skill alike.
+ */
+async function readSkillDirContext(skillDir: string): Promise<{
+  rootEntries?: string[];
+  inheritedLicenseFile?: string;
+}> {
+  let rootEntries: string[] | undefined;
+  try {
+    rootEntries = await readdir(skillDir);
+  } catch {
+    rootEntries = undefined;
+  }
+  return {
+    rootEntries,
+    inheritedLicenseFile: findLicenseFileName(rootEntries)
+      ? undefined
+      : await findInheritedLicenseFile(skillDir),
+  };
+}
+
+/**
+ * Find a licence file the skill at `skillDir` inherits from its enclosing
+ * repository (issue #771). Walks from the skill's parent up to the git root
+ * — the nearest ancestor holding a `.git` dir or file (clones and worktrees
+ * included) — and returns the nearest licence file as a path relative to
+ * `skillDir`. Returns undefined when the skill is not inside a git repo, is
+ * itself the repo root, or no ancestor up to the root has a licence file, so
+ * the walk never picks up a LICENSE from outside the repository. A candidate
+ * must be a regular file (symlinks followed) whose real path is inside the
+ * git root.
+ */
+export async function findInheritedLicenseFile(
+  skillDir: string,
+): Promise<string | undefined> {
+  const start = resolve(skillDir);
+  const ancestors: { dir: string; entries: string[] }[] = [];
+  let dir = start;
+  for (;;) {
+    let entries: string[];
+    try {
+      entries = await readdir(dir);
+    } catch {
+      return undefined;
+    }
+    if (dir !== start) ancestors.push({ dir, entries });
+    if (entries.includes(".git")) break;
+    const parent = dirname(dir);
+    if (parent === dir) return undefined;
+    dir = parent;
+  }
+  // Only a regular file whose real path stays inside the repo counts: a
+  // LICENSE directory, a dangling symlink, or a symlink out of the repo does
+  // not.
+  let rootReal: string;
+  try {
+    rootReal = await realpath(dir);
+  } catch {
+    return undefined;
+  }
+  for (const { dir: ancestor, entries } of ancestors) {
+    for (const name of entries.filter(isLicenseFileName)) {
+      const candidate = join(ancestor, name);
+      try {
+        if (!(await stat(candidate)).isFile()) continue;
+        const real = await realpath(candidate);
+        if (!real.startsWith(rootReal + sep)) continue;
+      } catch {
+        continue;
+      }
+      return relative(start, candidate);
+    }
+  }
+  return undefined;
 }
 
 // ─── Auto-fix pipeline ─────────────────────────────────────────────────────
@@ -637,11 +736,13 @@ export async function applyFix(
     await writeFile(skillMdPath, plan.newContent, "utf-8");
   }
 
-  // Re-evaluate using the (possibly modified) content.
+  // Re-evaluate using the (possibly modified) content, with the same
+  // filesystem context plain eval uses for a skill directory (#771).
   const report = await evaluateSkillContent({
     content: options.dryRun ? original : plan.newContent,
     skillPath: resolved,
     skillMdPath,
+    ...(s.isDirectory() ? await readSkillDirContext(resolved) : {}),
   });
 
   return {
