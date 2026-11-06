@@ -401,8 +401,18 @@ asm init my-skill --path ./skills
 
 ### Develop with live reload
 
+`asm link` symlinks a local skill into a provider's skill folder, so edits show up in your agent immediately. It is `asm activate` on a local path — no library entry needed — and takes the same `-s/--scope` flag.
+
 ```bash
 asm link ./my-skill -p claude
+```
+
+```bash
+asm link ./my-skill -p claude -s project   # this project only
+```
+
+```bash
+asm link ./my-skill -p claude -s both      # global and this project
 ```
 
 ```bash
@@ -416,6 +426,18 @@ asm link ./my-skills-folder -p claude
 ```bash
 asm link ./my-skill --name my-alias -p claude --force
 ```
+
+| Scope               | Where the link is created                                                                                                                        |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `global` (default)  | The provider's global skill folder, e.g. `~/.claude/skills`                                                                                      |
+| `project` (`local`) | The current working directory's project folder, e.g. `./.claude/skills`. There is no Git-root discovery — run it from the project you want it in |
+| `both`              | One global link and one in the current project                                                                                                   |
+
+> **Overwrite:** an existing target is never replaced without `--force`, and there is no interactive overwrite prompt. `--force` replaces symlinks only — a real file or directory at the target is refused and kept. Linking the same source twice therefore needs `--force`.
+
+With `--json`, a single link prints the activate-style object `{name, skill, provider, scope, path, target}`. Several sources, several discovered skills, or `-s both` print `{success, linked, failures}` — each linked entry uses those six fields, and each failure carries `source`, `scope`, `path`, and `error`. A single failed link prints `{success:false,error}`. This single-link payload no longer includes `success`, `symlinkPath`, or `targetPath`.
+
+Exit code `1` means at least one link failed (the other links still succeed and are reported); `2` is a usage error such as `--name` with multiple paths.
 
 ### Audit and inspect
 
