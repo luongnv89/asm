@@ -11,6 +11,7 @@ import {
   colorEffort,
   formatJSON,
   formatTagUpdates,
+  formatTagList,
   ansi,
   colorTool,
   formatAllowedTools,
@@ -374,6 +375,112 @@ describe("formatSkillInspect", () => {
 });
 
 // ─── tag update formatter ──────────────────────────────────────────────────
+
+describe("formatTagList", () => {
+  const inventory = (
+    overrides: Partial<import("./tag-inventory").TagInventory> = {},
+  ): import("./tag-inventory").TagInventory => ({
+    activatedOnly: false,
+    scope: "both",
+    provider: null,
+    tagCount: 2,
+    tagSkillPairCount: 3,
+    taggedSkillCount: { all: 2, activated: 1, libraryOnly: 1 },
+    untaggedSkillCount: { all: 0, activated: 0, libraryOnly: 0 },
+    missingRecordCount: 0,
+    tags: [
+      { tag: "docs", all: 2, activated: 1, libraryOnly: 1, missing: 0 },
+      { tag: "legacy", all: 1, activated: 1, libraryOnly: 0, missing: 0 },
+    ],
+    ...overrides,
+  });
+
+  test("renders the summary line and the five fixed columns", () => {
+    const output = formatTagList(inventory());
+    expect(output).toContain(
+      "2 tags · 3 tag-skill pairs · 2 tagged skills, 0 untagged",
+    );
+    expect(output).toMatch(/^TAG\s+ALL\s+ACTIVATED\s+LIBRARY_ONLY\s+MISSING$/m);
+    expect(output).toMatch(/^docs\s+2\s+1\s+1\s+0$/m);
+    expect(output).toMatch(/^legacy\s+1\s+1\s+0\s+0$/m);
+  });
+
+  test("collapses to TAG/ACTIVATED when activatedOnly", () => {
+    const output = formatTagList(
+      inventory({
+        activatedOnly: true,
+        tags: [
+          { tag: "docs", all: 1, activated: 1, libraryOnly: 0, missing: 0 },
+        ],
+        taggedSkillCount: { all: 1, activated: 1, libraryOnly: 0 },
+        untaggedSkillCount: { all: 0, activated: 0, libraryOnly: 0 },
+      }),
+    );
+    expect(output).toMatch(/^TAG\s+ACTIVATED$/m);
+    expect(output).not.toContain("LIBRARY_ONLY");
+    expect(output).not.toContain("MISSING");
+  });
+
+  test("prints the MISSING footnote only when records exist", () => {
+    expect(formatTagList(inventory())).not.toContain(
+      "MISSING counts tag records",
+    );
+    const withMissing = formatTagList(
+      inventory({
+        missingRecordCount: 2,
+        tags: [
+          { tag: "ghost", all: 0, activated: 0, libraryOnly: 0, missing: 2 },
+        ],
+      }),
+    );
+    expect(withMissing).toContain("MISSING counts tag records");
+    expect(withMissing).toMatch(/^ghost\s+0\s+0\s+0\s+2$/m);
+  });
+
+  test("uses a singular summary for one tag and one pair", () => {
+    const output = formatTagList(
+      inventory({
+        tagCount: 1,
+        tagSkillPairCount: 1,
+        taggedSkillCount: { all: 1, activated: 1, libraryOnly: 0 },
+        tags: [
+          { tag: "solo", all: 1, activated: 1, libraryOnly: 0, missing: 0 },
+        ],
+      }),
+    );
+    expect(output).toContain(
+      "1 tag · 1 tag-skill pair · 1 tagged skill, 0 untagged",
+    );
+  });
+
+  test("empty state points at tag add", () => {
+    const output = formatTagList(
+      inventory({
+        tagCount: 0,
+        tagSkillPairCount: 0,
+        taggedSkillCount: { all: 0, activated: 0, libraryOnly: 0 },
+        tags: [],
+      }),
+    );
+    expect(output).toContain("No tags yet.");
+    expect(output).toContain("asm tag add <skill> <tag>");
+  });
+
+  test("activated-only empty state points at the full report", () => {
+    const output = formatTagList(
+      inventory({
+        activatedOnly: true,
+        tagCount: 0,
+        tagSkillPairCount: 0,
+        taggedSkillCount: { all: 0, activated: 0, libraryOnly: 0 },
+        tags: [],
+      }),
+    );
+    expect(output).toContain("No tags on activated skills");
+    expect(output).toContain("asm tag list");
+    expect(output).not.toContain("No tags yet.");
+  });
+});
 
 describe("formatTagUpdates", () => {
   test("formats changed and unchanged effective tags", () => {

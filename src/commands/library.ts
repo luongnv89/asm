@@ -1,8 +1,22 @@
 import { ansi } from "../formatter";
-import { listLibrarySkills, updateLibrarySkills } from "../library";
+import {
+  listLibrarySkills,
+  updateLibrarySkills,
+  type LibrarySkillInfo,
+} from "../library";
+import { loadLibrarySkills, type LibrarySkill } from "../library-skills";
+import {
+  effectiveSkillTags,
+  loadSkillTagState,
+  matchesAllTags,
+  parseTagInputs,
+} from "../skill-tags";
 
 import { error } from "./shared";
 import type { ParsedArgs } from "../cli";
+
+/** A `library list` row plus the tags resolved for it. */
+type LibraryListRow = LibrarySkillInfo & { tags: string[] };
 
 function printLibraryHelp() {
   console.log(`${ansi.bold("Usage:")} asm library <subcommand> [options]
@@ -15,13 +29,50 @@ ${ansi.bold("Subcommands:")}
   update --all         Update all local library skills
 
 ${ansi.bold("Options:")}
-  --json            Output as JSON
-  -V, --verbose     Show debug output
+  --tag <tag[,tag]>   Require every tag; repeatable, list only
+  --json              Output as JSON
+  -V, --verbose       Show debug output
 
 ${ansi.bold("Examples:")}
   asm library list                  ${ansi.dim("List local library skills")}
+  asm library list --tag docs       ${ansi.dim("List library skills tagged docs")}
   asm library update brainstorming  ${ansi.dim("Update one local library skill")}
   asm library update --all --json   ${ansi.dim("Update all and output as JSON")}`);
+}
+
+/**
+ * Lock rows plus each row's effective tags.
+ *
+ * Tags are the SKILL.md frontmatter tags merged with the local
+ * `skill-tags.json` overlay (`effectiveSkillTags`). The overlay is keyed by
+ * canonical path, so the lookup uses the `realPath` from `loadLibrarySkills`:
+ * an activated library skill is symlinked into a provider directory and its
+ * scanned tag record resolves to the same canonical library path.
+ *
+ * Rows whose library copy is gone (`missing`) are kept — `library list` has
+ * always shown them — but expose `tags: []`: there is no SKILL.md to read and
+ * no directory to resolve, so an overlay entry cannot be keyed soundly. Such
+ * rows therefore never match a `--tag` filter.
+ */
+async function listLibraryRows(): Promise<LibraryListRow[]> {
+  const [lockRows, librarySkills, tagState] = await Promise.all([
+    listLibrarySkills(),
+    loadLibrarySkills(),
+    loadSkillTagState(),
+  ]);
+  const libraryByDir = new Map<string, LibrarySkill>();
+  for (const skill of librarySkills) libraryByDir.set(skill.dirName, skill);
+
+  return lockRows.map((row) => {
+    const librarySkill = libraryByDir.get(row.dirName);
+    const tags = librarySkill
+      ? effectiveSkillTags(
+          librarySkill.tags,
+          tagState.skills[librarySkill.realPath],
+        )
+      : [];
+    return { ...row, tags };
+  });
 }
 
 export async function cmdLibrary(args: ParsedArgs) {
@@ -36,10 +87,31 @@ export async function cmdLibrary(args: ParsedArgs) {
   }
 
   if (args.subcommand === "list") {
-    const rows = await listLibrarySkills();
+    const parsedTags = parseTagInputs(args.flags.tagFilters);
+    if (parsedTags.invalid.length > 0) {
+      error(
+        `Invalid tag value(s): ${parsedTags.invalid.map((tag) => JSON.stringify(tag)).join(", ")}.`,
+      );
+      process.exitCode = 2;
+      return;
+    }
+
+    let rows = await listLibraryRows();
+    if (parsedTags.tags.length > 0) {
+      rows = rows.filter((row) => matchesAllTags(row.tags, parsedTags.tags));
+    }
 
     if (args.flags.json) {
       console.log(JSON.stringify(rows, null, 2));
+      return;
+    }
+
+    if (rows.length === 0 && parsedTags.tags.length > 0) {
+      // A tag filter that matched nothing says nothing about whether the
+      // library itself is empty — do not claim the skills are not installed.
+      console.log(
+        ansi.dim(`No library skills match --tag ${parsedTags.tags.join(",")}.`),
+      );
       return;
     }
 
@@ -54,7 +126,7 @@ export async function cmdLibrary(args: ParsedArgs) {
   process.exit(2);
 }
 
-function printLibraryList(rows: Awaited<ReturnType<typeof listLibrarySkills>>) {
+function printLibraryList(rows: LibraryListRow[]) {
   if (rows.length === 0) {
     console.log(ansi.dim("No skills installed in the local library."));
     return;

@@ -14,6 +14,7 @@ import type {
 } from "./utils/types";
 import { formatTokenCount } from "./utils/token-count";
 import { ansi } from "./formatter-colors";
+import type { TagInventory } from "./tag-inventory";
 
 // ─── Tag editing ─────────────────────────────────────────────────────────────
 
@@ -43,6 +44,86 @@ export function formatTagUpdates(
       return `${verb} ${ansi.bold(result.name)}: ${applied}${remaining}${suffix}`;
     })
     .join("\n");
+}
+
+// ─── Tag list ───────────────────────────────────────────────────────────────
+
+/**
+ * Render `asm tag list` as a human-readable table.
+ *
+ * The column set is fixed per the settled design: the default view always
+ * shows TAG/ALL/ACTIVATED/LIBRARY_ONLY/MISSING, while `--activated` (or any
+ * scope/provider filter) collapses it to TAG/ACTIVATED because the other
+ * classes are not counted in that mode. The MISSING footnote prints only when
+ * missing records exist — it explains a column that is otherwise all zeroes.
+ */
+export function formatTagList(inventory: TagInventory): string {
+  const { tags, activatedOnly } = inventory;
+  if (tags.length === 0) {
+    // In activated-only mode the other classes were never counted, so "no
+    // tags yet" would be wrong when library-only skills are in fact tagged.
+    return ansi.dim(
+      activatedOnly
+        ? "No tags on activated skills. Run `asm tag list` to include library-only skills."
+        : "No tags yet. Add one with: asm tag add <skill> <tag>",
+    );
+  }
+
+  const header = activatedOnly
+    ? ["TAG", "ACTIVATED"]
+    : ["TAG", "ALL", "ACTIVATED", "LIBRARY_ONLY", "MISSING"];
+
+  const cells = tags.map((row) =>
+    activatedOnly
+      ? [row.tag, String(row.activated)]
+      : [
+          row.tag,
+          String(row.all),
+          String(row.activated),
+          String(row.libraryOnly),
+          String(row.missing),
+        ],
+  );
+
+  const tagW = Math.max(header[0].length, ...cells.map((row) => row[0].length));
+  // Numeric columns are right-aligned under their header labels.
+  const widths = header
+    .slice(1)
+    .map((label, col) =>
+      Math.max(label.length, ...cells.map((row) => row[col + 1].length)),
+    );
+
+  const renderRow = (row: string[]) =>
+    [
+      row[0].padEnd(tagW),
+      ...row.slice(1).map((value, col) => value.padStart(widths[col])),
+    ].join("  ");
+
+  const plural = (count: number, one: string, many = `${one}s`) =>
+    `${count} ${count === 1 ? one : many}`;
+  const summary =
+    `${plural(inventory.tagCount, "tag")} · ` +
+    `${plural(inventory.tagSkillPairCount, "tag-skill pair")} · ` +
+    `${plural(inventory.taggedSkillCount.all, "tagged skill")}, ` +
+    `${inventory.untaggedSkillCount.all} untagged`;
+
+  const parts = [
+    ansi.dim(summary),
+    "",
+    ansi.bold(renderRow(header)),
+    ...cells.map((row) => renderRow(row)),
+  ];
+
+  if (inventory.missingRecordCount > 0) {
+    parts.push(
+      "",
+      ansi.dim(
+        "MISSING counts tag records whose skill directory no longer exists; they are not included in ALL.",
+      ),
+    );
+  }
+
+  return parts.join("\n");
 }
 
 // ─── Reference-tier output ─────────────────────────────────────────────────
