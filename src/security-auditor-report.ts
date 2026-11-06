@@ -414,3 +414,69 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
 export function formatSecurityReportJSON(report: SecurityAuditReport): string {
   return JSON.stringify(report, null, 2);
 }
+
+// ─── Hold messages (update / publish) ────────────────────────────────────────
+
+/** Links named in a hold message before "and N more". */
+const HOLD_LINKS_SHOWN = 3;
+
+/** Quote a path for a copy-pasteable shell command when it needs it. */
+function shellArg(arg: string): string {
+  return /^[\w@%+=:,./~-]+$/.test(arg)
+    ? arg
+    : `'${arg.replace(/'/g, `'\\''`)}'`;
+}
+
+export interface SecurityHold {
+  /**
+   * Why the audit holds the action: each symlink it did not read as
+   * `path -> target (kind)` — at most 3, then "and N more" — or, when there
+   * are none, the verdict reason. Paths and the reason only; never content.
+   */
+  reasons: string[];
+  /** One line: verdict, reasons, and the next step. */
+  message: string;
+}
+
+/**
+ * Describe a security verdict that holds `asm update` or `asm publish`
+ * (#791): name the reasons and the next step — the full report with
+ * `asm audit security <target>`, or the override flag to go ahead.
+ */
+export function describeSecurityHold(
+  report: Partial<
+    Pick<SecurityAuditReport, "verdict" | "verdictReason" | "externalSymlinks">
+  >,
+  opts: {
+    verdict: string;
+    prefix: string;
+    auditTarget: string;
+    overrideFlag: string;
+    action: string;
+  },
+): SecurityHold {
+  const links = report.externalSymlinks ?? [];
+  const reasons =
+    links.length > 0
+      ? [
+          ...links
+            .slice(0, HOLD_LINKS_SHOWN)
+            .map((l) => `${l.path} -> ${l.target} (${l.kind})`),
+          ...(links.length > HOLD_LINKS_SHOWN
+            ? [`and ${links.length - HOLD_LINKS_SHOWN} more`]
+            : []),
+        ]
+      : report.verdictReason
+        ? [report.verdictReason.trim()]
+        : [];
+  const why =
+    links.length > 0
+      ? ` — ${links.length} symlink${links.length === 1 ? "" : "s"} not read: ${reasons.join(", ")}.`
+      : reasons.length > 0
+        ? ` — ${reasons[0].replace(/\.$/, "")}.`
+        : ".";
+  return {
+    reasons,
+    message: `${opts.prefix}: ${opts.verdict}${why} Run "asm audit security ${shellArg(opts.auditTarget)}" for the full report, or use ${opts.overrideFlag} to ${opts.action}.`,
+  };
+}

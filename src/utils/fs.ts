@@ -9,7 +9,15 @@ import {
   symlink,
 } from "fs/promises";
 import type { ExternalSymlink } from "./types";
-import { dirname, isAbsolute, join, relative, resolve, sep } from "path";
+import {
+  basename,
+  dirname,
+  isAbsolute,
+  join,
+  relative,
+  resolve,
+  sep,
+} from "path";
 
 /**
  * Create a directory symlink that works on every platform.
@@ -180,6 +188,13 @@ export interface ReadFilesRecursiveOptions {
    * content may be shared with a file outside the folder.
    */
   onHardLink?: (relPath: string, links: number) => void;
+  /**
+   * Confined mode only: the folder the walk must not leave, when it is wider
+   * than `dir` (#791) — e.g. a `github:` audit of a subfolder is confined to
+   * the whole temp checkout. Defaults to `dir`. When `dir` itself resolves
+   * outside `root`, nothing is read and `dir` is reported as a directory link.
+   */
+  root?: string;
 }
 
 export async function readFilesRecursive(
@@ -189,10 +204,16 @@ export async function readFilesRecursive(
   const results: FileContent[] = [];
   const report = options.onExternalSymlink;
   let rootReal = dir;
+  let dirReal = dir;
   if (report) {
     try {
-      rootReal = await realpath(dir);
+      dirReal = await realpath(dir);
+      rootReal = options.root ? await realpath(options.root) : dirReal;
     } catch {
+      return results;
+    }
+    if (!isPathInside(rootReal, dirReal)) {
+      report(externalLink(basename(dir) || dir, dirReal, "directory"));
       return results;
     }
   }
@@ -262,6 +283,10 @@ export async function readFilesRecursive(
         if (s.isDirectory()) {
           if (report) {
             const real = linkTarget ?? (await realpath(fullPath));
+            // Each real folder is read once (#791): sibling folders linking
+            // to each other would otherwise make the walk explode.
+            if (walked.has(real)) continue;
+            walked.add(real);
             await walk(fullPath, relPath, new Set([...ancestors, real]));
           } else {
             await walk(fullPath, relPath, ancestors);
@@ -288,6 +313,7 @@ export async function readFilesRecursive(
     }
   }
 
-  await walk(dir, "", new Set([rootReal]));
+  const walked = new Set<string>([dirReal]);
+  await walk(dir, "", new Set([dirReal]));
   return results;
 }

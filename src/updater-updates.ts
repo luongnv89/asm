@@ -7,7 +7,11 @@ import { promisify } from "util";
 import { loadConfig } from "./config";
 import { resolveProviderPath } from "./config";
 import { writeLockEntry } from "./utils/lock";
-import type { LockEntry, SecurityVerdict } from "./utils/types";
+import type {
+  LockEntry,
+  SecurityAuditReport,
+  SecurityVerdict,
+} from "./utils/types";
 import type { UpdateResult } from "./updater-core";
 import {
   resolveSourceType,
@@ -22,7 +26,11 @@ import {
   poolAll,
 } from "./updater-core";
 import { readLock } from "./utils/lock";
-import { auditSkillSecurity } from "./security-auditor";
+import {
+  auditSkillSecurity,
+  describeSecurityHold,
+  type AuditSkillSecurityOptions,
+} from "./security-auditor";
 import type {
   _CheckOutdatedTestOverrides,
   OutdatedSummary,
@@ -42,7 +50,12 @@ export interface _UpdateTestOverrides {
     skillName: string,
     sourceOwner?: string,
     sourceRepo?: string,
-  ) => Promise<{ verdict: SecurityVerdict }>;
+    options?: AuditSkillSecurityOptions,
+  ) => Promise<
+    { verdict: SecurityVerdict } & Partial<
+      Pick<SecurityAuditReport, "verdictReason" | "externalSymlinks">
+    >
+  >;
   loadConfigFn?: typeof loadConfig;
   resolveProviderPathFn?: typeof resolveProviderPath;
   writeLockEntryFn?: typeof writeLockEntry;
@@ -171,14 +184,18 @@ export async function updateSkill(
     // Step 2: Security audit on the new version
     debug(`updater: running security audit on ${name}`);
     let securityVerdict: SecurityVerdict = "safe";
+    let securityReasons: string[] | undefined;
     try {
       const auditFn = _overrides?.auditFn ?? auditSkillSecurity;
       const ownerRepo = extractOwnerRepo(entry.source);
+      // Confined to the clone (#791): a link out of it is a finding (verdict
+      // at least warning, so --yes is needed), never read.
       const auditReport = await auditFn(
         updateSourceDir,
         name,
         ownerRepo?.owner,
         ownerRepo?.repo,
+        { trackSymlinks: true, boundary: tempDir },
       );
       securityVerdict = auditReport.verdict;
 
@@ -192,13 +209,23 @@ export async function updateSkill(
       }
 
       if (securityVerdict === "warning" || securityVerdict === "caution") {
+        // Name why (e.g. the symlinks not read) and the next step (#791).
+        const hold = describeSecurityHold(auditReport, {
+          verdict: securityVerdict,
+          prefix: "Security audit",
+          auditTarget: name,
+          overrideFlag: "--yes",
+          action: "update anyway",
+        });
+        securityReasons = hold.reasons;
         if (!skipConfirm) {
           // Without --yes, skip warned/cautioned skills and tell the user how to override
           return {
             name,
             status: "skipped",
-            reason: `Security audit: ${securityVerdict} — use --yes to override`,
+            reason: hold.message,
             securityVerdict,
+            securityReasons,
           };
         }
         // With --yes, warn but proceed with the update
@@ -317,6 +344,7 @@ export async function updateSkill(
         oldCommit: shortHash(entry.commitHash),
         newCommit: shortHash(newCommit),
         securityVerdict,
+        ...(securityReasons ? { securityReasons } : {}),
       };
     }
 
@@ -400,6 +428,7 @@ export async function updateSkill(
       oldCommit: shortHash(entry.commitHash),
       newCommit: shortHash(newCommit),
       securityVerdict,
+      ...(securityReasons ? { securityReasons } : {}),
     };
   } finally {
     // Cleanup temp directory
@@ -661,6 +690,7 @@ export function formatUpdateJSON(summary: UpdateSummary): string {
         ...(r.oldCommit ? { oldCommit: r.oldCommit } : {}),
         ...(r.newCommit ? { newCommit: r.newCommit } : {}),
         ...(r.securityVerdict ? { securityVerdict: r.securityVerdict } : {}),
+        ...(r.securityReasons ? { securityReasons: r.securityReasons } : {}),
       })),
       summary: {
         updated: summary.updatedCount,
@@ -689,6 +719,7 @@ export function formatUpdateMachine(summary: UpdateSummary): string {
         oldCommit: r.oldCommit || null,
         newCommit: r.newCommit || null,
         securityVerdict: r.securityVerdict || null,
+        securityReasons: r.securityReasons ?? null,
       })),
       updated: summary.updatedCount,
       skipped: summary.skippedCount,
