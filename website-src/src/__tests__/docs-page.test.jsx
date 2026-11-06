@@ -13,6 +13,7 @@ const COMMANDS = [
   "asm list",
   "asm search <query>",
   "asm tag add|remove",
+  "asm tag list",
   "asm inspect <skill-name>",
   "asm get <skill>",
   "asm install <source>",

@@ -32,6 +32,8 @@ export {
   // ── Tag editing ──
   formatTagUpdates,
   type TagUpdateResult,
+  // ── Tag inventory ──
+  formatTagList,
   // ── Reference-tier borrows ──
   formatGetProvenance,
   formatGetPath,

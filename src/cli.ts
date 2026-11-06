@@ -26,6 +26,12 @@ export interface ParsedArgs {
     yes: boolean;
     noColor: boolean;
     scope: Scope;
+    /**
+     * True when the user explicitly passed `-s`/`--scope`, even when the
+     * value is the default ("both"). Commands whose behavior differs between
+     * "no scope filter" and "a scope filter" need this distinction.
+     */
+    scopeExplicit: boolean;
     sort: SortBy;
     provider: string | null;
     name: string | null;
@@ -104,6 +110,11 @@ export interface ParsedArgs {
      * SKILL.md, paid only when the skill fires) tokens (issue #421).
      */
     tokens: boolean;
+    /**
+     * `asm tag list --activated` — count only skills activated into a provider
+     * (the set `asm list` shows), excluding library-only and missing records.
+     */
+    activated: boolean;
     /** `asm bundle modify --add <installUrl>` — skill install URL to add (issue #204). */
     add: string | null;
     /** `asm bundle modify --remove <skillName>` — skill name to remove (issue #204). */
@@ -141,6 +152,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
       yes: false,
       noColor: false,
       scope: "both",
+      scopeExplicit: false,
       sort: "name",
       provider: null,
       name: null,
@@ -176,6 +188,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
       minCategory: null,
       keep: false,
       tokens: false,
+      activated: false,
       add: null,
       remove: null,
       description: null,
@@ -216,6 +229,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
         normalized === "both"
       ) {
         result.flags.scope = normalized;
+        result.flags.scopeExplicit = true;
       } else {
         error(
           `Invalid scope: "${val}". Must be global, local, project, or both.`,
@@ -312,6 +326,8 @@ export function parseArgs(argv: string[]): ParsedArgs {
       result.flags.keep = true;
     } else if (arg === "--tokens") {
       result.flags.tokens = true;
+    } else if (arg === "--activated") {
+      result.flags.activated = true;
     } else if (arg === "--transport" || arg === "-t") {
       i++;
       const val = args[i];
@@ -449,7 +465,7 @@ ${ansi.bold("Commands:")}
   list                   List all discovered skills
   search <query>         Search skills by name/description/tool
   search <query> --fuzzy Fuzzy-find installed skills; --root <dir> adds projects
-  tag add|remove         Edit local tags for an installed skill
+  tag add|remove|list    Edit local tags, or list the tag inventory
   inspect <skill-name>   Show detailed info for a skill
   get <skill>            Print a skill body, or borrow its directory with --path
   cleanup <path>         Remove an exact directory borrowed by get --path
@@ -490,8 +506,8 @@ ${ansi.bold("Global Options:")}
   --json                 Output as JSON (list, search, inspect)
   --machine              Stable machine-readable JSON envelope (v1)
   -s, --scope <scope>    Filter: global, project, or both (default: both)
-  -p, --tool <name>      Filter by tool (list, search)
-  --tag <tag[,tag]>      Filter by all tags; repeatable (list, search)
+  -p, --tool <name>      Filter by tool (list, search, tag list)
+  --tag <tag[,tag]>      Filter by all tags; repeatable (list, search, library list)
   --no-color             Disable ANSI colors
   --sort <field>         Sort by: name, version, or location (default: name)
   --flat                 Show one row per tool instance (list, search)

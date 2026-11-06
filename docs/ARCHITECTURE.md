@@ -114,6 +114,8 @@ Each view is an ink/React component:
 | Ghost Skills        | `ghost-skills.ts`                    | TUI library ghosts: library skills not installed in the listed scope, with display fields read from the library copy's SKILL.md                      |
 | Skill State         | `skill-state.ts`                     | Disable/enable state persisted to `skill-state.json`                                                                                                 |
 | Skill Tags          | `skill-tags.ts`                      | Local tag overlays (`asm tag add\|remove`) and `--tag` AND filters                                                                                   |
+| Library Skills      | `library-skills.ts`                  | Library copies loaded as `SkillInfo` (frontmatter tags, canonical path) so tags cover unactivated library skills                                     |
+| Tag Inventory       | `tag-inventory.ts`                   | Pure `asm tag list` aggregation: ACTIVATED / LIBRARY_ONLY / MISSING counts by skill directory                                                        |
 | Importer / Exporter | `importer.ts` / `exporter.ts`        | `asm import` / `asm export`                                                                                                                          |
 | Updater             | `updater.ts`                         | `asm update` / `asm outdated`                                                                                                                        |
 | Doctor              | `doctor.ts`                          | `asm doctor` environment/PATH-shadowing diagnostics                                                                                                  |

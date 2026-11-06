@@ -69,22 +69,23 @@ graph LR
 
 ## Features
 
-| Feature                  | What you get                                                         |
-| ------------------------ | -------------------------------------------------------------------- |
-| Cross-provider inventory | `asm list --json` — every skill, every agent, one response           |
-| Local skill tags         | `asm tag add\|remove`; `asm list --tag` / `asm search --tag` (AND)   |
-| One-command install      | `asm install github:user/repo` or `asm install skill-name`           |
-| Agent-parseable output   | `--json` on list, search, inspect, install, audit                    |
-| Duplicate audit          | `asm audit --yes` removes redundant skills non-interactively         |
-| Semantic overlap audit   | `asm audit overlap` finds different-name skills doing the same job   |
-| Attention budget         | `asm stats --tokens` shows resident vs body token cost per tool      |
-| Residency audit          | `asm audit residency` ranks skills to demote out of resident context |
-| Reference tier           | `asm get <skill>` delivers a body once, at zero residency            |
-| Security scan            | `asm audit security` before install                                  |
-| Authoring pipeline       | `asm init`, `asm link`, `asm eval`, `asm publish`                    |
-| Bundles                  | `asm bundle install` — curated sets in one pass                      |
-| Local library            | `asm install --library` — install once, `asm activate` per provider  |
-| Cross-tool linking       | Reinstall or symlink when a skill already exists in another tool     |
+| Feature                  | What you get                                                             |
+| ------------------------ | ------------------------------------------------------------------------ |
+| Cross-provider inventory | `asm list --json` — every skill, every agent, one response               |
+| Local skill tags         | `asm tag add\|remove\|list`; `asm list --tag` / `asm search --tag` (AND) |
+| Tag coverage             | Library-only skills are taggable; `asm tag list` shows the vocabulary    |
+| One-command install      | `asm install github:user/repo` or `asm install skill-name`               |
+| Agent-parseable output   | `--json` on list, search, inspect, install, audit                        |
+| Duplicate audit          | `asm audit --yes` removes redundant skills non-interactively             |
+| Semantic overlap audit   | `asm audit overlap` finds different-name skills doing the same job       |
+| Attention budget         | `asm stats --tokens` shows resident vs body token cost per tool          |
+| Residency audit          | `asm audit residency` ranks skills to demote out of resident context     |
+| Reference tier           | `asm get <skill>` delivers a body once, at zero residency                |
+| Security scan            | `asm audit security` before install                                      |
+| Authoring pipeline       | `asm init`, `asm link`, `asm eval`, `asm publish`                        |
+| Bundles                  | `asm bundle install` — curated sets in one pass                          |
+| Local library            | `asm install --library` — install once, `asm activate` per provider      |
+| Cross-tool linking       | Reinstall or symlink when a skill already exists in another tool         |
 
 ## Getting started
 
@@ -133,8 +134,9 @@ Node.js 22+ required. Optional TUI: run `asm` with no arguments.
 | Live dev via symlink          | `asm link ./my-skill -p claude`                  |
 | Publish to registry           | `asm publish ./my-skill --yes`                   |
 | Install a bundle              | `asm bundle install frontend-dev --yes`          |
-| Tag an installed skill        | `asm tag add code-review testing`                |
+| Tag a skill                   | `asm tag add code-review testing`                |
 | Filter inventory by tags      | `asm list --tag cli,testing`                     |
+| Browse the tag vocabulary     | `asm tag list`                                   |
 
 Full command reference, flags, and examples: [CLI Commands](#cli-commands). Catalog UI and bundles: [luongnv.com/asm](https://luongnv.com/asm/) (use **Tags** / `TagFilter`, AND match, `?tag=`).
 
@@ -445,6 +447,20 @@ asm inspect my-skill
 asm inspect my-skill --json
 ```
 
+Inspect matches the exact skill directory name. Without `--scope`, it falls
+back to library-only skills when no provider installation matches. Text output
+includes a Library section with the library path whenever a library copy exists,
+including activated skills. Library-only skills show an empty `Installed in:`
+and `Installations (0)`; JSON keeps the existing installed-skill output, or
+returns the library skill when no installation matches.
+
+Use `-s global`, `-s project`, or `-s both` to search provider installations
+only, without the Library section:
+
+```bash
+asm inspect my-skill -s both
+```
+
 ### Test install flow
 
 ```bash
@@ -648,7 +664,7 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm list` | List all discovered skills |
 | `asm search <query>` | Search by name/description/provider |
 | `asm search <query> --fuzzy` | Fuzzy-find installed skills in global dirs; `--root <dir>` adds projects under `<dir>` |
-| `asm tag add\|remove` | Edit local tags on an installed skill |
+| `asm tag add\|remove\|list` | Edit local tags on an installed or library skill; `list` shows the tag inventory |
 | `asm inspect <skill-name>` | Show detailed info for a skill |
 | `asm get <skill>` | Print a skill's body, install nothing — `--path` borrows the full directory |
 | `asm cleanup <path>` | Remove a directory borrowed by `asm get --path` |
@@ -670,7 +686,7 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm activate <skill>` | Link a library skill into a provider |
 | `asm deactivate <skill>` | Remove a library activation symlink |
 | `asm library` | Manage centrally installed library skills |
-| `asm library list` | List local library skills |
+| `asm library list` | List local library skills (`--tag` filters by effective tags) |
 | `asm library update <skill>` | Update one local library skill |
 | `asm library update --all` | Update all local library skills |
 | `asm export` | Export inventory as JSON |
@@ -705,8 +721,8 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 --json                 JSON output
 --machine              Stable machine-readable JSON envelope (v1)
 -s, --scope <scope>    global, project, or both
--p, --tool <name>      Filter by tool (list, search)
---tag <tag[,tag]>      Filter by all tags; repeatable (list, search)
+-p, --tool <name>      Filter by tool (list, search, tag list)
+--tag <tag[,tag]>      Filter by all tags; repeatable (list, search, library list)
 --sort <field>         name, version, or location
 --flat                 Show one row per tool instance (list, search)
 --model-invocable      Only skills the model can invoke
@@ -744,6 +760,26 @@ asm search code --tag cli,testing
 ```
 
 Tags are local overlays (not written into `SKILL.md`). `--tag` requires every listed tag (AND). The catalog UI `TagFilter` uses the same AND matching and stores selections in `?tag=`.
+
+`asm tag add`/`remove` also match skills that live only in the local library (`asm install --library`, i.e. not yet activated into a provider). With no `--scope`/`--tool` filter the library copy is in scope, so a skill can be tagged before it is activated. Tag records are keyed by the skill's canonical directory, so the tag still applies once the skill is activated.
+
+```bash
+asm tag list                    # tag vocabulary: activated, library-only, missing
+asm tag list --activated        # only skills `asm list` can see
+asm tag list --json             # same data as --machine's data, for scripts
+asm tag list -p claude          # scope/provider filters imply --activated
+asm library list --tag docs     # library rows filtered by effective tags
+```
+
+`asm tag list` counts tagged skill **directories** (deduplicated by canonical path, so one skill linked into four tools counts once) and splits them into three classes:
+
+| Class          | Meaning                                                            |
+| -------------- | ------------------------------------------------------------------ |
+| `ACTIVATED`    | Skills `asm list` can see, including disabled ones                 |
+| `LIBRARY_ONLY` | Skills in the local library that are not activated into a provider |
+| `MISSING`      | `skill-tags.json` records whose skill directory no longer exists   |
+
+`ALL` is `ACTIVATED + LIBRARY_ONLY`; `MISSING` records are reported in their own column and are never folded into `ALL`. Passing `--activated` — or any `-s`/`-p` filter — narrows the whole report to `ACTIVATED`, since the other two classes carry no scope or provider. A `MISSING` row's tags are its local overlay only (`added − removed`), because there is no `SKILL.md` left to read frontmatter from.
 
 ```bash
 asm search "code review" --json

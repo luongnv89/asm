@@ -11,6 +11,7 @@ import {
   colorEffort,
   formatJSON,
   formatTagUpdates,
+  formatTagList,
   ansi,
   colorTool,
   formatAllowedTools,
@@ -249,6 +250,150 @@ describe("formatSkillInspect", () => {
     expect(inspect).toBe(detail);
   });
 
+  test("library-only skill uses inspect layout with no installations", async () => {
+    const libraryPath = "/opt/asm/library/test-skill";
+    const output = await formatSkillInspect([
+      makeSkill({
+        provider: "library",
+        providerLabel: "Library",
+        location: "library",
+        path: libraryPath,
+        realPath: libraryPath,
+        tags: ["docs", "local"],
+        allowedTools: ["Read"],
+        warnings: [{ category: "missing-version", message: "No version" }],
+      }),
+    ]);
+
+    expect(output).toContain("  test-skill\n  ------------");
+    expect(output).toContain("  Tags: docs, local");
+    expect(output).toContain("  Installed in: \n");
+    expect(output).toContain("  Installations (0)");
+    expect(output).toContain("  Eval Score:");
+    expect(output).toContain("  Description:\n    A test skill");
+    expect(output).toContain("  Allowed Tools:\n    Read");
+    expect(output).toContain("  Warnings (1)");
+    expect(output).toContain("[missing-version] No version");
+    expect(output).not.toMatch(/^\s*(Tool|Scope|Location):/m);
+    expect(output).not.toContain("Library (global");
+    expect(output).toMatch(
+      /\n {2}Library\n {4}Path: \/opt\/asm\/library\/test-skill\n$/,
+    );
+  });
+
+  test("installed skill with an unactivated library twin keeps installed metadata", async () => {
+    const installed = makeSkill({ tags: ["installed"], version: "2.0.0" });
+    const libraryPath = "/opt/asm/library/test-skill";
+    const output = await formatSkillInspect([
+      installed,
+      makeSkill({
+        provider: "library",
+        providerLabel: "Library",
+        location: "library",
+        path: libraryPath,
+        realPath: libraryPath,
+        tags: ["library-tag"],
+      }),
+    ]);
+
+    expect(output).toContain("  Version: 2.0.0");
+    expect(output).toContain("  Tags: installed");
+    expect(output).not.toContain("library-tag");
+    expect(output).toContain("  Installed in: [Claude Code]\n");
+    expect(output).toContain("  Installations (1)");
+    expect(output).toContain("Claude Code (global, directory)");
+    expect(output).toContain(`Path: ${installed.path}`);
+    expect(output).not.toContain("Library (global");
+    expect(output).toMatch(
+      /\n {2}Library\n {4}Path: \/opt\/asm\/library\/test-skill\n$/,
+    );
+  });
+
+  test.each([1, 2])(
+    "activated library skill counts only its %i provider installations",
+    async (count) => {
+      const libraryPath = "/opt/asm/library/test-skill";
+      const installations = [
+        makeSkill({
+          isSymlink: true,
+          symlinkTarget: libraryPath,
+          realPath: libraryPath,
+        }),
+        makeSkill({
+          provider: "codex",
+          providerLabel: "Codex",
+          path: "/home/user/.codex/skills/test-skill",
+          isSymlink: true,
+          symlinkTarget: libraryPath,
+          realPath: libraryPath,
+        }),
+      ].slice(0, count);
+      const output = await formatSkillInspect([
+        ...installations,
+        makeSkill({
+          provider: "library",
+          providerLabel: "Library",
+          location: "library",
+          path: libraryPath,
+          realPath: libraryPath,
+        }),
+      ]);
+
+      expect(output).toContain(`  Installations (${count})`);
+      expect(output).toContain(
+        `  Installed in: [Claude Code]${count === 2 ? " [Codex]" : ""}\n`,
+      );
+      expect(output).toContain("Claude Code (global, symlink)");
+      expect(output.match(/Target:/g)).toHaveLength(count);
+      expect(output).not.toContain("Library (global");
+      expect(output).toMatch(
+        /\n {2}Library\n {4}Path: \/opt\/asm\/library\/test-skill\n$/,
+      );
+    },
+  );
+
+  test.each([1, 2])(
+    "library context does not duplicate warnings reported by %i installation(s)",
+    async (count) => {
+      const libraryPath = "/opt/asm/library/test-skill";
+      const sharedWarning = {
+        category: "missing-description",
+        message: "No description",
+      };
+      const installations = [
+        makeSkill({
+          isSymlink: true,
+          symlinkTarget: libraryPath,
+          realPath: libraryPath,
+          warnings: [sharedWarning],
+        }),
+        makeSkill({
+          provider: "codex",
+          providerLabel: "Codex",
+          path: "/home/user/.codex/skills/test-skill",
+          isSymlink: true,
+          symlinkTarget: libraryPath,
+          realPath: libraryPath,
+          warnings: [sharedWarning],
+        }),
+      ].slice(0, count);
+      const output = await formatSkillInspect([
+        ...installations,
+        makeSkill({
+          provider: "library",
+          providerLabel: "Library",
+          location: "library",
+          path: libraryPath,
+          realPath: libraryPath,
+          warnings: [sharedWarning],
+        }),
+      ]);
+
+      expect(output).toContain(`  Warnings (${count})`);
+      expect(output.match(/\[missing-description\]/g)).toHaveLength(count);
+    },
+  );
+
   test("empty array returns no skills message", async () => {
     const output = await formatSkillInspect([]);
     expect(output).toBe("No skills found.");
@@ -374,6 +519,112 @@ describe("formatSkillInspect", () => {
 });
 
 // ─── tag update formatter ──────────────────────────────────────────────────
+
+describe("formatTagList", () => {
+  const inventory = (
+    overrides: Partial<import("./tag-inventory").TagInventory> = {},
+  ): import("./tag-inventory").TagInventory => ({
+    activatedOnly: false,
+    scope: "both",
+    provider: null,
+    tagCount: 2,
+    tagSkillPairCount: 3,
+    taggedSkillCount: { all: 2, activated: 1, libraryOnly: 1 },
+    untaggedSkillCount: { all: 0, activated: 0, libraryOnly: 0 },
+    missingRecordCount: 0,
+    tags: [
+      { tag: "docs", all: 2, activated: 1, libraryOnly: 1, missing: 0 },
+      { tag: "legacy", all: 1, activated: 1, libraryOnly: 0, missing: 0 },
+    ],
+    ...overrides,
+  });
+
+  test("renders the summary line and the five fixed columns", () => {
+    const output = formatTagList(inventory());
+    expect(output).toContain(
+      "2 tags · 3 tag-skill pairs · 2 tagged skills, 0 untagged",
+    );
+    expect(output).toMatch(/^TAG\s+ALL\s+ACTIVATED\s+LIBRARY_ONLY\s+MISSING$/m);
+    expect(output).toMatch(/^docs\s+2\s+1\s+1\s+0$/m);
+    expect(output).toMatch(/^legacy\s+1\s+1\s+0\s+0$/m);
+  });
+
+  test("collapses to TAG/ACTIVATED when activatedOnly", () => {
+    const output = formatTagList(
+      inventory({
+        activatedOnly: true,
+        tags: [
+          { tag: "docs", all: 1, activated: 1, libraryOnly: 0, missing: 0 },
+        ],
+        taggedSkillCount: { all: 1, activated: 1, libraryOnly: 0 },
+        untaggedSkillCount: { all: 0, activated: 0, libraryOnly: 0 },
+      }),
+    );
+    expect(output).toMatch(/^TAG\s+ACTIVATED$/m);
+    expect(output).not.toContain("LIBRARY_ONLY");
+    expect(output).not.toContain("MISSING");
+  });
+
+  test("prints the MISSING footnote only when records exist", () => {
+    expect(formatTagList(inventory())).not.toContain(
+      "MISSING counts tag records",
+    );
+    const withMissing = formatTagList(
+      inventory({
+        missingRecordCount: 2,
+        tags: [
+          { tag: "ghost", all: 0, activated: 0, libraryOnly: 0, missing: 2 },
+        ],
+      }),
+    );
+    expect(withMissing).toContain("MISSING counts tag records");
+    expect(withMissing).toMatch(/^ghost\s+0\s+0\s+0\s+2$/m);
+  });
+
+  test("uses a singular summary for one tag and one pair", () => {
+    const output = formatTagList(
+      inventory({
+        tagCount: 1,
+        tagSkillPairCount: 1,
+        taggedSkillCount: { all: 1, activated: 1, libraryOnly: 0 },
+        tags: [
+          { tag: "solo", all: 1, activated: 1, libraryOnly: 0, missing: 0 },
+        ],
+      }),
+    );
+    expect(output).toContain(
+      "1 tag · 1 tag-skill pair · 1 tagged skill, 0 untagged",
+    );
+  });
+
+  test("empty state points at tag add", () => {
+    const output = formatTagList(
+      inventory({
+        tagCount: 0,
+        tagSkillPairCount: 0,
+        taggedSkillCount: { all: 0, activated: 0, libraryOnly: 0 },
+        tags: [],
+      }),
+    );
+    expect(output).toContain("No tags yet.");
+    expect(output).toContain("asm tag add <skill> <tag>");
+  });
+
+  test("activated-only empty state points at the full report", () => {
+    const output = formatTagList(
+      inventory({
+        activatedOnly: true,
+        tagCount: 0,
+        tagSkillPairCount: 0,
+        taggedSkillCount: { all: 0, activated: 0, libraryOnly: 0 },
+        tags: [],
+      }),
+    );
+    expect(output).toContain("No tags on activated skills");
+    expect(output).toContain("asm tag list");
+    expect(output).not.toContain("No tags yet.");
+  });
+});
 
 describe("formatTagUpdates", () => {
   test("formats changed and unchanged effective tags", () => {

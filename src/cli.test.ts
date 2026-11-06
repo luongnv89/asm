@@ -299,6 +299,41 @@ describe("parseArgs: --tokens (issue #421)", () => {
   });
 });
 
+describe("parseArgs: --activated and scopeExplicit (asm tag list)", () => {
+  test("defaults to no --activated and no explicit scope", () => {
+    const args = parseArgs(["node", "cli", "tag", "list"]);
+    expect(args.flags.activated).toBe(false);
+    expect(args.flags.scopeExplicit).toBe(false);
+    expect(args.flags.scope).toBe("both");
+  });
+
+  test("--activated sets the flag", () => {
+    const args = parseArgs(["node", "cli", "tag", "list", "--activated"]);
+    expect(args.command).toBe("tag");
+    expect(args.subcommand).toBe("list");
+    expect(args.flags.activated).toBe(true);
+  });
+
+  test("any explicit -s counts, including the default value", () => {
+    // The whole reason scopeExplicit exists: `-s both` narrows the report to
+    // ACTIVATED even though "both" is the default scope.
+    for (const scope of ["both", "global", "project", "local"]) {
+      const args = parseArgs(["node", "cli", "tag", "list", "-s", scope]);
+      expect(args.flags.scopeExplicit).toBe(true);
+    }
+    expect(
+      parseArgs(["node", "cli", "tag", "list", "--scope", "both"]).flags
+        .scopeExplicit,
+    ).toBe(true);
+  });
+
+  test("no explicit scope leaves scopeExplicit false", () => {
+    const args = parseArgs(["node", "cli", "tag", "list", "-p", "claude"]);
+    expect(args.flags.scopeExplicit).toBe(false);
+    expect(args.flags.provider).toBe("claude");
+  });
+});
+
 describe("parseArgs: audit residency (issue #423)", () => {
   test("residency parses as an audit subcommand, not a top-level verb", () => {
     const args = parseArgs(["node", "cli", "audit", "residency"]);
