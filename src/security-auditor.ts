@@ -155,7 +155,7 @@ export function applyExternalSymlinks(
   const count = (n: number, one: string, many: string) =>
     `${n} ${n === 1 ? one : many}`;
   const outside = links.filter(
-    (l) => l.kind === "file" || l.kind === "directory",
+    (l) => l.kind === "file" || l.kind === "directory" || l.kind === "special",
   );
   const broken = links.filter(
     (l) => l.kind === "dangling" || l.kind === "loop",
@@ -163,7 +163,7 @@ export function applyExternalSymlinks(
   const parts: string[] = [];
   if (outside.length > 0) {
     parts.push(
-      `${count(outside.length, "symlink points", "symlinks point")} outside the skill folder (${outside.map((l) => l.path).join(", ")}); ${outside.length === 1 ? "its target was" : "their targets were"} scanned read-only`,
+      `${count(outside.length, "symlink points", "symlinks point")} outside the skill folder (${outside.map((l) => l.path).join(", ")}); content outside the folder was NOT read and must be reviewed by hand`,
     );
   }
   if (broken.length > 0) {
@@ -183,13 +183,18 @@ export function applyExternalSymlinks(
 
 export interface AuditSkillSecurityOptions {
   /**
-   * Local-folder mode (#779): report symlinks that leave `skillPath`, dangle,
-   * or loop, and raise the verdict for them. Escaping targets are still
-   * scanned read-only, so code findings match the installed copy.
+   * Local-folder mode (#779): never read outside `skillPath`. Symlinks that
+   * leave it, dangle, or loop are reported as critical findings (verdict at
+   * least `warning`) and their targets are never opened, read or walked.
    */
   trackSymlinks?: boolean;
   /** Symlinks already found by the caller (e.g. a collection child link). */
   externalSymlinks?: ExternalSymlink[];
+  /**
+   * Set false to read nothing at all — used when `skillPath` itself is a
+   * link outside the audited folder, so only the link findings are reported.
+   */
+  readFiles?: boolean;
 }
 
 export async function auditSkillSecurity(
@@ -204,12 +209,15 @@ export async function auditSkillSecurity(
   const links: ExternalSymlink[] = [...(options.externalSymlinks ?? [])];
 
   // Read all files, excluding documentation
-  const allFiles = await readFilesRecursive(
-    skillPath,
-    options.trackSymlinks
-      ? { onExternalSymlink: (link) => links.push(link) }
-      : {},
-  );
+  const allFiles =
+    options.readFiles === false
+      ? []
+      : await readFilesRecursive(
+          skillPath,
+          options.trackSymlinks
+            ? { onExternalSymlink: (link) => links.push(link) }
+            : {},
+        );
   const files = allFiles.filter((f) => !isDocFile(f.relPath));
   const totalLines = files.reduce((sum, f) => sum + f.lineCount, 0);
 

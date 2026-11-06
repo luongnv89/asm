@@ -359,11 +359,14 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
       const note =
         link.kind === "dangling" || link.kind === "loop"
           ? `${link.kind}, not followed`
-          : `${link.kind}, scanned read-only`;
+          : `${link.kind}, NOT read`;
       lines.push(
         `     ${color.dim(link.path)} -> ${link.target || color.dim("(unreadable)")} ${color.dim(`(${note})`)}`,
       );
     }
+    lines.push(
+      `     ${color.dim("Content outside the skill folder is never read. Review these targets by hand.")}`,
+    );
     lines.push("");
   }
 

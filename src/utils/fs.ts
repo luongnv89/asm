@@ -1,7 +1,8 @@
+import { constants as fsConstants } from "fs";
 import {
   lstat,
+  open,
   readdir,
-  readFile,
   readlink,
   realpath,
   stat,
@@ -101,13 +102,76 @@ export function isPathInside(parent: string, child: string): boolean {
   );
 }
 
+/**
+ * Read a text file without ever blocking or reading without bound: open it
+ * non-blocking, `fstat` the descriptor (so a file swapped for a FIFO or device
+ * after an earlier `stat` is still caught), skip anything that is not a
+ * regular file, and read at most `maxBytes + 1` bytes. Returns null when the
+ * file is not regular, unreadable, or larger than `maxBytes` — including
+ * procfs/sysfs files that report a size of 0 but stream far more.
+ */
+export async function readBoundedTextFile(
+  path: string,
+  maxBytes: number = MAX_FILE_SIZE,
+): Promise<string | null> {
+  let handle;
+  try {
+    handle = await open(
+      path,
+      fsConstants.O_RDONLY | (fsConstants.O_NONBLOCK ?? 0),
+    );
+  } catch {
+    return null;
+  }
+  try {
+    if (!(await handle.stat()).isFile()) return null;
+    const buf = Buffer.alloc(maxBytes + 1);
+    let total = 0;
+    while (total < buf.length) {
+      const { bytesRead } = await handle.read(
+        buf,
+        total,
+        buf.length - total,
+        total,
+      );
+      if (bytesRead === 0) break;
+      total += bytesRead;
+    }
+    if (total > maxBytes) return null;
+    return buf.subarray(0, total).toString("utf-8");
+  } catch {
+    return null;
+  } finally {
+    await handle.close().catch(() => {});
+  }
+}
+
+const UNREAD_NOTE: Record<ExternalSymlink["kind"], string> = {
+  file: "Points outside the skill folder; the target was NOT read. Review it by hand.",
+  directory:
+    "Points outside the skill folder; the target was NOT read. Review it by hand.",
+  special:
+    "Points outside the skill folder to a FIFO, device or other special file; it was NOT read. Review it by hand.",
+  dangling: "The target does not exist; the link was not followed.",
+  loop: "The link loops; it was not followed.",
+};
+
+/** A critical finding for a link the audit did not read or follow (#779). */
+export function externalLink(
+  path: string,
+  target: string,
+  kind: ExternalSymlink["kind"],
+): ExternalSymlink {
+  return { path, target, kind, severity: "critical", note: UNREAD_NOTE[kind] };
+}
+
 export interface ReadFilesRecursiveOptions {
   /**
-   * Track symlinks against `dir` (#779). When set, every symlink that resolves
-   * outside `dir` is reported and then followed read-only, so its content is
-   * still scanned; dangling links and links that loop back into a directory
-   * being walked are reported and never followed. Without it the walk keeps
-   * its historical follow-everything behaviour.
+   * Confine the walk to `dir` (#779). When set, a symlink that resolves
+   * outside `dir` is reported and never opened, read or descended into;
+   * dangling links and links that loop back into a directory being walked are
+   * reported and never followed. Without it the walk keeps its historical
+   * follow-everything behaviour.
    */
   onExternalSymlink?: (link: ExternalSymlink) => void;
 }
@@ -152,29 +216,36 @@ export async function readFilesRecursive(
             linkTarget = await realpath(fullPath);
           } catch (err) {
             const raw = await readlink(fullPath).catch(() => "");
-            report({
-              path: relPath,
-              target: raw ? resolve(dirname(fullPath), raw) : "",
-              kind:
+            report(
+              externalLink(
+                relPath,
+                raw ? resolve(dirname(fullPath), raw) : "",
                 (err as NodeJS.ErrnoException).code === "ELOOP"
                   ? "loop"
                   : "dangling",
-            });
+              ),
+            );
+            continue;
+          }
+          if (!isPathInside(rootReal, linkTarget)) {
+            // Metadata only: the target is never opened, read or walked.
+            let kind: ExternalSymlink["kind"] = "special";
+            try {
+              const t = await stat(fullPath);
+              if (t.isDirectory()) kind = "directory";
+              else if (t.isFile()) kind = "file";
+            } catch {
+              kind = "dangling";
+            }
+            report(externalLink(relPath, linkTarget, kind));
             continue;
           }
         }
         const s = await stat(fullPath);
         if (linkTarget !== null && report) {
           if (s.isDirectory() && ancestors.has(linkTarget)) {
-            report({ path: relPath, target: linkTarget, kind: "loop" });
+            report(externalLink(relPath, linkTarget, "loop"));
             continue;
-          }
-          if (!isPathInside(rootReal, linkTarget)) {
-            report({
-              path: relPath,
-              target: linkTarget,
-              kind: s.isDirectory() ? "directory" : "file",
-            });
           }
         }
         if (s.isDirectory()) {
@@ -191,16 +262,13 @@ export async function readFilesRecursive(
           if (BINARY_EXTENSIONS.has(ext)) continue;
           if (s.size > MAX_FILE_SIZE) continue;
 
-          try {
-            const content = await readFile(fullPath, "utf-8");
-            results.push({
-              relPath,
-              content,
-              lineCount: content.split("\n").length,
-            });
-          } catch {
-            // skip unreadable
-          }
+          const content = await readBoundedTextFile(fullPath);
+          if (content === null) continue;
+          results.push({
+            relPath,
+            content,
+            lineCount: content.split("\n").length,
+          });
         }
       } catch {
         continue;

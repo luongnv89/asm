@@ -8,6 +8,7 @@ import {
   applyExternalSymlinks,
 } from "./security-auditor";
 import { dirname } from "path";
+import { externalLink } from "./utils/fs";
 import { fileURLToPath } from "url";
 import { spawnCollect } from "./utils/test-spawn";
 
@@ -487,12 +488,9 @@ describe("CLI integration: audit security", () => {
 });
 
 describe("applyExternalSymlinks (#779)", () => {
-  const out = {
-    path: "x.sh",
-    target: "/elsewhere/x.sh",
-    kind: "file" as const,
-  };
-  const gone = { path: "y", target: "/nowhere", kind: "dangling" as const };
+  const out = externalLink("x.sh", "/elsewhere/x.sh", "file");
+  const gone = externalLink("y", "/nowhere", "dangling");
+  const fifo = externalLink("f", "/elsewhere/fifo", "special");
 
   test("no links leaves the verdict alone", () => {
     expect(applyExternalSymlinks("safe", "fine.", [])).toEqual({
@@ -508,6 +506,10 @@ describe("applyExternalSymlinks (#779)", () => {
       "1 symlink points outside the skill folder (x.sh)",
     );
     expect(safe.reason).toContain("1 symlink dangles or loops");
+    expect(safe.reason).toContain("was NOT read and must be reviewed by hand");
+    expect(applyExternalSymlinks("safe", "", [fifo]).verdict).toBe("warning");
+    expect(out).toMatchObject({ severity: "critical" });
+    expect(out.note).toContain("NOT read");
     const caution = applyExternalSymlinks("caution", "2 warnings found.", [
       out,
     ]);

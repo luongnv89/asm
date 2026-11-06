@@ -17,8 +17,9 @@ import {
   resolveSubpath,
 } from "../installer";
 import { resolveEvalInput } from "../evaluator-batch";
-import { isPathInside } from "../utils/fs";
-import type { ExternalSymlink, SecurityAuditReport } from "../utils/types";
+import { externalLink, isPathInside, readBoundedTextFile } from "../utils/fs";
+import { parseFrontmatter } from "../utils/frontmatter";
+import type { SecurityAuditReport } from "../utils/types";
 import { computeResidencyAudit, formatResidencyReport } from "../residency";
 import {
   detectDuplicates,
@@ -70,9 +71,10 @@ ${ansi.bold("Security target resolution:")}
   anything else                     Installed skill name (honours --scope);
                                     a bare name never means a local folder
 
-  In a local folder, a symlink that points outside it is reported as a
-  finding (verdict at least WARNING) and its target is scanned read-only;
-  dangling and looping symlinks are reported and never followed.
+  A local audit never opens, reads or walks anything outside the folder.
+  A symlink that points outside it is a critical finding (verdict at least
+  WARNING) whose target was NOT read and must be reviewed by hand; dangling
+  and looping symlinks are reported and never followed.
 
 ${ansi.bold("Options:")}
   --json             Output as JSON
@@ -444,7 +446,10 @@ function failSecurityTarget(
   process.exit(1);
 }
 
-/** Frontmatter name, unless SKILL.md is a symlink that leaves `rootReal`. */
+/**
+ * Frontmatter name, read with the bounded reader and only when SKILL.md
+ * resolves inside `rootReal`; otherwise the folder name.
+ */
 async function localSkillName(
   skillDir: string,
   rootReal: string,
@@ -452,7 +457,9 @@ async function localSkillName(
   try {
     const mdReal = await fsRealpath(join(skillDir, "SKILL.md"));
     if (isPathInside(rootReal, mdReal)) {
-      return (await validateSkill(skillDir)).name;
+      const content = await readBoundedTextFile(mdReal);
+      const name = content === null ? "" : parseFrontmatter(content).name;
+      if (name) return name;
     }
   } catch {
     // unreadable SKILL.md — fall back to the folder name
@@ -464,11 +471,11 @@ async function localSkillName(
  * `asm audit security <path>` — audit a local skill folder, or every child
  * skill of a collection folder, without installing it (#779). Resolution of
  * single-vs-collection is `asm eval`'s (`resolveEvalInput`). The folder is only
- * read: nothing in it is installed or executed. Symlinks that resolve outside
- * the audited folder are reported as findings (verdict at least `warning`)
- * and their targets scanned read-only; dangling and looping links are
- * reported and never followed. A collection child that links outside the
- * collection is audited the same way.
+ * read: nothing in it is installed or executed, and nothing outside it is
+ * ever opened, read or walked. Symlinks that resolve outside the audited
+ * folder, dangle, or loop are critical findings (verdict at least `warning`)
+ * whose targets are not read. A collection child that is a symlink out of
+ * the collection is reported under its link name the same way, unread.
  */
 export async function cmdAuditSecurityLocal(
   args: ParsedArgs,
@@ -511,22 +518,30 @@ export async function cmdAuditSecurityLocal(
   const reports: SecurityAuditReport[] = [];
   for (const dir of skillDirs) {
     const real = await fsRealpath(dir);
-    // A collection child that is a symlink out of the collection is audited
-    // like any other child, and the link itself is a finding.
-    const childLink: ExternalSymlink[] = isPathInside(rootReal, real)
-      ? []
-      : [{ path: basename(dir), target: real, kind: "directory" }];
-    const name = await localSkillName(real, real);
+    // A collection child that is a symlink out of the collection is never
+    // read: it is reported under its link name with the link as a finding.
+    const outside = !isPathInside(rootReal, real);
+    const name = outside ? basename(dir) : await localSkillName(real, real);
     console.error(
       isCollection
         ? `  Scanning ${ansi.bold(name)}...`
         : `Auditing local skill: ${ansi.bold(name)}...\n`,
     );
     reports.push(
-      await auditSkillSecurity(real, name, undefined, undefined, {
-        trackSymlinks: true,
-        externalSymlinks: childLink,
-      }),
+      await auditSkillSecurity(
+        outside ? dir : real,
+        name,
+        undefined,
+        undefined,
+        outside
+          ? {
+              readFiles: false,
+              externalSymlinks: [
+                externalLink(basename(dir), real, "directory"),
+              ],
+            }
+          : { trackSymlinks: true },
+      ),
     );
   }
 

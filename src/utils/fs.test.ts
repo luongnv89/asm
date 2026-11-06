@@ -2,7 +2,8 @@ import { describe, test, expect, beforeEach, afterEach } from "vitest";
 import { mkdtemp, mkdir, realpath, rm, symlink, writeFile } from "fs/promises";
 import { join, sep } from "path";
 import { tmpdir } from "os";
-import { isPathInside, readFilesRecursive } from "./fs";
+import { spawnSync } from "child_process";
+import { isPathInside, readBoundedTextFile, readFilesRecursive } from "./fs";
 import type { ExternalSymlink } from "./types";
 
 describe("isPathInside", () => {
@@ -58,32 +59,42 @@ describe("readFilesRecursive onExternalSymlink (#779)", () => {
     return { files, links };
   }
 
-  test("reports escaping links and still reads their targets", async () => {
+  test("reports escaping links and never reads their targets", async () => {
     const { files, links } = await walk();
     const paths = files.map((f) => f.relPath).sort();
-    expect(paths).toEqual([
-      "abs-escape.sh",
-      "escape-dir/secret.sh",
-      "inner.sh",
-      "rel-escape.sh",
-      "scripts/run.sh",
-    ]);
+    expect(paths).toEqual(["inner.sh", "scripts/run.sh"]);
+    expect(files.some((f) => f.content.includes("curl evil"))).toBe(false);
     const outsideReal = await realpath(outside);
     expect(
-      links.filter((l) => l.kind === "file" || l.kind === "directory"),
+      links
+        .filter((l) => l.kind === "file" || l.kind === "directory")
+        .map(({ path, target, kind, severity }) => ({
+          path,
+          target,
+          kind,
+          severity,
+        })),
     ).toEqual([
       {
         path: "abs-escape.sh",
         target: join(outsideReal, "secret.sh"),
         kind: "file",
+        severity: "critical",
       },
-      { path: "escape-dir", target: outsideReal, kind: "directory" },
+      {
+        path: "escape-dir",
+        target: outsideReal,
+        kind: "directory",
+        severity: "critical",
+      },
       {
         path: "rel-escape.sh",
         target: join(outsideReal, "secret.sh"),
         kind: "file",
+        severity: "critical",
       },
     ]);
+    expect(links.every((l) => l.note.length > 0)).toBe(true);
   });
 
   test("dangling links and loops are reported, never followed, never hang", async () => {
@@ -117,4 +128,53 @@ describe("readFilesRecursive onExternalSymlink (#779)", () => {
     expect(paths).toContain("rel-escape.sh");
     expect(paths).toContain("escape-dir/secret.sh");
   });
+});
+
+describe("readBoundedTextFile (#779 N2)", () => {
+  const isLinux = process.platform === "linux";
+  const hasMkfifo =
+    process.platform !== "win32" &&
+    spawnSync("mkfifo", ["--version"]).error === undefined;
+  let base: string;
+
+  beforeEach(async () => {
+    base = await mkdtemp(join(tmpdir(), "asm-fs-bounded-"));
+  });
+
+  afterEach(async () => {
+    await rm(base, { recursive: true, force: true });
+  });
+
+  test("reads a regular file and refuses one over the cap", async () => {
+    await writeFile(join(base, "small.sh"), "echo hi\n");
+    await writeFile(join(base, "big.sh"), "x".repeat(11));
+    expect(await readBoundedTextFile(join(base, "small.sh"))).toBe("echo hi\n");
+    expect(await readBoundedTextFile(join(base, "big.sh"), 10)).toBeNull();
+    expect(await readBoundedTextFile(join(base, "big.sh"), 11)).toBe(
+      "x".repeat(11),
+    );
+  });
+
+  test("returns null for a directory or a missing file", async () => {
+    expect(await readBoundedTextFile(base)).toBeNull();
+    expect(await readBoundedTextFile(join(base, "nope"))).toBeNull();
+  });
+
+  test.skipIf(!hasMkfifo)("never blocks on a FIFO", async () => {
+    spawnSync("mkfifo", [join(base, "fifo")]);
+    expect(await readBoundedTextFile(join(base, "fifo"))).toBeNull();
+  });
+
+  test.skipIf(!isLinux)(
+    "caps a procfs file that reports size 0 (default walk)",
+    async () => {
+      // /proc/self/pagemap reports st_size 0 but streams gigabytes.
+      await mkdir(join(base, "skill"));
+      await symlink("/proc/self/pagemap", join(base, "skill", "pm.sh"));
+      const started = Date.now();
+      const files = await readFilesRecursive(join(base, "skill"));
+      expect(Date.now() - started).toBeLessThan(5_000);
+      expect(files.map((f) => f.relPath)).not.toContain("pm.sh");
+    },
+  );
 });

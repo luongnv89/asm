@@ -431,7 +431,7 @@ asm audit security ./path/to/my-skill
 asm audit security ./skills/   # every skill in a collection folder
 ```
 
-A local target starts with `./`, `../`, `/` or `~`, or is an existing path that contains `/`; a bare name always means an installed skill. Local folders are only read. A symlink that points outside the folder is reported as a finding (verdict at least WARNING) and its target is scanned read-only; dangling and looping symlinks are reported and not followed.
+A local target starts with `./`, `../`, `/` or `~`, or is an existing path that contains `/`; a bare name always means an installed skill. Local folders are only read. Nothing outside the folder is ever opened, read or walked: a symlink that points outside it is reported as a critical finding (verdict at least WARNING) whose target was not read and must be reviewed by hand; dangling and looping symlinks are reported and not followed.
 
 ```bash
 asm audit security --all

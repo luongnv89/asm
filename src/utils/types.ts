@@ -806,15 +806,19 @@ export interface SecurityAuditReport {
 
 /**
  * A symlink found while auditing a local folder that the audit cannot treat
- * as part of that folder. `file`/`directory`: resolves outside the folder;
- * its target was scanned read-only. `dangling`/`loop`: never followed.
+ * as part of that folder (#779). `file`/`directory`/`special`: resolves
+ * outside the folder; the target is never opened, read or walked.
+ * `dangling`/`loop`: never followed. Always a critical finding.
  */
 export interface ExternalSymlink {
   /** Link path relative to the audited folder. */
   path: string;
   /** Absolute resolved target (for `dangling`, the path the link names). */
   target: string;
-  kind: "file" | "directory" | "dangling" | "loop";
+  kind: "file" | "directory" | "special" | "dangling" | "loop";
+  severity: "critical";
+  /** Human-readable statement that the target was not read or followed. */
+  note: string;
 }
 
 // ─── Bundle Types ─────────────────────────────────────────────────────────
