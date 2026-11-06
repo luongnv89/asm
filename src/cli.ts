@@ -26,6 +26,17 @@ export interface ParsedArgs {
     yes: boolean;
     noColor: boolean;
     scope: Scope;
+    /**
+     * True when `--scope`/`-s` was passed explicitly. The default scope is
+     * `both`, so consumers that must reject an explicit scope filter (e.g.
+     * `uninstall --library`) need this instead of comparing to the default.
+     */
+    scopeExplicit: boolean;
+    /**
+     * True when `-p`/`--tool`/`--provider` was passed explicitly, even when no
+     * value followed and `provider` is therefore null.
+     */
+    providerExplicit: boolean;
     sort: SortBy;
     provider: string | null;
     name: string | null;
@@ -141,6 +152,8 @@ export function parseArgs(argv: string[]): ParsedArgs {
       yes: false,
       noColor: false,
       scope: "both",
+      scopeExplicit: false,
+      providerExplicit: false,
       sort: "name",
       provider: null,
       name: null,
@@ -205,6 +218,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
     } else if (arg === "--no-color") {
       result.flags.noColor = true;
     } else if (arg === "--scope" || arg === "-s") {
+      result.flags.scopeExplicit = true;
       i++;
       const val = args[i];
       // Accept "local" as an alias for "project" (issue #91 examples use it);
@@ -232,6 +246,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
         process.exit(2);
       }
     } else if (arg === "--provider" || arg === "-p" || arg === "--tool") {
+      result.flags.providerExplicit = true;
       i++;
       result.flags.provider = args[i] || null;
     } else if (arg === "--name") {
@@ -454,7 +469,8 @@ ${ansi.bold("Commands:")}
   get <skill>            Print a skill body, or borrow its directory with --path
   cleanup <path>         Remove an exact directory borrowed by get --path
   deps                   Manage caller-owned temporary dependency leases
-  uninstall <skill-name> Remove a skill (with confirmation)
+  uninstall <skill-name> Remove a skill (with confirmation); --library removes
+                         one library original instead
   disable <target>       Disable skill(s) without uninstalling
   enable <target>        Re-enable disabled skill(s)
   install <source>       Install a skill from GitHub or local path
