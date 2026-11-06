@@ -1,10 +1,6 @@
 import { loadConfig, getLibrarySkillsDir } from "../config";
 import { scanAllSkills } from "../scanner";
-import {
-  lstat as fsLstat,
-  realpath as fsRealpath,
-  stat as fsStat,
-} from "fs/promises";
+import { realpath as fsRealpath, stat as fsStat } from "fs/promises";
 import { basename, dirname, join, resolve } from "path";
 import { buildRemovalPlan, executeRemoval } from "../uninstaller";
 import { formatJSON, ansi, shortenPath } from "../formatter";
@@ -455,11 +451,12 @@ function failSecurityTarget(
 
 /**
  * Frontmatter name, read with the bounded reader and only when SKILL.md
- * resolves inside `rootReal`; otherwise the folder name.
+ * resolves inside `rootReal`; otherwise `fallback` (the folder name).
  */
 async function localSkillName(
   skillDir: string,
   rootReal: string,
+  fallback: string = basename(skillDir),
 ): Promise<string> {
   try {
     const mdReal = await fsRealpath(join(skillDir, "SKILL.md"));
@@ -471,7 +468,7 @@ async function localSkillName(
   } catch {
     // unreadable SKILL.md — fall back to the folder name
   }
-  return basename(skillDir);
+  return fallback;
 }
 
 /**
@@ -574,14 +571,26 @@ export async function cmdAuditSecurityLocal(
 }
 
 /**
+ * An installed skill's name for the audit (#791): the frontmatter name only
+ * when SKILL.md resolves inside the skill's own folder, else its dir name.
+ * The scanner's `skill.name` may come from a SKILL.md linked outside it.
+ */
+function installedSkillName(skill: SkillInfo): Promise<string> {
+  return localSkillName(skill.realPath, skill.realPath, skill.dirName);
+}
+
+/**
  * Audit an installed skill confined to its own folder (#791), with the same
  * rule as a local folder (#779): symlinks inside it that leave it, dangle or
  * loop are critical findings whose targets are never read. The installed
- * folder itself is followed when it is a link (a linked or library install),
- * and the report records the real path as `resolvedPath`.
+ * folder itself is followed when it is (or sits under) a link — a linked or
+ * library install — and the report records the real path as `resolvedPath`.
  */
-function auditInstalledSkill(skill: SkillInfo): Promise<SecurityAuditReport> {
-  return auditSkillSecurity(skill.realPath, skill.name, undefined, undefined, {
+function auditInstalledSkill(
+  skill: SkillInfo,
+  name: string,
+): Promise<SecurityAuditReport> {
+  return auditSkillSecurity(skill.realPath, name, undefined, undefined, {
     trackSymlinks: true,
     ...(skill.realPath !== skill.path ? { resolvedPath: skill.realPath } : {}),
   });
@@ -616,8 +625,9 @@ export async function cmdAuditSecurityAll(args: ParsedArgs, startTime: number) {
 
   const reports = [];
   for (const skill of uniqueSkills) {
-    console.error(`  Scanning ${ansi.bold(skill.name)}...`);
-    reports.push(await auditInstalledSkill(skill));
+    const name = await installedSkillName(skill);
+    console.error(`  Scanning ${ansi.bold(name)}...`);
+    reports.push(await auditInstalledSkill(skill, name));
   }
 
   printSecurityReports(args, reports, startTime);
@@ -672,16 +682,15 @@ export async function cmdAuditSecuritySource(
       throw notASkill;
     });
     const outside = !isPathInside(rootReal, auditReal);
-    // lstat only: validateSkill would read SKILL.md through a link.
-    if (
-      !outside &&
-      !(await fsLstat(join(auditDir, "SKILL.md")).catch(() => null))
-    ) {
-      throw notASkill;
-    }
+    // stat only (metadata, never opened): validateSkill would read
+    // SKILL.md through a link, and block on a FIFO.
+    const mdStat = outside
+      ? null
+      : await fsStat(join(auditDir, "SKILL.md")).catch(() => null);
+    if (!outside && !mdStat?.isFile()) throw notASkill;
     const name = outside
       ? basename(auditDir)
-      : await localSkillName(auditReal, rootReal);
+      : await localSkillName(auditReal, rootReal, basename(auditDir));
     const report = await auditSkillSecurity(
       auditDir,
       name,
@@ -757,9 +766,10 @@ export async function cmdAuditSecurityInstalled(
   if (skill.realPath !== skill.path) {
     console.error(`Auditing ${skill.path} -> ${skill.realPath}`);
   }
-  console.error(`Auditing installed skill: ${ansi.bold(skill.name)}...\n`);
+  const name = await installedSkillName(skill);
+  console.error(`Auditing installed skill: ${ansi.bold(name)}...\n`);
 
-  const report = await auditInstalledSkill(skill);
+  const report = await auditInstalledSkill(skill, name);
 
   printSingleSecurityReport(args, report, startTime);
 }

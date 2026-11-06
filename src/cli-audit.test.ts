@@ -1328,6 +1328,44 @@ describe("installed, --all and github: audits never read outside the skill folde
     expect(res.stderr).toContain("SKILL.md not found");
   });
 
+  test.each([
+    ["installed name", ["named"]],
+    ["--all", ["--all"]],
+  ])(
+    "%s: a SKILL.md linked outside never supplies the printed name",
+    async (_label, target) => {
+      const dir = join(skillsDir(), "named");
+      await mkdir(dir, { recursive: true });
+      await writeFile(
+        join(outside, "creds.yaml"),
+        `---\nname: ${MARKER}\n---\n`,
+      );
+      await symlink(join(outside, "creds.yaml"), join(dir, "SKILL.md"));
+      for (const fmt of [[], ["--json"], ["--machine"]]) {
+        const res = await runAudit("audit", "security", ...target, ...fmt);
+        expect(res.exitCode).toBe(0);
+        expect(res.stdout + res.stderr).not.toContain(MARKER);
+      }
+      const data = JSON.parse(
+        (await runAudit("audit", "security", ...target, "--json")).stdout,
+      );
+      const r = Array.isArray(data) ? data[0] : data;
+      expect(r.skillName).toBe("named");
+      expect(linkSummary(r)).toEqual(["SKILL.md:file"]);
+      expect(r.verdict).toBe("warning");
+    },
+  );
+
+  test("github: a SKILL.md that is a folder is not a skill", async () => {
+    gitEnv = await makeGithubRepo(async (d) => {
+      await mkdir(join(d, "SKILL.md"), { recursive: true });
+      await writeFile(join(d, "SKILL.md", "x.txt"), "x\n");
+    });
+    const res = await runAudit("audit", "security", "github:acme/leaky");
+    expect(res.exitCode).toBe(1);
+    expect(res.stderr).toContain("SKILL.md not found");
+  });
+
   test("audit --help says the rule applies to every source", async () => {
     const { stdout } = await runAudit("audit", "--help");
     expect(stdout).toContain(

@@ -188,6 +188,26 @@ describe("readFilesRecursive onExternalSymlink (#779)", () => {
     expect(files).toEqual([]);
   });
 
+  test("sibling folders that link to each other are walked once each (#791)", async () => {
+    const mesh = join(base, "mesh");
+    const names = ["d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8"];
+    for (const n of names) {
+      await mkdir(join(mesh, n), { recursive: true });
+      await writeFile(join(mesh, n, "f.sh"), `echo ${n}\n`);
+    }
+    for (const n of names) {
+      for (const m of names) {
+        if (m !== n) await symlink(`../${m}`, join(mesh, n, `to-${m}`));
+      }
+    }
+    const started = Date.now();
+    const files = await readFilesRecursive(mesh, {
+      onExternalSymlink: () => {},
+    });
+    expect(Date.now() - started).toBeLessThan(5_000);
+    expect(files).toHaveLength(names.length);
+  });
+
   test("default behaviour still follows symlinks (unchanged for other callers)", async () => {
     await rm(join(skill, "scripts", "loop"));
     await rm(join(skill, "a"));

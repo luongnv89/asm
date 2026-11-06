@@ -272,6 +272,10 @@ export async function readFilesRecursive(
         if (s.isDirectory()) {
           if (report) {
             const real = linkTarget ?? (await realpath(fullPath));
+            // Each real folder is read once (#791): sibling folders linking
+            // to each other would otherwise make the walk explode.
+            if (walked.has(real)) continue;
+            walked.add(real);
             await walk(fullPath, relPath, new Set([...ancestors, real]));
           } else {
             await walk(fullPath, relPath, ancestors);
@@ -298,6 +302,7 @@ export async function readFilesRecursive(
     }
   }
 
+  const walked = new Set<string>([dirReal]);
   await walk(dir, "", new Set([dirReal]));
   return results;
 }
