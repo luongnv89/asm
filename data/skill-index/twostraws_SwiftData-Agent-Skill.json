@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/twostraws/SwiftData-Agent-Skill.git",
   "owner": "twostraws",
   "repo": "SwiftData-Agent-Skill",
-  "updatedAt": "2026-10-30T20:12:04.036Z",
+  "updatedAt": "2026-11-06T01:00:45.359Z",
   "skillCount": 1,
   "skills": [
     {
@@ -10,7 +10,7 @@
       "description": "Writes, reviews, and improves SwiftData code using modern APIs and best practices. Use when reading, writing, or reviewing projects that use SwiftData.",
       "version": "1.0",
       "license": "MIT",
-      "creator": "",
+      "creator": "Paul Hudson",
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
@@ -22,8 +22,8 @@
       "verified": true,
       "tokenCount": 974,
       "evalSummary": {
-        "overallScore": 78,
-        "grade": "C",
+        "overallScore": 83,
+        "grade": "B",
         "categories": [
           {
             "id": "structure",
@@ -64,7 +64,7 @@
           {
             "id": "license",
             "name": "License verification",
-            "score": 5,
+            "score": 10,
             "max": 10
           },
           {
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:12:04.031Z",
+        "evaluatedAt": "2026-11-06T01:00:45.353Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -95,8 +95,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 78,
-          "grade": "C",
+          "overallScore": 83,
+          "grade": "B",
           "categories": [
             {
               "id": "structure",
@@ -137,7 +137,7 @@
             {
               "id": "license",
               "name": "License verification",
-              "score": 5,
+              "score": 10,
               "max": 10
             },
             {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:12:04.031Z",
+          "evaluatedAt": "2026-11-06T01:00:45.353Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -177,7 +177,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-30T20:12:04.031Z",
+          "evaluatedAt": "2026-11-06T01:00:45.353Z",
           "evaluatedVersion": "1.0"
         }
       }
