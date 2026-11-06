@@ -37,7 +37,7 @@
 
 |                     |                                                                                |
 | ------------------- | ------------------------------------------------------------------------------ |
-| **Catalog**         | 6,962 skills from 86 repos — [browse online](https://luongnv.com/asm/#/skills) |
+| **Catalog**         | 7,267 skills from 86 repos — [browse online](https://luongnv.com/asm/#/skills) |
 | **Providers**       | 21 providers (Agents, Claude Code, Pi, OpenCode, Codex, …)                     |
 | **Agent-ready CLI** | `--json`, `--yes`, `--machine` on list, search, install, audit, eval           |
 | **Security**        | Pre-install scan for shell exec, network access, credential exposure           |
