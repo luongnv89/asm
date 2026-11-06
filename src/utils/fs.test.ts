@@ -1,5 +1,13 @@
 import { describe, test, expect, beforeEach, afterEach } from "vitest";
-import { mkdtemp, mkdir, realpath, rm, symlink, writeFile } from "fs/promises";
+import {
+  link,
+  mkdtemp,
+  mkdir,
+  realpath,
+  rm,
+  symlink,
+  writeFile,
+} from "fs/promises";
 import { join, sep } from "path";
 import { tmpdir } from "os";
 import { spawnSync } from "child_process";
@@ -112,6 +120,30 @@ describe("readFilesRecursive onExternalSymlink (#779)", () => {
       join(base, "missing"),
     );
     expect(files.some((f) => f.relPath.startsWith("scripts/loop"))).toBe(false);
+  });
+
+  test("skip-listed names that are outside links are reported, not walked", async () => {
+    await symlink(outside, join(skill, ".git"));
+    await symlink(outside, join(skill, "node_modules"));
+    const { files, links } = await walk();
+    expect(
+      links.filter((l) => l.path === ".git" || l.path === "node_modules"),
+    ).toHaveLength(2);
+    expect(files.some((f) => f.relPath.startsWith(".git/"))).toBe(false);
+    expect(files.some((f) => f.relPath.startsWith("node_modules/"))).toBe(
+      false,
+    );
+  });
+
+  test("reports files with more than one hard link via onHardLink", async () => {
+    await link(join(skill, "scripts", "run.sh"), join(base, "run-copy.sh"));
+    const hard: Array<[string, number]> = [];
+    await readFilesRecursive(skill, {
+      onExternalSymlink: () => {},
+      onHardLink: (p, n) => hard.push([p, n]),
+    });
+    // run.sh is reached directly and via the inner.sh link.
+    expect(hard).toContainEqual(["scripts/run.sh", 2]);
   });
 
   test("links that stay inside the folder are not reported", async () => {

@@ -802,6 +802,26 @@ export interface SecurityAuditReport {
    * to at least `warning`.
    */
   externalSymlinks?: ExternalSymlink[];
+  /**
+   * Local audits only: regular files inside the folder with more than one
+   * hard link. Info only; never changes the verdict. Present when non-empty.
+   */
+  hardLinks?: HardLinkNote[];
+  /**
+   * Local audits only: the real path audited, present when the target path
+   * the user named (or one of its parents) is a symlink that was followed.
+   */
+  resolvedPath?: string;
+}
+
+/** A file inside a local audit target with `st_nlink > 1` (#779). */
+export interface HardLinkNote {
+  /** File path relative to the audited folder. */
+  path: string;
+  /** `st_nlink` of the file. */
+  links: number;
+  severity: "info";
+  note: string;
 }
 
 /**

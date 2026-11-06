@@ -161,6 +161,11 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
       color.dim("|"),
   );
   lines.push(color.dim("  +" + "-".repeat(BOX_WIDTH - 2) + "+"));
+  if (report.resolvedPath) {
+    lines.push(
+      `  ${color.dim("Resolved:")} ${report.resolvedPath} ${color.dim("(target is a symlink; followed)")}`,
+    );
+  }
 
   // ── Source line (compact) ──
   if (report.source) {
@@ -350,10 +355,10 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
     }
   }
 
-  // ── Zone C2: Symlinks that leave the audited folder (#779) ──
+  // ── Zone C2: Symlinks not read — outside, dangling, looping (#779) ──
   if (symlinks.length > 0) {
     lines.push(
-      `  ${severityIcon("critical")} ${color.bold("Symlinks outside the skill folder")} (${color.red(`${symlinks.length} critical`)})`,
+      `  ${severityIcon("critical")} ${color.bold("Symlinks not read")} (${color.red(`${symlinks.length} critical`)})`,
     );
     for (const link of symlinks) {
       const note =
@@ -367,6 +372,20 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
     lines.push(
       `     ${color.dim("Content outside the skill folder is never read. Review these targets by hand.")}`,
     );
+    lines.push("");
+  }
+
+  // ── Zone C3: Hard links (info only, #779) ──
+  const hardLinks = report.hardLinks ?? [];
+  if (hardLinks.length > 0) {
+    lines.push(
+      `  ${severityIcon("info")} ${color.bold("Hard links")} (${color.dim(`${hardLinks.length} info`)})`,
+    );
+    for (const h of hardLinks) {
+      lines.push(
+        `     ${color.dim(h.path)} ${color.dim(`(${h.links} links) -- hard link: content may be shared with a file outside the folder`)}`,
+      );
+    }
     lines.push("");
   }
 

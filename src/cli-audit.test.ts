@@ -1,6 +1,15 @@
 import { describe, test, expect, beforeEach, afterEach } from "vitest";
 import { join } from "path";
-import { mkdtemp, rm, writeFile, mkdir, lstat, symlink } from "fs/promises";
+import {
+  mkdtemp,
+  rm,
+  writeFile,
+  mkdir,
+  lstat,
+  symlink,
+  link,
+  realpath,
+} from "fs/promises";
 import { tmpdir } from "os";
 import { spawnSync } from "child_process";
 import { runCLI, runCliInProcess, CLI_BIN } from "./cli-test-harness";
@@ -506,7 +515,13 @@ describe("CLI integration: audit security <local path> (#779)", () => {
       (await runAudit("audit", "security", "./shared-skill-src", "--json"))
         .stdout,
     );
-    expect(Object.keys(local).sort()).toEqual(Object.keys(installed).sort());
+    // resolvedPath appears only when the temp dir itself sits under a link
+    // (e.g. macOS /var -> /private/var).
+    const keys = (o: object) =>
+      Object.keys(o)
+        .filter((k) => k !== "resolvedPath")
+        .sort();
+    expect(keys(local)).toEqual(keys(installed));
     expect(local.skillName).toBe(installed.skillName);
     expect(local.verdict).toBe(installed.verdict);
     expect(local.codeScans).toEqual(installed.codeScans);
@@ -743,7 +758,7 @@ describe("CLI integration: audit security <local path> (#779)", () => {
     test("text and --machine output name each link and say it was not read", async () => {
       await writeEscapingSkill();
       const text = await runAudit("audit", "security", "./esc");
-      expect(text.stdout).toContain("Symlinks outside the skill folder");
+      expect(text.stdout).toContain("Symlinks not read");
       expect(text.stdout).toMatch(
         /linked\.sh -> .*outside.*evil\.sh \(file, NOT read\)/,
       );
@@ -764,6 +779,106 @@ describe("CLI integration: audit security <local path> (#779)", () => {
         links.every((l: { severity: string }) => l.severity === "critical"),
       ).toBe(true);
     });
+
+    test("skip-listed .git and node_modules links that leave the folder are reported (review r3 nit 1)", async () => {
+      const outside = join(cwd, "outside");
+      await mkdir(outside, { recursive: true });
+      await writeFile(join(outside, "evil.sh"), PAYLOAD);
+      await writeFile(join(home, ".env"), `API_KEY=${MARKER}\n`);
+      await writeSafeSkill(join(cwd, "skipl"), "skipl");
+      await symlink(outside, join(cwd, "skipl", ".git"));
+      await symlink(home, join(cwd, "skipl", "node_modules"));
+      for (const fmt of [[], ["--json"], ["--machine"]]) {
+        const res = await runAudit("audit", "security", "./skipl", ...fmt);
+        expect(res.stdout + res.stderr).not.toContain(MARKER);
+        expect(res.stdout).not.toContain("SAFE");
+      }
+      const report = await auditJson("./skipl");
+      expect(report.verdict).toBe("warning");
+      expect(
+        report.externalSymlinks
+          .map((l: { path: string; kind: string }) => `${l.path}:${l.kind}`)
+          .sort(),
+      ).toEqual([".git:directory", "node_modules:directory"]);
+    });
+
+    test("a real .git or node_modules folder inside is still skipped, unreported", async () => {
+      await writeSafeSkill(join(cwd, "realskip"), "realskip");
+      await mkdir(join(cwd, "realskip", ".git"));
+      await mkdir(join(cwd, "realskip", "node_modules", "x"), {
+        recursive: true,
+      });
+      await writeFile(
+        join(cwd, "realskip", "node_modules", "x", "i.sh"),
+        PAYLOAD,
+      );
+      const report = await auditJson("./realskip");
+      expect(report.verdict).toBe("safe");
+      expect(report.externalSymlinks).toBeUndefined();
+      expect(report.codeScans).toEqual([]);
+    });
+
+    test("a target that is itself a symlink is followed and announced (review r3 nit 2)", async () => {
+      await writeSafeSkill(join(cwd, "outside", "realskill"), "realskill");
+      await symlink("outside/realskill", join(cwd, "alias-out"));
+      const real = await realpath(join(cwd, "outside", "realskill"));
+
+      const text = await runAudit("audit", "security", "./alias-out");
+      expect(text.exitCode).toBe(0);
+      expect(text.stderr).toContain(`Auditing ./alias-out -> ${real}`);
+      expect(text.stdout).toContain(`Resolved: ${real}`);
+
+      const json = await auditJson("./alias-out");
+      expect(json.resolvedPath).toBe(real);
+      expect(json.skillPath).toBe(real);
+
+      const machine = JSON.parse(
+        (await runAudit("audit", "security", "./alias-out", "--machine"))
+          .stdout,
+      );
+      expect(machine.data.findings[0].resolved_path).toBe(real);
+
+      // A folder under a linked parent is announced the same way.
+      await symlink("outside", join(cwd, "alias-parent"));
+      const parent = await auditJson("./alias-parent/realskill");
+      expect(parent.resolvedPath).toBe(real);
+    });
+
+    test("a plain target carries no resolvedPath", async () => {
+      if ((await realpath(cwd)) !== cwd) return; // temp dir under a link
+      await writeSafeSkill(join(cwd, "plain"), "plain");
+      const res = await runAudit("audit", "security", "./plain", "--json");
+      expect(JSON.parse(res.stdout).resolvedPath).toBeUndefined();
+      expect(res.stderr).not.toContain(" -> ");
+    });
+
+    test.skipIf(process.platform === "win32")(
+      "a hard-linked file gets an info note and does not change the verdict (review r3 nit 4)",
+      async () => {
+        await writeSafeSkill(join(cwd, "hard"), "hard");
+        await writeFile(join(cwd, "shared.sh"), "echo shared\n");
+        await link(join(cwd, "shared.sh"), join(cwd, "hard", "shared.sh"));
+        const report = await auditJson("./hard");
+        expect(report.verdict).toBe("safe");
+        expect(report.hardLinks).toEqual([
+          {
+            path: "shared.sh",
+            links: 2,
+            severity: "info",
+            note: "Hard link: content may be shared with a file outside the folder.",
+          },
+        ]);
+        const text = await runAudit("audit", "security", "./hard");
+        expect(text.stdout).toContain("Hard links");
+        expect(text.stdout).toContain("shared.sh (2 links)");
+        expect(text.stdout).toContain("SAFE");
+        const machine = JSON.parse(
+          (await runAudit("audit", "security", "./hard", "--machine")).stdout,
+        );
+        expect(machine.data.verdict).toBe("safe");
+        expect(machine.data.findings[0].hard_links).toHaveLength(1);
+      },
+    );
 
     test("dangling and looping links are findings and do not hang", async () => {
       await writeSafeSkill(join(cwd, "loopy"), "loopy");

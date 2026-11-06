@@ -174,6 +174,12 @@ export interface ReadFilesRecursiveOptions {
    * follow-everything behaviour.
    */
   onExternalSymlink?: (link: ExternalSymlink) => void;
+  /**
+   * Confined mode only: called for each regular file inside `dir` that has
+   * more than one hard link (`st_nlink > 1`). The file is still read; its
+   * content may be shared with a file outside the folder.
+   */
+  onHardLink?: (relPath: string, links: number) => void;
 }
 
 export async function readFilesRecursive(
@@ -204,7 +210,11 @@ export async function readFilesRecursive(
     }
 
     for (const entry of entries) {
-      if (entry === ".git" || entry === "node_modules") continue;
+      // Skip-listed names are never scanned. In confined mode the symlink
+      // check below runs first, so a `.git` or `node_modules` link that
+      // leaves the folder is still reported.
+      const skipListed = entry === ".git" || entry === "node_modules";
+      if (skipListed && !report) continue;
 
       const fullPath = join(currentDir, entry);
       const relPath = prefix ? `${prefix}/${entry}` : entry;
@@ -241,6 +251,7 @@ export async function readFilesRecursive(
             continue;
           }
         }
+        if (skipListed) continue;
         const s = await stat(fullPath);
         if (linkTarget !== null && report) {
           if (s.isDirectory() && ancestors.has(linkTarget)) {
@@ -261,6 +272,7 @@ export async function readFilesRecursive(
             : "";
           if (BINARY_EXTENSIONS.has(ext)) continue;
           if (s.size > MAX_FILE_SIZE) continue;
+          if (report && s.nlink > 1) options.onHardLink?.(relPath, s.nlink);
 
           const content = await readBoundedTextFile(fullPath);
           if (content === null) continue;

@@ -72,9 +72,10 @@ ${ansi.bold("Security target resolution:")}
                                     a bare name never means a local folder
 
   A local audit never opens, reads or walks anything outside the folder.
-  A symlink that points outside it is a critical finding (verdict at least
-  WARNING) whose target was NOT read and must be reviewed by hand; dangling
-  and looping symlinks are reported and never followed.
+  A symlink in it that points outside, dangles or loops is a critical
+  finding that was NOT read; because the content was not read, it raises
+  the verdict to WARNING, not DANGEROUS. Review those targets by hand. A
+  target that is itself a symlink is followed and its real path is shown.
 
 ${ansi.bold("Options:")}
   --json             Output as JSON
@@ -475,7 +476,9 @@ async function localSkillName(
  * ever opened, read or walked. Symlinks that resolve outside the audited
  * folder, dangle, or loop are critical findings (verdict at least `warning`)
  * whose targets are not read. A collection child that is a symlink out of
- * the collection is reported under its link name the same way, unread.
+ * the collection is reported under its link name the same way, unread. The
+ * target the user named is itself followed when it is a symlink (or sits
+ * under one), and the report records the real path as `resolvedPath`.
  */
 export async function cmdAuditSecurityLocal(
   args: ParsedArgs,
@@ -487,6 +490,7 @@ export async function cmdAuditSecurityLocal(
   let skillDirs: string[];
   let isCollection: boolean;
   let rootReal: string;
+  let givenRoot: string;
   try {
     const resolved = await resolveEvalInput(absPath);
     const mdPath = resolved.targets[0]?.skillMdPath;
@@ -497,6 +501,7 @@ export async function cmdAuditSecurityLocal(
     }
     isCollection = resolved.isCollection;
     const auditRoot = isCollection ? absPath : dirname(mdPath!);
+    givenRoot = resolve(auditRoot);
     rootReal = await fsRealpath(auditRoot);
     skillDirs = isCollection
       ? resolved.targets.map((t) => t.skillPath)
@@ -507,6 +512,13 @@ export async function cmdAuditSecurityLocal(
       `${errorMessage(err)}\n${ACCEPTED_SECURITY_TARGETS}`,
       startTime,
     );
+  }
+
+  // The target the user named is followed even when it (or a parent) is a
+  // symlink, but the report says so (#779).
+  const linkedTarget = rootReal !== givenRoot;
+  if (linkedTarget) {
+    console.error(`Auditing ${target} -> ${rootReal}`);
   }
 
   if (isCollection) {
@@ -540,7 +552,10 @@ export async function cmdAuditSecurityLocal(
                 externalLink(basename(dir), real, "directory"),
               ],
             }
-          : { trackSymlinks: true },
+          : {
+              trackSymlinks: true,
+              ...(linkedTarget ? { resolvedPath: real } : {}),
+            },
       ),
     );
   }

@@ -2,6 +2,7 @@ import { debug } from "./logger";
 import { readFilesRecursive } from "./utils/fs";
 import type {
   ExternalSymlink,
+  HardLinkNote,
   SourceAnalysis,
   CodeScanCategory,
   PermissionRequest,
@@ -191,6 +192,11 @@ export interface AuditSkillSecurityOptions {
   /** Symlinks already found by the caller (e.g. a collection child link). */
   externalSymlinks?: ExternalSymlink[];
   /**
+   * The real path audited, recorded as `resolvedPath` when the target the
+   * user named went through a symlink that was followed.
+   */
+  resolvedPath?: string;
+  /**
    * Set false to read nothing at all — used when `skillPath` itself is a
    * link outside the audited folder, so only the link findings are reported.
    */
@@ -207,6 +213,7 @@ export async function auditSkillSecurity(
   debug(`security-audit: scanning ${skillPath}`);
 
   const links: ExternalSymlink[] = [...(options.externalSymlinks ?? [])];
+  const hardLinks: HardLinkNote[] = [];
 
   // Read all files, excluding documentation
   const allFiles =
@@ -215,7 +222,16 @@ export async function auditSkillSecurity(
       : await readFilesRecursive(
           skillPath,
           options.trackSymlinks
-            ? { onExternalSymlink: (link) => links.push(link) }
+            ? {
+                onExternalSymlink: (link) => links.push(link),
+                onHardLink: (path, count) =>
+                  hardLinks.push({
+                    path,
+                    links: count,
+                    severity: "info",
+                    note: "Hard link: content may be shared with a file outside the folder.",
+                  }),
+              }
             : {},
         );
   const files = allFiles.filter((f) => !isDocFile(f.relPath));
@@ -253,6 +269,8 @@ export async function auditSkillSecurity(
     verdict,
     verdictReason: reason,
     ...(links.length > 0 ? { externalSymlinks: links } : {}),
+    ...(hardLinks.length > 0 ? { hardLinks } : {}),
+    ...(options.resolvedPath ? { resolvedPath: options.resolvedPath } : {}),
   };
 }
 
