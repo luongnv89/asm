@@ -651,7 +651,7 @@ describe("discoverSkills", () => {
 
     const discovered = await discoverSkills(tempDir);
     const by = (n: string) => discovered.find((s) => s.name === n)?.creator;
-    expect(by("root")).toBe("Luong NGUYEN <luongnv89@gmail.com>");
+    expect(by("root")).toBe("Luong NGUYEN");
     expect(by("both")).toBe("c1");
     expect(by("neither")).toBe("");
   });

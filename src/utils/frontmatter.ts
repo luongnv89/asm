@@ -168,11 +168,24 @@ export function resolveVersion(fm: Record<string, string>): string {
   return fm["metadata.version"] || fm.version || "0.0.0";
 }
 
+const TRAILING_ANGLE_EMAIL = /\s*<[^<>]*@[^<>]*>\s*$/;
+const BARE_EMAIL = /^[^\s@<>]+@[^\s@<>]+$/;
+
+/** One creator entry as a display name: no trailing `<email>`, no bare email. */
+function creatorDisplayName(part: string): string {
+  const name = part.trim().replace(TRAILING_ANGLE_EMAIL, "").trim();
+  return BARE_EMAIL.test(name) ? "" : name;
+}
+
 /**
- * Resolve a skill's display creator. `metadata.creator` wins, then
- * `metadata.author` (the skill-creator standard), then the legacy top-level
- * `creator` / `author` keys the evaluator already accepts. The value is kept
- * as written (e.g. `Name <email>`), trimmed; "" when none is set.
+ * Resolve a skill's display creator. The first non-blank key wins:
+ * `metadata.creator`, then `metadata.author` (the skill-creator standard),
+ * then the legacy top-level `creator` / `author` keys the evaluator already
+ * accepts. The creator is a display name only, so author email addresses never
+ * reach the index or the public catalog: a trailing `<email>` is stripped
+ * (`Name <user@host>` → `Name`) and a bare email becomes "". List-form values
+ * (one entry per line) are joined with ", ", dropping empty entries. The rest
+ * is kept as written; "" when none is set.
  */
 export function resolveCreator(fm: Record<string, string>): string {
   for (const key of [
@@ -182,7 +195,12 @@ export function resolveCreator(fm: Record<string, string>): string {
     "author",
   ]) {
     const value = (fm[key] || "").trim();
-    if (value) return value;
+    if (!value) continue;
+    return value
+      .split(/\r?\n/)
+      .map(creatorDisplayName)
+      .filter(Boolean)
+      .join(", ");
   }
   return "";
 }

@@ -99,7 +99,7 @@ describe("buildGhostSkills", () => {
       [
         "author-only",
         "metadata:\n  author: Luong NGUYEN <x@example.com>",
-        "Luong NGUYEN <x@example.com>",
+        "Luong NGUYEN",
       ],
       ["both-keys", "metadata:\n  creator: c1\n  author: a1", "c1"],
       ["neither", "effort: low", ""],

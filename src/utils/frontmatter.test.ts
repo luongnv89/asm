@@ -382,7 +382,7 @@ describe("resolveCreator (#787)", () => {
       resolveCreator({
         "metadata.author": "Luong NGUYEN <luongnv89@gmail.com>",
       }),
-    ).toBe("Luong NGUYEN <luongnv89@gmail.com>");
+    ).toBe("Luong NGUYEN");
   });
 
   it("prefers metadata.creator over metadata.author", () => {
@@ -409,6 +409,37 @@ describe("resolveCreator (#787)", () => {
       resolveCreator({ "metadata.creator": "   ", "metadata.author": " a " }),
     ).toBe("a");
     expect(resolveCreator({ name: "x" })).toBe("");
+  });
+
+  it("keeps a plain handle as written", () => {
+    expect(resolveCreator({ "metadata.author": "luongnv89" })).toBe(
+      "luongnv89",
+    );
+  });
+
+  it("strips a trailing <email>, including surrounding spaces", () => {
+    expect(resolveCreator({ "metadata.author": "  Name <x@y>  " })).toBe(
+      "Name",
+    );
+    expect(resolveCreator({ "metadata.creator": "Name<x@y>" })).toBe("Name");
+    expect(resolveCreator({ "metadata.author": "<x@y>" })).toBe("");
+  });
+
+  it("returns empty for a bare email so no address is exposed", () => {
+    expect(resolveCreator({ "metadata.author": "a@b.com" })).toBe("");
+    expect(resolveCreator({ author: " a@b.com " })).toBe("");
+  });
+
+  it("joins a list-form value with ', ', trimming and dropping empty parts", () => {
+    expect(resolveCreator({ author: "Alice\nBob" })).toBe("Alice, Bob");
+    expect(
+      resolveCreator({ author: " Alice <a@x.io>\n\n  \nbob@x.io\n Bob " }),
+    ).toBe("Alice, Bob");
+    expect(
+      resolveCreator(
+        parseFrontmatter("---\nname: s\nauthor:\n  - Alice\n  - Bob\n---\n"),
+      ),
+    ).toBe("Alice, Bob");
   });
 });
 

@@ -1758,9 +1758,7 @@ describe("creator from metadata.author (#787)", () => {
 
     const skills = await scanAllSkills(makeScanConfig([tempDir]), "project");
     const by = (n: string) => skills.find((s) => s.name === n)!;
-    expect(by("author-only").creator).toBe(
-      "Luong NGUYEN <luongnv89@gmail.com>",
-    );
+    expect(by("author-only").creator).toBe("Luong NGUYEN");
     expect(by("both-keys").creator).toBe("the-creator");
     expect(by("neither").creator).toBe("");
 
