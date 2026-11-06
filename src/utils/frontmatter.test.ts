@@ -523,9 +523,62 @@ describe("resolveCreator (#787)", () => {
     expect(resolveCreator(fm)).toBe(expected);
   });
 
-  const EMAIL_SHAPE = /[^\s<>()[\],;:]+@[^\s<>()[\],;:]+\.[a-z]{2,}/i;
+  // Forms an email regex missed: any token with an `@` after a character goes.
+  const LEAK_CASES: Array<[string, string]> = [
+    ['Quoted "john doe"@x.com', "Quoted"],
+    ['"john"@x.com', ""],
+    ["a@[1.2.3.4]", ""],
+    ["a{b}@x.com", ""],
+    ["john.o'brien@x.com", ""],
+    ["Contact:alice@x.org", ""],
+    ["O'neil o'neil@x.com", "O'neil"],
+    ['Bob <bob@x.org>, "Al" <"al"@y.org>', 'Bob, "Al"'],
+    ["Ang <<a@x.org>>", "Ang"],
+    ["Bq `b@x.org`", "Bq"],
+    ["Star *s@x.org*", "Star"],
+    ["Pipe|p@x.org", ""],
+    ["Uni \u00f1o\u00f1o@ex\u00e4mple.de", "Uni"],
+    ["Full a\uFF20b.co", "Full"],
+    ["Md [Alice](mailto:alice@x.org)", "Md [Alice]"],
+    ["Glued Name<x@y.org>", "Glued Name"],
+    ["Big A <ALICE@EXAMPLE.CO>", "Big A"],
+    ["Noltd a@b", "Noltd"],
+  ];
 
-  it("never returns an email-shaped substring (property)", () => {
+  it.each(LEAK_CASES)("removes the email token: %s", (value, expected) => {
+    expect(resolveCreator({ "metadata.author": value })).toBe(expected);
+  });
+
+  // Names with no email stay exactly as written.
+  const NAME_CASES = [
+    "@luongnv89",
+    "Team @ Acme",
+    "Jean-Luc O'Neil",
+    "Ng\u01b0\u1ec5n V\u0103n L\u01b0\u01a1ng",
+    "Acme, Inc.",
+    "C3PO (droid)",
+    "https://github.com/luongnv89",
+    "Luong NGUYEN (@luongnv89)",
+    "'quoted' name",
+    "Smith; Jones",
+    "[Acme] Bot",
+  ];
+
+  it.each(NAME_CASES)("keeps a name with no email unchanged: %s", (value) => {
+    expect(resolveCreator({ "metadata.author": value })).toBe(value);
+  });
+
+  it("unwraps a value only when both ends carry the same quote", () => {
+    expect(resolveCreator({ "metadata.author": "'Both Quoted'" })).toBe(
+      "Both Quoted",
+    );
+    expect(resolveCreator({ author: '"Alice"' })).toBe("Alice");
+  });
+
+  // No `@` may follow a non-whitespace character in any output.
+  const AT_AFTER_CHARACTER = /\S[@\uFF20\uFE6B]/;
+
+  it("never returns an @ after a non-space character (property)", () => {
     const emails = [
       "a@b.co",
       "first.last+tag@sub.example.org",
@@ -544,7 +597,10 @@ describe("resolveCreator (#787)", () => {
       "[N W, W]",
       "N\nW\nOther W",
     ];
-    const inputs = EMAIL_CASES.map(([, fm]) => fm);
+    const inputs = [
+      ...EMAIL_CASES.map(([, fm]) => fm),
+      ...LEAK_CASES.map(([value]) => ({ "metadata.author": value })),
+    ];
     for (const email of emails) {
       for (const wrap of wrappers) {
         const w = wrap.replace("%", email);
@@ -556,7 +612,7 @@ describe("resolveCreator (#787)", () => {
     }
     for (const fm of inputs) {
       const creator = resolveCreator(fm);
-      expect(creator, JSON.stringify(fm)).not.toMatch(EMAIL_SHAPE);
+      expect(creator, JSON.stringify(fm)).not.toMatch(AT_AFTER_CHARACTER);
       expect(creator, JSON.stringify(fm)).not.toMatch(/mailto/i);
       const raw = Object.values(fm).join(" ");
       if (raw.includes("Alice")) expect(creator).toContain("Alice");

@@ -169,16 +169,75 @@ export function resolveVersion(fm: Record<string, string>): string {
 }
 
 /**
- * An email-shaped token: any run of non-delimiter characters with an `@` that
- * has something on both sides, plus an optional `mailto:` prefix. Deliberately
- * broader than a valid address (no TLD needed, so `a@b.c` and `x@y` count).
- * `Team @ Acme` and `@handle` have nothing on one side of the `@` and are kept.
+ * Tokens: whitespace-delimited runs, also split where `<` or `(` follows text,
+ * so `Name<a@b.c>` and `[Alice](mailto:a@b.c)` keep their name part. `[` and
+ * `{` do not split, so `a@[1.2.3.4]` and `a{b}@x.com` stay one token.
  */
-const EMAIL_TOKEN = /(?:mailto:)?[^\s<>()[\]{},;:"']+@[^\s<>()[\]{},;:"']+/gi;
+const CREATOR_TOKEN = /[<(]*[^\s<(]+|[<(]+/g;
+
+/** A double-quoted local part, `@`, and its domain: `"john doe"@x.com`. */
+const QUOTED_LOCAL_EMAIL = /"[^"]*"[@\uFF20\uFE6B]\S*/g;
+
+/** Opening wrapper characters ignored when deciding if a token is an email. */
+const LEADING_WRAPPERS = /^[<([{`'"*]+/;
+
+/** An `@` (or its fullwidth / small form) with a non-space character before it. */
+const AT_AFTER_CHARACTER = /\S[@\uFF20\uFE6B]/;
+
+const WRAPPER_PAIR: Record<string, string> = {
+  "<": ">",
+  "(": ")",
+  "[": "]",
+  "{": "}",
+  ">": "<",
+  ")": "(",
+  "]": "[",
+  "}": "{",
+};
+
+/**
+ * A whitespace-delimited token is an email when, past any opening wrapper
+ * characters, an `@` has a non-space character before it, or when it carries
+ * `mailto:`. Whatever else it contains does not matter: `a@[1.2.3.4]`,
+ * `a{b}@x.com` and `Contact:alice@x.org` all count. `@luongnv89`,
+ * `(@luongnv89)` and the lone `@` in `Team @ Acme` do not.
+ */
+function isEmailToken(token: string): boolean {
+  return (
+    AT_AFTER_CHARACTER.test(token.replace(LEADING_WRAPPERS, "")) ||
+    /mailto:/i.test(token)
+  );
+}
+
+/**
+ * Remove an email token but keep what belongs to the text around it: a
+ * trailing `,` / `;`, and opening or closing brackets whose partner is
+ * outside the token (`(maintainer, a@b.c)` keeps its `)`).
+ */
+function removeEmailToken(token: string): string {
+  let start = 0;
+  let end = token.length;
+  while (
+    start < end &&
+    "<([{".includes(token[start]) &&
+    !token.slice(start + 1, end).includes(WRAPPER_PAIR[token[start]])
+  ) {
+    start++;
+  }
+  while (
+    end > start &&
+    (",;".includes(token[end - 1]) ||
+      (">)]}".includes(token[end - 1]) &&
+        !token.slice(start, end - 1).includes(WRAPPER_PAIR[token[end - 1]])))
+  ) {
+    end--;
+  }
+  return `${token.slice(0, start)} ${token.slice(end)}`;
+}
 
 /** Tidy-ups after removing emails, applied in order until nothing changes. */
 const CREATOR_TIDY: Array<[RegExp, string]> = [
-  [/<[\s,;]*>|\([\s,;]*\)|\[[\s,;]*\]|\{[\s,;]*\}/g, " "], // emptied brackets
+  [/<[\s,;]*>|\([\s,;]*\)|\[[\s,;]*\]|\{[\s,;]*\}|`[\s,;]*`/g, " "], // emptied wrappers
   [/([(<[{])[\s,;]+/g, "$1"], // separator right after an opening bracket
   [/[\s,;]+([)>\]}])/g, "$1"], // separator right before a closing bracket
   [/\s+([,;])/g, "$1"], // space before a separator
@@ -187,12 +246,22 @@ const CREATOR_TIDY: Array<[RegExp, string]> = [
   [/^[\s,;]+|[\s,;]+$/g, ""], // leading or trailing separators
 ];
 
-/** One creator entry as a display name, with every email removed. */
+/** One creator entry as a display name, with every email token removed. */
 function creatorDisplayName(part: string): string {
-  let name = part.trim().replace(/^["']|["']$/g, "");
+  let name = part.trim();
+  // Unwrap only a matching pair of quotes, so `'quoted' name` keeps both.
+  const quoted = name.match(/^(["'])(.*)\1$/s);
+  if (quoted) name = quoted[2].trim();
   for (let previous = ""; previous !== name;) {
     previous = name;
-    name = name.replace(EMAIL_TOKEN, " ");
+    // The quoted part may hold spaces, so remove it before splitting tokens;
+    // keep any closer or separator after the domain that belongs outside it.
+    name = name.replace(QUOTED_LOCAL_EMAIL, (match) =>
+      removeEmailToken(match.slice(match.lastIndexOf('"') + 2)),
+    );
+    name = name.replace(CREATOR_TOKEN, (token) =>
+      isEmailToken(token) ? removeEmailToken(token) : token,
+    );
     for (const [pattern, replacement] of CREATOR_TIDY) {
       name = name.replace(pattern, replacement);
     }
@@ -211,11 +280,13 @@ function creatorEntries(value: string): string[] {
  * Resolve a skill's display creator from the first key that yields one:
  * `metadata.creator`, then `metadata.author` (the skill-creator standard),
  * then the legacy top-level `creator` / `author` keys the evaluator already
- * accepts. The creator is a display name only, so every email address is
- * removed and none reaches the index or the public catalog
- * (`Name <user@host>` → `Name`, `Cocoon AI (hi@x.com), ported by B` →
- * `Cocoon AI, ported by B`, a bare email → nothing, and the next key is
- * tried). List values (one entry per line, or a `[a, b]` flow list) are
+ * accepts. The creator is a display name only, so no email address reaches
+ * the index or the public catalog: every whitespace-delimited token with an
+ * `@` that has a character before it (or `mailto:`) is removed, as is a
+ * quoted local part (`"john doe"@x.com`); wrappers left empty and separators
+ * are tidied (`Name <user@host>` → `Name`, `Cocoon AI (hi@x.com), ported by
+ * B` → `Cocoon AI, ported by B`). A key left with no name falls through to
+ * the next one. List values (one entry per line, or a `[a, b]` flow list) are
  * joined with ", ", dropping empty entries. "" when no key yields a name.
  */
 export function resolveCreator(fm: Record<string, string>): string {
