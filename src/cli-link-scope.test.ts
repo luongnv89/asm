@@ -426,5 +426,14 @@ describe("CLI integration: link scope", () => {
     expect(result.scope).toBe("global");
     expect(result.path).toBe(join(customGlobal, "source-skill"));
     created.push(join(customGlobal, "source-skill"));
+
+    // Asking for the missing project scope is a clean usage error, not a crash.
+    const projectRes = await runCliInProcess(
+      ["link", sourceDir, "-p", "minimal", "-s", "project"],
+      { cwd: projectDir, env: { ASM_CONFIG_DIR: configDir } },
+    );
+    expect(projectRes.exitCode).toBe(2);
+    expect(projectRes.stderr).toContain("has no project path configured");
+    expect(projectRes.stderr).not.toMatch(/Fatal error|TypeError/);
   });
 });

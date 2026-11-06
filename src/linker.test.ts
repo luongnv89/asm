@@ -259,31 +259,37 @@ describe("createLinkSafely", () => {
     );
   });
 
-  it("replaces a dangling symlink when force is true", async () => {
-    const source = join(tempDir, "source");
-    const targetDir = join(tempDir, "target");
-    await mkdir(source);
-    await mkdir(targetDir);
-    const linkPath = join(targetDir, "my-skill");
-    await symlink(join(tempDir, "gone"), linkPath);
+  it.skipIf(process.platform === "win32")(
+    "replaces a dangling symlink when force is true",
+    async () => {
+      const source = join(tempDir, "source");
+      const targetDir = join(tempDir, "target");
+      await mkdir(source);
+      await mkdir(targetDir);
+      const linkPath = join(targetDir, "my-skill");
+      await symlink(join(tempDir, "gone"), linkPath);
 
-    await createLinkSafely(source, targetDir, "my-skill", true);
+      await createLinkSafely(source, targetDir, "my-skill", true);
 
-    expect((await lstat(linkPath)).isSymbolicLink()).toBe(true);
-    expect(await readlink(linkPath)).toBe(source);
-  });
+      expect((await lstat(linkPath)).isSymbolicLink()).toBe(true);
+      expect(await readlink(linkPath)).toBe(source);
+    },
+  );
 
-  it("reports a dangling symlink as an existing target without force", async () => {
-    const source = join(tempDir, "source");
-    const targetDir = join(tempDir, "target");
-    await mkdir(source);
-    await mkdir(targetDir);
-    await symlink(join(tempDir, "gone"), join(targetDir, "my-skill"));
+  it.skipIf(process.platform === "win32")(
+    "reports a dangling symlink as an existing target without force",
+    async () => {
+      const source = join(tempDir, "source");
+      const targetDir = join(tempDir, "target");
+      await mkdir(source);
+      await mkdir(targetDir);
+      await symlink(join(tempDir, "gone"), join(targetDir, "my-skill"));
 
-    await expect(
-      createLinkSafely(source, targetDir, "my-skill", false),
-    ).rejects.toThrow("Target already exists");
-  });
+      await expect(
+        createLinkSafely(source, targetDir, "my-skill", false),
+      ).rejects.toThrow("Target already exists");
+    },
+  );
 });
 
 describe("discoverLinkableSkills", () => {

@@ -120,10 +120,15 @@ function resolveLinkTargets(
     scope: "global",
     dir: resolveProviderPath(provider.global),
   });
-  const projectTarget = (): LinkTarget => ({
-    scope: "project",
-    dir: resolveProviderPath(provider.project),
-  });
+  const projectTarget = (): LinkTarget => {
+    if (!provider.project) {
+      throw new Error(
+        `Provider "${provider.name}" has no project path configured. ` +
+          `Add one with "asm config", or use -s global.`,
+      );
+    }
+    return { scope: "project", dir: resolveProviderPath(provider.project) };
+  };
   if (scope === "both") return [globalTarget(), projectTarget()];
   return scope === "project" ? [projectTarget()] : [globalTarget()];
 }
@@ -366,7 +371,18 @@ export async function cmdLink(args: ParsedArgs) {
   );
 
   const scope = resolveLinkScope(args);
-  const targets = resolveLinkTargets(provider, scope);
+  let targets: LinkTarget[];
+  try {
+    targets = resolveLinkTargets(provider, scope);
+  } catch (err: unknown) {
+    // A malformed provider config is a usage error, not a crash.
+    const msg = err instanceof Error ? err.message : String(err);
+    if (args.flags.json) {
+      console.log(formatJSON({ success: false, error: msg }));
+    }
+    error(msg);
+    process.exit(2);
+  }
 
   // ── Create the links ──
   const linked: LinkedEntry[] = [];
