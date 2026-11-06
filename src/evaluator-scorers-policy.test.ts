@@ -7,6 +7,8 @@ import {
   isPrivateLicense,
   parseSpdxExpression,
   MAX_SPDX_NESTING,
+  MAX_QUOTED_VALUE,
+  quoteValue,
 } from "./evaluator-scorers-policy";
 import { SAFE_BODY, TESTABLE_BODY } from "./evaluator-test-fixtures";
 describe("scoreSafety", () => {
@@ -399,6 +401,40 @@ describe("scoreLicense with SPDX expressions (#783)", () => {
     const v = Array(15_000).fill("MIT").join(" OR ");
     expect(v.length).toBeGreaterThan(100_000);
     expect(scoreLicense(lic(v), "", OWN_FILE).score).toBe(10);
+  });
+
+  it("quoteValue keeps short values and clips long ones with their length", () => {
+    expect(quoteValue("MIT")).toBe("`MIT`");
+    const long = "x".repeat(100_000);
+    expect(quoteValue(long)).toBe(
+      `\`${"x".repeat(MAX_QUOTED_VALUE)}…\` (100000 chars)`,
+    );
+  });
+
+  const ors = (n: number, id: string) => Array(n).fill(id).join(" OR ");
+  it.each([
+    ["recognised", ors(15_000, "MIT"), 10],
+    ["mixed", `Apache-2.0 OR Proprietary OR ${ors(15_000, "MIT")}`, 10],
+    ["private", `Proprietary ${"x".repeat(100_000)}`, 10],
+    ["nested", `${"(".repeat(50_000)}MIT${")".repeat(50_000)}`, 2],
+    ["long unknown id", `MIT OR ${"A".repeat(100_000)}`, 2],
+    [
+      "many unknown ids",
+      `MIT OR ${Array.from({ length: 15_000 }, (_, i) => `Foo-${i}`).join(" OR ")}`,
+      2,
+    ],
+    ["invalid token", `MIT OR ${"_".repeat(100_000)}`, 2],
+  ])("clips a 100 KB %s value in every finding", (_label, v, score) => {
+    expect(v.length).toBeGreaterThanOrEqual(100_000);
+    const r = scoreLicense(lic(v), "", OWN_FILE);
+    expect(r.score).toBe(score);
+    for (const f of r.findings) {
+      // Bounded by the fixed text, not by the input: the longest (mixed)
+      // finding is ~330 chars of fixed text plus the clipped quote.
+      expect(f.length).toBeLessThan(600);
+      expect(f).not.toContain(v.slice(0, MAX_QUOTED_VALUE + 1));
+    }
+    expect(r.findings[0]).toContain(`…\` (${v.length} chars)`);
   });
 
   it.each([

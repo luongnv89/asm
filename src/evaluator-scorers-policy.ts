@@ -248,6 +248,22 @@ const OPERATORS = new Set(["AND", "OR", "WITH"]);
  */
 export const MAX_SPDX_NESTING = 64;
 
+/** Most characters of a declared value quoted in one finding. */
+export const MAX_QUOTED_VALUE = 200;
+/** Most characters of one identifier or token quoted in a finding. */
+const MAX_QUOTED_TOKEN = 60;
+
+/**
+ * Quote part of a declared licence value in backticks for a finding. A value
+ * longer than `max` is cut, marked with `…`, and followed by its original
+ * length, so a crafted value cannot blow up the report.
+ */
+export function quoteValue(value: string, max = MAX_QUOTED_VALUE): string {
+  return value.length <= max
+    ? `\`${value}\``
+    : `\`${value.slice(0, max)}…\` (${value.length} chars)`;
+}
+
 export type SpdxLeafKind = "spdx" | "ref" | "private" | "unknown";
 
 export type SpdxExpressionParse =
@@ -302,24 +318,25 @@ export function parseSpdxExpression(input: string): SpdxExpressionParse {
   const fail = (message: string): never => {
     throw new SyntaxError_(message);
   };
-  const after = () => (pos > 0 ? ` after \`${tokens[pos - 1]}\`` : "");
+  const q = (tok: string) => quoteValue(tok, MAX_QUOTED_TOKEN);
+  const after = () => (pos > 0 ? ` after ${q(tokens[pos - 1])}` : "");
 
   const parseSimple = (): void => {
     const tok = tokens[pos];
     if (tok === undefined) fail(`expected a licence identifier${after()}`);
     if (tok === "(" || tok === ")" || OPERATORS.has(tok) || tok === "+") {
-      fail(`expected a licence identifier but found \`${tok}\``);
+      fail(`expected a licence identifier but found ${q(tok)}`);
     }
     pos++;
     const plus = tok.endsWith("+");
     const id = plus ? tok.slice(0, -1) : tok;
     if (LICENSE_REF_RE.test(id)) {
-      if (plus) fail(`\`+\` may follow only a licence identifier (\`${tok}\`)`);
+      if (plus) fail(`\`+\` may follow only a licence identifier (${q(tok)})`);
       leaves.push({ id, kind: "ref" });
       return;
     }
     if (!IDSTRING_RE.test(id)) {
-      fail(`\`${tok}\` is not a valid licence identifier`);
+      fail(`${q(tok)} is not a valid licence identifier`);
     }
     const canonical = LICENSE_BY_LOWER.get(id.toLowerCase());
     if (canonical && DEPRECATED_LICENSES.has(canonical)) {
@@ -387,7 +404,7 @@ export function parseSpdxExpression(input: string): SpdxExpressionParse {
       const hint = OPERATORS.has(tok.toUpperCase())
         ? " (operators AND, OR, WITH are upper-case)"
         : "";
-      fail(`unexpected \`${tok}\`${hint}`);
+      fail(`unexpected ${q(tok)}${hint}`);
     }
   } catch (err) {
     if (err instanceof SyntaxError_) return { ok: false, error: err.message };
@@ -440,7 +457,12 @@ type LicenseAssessment =
   | { status: "private" }
   | { status: "unrecognised"; reason: string };
 
-const codeList = (ids: string[]) => ids.map((id) => `\`${id}\``).join(", ");
+/** Quote up to five ids for a finding, each clipped, then "and N more". */
+const codeList = (ids: string[]) => {
+  const shown = ids.slice(0, 5).map((id) => quoteValue(id, MAX_QUOTED_TOKEN));
+  if (ids.length > 5) shown.push(`and ${ids.length - 5} more`);
+  return shown.join(", ");
+};
 
 /**
  * Classify a declared `license:` value (#771, #783).
@@ -514,7 +536,7 @@ function assessLicense(value: string): LicenseAssessment {
   if (privateTerms.length) {
     return {
       status: "recognised",
-      finding: `License declared: \`${value}\` mixes SPDX terms with private terms (${codeList(privateTerms)}), so it is not valid SPDX as written (use ${codeList(privateTerms.map((t) => `LicenseRef-${t}`))} for the private terms) — SPDX licence rule applied: the SPDX terms need a licence file; the private-licence rule (#771) covers only declarations with no SPDX identifier.${refNote}`,
+      finding: `License declared: ${quoteValue(value)} mixes SPDX terms with private terms (${codeList(privateTerms)}), so it is not valid SPDX as written (use ${codeList(privateTerms.map((t) => `LicenseRef-${t}`))} for the private terms) — SPDX licence rule applied: the SPDX terms need a licence file; the private-licence rule (#771) covers only declarations with no SPDX identifier.${refNote}`,
       suggestions,
     };
   }
@@ -527,8 +549,8 @@ function assessLicense(value: string): LicenseAssessment {
   return {
     status: "recognised",
     finding: single
-      ? `License declared: \`${value}\` (SPDX recognised).`
-      : `License declared: \`${value}\` (valid SPDX license expression, every identifier recognised).${refNote}`,
+      ? `License declared: ${quoteValue(value)} (SPDX recognised).`
+      : `License declared: ${quoteValue(value)} (valid SPDX license expression, every identifier recognised).${refNote}`,
     suggestions,
   };
 }
@@ -621,7 +643,7 @@ export function scoreLicense(
     case "private": {
       score = licenseFileFinding ? 10 : 8;
       findings.push(
-        `Private licence declared: \`${fmLicense}\` — no SPDX identifier or LICENSE file required.`,
+        `Private licence declared: ${quoteValue(fmLicense)} — no SPDX identifier or LICENSE file required.`,
       );
       if (licenseFileFinding) findings.push(licenseFileFinding);
       break;
@@ -630,7 +652,7 @@ export function scoreLicense(
       score = 2;
       if (assessment?.status === "unrecognised") {
         findings.push(
-          `License declared as \`${fmLicense}\` ${assessment.reason}`,
+          `License declared as ${quoteValue(fmLicense)} ${assessment.reason}`,
         );
       }
       if (hasLicenseFile && !hasFmLicense) {
