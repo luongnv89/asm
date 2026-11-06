@@ -656,6 +656,7 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm install <source>` | Install from GitHub or registry |
 | `asm publish [path]` | Publish to ASM Registry |
 | `asm uninstall <skill-name>` | Remove a skill |
+| `asm uninstall <library-entry-name> --library` | Remove one library original |
 | `asm init <name>` | Scaffold a new skill |
 | `asm link <path> [<path2> ...]` | Symlink skills for live dev |
 | `asm audit` | Detect duplicate skills |
@@ -696,6 +697,38 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm config reset` | Reset to defaults |
 | `asm config edit` | Open config in `$EDITOR` |
 | `asm doctor` | Run environment health checks and diagnostics |
+
+### Removing a library skill
+
+`asm install --library` places one provider-independent original under
+`<config>/library/skills/<entry>`; `asm uninstall <library-entry-name> --library`
+removes exactly that original, then its `library-lock.json` entry. It is the
+symmetric counterpart of the library install and has no `asm library remove`
+alias.
+
+The name resolves by the library directory key (exact), with a fallback to an
+exact, unique frontmatter name — never fuzzy, partial, or substring matching. It
+does not touch provider installs, same-name independent provider copies, or the
+local source directory of a `local:` entry. `asm deactivate <skill> -p <tool> -s
+<scope>` is a different operation: it removes one activation symlink and keeps
+the library original. `-y` skips only the confirmation prompt; the reference
+check and the side-effect notice still run. `--json` returns the warnings and
+the checked scope. `--tool`/`-p`, `--scope`/`-s`, `--all`, `--force`, and
+`--machine` are rejected with `--library` (use `--json`). In non-interactive
+mode, deletion requires `-y`.
+
+> **Warning:** asm keeps no project or activation registry. The check covers
+> only the global skill folders of every configured provider (including disabled
+> providers) and the current project's skill folders. Other projects are NOT
+> checked. Deleting a library original can break activation links in other
+> projects, which will then be unable to load the skill. A clean check is NOT
+> proof that the skill is unused everywhere. There is no cascade delete, no
+> force override, no whole-disk scan, and no activation/project registry in this
+> change.
+
+```bash
+asm uninstall brainstorming --library --yes
+```
 
 ### Global options
 
