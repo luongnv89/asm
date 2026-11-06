@@ -718,7 +718,7 @@
       "url": "https://github.com/anthropics/financial-services",
       "owner": "anthropics",
       "repo": "financial-services",
-      "description": "Reference agents, skills, and data connectors for financial-services workflows — investment banking, equity research, private equity, and wealth management",
+      "description": "Reference agents, skills, and data connectors for financial-services workflows \u2014 investment banking, equity research, private equity, and wealth management",
       "maintainer": "@anthropics",
       "enabled": true
     },
@@ -776,6 +776,15 @@
       "maintainer": "@Illyism",
       "enabled": true,
       "excludeSkills": ["linkdr"]
+    },
+    {
+      "source": "github:vostride/agent-qa",
+      "url": "https://github.com/vostride/agent-qa",
+      "owner": "vostride",
+      "repo": "agent-qa",
+      "description": "Official agent-qa skills from vostride for natural-language web/mobile testing, advanced memidex memory, and self-improvement",
+      "maintainer": "@vostride",
+      "enabled": true
     }
   ]
 }
