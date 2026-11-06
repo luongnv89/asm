@@ -1366,6 +1366,160 @@ describe("installed, --all and github: audits never read outside the skill folde
     expect(res.stderr).toContain("SKILL.md not found");
   });
 
+  // ── Every other command that scans a skill's files (#791 fix round 1) ──
+
+  const FORMATS = [[], ["--json"], ["--machine"]];
+
+  const GET_AUDIT: Array<[string, () => Promise<string>]> = [
+    [
+      "get <installed> --audit",
+      async () => {
+        await plantLeakySkill(join(skillsDir(), "leaky"), "leaky");
+        return "leaky";
+      },
+    ],
+    [
+      "get github: --audit",
+      async () => {
+        gitEnv = await makeGithubRepo((d) => plantLeakySkill(d, "leaky"));
+        return "github:acme/leaky";
+      },
+    ],
+    [
+      "get <local> --audit",
+      async () => {
+        await plantLeakySkill(join(cwd, "loc"), "leaky");
+        return "./loc";
+      },
+    ],
+  ];
+
+  test.each(GET_AUDIT)(
+    "%s: the audit report is confined and never prints the secret",
+    async (_label, plant) => {
+      const target = await plant();
+      for (const fmt of FORMATS) {
+        const res = await runAudit("get", target, "--audit", ...fmt);
+        expect(res.exitCode).toBe(0);
+        expect(res.stdout + res.stderr).not.toContain(MARKER);
+        expect(res.stdout + res.stderr).not.toContain("evil.example");
+        expect(res.stderr).toContain("Symlinks not read");
+        expect(res.stderr).toMatch(/linkdir -> .* \(directory, NOT read\)/);
+        expect(res.stderr).toContain("WARNING");
+      }
+    },
+  );
+
+  test("get <linked install> --audit follows the folder and announces it", async () => {
+    const src = join(cwd, "dev-skill");
+    await mkdir(src, { recursive: true });
+    await writeFile(join(src, "SKILL.md"), SKILL_MD("dev-skill"));
+    await mkdir(skillsDir(), { recursive: true });
+    await symlink(src, join(skillsDir(), "dev-skill"));
+    const real = await realpath(src);
+    const res = await runAudit("get", "dev-skill", "--audit");
+    expect(res.exitCode).toBe(0);
+    expect(res.stderr).toContain(`-> ${real}`);
+    expect(res.stderr).toContain(`Resolved: ${real}`);
+    expect(res.stderr).not.toContain("Symlinks not read");
+  });
+
+  const INSTALL: Array<[string, () => Promise<string>]> = [
+    [
+      "install <local>",
+      async () => {
+        await plantLeakySkill(join(cwd, "loc"), "leaky");
+        return "./loc";
+      },
+    ],
+    [
+      "install github:",
+      async () => {
+        gitEnv = await makeGithubRepo((d) => plantLeakySkill(d, "leaky"));
+        return "github:acme/leaky";
+      },
+    ],
+  ];
+
+  test.each(INSTALL)(
+    "%s: the preview lists outside links as warnings and never prints the secret",
+    async (_label, plant) => {
+      const target = await plant();
+      let n = 0;
+      for (const fmt of FORMATS) {
+        const res = await runAudit(
+          "install",
+          target,
+          "-p",
+          "claude",
+          "-y",
+          "--name",
+          `inst${n++}`,
+          ...fmt,
+        );
+        expect(res.exitCode).toBe(0);
+        expect(res.stdout + res.stderr).not.toContain(MARKER);
+        expect(res.stdout + res.stderr).not.toContain("evil.example");
+      }
+      const text = await runAudit(
+        "install",
+        target,
+        "-p",
+        "claude",
+        "-y",
+        "--name",
+        "inst-text",
+      );
+      const out = text.stdout + text.stderr;
+      expect(out).toContain("[Symlinks not read]");
+      expect(out).toMatch(
+        /linkdir -- symlink leaves the skill folder -> .* \(directory\) — not read/,
+      );
+      expect(out).toContain("High Risk");
+    },
+  );
+
+  test("get github: preview reports outside links in its verdict, unread", async () => {
+    gitEnv = await makeGithubRepo((d) => plantLeakySkill(d, "leaky"));
+    for (const fmt of FORMATS) {
+      const res = await runAudit("get", "github:acme/leaky", ...fmt);
+      expect(res.exitCode).toBe(0);
+      expect(res.stdout + res.stderr).not.toContain(MARKER);
+    }
+    const json = JSON.parse(
+      (await runAudit("get", "github:acme/leaky", "--json")).stdout,
+    );
+    expect(json.security.risk).toBe("high");
+    expect(json.security.categories).toContain("Symlinks not read");
+  });
+
+  const plantRootLinks = async (dir: string) => {
+    await mkdir(dir, { recursive: true });
+    await writeFile(join(dir, "SKILL.md"), SKILL_MD("leaky"));
+    await symlink("/", join(dir, "r"));
+    await symlink("/proc/self", join(dir, "p"));
+  };
+
+  test.skipIf(!isLinux).each([
+    ["get <installed> --audit", ["get", "leaky", "--audit"]],
+    ["get github: --audit", ["get", "github:acme/leaky", "--audit"]],
+    ["get <local> --audit", ["get", "./loc", "--audit"]],
+    ["get github: (preview)", ["get", "github:acme/leaky"]],
+    ["install <local>", ["install", "./loc", "-p", "claude", "-y"]],
+    ["install github:", ["install", "github:acme/leaky", "-p", "claude", "-y"]],
+  ])(
+    "%s: links to / and /proc/self finish within 5 s",
+    async (_label, argv) => {
+      await plantRootLinks(join(skillsDir(), "leaky"));
+      await plantRootLinks(join(cwd, "loc"));
+      gitEnv = await makeGithubRepo(plantRootLinks);
+      const started = Date.now();
+      const res = await runAudit(...argv);
+      expect(Date.now() - started).toBeLessThan(5_000);
+      expect(res.exitCode).toBe(0);
+    },
+  );
+
   test("audit --help says the rule applies to every source", async () => {
     const { stdout } = await runAudit("audit", "--help");
     expect(stdout).toContain(

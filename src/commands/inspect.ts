@@ -76,6 +76,8 @@ export interface GetResolution {
   cleanup: (() => Promise<void>) | null;
   /** Directory the body was read from — still on disk until `cleanup` runs. */
   dir: string;
+  /** The temp clone root for a remote source: the audit's boundary (#791). */
+  boundary?: string;
   /** GitHub coordinates, when the body came from a remote source. */
   owner?: string;
   repo?: string;

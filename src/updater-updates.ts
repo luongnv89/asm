@@ -22,7 +22,10 @@ import {
   poolAll,
 } from "./updater-core";
 import { readLock } from "./utils/lock";
-import { auditSkillSecurity } from "./security-auditor";
+import {
+  auditSkillSecurity,
+  type AuditSkillSecurityOptions,
+} from "./security-auditor";
 import type {
   _CheckOutdatedTestOverrides,
   OutdatedSummary,
@@ -42,6 +45,7 @@ export interface _UpdateTestOverrides {
     skillName: string,
     sourceOwner?: string,
     sourceRepo?: string,
+    options?: AuditSkillSecurityOptions,
   ) => Promise<{ verdict: SecurityVerdict }>;
   loadConfigFn?: typeof loadConfig;
   resolveProviderPathFn?: typeof resolveProviderPath;
@@ -174,11 +178,14 @@ export async function updateSkill(
     try {
       const auditFn = _overrides?.auditFn ?? auditSkillSecurity;
       const ownerRepo = extractOwnerRepo(entry.source);
+      // Confined to the clone (#791): a link out of it is a finding (verdict
+      // at least warning, so --yes is needed), never read.
       const auditReport = await auditFn(
         updateSourceDir,
         name,
         ownerRepo?.owner,
         ownerRepo?.repo,
+        { trackSymlinks: true, boundary: tempDir },
       );
       securityVerdict = auditReport.verdict;
 

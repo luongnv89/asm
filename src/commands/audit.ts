@@ -1,7 +1,7 @@
 import { loadConfig, getLibrarySkillsDir } from "../config";
 import { scanAllSkills } from "../scanner";
 import { realpath as fsRealpath, stat as fsStat } from "fs/promises";
-import { basename, dirname, join, resolve } from "path";
+import { basename, dirname, join, relative, resolve } from "path";
 import { buildRemovalPlan, executeRemoval } from "../uninstaller";
 import { formatJSON, ansi, shortenPath } from "../formatter";
 import {
@@ -581,20 +581,74 @@ function installedSkillName(skill: SkillInfo): Promise<string> {
   return localSkillName(skill.realPath, skill.realPath, skill.dirName);
 }
 
+export interface SkillFolderAuditTarget {
+  /** The skill folder to audit. */
+  dir: string;
+  /**
+   * A wider folder the audit must not leave — the temp checkout of a remote
+   * source. Without it the boundary is `dir`'s real path, and `dir` itself
+   * is followed (and recorded as `resolvedPath`) when it is or sits under a
+   * link, e.g. an `asm link` or library install.
+   */
+  boundary?: string;
+  /** Report name; default: SKILL.md's name when it is inside the boundary. */
+  name?: string;
+  /** Name used when SKILL.md is not inside the boundary. */
+  fallbackName: string;
+  owner?: string;
+  repo?: string;
+}
+
 /**
- * Audit an installed skill confined to its own folder (#791), with the same
- * rule as a local folder (#779): symlinks inside it that leave it, dangle or
- * loop are critical findings whose targets are never read. The installed
- * folder itself is followed when it is (or sits under) a link — a linked or
- * library install — and the report records the real path as `resolvedPath`.
+ * Confined security audit of one skill folder, shared by every command that
+ * audits an installed, library, local or cloned skill (#779, #791): nothing
+ * outside the boundary is opened, read, walked or printed. A symlink that
+ * leaves it, dangles or loops is a critical finding (verdict at least
+ * `warning`) whose target is never read; a `dir` that itself resolves
+ * outside `boundary` is reported as such and nothing is read.
  */
+export async function auditSkillFolder(
+  t: SkillFolderAuditTarget,
+): Promise<SecurityAuditReport> {
+  const real = await fsRealpath(t.dir);
+  if (t.boundary) {
+    const rootReal = await fsRealpath(t.boundary);
+    if (!isPathInside(rootReal, real)) {
+      const label = relative(resolve(t.boundary), resolve(t.dir)) || ".";
+      return auditSkillSecurity(
+        t.dir,
+        t.name ?? t.fallbackName,
+        t.owner,
+        t.repo,
+        {
+          readFiles: false,
+          externalSymlinks: [externalLink(label, real, "directory")],
+        },
+      );
+    }
+    const name =
+      t.name ?? (await localSkillName(real, rootReal, t.fallbackName));
+    return auditSkillSecurity(t.dir, name, t.owner, t.repo, {
+      trackSymlinks: true,
+      boundary: t.boundary,
+    });
+  }
+  const name = t.name ?? (await localSkillName(real, real, t.fallbackName));
+  return auditSkillSecurity(real, name, t.owner, t.repo, {
+    trackSymlinks: true,
+    ...(real !== resolve(t.dir) ? { resolvedPath: real } : {}),
+  });
+}
+
+/** An installed skill, audited inside its own folder (#791). */
 function auditInstalledSkill(
   skill: SkillInfo,
   name: string,
 ): Promise<SecurityAuditReport> {
-  return auditSkillSecurity(skill.realPath, name, undefined, undefined, {
-    trackSymlinks: true,
-    ...(skill.realPath !== skill.path ? { resolvedPath: skill.realPath } : {}),
+  return auditSkillFolder({
+    dir: skill.path,
+    name,
+    fallbackName: skill.dirName,
   });
 }
 
@@ -690,23 +744,13 @@ export async function cmdAuditSecuritySource(
       ? null
       : await fsStat(join(auditDir, "SKILL.md")).catch(() => null);
     if (!outside && !mdStat?.isFile()) throw notASkill;
-    const name = outside
-      ? basename(auditDir)
-      : await localSkillName(auditReal, rootReal, basename(auditDir));
-    const report = await auditSkillSecurity(
-      auditDir,
-      name,
-      source.owner,
-      source.repo,
-      outside
-        ? {
-            readFiles: false,
-            externalSymlinks: [
-              externalLink(source.subpath ?? ".", auditReal, "directory"),
-            ],
-          }
-        : { trackSymlinks: true, boundary: tempDir },
-    );
+    const report = await auditSkillFolder({
+      dir: auditDir,
+      boundary: tempDir,
+      fallbackName: basename(auditDir),
+      owner: source.owner,
+      repo: source.repo,
+    });
 
     if (args.flags.machine) {
       console.log(

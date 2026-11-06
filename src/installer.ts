@@ -32,6 +32,8 @@ export {
   type SecurityWarning,
   scanForWarnings,
   classifyWarningRisk,
+  HIGH_RISK_WARNING_CATEGORIES,
+  OUTSIDE_SYMLINK_CATEGORY,
   executeInstall,
   executeInstallAllProviders,
   cleanupTemp,

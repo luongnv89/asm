@@ -356,6 +356,9 @@ export interface PublishOptions {
   _auditFn?: (
     skillPath: string,
     skillName: string,
+    sourceOwner?: string,
+    sourceRepo?: string,
+    options?: import("./security-auditor").AuditSkillSecurityOptions,
   ) => Promise<import("./utils/types").SecurityAuditReport>;
   /** @internal Override the gh CLI check function (for testing). */
   _checkGhCliFn?: () => Promise<{
@@ -388,7 +391,15 @@ export async function publishSkill(
 
   // Step 3: Run SecurityAuditor
   const auditFn = opts._auditFn ?? auditSkillSecurity;
-  const securityReport = await auditFn(skillDir, metadata.name);
+  // Confined to the skill folder (#791): a link out of it is a finding
+  // (verdict at least warning, so --force is needed), never read.
+  const securityReport = await auditFn(
+    skillDir,
+    metadata.name,
+    undefined,
+    undefined,
+    { trackSymlinks: true },
+  );
   const registryVerdict = mapVerdict(securityReport.verdict);
 
   // Step 4: Check security verdict

@@ -9,7 +9,15 @@ import {
   symlink,
 } from "fs/promises";
 import type { ExternalSymlink } from "./types";
-import { dirname, isAbsolute, join, relative, resolve, sep } from "path";
+import {
+  basename,
+  dirname,
+  isAbsolute,
+  join,
+  relative,
+  resolve,
+  sep,
+} from "path";
 
 /**
  * Create a directory symlink that works on every platform.
@@ -184,7 +192,7 @@ export interface ReadFilesRecursiveOptions {
    * Confined mode only: the folder the walk must not leave, when it is wider
    * than `dir` (#791) — e.g. a `github:` audit of a subfolder is confined to
    * the whole temp checkout. Defaults to `dir`. When `dir` itself resolves
-   * outside `root`, nothing is read.
+   * outside `root`, nothing is read and `dir` is reported as a directory link.
    */
   root?: string;
 }
@@ -204,7 +212,10 @@ export async function readFilesRecursive(
     } catch {
       return results;
     }
-    if (!isPathInside(rootReal, dirReal)) return results;
+    if (!isPathInside(rootReal, dirReal)) {
+      report(externalLink(basename(dir) || dir, dirReal, "directory"));
+      return results;
+    }
   }
 
   async function walk(

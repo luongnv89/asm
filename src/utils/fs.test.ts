@@ -179,13 +179,20 @@ describe("readFilesRecursive onExternalSymlink (#779)", () => {
     );
   });
 
-  test("a dir that resolves outside root reads nothing (#791)", async () => {
+  test("a dir that resolves outside root reads nothing and is reported (#791)", async () => {
     const links: ExternalSymlink[] = [];
     const files = await readFilesRecursive(join(skill, "escape-dir"), {
       root: skill,
       onExternalSymlink: (l) => links.push(l),
     });
     expect(files).toEqual([]);
+    expect(links).toEqual([
+      expect.objectContaining({
+        path: "escape-dir",
+        target: await realpath(outside),
+        kind: "directory",
+      }),
+    ]);
   });
 
   test("sibling folders that link to each other are walked once each (#791)", async () => {
