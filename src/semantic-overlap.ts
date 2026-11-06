@@ -93,12 +93,46 @@ export const HIGH_CONFIDENCE_THRESHOLD = 0.7;
  */
 function jaccardSimilarity(a: Set<string>, b: Set<string>): number {
   if (a.size === 0 && b.size === 0) return 0;
-  const intersection = new Set<string>();
+  const intersectionSize = sharedTokenCount(a, b);
+  const unionSize = a.size + b.size - intersectionSize;
+  return unionSize === 0 ? 0 : intersectionSize / unionSize;
+}
+
+function sharedTokenCount(a: Set<string>, b: Set<string>): number {
+  let count = 0;
   for (const t of a) {
-    if (b.has(t)) intersection.add(t);
+    if (b.has(t)) count++;
   }
-  const unionSize = a.size + b.size - intersection.size;
-  return unionSize === 0 ? 0 : intersection.size / unionSize;
+  return count;
+}
+
+/** Token sets for one skill, computed once and reused across comparisons. */
+interface SkillTokens {
+  name: Set<string>;
+  description: Set<string>;
+}
+
+function skillTokens(skill: {
+  name: string;
+  description: string;
+}): SkillTokens {
+  return {
+    name: tokenize(skill.name),
+    description: tokenize(skill.description),
+  };
+}
+
+/**
+ * Weighted similarity from pre-tokenized skills. Combines description
+ * similarity (weight 0.6) and name similarity (weight 0.4).
+ */
+function similarityFromTokens(a: SkillTokens, b: SkillTokens): number {
+  const descSim = jaccardSimilarity(a.description, b.description);
+  // Name similarity — bonus for similar names (different names can still
+  // describe the same thing, but a name match boosts confidence).
+  const nameSim = jaccardSimilarity(a.name, b.name);
+  // Weighted combination: description is the stronger signal.
+  return 0.6 * descSim + 0.4 * nameSim;
 }
 
 /**
@@ -111,32 +145,19 @@ export function computeSimilarity(
   skillA: IndexedSkill,
   skillB: IndexedSkill,
 ): number {
-  const descTokensA = tokenize(skillA.description);
-  const descTokensB = tokenize(skillB.description);
-  const descSim = jaccardSimilarity(descTokensA, descTokensB);
-
-  // Name similarity — bonus for similar names (different names can still
-  // describe the same thing, but a name match boosts confidence).
-  const nameTokensA = tokenize(skillA.name);
-  const nameTokensB = tokenize(skillB.name);
-  const nameSim = jaccardSimilarity(nameTokensA, nameTokensB);
-
-  // Weighted combination: description is the stronger signal.
-  return 0.6 * descSim + 0.4 * nameSim;
+  return similarityFromTokens(skillTokens(skillA), skillTokens(skillB));
 }
 
 /**
- * Generate a human-readable reason for the overlap.
+ * Generate a human-readable reason for the overlap from pre-tokenized
+ * descriptions.
  */
 function overlapReason(
-  skillA: IndexedSkill,
-  skillB: IndexedSkill,
+  descTokensA: Set<string>,
+  descTokensB: Set<string>,
   score: number,
 ): string {
-  const descTokensA = tokenize(skillA.description);
-  const descTokensB = tokenize(skillB.description);
-  const commonTokens = [...descTokensA].filter((t) => descTokensB.has(t));
-  const commonCount = commonTokens.length;
+  const commonCount = sharedTokenCount(descTokensA, descTokensB);
   const totalTokens = descTokensA.size + descTokensB.size - commonCount;
 
   if (score >= HIGH_CONFIDENCE_THRESHOLD) {
@@ -162,10 +183,13 @@ export function findOverlapPairs(
   threshold: number = MIN_OVERLAP_SCORE,
 ): OverlapPair[] {
   const pairs: OverlapPair[] = [];
+  // Tokenize each skill once: the pairwise loop is O(n²), so re-tokenizing
+  // inside it dominated `asm index overlap` (issue #790).
+  const tokens = skills.map((s) => skillTokens(s.skill));
 
   for (let i = 0; i < skills.length; i++) {
     for (let j = i + 1; j < skills.length; j++) {
-      const score = computeSimilarity(skills[i].skill, skills[j].skill);
+      const score = similarityFromTokens(tokens[i], tokens[j]);
       if (score >= threshold) {
         pairs.push({
           skillA: skills[i].skill,
@@ -173,7 +197,11 @@ export function findOverlapPairs(
           repoA: skills[i].repo,
           repoB: skills[j].repo,
           score,
-          reason: overlapReason(skills[i].skill, skills[j].skill, score),
+          reason: overlapReason(
+            tokens[i].description,
+            tokens[j].description,
+            score,
+          ),
         });
       }
     }
@@ -188,12 +216,15 @@ export function findOverlapPairs(
  *
  * Uses a simple union-find approach: skills that appear in overlapping pairs
  * are merged into groups. Only groups with 2+ skills are returned.
+ *
+ * @param pairs — pairs already computed by `findOverlapPairs(skills,
+ *   threshold)`; pass them to avoid a second O(n²) comparison pass
  */
 export function groupOverlaps(
   skills: Array<{ skill: IndexedSkill; repo: { owner: string; repo: string } }>,
   threshold: number = MIN_OVERLAP_SCORE,
+  pairs: OverlapPair[] = findOverlapPairs(skills, threshold),
 ): OverlapGroup[] {
-  const pairs = findOverlapPairs(skills, threshold);
   if (pairs.length === 0) return [];
 
   // Union-find
@@ -242,18 +273,22 @@ export function groupOverlaps(
     pairCount.set(i, 0);
   }
 
+  // Map (name, installUrl) to the first matching index once, instead of a
+  // linear scan per pair — pairs can number in the tens of thousands.
+  const indexByKey = new Map<string, Map<string, number>>();
+  for (let i = skills.length - 1; i >= 0; i--) {
+    const { name, installUrl } = skills[i].skill;
+    let byUrl = indexByKey.get(name);
+    if (!byUrl) indexByKey.set(name, (byUrl = new Map()));
+    byUrl.set(installUrl, i);
+  }
+  const indexOf = (skill: IndexedSkill) =>
+    indexByKey.get(skill.name)?.get(skill.installUrl) ?? -1;
+
   // Union skills that overlap
   for (const pair of pairs) {
-    const i = skills.findIndex(
-      (s) =>
-        s.skill.name === pair.skillA.name &&
-        s.skill.installUrl === pair.skillA.installUrl,
-    );
-    const j = skills.findIndex(
-      (s) =>
-        s.skill.name === pair.skillB.name &&
-        s.skill.installUrl === pair.skillB.installUrl,
-    );
+    const i = indexOf(pair.skillA);
+    const j = indexOf(pair.skillB);
     if (i >= 0 && j >= 0) {
       union(i, j, pair.score);
     }
@@ -306,26 +341,19 @@ export function checkCandidateOverlap(
   threshold: number = MIN_OVERLAP_SCORE,
 ): CandidateCheckResult {
   const overlaps: CandidateCheckResult["overlaps"] = [];
+  const candidateTokens = skillTokens(candidate);
 
   for (const entry of indexedSkills) {
-    const score = computeSimilarity(
-      {
-        name: candidate.name,
-        description: candidate.description,
-      } as IndexedSkill,
-      entry.skill,
-    );
+    const entryTokens = skillTokens(entry.skill);
+    const score = similarityFromTokens(candidateTokens, entryTokens);
     if (score >= threshold) {
       overlaps.push({
         skill: entry.skill,
         repo: entry.repo,
         score,
         reason: overlapReason(
-          {
-            name: candidate.name,
-            description: candidate.description,
-          } as IndexedSkill,
-          entry.skill,
+          candidateTokens.description,
+          entryTokens.description,
           score,
         ),
       });
