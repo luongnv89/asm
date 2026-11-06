@@ -1,3 +1,4 @@
+import { join } from "path";
 import { loadConfig, resolveProviderPath } from "../config";
 import { ansi } from "../formatter";
 import { resolveProvider } from "../installer";
@@ -20,7 +21,7 @@ Link a centrally installed library skill into a provider skill folder.
 
 ${ansi.bold("Options:")}
   -p, --tool <name>      Provider to activate into (e.g., claude, codex)
-  -s, --scope <scope>    Activation scope: global or project (default: prompt)
+  -s, --scope <scope>    Activation scope: global, project, or both (default: global; prompted when interactive)
   --name <name>          Link name to create (default: library directory name)
   -f, --force            Replace an existing target
   --json                 Output as JSON object
@@ -28,23 +29,200 @@ ${ansi.bold("Options:")}
 
 ${ansi.bold("Examples:")}
   asm activate brainstorming -p codex -s project
-  asm activate brainstorming -p claude -s global --json`);
+  asm activate brainstorming -p claude -s both --json`);
 }
 
 function printDeactivateHelp() {
-  console.log(`${ansi.bold("Usage:")} asm deactivate <skill> -p <tool> -s <global|project> [options]
+  console.log(`${ansi.bold("Usage:")} asm deactivate <skill> -p <tool> -s <global|project|both> [options]
 
 Remove a centrally activated library skill from a provider skill folder.
 
 ${ansi.bold("Options:")}
   -p, --tool <name>      Provider to deactivate from (e.g., claude, codex)
-  -s, --scope <scope>    Deactivation scope: global or project (default: prompt)
+  -s, --scope <scope>    Deactivation scope: global, project, or both (default: global; prompted when interactive)
   --json                 Output as JSON object
   -V, --verbose          Show debug output
 
 ${ansi.bold("Examples:")}
   asm deactivate brainstorming -p codex -s project
-  asm deactivate brainstorming -p claude -s global --json`);
+  asm deactivate brainstorming -p claude -s both --json`);
+}
+
+// ─── Multi-scope activation ─────────────────────────────────────────────────
+
+/** Both provider scopes, in the order they are attempted. */
+const BOTH_SCOPES = ["global", "project"] as const;
+
+interface ScopeActivation {
+  name: string;
+  skill: string;
+  provider: string;
+  scope: "global" | "project";
+  path: string;
+  target: string;
+}
+
+interface ScopeFailure {
+  name: string;
+  provider: string;
+  scope: "global" | "project";
+  path?: string;
+  error: string;
+}
+
+/**
+ * Activate one library skill in both provider scopes.
+ *
+ * Each scope is attempted independently: a conflict in one scope leaves the
+ * other link in place, matching the install scope contract. Any failure
+ * exits 1.
+ */
+async function activateBothScopes(input: {
+  provider: ProviderConfig;
+  libraryPath: string;
+  skillName: string;
+  activationName: string;
+  force: boolean;
+  json: boolean;
+}): Promise<void> {
+  const linked: ScopeActivation[] = [];
+  const failures: ScopeFailure[] = [];
+
+  for (const scope of BOTH_SCOPES) {
+    let linkPath: string | undefined;
+    try {
+      const template =
+        scope === "global" ? input.provider.global : input.provider.project;
+      if (!template) {
+        throw new Error(
+          `Provider "${input.provider.name}" has no ${scope} path configured.`,
+        );
+      }
+      const targetDir = resolveProviderPath(template);
+      linkPath = join(targetDir, input.activationName);
+      const result = await activateLibrarySkill({
+        libraryPath: input.libraryPath,
+        targetDir,
+        activationName: input.activationName,
+        force: input.force,
+      });
+      linked.push({
+        name: input.activationName,
+        skill: input.skillName,
+        provider: input.provider.name,
+        scope,
+        path: result.symlinkPath,
+        target: result.targetPath,
+      });
+    } catch (err: unknown) {
+      failures.push({
+        name: input.activationName,
+        provider: input.provider.name,
+        scope,
+        path: linkPath,
+        error: err instanceof Error ? err.message : String(err),
+      });
+    }
+  }
+
+  if (input.json) {
+    console.log(
+      JSON.stringify(
+        { success: failures.length === 0, linked, failures },
+        null,
+        2,
+      ),
+    );
+  } else {
+    for (const entry of linked) {
+      console.log(
+        `${ansi.green("✓")} activated ${entry.name} (${entry.provider}/${entry.scope}) -> ${entry.target}`,
+      );
+    }
+    for (const failure of failures) {
+      console.error(
+        ansi.red(
+          `  Failed to activate "${failure.name}" (${input.provider.name}/${failure.scope}): ${failure.error}`,
+        ),
+      );
+    }
+  }
+
+  if (failures.length > 0) process.exit(1);
+}
+
+/**
+ * Deactivate one library skill in both provider scopes, independently.
+ */
+async function deactivateBothScopes(input: {
+  provider: ProviderConfig;
+  activationName: string;
+  json: boolean;
+}): Promise<void> {
+  const removed: Array<{
+    name: string;
+    provider: string;
+    scope: "global" | "project";
+    path: string;
+    target: string;
+  }> = [];
+  const failures: ScopeFailure[] = [];
+
+  for (const scope of BOTH_SCOPES) {
+    let linkPath: string | undefined;
+    try {
+      const template =
+        scope === "global" ? input.provider.global : input.provider.project;
+      if (!template) {
+        throw new Error(
+          `Provider "${input.provider.name}" has no ${scope} path configured.`,
+        );
+      }
+      const targetDir = resolveProviderPath(template);
+      linkPath = join(targetDir, input.activationName);
+      removed.push(
+        await deactivateLibrarySkill({
+          targetDir,
+          activationName: input.activationName,
+          provider: input.provider.name,
+          scope,
+        }),
+      );
+    } catch (err: unknown) {
+      failures.push({
+        name: input.activationName,
+        provider: input.provider.name,
+        scope,
+        path: linkPath,
+        error: err instanceof Error ? err.message : String(err),
+      });
+    }
+  }
+
+  if (input.json) {
+    console.log(
+      JSON.stringify(
+        { success: failures.length === 0, linked: removed, failures },
+        null,
+        2,
+      ),
+    );
+  } else {
+    for (const entry of removed) {
+      console.log(
+        `${ansi.green("✓")} deactivated ${entry.name} (${entry.provider}/${entry.scope}) -> ${entry.target}`,
+      );
+    }
+    for (const failure of failures) {
+      console.error(
+        ansi.red(
+          `  Failed to deactivate "${failure.name}" (${input.provider.name}/${failure.scope}): ${failure.error}`,
+        ),
+      );
+    }
+  }
+
+  if (failures.length > 0) process.exit(1);
 }
 
 // ─── Command Handlers ───────────────────────────────────────────────────────
@@ -81,6 +259,23 @@ export async function cmdActivate(args: ParsedArgs) {
     args.flags.provider,
     process.stdin.isTTY,
   );
+  const activationName = args.flags.name || skill.dirName;
+
+  // Explicit `both` links into both provider scopes. An omitted scope keeps
+  // the existing behaviour (non-TTY/--yes -> global, TTY -> picker), so the
+  // shared resolver is only used for the single-scope paths.
+  if (args.flags.scopeExplicit && args.flags.scope === "both") {
+    await activateBothScopes({
+      provider,
+      libraryPath: skill.libraryPath,
+      skillName: skill.dirName,
+      activationName,
+      force: args.flags.force,
+      json: args.flags.json,
+    });
+    return;
+  }
+
   let scope: "global" | "project";
   try {
     scope = await resolveInstallScope({
@@ -97,7 +292,6 @@ export async function cmdActivate(args: ParsedArgs) {
   const targetTemplate =
     scope === "global" ? provider.global : provider.project;
   const targetDir = resolveProviderPath(targetTemplate);
-  const activationName = args.flags.name || skill.dirName;
   const result = await activateLibrarySkill({
     libraryPath: skill.libraryPath,
     targetDir,
@@ -147,6 +341,18 @@ export async function cmdDeactivate(args: ParsedArgs) {
     const message = err instanceof Error ? err.message : String(err);
     error(message);
     process.exit(2);
+  }
+
+  // Explicit `both` removes from both scopes and reports each result; it is
+  // handled before the single-scope try/catch so its exit sentinel is not
+  // mistaken for a deactivation error.
+  if (args.flags.scopeExplicit && args.flags.scope === "both") {
+    await deactivateBothScopes({
+      provider,
+      activationName: skillName,
+      json: args.flags.json,
+    });
+    return;
   }
 
   try {
