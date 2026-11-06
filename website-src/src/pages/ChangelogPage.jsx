@@ -65,7 +65,7 @@ const ENTRIES = [
             Skill scores give fair credit for licences: a skill that relies on
             its repository&apos;s licence file, declares a private licence, or
             uses a combined licence such as <code>MIT OR Apache-2.0</code> no
-            longer loses points, and placeholder addresses such as{" "}
+            longer fails the licence check, and placeholder addresses such as{" "}
             <code>you@example.com</code> no longer count as personal data.
           </>,
         ],
