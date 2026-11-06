@@ -183,7 +183,7 @@ function WhatsNew() {
     {
       tag: "New",
       head: "Quality gates for CI",
-      body: "asm eval --min-score 86 --min-category 8 marks each skill PASS or FAIL and exits with an error when any skill falls short.",
+      body: "asm eval ./skills --min-score 86 --min-category 8 marks each skill PASS or FAIL and exits with an error when any skill falls short.",
     },
     {
       tag: "Growing",
@@ -193,7 +193,7 @@ function WhatsNew() {
     {
       tag: "Fixed",
       head: "Scans stay inside the skill folder",
-      body: "Security checks never follow a link out of a skill's folder, so they cannot show your private files. A skill with such a link gets a warning: asm update needs --yes and asm publish needs --force.",
+      body: "Security scans no longer follow a link out of a skill's folder, so a skill can no longer use one to make them read files such as ~/.env. A skill with such a link gets a warning: asm update needs --yes (implied by --machine) and asm publish needs --force.",
     },
   ];
   return (

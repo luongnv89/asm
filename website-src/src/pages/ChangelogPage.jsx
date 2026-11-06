@@ -75,11 +75,12 @@ const ENTRIES = [
         items: [
           <>
             Security checks no longer read files that a skill links to outside
-            its own folder, closing a way for a skill to make asm show your
-            private files, such as <code>~/.env</code>, or hang. A skill with
-            such a link now gets a warning: <code>asm update</code> skips it
-            unless you add <code>--yes</code>, and <code>asm publish</code>{" "}
-            needs <code>--force</code>.
+            its own folder (for a skill fetched from GitHub, outside its
+            repository), closing a way for a skill to make asm show your private
+            files, such as <code>~/.env</code>, or hang. A skill with such a
+            link now gets a warning: <code>asm update</code> skips it unless you
+            add <code>--yes</code> (implied by <code>--machine</code>), and{" "}
+            <code>asm publish</code> needs <code>--force</code>.
           </>,
           <>
             Skills that name their author under <code>metadata.author</code> now
