@@ -1,4 +1,5 @@
 import { access, lstat, mkdir, readdir, readFile, rm, stat } from "fs/promises";
+import type { Stats } from "fs";
 import { join } from "path";
 import { parseFrontmatter, resolveVersion } from "./utils/frontmatter";
 import { createDirSymlink } from "./utils/fs";
@@ -55,6 +56,15 @@ export async function validateLinkSource(
   };
 }
 
+/**
+ * Create a directory symlink at `targetDir/name` pointing at `sourcePath`.
+ *
+ * This is the install-side primitive: with `force` it removes whatever sits
+ * at the target (including a real directory) before recreating the link.
+ * `asm install` relies on that when it re-links across tools.
+ *
+ * `asm link` uses {@link createLinkSafely} instead — see its contract.
+ */
 export async function createLink(
   sourcePath: string,
   targetDir: string,
@@ -86,6 +96,55 @@ export async function createLink(
   await mkdir(targetDir, { recursive: true });
 
   // Create symlink (a junction on Windows — see createDirSymlink)
+  await createDirSymlink(sourcePath, targetPath);
+}
+
+/**
+ * Create a directory symlink at `targetDir/name` pointing at `sourcePath`,
+ * following the same overwrite contract as `asm activate`
+ * (`activateLibrarySkill` in `src/library-core.ts`):
+ *
+ * - An existing target fails unless `force` is set — even when the existing
+ *   link already points at the same source.
+ * - With `force`, only symlinks are replaced. A dangling symlink counts as a
+ *   symlink and is replaced; a real file or directory is refused and left
+ *   untouched, so `--force` can never destroy user data.
+ *
+ * `lstat` (not `access`) is used so a dangling symlink is detected as an
+ * existing target instead of being treated as free space.
+ */
+export async function createLinkSafely(
+  sourcePath: string,
+  targetDir: string,
+  name: string,
+  force: boolean,
+): Promise<void> {
+  const targetPath = join(targetDir, name);
+
+  let existing: Stats | null = null;
+  try {
+    existing = await lstat(targetPath);
+  } catch (err: unknown) {
+    const code = (err as NodeJS.ErrnoException)?.code;
+    if (code !== "ENOENT") throw err;
+  }
+
+  if (existing) {
+    if (!force) {
+      throw new Error(
+        `Target already exists: ${targetPath}. Use --force to overwrite.`,
+      );
+    }
+    if (!existing.isSymbolicLink()) {
+      throw new Error(
+        `Refusing to overwrite non-symlink target: ${targetPath}.`,
+      );
+    }
+    // Remove the link only — never the directory it points at.
+    await rm(targetPath, { force: true });
+  }
+
+  await mkdir(targetDir, { recursive: true });
   await createDirSymlink(sourcePath, targetPath);
 }
 
