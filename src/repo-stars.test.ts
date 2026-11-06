@@ -1,14 +1,25 @@
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "fs";
+import { tmpdir } from "os";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
 import { describe, expect, it, vi } from "vitest";
 import {
+  catalogRepoKey,
+  catalogRepoKeysFromIndexDir,
   collectRepoStars,
+  describeFailedResponse,
   exceedsStarFailureThreshold,
   fetchRepoStars,
   mergeStarBaseline,
   parseStarBaseline,
   rateLimitDelayMs,
   resolveRepoStars,
+  STAR_BASELINE_PATH,
+  starsOfflineFromEnv,
   starTokenFromEnv,
 } from "./repo-stars";
+
+const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 function mockFetch(
   handler: (url: string) => {
@@ -41,6 +52,16 @@ describe("repo-stars: token source", () => {
     ).toBe("a");
     expect(starTokenFromEnv({ GH_TOKEN: "b" } as never)).toBe("b");
     expect(starTokenFromEnv({} as never)).toBeUndefined();
+  });
+});
+
+describe("repo-stars: offline mode (issue #784)", () => {
+  it("is on only for ASM_STARS_OFFLINE=1 or true", () => {
+    expect(starsOfflineFromEnv({ ASM_STARS_OFFLINE: "1" })).toBe(true);
+    expect(starsOfflineFromEnv({ ASM_STARS_OFFLINE: " TRUE " })).toBe(true);
+    expect(starsOfflineFromEnv({ ASM_STARS_OFFLINE: "" })).toBe(false);
+    expect(starsOfflineFromEnv({ ASM_STARS_OFFLINE: "0" })).toBe(false);
+    expect(starsOfflineFromEnv({})).toBe(false);
   });
 });
 
@@ -141,6 +162,84 @@ describe("repo-stars: fetchRepoStars", () => {
   });
 });
 
+describe("repo-stars: failure reasons (issue #784)", () => {
+  const headers = (h: Record<string, string>) => ({
+    get: (name: string) => h[name.toLowerCase()] ?? null,
+  });
+
+  it("describes status, retry-after and the reset time as ISO", () => {
+    expect(describeFailedResponse({ status: 500, headers: headers({}) })).toBe(
+      "HTTP 500",
+    );
+    expect(
+      describeFailedResponse({
+        status: 403,
+        headers: headers({
+          "retry-after": "60",
+          "x-ratelimit-reset": "1793919600",
+        }),
+      }),
+    ).toBe(
+      "HTTP 403, retry-after 60s, x-ratelimit-reset 2026-11-05T23:00:00.000Z",
+    );
+    expect(
+      describeFailedResponse({
+        status: 429,
+        headers: headers({ "x-ratelimit-reset": "soon" }),
+      }),
+    ).toBe("HTTP 429, x-ratelimit-reset soon");
+    expect(
+      describeFailedResponse({
+        status: 429,
+        headers: headers({ "retry-after": "Thu, 05 Nov 2026 23:00:00 GMT" }),
+      }),
+    ).toBe("HTTP 429, retry-after Thu, 05 Nov 2026 23:00:00 GMT");
+  });
+
+  it("reports why each fetch resolved to null", async () => {
+    const seen: string[] = [];
+    const onFailure = (r: string) => seen.push(r);
+    const limited = mockFetch(() => ({
+      status: 403,
+      headers: { "x-ratelimit-reset": "4102444800" },
+    }));
+    await fetchRepoStars("a", "b", { fetchImpl: limited, onFailure });
+    await fetchRepoStars("a", "b", {
+      fetchImpl: mockFetch(() => ({ status: 404 })),
+      onFailure,
+    });
+    await fetchRepoStars("a", "b", {
+      fetchImpl: mockFetch(() => ({ status: 200, body: {} })),
+      onFailure,
+    });
+    await fetchRepoStars("a", "b", {
+      fetchImpl: (async () => {
+        throw new Error("ECONNREFUSED");
+      }) as unknown as typeof fetch,
+      attempts: 1,
+      onFailure,
+    });
+    expect(seen).toEqual([
+      "HTTP 403, x-ratelimit-reset 2100-01-01T00:00:00.000Z",
+      "HTTP 404",
+      "HTTP 200, no numeric stargazers_count",
+      "network error: ECONNREFUSED",
+    ]);
+  });
+
+  it("does not report a reason on success", async () => {
+    const onFailure = vi.fn();
+    await fetchRepoStars("a", "b", {
+      fetchImpl: mockFetch(() => ({
+        status: 200,
+        body: { stargazers_count: 1 },
+      })),
+      onFailure,
+    });
+    expect(onFailure).not.toHaveBeenCalled();
+  });
+});
+
 describe("repo-stars: collectRepoStars", () => {
   it("splits successes and failures without zeroing", async () => {
     const f = mockFetch((url) =>
@@ -148,14 +247,19 @@ describe("repo-stars: collectRepoStars", () => {
         ? { status: 200, body: { stargazers_count: 3 } }
         : { status: 403, headers: {} },
     );
-    const { stars, failures } = await collectRepoStars(["good/r", "bad/r"], {
-      fetchImpl: f,
-      maxWaitMs: 1,
-      concurrency: 1,
-    });
+    const { stars, failures, reasons } = await collectRepoStars(
+      ["good/r", "bad/r"],
+      {
+        fetchImpl: f,
+        maxWaitMs: 1,
+        concurrency: 1,
+      },
+    );
     expect(stars.get("good/r")).toBe(3);
     expect(stars.has("bad/r")).toBe(false);
     expect(failures).toEqual(["bad/r"]);
+    expect(reasons.get("bad/r")).toBe("HTTP 403");
+    expect(reasons.has("good/r")).toBe(false);
   });
 });
 
@@ -186,6 +290,67 @@ describe("repo-stars: baseline", () => {
     expect(values.get("c/d")).toBe(20);
     expect(values.get("e/f")).toBeNull();
     expect(unknown).toEqual(["e/f"]);
+  });
+});
+
+describe("repo-stars: committed baseline (issue #784)", () => {
+  // Offline CI builds resolve stars from this file alone, and the deploy
+  // falls back to it when a fetch fails — a newly indexed repo needs one.
+  // Two sources: the resources list, and the repo set the build actually
+  // derives from data/skill-index/*.json (catalogRepoKeysFromIndexDir).
+  it("has a star count for every enabled resource and every catalog repo", () => {
+    const resources = JSON.parse(
+      readFileSync(
+        join(REPO_ROOT, "data", "skill-index-resources.json"),
+        "utf-8",
+      ),
+    ) as { repos: { owner: string; repo: string; enabled?: boolean }[] };
+    const baseline = parseStarBaseline(
+      JSON.parse(readFileSync(join(REPO_ROOT, STAR_BASELINE_PATH), "utf-8")),
+    );
+    const fromResources = resources.repos
+      .filter((r) => r.enabled !== false)
+      .map((r) => `${r.owner}/${r.repo}`);
+    const fromIndex = catalogRepoKeysFromIndexDir(
+      join(REPO_ROOT, "data", "skill-index"),
+    );
+    expect(fromIndex.length).toBeGreaterThan(0);
+    const hint = `add to ${STAR_BASELINE_PATH}: gh api repos/<owner>/<repo> --jq .stargazers_count`;
+    expect(
+      fromResources.filter((key) => baseline[key] === undefined),
+      `skill-index-resources.json repos without a baseline; ${hint}`,
+    ).toEqual([]);
+    expect(
+      fromIndex.filter((key) => baseline[key] === undefined),
+      `data/skill-index/*.json repos without a baseline; ${hint}`,
+    ).toEqual([]);
+  });
+});
+
+describe("repo-stars: catalog repo set (issue #784)", () => {
+  it("keys an index by owner/repo and skips one with no skills", () => {
+    expect(catalogRepoKey({ owner: "o", repo: "r", skills: [{}] })).toBe("o/r");
+    expect(catalogRepoKey({ owner: "o", repo: "r", skills: [] })).toBeNull();
+    expect(catalogRepoKey({ owner: "o", repo: "r" })).toBeNull();
+  });
+
+  it("reads *.json indexes, skips invalid JSON and empty repos, de-dupes", () => {
+    const dir = mkdtempSync(join(tmpdir(), "asm-stars-index-"));
+    try {
+      const write = (name: string, body: string) =>
+        writeFileSync(join(dir, name), body);
+      write("a.json", JSON.stringify({ owner: "a", repo: "x", skills: [{}] }));
+      write(
+        "a-dup.json",
+        JSON.stringify({ owner: "a", repo: "x", skills: [{}] }),
+      );
+      write("b.json", JSON.stringify({ owner: "b", repo: "y", skills: [] }));
+      write("c.json", "{ not json");
+      write("d.txt", JSON.stringify({ owner: "d", repo: "z", skills: [{}] }));
+      expect(catalogRepoKeysFromIndexDir(dir)).toEqual(["a/x"]);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 });
 
