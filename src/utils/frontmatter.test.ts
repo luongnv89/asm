@@ -428,6 +428,23 @@ describe("resolveCreator (#787)", () => {
   it("returns empty for a bare email so no address is exposed", () => {
     expect(resolveCreator({ "metadata.author": "a@b.com" })).toBe("");
     expect(resolveCreator({ author: " a@b.com " })).toBe("");
+    expect(resolveCreator({ author: "mailto:a@b.c" })).toBe("");
+  });
+
+  it("falls back to the next key when the winning key is only an email", () => {
+    expect(
+      resolveCreator({
+        "metadata.creator": "a@b.c",
+        "metadata.author": "Real Name",
+      }),
+    ).toBe("Real Name");
+    expect(
+      resolveCreator({
+        "metadata.author": "<x@y.org>",
+        creator: "",
+        author: "Legacy",
+      }),
+    ).toBe("Legacy");
   });
 
   it("joins a list-form value with ', ', trimming and dropping empty parts", () => {
@@ -440,6 +457,110 @@ describe("resolveCreator (#787)", () => {
         parseFrontmatter("---\nname: s\nauthor:\n  - Alice\n  - Bob\n---\n"),
       ),
     ).toBe("Alice, Bob");
+  });
+
+  // Every case the owner listed: the creator is a display name, so no email
+  // may survive anywhere in it (#787).
+  const EMAIL_CASES: Array<[string, Record<string, string>, string]> = [
+    [
+      "angle",
+      { "metadata.author": "Luong NGUYEN <luongnv89@gmail.com>" },
+      "Luong NGUYEN",
+    ],
+    ["angle, spaces", { "metadata.author": "  Name  <a@b.c>  " }, "Name"],
+    ["bare", { "metadata.author": "a@b.c" }, ""],
+    ["angle only", { "metadata.author": "<a@b.c>" }, ""],
+    ["parens", { "metadata.author": "Name (a@b.c)" }, "Name"],
+    ["inline", { "metadata.author": "Name a@b.c" }, "Name"],
+    ["mailto", { "metadata.author": "Name <mailto:a@b.co>" }, "Name"],
+    [
+      "two in one line",
+      { "metadata.author": "A <a@x.org>, B <b@y.org>" },
+      "A, B",
+    ],
+    [
+      "angle then role",
+      { "metadata.author": "Alice <alice@x.org> (maintainer)" },
+      "Alice (maintainer)",
+    ],
+    [
+      "role with email inside",
+      { "metadata.author": "Alice (maintainer, alice@x.org)" },
+      "Alice (maintainer)",
+    ],
+    [
+      "flow list",
+      { "metadata.author": "[Alice <alice@x.org>, bob@y.org]" },
+      "Alice",
+    ],
+    [
+      "block list",
+      parseFrontmatter(
+        "---\nname: s\nauthor:\n  - Alice <alice@x.org>\n  - Bob (bob@y.org)\n  - carol@z.org\n---\n",
+      ),
+      "Alice, Bob",
+    ],
+    [
+      "paren mid-sentence",
+      {
+        "metadata.author":
+          "Cocoon AI (hello@cocoon-ai.com), ported by Hermes Agent",
+      },
+      "Cocoon AI, ported by Hermes Agent",
+    ],
+    ["bracketed", { author: "Name [first.last+tag@sub.example.org]" }, "Name"],
+    ["team at", { "metadata.author": "Team @ Acme" }, "Team @ Acme"],
+    ["handle", { "metadata.author": "@luongnv89" }, "@luongnv89"],
+    ["plain", { "metadata.author": "luongnv89" }, "luongnv89"],
+    [
+      "fallback",
+      { "metadata.creator": "a@b.c", "metadata.author": "Real Name" },
+      "Real Name",
+    ],
+  ];
+
+  it.each(EMAIL_CASES)("removes every email: %s", (_label, fm, expected) => {
+    expect(resolveCreator(fm)).toBe(expected);
+  });
+
+  const EMAIL_SHAPE = /[^\s<>()[\],;:]+@[^\s<>()[\],;:]+\.[a-z]{2,}/i;
+
+  it("never returns an email-shaped substring (property)", () => {
+    const emails = [
+      "a@b.co",
+      "first.last+tag@sub.example.org",
+      "MAILTO:x@y.io",
+      "hello@cocoon-ai.com",
+    ];
+    const wrappers = ["%", "<%>", "(%)", "[%]", "< % >", "{%}"];
+    const shapes = [
+      "N W",
+      "W N",
+      "N W, Other",
+      "N (role) W",
+      "N W (role)",
+      "W, N",
+      "N W W",
+      "[N W, W]",
+      "N\nW\nOther W",
+    ];
+    const inputs = EMAIL_CASES.map(([, fm]) => fm);
+    for (const email of emails) {
+      for (const wrap of wrappers) {
+        const w = wrap.replace("%", email);
+        for (const shape of shapes) {
+          const value = shape.replace("N", "Alice").replaceAll("W", w);
+          inputs.push({ "metadata.author": value }, { author: value });
+        }
+      }
+    }
+    for (const fm of inputs) {
+      const creator = resolveCreator(fm);
+      expect(creator, JSON.stringify(fm)).not.toMatch(EMAIL_SHAPE);
+      expect(creator, JSON.stringify(fm)).not.toMatch(/mailto/i);
+      const raw = Object.values(fm).join(" ");
+      if (raw.includes("Alice")) expect(creator).toContain("Alice");
+    }
   });
 });
 

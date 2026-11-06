@@ -168,24 +168,55 @@ export function resolveVersion(fm: Record<string, string>): string {
   return fm["metadata.version"] || fm.version || "0.0.0";
 }
 
-const TRAILING_ANGLE_EMAIL = /\s*<[^<>]*@[^<>]*>\s*$/;
-const BARE_EMAIL = /^[^\s@<>]+@[^\s@<>]+$/;
+/**
+ * An email-shaped token: any run of non-delimiter characters with an `@` that
+ * has something on both sides, plus an optional `mailto:` prefix. Deliberately
+ * broader than a valid address (no TLD needed, so `a@b.c` and `x@y` count).
+ * `Team @ Acme` and `@handle` have nothing on one side of the `@` and are kept.
+ */
+const EMAIL_TOKEN = /(?:mailto:)?[^\s<>()[\]{},;:"']+@[^\s<>()[\]{},;:"']+/gi;
 
-/** One creator entry as a display name: no trailing `<email>`, no bare email. */
+/** Tidy-ups after removing emails, applied in order until nothing changes. */
+const CREATOR_TIDY: Array<[RegExp, string]> = [
+  [/<[\s,;]*>|\([\s,;]*\)|\[[\s,;]*\]|\{[\s,;]*\}/g, " "], // emptied brackets
+  [/([(<[{])[\s,;]+/g, "$1"], // separator right after an opening bracket
+  [/[\s,;]+([)>\]}])/g, "$1"], // separator right before a closing bracket
+  [/\s+([,;])/g, "$1"], // space before a separator
+  [/([,;])(?:\s*[,;])+/g, "$1"], // repeated separators
+  [/\s{2,}/g, " "], // doubled spaces
+  [/^[\s,;]+|[\s,;]+$/g, ""], // leading or trailing separators
+];
+
+/** One creator entry as a display name, with every email removed. */
 function creatorDisplayName(part: string): string {
-  const name = part.trim().replace(TRAILING_ANGLE_EMAIL, "").trim();
-  return BARE_EMAIL.test(name) ? "" : name;
+  let name = part.trim().replace(/^["']|["']$/g, "");
+  for (let previous = ""; previous !== name;) {
+    previous = name;
+    name = name.replace(EMAIL_TOKEN, " ");
+    for (const [pattern, replacement] of CREATOR_TIDY) {
+      name = name.replace(pattern, replacement);
+    }
+  }
+  // Nothing meaningful left (only punctuation): drop the entry.
+  return /[\p{L}\p{N}]/u.test(name) ? name : "";
+}
+
+/** Split a raw creator value into entries: a flow list, else one per line. */
+function creatorEntries(value: string): string[] {
+  const flow = value.match(/^\[([^[\]]*)\]$/);
+  return flow ? flow[1].split(",") : value.split(/\r?\n/);
 }
 
 /**
- * Resolve a skill's display creator. The first non-blank key wins:
+ * Resolve a skill's display creator from the first key that yields one:
  * `metadata.creator`, then `metadata.author` (the skill-creator standard),
  * then the legacy top-level `creator` / `author` keys the evaluator already
- * accepts. The creator is a display name only, so author email addresses never
- * reach the index or the public catalog: a trailing `<email>` is stripped
- * (`Name <user@host>` → `Name`) and a bare email becomes "". List-form values
- * (one entry per line) are joined with ", ", dropping empty entries. The rest
- * is kept as written; "" when none is set.
+ * accepts. The creator is a display name only, so every email address is
+ * removed and none reaches the index or the public catalog
+ * (`Name <user@host>` → `Name`, `Cocoon AI (hi@x.com), ported by B` →
+ * `Cocoon AI, ported by B`, a bare email → nothing, and the next key is
+ * tried). List values (one entry per line, or a `[a, b]` flow list) are
+ * joined with ", ", dropping empty entries. "" when no key yields a name.
  */
 export function resolveCreator(fm: Record<string, string>): string {
   for (const key of [
@@ -194,13 +225,11 @@ export function resolveCreator(fm: Record<string, string>): string {
     "creator",
     "author",
   ]) {
-    const value = (fm[key] || "").trim();
-    if (!value) continue;
-    return value
-      .split(/\r?\n/)
+    const creator = creatorEntries((fm[key] || "").trim())
       .map(creatorDisplayName)
       .filter(Boolean)
       .join(", ");
+    if (creator) return creator;
   }
   return "";
 }
