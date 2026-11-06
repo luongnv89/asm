@@ -13,8 +13,15 @@
  * - a committed `data/repo-stars.json` baseline supplies the last known
  *   value when a fetch fails, so a blip degrades to stale data, not zeros;
  * - the build fails loudly when more than a few percent of repos end up
- *   with unknown stars, so this cannot silently regress again.
+ *   with unknown stars, so this cannot silently regress again;
+ * - `ASM_STARS_OFFLINE=1` skips the fetch and resolves every repo from the
+ *   baseline alone, so CI tests never depend on api.github.com or the
+ *   repository's hourly token budget (issue #784). The production deploy
+ *   leaves it unset and keeps the live fetch and the refuse-to-publish gate.
  */
+
+import { readdirSync, readFileSync } from "fs";
+import { join } from "path";
 
 export const STAR_FETCH_CONCURRENCY = 8;
 export const STAR_FETCH_ATTEMPTS = 3;
@@ -25,11 +32,15 @@ export const STAR_BASELINE_PATH = "data/repo-stars.json";
 export const STAR_USER_AGENT =
   "asm-build-catalog (+https://github.com/luongnv89/asm)";
 
+export const STAR_OFFLINE_ENV = "ASM_STARS_OFFLINE";
+
 export interface StarFetchOptions {
   token?: string;
   fetchImpl?: typeof fetch;
   attempts?: number;
   maxWaitMs?: number;
+  /** Called once with why the fetch gave up, when it resolves to `null`. */
+  onFailure?: (reason: string) => void;
 }
 
 export interface StarBaseline {
@@ -42,6 +53,47 @@ export function starTokenFromEnv(
   env: NodeJS.ProcessEnv = process.env,
 ): string | undefined {
   return env.GITHUB_TOKEN || env.GH_TOKEN || undefined;
+}
+
+/**
+ * True when the catalog build must not touch the network for stars and
+ * should resolve every repo from the committed baseline (issue #784).
+ */
+export function starsOfflineFromEnv(
+  env: NodeJS.ProcessEnv = process.env,
+): boolean {
+  const value = env[STAR_OFFLINE_ENV]?.trim().toLowerCase();
+  return value === "1" || value === "true";
+}
+
+/**
+ * Why an HTTP response did not yield a star count: the status plus the
+ * rate-limit headers that explain it, e.g.
+ * `HTTP 403, x-ratelimit-reset 2026-11-05T23:00:00.000Z`.
+ */
+export function describeFailedResponse(res: {
+  status: number;
+  headers: { get(name: string): string | null };
+}): string {
+  const parts = [`HTTP ${res.status}`];
+  const retryAfter = res.headers.get("retry-after");
+  if (retryAfter !== null) {
+    // Seconds or an HTTP date (RFC 9110); only seconds get a unit.
+    const unit = /^\d+$/.test(retryAfter.trim()) ? "s" : "";
+    parts.push(`retry-after ${retryAfter}${unit}`);
+  }
+  const reset = res.headers.get("x-ratelimit-reset");
+  if (reset !== null) {
+    const epoch = Number(reset);
+    parts.push(
+      `x-ratelimit-reset ${
+        Number.isFinite(epoch) && epoch > 0
+          ? new Date(epoch * 1000).toISOString()
+          : reset
+      }`,
+    );
+  }
+  return parts.join(", ");
 }
 
 /**
@@ -85,7 +137,12 @@ export async function fetchRepoStars(
     fetchImpl = fetch,
     attempts = STAR_FETCH_ATTEMPTS,
     maxWaitMs = STAR_FETCH_MAX_WAIT_MS,
+    onFailure,
   } = opts;
+  const fail = (reason: string): null => {
+    onFailure?.(reason);
+    return null;
+  };
   const headers: Record<string, string> = {
     Accept: "application/vnd.github+json",
     "User-Agent": STAR_USER_AGENT,
@@ -98,8 +155,12 @@ export async function fetchRepoStars(
       res = await fetchImpl(`https://api.github.com/repos/${owner}/${repo}`, {
         headers,
       });
-    } catch {
-      if (attempt === attempts - 1) return null;
+    } catch (err) {
+      if (attempt === attempts - 1) {
+        return fail(
+          `network error: ${err instanceof Error ? err.message : String(err)}`,
+        );
+      }
       await sleep(
         rateLimitDelayMs(null, null, attempt, Date.now(), maxWaitMs)!,
       );
@@ -113,48 +174,98 @@ export async function fetchRepoStars(
         Date.now(),
         maxWaitMs,
       );
-      if (delay === null || attempt === attempts - 1) return null;
+      if (delay === null || attempt === attempts - 1) {
+        return fail(describeFailedResponse(res));
+      }
       await sleep(delay);
       continue;
     }
-    if (!res.ok) return null;
+    if (!res.ok) return fail(describeFailedResponse(res));
     let data: { stargazers_count?: unknown };
     try {
       data = (await res.json()) as { stargazers_count?: unknown };
     } catch {
-      return null;
+      return fail(`HTTP ${res.status}, response body is not JSON`);
     }
     return typeof data.stargazers_count === "number"
       ? data.stargazers_count
-      : null;
+      : fail(`HTTP ${res.status}, no numeric stargazers_count`);
   }
-  return null;
+  return fail("no attempts made");
 }
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-/** Fetch every repo with bounded concurrency; failures are listed, not zeroed. */
+/**
+ * Fetch every repo with bounded concurrency; failures are listed, not
+ * zeroed, and `reasons` says why each one failed.
+ */
 export async function collectRepoStars(
   keys: string[],
-  opts: StarFetchOptions & { concurrency?: number } = {},
-): Promise<{ stars: Map<string, number>; failures: string[] }> {
+  opts: Omit<StarFetchOptions, "onFailure"> & { concurrency?: number } = {},
+): Promise<{
+  stars: Map<string, number>;
+  failures: string[];
+  reasons: Map<string, string>;
+}> {
   const { concurrency = STAR_FETCH_CONCURRENCY, ...fetchOpts } = opts;
   const stars = new Map<string, number>();
   const failures: string[] = [];
+  const reasons = new Map<string, string>();
   for (let i = 0; i < keys.length; i += concurrency) {
     const batch = keys.slice(i, i + concurrency);
     await Promise.all(
       batch.map(async (key) => {
         const [owner, repo] = key.split("/");
-        const value = await fetchRepoStars(owner, repo, fetchOpts);
+        const value = await fetchRepoStars(owner, repo, {
+          ...fetchOpts,
+          onFailure: (reason) => reasons.set(key, reason),
+        });
         if (value === null) failures.push(key);
         else stars.set(key, value);
       }),
     );
   }
-  return { stars, failures };
+  return { stars, failures, reasons };
+}
+
+/** The `*.json` repo index files in `indexDir`, as the catalog build reads them. */
+export function listRepoIndexFiles(indexDir: string): string[] {
+  return readdirSync(indexDir).filter((f) => f.endsWith(".json"));
+}
+
+/**
+ * The `owner/repo` key a repo index contributes to the catalog, and so to
+ * the star fetch, or `null` when it has no skills and the build skips it.
+ */
+export function catalogRepoKey(index: {
+  owner: string;
+  repo: string;
+  skills?: readonly unknown[] | null;
+}): string | null {
+  if (!index.skills || index.skills.length === 0) return null;
+  return `${index.owner}/${index.repo}`;
+}
+
+/**
+ * Every repo the catalog build resolves stars for, derived the way the
+ * build does: index files with skills, invalid JSON skipped, de-duplicated.
+ */
+export function catalogRepoKeysFromIndexDir(indexDir: string): string[] {
+  const keys = new Set<string>();
+  for (const file of listRepoIndexFiles(indexDir)) {
+    let index: Parameters<typeof catalogRepoKey>[0];
+    try {
+      index = JSON.parse(readFileSync(join(indexDir, file), "utf-8"));
+    } catch {
+      continue;
+    }
+    const key = catalogRepoKey(index);
+    if (key !== null) keys.add(key);
+  }
+  return [...keys];
 }
 
 /** Defensive parse of the committed baseline — invalid content means empty. */
