@@ -77,7 +77,9 @@ ${ansi.bold("Security target resolution:")}
   read; because the content was not read, it raises the verdict to
   WARNING, not DANGEROUS. Review those targets by hand. A target that is
   itself a symlink (a linked install, e.g. "asm link") is followed and its
-  real path is shown.
+  real path is shown. Finding installed skills (as "asm list" does) still
+  reads each SKILL.md's frontmatter, even through a link; the audit never
+  prints a name taken from a SKILL.md outside the folder.
 
 ${ansi.bold("Options:")}
   --json             Output as JSON
