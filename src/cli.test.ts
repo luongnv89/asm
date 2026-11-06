@@ -159,6 +159,19 @@ describe("parseArgs", () => {
     expect(result.flags.scope).toBe("both");
   });
 
+  test("scopeExplicit is false when --scope is omitted", () => {
+    const result = parse("list");
+    // The value still defaults to "both"; only an explicit flag is marked.
+    expect(result.flags.scopeExplicit).toBe(false);
+  });
+
+  test("scopeExplicit is true for every explicit scope spelling", () => {
+    for (const value of ["global", "project", "local", "both"]) {
+      const result = parse("list", "--scope", value);
+      expect(result.flags.scopeExplicit).toBe(true);
+    }
+  });
+
   test("defaults sort to name", () => {
     const result = parse("list");
     expect(result.flags.sort).toBe("name");
@@ -462,7 +475,7 @@ describe("CLI integration: per-command --help", () => {
     const { stdout, exitCode } = await runCLI("deactivate", "--help");
     expect(exitCode).toBe(0);
     expect(stdout).toContain("asm deactivate");
-    expect(stdout).toContain("<global|project>");
+    expect(stdout).toContain("<global|project|both>");
   });
 
   test("config --help shows config subcommands", async () => {
