@@ -27,6 +27,73 @@ function issue(n) {
 
 const ENTRIES = [
   {
+    version: "2.25.0",
+    date: "2026-11-06",
+    sections: [
+      {
+        tag: "added",
+        items: [
+          <>
+            Check a skill for security risks before you install it: point{" "}
+            <code>asm audit security</code> at a local skill folder, or a folder
+            of skills, and it checks each one in place without installing or
+            running anything.
+          </>,
+          <>
+            Turn skill quality into a pass or fail check for CI:{" "}
+            <code>asm eval --min-score</code> and <code>--min-category</code>{" "}
+            mark each skill PASS or FAIL and exit with an error when any skill
+            falls short.
+          </>,
+          <>
+            A new <code>skill-changelog</code> skill writes a skill&apos;s own
+            changelog each time its version goes up, and skills made with{" "}
+            <code>skill-creator</code> now include a Self-Improve section that
+            can suggest one change to fit how you work, applied only if you say
+            yes.
+          </>,
+        ],
+      },
+      {
+        tag: "changed",
+        items: [
+          <>
+            The skill catalog now lists 7,267 skills from 86 repositories, with
+            the latest updates from every indexed source.
+          </>,
+          <>
+            Skill scores give fair credit for licences: a skill that relies on
+            its repository&apos;s licence file, declares a private licence, or
+            uses a combined licence such as <code>MIT OR Apache-2.0</code> no
+            longer fails the licence check, and placeholder addresses such as{" "}
+            <code>you@example.com</code> no longer count as personal data.
+          </>,
+        ],
+      },
+      {
+        tag: "fixed",
+        items: [
+          <>
+            Security checks no longer read files that a skill links to outside
+            its own folder (for a skill fetched from GitHub, outside its
+            repository), closing a way for a skill to make asm show your private
+            files, such as <code>~/.env</code>, or hang. A skill with such a
+            link now gets a warning: <code>asm update</code> skips it unless you
+            add <code>--yes</code> (implied by <code>--machine</code>), and{" "}
+            <code>asm publish</code> needs <code>--force</code>.
+          </>,
+          <>
+            Skills that name their author under <code>metadata.author</code> now
+            show a creator, and creators show names only, never email addresses.
+          </>,
+          <>
+            <code>asm index overlap</code> runs about eight times faster.
+          </>,
+        ],
+      },
+    ],
+  },
+  {
     version: "2.24.0",
     date: "2026-10-20",
     sections: [
