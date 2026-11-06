@@ -796,6 +796,49 @@ export interface SecurityAuditReport {
   totalLines: number;
   verdict: SecurityVerdict;
   verdictReason: string;
+  /**
+   * Symlinks in a local audit target that leave the audited folder, dangle,
+   * or loop (#779). Present only when non-empty; any entry raises the verdict
+   * to at least `warning`.
+   */
+  externalSymlinks?: ExternalSymlink[];
+  /**
+   * Local audits only: regular files inside the folder with more than one
+   * hard link. Info only; never changes the verdict. Present when non-empty.
+   */
+  hardLinks?: HardLinkNote[];
+  /**
+   * Local audits only: the real path audited, present when the target path
+   * the user named (or one of its parents) is a symlink that was followed.
+   */
+  resolvedPath?: string;
+}
+
+/** A file inside a local audit target with `st_nlink > 1` (#779). */
+export interface HardLinkNote {
+  /** File path relative to the audited folder. */
+  path: string;
+  /** `st_nlink` of the file. */
+  links: number;
+  severity: "info";
+  note: string;
+}
+
+/**
+ * A symlink found while auditing a local folder that the audit cannot treat
+ * as part of that folder (#779). `file`/`directory`/`special`: resolves
+ * outside the folder; the target is never opened, read or walked.
+ * `dangling`/`loop`: never followed. Always a critical finding.
+ */
+export interface ExternalSymlink {
+  /** Link path relative to the audited folder. */
+  path: string;
+  /** Absolute resolved target (for `dangling`, the path the link names). */
+  target: string;
+  kind: "file" | "directory" | "special" | "dangling" | "loop";
+  severity: "critical";
+  /** Human-readable statement that the target was not read or followed. */
+  note: string;
 }
 
 // ─── Bundle Types ─────────────────────────────────────────────────────────
@@ -830,6 +873,8 @@ export interface PublishResult {
   prUrl: string | null;
   error: string | null;
   securityVerdict: "pass" | "warning" | "dangerous";
+  /** Why a `warning` verdict held the publish: symlinks not read or the verdict reason (#791). */
+  securityReasons?: string[];
   securityReport: SecurityAuditReport;
   fallback?: boolean;
   fallbackReason?: string;

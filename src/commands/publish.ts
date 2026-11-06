@@ -72,6 +72,9 @@ export async function cmdPublish(args: ParsedArgs) {
             {
               manifest: result.manifest,
               security_verdict: result.securityVerdict,
+              ...(result.securityReasons
+                ? { security_reasons: result.securityReasons }
+                : {}),
               fallback: result.fallback ?? false,
             },
           ),
@@ -102,6 +105,9 @@ export async function cmdPublish(args: ParsedArgs) {
             pr_url: result.prUrl,
             error: result.error,
             security_verdict: result.securityVerdict,
+            ...(result.securityReasons
+              ? { security_reasons: result.securityReasons }
+              : {}),
           },
           null,
           2,

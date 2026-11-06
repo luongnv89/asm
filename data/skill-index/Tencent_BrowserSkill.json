@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/Tencent/BrowserSkill.git",
   "owner": "Tencent",
   "repo": "BrowserSkill",
-  "updatedAt": "2026-10-18T22:14:22.552Z",
+  "updatedAt": "2026-11-06T01:07:16.071Z",
   "skillCount": 1,
   "skills": [
     {
@@ -20,9 +20,9 @@
       "installUrl": "github:Tencent/BrowserSkill:crates/bsk-cli/skill",
       "relPath": "crates/bsk-cli/skill",
       "verified": true,
-      "tokenCount": 1983,
+      "tokenCount": 1898,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 67,
         "grade": "C",
         "categories": [
           {
@@ -58,7 +58,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 3,
+            "score": 1,
             "max": 10
           },
           {
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:14:22.544Z",
+        "evaluatedAt": "2026-11-06T01:07:16.058Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -95,7 +95,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 67,
           "grade": "C",
           "categories": [
             {
@@ -131,7 +131,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 3,
+              "score": 1,
               "max": 10
             },
             {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:22.545Z",
+          "evaluatedAt": "2026-11-06T01:07:16.058Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -177,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:22.545Z",
+          "evaluatedAt": "2026-11-06T01:07:16.058Z",
           "evaluatedVersion": "0.0.0"
         }
       }

@@ -305,7 +305,7 @@ export async function cmdIndex(args: ParsedArgs) {
       }
 
       // Group overlapping skills
-      const groups = groupOverlaps(skillsToCompare, threshold);
+      const groups = groupOverlaps(skillsToCompare, threshold, pairs);
 
       if (args.flags.json) {
         console.log(

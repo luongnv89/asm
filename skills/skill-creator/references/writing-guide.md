@@ -10,7 +10,7 @@ Contents: [Anatomy](#anatomy-of-a-skill) · [Progressive Disclosure](#progressiv
 skill-name/
 ├── SKILL.md (required)
 │   ├── YAML frontmatter (name, description required)
-│   └── Markdown instructions
+│   └── Markdown instructions (workflow ends with ## Self-Improve)
 ├── docs/ (optional — human-only, never auto-loaded)
 │   └── README.md (optional — catalog-browsing docs with AI-skip notice)
 ├── references/ (optional — loaded into agent context when SKILL.md points to them)
@@ -217,15 +217,15 @@ Adapt the check names to what the step actually validates. Use `√` for pass, `
 
 Per-phase checks:
 
-| Phase          | Checks                                                                                                                            |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| Intent Capture | `Worth building`, `Goal defined`, `Triggers identified`, `Output format agreed`                                                   |
-| Skill Writing  | `SKILL.md written`, `README generated`, `Subagents designed`, `Dependency preflight`, `Predictability pass`, `Adversarial review` |
-| Testing        | `Evals created`, `Runs completed`, `Viewer launched`                                                                              |
-| Iteration      | `Feedback incorporated`, `Benchmarks improved`, `Description optimized`                                                           |
-| Closing check  | `Gate 1`, `Gate 2`, `Verdict` (PASS, BLOCKER, or Gate 2 not measured)                                                             |
+| Phase          | Checks                                                                                                                                                    |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Intent Capture | `Worth building`, `Goal defined`, `Triggers identified`, `Output format agreed`                                                                           |
+| Skill Writing  | `SKILL.md written`, `README generated`, `Subagents designed`, `Dependency preflight`, `Self-Improve section`, `Predictability pass`, `Adversarial review` |
+| Testing        | `Evals created`, `Runs completed`, `Viewer launched`                                                                                                      |
+| Iteration      | `Feedback incorporated`, `Benchmarks improved`, `Description optimized`                                                                                   |
+| Closing check  | `Gate 1`, `Gate 2`, `Verdict` (PASS, BLOCKER, or Gate 2 not measured)                                                                                     |
 
-`Dependency preflight` is `√` when the skill has no skill dependencies, or has them and ships a gate for each; `×` when a dependency is invoked without one. `Predictability pass` walks the 7 rubric items from SKILL.md → _Make it predictable_ — `√` per item satisfied, `×` naming the gap. `Adversarial review` is `√` once fresh-subagent findings are addressed. The retrofit loop's own per-phase block is in `retrofit-loop.md` → _Step Completion Reports_.
+`Dependency preflight` is `√` when the skill has no skill dependencies, or has them and ships a gate for each; `×` when a dependency is invoked without one. `Self-Improve section` is `√` when the body carries the `self-improve.md` template after its final step, with the signal bullets tailored to the skill. `Predictability pass` walks the 7 rubric items from SKILL.md → _Make it predictable_ — `√` per item satisfied, `×` naming the gap. `Adversarial review` is `√` once fresh-subagent findings are addressed. The retrofit loop's own per-phase block is in `retrofit-loop.md` → _Step Completion Reports_.
 
 ## Writing Style
 

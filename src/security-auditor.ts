@@ -1,6 +1,8 @@
 import { debug } from "./logger";
 import { readFilesRecursive } from "./utils/fs";
 import type {
+  ExternalSymlink,
+  HardLinkNote,
   SourceAnalysis,
   CodeScanCategory,
   PermissionRequest,
@@ -140,16 +142,107 @@ function isDocFile(relPath: string): boolean {
   return DOC_EXTENSIONS.has(ext);
 }
 
+/**
+ * Raise a verdict to at least `warning` when the audited folder has symlinks
+ * that leave it, dangle, or loop (#779): an audit must never call `safe`
+ * content that is not part of the folder or that it could not read.
+ */
+export function applyExternalSymlinks(
+  verdict: SecurityVerdict,
+  reason: string,
+  links: ExternalSymlink[],
+): { verdict: SecurityVerdict; reason: string } {
+  if (links.length === 0) return { verdict, reason };
+  const count = (n: number, one: string, many: string) =>
+    `${n} ${n === 1 ? one : many}`;
+  const outside = links.filter(
+    (l) => l.kind === "file" || l.kind === "directory" || l.kind === "special",
+  );
+  const broken = links.filter(
+    (l) => l.kind === "dangling" || l.kind === "loop",
+  );
+  const parts: string[] = [];
+  if (outside.length > 0) {
+    parts.push(
+      `${count(outside.length, "symlink points", "symlinks point")} outside the skill folder (${outside.map((l) => l.path).join(", ")}); content outside the folder was NOT read and must be reviewed by hand`,
+    );
+  }
+  if (broken.length > 0) {
+    parts.push(
+      `${count(broken.length, "symlink dangles or loops and was", "symlinks dangle or loop and were")} not followed (${broken.map((l) => l.path).join(", ")})`,
+    );
+  }
+  const symlinkReason = `${parts.join("; ")}.`;
+  if (verdict === "warning" || verdict === "dangerous") {
+    return { verdict, reason: `${reason} ${symlinkReason}` };
+  }
+  return {
+    verdict: "warning",
+    reason: verdict === "safe" ? symlinkReason : `${symlinkReason} ${reason}`,
+  };
+}
+
+export interface AuditSkillSecurityOptions {
+  /**
+   * Confined mode, used by every `asm audit security` source — local folder
+   * (#779), installed name, `--all` and `github:` (#791): never read outside
+   * `skillPath` (or `boundary`). Symlinks that leave it, dangle, or loop are
+   * reported as critical findings (verdict at least `warning`) and their
+   * targets are never opened, read or walked.
+   */
+  trackSymlinks?: boolean;
+  /**
+   * Confined mode only: the folder the audit must not leave when it is wider
+   * than `skillPath` — the temp checkout of a `github:` subfolder audit.
+   * Defaults to `skillPath`.
+   */
+  boundary?: string;
+  /** Symlinks already found by the caller (e.g. a collection child link). */
+  externalSymlinks?: ExternalSymlink[];
+  /**
+   * The real path audited, recorded as `resolvedPath` when the target the
+   * user named went through a symlink that was followed.
+   */
+  resolvedPath?: string;
+  /**
+   * Set false to read nothing at all — used when `skillPath` itself is a
+   * link outside the audited folder, so only the link findings are reported.
+   */
+  readFiles?: boolean;
+}
+
 export async function auditSkillSecurity(
   skillPath: string,
   skillName: string,
   sourceOwner?: string,
   sourceRepo?: string,
+  options: AuditSkillSecurityOptions = {},
 ): Promise<SecurityAuditReport> {
   debug(`security-audit: scanning ${skillPath}`);
 
+  const links: ExternalSymlink[] = [...(options.externalSymlinks ?? [])];
+  const hardLinks: HardLinkNote[] = [];
+
   // Read all files, excluding documentation
-  const allFiles = await readFilesRecursive(skillPath);
+  const allFiles =
+    options.readFiles === false
+      ? []
+      : await readFilesRecursive(
+          skillPath,
+          options.trackSymlinks
+            ? {
+                root: options.boundary,
+                onExternalSymlink: (link) => links.push(link),
+                onHardLink: (path, count) =>
+                  hardLinks.push({
+                    path,
+                    links: count,
+                    severity: "info",
+                    note: "Hard link: content may be shared with a file outside the folder.",
+                  }),
+              }
+            : {},
+        );
   const files = allFiles.filter((f) => !isDocFile(f.relPath));
   const totalLines = files.reduce((sum, f) => sum + f.lineCount, 0);
 
@@ -166,7 +259,12 @@ export async function auditSkillSecurity(
   const permissions = analyzePermissions(codeScans);
 
   // Verdict
-  const { verdict, reason } = calculateVerdict(codeScans, permissions, source);
+  const base = calculateVerdict(codeScans, permissions, source);
+  const { verdict, reason } = applyExternalSymlinks(
+    base.verdict,
+    base.reason,
+    links,
+  );
 
   return {
     scannedAt: new Date().toISOString(),
@@ -179,6 +277,9 @@ export async function auditSkillSecurity(
     totalLines,
     verdict,
     verdictReason: reason,
+    ...(links.length > 0 ? { externalSymlinks: links } : {}),
+    ...(hardLinks.length > 0 ? { hardLinks } : {}),
+    ...(options.resolvedPath ? { resolvedPath: options.resolvedPath } : {}),
   };
 }
 
@@ -191,4 +292,6 @@ export {
 export {
   formatSecurityReport,
   formatSecurityReportJSON,
+  describeSecurityHold,
+  type SecurityHold,
 } from "./security-auditor-report";

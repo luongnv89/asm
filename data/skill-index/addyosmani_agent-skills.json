@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/addyosmani/agent-skills.git",
   "owner": "addyosmani",
   "repo": "agent-skills",
-  "updatedAt": "2026-10-18T22:10:28.764Z",
+  "updatedAt": "2026-11-06T01:01:12.044Z",
   "skillCount": 25,
   "skills": [
     {
@@ -20,7 +20,7 @@
       "installUrl": "github:addyosmani/agent-skills:skills/api-and-interface-design",
       "relPath": "skills/api-and-interface-design",
       "verified": true,
-      "tokenCount": 4422,
+      "tokenCount": 4436,
       "evalSummary": {
         "overallScore": 73,
         "grade": "C",
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.638Z",
+        "evaluatedAt": "2026-11-06T01:01:11.890Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.639Z",
+          "evaluatedAt": "2026-11-06T01:01:11.891Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -177,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.639Z",
+          "evaluatedAt": "2026-11-06T01:01:11.891Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -197,7 +197,7 @@
       "installUrl": "github:addyosmani/agent-skills:skills/browser-testing-with-devtools",
       "relPath": "skills/browser-testing-with-devtools",
       "verified": true,
-      "tokenCount": 4234,
+      "tokenCount": 4265,
       "evalSummary": {
         "overallScore": 75,
         "grade": "C",
@@ -263,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.638Z",
+        "evaluatedAt": "2026-11-06T01:01:11.894Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -336,7 +336,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.639Z",
+          "evaluatedAt": "2026-11-06T01:01:11.894Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -354,7 +354,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.639Z",
+          "evaluatedAt": "2026-11-06T01:01:11.894Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -374,7 +374,7 @@
       "installUrl": "github:addyosmani/agent-skills:skills/ci-cd-and-automation",
       "relPath": "skills/ci-cd-and-automation",
       "verified": true,
-      "tokenCount": 3831,
+      "tokenCount": 3904,
       "evalSummary": {
         "overallScore": 74,
         "grade": "C",
@@ -440,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.639Z",
+        "evaluatedAt": "2026-11-06T01:01:11.890Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -513,7 +513,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.639Z",
+          "evaluatedAt": "2026-11-06T01:01:11.893Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -531,7 +531,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.639Z",
+          "evaluatedAt": "2026-11-06T01:01:11.893Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -551,7 +551,7 @@
       "installUrl": "github:addyosmani/agent-skills:skills/code-review-and-quality",
       "relPath": "skills/code-review-and-quality",
       "verified": true,
-      "tokenCount": 6405,
+      "tokenCount": 6502,
       "evalSummary": {
         "overallScore": 70,
         "grade": "C",
@@ -617,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.638Z",
+        "evaluatedAt": "2026-11-06T01:01:11.890Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -690,7 +690,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.639Z",
+          "evaluatedAt": "2026-11-06T01:01:11.893Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -708,14 +708,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.639Z",
+          "evaluatedAt": "2026-11-06T01:01:11.893Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "code-simplification",
-      "description": "Simplifies code for clarity. Use when refactoring code for clarity without changing behavior. Use when code works but is harder to read, maintain, or extend than it should be. Use when reviewing code that has accumulated unnecessary complexity.",
+      "description": "Simplifies code for clarity. Use when refactoring code for clarity without changing behavior. Use when code works but is harder to read, maintain, or extend than it should be. Use when reviewing code that has accumulated unnecessary complexity. Use when asked to simplify, clean up, or reduce the nesting of a function or module that already works, even when the code is pasted inline and nothing else needs to change.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -728,9 +728,9 @@
       "installUrl": "github:addyosmani/agent-skills:skills/code-simplification",
       "relPath": "skills/code-simplification",
       "verified": true,
-      "tokenCount": 4014,
+      "tokenCount": 4078,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -742,7 +742,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 7,
+            "score": 3,
             "max": 10
           },
           {
@@ -794,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.638Z",
+        "evaluatedAt": "2026-11-06T01:01:11.890Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -803,7 +803,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -815,7 +815,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 7,
+              "score": 3,
               "max": 10
             },
             {
@@ -867,7 +867,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.639Z",
+          "evaluatedAt": "2026-11-06T01:01:11.893Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -875,17 +875,17 @@
           "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 77,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 10,
+              "score": 9,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.639Z",
+          "evaluatedAt": "2026-11-06T01:01:11.893Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -905,9 +905,9 @@
       "installUrl": "github:addyosmani/agent-skills:skills/constraint-driven-development",
       "relPath": "skills/constraint-driven-development",
       "verified": true,
-      "tokenCount": 6920,
+      "tokenCount": 7260,
       "evalSummary": {
-        "overallScore": 65,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -925,7 +925,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 7,
+            "score": 8,
             "max": 10
           },
           {
@@ -937,7 +937,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 7,
+            "score": 10,
             "max": 10
           },
           {
@@ -971,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.638Z",
+        "evaluatedAt": "2026-11-06T01:01:11.890Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -980,7 +980,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 65,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -998,7 +998,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 7,
+              "score": 8,
               "max": 10
             },
             {
@@ -1010,7 +1010,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 7,
+              "score": 10,
               "max": 10
             },
             {
@@ -1044,7 +1044,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.639Z",
+          "evaluatedAt": "2026-11-06T01:01:11.893Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1062,7 +1062,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.639Z",
+          "evaluatedAt": "2026-11-06T01:01:11.893Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1082,7 +1082,7 @@
       "installUrl": "github:addyosmani/agent-skills:skills/context-engineering",
       "relPath": "skills/context-engineering",
       "verified": true,
-      "tokenCount": 4414,
+      "tokenCount": 4424,
       "evalSummary": {
         "overallScore": 81,
         "grade": "B",
@@ -1148,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.639Z",
+        "evaluatedAt": "2026-11-06T01:01:11.891Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1221,7 +1221,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.639Z",
+          "evaluatedAt": "2026-11-06T01:01:11.894Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1239,7 +1239,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.639Z",
+          "evaluatedAt": "2026-11-06T01:01:11.894Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1325,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.639Z",
+        "evaluatedAt": "2026-11-06T01:01:11.891Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1398,7 +1398,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.639Z",
+          "evaluatedAt": "2026-11-06T01:01:11.893Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1416,7 +1416,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.639Z",
+          "evaluatedAt": "2026-11-06T01:01:11.893Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1436,7 +1436,7 @@
       "installUrl": "github:addyosmani/agent-skills:skills/deprecation-and-migration",
       "relPath": "skills/deprecation-and-migration",
       "verified": true,
-      "tokenCount": 3853,
+      "tokenCount": 3915,
       "evalSummary": {
         "overallScore": 77,
         "grade": "C",
@@ -1502,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.679Z",
+        "evaluatedAt": "2026-11-06T01:01:11.937Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1575,7 +1575,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.680Z",
+          "evaluatedAt": "2026-11-06T01:01:11.940Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1593,7 +1593,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.680Z",
+          "evaluatedAt": "2026-11-06T01:01:11.940Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1613,7 +1613,7 @@
       "installUrl": "github:addyosmani/agent-skills:skills/documentation-and-adrs",
       "relPath": "skills/documentation-and-adrs",
       "verified": true,
-      "tokenCount": 3247,
+      "tokenCount": 3286,
       "evalSummary": {
         "overallScore": 73,
         "grade": "C",
@@ -1679,7 +1679,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.679Z",
+        "evaluatedAt": "2026-11-06T01:01:11.938Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1752,7 +1752,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.680Z",
+          "evaluatedAt": "2026-11-06T01:01:11.940Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1770,7 +1770,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.680Z",
+          "evaluatedAt": "2026-11-06T01:01:11.940Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1790,7 +1790,7 @@
       "installUrl": "github:addyosmani/agent-skills:skills/doubt-driven-development",
       "relPath": "skills/doubt-driven-development",
       "verified": true,
-      "tokenCount": 5022,
+      "tokenCount": 5057,
       "evalSummary": {
         "overallScore": 74,
         "grade": "C",
@@ -1856,7 +1856,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.679Z",
+        "evaluatedAt": "2026-11-06T01:01:11.939Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1929,7 +1929,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.680Z",
+          "evaluatedAt": "2026-11-06T01:01:11.940Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1947,7 +1947,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.680Z",
+          "evaluatedAt": "2026-11-06T01:01:11.940Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1967,7 +1967,7 @@
       "installUrl": "github:addyosmani/agent-skills:skills/frontend-ui-engineering",
       "relPath": "skills/frontend-ui-engineering",
       "verified": true,
-      "tokenCount": 3428,
+      "tokenCount": 3466,
       "evalSummary": {
         "overallScore": 77,
         "grade": "C",
@@ -2033,7 +2033,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.680Z",
+        "evaluatedAt": "2026-11-06T01:01:11.940Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2106,7 +2106,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.680Z",
+          "evaluatedAt": "2026-11-06T01:01:11.942Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2124,14 +2124,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.680Z",
+          "evaluatedAt": "2026-11-06T01:01:11.942Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "git-workflow-and-versioning",
-      "description": "Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, splitting uncommitted work in a messy working tree into clean atomic commits, opening or reviewing a pull request (PR), pushing to a remote, or when you need to organize work across multiple parallel streams. Use when cutting a release, choosing a semantic version bump, tagging, or writing a changelog.",
+      "description": "Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, splitting uncommitted work in a messy working tree into clean atomic commits, opening or reviewing a pull request (PR), pushing to a remote, or when you need to organize work across multiple parallel streams. Use when cutting a release, choosing a semantic version bump, tagging, or writing a changelog. Use when asked to write a commit message or a changelog entry for a change, or to split a change into commits, even when the diff is pasted inline and the message seems easy to write from it.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -2144,7 +2144,7 @@
       "installUrl": "github:addyosmani/agent-skills:skills/git-workflow-and-versioning",
       "relPath": "skills/git-workflow-and-versioning",
       "verified": true,
-      "tokenCount": 4214,
+      "tokenCount": 4310,
       "evalSummary": {
         "overallScore": 71,
         "grade": "C",
@@ -2210,7 +2210,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.680Z",
+        "evaluatedAt": "2026-11-06T01:01:11.945Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2283,7 +2283,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.681Z",
+          "evaluatedAt": "2026-11-06T01:01:11.947Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2301,7 +2301,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.681Z",
+          "evaluatedAt": "2026-11-06T01:01:11.947Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2321,9 +2321,9 @@
       "installUrl": "github:addyosmani/agent-skills:skills/idea-refine",
       "relPath": "skills/idea-refine",
       "verified": true,
-      "tokenCount": 2892,
+      "tokenCount": 2930,
       "evalSummary": {
-        "overallScore": 70,
+        "overallScore": 71,
         "grade": "C",
         "categories": [
           {
@@ -2341,7 +2341,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -2387,7 +2387,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.680Z",
+        "evaluatedAt": "2026-11-06T01:01:11.940Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2396,7 +2396,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -2414,7 +2414,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 9,
+              "score": 10,
               "max": 10
             },
             {
@@ -2460,7 +2460,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.681Z",
+          "evaluatedAt": "2026-11-06T01:01:11.942Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2478,7 +2478,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.681Z",
+          "evaluatedAt": "2026-11-06T01:01:11.942Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2564,7 +2564,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.680Z",
+        "evaluatedAt": "2026-11-06T01:01:11.943Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2637,7 +2637,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.681Z",
+          "evaluatedAt": "2026-11-06T01:01:11.945Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2655,7 +2655,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.681Z",
+          "evaluatedAt": "2026-11-06T01:01:11.945Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2741,7 +2741,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.689Z",
+        "evaluatedAt": "2026-11-06T01:01:11.960Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2814,7 +2814,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.700Z",
+          "evaluatedAt": "2026-11-06T01:01:11.962Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2832,7 +2832,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.700Z",
+          "evaluatedAt": "2026-11-06T01:01:11.962Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2918,7 +2918,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.727Z",
+        "evaluatedAt": "2026-11-06T01:01:11.993Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2991,7 +2991,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.728Z",
+          "evaluatedAt": "2026-11-06T01:01:11.995Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3009,7 +3009,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.728Z",
+          "evaluatedAt": "2026-11-06T01:01:11.995Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3029,7 +3029,7 @@
       "installUrl": "github:addyosmani/agent-skills:skills/performance-optimization",
       "relPath": "skills/performance-optimization",
       "verified": true,
-      "tokenCount": 4925,
+      "tokenCount": 4951,
       "evalSummary": {
         "overallScore": 77,
         "grade": "C",
@@ -3095,7 +3095,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.728Z",
+        "evaluatedAt": "2026-11-06T01:01:11.993Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3168,7 +3168,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.729Z",
+          "evaluatedAt": "2026-11-06T01:01:11.995Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3186,7 +3186,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.729Z",
+          "evaluatedAt": "2026-11-06T01:01:11.995Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3272,7 +3272,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.728Z",
+        "evaluatedAt": "2026-11-06T01:01:11.996Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3345,7 +3345,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.729Z",
+          "evaluatedAt": "2026-11-06T01:01:11.998Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3363,14 +3363,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.729Z",
+          "evaluatedAt": "2026-11-06T01:01:11.998Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "security-and-hardening",
-      "description": "Hardens code against vulnerabilities. Use when auditing an input handler for vulnerabilities, when handling user input, authentication, data storage, or external integrations, or when checking a login flow is safe against the OWASP Top Ten. Use when building any feature that accepts untrusted data, manages user sessions, or interacts with third-party services. Use when auditing dependencies for known vulnerabilities, triaging package-manager audit findings, or assessing supply-chain risk in a new package. Use when personal data or privacy compliance (GDPR, CCPA) is involved.",
+      "description": "Hardens code against vulnerabilities. Use when auditing an input handler for vulnerabilities, when handling user input, authentication, data storage, or external integrations, or when checking a login flow is safe against the OWASP Top Ten. Use when building any feature that accepts untrusted data, manages user sessions or session cookies, or interacts with third-party services. Use when auditing dependencies for known vulnerabilities, triaging package-manager audit findings, or assessing supply-chain risk in a new package. Use when personal data or privacy compliance (GDPR, CCPA) is involved.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -3383,7 +3383,7 @@
       "installUrl": "github:addyosmani/agent-skills:skills/security-and-hardening",
       "relPath": "skills/security-and-hardening",
       "verified": true,
-      "tokenCount": 4856,
+      "tokenCount": 4862,
       "evalSummary": {
         "overallScore": 71,
         "grade": "C",
@@ -3449,7 +3449,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.728Z",
+        "evaluatedAt": "2026-11-06T01:01:11.998Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3522,7 +3522,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.729Z",
+          "evaluatedAt": "2026-11-06T01:01:12.003Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3540,7 +3540,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.729Z",
+          "evaluatedAt": "2026-11-06T01:01:12.003Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3626,7 +3626,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.728Z",
+        "evaluatedAt": "2026-11-06T01:01:12.004Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3699,7 +3699,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.729Z",
+          "evaluatedAt": "2026-11-06T01:01:12.005Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3717,7 +3717,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.729Z",
+          "evaluatedAt": "2026-11-06T01:01:12.005Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3737,7 +3737,7 @@
       "installUrl": "github:addyosmani/agent-skills:skills/source-driven-development",
       "relPath": "skills/source-driven-development",
       "verified": true,
-      "tokenCount": 2919,
+      "tokenCount": 2940,
       "evalSummary": {
         "overallScore": 75,
         "grade": "C",
@@ -3803,7 +3803,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.728Z",
+        "evaluatedAt": "2026-11-06T01:01:12.004Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3876,7 +3876,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.729Z",
+          "evaluatedAt": "2026-11-06T01:01:12.005Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3894,7 +3894,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.729Z",
+          "evaluatedAt": "2026-11-06T01:01:12.005Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3914,7 +3914,7 @@
       "installUrl": "github:addyosmani/agent-skills:skills/spec-driven-development",
       "relPath": "skills/spec-driven-development",
       "verified": true,
-      "tokenCount": 3968,
+      "tokenCount": 3970,
       "evalSummary": {
         "overallScore": 75,
         "grade": "C",
@@ -3980,7 +3980,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.736Z",
+        "evaluatedAt": "2026-11-06T01:01:12.016Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4053,7 +4053,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.744Z",
+          "evaluatedAt": "2026-11-06T01:01:12.017Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4071,7 +4071,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.744Z",
+          "evaluatedAt": "2026-11-06T01:01:12.017Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4091,7 +4091,7 @@
       "installUrl": "github:addyosmani/agent-skills:skills/test-driven-development",
       "relPath": "skills/test-driven-development",
       "verified": true,
-      "tokenCount": 5191,
+      "tokenCount": 5242,
       "evalSummary": {
         "overallScore": 74,
         "grade": "C",
@@ -4157,7 +4157,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.755Z",
+        "evaluatedAt": "2026-11-06T01:01:12.029Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4230,7 +4230,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.755Z",
+          "evaluatedAt": "2026-11-06T01:01:12.030Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4248,7 +4248,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.755Z",
+          "evaluatedAt": "2026-11-06T01:01:12.030Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4334,7 +4334,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:28.755Z",
+        "evaluatedAt": "2026-11-06T01:01:12.036Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4407,7 +4407,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.756Z",
+          "evaluatedAt": "2026-11-06T01:01:12.037Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4425,7 +4425,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:28.756Z",
+          "evaluatedAt": "2026-11-06T01:01:12.037Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4437,7 +4437,7 @@
       "name": "addyosmani-agent-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from addyosmani/agent-skills.",
       "author": "ASM (addyosmani/agent-skills)",
-      "createdAt": "2026-10-18T22:10:28.764Z",
+      "createdAt": "2026-11-06T01:01:12.044Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4475,7 +4475,7 @@
         {
           "name": "code-simplification",
           "installUrl": "github:addyosmani/agent-skills:skills/code-simplification",
-          "description": "Simplifies code for clarity. Use when refactoring code for clarity without changing behavior. Use when code works but is harder to read, maintain, or extend than it should be. Use when reviewing code that has accumulated unnecessary complexity.",
+          "description": "Simplifies code for clarity. Use when refactoring code for clarity without changing behavior. Use when code works but is harder to read, maintain, or extend than it should be. Use when reviewing code that has accumulated unnecessary complexity. Use when asked to simplify, clean up, or reduce the nesting of a function or module that already works, even when the code is pasted inline and nothing else needs to change.",
           "version": "0.0.0"
         },
         {
@@ -4523,7 +4523,7 @@
         {
           "name": "git-workflow-and-versioning",
           "installUrl": "github:addyosmani/agent-skills:skills/git-workflow-and-versioning",
-          "description": "Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, splitting uncommitted work in a messy working tree into clean atomic commits, opening or reviewing a pull request (PR), pushing to a remote, or when you need to organize work across multiple parallel streams. Use when cutting a release, choosing a semantic version bump, tagging, or writing a changelog.",
+          "description": "Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, splitting uncommitted work in a messy working tree into clean atomic commits, opening or reviewing a pull request (PR), pushing to a remote, or when you need to organize work across multiple parallel streams. Use when cutting a release, choosing a semantic version bump, tagging, or writing a changelog. Use when asked to write a commit message or a changelog entry for a change, or to split a change into commits, even when the diff is pasted inline and the message seems easy to write from it.",
           "version": "0.0.0"
         },
         {
@@ -4565,7 +4565,7 @@
         {
           "name": "security-and-hardening",
           "installUrl": "github:addyosmani/agent-skills:skills/security-and-hardening",
-          "description": "Hardens code against vulnerabilities. Use when auditing an input handler for vulnerabilities, when handling user input, authentication, data storage, or external integrations, or when checking a login flow is safe against the OWASP Top Ten. Use when building any feature that accepts untrusted data, manages user sessions, or interacts with third-party services. Use when auditing dependencies for known vulnerabilities, triaging package-manager audit findings, or assessing supply-chain risk in a new package. Use when personal data or privacy compliance (GDPR, CCPA) is involved.",
+          "description": "Hardens code against vulnerabilities. Use when auditing an input handler for vulnerabilities, when handling user input, authentication, data storage, or external integrations, or when checking a login flow is safe against the OWASP Top Ten. Use when building any feature that accepts untrusted data, manages user sessions or session cookies, or interacts with third-party services. Use when auditing dependencies for known vulnerabilities, triaging package-manager audit findings, or assessing supply-chain risk in a new package. Use when personal data or privacy compliance (GDPR, CCPA) is involved.",
           "version": "0.0.0"
         },
         {
@@ -4611,7 +4611,7 @@
       "name": "addyosmani-agent-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from addyosmani/agent-skills.",
       "author": "ASM (addyosmani/agent-skills)",
-      "createdAt": "2026-10-18T22:10:28.764Z",
+      "createdAt": "2026-11-06T01:01:12.044Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4661,7 +4661,7 @@
         {
           "name": "git-workflow-and-versioning",
           "installUrl": "github:addyosmani/agent-skills:skills/git-workflow-and-versioning",
-          "description": "Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, splitting uncommitted work in a messy working tree into clean atomic commits, opening or reviewing a pull request (PR), pushing to a remote, or when you need to organize work across multiple parallel streams. Use when cutting a release, choosing a semantic version bump, tagging, or writing a changelog.",
+          "description": "Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, splitting uncommitted work in a messy working tree into clean atomic commits, opening or reviewing a pull request (PR), pushing to a remote, or when you need to organize work across multiple parallel streams. Use when cutting a release, choosing a semantic version bump, tagging, or writing a changelog. Use when asked to write a commit message or a changelog entry for a change, or to split a change into commits, even when the diff is pasted inline and the message seems easy to write from it.",
           "version": "0.0.0"
         },
         {
@@ -4679,7 +4679,7 @@
         {
           "name": "security-and-hardening",
           "installUrl": "github:addyosmani/agent-skills:skills/security-and-hardening",
-          "description": "Hardens code against vulnerabilities. Use when auditing an input handler for vulnerabilities, when handling user input, authentication, data storage, or external integrations, or when checking a login flow is safe against the OWASP Top Ten. Use when building any feature that accepts untrusted data, manages user sessions, or interacts with third-party services. Use when auditing dependencies for known vulnerabilities, triaging package-manager audit findings, or assessing supply-chain risk in a new package. Use when personal data or privacy compliance (GDPR, CCPA) is involved.",
+          "description": "Hardens code against vulnerabilities. Use when auditing an input handler for vulnerabilities, when handling user input, authentication, data storage, or external integrations, or when checking a login flow is safe against the OWASP Top Ten. Use when building any feature that accepts untrusted data, manages user sessions or session cookies, or interacts with third-party services. Use when auditing dependencies for known vulnerabilities, triaging package-manager audit findings, or assessing supply-chain risk in a new package. Use when personal data or privacy compliance (GDPR, CCPA) is involved.",
           "version": "0.0.0"
         },
         {
@@ -4719,7 +4719,7 @@
       "name": "addyosmani-agent-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from addyosmani/agent-skills.",
       "author": "ASM (addyosmani/agent-skills)",
-      "createdAt": "2026-10-18T22:10:28.764Z",
+      "createdAt": "2026-11-06T01:01:12.044Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4757,7 +4757,7 @@
         {
           "name": "code-simplification",
           "installUrl": "github:addyosmani/agent-skills:skills/code-simplification",
-          "description": "Simplifies code for clarity. Use when refactoring code for clarity without changing behavior. Use when code works but is harder to read, maintain, or extend than it should be. Use when reviewing code that has accumulated unnecessary complexity.",
+          "description": "Simplifies code for clarity. Use when refactoring code for clarity without changing behavior. Use when code works but is harder to read, maintain, or extend than it should be. Use when reviewing code that has accumulated unnecessary complexity. Use when asked to simplify, clean up, or reduce the nesting of a function or module that already works, even when the code is pasted inline and nothing else needs to change.",
           "version": "0.0.0"
         },
         {
@@ -4799,7 +4799,7 @@
         {
           "name": "git-workflow-and-versioning",
           "installUrl": "github:addyosmani/agent-skills:skills/git-workflow-and-versioning",
-          "description": "Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, splitting uncommitted work in a messy working tree into clean atomic commits, opening or reviewing a pull request (PR), pushing to a remote, or when you need to organize work across multiple parallel streams. Use when cutting a release, choosing a semantic version bump, tagging, or writing a changelog.",
+          "description": "Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, splitting uncommitted work in a messy working tree into clean atomic commits, opening or reviewing a pull request (PR), pushing to a remote, or when you need to organize work across multiple parallel streams. Use when cutting a release, choosing a semantic version bump, tagging, or writing a changelog. Use when asked to write a commit message or a changelog entry for a change, or to split a change into commits, even when the diff is pasted inline and the message seems easy to write from it.",
           "version": "0.0.0"
         },
         {
@@ -4829,7 +4829,7 @@
         {
           "name": "security-and-hardening",
           "installUrl": "github:addyosmani/agent-skills:skills/security-and-hardening",
-          "description": "Hardens code against vulnerabilities. Use when auditing an input handler for vulnerabilities, when handling user input, authentication, data storage, or external integrations, or when checking a login flow is safe against the OWASP Top Ten. Use when building any feature that accepts untrusted data, manages user sessions, or interacts with third-party services. Use when auditing dependencies for known vulnerabilities, triaging package-manager audit findings, or assessing supply-chain risk in a new package. Use when personal data or privacy compliance (GDPR, CCPA) is involved.",
+          "description": "Hardens code against vulnerabilities. Use when auditing an input handler for vulnerabilities, when handling user input, authentication, data storage, or external integrations, or when checking a login flow is safe against the OWASP Top Ten. Use when building any feature that accepts untrusted data, manages user sessions or session cookies, or interacts with third-party services. Use when auditing dependencies for known vulnerabilities, triaging package-manager audit findings, or assessing supply-chain risk in a new package. Use when personal data or privacy compliance (GDPR, CCPA) is involved.",
           "version": "0.0.0"
         },
         {
@@ -4863,7 +4863,7 @@
       "name": "addyosmani-agent-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from addyosmani/agent-skills.",
       "author": "ASM (addyosmani/agent-skills)",
-      "createdAt": "2026-10-18T22:10:28.764Z",
+      "createdAt": "2026-11-06T01:01:12.044Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4937,7 +4937,7 @@
         {
           "name": "security-and-hardening",
           "installUrl": "github:addyosmani/agent-skills:skills/security-and-hardening",
-          "description": "Hardens code against vulnerabilities. Use when auditing an input handler for vulnerabilities, when handling user input, authentication, data storage, or external integrations, or when checking a login flow is safe against the OWASP Top Ten. Use when building any feature that accepts untrusted data, manages user sessions, or interacts with third-party services. Use when auditing dependencies for known vulnerabilities, triaging package-manager audit findings, or assessing supply-chain risk in a new package. Use when personal data or privacy compliance (GDPR, CCPA) is involved.",
+          "description": "Hardens code against vulnerabilities. Use when auditing an input handler for vulnerabilities, when handling user input, authentication, data storage, or external integrations, or when checking a login flow is safe against the OWASP Top Ten. Use when building any feature that accepts untrusted data, manages user sessions or session cookies, or interacts with third-party services. Use when auditing dependencies for known vulnerabilities, triaging package-manager audit findings, or assessing supply-chain risk in a new package. Use when personal data or privacy compliance (GDPR, CCPA) is involved.",
           "version": "0.0.0"
         },
         {
@@ -4965,7 +4965,7 @@
       "name": "addyosmani-agent-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from addyosmani/agent-skills.",
       "author": "ASM (addyosmani/agent-skills)",
-      "createdAt": "2026-10-18T22:10:28.764Z",
+      "createdAt": "2026-11-06T01:01:12.044Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4997,7 +4997,7 @@
         {
           "name": "git-workflow-and-versioning",
           "installUrl": "github:addyosmani/agent-skills:skills/git-workflow-and-versioning",
-          "description": "Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, splitting uncommitted work in a messy working tree into clean atomic commits, opening or reviewing a pull request (PR), pushing to a remote, or when you need to organize work across multiple parallel streams. Use when cutting a release, choosing a semantic version bump, tagging, or writing a changelog.",
+          "description": "Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, splitting uncommitted work in a messy working tree into clean atomic commits, opening or reviewing a pull request (PR), pushing to a remote, or when you need to organize work across multiple parallel streams. Use when cutting a release, choosing a semantic version bump, tagging, or writing a changelog. Use when asked to write a commit message or a changelog entry for a change, or to split a change into commits, even when the diff is pasted inline and the message seems easy to write from it.",
           "version": "0.0.0"
         },
         {
@@ -5019,7 +5019,7 @@
       "name": "addyosmani-agent-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from addyosmani/agent-skills.",
       "author": "ASM (addyosmani/agent-skills)",
-      "createdAt": "2026-10-18T22:10:28.764Z",
+      "createdAt": "2026-11-06T01:01:12.044Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5085,7 +5085,7 @@
       "name": "addyosmani-agent-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from addyosmani/agent-skills.",
       "author": "ASM (addyosmani/agent-skills)",
-      "createdAt": "2026-10-18T22:10:28.764Z",
+      "createdAt": "2026-11-06T01:01:12.044Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5111,7 +5111,7 @@
         {
           "name": "code-simplification",
           "installUrl": "github:addyosmani/agent-skills:skills/code-simplification",
-          "description": "Simplifies code for clarity. Use when refactoring code for clarity without changing behavior. Use when code works but is harder to read, maintain, or extend than it should be. Use when reviewing code that has accumulated unnecessary complexity.",
+          "description": "Simplifies code for clarity. Use when refactoring code for clarity without changing behavior. Use when code works but is harder to read, maintain, or extend than it should be. Use when reviewing code that has accumulated unnecessary complexity. Use when asked to simplify, clean up, or reduce the nesting of a function or module that already works, even when the code is pasted inline and nothing else needs to change.",
           "version": "0.0.0"
         },
         {
@@ -5123,7 +5123,7 @@
         {
           "name": "git-workflow-and-versioning",
           "installUrl": "github:addyosmani/agent-skills:skills/git-workflow-and-versioning",
-          "description": "Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, splitting uncommitted work in a messy working tree into clean atomic commits, opening or reviewing a pull request (PR), pushing to a remote, or when you need to organize work across multiple parallel streams. Use when cutting a release, choosing a semantic version bump, tagging, or writing a changelog.",
+          "description": "Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, splitting uncommitted work in a messy working tree into clean atomic commits, opening or reviewing a pull request (PR), pushing to a remote, or when you need to organize work across multiple parallel streams. Use when cutting a release, choosing a semantic version bump, tagging, or writing a changelog. Use when asked to write a commit message or a changelog entry for a change, or to split a change into commits, even when the diff is pasted inline and the message seems easy to write from it.",
           "version": "0.0.0"
         },
         {
@@ -5145,7 +5145,7 @@
       "name": "addyosmani-agent-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from addyosmani/agent-skills.",
       "author": "ASM (addyosmani/agent-skills)",
-      "createdAt": "2026-10-18T22:10:28.764Z",
+      "createdAt": "2026-11-06T01:01:12.044Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5171,7 +5171,7 @@
         {
           "name": "git-workflow-and-versioning",
           "installUrl": "github:addyosmani/agent-skills:skills/git-workflow-and-versioning",
-          "description": "Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, splitting uncommitted work in a messy working tree into clean atomic commits, opening or reviewing a pull request (PR), pushing to a remote, or when you need to organize work across multiple parallel streams. Use when cutting a release, choosing a semantic version bump, tagging, or writing a changelog.",
+          "description": "Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, splitting uncommitted work in a messy working tree into clean atomic commits, opening or reviewing a pull request (PR), pushing to a remote, or when you need to organize work across multiple parallel streams. Use when cutting a release, choosing a semantic version bump, tagging, or writing a changelog. Use when asked to write a commit message or a changelog entry for a change, or to split a change into commits, even when the diff is pasted inline and the message seems easy to write from it.",
           "version": "0.0.0"
         },
         {

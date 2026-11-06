@@ -37,7 +37,7 @@
 
 |                     |                                                                                |
 | ------------------- | ------------------------------------------------------------------------------ |
-| **Catalog**         | 6,962 skills from 86 repos — [browse online](https://luongnv.com/asm/#/skills) |
+| **Catalog**         | 7,267 skills from 86 repos — [browse online](https://luongnv.com/asm/#/skills) |
 | **Providers**       | 21 providers (Agents, Claude Code, Pi, OpenCode, Codex, …)                     |
 | **Agent-ready CLI** | `--json`, `--yes`, `--machine` on list, search, install, audit, eval           |
 | **Security**        | Pre-install scan for shell exec, network access, credential exposure           |
@@ -428,6 +428,12 @@ asm audit security ./path/to/my-skill
 ```
 
 ```bash
+asm audit security ./skills/   # every skill in a collection folder
+```
+
+A local target starts with `./`, `../`, `/` or `~`, or is an existing path that contains `/`; a bare name always means an installed skill. Every scan of a skill's files (audit, `get --audit`, install and get previews, update, publish) stays inside the skill folder: a symlink out of it is a critical finding that is never read, and it makes the verdict at least WARNING. See [docs/security/symlink-rule.md](docs/security/symlink-rule.md).
+
+```bash
 asm audit security --all
 ```
 
@@ -508,6 +514,12 @@ asm eval ./my-skill --machine
 
 ```bash
 asm eval ./my-skill --fix
+```
+
+Gate skills in CI with inclusive floors: `--min-score N` (0–100) fails a skill whose overall score is below N, and `--min-category N` (0–10) fails a skill with any category below N. Each skill is marked PASS or FAIL (naming the failing categories), the batch summary adds passed/failed counts, and the command exits `1` when any skill fails (`0` when all pass). A gate never passes on missing evidence: a skill whose evaluation errors is marked ERROR and counts as failed. The skill standard's Gate 2 (overall > 85, every category >= 8) is:
+
+```bash
+asm eval ./skills/ --min-score 86 --min-category 8
 ```
 
 ```bash
@@ -647,7 +659,7 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm init <name>` | Scaffold a new skill |
 | `asm link <path> [<path2> ...]` | Symlink skills for live dev |
 | `asm audit` | Detect duplicate skills |
-| `asm audit security <name>` | Security audit |
+| `asm audit security <name\|path\|source>` | Security audit (installed, local folder, or GitHub) |
 | `asm audit residency` | Rank skills that do not earn residency |
 | `asm eval <skill>` | Score skill quality |
 | `asm eval-providers list` | List eval providers |
@@ -1098,16 +1110,17 @@ metadata:
 ---
 ```
 
-| Field              | Required | Description                    |
-| ------------------ | -------- | ------------------------------ |
-| `name`             | yes      | Unique identifier              |
-| `description`      | yes      | One-line summary               |
-| `license`          | no       | SPDX identifier                |
-| `compatibility`    | no       | Compatible agents              |
-| `allowed-tools`    | no       | Tools the skill uses           |
-| `effort`           | no       | `low`, `medium`, `high`, `max` |
-| `metadata.version` | no       | Semver (default `0.0.0`)       |
-| `metadata.creator` | no       | Author                         |
+| Field              | Required | Description                      |
+| ------------------ | -------- | -------------------------------- |
+| `name`             | yes      | Unique identifier                |
+| `description`      | yes      | One-line summary                 |
+| `license`          | no       | SPDX identifier or expression    |
+| `compatibility`    | no       | Compatible agents                |
+| `allowed-tools`    | no       | Tools the skill uses             |
+| `effort`           | no       | `low`, `medium`, `high`, `max`   |
+| `metadata.version` | no       | Semver (default `0.0.0`)         |
+| `metadata.creator` | no       | Author                           |
+| `metadata.author`  | no       | Author, if no `metadata.creator` |
 
 ```bash
 asm init my-skill

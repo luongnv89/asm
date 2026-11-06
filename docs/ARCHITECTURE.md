@@ -140,6 +140,7 @@ Each view is an ink/React component:
 | `eval/providers/index.ts`                | `registerBuiltins()` calls `register()` for every built-in provider                                                                          |
 | `eval/providers/quality/v1/`             | Static SKILL.md linter — adapter over `src/evaluator.ts` (scorers split into `src/evaluator-scorers*.ts`, types in `src/evaluator-types.ts`) |
 | `eval/providers/skill-best-practice/v1/` | Frontmatter best-practice checks (allowed properties, effort values, …)                                                                      |
+| `eval-threshold.ts`                      | `--min-score` / `--min-category` gates: parses the flags, judges a finished report PASS/FAIL, renders the verdict and batch counts           |
 
 ### Provider contract
 

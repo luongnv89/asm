@@ -145,6 +145,7 @@ export async function cmdUpdate(args: ParsedArgs) {
         old_commit: r.oldCommit || null,
         new_commit: r.newCommit || null,
         security_verdict: r.securityVerdict || null,
+        security_reasons: r.securityReasons ?? null,
       }));
       console.log(formatMachineOutput("update", data, startTime));
       return;
@@ -187,9 +188,12 @@ export async function cmdUpdate(args: ParsedArgs) {
             `${ansi.green("✓")} ${result.name} ${ansi.dim(result.oldCommit || "")} → ${result.newCommit || ""}`,
           );
           if (result.securityVerdict === "warning") {
+            const why = result.securityReasons?.length
+              ? ` (${result.securityReasons.join(", ")})`
+              : "";
             console.error(
               ansi.yellow(
-                `  ⚠ Security audit returned warning for ${result.name} — updated because --yes was supplied`,
+                `  ⚠ Security audit returned warning for ${result.name}${why} — updated because --yes was supplied`,
               ),
             );
           }

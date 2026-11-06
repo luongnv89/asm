@@ -161,6 +161,11 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
       color.dim("|"),
   );
   lines.push(color.dim("  +" + "-".repeat(BOX_WIDTH - 2) + "+"));
+  if (report.resolvedPath) {
+    lines.push(
+      `  ${color.dim("Resolved:")} ${report.resolvedPath} ${color.dim("(target is a symlink; followed)")}`,
+    );
+  }
 
   // ── Source line (compact) ──
   if (report.source) {
@@ -193,8 +198,10 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
 
   lines.push("");
 
+  const symlinks = report.externalSymlinks ?? [];
+
   // ── Zone B: Threat Summary ──
-  if (report.codeScans.length === 0) {
+  if (report.codeScans.length === 0 && symlinks.length === 0) {
     lines.push(
       `  ${color.green("*")} ${color.green("No suspicious patterns detected.")}`,
     );
@@ -230,7 +237,9 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
     const permLabel =
       permTypes.length > 0 ? color.dim(`Perms: ${permTypes.join(", ")}`) : "";
 
-    lines.push(`     ${countParts.join(color.dim(" | "))}    ${permLabel}`);
+    if (countParts.length > 0 || permLabel) {
+      lines.push(`     ${countParts.join(color.dim(" | "))}    ${permLabel}`);
+    }
   }
 
   lines.push("");
@@ -346,6 +355,40 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
     }
   }
 
+  // ── Zone C2: Symlinks not read — outside, dangling, looping (#779) ──
+  if (symlinks.length > 0) {
+    lines.push(
+      `  ${severityIcon("critical")} ${color.bold("Symlinks not read")} (${color.red(`${symlinks.length} critical`)})`,
+    );
+    for (const link of symlinks) {
+      const note =
+        link.kind === "dangling" || link.kind === "loop"
+          ? `${link.kind}, not followed`
+          : `${link.kind}, NOT read`;
+      lines.push(
+        `     ${color.dim(link.path)} -> ${link.target || color.dim("(unreadable)")} ${color.dim(`(${note})`)}`,
+      );
+    }
+    lines.push(
+      `     ${color.dim("Content outside the skill folder is never read. Review these targets by hand.")}`,
+    );
+    lines.push("");
+  }
+
+  // ── Zone C3: Hard links (info only, #779) ──
+  const hardLinks = report.hardLinks ?? [];
+  if (hardLinks.length > 0) {
+    lines.push(
+      `  ${severityIcon("info")} ${color.bold("Hard links")} (${color.dim(`${hardLinks.length} info`)})`,
+    );
+    for (const h of hardLinks) {
+      lines.push(
+        `     ${color.dim(h.path)} ${color.dim(`(${h.links} links) -- hard link: content may be shared with a file outside the folder`)}`,
+      );
+    }
+    lines.push("");
+  }
+
   // ── Zone D: Footer ──
   lines.push(color.dim("  " + "=".repeat(BOX_WIDTH - 2)));
   const date = new Date(report.scannedAt);
@@ -370,4 +413,70 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
 
 export function formatSecurityReportJSON(report: SecurityAuditReport): string {
   return JSON.stringify(report, null, 2);
+}
+
+// ─── Hold messages (update / publish) ────────────────────────────────────────
+
+/** Links named in a hold message before "and N more". */
+const HOLD_LINKS_SHOWN = 3;
+
+/** Quote a path for a copy-pasteable shell command when it needs it. */
+function shellArg(arg: string): string {
+  return /^[\w@%+=:,./~-]+$/.test(arg)
+    ? arg
+    : `'${arg.replace(/'/g, `'\\''`)}'`;
+}
+
+export interface SecurityHold {
+  /**
+   * Why the audit holds the action: each symlink it did not read as
+   * `path -> target (kind)` — at most 3, then "and N more" — or, when there
+   * are none, the verdict reason. Paths and the reason only; never content.
+   */
+  reasons: string[];
+  /** One line: verdict, reasons, and the next step. */
+  message: string;
+}
+
+/**
+ * Describe a security verdict that holds `asm update` or `asm publish`
+ * (#791): name the reasons and the next step — the full report with
+ * `asm audit security <target>`, or the override flag to go ahead.
+ */
+export function describeSecurityHold(
+  report: Partial<
+    Pick<SecurityAuditReport, "verdict" | "verdictReason" | "externalSymlinks">
+  >,
+  opts: {
+    verdict: string;
+    prefix: string;
+    auditTarget: string;
+    overrideFlag: string;
+    action: string;
+  },
+): SecurityHold {
+  const links = report.externalSymlinks ?? [];
+  const reasons =
+    links.length > 0
+      ? [
+          ...links
+            .slice(0, HOLD_LINKS_SHOWN)
+            .map((l) => `${l.path} -> ${l.target} (${l.kind})`),
+          ...(links.length > HOLD_LINKS_SHOWN
+            ? [`and ${links.length - HOLD_LINKS_SHOWN} more`]
+            : []),
+        ]
+      : report.verdictReason
+        ? [report.verdictReason.trim()]
+        : [];
+  const why =
+    links.length > 0
+      ? ` — ${links.length} symlink${links.length === 1 ? "" : "s"} not read: ${reasons.join(", ")}.`
+      : reasons.length > 0
+        ? ` — ${reasons[0].replace(/\.$/, "")}.`
+        : ".";
+  return {
+    reasons,
+    message: `${opts.prefix}: ${opts.verdict}${why} Run "asm audit security ${shellArg(opts.auditTarget)}" for the full report, or use ${opts.overrideFlag} to ${opts.action}.`,
+  };
 }

@@ -24,6 +24,7 @@ import {
   resolveVersion,
   resolveAllowedTools,
   resolveSkillDependencies,
+  resolveCreator,
   resolveModelInvocable,
   resolveUserInvocable,
   resolveTags,
@@ -534,7 +535,7 @@ export async function discoverSkills(
       description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
       effort: fm.effort || fm["metadata.effort"] || undefined,
       license: (fm.license || "").trim(),
-      creator: (fm["metadata.creator"] || "").trim(),
+      creator: resolveCreator(fm),
       compatibility: (fm.compatibility || "").trim(),
       allowedTools: resolveAllowedTools(fm),
       tags: resolveTags(fm),
@@ -580,7 +581,7 @@ export async function discoverSkills(
           description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
           effort: fm.effort || fm["metadata.effort"] || undefined,
           license: (fm.license || "").trim(),
-          creator: (fm["metadata.creator"] || "").trim(),
+          creator: resolveCreator(fm),
           compatibility: (fm.compatibility || "").trim(),
           allowedTools: resolveAllowedTools(fm),
           tags: resolveTags(fm),
@@ -694,11 +695,33 @@ const WARNING_PATTERNS: Array<{ category: string; pattern: RegExp }> = [
   { category: "External URLs", pattern: /https?:\/\// },
 ];
 
+/** Preview category for a symlink the scan did not follow (#791). */
+export const OUTSIDE_SYMLINK_CATEGORY = "Symlinks not read";
+
+/**
+ * Pattern scan behind the `asm install` and `asm get` previews. Like every
+ * scan of a skill's files, it never opens, reads or walks anything outside
+ * the skill folder (#791): a symlink that leaves `root` (default: `dir`),
+ * dangles or loops becomes a high-risk warning and is never followed.
+ */
 export async function scanForWarnings(
-  tempDir: string,
+  dir: string,
+  options: { root?: string } = {},
 ): Promise<SecurityWarning[]> {
   const warnings: SecurityWarning[] = [];
-  const files = await readFilesRecursive(tempDir);
+  const files = await readFilesRecursive(dir, {
+    root: options.root,
+    onExternalSymlink: (link) =>
+      warnings.push({
+        category: OUTSIDE_SYMLINK_CATEGORY,
+        file: link.path,
+        line: 0,
+        match:
+          link.kind === "dangling" || link.kind === "loop"
+            ? `symlink ${link.kind === "loop" ? "loops" : "dangles"} -> ${link.target} — not followed`
+            : `symlink leaves the skill folder -> ${link.target} (${link.kind}) — not read`,
+      }),
+  });
 
   for (const { relPath, content } of files) {
     const lines = content.split("\n");
@@ -721,10 +744,11 @@ export async function scanForWarnings(
 }
 
 /** Warning categories that make an install a high-risk preview. */
-const HIGH_RISK_WARNING_CATEGORIES = [
+export const HIGH_RISK_WARNING_CATEGORIES = [
   "Shell commands",
   "Code execution",
   "Credentials",
+  OUTSIDE_SYMLINK_CATEGORY,
 ];
 /** Warning categories that make an install a medium-risk preview. */
 const MEDIUM_RISK_WARNING_CATEGORIES = ["External URLs"];

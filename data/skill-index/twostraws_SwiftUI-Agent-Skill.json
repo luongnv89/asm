@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/twostraws/SwiftUI-Agent-Skill.git",
   "owner": "twostraws",
   "repo": "SwiftUI-Agent-Skill",
-  "updatedAt": "2026-10-18T22:10:06.251Z",
+  "updatedAt": "2026-11-06T01:00:43.476Z",
   "skillCount": 1,
   "skills": [
     {
@@ -10,7 +10,7 @@
       "description": "Comprehensively reviews SwiftUI code for best practices on modern APIs, maintainability, and performance. Use when reading, writing, or reviewing SwiftUI projects.",
       "version": "2.0.0",
       "license": "MIT",
-      "creator": "",
+      "creator": "Paul Hudson",
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
@@ -22,8 +22,8 @@
       "verified": true,
       "tokenCount": 1560,
       "evalSummary": {
-        "overallScore": 79,
-        "grade": "C",
+        "overallScore": 84,
+        "grade": "B",
         "categories": [
           {
             "id": "structure",
@@ -64,7 +64,7 @@
           {
             "id": "license",
             "name": "License verification",
-            "score": 5,
+            "score": 10,
             "max": 10
           },
           {
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:10:06.236Z",
+        "evaluatedAt": "2026-11-06T01:00:43.460Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -95,8 +95,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 79,
-          "grade": "C",
+          "overallScore": 84,
+          "grade": "B",
           "categories": [
             {
               "id": "structure",
@@ -137,7 +137,7 @@
             {
               "id": "license",
               "name": "License verification",
-              "score": 5,
+              "score": 10,
               "max": 10
             },
             {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:06.236Z",
+          "evaluatedAt": "2026-11-06T01:00:43.460Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -177,7 +177,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-18T22:10:06.236Z",
+          "evaluatedAt": "2026-11-06T01:00:43.461Z",
           "evaluatedVersion": "2.0.0"
         }
       }

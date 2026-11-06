@@ -1,30 +1,30 @@
 {
-  "generatedAt": "2026-10-25T19:46:56.647Z",
+  "generatedAt": "2026-11-06T19:11:28.754Z",
   "stats": [
     {
       "owner": "sickn33",
-      "totalSkills": 2624,
+      "totalSkills": 2853,
       "repos": ["sickn33/antigravity-awesome-skills"],
       "categories": {
-        "backend": 366,
-        "ai-agents": 599,
-        "security": 393,
-        "coding": 629,
-        "general": 441,
-        "frontend": 241,
-        "design": 268,
-        "productivity": 423,
-        "testing": 416,
-        "marketing": 169,
-        "devops": 189,
-        "git": 74,
-        "mobile": 58,
-        "writing": 279,
-        "research": 85,
-        "finance": 92
+        "backend": 385,
+        "ai-agents": 618,
+        "security": 423,
+        "coding": 654,
+        "general": 518,
+        "frontend": 284,
+        "design": 301,
+        "productivity": 440,
+        "testing": 438,
+        "marketing": 182,
+        "devops": 191,
+        "git": 80,
+        "mobile": 66,
+        "writing": 329,
+        "research": 86,
+        "finance": 98
       },
-      "verifiedCount": 2612,
-      "totalTokens": 6054429,
+      "verifiedCount": 2841,
+      "totalTokens": 6883380,
       "topSkills": [
         {
           "id": "sickn33/antigravity-awesome-skills::skills/zustand-store-ts::zustand-store-ts",
@@ -57,6 +57,16 @@
           "repo": "sickn33/antigravity-awesome-skills"
         },
         {
+          "id": "sickn33/antigravity-awesome-skills::skills/zhongcao-note-copywriter::zhongcao-note-copywriter",
+          "name": "zhongcao-note-copywriter",
+          "repo": "sickn33/antigravity-awesome-skills"
+        },
+        {
+          "id": "sickn33/antigravity-awesome-skills::skills/zhongcao-cover-maker::zhongcao-cover-maker",
+          "name": "zhongcao-cover-maker",
+          "repo": "sickn33/antigravity-awesome-skills"
+        },
+        {
           "id": "sickn33/antigravity-awesome-skills::skills/zeroize-audit::zeroize-audit",
           "name": "zeroize-audit",
           "repo": "sickn33/antigravity-awesome-skills"
@@ -64,16 +74,6 @@
         {
           "id": "sickn33/antigravity-awesome-skills::skills/zero-trust::zero-trust",
           "name": "zero-trust",
-          "repo": "sickn33/antigravity-awesome-skills"
-        },
-        {
-          "id": "sickn33/antigravity-awesome-skills::skills/zendesk-automation::zendesk-automation",
-          "name": "zendesk-automation",
-          "repo": "sickn33/antigravity-awesome-skills"
-        },
-        {
-          "id": "sickn33/antigravity-awesome-skills::skills/zcode-delegate::zcode-delegate",
-          "name": "zcode-delegate",
           "repo": "sickn33/antigravity-awesome-skills"
         }
       ]
@@ -157,28 +157,28 @@
     },
     {
       "owner": "affaan-m",
-      "totalSkills": 628,
+      "totalSkills": 634,
       "repos": ["affaan-m/ECC", "affaan-m/everything-claude-code"],
       "categories": {
         "security": 122,
         "frontend": 70,
-        "design": 82,
-        "coding": 240,
+        "design": 86,
+        "coding": 244,
         "mobile": 40,
-        "ai-agents": 228,
-        "productivity": 140,
-        "testing": 190,
+        "ai-agents": 230,
+        "productivity": 142,
+        "testing": 192,
         "finance": 38,
         "backend": 128,
         "devops": 84,
-        "writing": 96,
+        "writing": 100,
         "git": 54,
         "marketing": 18,
         "general": 24,
         "research": 34
       },
-      "verifiedCount": 626,
-      "totalTokens": 1665160,
+      "verifiedCount": 632,
+      "totalTokens": 1720246,
       "topSkills": [
         {
           "id": "affaan-m/ECC::skills/x-api::x-api",
@@ -310,106 +310,29 @@
       ]
     },
     {
-      "owner": "alirezarezvani",
-      "totalSkills": 442,
-      "repos": ["alirezarezvani/claude-skills"],
-      "categories": {
-        "security": 109,
-        "devops": 61,
-        "frontend": 46,
-        "design": 99,
-        "testing": 131,
-        "writing": 116,
-        "marketing": 86,
-        "ai-agents": 151,
-        "coding": 157,
-        "productivity": 85,
-        "research": 41,
-        "finance": 44,
-        "backend": 53,
-        "git": 37,
-        "general": 28,
-        "mobile": 5
-      },
-      "verifiedCount": 441,
-      "totalTokens": 1028541,
-      "topSkills": [
-        {
-          "id": "alirezarezvani/claude-skills::.codex/skills/zero-hallucination-coder::zero-hallucination-coder",
-          "name": "zero-hallucination-coder",
-          "repo": "alirezarezvani/claude-skills"
-        },
-        {
-          "id": "alirezarezvani/claude-skills::.codex/skills/youtube-full::youtube-full",
-          "name": "youtube-full",
-          "repo": "alirezarezvani/claude-skills"
-        },
-        {
-          "id": "alirezarezvani/claude-skills::.codex/skills/x-twitter-growth::x-twitter-growth",
-          "name": "x-twitter-growth",
-          "repo": "alirezarezvani/claude-skills"
-        },
-        {
-          "id": "alirezarezvani/claude-skills::.codex/skills/write-a-skill::write-a-skill",
-          "name": "write-a-skill",
-          "repo": "alirezarezvani/claude-skills"
-        },
-        {
-          "id": "alirezarezvani/claude-skills::.codex/skills/wrap-up::wrap-up",
-          "name": "wrap-up",
-          "repo": "alirezarezvani/claude-skills"
-        },
-        {
-          "id": "alirezarezvani/claude-skills::.codex/skills/workflow-builder::workflow-builder",
-          "name": "workflow-builder",
-          "repo": "alirezarezvani/claude-skills"
-        },
-        {
-          "id": "alirezarezvani/claude-skills::.gemini/skills/wiki-query::wiki-query",
-          "name": "wiki-query",
-          "repo": "alirezarezvani/claude-skills"
-        },
-        {
-          "id": "alirezarezvani/claude-skills::.gemini/skills/wiki-log::wiki-log",
-          "name": "wiki-log",
-          "repo": "alirezarezvani/claude-skills"
-        },
-        {
-          "id": "alirezarezvani/claude-skills::.gemini/skills/wiki-lint::wiki-lint",
-          "name": "wiki-lint",
-          "repo": "alirezarezvani/claude-skills"
-        },
-        {
-          "id": "alirezarezvani/claude-skills::.gemini/skills/wiki-init::wiki-init",
-          "name": "wiki-init",
-          "repo": "alirezarezvani/claude-skills"
-        }
-      ]
-    },
-    {
       "owner": "github",
-      "totalSkills": 438,
+      "totalSkills": 460,
       "repos": ["github/awesome-copilot"],
       "categories": {
-        "ai-agents": 148,
-        "writing": 75,
-        "security": 65,
-        "frontend": 55,
-        "testing": 118,
-        "marketing": 20,
-        "design": 57,
-        "coding": 138,
-        "productivity": 80,
-        "backend": 85,
-        "devops": 59,
-        "git": 29,
-        "mobile": 14,
-        "general": 47,
-        "finance": 13,
+        "ai-agents": 153,
+        "writing": 80,
+        "security": 72,
+        "frontend": 60,
+        "testing": 131,
+        "marketing": 22,
+        "backend": 91,
+        "coding": 150,
+        "productivity": 85,
+        "design": 60,
+        "devops": 66,
+        "git": 31,
+        "mobile": 15,
+        "general": 46,
+        "finance": 14,
         "research": 13
       },
-      "verifiedCount": 438,
-      "totalTokens": 1105998,
+      "verifiedCount": 460,
+      "totalTokens": 1184294,
       "topSkills": [
         {
           "id": "github/awesome-copilot::skills/x-twitter-scraper::x-twitter-scraper",
@@ -464,28 +387,105 @@
       ]
     },
     {
+      "owner": "alirezarezvani",
+      "totalSkills": 456,
+      "repos": ["alirezarezvani/claude-skills"],
+      "categories": {
+        "security": 83,
+        "frontend": 33,
+        "design": 69,
+        "testing": 94,
+        "writing": 100,
+        "marketing": 52,
+        "git": 27,
+        "ai-agents": 137,
+        "coding": 112,
+        "devops": 34,
+        "productivity": 52,
+        "research": 28,
+        "general": 52,
+        "backend": 42,
+        "mobile": 4,
+        "finance": 32
+      },
+      "verifiedCount": 456,
+      "totalTokens": 1028455,
+      "topSkills": [
+        {
+          "id": "alirezarezvani/claude-skills::.codex/skills/zero-hallucination-coder::zero-hallucination-coder",
+          "name": "zero-hallucination-coder",
+          "repo": "alirezarezvani/claude-skills"
+        },
+        {
+          "id": "alirezarezvani/claude-skills::.codex/skills/youtube-full::youtube-full",
+          "name": "youtube-full",
+          "repo": "alirezarezvani/claude-skills"
+        },
+        {
+          "id": "alirezarezvani/claude-skills::.codex/skills/x-twitter-growth::x-twitter-growth",
+          "name": "x-twitter-growth",
+          "repo": "alirezarezvani/claude-skills"
+        },
+        {
+          "id": "alirezarezvani/claude-skills::.codex/skills/write-a-skill::write-a-skill",
+          "name": "write-a-skill",
+          "repo": "alirezarezvani/claude-skills"
+        },
+        {
+          "id": "alirezarezvani/claude-skills::.codex/skills/wrap-up::wrap-up",
+          "name": "wrap-up",
+          "repo": "alirezarezvani/claude-skills"
+        },
+        {
+          "id": "alirezarezvani/claude-skills::.codex/skills/workflow-builder::workflow-builder",
+          "name": "workflow-builder",
+          "repo": "alirezarezvani/claude-skills"
+        },
+        {
+          "id": "alirezarezvani/claude-skills::.gemini/skills/wiki-query::wiki-query",
+          "name": "wiki-query",
+          "repo": "alirezarezvani/claude-skills"
+        },
+        {
+          "id": "alirezarezvani/claude-skills::.gemini/skills/wiki-log::wiki-log",
+          "name": "wiki-log",
+          "repo": "alirezarezvani/claude-skills"
+        },
+        {
+          "id": "alirezarezvani/claude-skills::.gemini/skills/wiki-lint::wiki-lint",
+          "name": "wiki-lint",
+          "repo": "alirezarezvani/claude-skills"
+        },
+        {
+          "id": "alirezarezvani/claude-skills::.gemini/skills/wiki-init::wiki-init",
+          "name": "wiki-init",
+          "repo": "alirezarezvani/claude-skills"
+        }
+      ]
+    },
+    {
       "owner": "google",
-      "totalSkills": 185,
+      "totalSkills": 207,
       "repos": ["google/skills", "google/mantis"],
       "categories": {
-        "ai-agents": 59,
-        "security": 64,
-        "devops": 58,
-        "testing": 37,
-        "writing": 18,
-        "coding": 42,
-        "backend": 65,
-        "finance": 20,
-        "design": 29,
-        "productivity": 26,
+        "ai-agents": 69,
+        "security": 78,
+        "writing": 23,
+        "finance": 23,
+        "devops": 71,
+        "design": 30,
+        "backend": 78,
+        "coding": 50,
+        "testing": 44,
+        "productivity": 31,
         "frontend": 9,
         "marketing": 20,
         "general": 15,
         "mobile": 13,
         "research": 9
       },
-      "verifiedCount": 185,
-      "totalTokens": 714633,
+      "verifiedCount": 207,
+      "totalTokens": 830293,
       "topSkills": [
         {
           "id": "google/skills::skills/cloud/workload-manager-basics::workload-manager-basics",
@@ -637,7 +637,7 @@
         "design": 9
       },
       "verifiedCount": 84,
-      "totalTokens": 232798,
+      "totalTokens": 233273,
       "topSkills": [
         {
           "id": "anthropics/financial-services::plugins/agent-plugins/earnings-reviewer/skills/xlsx-author::xlsx-author",
@@ -693,32 +693,47 @@
     },
     {
       "owner": "garrytan",
-      "totalSkills": 64,
+      "totalSkills": 74,
       "repos": ["garrytan/gstack"],
       "categories": {
-        "general": 24,
+        "general": 26,
         "devops": 4,
-        "design": 8,
-        "testing": 14,
-        "ai-agents": 5,
-        "coding": 9,
-        "backend": 4,
+        "design": 9,
+        "testing": 18,
+        "ai-agents": 8,
+        "git": 4,
+        "coding": 10,
+        "backend": 5,
         "security": 5,
         "frontend": 2,
-        "research": 2,
-        "writing": 4,
-        "finance": 2,
+        "research": 1,
+        "writing": 5,
+        "finance": 3,
         "marketing": 1,
-        "git": 3,
         "mobile": 5,
-        "productivity": 3
+        "productivity": 2
       },
-      "verifiedCount": 63,
-      "totalTokens": 731324,
+      "verifiedCount": 73,
+      "totalTokens": 489701,
       "topSkills": [
+        {
+          "id": "garrytan/gstack::write-skill::write-skill",
+          "name": "write-skill",
+          "repo": "garrytan/gstack"
+        },
+        {
+          "id": "garrytan/gstack::verify::verify",
+          "name": "verify",
+          "repo": "garrytan/gstack"
+        },
         {
           "id": "garrytan/gstack::unfreeze::unfreeze",
           "name": "unfreeze",
+          "repo": "garrytan/gstack"
+        },
+        {
+          "id": "garrytan/gstack::ubicloud::ubicloud",
+          "name": "ubicloud",
           "repo": "garrytan/gstack"
         },
         {
@@ -750,31 +765,16 @@
           "id": "garrytan/gstack::setup-gbrain::setup-gbrain",
           "name": "setup-gbrain",
           "repo": "garrytan/gstack"
-        },
-        {
-          "id": "garrytan/gstack::setup-deploy::setup-deploy",
-          "name": "setup-deploy",
-          "repo": "garrytan/gstack"
-        },
-        {
-          "id": "garrytan/gstack::setup-browser-cookies::setup-browser-cookies",
-          "name": "setup-browser-cookies",
-          "repo": "garrytan/gstack"
-        },
-        {
-          "id": "garrytan/gstack::scrape::scrape",
-          "name": "scrape",
-          "repo": "garrytan/gstack"
         }
       ]
     },
     {
       "owner": "davidondrej",
-      "totalSkills": 61,
+      "totalSkills": 62,
       "repos": ["davidondrej/skills"],
       "categories": {
         "ai-agents": 25,
-        "coding": 16,
+        "coding": 17,
         "general": 14,
         "writing": 11,
         "testing": 9,
@@ -787,8 +787,8 @@
         "git": 6,
         "finance": 2
       },
-      "verifiedCount": 61,
-      "totalTokens": 65217,
+      "verifiedCount": 62,
+      "totalTokens": 66567,
       "topSkills": [
         {
           "id": "davidondrej/skills::skills/research-and-web/who-is-this::who-is-this",
@@ -844,28 +844,28 @@
     },
     {
       "owner": "luongnv89",
-      "totalSkills": 60,
+      "totalSkills": 62,
       "repos": ["luongnv89/skills", "luongnv89/asm", "luongnv89/idd"],
       "categories": {
         "ai-agents": 16,
-        "security": 23,
-        "writing": 9,
-        "git": 14,
+        "security": 24,
+        "writing": 11,
+        "git": 15,
         "research": 1,
-        "frontend": 13,
+        "frontend": 15,
         "mobile": 4,
-        "marketing": 7,
-        "coding": 18,
-        "productivity": 12,
-        "design": 8,
+        "marketing": 8,
+        "coding": 19,
+        "productivity": 11,
+        "design": 9,
         "testing": 10,
         "devops": 6,
         "general": 6,
-        "backend": 4,
+        "backend": 5,
         "finance": 1
       },
-      "verifiedCount": 59,
-      "totalTokens": 257619,
+      "verifiedCount": 61,
+      "totalTokens": 308576,
       "topSkills": [
         {
           "id": "luongnv89/asm::tests/fixtures/skills/well-formed::well-formed",
@@ -885,6 +885,11 @@
         {
           "id": "luongnv89/skills::skills/ux-ax-review::ux-ax-review",
           "name": "ux-ax-review",
+          "repo": "luongnv89/skills"
+        },
+        {
+          "id": "luongnv89/skills::skills/user-test::user-test",
+          "name": "user-test",
           "repo": "luongnv89/skills"
         },
         {
@@ -911,11 +916,6 @@
           "id": "luongnv89/asm::skills/skill-upstream-pr::skill-upstream-pr",
           "name": "skill-upstream-pr",
           "repo": "luongnv89/asm"
-        },
-        {
-          "id": "luongnv89/asm::skills/skill-shortener::skill-shortener",
-          "name": "skill-shortener",
-          "repo": "luongnv89/asm"
         }
       ]
     },
@@ -930,17 +930,17 @@
         "marketing": 45,
         "coding": 13,
         "backend": 2,
-        "research": 10,
+        "research": 9,
+        "ai-agents": 4,
+        "productivity": 8,
         "devops": 2,
         "design": 7,
         "git": 2,
         "security": 8,
-        "productivity": 7,
-        "finance": 4,
-        "ai-agents": 3
+        "finance": 4
       },
       "verifiedCount": 55,
-      "totalTokens": 203278,
+      "totalTokens": 201284,
       "topSkills": [
         {
           "id": "Affitor/affiliate-skills::template::your-skill-name",
@@ -996,28 +996,28 @@
     },
     {
       "owner": "coreyhaines31",
-      "totalSkills": 50,
+      "totalSkills": 53,
       "repos": ["coreyhaines31/marketingskills"],
       "categories": {
-        "design": 12,
-        "testing": 20,
-        "coding": 12,
-        "writing": 27,
-        "marketing": 40,
+        "design": 13,
+        "testing": 22,
+        "coding": 14,
+        "writing": 29,
+        "marketing": 44,
         "frontend": 6,
-        "ai-agents": 12,
-        "security": 15,
-        "mobile": 1,
+        "security": 18,
+        "ai-agents": 13,
+        "backend": 7,
+        "mobile": 2,
         "devops": 4,
         "finance": 5,
         "research": 7,
-        "backend": 5,
         "productivity": 7,
         "general": 1,
         "git": 1
       },
-      "verifiedCount": 50,
-      "totalTokens": 216640,
+      "verifiedCount": 53,
+      "totalTokens": 240149,
       "topSkills": [
         {
           "id": "coreyhaines31/marketingskills::skills/video::video",
@@ -1065,8 +1065,8 @@
           "repo": "coreyhaines31/marketingskills"
         },
         {
-          "id": "coreyhaines31/marketingskills::skills/referrals::referrals",
-          "name": "referrals",
+          "id": "coreyhaines31/marketingskills::skills/reverse-engineer-marketing::reverse-engineer-marketing",
+          "name": "reverse-engineer-marketing",
           "repo": "coreyhaines31/marketingskills"
         }
       ]
@@ -1221,6 +1221,81 @@
       ]
     },
     {
+      "owner": "briiirussell",
+      "totalSkills": 42,
+      "repos": ["briiirussell/cybersecurity-skills"],
+      "categories": {
+        "ai-agents": 12,
+        "security": 38,
+        "backend": 8,
+        "testing": 16,
+        "coding": 14,
+        "productivity": 9,
+        "devops": 6,
+        "writing": 6,
+        "git": 5,
+        "finance": 6,
+        "research": 3,
+        "design": 5,
+        "mobile": 1,
+        "marketing": 1
+      },
+      "verifiedCount": 42,
+      "totalTokens": 237577,
+      "topSkills": [
+        {
+          "id": "briiirussell/cybersecurity-skills::skills/web-pentest::web-pentest",
+          "name": "web-pentest",
+          "repo": "briiirussell/cybersecurity-skills"
+        },
+        {
+          "id": "briiirussell/cybersecurity-skills::skills/vuln-research::vuln-research",
+          "name": "vuln-research",
+          "repo": "briiirussell/cybersecurity-skills"
+        },
+        {
+          "id": "briiirussell/cybersecurity-skills::skills/variant-analysis::variant-analysis",
+          "name": "variant-analysis",
+          "repo": "briiirussell/cybersecurity-skills"
+        },
+        {
+          "id": "briiirussell/cybersecurity-skills::skills/threat-modeling::threat-modeling",
+          "name": "threat-modeling",
+          "repo": "briiirussell/cybersecurity-skills"
+        },
+        {
+          "id": "briiirussell/cybersecurity-skills::skills/threat-hunting::threat-hunting",
+          "name": "threat-hunting",
+          "repo": "briiirussell/cybersecurity-skills"
+        },
+        {
+          "id": "briiirussell/cybersecurity-skills::skills/soc-operations::soc-operations",
+          "name": "soc-operations",
+          "repo": "briiirussell/cybersecurity-skills"
+        },
+        {
+          "id": "briiirussell/cybersecurity-skills::skills/siem-detection::siem-detection",
+          "name": "siem-detection",
+          "repo": "briiirussell/cybersecurity-skills"
+        },
+        {
+          "id": "briiirussell/cybersecurity-skills::skills/security-start::security-start",
+          "name": "security-start",
+          "repo": "briiirussell/cybersecurity-skills"
+        },
+        {
+          "id": "briiirussell/cybersecurity-skills::skills/security-comms::security-comms",
+          "name": "security-comms",
+          "repo": "briiirussell/cybersecurity-skills"
+        },
+        {
+          "id": "briiirussell/cybersecurity-skills::skills/secrets-audit::secrets-audit",
+          "name": "secrets-audit",
+          "repo": "briiirussell/cybersecurity-skills"
+        }
+      ]
+    },
+    {
       "owner": "Eronred",
       "totalSkills": 40,
       "repos": ["Eronred/aso-skills"],
@@ -1298,25 +1373,25 @@
     },
     {
       "owner": "mattpocock",
-      "totalSkills": 38,
+      "totalSkills": 39,
       "repos": ["mattpocock/skills"],
       "categories": {
         "general": 7,
         "ai-agents": 12,
         "testing": 12,
         "git": 3,
-        "design": 5,
+        "design": 6,
         "coding": 10,
         "writing": 4,
         "frontend": 3,
-        "productivity": 1,
+        "productivity": 2,
         "backend": 1,
         "finance": 1,
         "research": 1,
         "devops": 1
       },
-      "verifiedCount": 38,
-      "totalTokens": 51620,
+      "verifiedCount": 39,
+      "totalTokens": 54863,
       "topSkills": [
         {
           "id": "mattpocock/skills::skills/in-progress/writing-shape::writing-shape",
@@ -1371,155 +1446,6 @@
       ]
     },
     {
-      "owner": "heygen-com",
-      "totalSkills": 34,
-      "repos": ["heygen-com/hyperframes"],
-      "categories": {
-        "general": 5,
-        "ai-agents": 2,
-        "writing": 9,
-        "productivity": 8,
-        "frontend": 14,
-        "design": 15,
-        "testing": 7,
-        "security": 6,
-        "backend": 3,
-        "coding": 11,
-        "git": 2,
-        "marketing": 1
-      },
-      "verifiedCount": 34,
-      "totalTokens": 218088,
-      "topSkills": [
-        {
-          "id": "heygen-com/hyperframes::registry/blocks/wireframe-portal-title::wireframe-portal-title",
-          "name": "wireframe-portal-title",
-          "repo": "heygen-com/hyperframes"
-        },
-        {
-          "id": "heygen-com/hyperframes::skills/talking-head-recut::talking-head-recut",
-          "name": "talking-head-recut",
-          "repo": "heygen-com/hyperframes"
-        },
-        {
-          "id": "heygen-com/hyperframes::skills/slideshow::slideshow",
-          "name": "slideshow",
-          "repo": "heygen-com/hyperframes"
-        },
-        {
-          "id": "heygen-com/hyperframes::.claude/skills/seam-craft::seam-craft",
-          "name": "seam-craft",
-          "repo": "heygen-com/hyperframes"
-        },
-        {
-          "id": "heygen-com/hyperframes::skills/remotion-to-hyperframes::remotion-to-hyperframes",
-          "name": "remotion-to-hyperframes",
-          "repo": "heygen-com/hyperframes"
-        },
-        {
-          "id": "heygen-com/hyperframes::skills/product-launch-video::product-launch-video",
-          "name": "product-launch-video",
-          "repo": "heygen-com/hyperframes"
-        },
-        {
-          "id": "heygen-com/hyperframes::skills/pr-to-video::pr-to-video",
-          "name": "pr-to-video",
-          "repo": "heygen-com/hyperframes"
-        },
-        {
-          "id": "heygen-com/hyperframes::.claude/skills/oversized-cursor::oversized-cursor",
-          "name": "oversized-cursor",
-          "repo": "heygen-com/hyperframes"
-        },
-        {
-          "id": "heygen-com/hyperframes::registry/blocks/orbit-card::orbit-card",
-          "name": "orbit-card",
-          "repo": "heygen-com/hyperframes"
-        },
-        {
-          "id": "heygen-com/hyperframes::skills/music-to-video::music-to-video",
-          "name": "music-to-video",
-          "repo": "heygen-com/hyperframes"
-        }
-      ]
-    },
-    {
-      "owner": "briiirussell",
-      "totalSkills": 29,
-      "repos": ["briiirussell/cybersecurity-skills"],
-      "categories": {
-        "ai-agents": 4,
-        "security": 28,
-        "backend": 3,
-        "testing": 8,
-        "devops": 1,
-        "finance": 6,
-        "research": 3,
-        "writing": 1,
-        "design": 5,
-        "mobile": 1,
-        "frontend": 1,
-        "coding": 4,
-        "marketing": 1,
-        "git": 1,
-        "productivity": 4
-      },
-      "verifiedCount": 29,
-      "totalTokens": 99122,
-      "topSkills": [
-        {
-          "id": "briiirussell/cybersecurity-skills::skills/web-pentest::web-pentest",
-          "name": "web-pentest",
-          "repo": "briiirussell/cybersecurity-skills"
-        },
-        {
-          "id": "briiirussell/cybersecurity-skills::skills/vuln-research::vuln-research",
-          "name": "vuln-research",
-          "repo": "briiirussell/cybersecurity-skills"
-        },
-        {
-          "id": "briiirussell/cybersecurity-skills::skills/threat-modeling::threat-modeling",
-          "name": "threat-modeling",
-          "repo": "briiirussell/cybersecurity-skills"
-        },
-        {
-          "id": "briiirussell/cybersecurity-skills::skills/threat-hunting::threat-hunting",
-          "name": "threat-hunting",
-          "repo": "briiirussell/cybersecurity-skills"
-        },
-        {
-          "id": "briiirussell/cybersecurity-skills::skills/soc-operations::soc-operations",
-          "name": "soc-operations",
-          "repo": "briiirussell/cybersecurity-skills"
-        },
-        {
-          "id": "briiirussell/cybersecurity-skills::skills/siem-detection::siem-detection",
-          "name": "siem-detection",
-          "repo": "briiirussell/cybersecurity-skills"
-        },
-        {
-          "id": "briiirussell/cybersecurity-skills::skills/security-comms::security-comms",
-          "name": "security-comms",
-          "repo": "briiirussell/cybersecurity-skills"
-        },
-        {
-          "id": "briiirussell/cybersecurity-skills::skills/secrets-audit::secrets-audit",
-          "name": "secrets-audit",
-          "repo": "briiirussell/cybersecurity-skills"
-        },
-        {
-          "id": "briiirussell/cybersecurity-skills::skills/red-team-engagement::red-team-engagement",
-          "name": "red-team-engagement",
-          "repo": "briiirussell/cybersecurity-skills"
-        },
-        {
-          "id": "briiirussell/cybersecurity-skills::skills/recon::recon",
-          "name": "recon",
-          "repo": "briiirussell/cybersecurity-skills"
-        }
-      ]
-    },
-    {
       "owner": "bytedance",
       "totalSkills": 27,
       "repos": ["bytedance/deer-flow"],
@@ -1539,7 +1465,7 @@
         "devops": 2
       },
       "verifiedCount": 27,
-      "totalTokens": 81369,
+      "totalTokens": 82803,
       "topSkills": [
         {
           "id": "bytedance/deer-flow::skills/public/web-design-guidelines::web-design-guidelines",
@@ -1613,7 +1539,7 @@
         "productivity": 1
       },
       "verifiedCount": 26,
-      "totalTokens": 73916,
+      "totalTokens": 76066,
       "topSkills": [
         {
           "id": "himself65/finance-skills::plugins/market-analysis/skills/yfinance-data::yfinance-data",
@@ -1688,7 +1614,7 @@
         "git": 1
       },
       "verifiedCount": 26,
-      "totalTokens": 55373,
+      "totalTokens": 56619,
       "topSkills": [
         {
           "id": "rudrankriyam/app-store-connect-cli-skills::skills/asc-xcode-build::asc-xcode-build",
@@ -1761,7 +1687,7 @@
         "general": 1
       },
       "verifiedCount": 25,
-      "totalTokens": 103960,
+      "totalTokens": 105003,
       "topSkills": [
         {
           "id": "addyosmani/agent-skills::skills/using-agent-skills::using-agent-skills",
@@ -1907,7 +1833,7 @@
         "coding": 4
       },
       "verifiedCount": 22,
-      "totalTokens": 90708,
+      "totalTokens": 73187,
       "topSkills": [
         {
           "id": "JimLiu/baoyu-skills::.claude/skills/release-skills::release-skills",
@@ -2101,6 +2027,151 @@
       ]
     },
     {
+      "owner": "heygen-com",
+      "totalSkills": 22,
+      "repos": ["heygen-com/hyperframes"],
+      "categories": {
+        "general": 5,
+        "ai-agents": 1,
+        "writing": 5,
+        "frontend": 7,
+        "design": 8,
+        "testing": 2,
+        "security": 1,
+        "coding": 6,
+        "git": 1,
+        "productivity": 1,
+        "finance": 1
+      },
+      "verifiedCount": 22,
+      "totalTokens": 74069,
+      "topSkills": [
+        {
+          "id": "heygen-com/hyperframes::registry/blocks/wireframe-portal-title::wireframe-portal-title",
+          "name": "wireframe-portal-title",
+          "repo": "heygen-com/hyperframes"
+        },
+        {
+          "id": "heygen-com/hyperframes::skills/style-sampling::style-sampling",
+          "name": "style-sampling",
+          "repo": "heygen-com/hyperframes"
+        },
+        {
+          "id": "heygen-com/hyperframes::skills/slideshow::slideshow",
+          "name": "slideshow",
+          "repo": "heygen-com/hyperframes"
+        },
+        {
+          "id": "heygen-com/hyperframes::.claude/skills/seam-craft::seam-craft",
+          "name": "seam-craft",
+          "repo": "heygen-com/hyperframes"
+        },
+        {
+          "id": "heygen-com/hyperframes::skills/reverse-any-video::reverse-any-video",
+          "name": "reverse-any-video",
+          "repo": "heygen-com/hyperframes"
+        },
+        {
+          "id": "heygen-com/hyperframes::skills/remotion-to-hyperframes::remotion-to-hyperframes",
+          "name": "remotion-to-hyperframes",
+          "repo": "heygen-com/hyperframes"
+        },
+        {
+          "id": "heygen-com/hyperframes::.claude/skills/oversized-cursor::oversized-cursor",
+          "name": "oversized-cursor",
+          "repo": "heygen-com/hyperframes"
+        },
+        {
+          "id": "heygen-com/hyperframes::registry/blocks/orbit-card::orbit-card",
+          "name": "orbit-card",
+          "repo": "heygen-com/hyperframes"
+        },
+        {
+          "id": "heygen-com/hyperframes::.claude/skills/motion-doctrine::motion-doctrine",
+          "name": "motion-doctrine",
+          "repo": "heygen-com/hyperframes"
+        },
+        {
+          "id": "heygen-com/hyperframes::skills/media-use::media-use",
+          "name": "media-use",
+          "repo": "heygen-com/hyperframes"
+        }
+      ]
+    },
+    {
+      "owner": "emilkowalski",
+      "totalSkills": 17,
+      "repos": ["emilkowalski/skills"],
+      "categories": {
+        "security": 2,
+        "frontend": 12,
+        "coding": 7,
+        "writing": 5,
+        "devops": 1,
+        "ai-agents": 4,
+        "design": 7,
+        "mobile": 3,
+        "backend": 2,
+        "testing": 3,
+        "productivity": 2,
+        "general": 1
+      },
+      "verifiedCount": 17,
+      "totalTokens": 79924,
+      "topSkills": [
+        {
+          "id": "emilkowalski/skills::skills/write-swift::write-swift",
+          "name": "write-swift",
+          "repo": "emilkowalski/skills"
+        },
+        {
+          "id": "emilkowalski/skills::skills/review-animations::review-animations",
+          "name": "review-animations",
+          "repo": "emilkowalski/skills"
+        },
+        {
+          "id": "emilkowalski/skills::skills/remove-animations::remove-animations",
+          "name": "remove-animations",
+          "repo": "emilkowalski/skills"
+        },
+        {
+          "id": "emilkowalski/skills::skills/prototype::prototype",
+          "name": "prototype",
+          "repo": "emilkowalski/skills"
+        },
+        {
+          "id": "emilkowalski/skills::skills/pick-ui-library::pick-ui-library",
+          "name": "pick-ui-library",
+          "repo": "emilkowalski/skills"
+        },
+        {
+          "id": "emilkowalski/skills::skills/mobile-native::mobile-native",
+          "name": "mobile-native",
+          "repo": "emilkowalski/skills"
+        },
+        {
+          "id": "emilkowalski/skills::skills/improve-animations::improve-animations",
+          "name": "improve-animations",
+          "repo": "emilkowalski/skills"
+        },
+        {
+          "id": "emilkowalski/skills::skills/find-animation-opportunities::find-animation-opportunities",
+          "name": "find-animation-opportunities",
+          "repo": "emilkowalski/skills"
+        },
+        {
+          "id": "emilkowalski/skills::skills/emil-design-eng::emil-design-eng",
+          "name": "emil-design-eng",
+          "repo": "emilkowalski/skills"
+        },
+        {
+          "id": "emilkowalski/skills::skills/choreograph::choreograph",
+          "name": "choreograph",
+          "repo": "emilkowalski/skills"
+        }
+      ]
+    },
+    {
       "owner": "Dimillian",
       "totalSkills": 16,
       "repos": ["Dimillian/Skills"],
@@ -2175,78 +2246,6 @@
       ]
     },
     {
-      "owner": "emilkowalski",
-      "totalSkills": 15,
-      "repos": ["emilkowalski/skills"],
-      "categories": {
-        "security": 2,
-        "frontend": 11,
-        "coding": 6,
-        "writing": 4,
-        "devops": 1,
-        "ai-agents": 3,
-        "design": 7,
-        "mobile": 3,
-        "backend": 2,
-        "testing": 3,
-        "productivity": 2
-      },
-      "verifiedCount": 15,
-      "totalTokens": 70866,
-      "topSkills": [
-        {
-          "id": "emilkowalski/skills::skills/write-swift::write-swift",
-          "name": "write-swift",
-          "repo": "emilkowalski/skills"
-        },
-        {
-          "id": "emilkowalski/skills::skills/review-animations::review-animations",
-          "name": "review-animations",
-          "repo": "emilkowalski/skills"
-        },
-        {
-          "id": "emilkowalski/skills::skills/prototype::prototype",
-          "name": "prototype",
-          "repo": "emilkowalski/skills"
-        },
-        {
-          "id": "emilkowalski/skills::skills/pick-ui-library::pick-ui-library",
-          "name": "pick-ui-library",
-          "repo": "emilkowalski/skills"
-        },
-        {
-          "id": "emilkowalski/skills::skills/mobile-native::mobile-native",
-          "name": "mobile-native",
-          "repo": "emilkowalski/skills"
-        },
-        {
-          "id": "emilkowalski/skills::skills/improve-animations::improve-animations",
-          "name": "improve-animations",
-          "repo": "emilkowalski/skills"
-        },
-        {
-          "id": "emilkowalski/skills::skills/find-animation-opportunities::find-animation-opportunities",
-          "name": "find-animation-opportunities",
-          "repo": "emilkowalski/skills"
-        },
-        {
-          "id": "emilkowalski/skills::skills/emil-design-eng::emil-design-eng",
-          "name": "emil-design-eng",
-          "repo": "emilkowalski/skills"
-        },
-        {
-          "id": "emilkowalski/skills::skills/break-ui::break-ui",
-          "name": "break-ui",
-          "repo": "emilkowalski/skills"
-        },
-        {
-          "id": "emilkowalski/skills::skills/ask-sonner::ask-sonner",
-          "name": "ask-sonner",
-          "repo": "emilkowalski/skills"
-        }
-      ]
-    },
-    {
       "owner": "obra",
       "totalSkills": 15,
       "repos": ["obra/superpowers"],
@@ -2261,7 +2260,7 @@
         "devops": 1
       },
       "verifiedCount": 15,
-      "totalTokens": 48653,
+      "totalTokens": 43366,
       "topSkills": [
         {
           "id": "obra/superpowers::skills/writing-skills::writing-skills",
@@ -2392,79 +2391,6 @@
       ]
     },
     {
-      "owner": "Leonxlnx",
-      "totalSkills": 14,
-      "repos": ["Leonxlnx/taste-skill"],
-      "categories": {
-        "security": 3,
-        "frontend": 12,
-        "design": 12,
-        "testing": 4,
-        "productivity": 3,
-        "backend": 1,
-        "coding": 2,
-        "marketing": 2,
-        "research": 1,
-        "ai-agents": 4,
-        "writing": 1,
-        "mobile": 1
-      },
-      "verifiedCount": 14,
-      "totalTokens": 99354,
-      "topSkills": [
-        {
-          "id": "Leonxlnx/taste-skill::skills/stitch-skill::stitch-design-taste",
-          "name": "stitch-design-taste",
-          "repo": "Leonxlnx/taste-skill"
-        },
-        {
-          "id": "Leonxlnx/taste-skill::skills/redesign-skill::redesign-existing-projects",
-          "name": "redesign-existing-projects",
-          "repo": "Leonxlnx/taste-skill"
-        },
-        {
-          "id": "Leonxlnx/taste-skill::skills/minimalist-skill::minimalist-ui",
-          "name": "minimalist-ui",
-          "repo": "Leonxlnx/taste-skill"
-        },
-        {
-          "id": "Leonxlnx/taste-skill::skills/brutalist-skill::industrial-brutalist-ui",
-          "name": "industrial-brutalist-ui",
-          "repo": "Leonxlnx/taste-skill"
-        },
-        {
-          "id": "Leonxlnx/taste-skill::skills/imagegen-frontend-web::imagegen-frontend-web",
-          "name": "imagegen-frontend-web",
-          "repo": "Leonxlnx/taste-skill"
-        },
-        {
-          "id": "Leonxlnx/taste-skill::skills/imagegen-frontend-mobile::imagegen-frontend-mobile",
-          "name": "imagegen-frontend-mobile",
-          "repo": "Leonxlnx/taste-skill"
-        },
-        {
-          "id": "Leonxlnx/taste-skill::skills/image-to-code-skill::image-to-code",
-          "name": "image-to-code",
-          "repo": "Leonxlnx/taste-skill"
-        },
-        {
-          "id": "Leonxlnx/taste-skill::skills/soft-skill::high-end-visual-design",
-          "name": "high-end-visual-design",
-          "repo": "Leonxlnx/taste-skill"
-        },
-        {
-          "id": "Leonxlnx/taste-skill::skills/gpt-tasteskill::gpt-taste",
-          "name": "gpt-taste",
-          "repo": "Leonxlnx/taste-skill"
-        },
-        {
-          "id": "Leonxlnx/taste-skill::skills/output-skill::full-output-enforcement",
-          "name": "full-output-enforcement",
-          "repo": "Leonxlnx/taste-skill"
-        }
-      ]
-    },
-    {
       "owner": "antithesishq",
       "totalSkills": 13,
       "repos": ["antithesishq/antithesis-skills"],
@@ -2481,7 +2407,7 @@
         "finance": 1
       },
       "verifiedCount": 13,
-      "totalTokens": 42740,
+      "totalTokens": 42768,
       "topSkills": [
         {
           "id": "antithesishq/antithesis-skills::.claude/skills/test-triage::test:triage",
@@ -2536,13 +2462,82 @@
       ]
     },
     {
+      "owner": "cloudai-x",
+      "totalSkills": 13,
+      "repos": ["cloudai-x/threejs-skills"],
+      "categories": {
+        "general": 5,
+        "ai-agents": 2,
+        "devops": 2,
+        "frontend": 2,
+        "testing": 2,
+        "coding": 2,
+        "writing": 1,
+        "design": 2
+      },
+      "verifiedCount": 13,
+      "totalTokens": 75668,
+      "topSkills": [
+        {
+          "id": "cloudai-x/threejs-skills::skills/threejs-textures::threejs-textures",
+          "name": "threejs-textures",
+          "repo": "cloudai-x/threejs-skills"
+        },
+        {
+          "id": "cloudai-x/threejs-skills::skills/threejs-shaders::threejs-shaders",
+          "name": "threejs-shaders",
+          "repo": "cloudai-x/threejs-skills"
+        },
+        {
+          "id": "cloudai-x/threejs-skills::skills/threejs-react-three-fiber::threejs-react-three-fiber",
+          "name": "threejs-react-three-fiber",
+          "repo": "cloudai-x/threejs-skills"
+        },
+        {
+          "id": "cloudai-x/threejs-skills::skills/threejs-postprocessing::threejs-postprocessing",
+          "name": "threejs-postprocessing",
+          "repo": "cloudai-x/threejs-skills"
+        },
+        {
+          "id": "cloudai-x/threejs-skills::skills/threejs-performance::threejs-performance",
+          "name": "threejs-performance",
+          "repo": "cloudai-x/threejs-skills"
+        },
+        {
+          "id": "cloudai-x/threejs-skills::skills/threejs-materials::threejs-materials",
+          "name": "threejs-materials",
+          "repo": "cloudai-x/threejs-skills"
+        },
+        {
+          "id": "cloudai-x/threejs-skills::skills/threejs-loaders::threejs-loaders",
+          "name": "threejs-loaders",
+          "repo": "cloudai-x/threejs-skills"
+        },
+        {
+          "id": "cloudai-x/threejs-skills::skills/threejs-lighting::threejs-lighting",
+          "name": "threejs-lighting",
+          "repo": "cloudai-x/threejs-skills"
+        },
+        {
+          "id": "cloudai-x/threejs-skills::skills/threejs-interaction::threejs-interaction",
+          "name": "threejs-interaction",
+          "repo": "cloudai-x/threejs-skills"
+        },
+        {
+          "id": "cloudai-x/threejs-skills::skills/threejs-geometry::threejs-geometry",
+          "name": "threejs-geometry",
+          "repo": "cloudai-x/threejs-skills"
+        }
+      ]
+    },
+    {
       "owner": "elevenlabs",
-      "totalSkills": 12,
+      "totalSkills": 13,
       "repos": ["elevenlabs/skills"],
       "categories": {
-        "ai-agents": 6,
-        "backend": 8,
-        "coding": 3,
+        "ai-agents": 7,
+        "backend": 9,
+        "coding": 4,
         "writing": 4,
         "git": 2,
         "productivity": 3,
@@ -2550,8 +2545,8 @@
         "frontend": 1,
         "marketing": 1
       },
-      "verifiedCount": 12,
-      "totalTokens": 32662,
+      "verifiedCount": 13,
+      "totalTokens": 41363,
       "topSkills": [
         {
           "id": "elevenlabs/skills::voice-isolator::voice-isolator",
@@ -2594,13 +2589,13 @@
           "repo": "elevenlabs/skills"
         },
         {
-          "id": "elevenlabs/skills::onboarding::onboarding",
-          "name": "onboarding",
+          "id": "elevenlabs/skills::realtime::realtime",
+          "name": "realtime",
           "repo": "elevenlabs/skills"
         },
         {
-          "id": "elevenlabs/skills::music::music",
-          "name": "music",
+          "id": "elevenlabs/skills::onboarding::onboarding",
+          "name": "onboarding",
           "repo": "elevenlabs/skills"
         }
       ]
@@ -2678,6 +2673,79 @@
       ]
     },
     {
+      "owner": "Illyism",
+      "totalSkills": 11,
+      "repos": ["Illyism/seo-skills"],
+      "categories": {
+        "frontend": 1,
+        "writing": 9,
+        "marketing": 7,
+        "research": 2,
+        "ai-agents": 3,
+        "backend": 1,
+        "testing": 1,
+        "coding": 1,
+        "security": 2,
+        "design": 1,
+        "git": 2,
+        "productivity": 1
+      },
+      "verifiedCount": 11,
+      "totalTokens": 20190,
+      "topSkills": [
+        {
+          "id": "Illyism/seo-skills::copywriting/understand-customers::understand-customers",
+          "name": "understand-customers",
+          "repo": "Illyism/seo-skills"
+        },
+        {
+          "id": "Illyism/seo-skills::seo/seo-title-optimization::seo-title-optimization",
+          "name": "seo-title-optimization",
+          "repo": "Illyism/seo-skills"
+        },
+        {
+          "id": "Illyism/seo-skills::seo/seo-autopilot::seo-autopilot",
+          "name": "seo-autopilot",
+          "repo": "Illyism/seo-skills"
+        },
+        {
+          "id": "Illyism/seo-skills::content/scribiz::scribiz",
+          "name": "scribiz",
+          "repo": "Illyism/seo-skills"
+        },
+        {
+          "id": "Illyism/seo-skills::content/intro::intro",
+          "name": "intro",
+          "repo": "Illyism/seo-skills"
+        },
+        {
+          "id": "Illyism/seo-skills::marketing/diff-marketing::diff-marketing",
+          "name": "diff-marketing",
+          "repo": "Illyism/seo-skills"
+        },
+        {
+          "id": "Illyism/seo-skills::marketing/customer-journey::customer-journey",
+          "name": "customer-journey",
+          "repo": "Illyism/seo-skills"
+        },
+        {
+          "id": "Illyism/seo-skills::seo/blog-refresher::blog-refresher",
+          "name": "blog-refresher",
+          "repo": "Illyism/seo-skills"
+        },
+        {
+          "id": "Illyism/seo-skills::seo/block-ai-scrapers::block-ai-scrapers",
+          "name": "block-ai-scrapers",
+          "repo": "Illyism/seo-skills"
+        },
+        {
+          "id": "Illyism/seo-skills::seo/blitz-seo::blitz-seo",
+          "name": "blitz-seo",
+          "repo": "Illyism/seo-skills"
+        }
+      ]
+    },
+    {
       "owner": "AvdLee",
       "totalSkills": 11,
       "repos": [
@@ -2751,136 +2819,6 @@
           "id": "AvdLee/Xcode-Build-Optimization-Agent-Skill::skills/spm-build-analysis::spm-build-analysis",
           "name": "spm-build-analysis",
           "repo": "AvdLee/Xcode-Build-Optimization-Agent-Skill"
-        }
-      ]
-    },
-    {
-      "owner": "Illyism",
-      "totalSkills": 10,
-      "repos": ["Illyism/seo-skills"],
-      "categories": {
-        "frontend": 1,
-        "writing": 9,
-        "marketing": 6,
-        "research": 2,
-        "security": 2,
-        "ai-agents": 2,
-        "design": 1,
-        "git": 2,
-        "productivity": 1
-      },
-      "verifiedCount": 10,
-      "totalTokens": 15858,
-      "topSkills": [
-        {
-          "id": "Illyism/seo-skills::copywriting/understand-customers::understand-customers",
-          "name": "understand-customers",
-          "repo": "Illyism/seo-skills"
-        },
-        {
-          "id": "Illyism/seo-skills::seo/seo-title-optimization::seo-title-optimization",
-          "name": "seo-title-optimization",
-          "repo": "Illyism/seo-skills"
-        },
-        {
-          "id": "Illyism/seo-skills::seo/seo-autopilot::seo-autopilot",
-          "name": "seo-autopilot",
-          "repo": "Illyism/seo-skills"
-        },
-        {
-          "id": "Illyism/seo-skills::content/scribiz::scribiz",
-          "name": "scribiz",
-          "repo": "Illyism/seo-skills"
-        },
-        {
-          "id": "Illyism/seo-skills::content/intro::intro",
-          "name": "intro",
-          "repo": "Illyism/seo-skills"
-        },
-        {
-          "id": "Illyism/seo-skills::marketing/diff-marketing::diff-marketing",
-          "name": "diff-marketing",
-          "repo": "Illyism/seo-skills"
-        },
-        {
-          "id": "Illyism/seo-skills::marketing/customer-journey::customer-journey",
-          "name": "customer-journey",
-          "repo": "Illyism/seo-skills"
-        },
-        {
-          "id": "Illyism/seo-skills::seo/blog-refresher::blog-refresher",
-          "name": "blog-refresher",
-          "repo": "Illyism/seo-skills"
-        },
-        {
-          "id": "Illyism/seo-skills::seo/blitz-seo::blitz-seo",
-          "name": "blitz-seo",
-          "repo": "Illyism/seo-skills"
-        },
-        {
-          "id": "Illyism/seo-skills::copywriting/blitz-copy::blitz-copy",
-          "name": "blitz-copy",
-          "repo": "Illyism/seo-skills"
-        }
-      ]
-    },
-    {
-      "owner": "cloudai-x",
-      "totalSkills": 10,
-      "repos": ["cloudai-x/threejs-skills"],
-      "categories": { "general": 6, "coding": 1, "ai-agents": 1, "design": 2 },
-      "verifiedCount": 10,
-      "totalTokens": 31826,
-      "topSkills": [
-        {
-          "id": "cloudai-x/threejs-skills::skills/threejs-textures::threejs-textures",
-          "name": "threejs-textures",
-          "repo": "cloudai-x/threejs-skills"
-        },
-        {
-          "id": "cloudai-x/threejs-skills::skills/threejs-shaders::threejs-shaders",
-          "name": "threejs-shaders",
-          "repo": "cloudai-x/threejs-skills"
-        },
-        {
-          "id": "cloudai-x/threejs-skills::skills/threejs-postprocessing::threejs-postprocessing",
-          "name": "threejs-postprocessing",
-          "repo": "cloudai-x/threejs-skills"
-        },
-        {
-          "id": "cloudai-x/threejs-skills::skills/threejs-materials::threejs-materials",
-          "name": "threejs-materials",
-          "repo": "cloudai-x/threejs-skills"
-        },
-        {
-          "id": "cloudai-x/threejs-skills::skills/threejs-loaders::threejs-loaders",
-          "name": "threejs-loaders",
-          "repo": "cloudai-x/threejs-skills"
-        },
-        {
-          "id": "cloudai-x/threejs-skills::skills/threejs-lighting::threejs-lighting",
-          "name": "threejs-lighting",
-          "repo": "cloudai-x/threejs-skills"
-        },
-        {
-          "id": "cloudai-x/threejs-skills::skills/threejs-interaction::threejs-interaction",
-          "name": "threejs-interaction",
-          "repo": "cloudai-x/threejs-skills"
-        },
-        {
-          "id": "cloudai-x/threejs-skills::skills/threejs-geometry::threejs-geometry",
-          "name": "threejs-geometry",
-          "repo": "cloudai-x/threejs-skills"
-        },
-        {
-          "id": "cloudai-x/threejs-skills::skills/threejs-fundamentals::threejs-fundamentals",
-          "name": "threejs-fundamentals",
-          "repo": "cloudai-x/threejs-skills"
-        },
-        {
-          "id": "cloudai-x/threejs-skills::skills/threejs-animation::threejs-animation",
-          "name": "threejs-animation",
-          "repo": "cloudai-x/threejs-skills"
         }
       ]
     },
@@ -3152,7 +3090,7 @@
         "mobile": 1
       },
       "verifiedCount": 7,
-      "totalTokens": 15374,
+      "totalTokens": 15566,
       "topSkills": [
         {
           "id": "nextlevelbuilder/ui-ux-pro-max-skill::.claude/skills/ui-ux-pro-max::ui-ux-pro-max",
@@ -3298,7 +3236,7 @@
         "frontend": 1
       },
       "verifiedCount": 6,
-      "totalTokens": 21691,
+      "totalTokens": 27551,
       "topSkills": [
         {
           "id": "romainsimon/paperasse::syndic::syndic",
@@ -3348,30 +3286,30 @@
         "design": 1
       },
       "verifiedCount": 5,
-      "totalTokens": 68275,
+      "totalTokens": 69921,
       "topSkills": [
         {
-          "id": "Imbad0202/academic-research-skills::skills/sr-screener::sr-screener",
+          "id": "Imbad0202/academic-research-skills::sr-screener::sr-screener",
           "name": "sr-screener",
           "repo": "Imbad0202/academic-research-skills"
         },
         {
-          "id": "Imbad0202/academic-research-skills::skills/deep-research::deep-research",
+          "id": "Imbad0202/academic-research-skills::deep-research::deep-research",
           "name": "deep-research",
           "repo": "Imbad0202/academic-research-skills"
         },
         {
-          "id": "Imbad0202/academic-research-skills::skills/academic-pipeline::academic-pipeline",
+          "id": "Imbad0202/academic-research-skills::academic-pipeline::academic-pipeline",
           "name": "academic-pipeline",
           "repo": "Imbad0202/academic-research-skills"
         },
         {
-          "id": "Imbad0202/academic-research-skills::skills/academic-paper-reviewer::academic-paper-reviewer",
+          "id": "Imbad0202/academic-research-skills::academic-paper-reviewer::academic-paper-reviewer",
           "name": "academic-paper-reviewer",
           "repo": "Imbad0202/academic-research-skills"
         },
         {
-          "id": "Imbad0202/academic-research-skills::skills/academic-paper::academic-paper",
+          "id": "Imbad0202/academic-research-skills::academic-paper::academic-paper",
           "name": "academic-paper",
           "repo": "Imbad0202/academic-research-skills"
         }
@@ -3601,6 +3539,27 @@
       ]
     },
     {
+      "owner": "Leonxlnx",
+      "totalSkills": 1,
+      "repos": ["Leonxlnx/taste-skill"],
+      "categories": {
+        "frontend": 1,
+        "design": 1,
+        "backend": 1,
+        "coding": 1,
+        "writing": 1
+      },
+      "verifiedCount": 1,
+      "totalTokens": 6722,
+      "topSkills": [
+        {
+          "id": "Leonxlnx/taste-skill::skills/taste-skill::design-taste-frontend",
+          "name": "design-taste-frontend",
+          "repo": "Leonxlnx/taste-skill"
+        }
+      ]
+    },
+    {
       "owner": "Master-cai",
       "totalSkills": 1,
       "repos": ["Master-cai/Research-Paper-Writing-Skills"],
@@ -3619,9 +3578,9 @@
       "owner": "Nutlope",
       "totalSkills": 1,
       "repos": ["Nutlope/hallmark"],
-      "categories": { "security": 1, "frontend": 1, "design": 1, "coding": 1 },
+      "categories": { "design": 1, "coding": 1 },
       "verifiedCount": 1,
-      "totalTokens": 19675,
+      "totalTokens": 5675,
       "topSkills": [
         {
           "id": "Nutlope/hallmark::skills/hallmark::hallmark",
@@ -3657,7 +3616,7 @@
       "repos": ["Tencent/BrowserSkill"],
       "categories": { "frontend": 1, "testing": 1, "coding": 1 },
       "verifiedCount": 1,
-      "totalTokens": 1983,
+      "totalTokens": 1898,
       "topSkills": [
         {
           "id": "Tencent/BrowserSkill::crates/bsk-cli/skill::browser-skill",
@@ -3724,7 +3683,7 @@
         "backend": 1
       },
       "verifiedCount": 1,
-      "totalTokens": 8165,
+      "totalTokens": 8185,
       "topSkills": [
         {
           "id": "cathrynlavery/diagram-design::skills/diagram-design::diagram-design",
@@ -3739,7 +3698,7 @@
       "repos": ["gitroomhq/postiz-agent"],
       "categories": { "backend": 1, "marketing": 1, "productivity": 1 },
       "verifiedCount": 1,
-      "totalTokens": 8881,
+      "totalTokens": 9233,
       "topSkills": [
         {
           "id": "gitroomhq/postiz-agent::skills/postiz::postiz",
@@ -3814,7 +3773,7 @@
       "repos": ["mvanhorn/last30days-skill"],
       "categories": { "marketing": 1, "research": 1 },
       "verifiedCount": 1,
-      "totalTokens": 8899,
+      "totalTokens": 8915,
       "topSkills": [
         {
           "id": "mvanhorn/last30days-skill::skills/last30days::last30days",
@@ -3842,17 +3801,9 @@
       "owner": "pbakaus",
       "totalSkills": 1,
       "repos": ["pbakaus/impeccable"],
-      "categories": {
-        "security": 1,
-        "frontend": 1,
-        "design": 1,
-        "backend": 1,
-        "writing": 1,
-        "mobile": 1,
-        "productivity": 1
-      },
+      "categories": { "security": 1, "frontend": 1, "design": 1, "mobile": 1 },
       "verifiedCount": 1,
-      "totalTokens": 3120,
+      "totalTokens": 3026,
       "topSkills": [
         {
           "id": "pbakaus/impeccable::.claude/skills/impeccable::impeccable",
@@ -3867,7 +3818,7 @@
       "repos": ["santifer/career-ops"],
       "categories": { "ai-agents": 1, "writing": 1, "productivity": 1 },
       "verifiedCount": 1,
-      "totalTokens": 5192,
+      "totalTokens": 6389,
       "topSkills": [
         {
           "id": "santifer/career-ops::.claude/skills/career-ops::career-ops",
@@ -3880,9 +3831,9 @@
       "owner": "typesafe-ai",
       "totalSkills": 1,
       "repos": ["typesafe-ai/skills"],
-      "categories": { "ai-agents": 1, "coding": 1, "writing": 1 },
+      "categories": { "ai-agents": 1, "coding": 1 },
       "verifiedCount": 1,
-      "totalTokens": 2521,
+      "totalTokens": 5515,
       "topSkills": [
         {
           "id": "typesafe-ai/skills::skills/typesafe-ai::typesafe-ai",

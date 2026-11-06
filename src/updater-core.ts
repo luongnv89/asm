@@ -91,6 +91,12 @@ export interface UpdateResult {
   oldCommit?: string;
   newCommit?: string;
   securityVerdict?: SecurityVerdict;
+  /**
+   * Why a warning/caution audit held (or, with --yes, did not hold) the
+   * update: the symlinks not read (path -> target, at most 3 then "and N
+   * more") or the verdict reason (#791).
+   */
+  securityReasons?: string[];
 }
 
 export interface UpdateSummary {

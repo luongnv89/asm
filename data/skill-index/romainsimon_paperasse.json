@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/romainsimon/paperasse.git",
   "owner": "romainsimon",
   "repo": "paperasse",
-  "updatedAt": "2026-10-18T22:13:15.739Z",
+  "updatedAt": "2026-11-06T01:05:57.512Z",
   "skillCount": 6,
   "skills": [
     {
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:13:15.170Z",
+        "evaluatedAt": "2026-11-06T01:05:56.328Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:13:15.171Z",
+          "evaluatedAt": "2026-11-06T01:05:56.328Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -177,14 +177,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:13:15.171Z",
+          "evaluatedAt": "2026-11-06T01:05:56.328Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "comptable",
-      "description": "Comptabilité, fiscalité et facturation pour entreprises françaises. Gère écritures PCG, déclarations TVA, IS/IR, clôture annuelle, liasse fiscale (2033/2065), FEC, états financiers, et chaîne facturation (mentions obligatoires, numérotation, Factur-X/UBL/CII, plateformes agréées PDP/PA, e-reporting, réforme 2026, PEPPOL). Utiliser dès qu'une question porte sur comptabilité française, TVA, impôts, bilan, compte de résultat, amortissement, PCA, clôture, facture, avoir, devis, acompte, facturation électronique, ou e-invoicing.",
+      "description": "Comptabilité, fiscalité et facturation pour entreprises françaises. Gère écritures PCG, déclarations TVA, IS/IR, clôture annuelle, liasse fiscale (2033/2065), FEC, états financiers, et chaîne facturation (mentions obligatoires, numérotation, Factur-X/UBL/CII, plateformes agréées PDP/PA, e-reporting, réforme 2026, PEPPOL). Utiliser dès qu'une question porte sur comptabilité française, TVA, impôts, bilan, compte de résultat, amortissement, PCA, clôture, notes de frais, indemnités kilométriques, facture, avoir, devis, acompte, facturation électronique, ou e-invoicing.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -197,9 +197,9 @@
       "installUrl": "github:romainsimon/paperasse:comptable",
       "relPath": "comptable",
       "verified": true,
-      "tokenCount": 3816,
+      "tokenCount": 3994,
       "evalSummary": {
-        "overallScore": 58,
+        "overallScore": 56,
         "grade": "D",
         "categories": [
           {
@@ -211,7 +211,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 2,
+            "score": 0,
             "max": 10
           },
           {
@@ -263,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:13:15.171Z",
+        "evaluatedAt": "2026-11-06T01:05:56.328Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -272,7 +272,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 56,
+          "overallScore": 52,
           "grade": "D",
           "categories": [
             {
@@ -284,7 +284,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 2,
+              "score": 0,
               "max": 10
             },
             {
@@ -326,7 +326,7 @@
             {
               "id": "pii",
               "name": "PII detection",
-              "score": 8,
+              "score": 6,
               "max": 10
             },
             {
@@ -336,7 +336,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:13:15.171Z",
+          "evaluatedAt": "2026-11-06T01:05:56.328Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -354,14 +354,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:13:15.171Z",
+          "evaluatedAt": "2026-11-06T01:05:56.328Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "controleur-fiscal",
-      "description": "Inspecteur des finances publiques IA. Simule un contrôle fiscal DGFIP complet sur les comptes d'une entreprise française (SASU, EURL, SAS, SARL). Analyse le FEC, la liasse fiscale, les charges déduites, le compte courant d'associé, la TVA, l'IS selon 8 axes de vérification. Identifie les chefs de redressement potentiels avec montants, base légale et niveaux de risque. Triggers: contrôle fiscal, redressement, vérification comptabilité, DGFIP, FEC, déductibilité, audit fiscal, tax audit",
+      "description": "Inspecteur des finances publiques IA. Simule un contrôle fiscal DGFIP complet sur les comptes d'une entreprise française (SASU, EURL, SAS, SARL). Analyse le FEC, la liasse fiscale, les charges déduites, le compte courant d'associé, la TVA, l'IS selon 9 axes de vérification. Identifie les chefs de redressement potentiels avec montants, base légale et niveaux de risque. Triggers: contrôle fiscal, redressement, vérification comptabilité, DGFIP, FEC, déductibilité, audit fiscal, tax audit",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -374,7 +374,7 @@
       "installUrl": "github:romainsimon/paperasse:controleur-fiscal",
       "relPath": "controleur-fiscal",
       "verified": true,
-      "tokenCount": 4132,
+      "tokenCount": 5104,
       "evalSummary": {
         "overallScore": 50,
         "grade": "D",
@@ -440,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:13:15.171Z",
+        "evaluatedAt": "2026-11-06T01:05:56.328Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -513,7 +513,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:13:15.171Z",
+          "evaluatedAt": "2026-11-06T01:05:56.328Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -531,14 +531,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:13:15.171Z",
+          "evaluatedAt": "2026-11-06T01:05:56.329Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "fiscaliste",
-      "description": "Fiscaliste IA pour la fiscalité personnelle des particuliers français : optimisation et déclaration de l'impôt sur le revenu, IFI, revenus du capital, revenus fonciers, equity salarial, crypto-actifs et PER. Couvre le calcul de l'IR (barème, quotient familial, décote, PAS, CEHR, revenus exceptionnels), la déclaration 2042 et annexes, les revenus du capital (PFU vs barème, PEA, assurance-vie, dividendes, plus-values), les revenus fonciers (micro/réel, déficit, LMNP, SCI IR), l'equity startup (RSU, BSPCE, stock-options, PEE/PERCO), la fiscalité crypto (PAMC, 2086), l'IFI et les déductions (PER, pension alimentaire). Triggers: impôt sur le revenu, IR, 2042, quotient familial, décote, PAS, PFU, flat tax, PEA, assurance-vie, LMNP, revenus fonciers, déficit foncier, SCI IR, RSU, BSPCE, stock-options, PEE/PERCO, crypto, 2086, IFI, PER, plafond PER, niche fiscale, optimisation fiscale, simulation IR, TMI. Hors scope : succession/donation (notaire), IS/SASU/arbitrage dividende-salaire/SCI IS (comptable).",
+      "description": "Fiscaliste IA pour la fiscalité personnelle des particuliers français : optimisation et déclaration de l'impôt sur le revenu, IFI, revenus du capital, revenus fonciers, equity salarial, crypto-actifs et PER. Couvre le calcul de l'IR (barème, quotient familial, décote, PAS, CEHR, revenus exceptionnels), la déclaration 2042 et annexes, les revenus du capital (PFU vs barème, PEA, assurance-vie, dividendes, plus-values), les revenus fonciers (micro/réel, déficit, LMNP, SCI IR), l'equity startup (RSU, BSPCE, stock-options, PEE/PERCO), la fiscalité crypto (PAMC, 2086), l'IFI et les déductions (PER, pension alimentaire). Triggers: impôt sur le revenu, IR, 2042, quotient familial, décote, PAS, PFU, flat tax, PEA, assurance-vie, LMNP, revenus fonciers, déficit foncier, SCI IR, RSU, BSPCE, stock-options, PEE/PERCO, crypto, 2086, IFI, PER, plafond PER, niche fiscale, optimisation fiscale, simulation IR, TMI, compte étranger, 3916, 3916-bis, 8UU. Hors scope : succession/donation (notaire), IS/SASU/arbitrage dividende-salaire/SCI IS (comptable).",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -551,9 +551,9 @@
       "installUrl": "github:romainsimon/paperasse:fiscaliste",
       "relPath": "fiscaliste",
       "verified": true,
-      "tokenCount": 4969,
+      "tokenCount": 9319,
       "evalSummary": {
-        "overallScore": 57,
+        "overallScore": 55,
         "grade": "D",
         "categories": [
           {
@@ -571,13 +571,13 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 8,
+            "score": 7,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 7,
+            "score": 6,
             "max": 10
           },
           {
@@ -617,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:13:15.171Z",
+        "evaluatedAt": "2026-11-06T01:05:56.328Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -626,7 +626,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 57,
+          "overallScore": 55,
           "grade": "D",
           "categories": [
             {
@@ -644,13 +644,13 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 8,
+              "score": 7,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 7,
+              "score": 6,
               "max": 10
             },
             {
@@ -690,7 +690,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:13:15.171Z",
+          "evaluatedAt": "2026-11-06T01:05:56.329Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -708,14 +708,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:13:15.171Z",
+          "evaluatedAt": "2026-11-06T01:05:56.329Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "notaire",
-      "description": "Notaire IA pour le droit immobilier, les successions, les donations, le droit de la famille et le droit des sociétés en France. Copilote juridique pour la préparation d'actes, le conseil patrimonial, les calculs de frais et la vérification de conformité. Couvre le calcul des frais de notaire (DMTO, émoluments, débours, CSI), la plus-value immobilière, les droits de succession et donation, le démembrement, les contrats de mariage, les PACS, les SCI, et la rédaction de projets d'actes (compromis, statuts, testaments). Triggers: notaire, frais de notaire, acte de vente, compromis, succession, donation, héritage, testament, PACS, contrat de mariage, SCI, plus-value immobilière, droits de mutation, DMTO, usufruit, nue-propriété, partage successoral, réserve héréditaire, viager, donation-partage, diagnostics immobilier, droit de préemption, acte notarié, droit immobilier",
+      "description": "Notaire IA pour le droit immobilier, les successions, les donations, le droit de la famille et le droit des sociétés en France. Copilote juridique pour la préparation d'actes, le conseil patrimonial, les calculs de frais et la vérification de conformité. Couvre le calcul des frais de notaire (DMTO, émoluments, débours, CSI), la plus-value immobilière, les droits de succession et donation, le démembrement, les contrats de mariage, les PACS, les SCI, et la rédaction de projets d'actes (compromis, statuts, testaments). Triggers: notaire, frais de notaire, acte de vente, compromis, succession, donation, héritage, testament, PACS, contrat de mariage, SCI, plus-value immobilière, droits de mutation, DMTO, usufruit, nue-propriété, partage successoral, réserve héréditaire, viager, donation-partage, PER, plan épargne retraite, assurance-vie succession, diagnostics immobilier, droit de préemption, acte notarié, droit immobilier",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -728,9 +728,9 @@
       "installUrl": "github:romainsimon/paperasse:notaire",
       "relPath": "notaire",
       "verified": true,
-      "tokenCount": 2912,
+      "tokenCount": 3184,
       "evalSummary": {
-        "overallScore": 58,
+        "overallScore": 56,
         "grade": "D",
         "categories": [
           {
@@ -754,7 +754,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 9,
+            "score": 7,
             "max": 10
           },
           {
@@ -794,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:13:15.171Z",
+        "evaluatedAt": "2026-11-06T01:05:56.328Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -803,7 +803,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 58,
+          "overallScore": 56,
           "grade": "D",
           "categories": [
             {
@@ -827,7 +827,7 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 9,
+              "score": 7,
               "max": 10
             },
             {
@@ -867,7 +867,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:13:15.171Z",
+          "evaluatedAt": "2026-11-06T01:05:56.328Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -885,14 +885,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:13:15.171Z",
+          "evaluatedAt": "2026-11-06T01:05:56.328Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "syndic",
-      "description": "Gère un parc de copropriétés en France avec vue portfolio consolidée. Couvre administration, comptabilité (décret 2005, plan comptable copro, 5 annexes), assemblées générales (convocation, PV, notification), appels de fonds, travaux, fournisseurs, recouvrement d'impayés et transition de syndic. Maîtrise les majorités (art. 24, 25, 25-1, 26), le fonds de travaux (art. 14-2), le privilège immobilier (art. 19-2) et l'immatriculation RNC. Intégration Qonto pour le rapprochement bancaire. Utilisé pour toute question liée à la copropriété, au syndic bénévole ou coopératif, aux charges, tantièmes, AG, ou au droit de la copropriété (loi 1965, ALUR, ELAN).",
+      "description": "Gère un parc de copropriétés en France avec vue portfolio consolidée. Couvre administration, comptabilité (décret 2005, plan comptable copro, 5 annexes), assemblées générales (convocation, PV, notification), appels de fonds, travaux, fournisseurs, recouvrement d'impayés et transition de syndic. Maîtrise les majorités (art. 24, 25, 25-1, 26), le fonds de travaux (art. 14-2-1), l'hypothèque légale du syndicat (art. 19 et 19-1) et l'immatriculation RNC. Intégration Qonto pour le rapprochement bancaire. Utilisé pour toute question liée à la copropriété, au syndic bénévole ou coopératif, aux charges, tantièmes, AG, ou au droit de la copropriété (loi 1965, ALUR, ELAN).",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -905,7 +905,7 @@
       "installUrl": "github:romainsimon/paperasse:syndic",
       "relPath": "syndic",
       "verified": true,
-      "tokenCount": 2768,
+      "tokenCount": 2856,
       "evalSummary": {
         "overallScore": 59,
         "grade": "D",
@@ -971,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:13:15.171Z",
+        "evaluatedAt": "2026-11-06T01:05:56.328Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1044,7 +1044,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:13:15.171Z",
+          "evaluatedAt": "2026-11-06T01:05:56.328Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1062,7 +1062,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:13:15.171Z",
+          "evaluatedAt": "2026-11-06T01:05:56.328Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1074,7 +1074,7 @@
       "name": "romainsimon-paperasse-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from romainsimon/paperasse.",
       "author": "ASM (romainsimon/paperasse)",
-      "createdAt": "2026-10-18T22:13:15.739Z",
+      "createdAt": "2026-11-06T01:05:57.512Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1094,31 +1094,31 @@
         {
           "name": "comptable",
           "installUrl": "github:romainsimon/paperasse:comptable",
-          "description": "Comptabilité, fiscalité et facturation pour entreprises françaises. Gère écritures PCG, déclarations TVA, IS/IR, clôture annuelle, liasse fiscale (2033/2065), FEC, états financiers, et chaîne facturation (mentions obligatoires, numérotation, Factur-X/UBL/CII, plateformes agréées PDP/PA, e-reporting, réforme 2026, PEPPOL). Utiliser dès qu'une question porte sur comptabilité française, TVA, impôts, bilan, compte de résultat, amortissement, PCA, clôture, facture, avoir, devis, acompte, facturation électronique, ou e-invoicing.",
+          "description": "Comptabilité, fiscalité et facturation pour entreprises françaises. Gère écritures PCG, déclarations TVA, IS/IR, clôture annuelle, liasse fiscale (2033/2065), FEC, états financiers, et chaîne facturation (mentions obligatoires, numérotation, Factur-X/UBL/CII, plateformes agréées PDP/PA, e-reporting, réforme 2026, PEPPOL). Utiliser dès qu'une question porte sur comptabilité française, TVA, impôts, bilan, compte de résultat, amortissement, PCA, clôture, notes de frais, indemnités kilométriques, facture, avoir, devis, acompte, facturation électronique, ou e-invoicing.",
           "version": "0.0.0"
         },
         {
           "name": "controleur-fiscal",
           "installUrl": "github:romainsimon/paperasse:controleur-fiscal",
-          "description": "Inspecteur des finances publiques IA. Simule un contrôle fiscal DGFIP complet sur les comptes d'une entreprise française (SASU, EURL, SAS, SARL). Analyse le FEC, la liasse fiscale, les charges déduites, le compte courant d'associé, la TVA, l'IS selon 8 axes de vérification. Identifie les chefs de redressement potentiels avec montants, base légale et niveaux de risque. Triggers: contrôle fiscal, redressement, vérification comptabilité, DGFIP, FEC, déductibilité, audit fiscal, tax audit",
+          "description": "Inspecteur des finances publiques IA. Simule un contrôle fiscal DGFIP complet sur les comptes d'une entreprise française (SASU, EURL, SAS, SARL). Analyse le FEC, la liasse fiscale, les charges déduites, le compte courant d'associé, la TVA, l'IS selon 9 axes de vérification. Identifie les chefs de redressement potentiels avec montants, base légale et niveaux de risque. Triggers: contrôle fiscal, redressement, vérification comptabilité, DGFIP, FEC, déductibilité, audit fiscal, tax audit",
           "version": "0.0.0"
         },
         {
           "name": "fiscaliste",
           "installUrl": "github:romainsimon/paperasse:fiscaliste",
-          "description": "Fiscaliste IA pour la fiscalité personnelle des particuliers français : optimisation et déclaration de l'impôt sur le revenu, IFI, revenus du capital, revenus fonciers, equity salarial, crypto-actifs et PER. Couvre le calcul de l'IR (barème, quotient familial, décote, PAS, CEHR, revenus exceptionnels), la déclaration 2042 et annexes, les revenus du capital (PFU vs barème, PEA, assurance-vie, dividendes, plus-values), les revenus fonciers (micro/réel, déficit, LMNP, SCI IR), l'equity startup (RSU, BSPCE, stock-options, PEE/PERCO), la fiscalité crypto (PAMC, 2086), l'IFI et les déductions (PER, pension alimentaire). Triggers: impôt sur le revenu, IR, 2042, quotient familial, décote, PAS, PFU, flat tax, PEA, assurance-vie, LMNP, revenus fonciers, déficit foncier, SCI IR, RSU, BSPCE, stock-options, PEE/PERCO, crypto, 2086, IFI, PER, plafond PER, niche fiscale, optimisation fiscale, simulation IR, TMI. Hors scope : succession/donation (notaire), IS/SASU/arbitrage dividende-salaire/SCI IS (comptable).",
+          "description": "Fiscaliste IA pour la fiscalité personnelle des particuliers français : optimisation et déclaration de l'impôt sur le revenu, IFI, revenus du capital, revenus fonciers, equity salarial, crypto-actifs et PER. Couvre le calcul de l'IR (barème, quotient familial, décote, PAS, CEHR, revenus exceptionnels), la déclaration 2042 et annexes, les revenus du capital (PFU vs barème, PEA, assurance-vie, dividendes, plus-values), les revenus fonciers (micro/réel, déficit, LMNP, SCI IR), l'equity startup (RSU, BSPCE, stock-options, PEE/PERCO), la fiscalité crypto (PAMC, 2086), l'IFI et les déductions (PER, pension alimentaire). Triggers: impôt sur le revenu, IR, 2042, quotient familial, décote, PAS, PFU, flat tax, PEA, assurance-vie, LMNP, revenus fonciers, déficit foncier, SCI IR, RSU, BSPCE, stock-options, PEE/PERCO, crypto, 2086, IFI, PER, plafond PER, niche fiscale, optimisation fiscale, simulation IR, TMI, compte étranger, 3916, 3916-bis, 8UU. Hors scope : succession/donation (notaire), IS/SASU/arbitrage dividende-salaire/SCI IS (comptable).",
           "version": "0.0.0"
         },
         {
           "name": "notaire",
           "installUrl": "github:romainsimon/paperasse:notaire",
-          "description": "Notaire IA pour le droit immobilier, les successions, les donations, le droit de la famille et le droit des sociétés en France. Copilote juridique pour la préparation d'actes, le conseil patrimonial, les calculs de frais et la vérification de conformité. Couvre le calcul des frais de notaire (DMTO, émoluments, débours, CSI), la plus-value immobilière, les droits de succession et donation, le démembrement, les contrats de mariage, les PACS, les SCI, et la rédaction de projets d'actes (compromis, statuts, testaments). Triggers: notaire, frais de notaire, acte de vente, compromis, succession, donation, héritage, testament, PACS, contrat de mariage, SCI, plus-value immobilière, droits de mutation, DMTO, usufruit, nue-propriété, partage successoral, réserve héréditaire, viager, donation-partage, diagnostics immobilier, droit de préemption, acte notarié, droit immobilier",
+          "description": "Notaire IA pour le droit immobilier, les successions, les donations, le droit de la famille et le droit des sociétés en France. Copilote juridique pour la préparation d'actes, le conseil patrimonial, les calculs de frais et la vérification de conformité. Couvre le calcul des frais de notaire (DMTO, émoluments, débours, CSI), la plus-value immobilière, les droits de succession et donation, le démembrement, les contrats de mariage, les PACS, les SCI, et la rédaction de projets d'actes (compromis, statuts, testaments). Triggers: notaire, frais de notaire, acte de vente, compromis, succession, donation, héritage, testament, PACS, contrat de mariage, SCI, plus-value immobilière, droits de mutation, DMTO, usufruit, nue-propriété, partage successoral, réserve héréditaire, viager, donation-partage, PER, plan épargne retraite, assurance-vie succession, diagnostics immobilier, droit de préemption, acte notarié, droit immobilier",
           "version": "0.0.0"
         },
         {
           "name": "syndic",
           "installUrl": "github:romainsimon/paperasse:syndic",
-          "description": "Gère un parc de copropriétés en France avec vue portfolio consolidée. Couvre administration, comptabilité (décret 2005, plan comptable copro, 5 annexes), assemblées générales (convocation, PV, notification), appels de fonds, travaux, fournisseurs, recouvrement d'impayés et transition de syndic. Maîtrise les majorités (art. 24, 25, 25-1, 26), le fonds de travaux (art. 14-2), le privilège immobilier (art. 19-2) et l'immatriculation RNC. Intégration Qonto pour le rapprochement bancaire. Utilisé pour toute question liée à la copropriété, au syndic bénévole ou coopératif, aux charges, tantièmes, AG, ou au droit de la copropriété (loi 1965, ALUR, ELAN).",
+          "description": "Gère un parc de copropriétés en France avec vue portfolio consolidée. Couvre administration, comptabilité (décret 2005, plan comptable copro, 5 annexes), assemblées générales (convocation, PV, notification), appels de fonds, travaux, fournisseurs, recouvrement d'impayés et transition de syndic. Maîtrise les majorités (art. 24, 25, 25-1, 26), le fonds de travaux (art. 14-2-1), l'hypothèque légale du syndicat (art. 19 et 19-1) et l'immatriculation RNC. Intégration Qonto pour le rapprochement bancaire. Utilisé pour toute question liée à la copropriété, au syndic bénévole ou coopératif, aux charges, tantièmes, AG, ou au droit de la copropriété (loi 1965, ALUR, ELAN).",
           "version": "0.0.0"
         }
       ],
@@ -1134,7 +1134,7 @@
       "name": "romainsimon-paperasse-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from romainsimon/paperasse.",
       "author": "ASM (romainsimon/paperasse)",
-      "createdAt": "2026-10-18T22:13:15.739Z",
+      "createdAt": "2026-11-06T01:05:57.512Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1148,25 +1148,25 @@
         {
           "name": "comptable",
           "installUrl": "github:romainsimon/paperasse:comptable",
-          "description": "Comptabilité, fiscalité et facturation pour entreprises françaises. Gère écritures PCG, déclarations TVA, IS/IR, clôture annuelle, liasse fiscale (2033/2065), FEC, états financiers, et chaîne facturation (mentions obligatoires, numérotation, Factur-X/UBL/CII, plateformes agréées PDP/PA, e-reporting, réforme 2026, PEPPOL). Utiliser dès qu'une question porte sur comptabilité française, TVA, impôts, bilan, compte de résultat, amortissement, PCA, clôture, facture, avoir, devis, acompte, facturation électronique, ou e-invoicing.",
+          "description": "Comptabilité, fiscalité et facturation pour entreprises françaises. Gère écritures PCG, déclarations TVA, IS/IR, clôture annuelle, liasse fiscale (2033/2065), FEC, états financiers, et chaîne facturation (mentions obligatoires, numérotation, Factur-X/UBL/CII, plateformes agréées PDP/PA, e-reporting, réforme 2026, PEPPOL). Utiliser dès qu'une question porte sur comptabilité française, TVA, impôts, bilan, compte de résultat, amortissement, PCA, clôture, notes de frais, indemnités kilométriques, facture, avoir, devis, acompte, facturation électronique, ou e-invoicing.",
           "version": "0.0.0"
         },
         {
           "name": "controleur-fiscal",
           "installUrl": "github:romainsimon/paperasse:controleur-fiscal",
-          "description": "Inspecteur des finances publiques IA. Simule un contrôle fiscal DGFIP complet sur les comptes d'une entreprise française (SASU, EURL, SAS, SARL). Analyse le FEC, la liasse fiscale, les charges déduites, le compte courant d'associé, la TVA, l'IS selon 8 axes de vérification. Identifie les chefs de redressement potentiels avec montants, base légale et niveaux de risque. Triggers: contrôle fiscal, redressement, vérification comptabilité, DGFIP, FEC, déductibilité, audit fiscal, tax audit",
+          "description": "Inspecteur des finances publiques IA. Simule un contrôle fiscal DGFIP complet sur les comptes d'une entreprise française (SASU, EURL, SAS, SARL). Analyse le FEC, la liasse fiscale, les charges déduites, le compte courant d'associé, la TVA, l'IS selon 9 axes de vérification. Identifie les chefs de redressement potentiels avec montants, base légale et niveaux de risque. Triggers: contrôle fiscal, redressement, vérification comptabilité, DGFIP, FEC, déductibilité, audit fiscal, tax audit",
           "version": "0.0.0"
         },
         {
           "name": "fiscaliste",
           "installUrl": "github:romainsimon/paperasse:fiscaliste",
-          "description": "Fiscaliste IA pour la fiscalité personnelle des particuliers français : optimisation et déclaration de l'impôt sur le revenu, IFI, revenus du capital, revenus fonciers, equity salarial, crypto-actifs et PER. Couvre le calcul de l'IR (barème, quotient familial, décote, PAS, CEHR, revenus exceptionnels), la déclaration 2042 et annexes, les revenus du capital (PFU vs barème, PEA, assurance-vie, dividendes, plus-values), les revenus fonciers (micro/réel, déficit, LMNP, SCI IR), l'equity startup (RSU, BSPCE, stock-options, PEE/PERCO), la fiscalité crypto (PAMC, 2086), l'IFI et les déductions (PER, pension alimentaire). Triggers: impôt sur le revenu, IR, 2042, quotient familial, décote, PAS, PFU, flat tax, PEA, assurance-vie, LMNP, revenus fonciers, déficit foncier, SCI IR, RSU, BSPCE, stock-options, PEE/PERCO, crypto, 2086, IFI, PER, plafond PER, niche fiscale, optimisation fiscale, simulation IR, TMI. Hors scope : succession/donation (notaire), IS/SASU/arbitrage dividende-salaire/SCI IS (comptable).",
+          "description": "Fiscaliste IA pour la fiscalité personnelle des particuliers français : optimisation et déclaration de l'impôt sur le revenu, IFI, revenus du capital, revenus fonciers, equity salarial, crypto-actifs et PER. Couvre le calcul de l'IR (barème, quotient familial, décote, PAS, CEHR, revenus exceptionnels), la déclaration 2042 et annexes, les revenus du capital (PFU vs barème, PEA, assurance-vie, dividendes, plus-values), les revenus fonciers (micro/réel, déficit, LMNP, SCI IR), l'equity startup (RSU, BSPCE, stock-options, PEE/PERCO), la fiscalité crypto (PAMC, 2086), l'IFI et les déductions (PER, pension alimentaire). Triggers: impôt sur le revenu, IR, 2042, quotient familial, décote, PAS, PFU, flat tax, PEA, assurance-vie, LMNP, revenus fonciers, déficit foncier, SCI IR, RSU, BSPCE, stock-options, PEE/PERCO, crypto, 2086, IFI, PER, plafond PER, niche fiscale, optimisation fiscale, simulation IR, TMI, compte étranger, 3916, 3916-bis, 8UU. Hors scope : succession/donation (notaire), IS/SASU/arbitrage dividende-salaire/SCI IS (comptable).",
           "version": "0.0.0"
         },
         {
           "name": "notaire",
           "installUrl": "github:romainsimon/paperasse:notaire",
-          "description": "Notaire IA pour le droit immobilier, les successions, les donations, le droit de la famille et le droit des sociétés en France. Copilote juridique pour la préparation d'actes, le conseil patrimonial, les calculs de frais et la vérification de conformité. Couvre le calcul des frais de notaire (DMTO, émoluments, débours, CSI), la plus-value immobilière, les droits de succession et donation, le démembrement, les contrats de mariage, les PACS, les SCI, et la rédaction de projets d'actes (compromis, statuts, testaments). Triggers: notaire, frais de notaire, acte de vente, compromis, succession, donation, héritage, testament, PACS, contrat de mariage, SCI, plus-value immobilière, droits de mutation, DMTO, usufruit, nue-propriété, partage successoral, réserve héréditaire, viager, donation-partage, diagnostics immobilier, droit de préemption, acte notarié, droit immobilier",
+          "description": "Notaire IA pour le droit immobilier, les successions, les donations, le droit de la famille et le droit des sociétés en France. Copilote juridique pour la préparation d'actes, le conseil patrimonial, les calculs de frais et la vérification de conformité. Couvre le calcul des frais de notaire (DMTO, émoluments, débours, CSI), la plus-value immobilière, les droits de succession et donation, le démembrement, les contrats de mariage, les PACS, les SCI, et la rédaction de projets d'actes (compromis, statuts, testaments). Triggers: notaire, frais de notaire, acte de vente, compromis, succession, donation, héritage, testament, PACS, contrat de mariage, SCI, plus-value immobilière, droits de mutation, DMTO, usufruit, nue-propriété, partage successoral, réserve héréditaire, viager, donation-partage, PER, plan épargne retraite, assurance-vie succession, diagnostics immobilier, droit de préemption, acte notarié, droit immobilier",
           "version": "0.0.0"
         }
       ],
@@ -1182,7 +1182,7 @@
       "name": "romainsimon-paperasse-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from romainsimon/paperasse.",
       "author": "ASM (romainsimon/paperasse)",
-      "createdAt": "2026-10-18T22:13:15.739Z",
+      "createdAt": "2026-11-06T01:05:57.512Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1196,13 +1196,13 @@
         {
           "name": "fiscaliste",
           "installUrl": "github:romainsimon/paperasse:fiscaliste",
-          "description": "Fiscaliste IA pour la fiscalité personnelle des particuliers français : optimisation et déclaration de l'impôt sur le revenu, IFI, revenus du capital, revenus fonciers, equity salarial, crypto-actifs et PER. Couvre le calcul de l'IR (barème, quotient familial, décote, PAS, CEHR, revenus exceptionnels), la déclaration 2042 et annexes, les revenus du capital (PFU vs barème, PEA, assurance-vie, dividendes, plus-values), les revenus fonciers (micro/réel, déficit, LMNP, SCI IR), l'equity startup (RSU, BSPCE, stock-options, PEE/PERCO), la fiscalité crypto (PAMC, 2086), l'IFI et les déductions (PER, pension alimentaire). Triggers: impôt sur le revenu, IR, 2042, quotient familial, décote, PAS, PFU, flat tax, PEA, assurance-vie, LMNP, revenus fonciers, déficit foncier, SCI IR, RSU, BSPCE, stock-options, PEE/PERCO, crypto, 2086, IFI, PER, plafond PER, niche fiscale, optimisation fiscale, simulation IR, TMI. Hors scope : succession/donation (notaire), IS/SASU/arbitrage dividende-salaire/SCI IS (comptable).",
+          "description": "Fiscaliste IA pour la fiscalité personnelle des particuliers français : optimisation et déclaration de l'impôt sur le revenu, IFI, revenus du capital, revenus fonciers, equity salarial, crypto-actifs et PER. Couvre le calcul de l'IR (barème, quotient familial, décote, PAS, CEHR, revenus exceptionnels), la déclaration 2042 et annexes, les revenus du capital (PFU vs barème, PEA, assurance-vie, dividendes, plus-values), les revenus fonciers (micro/réel, déficit, LMNP, SCI IR), l'equity startup (RSU, BSPCE, stock-options, PEE/PERCO), la fiscalité crypto (PAMC, 2086), l'IFI et les déductions (PER, pension alimentaire). Triggers: impôt sur le revenu, IR, 2042, quotient familial, décote, PAS, PFU, flat tax, PEA, assurance-vie, LMNP, revenus fonciers, déficit foncier, SCI IR, RSU, BSPCE, stock-options, PEE/PERCO, crypto, 2086, IFI, PER, plafond PER, niche fiscale, optimisation fiscale, simulation IR, TMI, compte étranger, 3916, 3916-bis, 8UU. Hors scope : succession/donation (notaire), IS/SASU/arbitrage dividende-salaire/SCI IS (comptable).",
           "version": "0.0.0"
         },
         {
           "name": "notaire",
           "installUrl": "github:romainsimon/paperasse:notaire",
-          "description": "Notaire IA pour le droit immobilier, les successions, les donations, le droit de la famille et le droit des sociétés en France. Copilote juridique pour la préparation d'actes, le conseil patrimonial, les calculs de frais et la vérification de conformité. Couvre le calcul des frais de notaire (DMTO, émoluments, débours, CSI), la plus-value immobilière, les droits de succession et donation, le démembrement, les contrats de mariage, les PACS, les SCI, et la rédaction de projets d'actes (compromis, statuts, testaments). Triggers: notaire, frais de notaire, acte de vente, compromis, succession, donation, héritage, testament, PACS, contrat de mariage, SCI, plus-value immobilière, droits de mutation, DMTO, usufruit, nue-propriété, partage successoral, réserve héréditaire, viager, donation-partage, diagnostics immobilier, droit de préemption, acte notarié, droit immobilier",
+          "description": "Notaire IA pour le droit immobilier, les successions, les donations, le droit de la famille et le droit des sociétés en France. Copilote juridique pour la préparation d'actes, le conseil patrimonial, les calculs de frais et la vérification de conformité. Couvre le calcul des frais de notaire (DMTO, émoluments, débours, CSI), la plus-value immobilière, les droits de succession et donation, le démembrement, les contrats de mariage, les PACS, les SCI, et la rédaction de projets d'actes (compromis, statuts, testaments). Triggers: notaire, frais de notaire, acte de vente, compromis, succession, donation, héritage, testament, PACS, contrat de mariage, SCI, plus-value immobilière, droits de mutation, DMTO, usufruit, nue-propriété, partage successoral, réserve héréditaire, viager, donation-partage, PER, plan épargne retraite, assurance-vie succession, diagnostics immobilier, droit de préemption, acte notarié, droit immobilier",
           "version": "0.0.0"
         }
       ],
@@ -1218,7 +1218,7 @@
       "name": "romainsimon-paperasse-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from romainsimon/paperasse.",
       "author": "ASM (romainsimon/paperasse)",
-      "createdAt": "2026-10-18T22:13:15.739Z",
+      "createdAt": "2026-11-06T01:05:57.512Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1238,25 +1238,25 @@
         {
           "name": "controleur-fiscal",
           "installUrl": "github:romainsimon/paperasse:controleur-fiscal",
-          "description": "Inspecteur des finances publiques IA. Simule un contrôle fiscal DGFIP complet sur les comptes d'une entreprise française (SASU, EURL, SAS, SARL). Analyse le FEC, la liasse fiscale, les charges déduites, le compte courant d'associé, la TVA, l'IS selon 8 axes de vérification. Identifie les chefs de redressement potentiels avec montants, base légale et niveaux de risque. Triggers: contrôle fiscal, redressement, vérification comptabilité, DGFIP, FEC, déductibilité, audit fiscal, tax audit",
+          "description": "Inspecteur des finances publiques IA. Simule un contrôle fiscal DGFIP complet sur les comptes d'une entreprise française (SASU, EURL, SAS, SARL). Analyse le FEC, la liasse fiscale, les charges déduites, le compte courant d'associé, la TVA, l'IS selon 9 axes de vérification. Identifie les chefs de redressement potentiels avec montants, base légale et niveaux de risque. Triggers: contrôle fiscal, redressement, vérification comptabilité, DGFIP, FEC, déductibilité, audit fiscal, tax audit",
           "version": "0.0.0"
         },
         {
           "name": "fiscaliste",
           "installUrl": "github:romainsimon/paperasse:fiscaliste",
-          "description": "Fiscaliste IA pour la fiscalité personnelle des particuliers français : optimisation et déclaration de l'impôt sur le revenu, IFI, revenus du capital, revenus fonciers, equity salarial, crypto-actifs et PER. Couvre le calcul de l'IR (barème, quotient familial, décote, PAS, CEHR, revenus exceptionnels), la déclaration 2042 et annexes, les revenus du capital (PFU vs barème, PEA, assurance-vie, dividendes, plus-values), les revenus fonciers (micro/réel, déficit, LMNP, SCI IR), l'equity startup (RSU, BSPCE, stock-options, PEE/PERCO), la fiscalité crypto (PAMC, 2086), l'IFI et les déductions (PER, pension alimentaire). Triggers: impôt sur le revenu, IR, 2042, quotient familial, décote, PAS, PFU, flat tax, PEA, assurance-vie, LMNP, revenus fonciers, déficit foncier, SCI IR, RSU, BSPCE, stock-options, PEE/PERCO, crypto, 2086, IFI, PER, plafond PER, niche fiscale, optimisation fiscale, simulation IR, TMI. Hors scope : succession/donation (notaire), IS/SASU/arbitrage dividende-salaire/SCI IS (comptable).",
+          "description": "Fiscaliste IA pour la fiscalité personnelle des particuliers français : optimisation et déclaration de l'impôt sur le revenu, IFI, revenus du capital, revenus fonciers, equity salarial, crypto-actifs et PER. Couvre le calcul de l'IR (barème, quotient familial, décote, PAS, CEHR, revenus exceptionnels), la déclaration 2042 et annexes, les revenus du capital (PFU vs barème, PEA, assurance-vie, dividendes, plus-values), les revenus fonciers (micro/réel, déficit, LMNP, SCI IR), l'equity startup (RSU, BSPCE, stock-options, PEE/PERCO), la fiscalité crypto (PAMC, 2086), l'IFI et les déductions (PER, pension alimentaire). Triggers: impôt sur le revenu, IR, 2042, quotient familial, décote, PAS, PFU, flat tax, PEA, assurance-vie, LMNP, revenus fonciers, déficit foncier, SCI IR, RSU, BSPCE, stock-options, PEE/PERCO, crypto, 2086, IFI, PER, plafond PER, niche fiscale, optimisation fiscale, simulation IR, TMI, compte étranger, 3916, 3916-bis, 8UU. Hors scope : succession/donation (notaire), IS/SASU/arbitrage dividende-salaire/SCI IS (comptable).",
           "version": "0.0.0"
         },
         {
           "name": "notaire",
           "installUrl": "github:romainsimon/paperasse:notaire",
-          "description": "Notaire IA pour le droit immobilier, les successions, les donations, le droit de la famille et le droit des sociétés en France. Copilote juridique pour la préparation d'actes, le conseil patrimonial, les calculs de frais et la vérification de conformité. Couvre le calcul des frais de notaire (DMTO, émoluments, débours, CSI), la plus-value immobilière, les droits de succession et donation, le démembrement, les contrats de mariage, les PACS, les SCI, et la rédaction de projets d'actes (compromis, statuts, testaments). Triggers: notaire, frais de notaire, acte de vente, compromis, succession, donation, héritage, testament, PACS, contrat de mariage, SCI, plus-value immobilière, droits de mutation, DMTO, usufruit, nue-propriété, partage successoral, réserve héréditaire, viager, donation-partage, diagnostics immobilier, droit de préemption, acte notarié, droit immobilier",
+          "description": "Notaire IA pour le droit immobilier, les successions, les donations, le droit de la famille et le droit des sociétés en France. Copilote juridique pour la préparation d'actes, le conseil patrimonial, les calculs de frais et la vérification de conformité. Couvre le calcul des frais de notaire (DMTO, émoluments, débours, CSI), la plus-value immobilière, les droits de succession et donation, le démembrement, les contrats de mariage, les PACS, les SCI, et la rédaction de projets d'actes (compromis, statuts, testaments). Triggers: notaire, frais de notaire, acte de vente, compromis, succession, donation, héritage, testament, PACS, contrat de mariage, SCI, plus-value immobilière, droits de mutation, DMTO, usufruit, nue-propriété, partage successoral, réserve héréditaire, viager, donation-partage, PER, plan épargne retraite, assurance-vie succession, diagnostics immobilier, droit de préemption, acte notarié, droit immobilier",
           "version": "0.0.0"
         },
         {
           "name": "syndic",
           "installUrl": "github:romainsimon/paperasse:syndic",
-          "description": "Gère un parc de copropriétés en France avec vue portfolio consolidée. Couvre administration, comptabilité (décret 2005, plan comptable copro, 5 annexes), assemblées générales (convocation, PV, notification), appels de fonds, travaux, fournisseurs, recouvrement d'impayés et transition de syndic. Maîtrise les majorités (art. 24, 25, 25-1, 26), le fonds de travaux (art. 14-2), le privilège immobilier (art. 19-2) et l'immatriculation RNC. Intégration Qonto pour le rapprochement bancaire. Utilisé pour toute question liée à la copropriété, au syndic bénévole ou coopératif, aux charges, tantièmes, AG, ou au droit de la copropriété (loi 1965, ALUR, ELAN).",
+          "description": "Gère un parc de copropriétés en France avec vue portfolio consolidée. Couvre administration, comptabilité (décret 2005, plan comptable copro, 5 annexes), assemblées générales (convocation, PV, notification), appels de fonds, travaux, fournisseurs, recouvrement d'impayés et transition de syndic. Maîtrise les majorités (art. 24, 25, 25-1, 26), le fonds de travaux (art. 14-2-1), l'hypothèque légale du syndicat (art. 19 et 19-1) et l'immatriculation RNC. Intégration Qonto pour le rapprochement bancaire. Utilisé pour toute question liée à la copropriété, au syndic bénévole ou coopératif, aux charges, tantièmes, AG, ou au droit de la copropriété (loi 1965, ALUR, ELAN).",
           "version": "0.0.0"
         }
       ],
@@ -1272,7 +1272,7 @@
       "name": "romainsimon-paperasse-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from romainsimon/paperasse.",
       "author": "ASM (romainsimon/paperasse)",
-      "createdAt": "2026-10-18T22:13:15.739Z",
+      "createdAt": "2026-11-06T01:05:57.512Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1286,13 +1286,13 @@
         {
           "name": "controleur-fiscal",
           "installUrl": "github:romainsimon/paperasse:controleur-fiscal",
-          "description": "Inspecteur des finances publiques IA. Simule un contrôle fiscal DGFIP complet sur les comptes d'une entreprise française (SASU, EURL, SAS, SARL). Analyse le FEC, la liasse fiscale, les charges déduites, le compte courant d'associé, la TVA, l'IS selon 8 axes de vérification. Identifie les chefs de redressement potentiels avec montants, base légale et niveaux de risque. Triggers: contrôle fiscal, redressement, vérification comptabilité, DGFIP, FEC, déductibilité, audit fiscal, tax audit",
+          "description": "Inspecteur des finances publiques IA. Simule un contrôle fiscal DGFIP complet sur les comptes d'une entreprise française (SASU, EURL, SAS, SARL). Analyse le FEC, la liasse fiscale, les charges déduites, le compte courant d'associé, la TVA, l'IS selon 9 axes de vérification. Identifie les chefs de redressement potentiels avec montants, base légale et niveaux de risque. Triggers: contrôle fiscal, redressement, vérification comptabilité, DGFIP, FEC, déductibilité, audit fiscal, tax audit",
           "version": "0.0.0"
         },
         {
           "name": "fiscaliste",
           "installUrl": "github:romainsimon/paperasse:fiscaliste",
-          "description": "Fiscaliste IA pour la fiscalité personnelle des particuliers français : optimisation et déclaration de l'impôt sur le revenu, IFI, revenus du capital, revenus fonciers, equity salarial, crypto-actifs et PER. Couvre le calcul de l'IR (barème, quotient familial, décote, PAS, CEHR, revenus exceptionnels), la déclaration 2042 et annexes, les revenus du capital (PFU vs barème, PEA, assurance-vie, dividendes, plus-values), les revenus fonciers (micro/réel, déficit, LMNP, SCI IR), l'equity startup (RSU, BSPCE, stock-options, PEE/PERCO), la fiscalité crypto (PAMC, 2086), l'IFI et les déductions (PER, pension alimentaire). Triggers: impôt sur le revenu, IR, 2042, quotient familial, décote, PAS, PFU, flat tax, PEA, assurance-vie, LMNP, revenus fonciers, déficit foncier, SCI IR, RSU, BSPCE, stock-options, PEE/PERCO, crypto, 2086, IFI, PER, plafond PER, niche fiscale, optimisation fiscale, simulation IR, TMI. Hors scope : succession/donation (notaire), IS/SASU/arbitrage dividende-salaire/SCI IS (comptable).",
+          "description": "Fiscaliste IA pour la fiscalité personnelle des particuliers français : optimisation et déclaration de l'impôt sur le revenu, IFI, revenus du capital, revenus fonciers, equity salarial, crypto-actifs et PER. Couvre le calcul de l'IR (barème, quotient familial, décote, PAS, CEHR, revenus exceptionnels), la déclaration 2042 et annexes, les revenus du capital (PFU vs barème, PEA, assurance-vie, dividendes, plus-values), les revenus fonciers (micro/réel, déficit, LMNP, SCI IR), l'equity startup (RSU, BSPCE, stock-options, PEE/PERCO), la fiscalité crypto (PAMC, 2086), l'IFI et les déductions (PER, pension alimentaire). Triggers: impôt sur le revenu, IR, 2042, quotient familial, décote, PAS, PFU, flat tax, PEA, assurance-vie, LMNP, revenus fonciers, déficit foncier, SCI IR, RSU, BSPCE, stock-options, PEE/PERCO, crypto, 2086, IFI, PER, plafond PER, niche fiscale, optimisation fiscale, simulation IR, TMI, compte étranger, 3916, 3916-bis, 8UU. Hors scope : succession/donation (notaire), IS/SASU/arbitrage dividende-salaire/SCI IS (comptable).",
           "version": "0.0.0"
         }
       ],
@@ -1308,7 +1308,7 @@
       "name": "romainsimon-paperasse-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from romainsimon/paperasse.",
       "author": "ASM (romainsimon/paperasse)",
-      "createdAt": "2026-10-18T22:13:15.739Z",
+      "createdAt": "2026-11-06T01:05:57.512Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1328,31 +1328,31 @@
         {
           "name": "comptable",
           "installUrl": "github:romainsimon/paperasse:comptable",
-          "description": "Comptabilité, fiscalité et facturation pour entreprises françaises. Gère écritures PCG, déclarations TVA, IS/IR, clôture annuelle, liasse fiscale (2033/2065), FEC, états financiers, et chaîne facturation (mentions obligatoires, numérotation, Factur-X/UBL/CII, plateformes agréées PDP/PA, e-reporting, réforme 2026, PEPPOL). Utiliser dès qu'une question porte sur comptabilité française, TVA, impôts, bilan, compte de résultat, amortissement, PCA, clôture, facture, avoir, devis, acompte, facturation électronique, ou e-invoicing.",
+          "description": "Comptabilité, fiscalité et facturation pour entreprises françaises. Gère écritures PCG, déclarations TVA, IS/IR, clôture annuelle, liasse fiscale (2033/2065), FEC, états financiers, et chaîne facturation (mentions obligatoires, numérotation, Factur-X/UBL/CII, plateformes agréées PDP/PA, e-reporting, réforme 2026, PEPPOL). Utiliser dès qu'une question porte sur comptabilité française, TVA, impôts, bilan, compte de résultat, amortissement, PCA, clôture, notes de frais, indemnités kilométriques, facture, avoir, devis, acompte, facturation électronique, ou e-invoicing.",
           "version": "0.0.0"
         },
         {
           "name": "controleur-fiscal",
           "installUrl": "github:romainsimon/paperasse:controleur-fiscal",
-          "description": "Inspecteur des finances publiques IA. Simule un contrôle fiscal DGFIP complet sur les comptes d'une entreprise française (SASU, EURL, SAS, SARL). Analyse le FEC, la liasse fiscale, les charges déduites, le compte courant d'associé, la TVA, l'IS selon 8 axes de vérification. Identifie les chefs de redressement potentiels avec montants, base légale et niveaux de risque. Triggers: contrôle fiscal, redressement, vérification comptabilité, DGFIP, FEC, déductibilité, audit fiscal, tax audit",
+          "description": "Inspecteur des finances publiques IA. Simule un contrôle fiscal DGFIP complet sur les comptes d'une entreprise française (SASU, EURL, SAS, SARL). Analyse le FEC, la liasse fiscale, les charges déduites, le compte courant d'associé, la TVA, l'IS selon 9 axes de vérification. Identifie les chefs de redressement potentiels avec montants, base légale et niveaux de risque. Triggers: contrôle fiscal, redressement, vérification comptabilité, DGFIP, FEC, déductibilité, audit fiscal, tax audit",
           "version": "0.0.0"
         },
         {
           "name": "fiscaliste",
           "installUrl": "github:romainsimon/paperasse:fiscaliste",
-          "description": "Fiscaliste IA pour la fiscalité personnelle des particuliers français : optimisation et déclaration de l'impôt sur le revenu, IFI, revenus du capital, revenus fonciers, equity salarial, crypto-actifs et PER. Couvre le calcul de l'IR (barème, quotient familial, décote, PAS, CEHR, revenus exceptionnels), la déclaration 2042 et annexes, les revenus du capital (PFU vs barème, PEA, assurance-vie, dividendes, plus-values), les revenus fonciers (micro/réel, déficit, LMNP, SCI IR), l'equity startup (RSU, BSPCE, stock-options, PEE/PERCO), la fiscalité crypto (PAMC, 2086), l'IFI et les déductions (PER, pension alimentaire). Triggers: impôt sur le revenu, IR, 2042, quotient familial, décote, PAS, PFU, flat tax, PEA, assurance-vie, LMNP, revenus fonciers, déficit foncier, SCI IR, RSU, BSPCE, stock-options, PEE/PERCO, crypto, 2086, IFI, PER, plafond PER, niche fiscale, optimisation fiscale, simulation IR, TMI. Hors scope : succession/donation (notaire), IS/SASU/arbitrage dividende-salaire/SCI IS (comptable).",
+          "description": "Fiscaliste IA pour la fiscalité personnelle des particuliers français : optimisation et déclaration de l'impôt sur le revenu, IFI, revenus du capital, revenus fonciers, equity salarial, crypto-actifs et PER. Couvre le calcul de l'IR (barème, quotient familial, décote, PAS, CEHR, revenus exceptionnels), la déclaration 2042 et annexes, les revenus du capital (PFU vs barème, PEA, assurance-vie, dividendes, plus-values), les revenus fonciers (micro/réel, déficit, LMNP, SCI IR), l'equity startup (RSU, BSPCE, stock-options, PEE/PERCO), la fiscalité crypto (PAMC, 2086), l'IFI et les déductions (PER, pension alimentaire). Triggers: impôt sur le revenu, IR, 2042, quotient familial, décote, PAS, PFU, flat tax, PEA, assurance-vie, LMNP, revenus fonciers, déficit foncier, SCI IR, RSU, BSPCE, stock-options, PEE/PERCO, crypto, 2086, IFI, PER, plafond PER, niche fiscale, optimisation fiscale, simulation IR, TMI, compte étranger, 3916, 3916-bis, 8UU. Hors scope : succession/donation (notaire), IS/SASU/arbitrage dividende-salaire/SCI IS (comptable).",
           "version": "0.0.0"
         },
         {
           "name": "notaire",
           "installUrl": "github:romainsimon/paperasse:notaire",
-          "description": "Notaire IA pour le droit immobilier, les successions, les donations, le droit de la famille et le droit des sociétés en France. Copilote juridique pour la préparation d'actes, le conseil patrimonial, les calculs de frais et la vérification de conformité. Couvre le calcul des frais de notaire (DMTO, émoluments, débours, CSI), la plus-value immobilière, les droits de succession et donation, le démembrement, les contrats de mariage, les PACS, les SCI, et la rédaction de projets d'actes (compromis, statuts, testaments). Triggers: notaire, frais de notaire, acte de vente, compromis, succession, donation, héritage, testament, PACS, contrat de mariage, SCI, plus-value immobilière, droits de mutation, DMTO, usufruit, nue-propriété, partage successoral, réserve héréditaire, viager, donation-partage, diagnostics immobilier, droit de préemption, acte notarié, droit immobilier",
+          "description": "Notaire IA pour le droit immobilier, les successions, les donations, le droit de la famille et le droit des sociétés en France. Copilote juridique pour la préparation d'actes, le conseil patrimonial, les calculs de frais et la vérification de conformité. Couvre le calcul des frais de notaire (DMTO, émoluments, débours, CSI), la plus-value immobilière, les droits de succession et donation, le démembrement, les contrats de mariage, les PACS, les SCI, et la rédaction de projets d'actes (compromis, statuts, testaments). Triggers: notaire, frais de notaire, acte de vente, compromis, succession, donation, héritage, testament, PACS, contrat de mariage, SCI, plus-value immobilière, droits de mutation, DMTO, usufruit, nue-propriété, partage successoral, réserve héréditaire, viager, donation-partage, PER, plan épargne retraite, assurance-vie succession, diagnostics immobilier, droit de préemption, acte notarié, droit immobilier",
           "version": "0.0.0"
         },
         {
           "name": "syndic",
           "installUrl": "github:romainsimon/paperasse:syndic",
-          "description": "Gère un parc de copropriétés en France avec vue portfolio consolidée. Couvre administration, comptabilité (décret 2005, plan comptable copro, 5 annexes), assemblées générales (convocation, PV, notification), appels de fonds, travaux, fournisseurs, recouvrement d'impayés et transition de syndic. Maîtrise les majorités (art. 24, 25, 25-1, 26), le fonds de travaux (art. 14-2), le privilège immobilier (art. 19-2) et l'immatriculation RNC. Intégration Qonto pour le rapprochement bancaire. Utilisé pour toute question liée à la copropriété, au syndic bénévole ou coopératif, aux charges, tantièmes, AG, ou au droit de la copropriété (loi 1965, ALUR, ELAN).",
+          "description": "Gère un parc de copropriétés en France avec vue portfolio consolidée. Couvre administration, comptabilité (décret 2005, plan comptable copro, 5 annexes), assemblées générales (convocation, PV, notification), appels de fonds, travaux, fournisseurs, recouvrement d'impayés et transition de syndic. Maîtrise les majorités (art. 24, 25, 25-1, 26), le fonds de travaux (art. 14-2-1), l'hypothèque légale du syndicat (art. 19 et 19-1) et l'immatriculation RNC. Intégration Qonto pour le rapprochement bancaire. Utilisé pour toute question liée à la copropriété, au syndic bénévole ou coopératif, aux charges, tantièmes, AG, ou au droit de la copropriété (loi 1965, ALUR, ELAN).",
           "version": "0.0.0"
         }
       ],
@@ -1368,7 +1368,7 @@
       "name": "romainsimon-paperasse-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from romainsimon/paperasse.",
       "author": "ASM (romainsimon/paperasse)",
-      "createdAt": "2026-10-18T22:13:15.739Z",
+      "createdAt": "2026-11-06T01:05:57.512Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1388,31 +1388,31 @@
         {
           "name": "comptable",
           "installUrl": "github:romainsimon/paperasse:comptable",
-          "description": "Comptabilité, fiscalité et facturation pour entreprises françaises. Gère écritures PCG, déclarations TVA, IS/IR, clôture annuelle, liasse fiscale (2033/2065), FEC, états financiers, et chaîne facturation (mentions obligatoires, numérotation, Factur-X/UBL/CII, plateformes agréées PDP/PA, e-reporting, réforme 2026, PEPPOL). Utiliser dès qu'une question porte sur comptabilité française, TVA, impôts, bilan, compte de résultat, amortissement, PCA, clôture, facture, avoir, devis, acompte, facturation électronique, ou e-invoicing.",
+          "description": "Comptabilité, fiscalité et facturation pour entreprises françaises. Gère écritures PCG, déclarations TVA, IS/IR, clôture annuelle, liasse fiscale (2033/2065), FEC, états financiers, et chaîne facturation (mentions obligatoires, numérotation, Factur-X/UBL/CII, plateformes agréées PDP/PA, e-reporting, réforme 2026, PEPPOL). Utiliser dès qu'une question porte sur comptabilité française, TVA, impôts, bilan, compte de résultat, amortissement, PCA, clôture, notes de frais, indemnités kilométriques, facture, avoir, devis, acompte, facturation électronique, ou e-invoicing.",
           "version": "0.0.0"
         },
         {
           "name": "controleur-fiscal",
           "installUrl": "github:romainsimon/paperasse:controleur-fiscal",
-          "description": "Inspecteur des finances publiques IA. Simule un contrôle fiscal DGFIP complet sur les comptes d'une entreprise française (SASU, EURL, SAS, SARL). Analyse le FEC, la liasse fiscale, les charges déduites, le compte courant d'associé, la TVA, l'IS selon 8 axes de vérification. Identifie les chefs de redressement potentiels avec montants, base légale et niveaux de risque. Triggers: contrôle fiscal, redressement, vérification comptabilité, DGFIP, FEC, déductibilité, audit fiscal, tax audit",
+          "description": "Inspecteur des finances publiques IA. Simule un contrôle fiscal DGFIP complet sur les comptes d'une entreprise française (SASU, EURL, SAS, SARL). Analyse le FEC, la liasse fiscale, les charges déduites, le compte courant d'associé, la TVA, l'IS selon 9 axes de vérification. Identifie les chefs de redressement potentiels avec montants, base légale et niveaux de risque. Triggers: contrôle fiscal, redressement, vérification comptabilité, DGFIP, FEC, déductibilité, audit fiscal, tax audit",
           "version": "0.0.0"
         },
         {
           "name": "fiscaliste",
           "installUrl": "github:romainsimon/paperasse:fiscaliste",
-          "description": "Fiscaliste IA pour la fiscalité personnelle des particuliers français : optimisation et déclaration de l'impôt sur le revenu, IFI, revenus du capital, revenus fonciers, equity salarial, crypto-actifs et PER. Couvre le calcul de l'IR (barème, quotient familial, décote, PAS, CEHR, revenus exceptionnels), la déclaration 2042 et annexes, les revenus du capital (PFU vs barème, PEA, assurance-vie, dividendes, plus-values), les revenus fonciers (micro/réel, déficit, LMNP, SCI IR), l'equity startup (RSU, BSPCE, stock-options, PEE/PERCO), la fiscalité crypto (PAMC, 2086), l'IFI et les déductions (PER, pension alimentaire). Triggers: impôt sur le revenu, IR, 2042, quotient familial, décote, PAS, PFU, flat tax, PEA, assurance-vie, LMNP, revenus fonciers, déficit foncier, SCI IR, RSU, BSPCE, stock-options, PEE/PERCO, crypto, 2086, IFI, PER, plafond PER, niche fiscale, optimisation fiscale, simulation IR, TMI. Hors scope : succession/donation (notaire), IS/SASU/arbitrage dividende-salaire/SCI IS (comptable).",
+          "description": "Fiscaliste IA pour la fiscalité personnelle des particuliers français : optimisation et déclaration de l'impôt sur le revenu, IFI, revenus du capital, revenus fonciers, equity salarial, crypto-actifs et PER. Couvre le calcul de l'IR (barème, quotient familial, décote, PAS, CEHR, revenus exceptionnels), la déclaration 2042 et annexes, les revenus du capital (PFU vs barème, PEA, assurance-vie, dividendes, plus-values), les revenus fonciers (micro/réel, déficit, LMNP, SCI IR), l'equity startup (RSU, BSPCE, stock-options, PEE/PERCO), la fiscalité crypto (PAMC, 2086), l'IFI et les déductions (PER, pension alimentaire). Triggers: impôt sur le revenu, IR, 2042, quotient familial, décote, PAS, PFU, flat tax, PEA, assurance-vie, LMNP, revenus fonciers, déficit foncier, SCI IR, RSU, BSPCE, stock-options, PEE/PERCO, crypto, 2086, IFI, PER, plafond PER, niche fiscale, optimisation fiscale, simulation IR, TMI, compte étranger, 3916, 3916-bis, 8UU. Hors scope : succession/donation (notaire), IS/SASU/arbitrage dividende-salaire/SCI IS (comptable).",
           "version": "0.0.0"
         },
         {
           "name": "notaire",
           "installUrl": "github:romainsimon/paperasse:notaire",
-          "description": "Notaire IA pour le droit immobilier, les successions, les donations, le droit de la famille et le droit des sociétés en France. Copilote juridique pour la préparation d'actes, le conseil patrimonial, les calculs de frais et la vérification de conformité. Couvre le calcul des frais de notaire (DMTO, émoluments, débours, CSI), la plus-value immobilière, les droits de succession et donation, le démembrement, les contrats de mariage, les PACS, les SCI, et la rédaction de projets d'actes (compromis, statuts, testaments). Triggers: notaire, frais de notaire, acte de vente, compromis, succession, donation, héritage, testament, PACS, contrat de mariage, SCI, plus-value immobilière, droits de mutation, DMTO, usufruit, nue-propriété, partage successoral, réserve héréditaire, viager, donation-partage, diagnostics immobilier, droit de préemption, acte notarié, droit immobilier",
+          "description": "Notaire IA pour le droit immobilier, les successions, les donations, le droit de la famille et le droit des sociétés en France. Copilote juridique pour la préparation d'actes, le conseil patrimonial, les calculs de frais et la vérification de conformité. Couvre le calcul des frais de notaire (DMTO, émoluments, débours, CSI), la plus-value immobilière, les droits de succession et donation, le démembrement, les contrats de mariage, les PACS, les SCI, et la rédaction de projets d'actes (compromis, statuts, testaments). Triggers: notaire, frais de notaire, acte de vente, compromis, succession, donation, héritage, testament, PACS, contrat de mariage, SCI, plus-value immobilière, droits de mutation, DMTO, usufruit, nue-propriété, partage successoral, réserve héréditaire, viager, donation-partage, PER, plan épargne retraite, assurance-vie succession, diagnostics immobilier, droit de préemption, acte notarié, droit immobilier",
           "version": "0.0.0"
         },
         {
           "name": "syndic",
           "installUrl": "github:romainsimon/paperasse:syndic",
-          "description": "Gère un parc de copropriétés en France avec vue portfolio consolidée. Couvre administration, comptabilité (décret 2005, plan comptable copro, 5 annexes), assemblées générales (convocation, PV, notification), appels de fonds, travaux, fournisseurs, recouvrement d'impayés et transition de syndic. Maîtrise les majorités (art. 24, 25, 25-1, 26), le fonds de travaux (art. 14-2), le privilège immobilier (art. 19-2) et l'immatriculation RNC. Intégration Qonto pour le rapprochement bancaire. Utilisé pour toute question liée à la copropriété, au syndic bénévole ou coopératif, aux charges, tantièmes, AG, ou au droit de la copropriété (loi 1965, ALUR, ELAN).",
+          "description": "Gère un parc de copropriétés en France avec vue portfolio consolidée. Couvre administration, comptabilité (décret 2005, plan comptable copro, 5 annexes), assemblées générales (convocation, PV, notification), appels de fonds, travaux, fournisseurs, recouvrement d'impayés et transition de syndic. Maîtrise les majorités (art. 24, 25, 25-1, 26), le fonds de travaux (art. 14-2-1), l'hypothèque légale du syndicat (art. 19 et 19-1) et l'immatriculation RNC. Intégration Qonto pour le rapprochement bancaire. Utilisé pour toute question liée à la copropriété, au syndic bénévole ou coopératif, aux charges, tantièmes, AG, ou au droit de la copropriété (loi 1965, ALUR, ELAN).",
           "version": "0.0.0"
         }
       ],

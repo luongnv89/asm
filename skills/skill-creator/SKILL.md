@@ -5,7 +5,7 @@ license: MIT
 compatibility: "Python 3 for scripts/quick_validate.py; `asm` on PATH for the Gate 2 score check"
 effort: max
 metadata:
-  version: 2.1.0
+  version: 2.2.0
   author: "Luong NGUYEN <luongnv89@gmail.com>"
 ---
 
@@ -22,7 +22,7 @@ The core loop:
 5. Revise the skill based on feedback and benchmarks
 6. Repeat until satisfied; expand the test set and try again at scale
 
-Identify where the user is in this loop and jump in there. New skill from scratch → start at step 1. Existing draft → jump to step 3 or 4. User wants to vibe-iterate without formal evals → support that. After the skill stabilizes, optionally run the description improver to optimize triggering.
+Identify where the user is in this loop and jump in there. New skill from scratch → start at step 1. Existing draft → jump to step 3 or 4. User wants to vibe-iterate without formal evals → support that.
 
 ## Two entry paths
 
@@ -33,13 +33,13 @@ The skill supports two distinct workflows. **Identify which one the user is on b
 
 If the request is ambiguous ("can you look at this skill?"), assume **Path B** and confirm before interviewing as if it were new. Path B also fires when `/skill-creator` is invoked on a skill directory or file.
 
-Both paths share the mandatory rules below: **Repo Sync Before Edits**, **Dependency Preflight**, **Version Management**, **YAML Frontmatter Safety**, and **Frontmatter Audit on Review/Evaluation**. Both close with the **Run stats** block. Both paths end at the same skill standard.
+Both paths share the mandatory rules below: **Repo Sync Before Edits**, **Dependency Preflight**, **Self-Improve**, **Version Management**, **YAML Frontmatter Safety**, and **Frontmatter Audit on Review/Evaluation**. Both close with the **Run stats** block.
 
 ## The skill standard (both paths)
 
 One bar for a created skill and an updated one — `references/skill-standard.md` holds the detail:
 
-- **Gate 1 — must-pass floor.** `quick_validate.py` clean, the Frontmatter Audit, body under 500 lines and 3000 words, a negative-trigger clause, version and author, the README notice, script errors, dependency preflight when another skill is invoked, and the five human-review checks.
+- **Gate 1 — must-pass floor.** `quick_validate.py` clean, the Frontmatter Audit, body under 500 lines and 3000 words, a negative-trigger clause, version and author, the README notice, script errors, dependency preflight when another skill is invoked, a `## Self-Improve` section, and the five human-review checks.
 - **Gate 2 — asm-eval floor.** `overallScore > 85` AND `min(categories) >= 8`.
 
 PASS only when both gates pass; anything else after the loop caps is a BLOCKER naming each failing check. Without `asm` on PATH, Gate 2 is **not measured** and the run never reports PASS. The predictability rubric stays advisory on both paths.
@@ -93,6 +93,10 @@ Establish, for every skill you author or retrofit, whether it invokes, delegates
 
 Read `references/dependency-preflight.md` for the copyable template and the on-miss behavior. The skill standard's Gate 1 checks this same rule on both paths, so a skill that ships without a required gate fails its closing check.
 
+## Mandatory Rule for Every Skill: Self-Improve
+
+Every skill you create or update carries a `## Self-Improve` section after its final step: a closing check that may propose one edit fitting the skill to the user's style, environment, and behavior — optional, and applied only on approval. Copy the template in `references/self-improve.md` and tailor its three signal bullets. Add the section when it is missing; keep an existing one, opt-out included, as it is.
+
 ## Frontmatter rules (mandatory)
 
 Read `references/frontmatter-rules.md` for the full mandatory rules:
@@ -132,7 +136,7 @@ Read `references/description-guide.md` for the full guide: the pushy + negative-
 
 ### Skill Writing Guide
 
-Read `references/writing-guide.md` for the full guide. It covers anatomy (where `agents/`, `references/`, `scripts/`, `assets/`, `docs/` go), progressive disclosure and the 500-line SKILL.md cap, the Principle of Lack of Surprise, writing and workflow patterns, bundled-script error messages, Step Completion Reports, writing style, `docs/README.md` generation (`references/readme-template.md`), the 5-prompt test-case floor saved to `evals/evals.json` (`references/schemas.md`), and the pre-eval LLM validation phases (`references/validation-prompts.md`).
+Read `references/writing-guide.md`: anatomy, progressive disclosure, the Principle of Lack of Surprise, writing and workflow patterns, bundled-script errors, Step Completion Reports, writing style, `docs/README.md` generation (`references/readme-template.md`), the 5-prompt test floor in `evals/evals.json` (`references/schemas.md`), and the pre-eval validation phases (`references/validation-prompts.md`).
 
 ### Write for execution and human review
 
@@ -157,11 +161,11 @@ The drafting context cannot review its own draft — it fills every gap from mem
 
 ### Close with the skill standard (mandatory)
 
-After the adversarial review and evals, run `references/retrofit-loop.md` Phase 0 on the new skill. If both gates pass, finish. Otherwise continue that same loop from Phase 1 under the same caps, then report PASS or BLOCKER (`references/skill-standard.md`). Without `asm`, report Gate 1 status and "Gate 2 not measured" — never PASS.
+After the adversarial review and evals, run `references/retrofit-loop.md` Phase 0 on the new skill. If both gates pass, finish. Otherwise continue that same loop from Phase 1 under the same caps, then report PASS or BLOCKER (`references/skill-standard.md`).
 
 ## Running and evaluating test cases
 
-Read `references/eval-loop.md` for the full 5-step sequence (spawn runs, draft assertions, capture timing, grade/aggregate/view, read feedback). It covers the with-skill + baseline subagent pattern, the `eval_metadata.json` and `timing.json` formats, the `generate_review.py` invocation, and reading `feedback.json`.
+Read `references/eval-loop.md` for the full 5-step sequence: spawn with-skill and baseline runs, draft assertions, capture timing, grade/aggregate/view with `generate_review.py`, read `feedback.json`.
 
 Do NOT use `/skill-test` or any other testing skill — the flow in `references/eval-loop.md` is the one this skill expects.
 
@@ -175,13 +179,11 @@ This is **Path B**. Read `references/improving-existing.md` and choose the subpa
 
 ## Description Optimization
 
-The description field is the primary mechanism that determines whether Claude invokes a skill. After creating or improving a skill, offer to optimize the description for better triggering accuracy.
-
-Read `references/description-optimization.md` for the full 4-step flow: generate trigger eval queries, review with the user via the HTML template, run the optimization loop with `run_loop.py`, apply the best description.
+After creating or improving a skill, offer to optimize the description for better triggering accuracy. Read `references/description-optimization.md` for the full 4-step flow: generate trigger eval queries, review with the user via the HTML template, run the optimization loop with `run_loop.py`, apply the best description.
 
 ### Package and Present (only if `present_files` tool is available)
 
-If the `present_files` tool is available (otherwise skip), package the skill and present the resulting `.skill` file path so the user can install it:
+Package the skill and present the resulting `.skill` file path so the user can install it:
 
 ```bash
 python -m scripts.package_skill <path/to/skill-folder>
@@ -189,7 +191,11 @@ python -m scripts.package_skill <path/to/skill-folder>
 
 ## Environment-specific notes
 
-If you're on Claude.ai (no subagents) or in Cowork (subagents but no browser), some mechanics change. Read `references/environment-modes.md` for the adapted flow. The core loop (draft → test → review → improve) is the same everywhere — only execution mechanics shift.
+If you're on Claude.ai (no subagents) or in Cowork (subagents but no browser), some mechanics change. Read `references/environment-modes.md` for the adapted flow.
+
+## Self-Improve
+
+Optional and propose-only. Before the Run stats block, check how skill-creator itself worked — feedback on the target skill is the task, not a signal. Look for a lasting mismatch: report or interview shape the user corrected (style), `asm`, Python, or a path that failed before a workaround worked (environment), a step the user skips or always answers the same way (behavior). Found → follow the template in `references/self-improve.md` from step 2; any edit goes to skill-creator's own files.
 
 ---
 
@@ -210,6 +216,7 @@ If you're on Claude.ai (no subagents) or in Cowork (subagents but no browser), s
 | `improving-existing.md`       | Path B selector: Subpaths B1, B2, B3                                    |
 | `frontmatter-rules.md`        | Version Management, YAML Safety, Frontmatter Audit, `--fix` normalizing |
 | `dependency-preflight.md`     | When a preflight gate is required and the template to emit              |
+| `self-improve.md`             | The Self-Improve template, tailoring, applying an approved change       |
 | `predictability-rubric.md`    | The 7-item predictability standard (advisory)                           |
 | `predictability-audit.md`     | The rubric as the retrofit loop's Phase 2b checklist                    |
 | `human-review.md`             | Output contract, format selection, interactive reports, understanding   |

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-25T19:44:18Z",
+  "updatedAt": "2026-10-14T12:00:00Z",
   "repos": [
     {
       "source": "github:luongnv89/asm",
@@ -8,7 +8,8 @@
       "repo": "asm",
       "description": "Built-in ASM skills (skill-creator, find-me-skills, and more published to the catalog)",
       "maintainer": "@luongnv89",
-      "enabled": true
+      "enabled": true,
+      "excludeSkills": ["hello-world"]
     },
     {
       "source": "github:anthropics/skills",
@@ -717,7 +718,7 @@
       "url": "https://github.com/anthropics/financial-services",
       "owner": "anthropics",
       "repo": "financial-services",
-      "description": "Reference agents, skills, and data connectors for financial-services workflows — investment banking, equity research, private equity, and wealth management",
+      "description": "Reference agents, skills, and data connectors for financial-services workflows \u2014 investment banking, equity research, private equity, and wealth management",
       "maintainer": "@anthropics",
       "enabled": true
     },

@@ -22,7 +22,8 @@ jobs:
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
-          python-version: "3.x"
+          # semgrep-core 1.177.0 segfaults (exit -11) on Python 3.15; "3.x" floated onto it.
+          python-version: "3.14"
 
       - name: Install gitleaks
         run: |

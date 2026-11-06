@@ -3,6 +3,7 @@ import type { InstallMethod } from "./utils/types";
 import { getVersionString } from "./utils/version";
 import { buildShadowingReport } from "./utils/path-shadowing";
 import { setVerbose } from "./logger";
+import { parseThresholdValue } from "./eval-threshold";
 import type { Scope, SortBy, TransportMode } from "./utils/types";
 
 // ─── Shared helpers (re-exported for backward compat) ─────────────────────────
@@ -83,6 +84,16 @@ export interface ParsedArgs {
      */
     concurrency: number;
     /**
+     * `asm eval --min-score <N>` — inclusive 0–100 floor for a skill's
+     * overall score; any skill below it fails and the run exits 1 (issue #773).
+     */
+    minScore: number | null;
+    /**
+     * `asm eval --min-category <N>` — inclusive 0–10 floor for every category
+     * score; any category below it fails the skill (issue #773).
+     */
+    minCategory: number | null;
+    /**
      * `asm eval --keep` — preserve the temp dir used for remote clones so
      * users can inspect what was fetched (issue #193).
      */
@@ -161,6 +172,8 @@ export function parseArgs(argv: string[]): ParsedArgs {
       groupBy: null,
       limit: 0,
       concurrency: 0,
+      minScore: null,
+      minCategory: null,
       keep: false,
       tokens: false,
       add: null,
@@ -278,6 +291,23 @@ export function parseArgs(argv: string[]): ParsedArgs {
         process.exit(2);
       }
       result.flags.concurrency = n;
+    } else if (arg === "--min-score" || arg === "--min-category") {
+      const already =
+        arg === "--min-score"
+          ? result.flags.minScore !== null
+          : result.flags.minCategory !== null;
+      if (already) {
+        error(`${arg} was given more than once. Pass it a single time.`);
+        process.exit(2);
+      }
+      i++;
+      const parsed = parseThresholdValue(arg, args[i]);
+      if ("error" in parsed) {
+        error(parsed.error);
+        process.exit(2);
+      }
+      if (arg === "--min-score") result.flags.minScore = parsed.value;
+      else result.flags.minCategory = parsed.value;
     } else if (arg === "--keep") {
       result.flags.keep = true;
     } else if (arg === "--tokens") {
@@ -432,7 +462,7 @@ ${ansi.bold("Commands:")}
   deactivate <skill>     Remove a library activation from a provider
   library                Manage centrally installed library skills
   audit                  Detect duplicate skills across tools
-  audit security <name>  Run security audit on a skill (or GitHub source)
+  audit security <name>  Run security audit on a skill, local folder, or GitHub source
   export                 Export skill inventory as JSON manifest
   import <file>          Import skills from a previously exported manifest
   init <name>            Scaffold a new skill with SKILL.md template

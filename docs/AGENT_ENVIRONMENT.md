@@ -109,6 +109,14 @@ the built React bundle and copied assets — is gitignored, so it produces no di
 `{{TOKEN}}` placeholders; the rewrite is currently byte-identical and shows no
 diff, but it is still an overwrite of a tracked file.
 
+`ASM_STARS_OFFLINE=1` makes `scripts/build-catalog.ts` skip the live GitHub
+star fetch and resolve every repo from `data/repo-stars.json`, with no network
+access and no rewrite of that file. CI's `e2e-node` build and pull-request
+runs of `deploy-website.yml` set it. Pushes to `main` fetch live and still
+refuse to publish when too many repos have unknown counts. Every enabled repo
+in `data/skill-index-resources.json` needs a baseline entry;
+`src/repo-stars.test.ts` fails when one is missing (#784).
+
 `website/data/acknowledgements.json` is tracked but is an **input**, not an
 output — no script writes it.
 

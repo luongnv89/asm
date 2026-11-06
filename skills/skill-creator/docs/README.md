@@ -11,10 +11,11 @@
 
 ## Highlights
 
-- One standard for created and updated skills: Gate 1 (`quick_validate.py`, frontmatter audit, size caps, five human-review checks) and Gate 2 (`asm eval` overall > 85, every category ≥ 8)
+- One standard for created and updated skills: Gate 1 (`quick_validate.py`, frontmatter audit, size caps, Self-Improve section, five human-review checks) and Gate 2 (`asm eval` overall > 85, every category ≥ 8)
 - Three ways to update a skill: B1 retrofit to the standard (default), B2 iterate on eval feedback, B3 opt-in delegation conversion
 - B1 retrofit loop: baseline, `asm eval --fix`, Gate 1 fixes, lowest categories first, capped at 8 iterations; artifacts saved to `.asm-improver/` (`baseline.json`, `iter-N.json`, `report.md`)
 - New skills close with the same check, so they ship publish-ready
+- Self-Improve section in every created or updated skill: at the end of a run, the agent may propose one edit that adapts the skill to your style, environment, and behavior — optional, and applied only when you approve
 - Iterative skill loop: draft, test prompts, evaluate, refine
 - Controlled instructions: one action at a time, consistent terms, explicit conditions, and observable checks
 - Human-review output contract: result, evidence, uncertainty, and required approval decisions
@@ -91,6 +92,7 @@ Python 3 for `scripts/quick_validate.py`; `asm` on PATH for the Gate 2 score che
 | `references/`                     | Evals schema, subagent patterns, workflow patterns                                                             |
 | `references/skill-standard.md`    | The two gates every created or updated skill clears                                                            |
 | `references/retrofit-loop.md`     | Subpath B1 retrofit loop and the Path A closing check                                                          |
+| `references/self-improve.md`      | The Self-Improve template every created or updated skill carries, and how an approved change is applied        |
 | `references/subagent-patterns.md` | Subagent architecture, plus per-step context delegation: a step names the `references/` slice its worker needs |
 | `references/exemplars.md`         | Three annotated exemplars; the orchestrator one carries a per-step delegation trace                            |
 | `eval-viewer/`                    | Generate/view review pages for eval results                                                                    |

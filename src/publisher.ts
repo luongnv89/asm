@@ -8,7 +8,7 @@
 import { readFile, realpath } from "fs/promises";
 import { join, resolve, relative } from "path";
 import { parseFrontmatter, resolveVersion } from "./utils/frontmatter";
-import { auditSkillSecurity } from "./security-auditor";
+import { auditSkillSecurity, describeSecurityHold } from "./security-auditor";
 import { validateManifest } from "./registry";
 import type { RegistryManifest } from "./registry";
 import type { SecurityVerdict, SecurityAuditReport } from "./utils/types";
@@ -356,6 +356,9 @@ export interface PublishOptions {
   _auditFn?: (
     skillPath: string,
     skillName: string,
+    sourceOwner?: string,
+    sourceRepo?: string,
+    options?: import("./security-auditor").AuditSkillSecurityOptions,
   ) => Promise<import("./utils/types").SecurityAuditReport>;
   /** @internal Override the gh CLI check function (for testing). */
   _checkGhCliFn?: () => Promise<{
@@ -388,7 +391,15 @@ export async function publishSkill(
 
   // Step 3: Run SecurityAuditor
   const auditFn = opts._auditFn ?? auditSkillSecurity;
-  const securityReport = await auditFn(skillDir, metadata.name);
+  // Confined to the skill folder (#791): a link out of it is a finding
+  // (verdict at least warning, so --force is needed), never read.
+  const securityReport = await auditFn(
+    skillDir,
+    metadata.name,
+    undefined,
+    undefined,
+    { trackSymlinks: true },
+  );
   const registryVerdict = mapVerdict(securityReport.verdict);
 
   // Step 4: Check security verdict
@@ -404,13 +415,21 @@ export async function publishSkill(
   }
 
   if (registryVerdict === "warning" && !opts.force) {
+    // Name why (e.g. the symlinks not read) and the next step (#791).
+    const hold = describeSecurityHold(securityReport, {
+      verdict: "warning",
+      prefix: "Security audit verdict",
+      auditTarget: skillDir,
+      overrideFlag: "--force",
+      action: "override warnings",
+    });
     return {
       success: false,
       manifest: null,
       prUrl: null,
-      error:
-        "Security audit verdict: warning. Use --force to override warnings.",
+      error: hold.message,
       securityVerdict: registryVerdict,
+      securityReasons: hold.reasons,
       securityReport,
     };
   }
@@ -755,6 +774,7 @@ export function formatPublishMachine(result: PublishResult): string {
       pr_url: result.prUrl,
       error: result.error,
       security_verdict: result.securityVerdict,
+      security_reasons: result.securityReasons ?? null,
       fallback: result.fallback ?? false,
       fallback_reason: result.fallbackReason ?? null,
     },
