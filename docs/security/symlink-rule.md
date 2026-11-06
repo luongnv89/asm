@@ -40,6 +40,11 @@ Review those targets by hand. In practice:
 
 - `asm update` skips the update unless you pass `--yes`, as for any warning.
 - `asm publish` refuses unless you pass `--force`, as for any warning.
+- In both cases the message names the links it did not read
+  (`path -> target (kind)`, at most 3, then "and N more") and points to
+  `asm audit security <name|path>` for the full report. `--json` and
+  `--machine` carry the same list as `securityReasons` /
+  `security_reasons`.
 - The `asm install` and `asm get` previews list the link under
   `[Symlinks not read]` and label the skill **High Risk**. Whether
   `asm install` then copies such a link is tracked in
