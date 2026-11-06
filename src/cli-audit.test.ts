@@ -1061,7 +1061,8 @@ describe("installed, --all and github: audits never read outside the skill folde
       );
       if (r.status !== 0) throw new Error(r.stderr);
     };
-    git("init", "-q");
+    // `main`, the ref `asm install` records for a github: source.
+    git("init", "-q", "-b", "main");
     git("add", "-A");
     git("commit", "-qm", "fixture");
     const bare = join(cwd, "leaky.git");
@@ -1519,6 +1520,106 @@ describe("installed, --all and github: audits never read outside the skill folde
       expect(res.exitCode).toBe(0);
     },
   );
+
+  // ── Held update / publish name the links and the next step (N1) ──
+
+  const twoOutsideLinks = async (dir: string) => {
+    await symlink(join(outside, "evil.sh"), join(dir, "env.sh"));
+    await symlink(outside, join(dir, "linkdir"));
+  };
+
+  test("update held by outside links names them and the next step in text, --json and --machine", async () => {
+    gitEnv = await makeGithubRepo(async (d) => {
+      await mkdir(d, { recursive: true });
+      await writeFile(join(d, "SKILL.md"), SKILL_MD("leaky"));
+    });
+    const inst = await runAudit(
+      "install",
+      "github:acme/leaky",
+      "-p",
+      "claude",
+      "-y",
+    );
+    expect(inst.exitCode).toBe(0);
+    // v2 adds two links out of the skill.
+    await twoOutsideLinks(work);
+    const git = (...a: string[]) =>
+      spawnSync("git", ["-c", "user.name=t", "-c", "user.email=t@t", ...a], {
+        cwd: work,
+        encoding: "utf8",
+      });
+    git("add", "-A");
+    git("commit", "-qm", "v2");
+    git("push", "-q", join(cwd, "leaky.git"), "HEAD");
+    // `asm update` strips GIT_CONFIG_* from git's environment, so the
+    // github.com -> bare-repo rewrite goes in the sandbox ~/.gitconfig.
+    await writeFile(
+      join(home, ".gitconfig"),
+      `[url "file://${join(cwd, "leaky.git")}"]\n\tinsteadOf = https://github.com/acme/leaky.git\n`,
+    );
+    const outsideReal = await realpath(outside);
+    const env = `env.sh -> ${join(outsideReal, "evil.sh")} (file)`;
+    const dir = `linkdir -> ${outsideReal} (directory)`;
+
+    const text = await runAudit("update");
+    expect(text.exitCode).toBe(0);
+    expect(text.stdout).toContain(
+      `Security audit: warning — 2 symlinks not read: ${env}, ${dir}. Run "asm audit security leaky" for the full report, or use --yes to update anyway.`,
+    );
+    expect(text.stdout + text.stderr).not.toContain(MARKER);
+
+    const json = JSON.parse((await runAudit("update", "--json")).stdout);
+    expect(json.results[0].status).toBe("skipped");
+    expect(json.results[0].securityReasons).toEqual([env, dir]);
+    expect(json.results[0].reason).toContain("asm audit security leaky");
+
+    // --machine implies --yes (src/cli.ts), so it updates and still reports why.
+    const machine = JSON.parse((await runAudit("update", "--machine")).stdout);
+    expect(machine.data[0].security_verdict).toBe("warning");
+    expect(machine.data[0].security_reasons).toEqual([env, dir]);
+  });
+
+  test("publish held by outside links names them and the next step in text, --json and --machine", async () => {
+    const dirPath = join(cwd, "pub");
+    await mkdir(dirPath, { recursive: true });
+    await writeFile(join(dirPath, "SKILL.md"), SKILL_MD("pub"));
+    await twoOutsideLinks(dirPath);
+    for (const a of [
+      ["init", "-q"],
+      ["remote", "add", "origin", "https://github.com/acme/pub"],
+      ["add", "-A"],
+      ["commit", "-qm", "init"],
+    ]) {
+      spawnSync("git", ["-c", "user.name=t", "-c", "user.email=t@t", ...a], {
+        cwd: dirPath,
+      });
+    }
+    const outsideReal = await realpath(outside);
+    const env = `env.sh -> ${join(outsideReal, "evil.sh")} (file)`;
+    const dir = `linkdir -> ${outsideReal} (directory)`;
+
+    const text = await runAudit("publish", dirPath, "--dry-run");
+    expect(text.exitCode).toBe(1);
+    expect(text.stderr).toContain(
+      `Security audit verdict: warning — 2 symlinks not read: ${env}, ${dir}. Run "asm audit security ${dirPath}" for the full report, or use --force to override warnings.`,
+    );
+    expect(text.stdout + text.stderr).not.toContain(MARKER);
+
+    const pj = await runAudit("publish", dirPath, "--dry-run", "--json");
+    // In-process, process.exit(1) is caught by cmdPublish's own catch, which
+    // prints a second object; a real process exits after the first one.
+    const json = JSON.parse(pj.stdout.slice(0, pj.stdout.indexOf("\n}\n") + 2));
+    expect(json.success).toBe(false);
+    expect(json.security_reasons).toEqual([env, dir]);
+    expect(json.error).toContain("--force");
+
+    const pm = await runAudit("publish", dirPath, "--dry-run", "--machine");
+    // First envelope only (see the --json note above).
+    const machine = JSON.parse(pm.stdout.split("\n")[0]);
+    expect(machine.status).toBe("error");
+    expect(JSON.stringify(machine)).toContain('"security_reasons"');
+    expect(JSON.stringify(machine)).toContain("asm audit security");
+  });
 
   test("audit --help says the rule applies to every source", async () => {
     const { stdout } = await runAudit("audit", "--help");

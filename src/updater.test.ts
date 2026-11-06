@@ -7,6 +7,7 @@ import {
   rm,
   readFile,
   readdir,
+  realpath,
   symlink,
 } from "fs/promises";
 import { tmpdir } from "os";
@@ -1532,6 +1533,7 @@ describe("updateSkill happy path", () => {
     });
     await writeFile(join(workDir, "skill.md"), "# ok");
     await symlink(join(outside, ".env"), join(workDir, "env.sh"));
+    await symlink(outside, join(workDir, "linkdir"));
     if (process.platform === "linux") {
       await symlink("/", join(workDir, "r"));
       await symlink("/proc/self", join(workDir, "p"));
@@ -1584,6 +1586,42 @@ describe("updateSkill happy path", () => {
     expect(noYes.status).toBe("skipped");
     expect(noYes.securityVerdict).toBe("warning");
     expect(noYes.reason).toContain("--yes");
+    // The hold names the links (path -> target) and the next step (N1).
+    const envTarget = join(await realpath(outside), ".env");
+    expect(noYes.reason).toMatch(
+      /^Security audit: warning — \d+ symlinks not read: /,
+    );
+    expect(noYes.reason).toContain(`env.sh -> ${envTarget} (file)`);
+    expect(noYes.reason).toContain(
+      'Run "asm audit security link-skill" for the full report, or use --yes to update anyway.',
+    );
+    expect(noYes.securityReasons).toContain(`env.sh -> ${envTarget} (file)`);
+    expect(noYes.securityReasons!.length).toBeLessThanOrEqual(4);
+    if (process.platform === "linux") {
+      // env.sh, linkdir, p, r: 3 named, then "and 1 more".
+      expect(noYes.securityReasons).toHaveLength(4);
+      expect(noYes.securityReasons![3]).toBe("and 1 more");
+    }
+    const json = JSON.parse(
+      formatUpdateJSON({
+        results: [noYes],
+        updatedCount: 0,
+        skippedCount: 1,
+        failedCount: 0,
+      }),
+    );
+    expect(json.results[0].securityReasons).toEqual(noYes.securityReasons);
+    const machine = JSON.parse(
+      formatUpdateMachine({
+        results: [noYes],
+        updatedCount: 0,
+        skippedCount: 1,
+        failedCount: 0,
+      }),
+    );
+    expect(machine.data.results[0].securityReasons).toEqual(
+      noYes.securityReasons,
+    );
     const report = reports[0] as {
       codeScans: unknown[];
       externalSymlinks?: Array<{ path: string }>;
@@ -1595,6 +1633,7 @@ describe("updateSkill happy path", () => {
     const yes = await updateSkill("link-skill", entry, true, overrides);
     expect(yes.status).toBe("updated");
     expect(yes.securityVerdict).toBe("warning");
+    expect(yes.securityReasons).toEqual(noYes.securityReasons);
   });
 
   test("updateSkill with caution verdict: skips without --yes, proceeds with --yes", async () => {

@@ -873,6 +873,8 @@ export interface PublishResult {
   prUrl: string | null;
   error: string | null;
   securityVerdict: "pass" | "warning" | "dangerous";
+  /** Why a `warning` verdict held the publish: symlinks not read or the verdict reason (#791). */
+  securityReasons?: string[];
   securityReport: SecurityAuditReport;
   fallback?: boolean;
   fallbackReason?: string;

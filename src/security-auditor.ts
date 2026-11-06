@@ -292,4 +292,6 @@ export {
 export {
   formatSecurityReport,
   formatSecurityReportJSON,
+  describeSecurityHold,
+  type SecurityHold,
 } from "./security-auditor-report";
