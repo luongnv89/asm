@@ -1114,7 +1114,7 @@ metadata:
 | ------------------ | -------- | ------------------------------ |
 | `name`             | yes      | Unique identifier              |
 | `description`      | yes      | One-line summary               |
-| `license`          | no       | SPDX identifier                |
+| `license`          | no       | SPDX identifier or expression  |
 | `compatibility`    | no       | Compatible agents              |
 | `allowed-tools`    | no       | Tools the skill uses           |
 | `effort`           | no       | `low`, `medium`, `high`, `max` |
