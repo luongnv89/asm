@@ -2,12 +2,12 @@
   "repoUrl": "https://github.com/pbakaus/impeccable.git",
   "owner": "pbakaus",
   "repo": "impeccable",
-  "updatedAt": "2026-10-30T20:16:18.313Z",
+  "updatedAt": "2026-11-06T01:06:27.016Z",
   "skillCount": 1,
   "skills": [
     {
       "name": "impeccable",
-      "description": "Use when the user wants to design, redesign, shape, critique, audit, polish, simplify, harden, animate, or otherwise improve a frontend interface: websites, landing pages, dashboards, product UI, components, forms, settings, onboarding, empty states, and native iOS or Android screens. Handles UX review, hierarchy, layout, typography, color, motion, UX copy, accessibility, responsive behavior, edge cases, and capturing or documenting design systems (DESIGN.md, tokens). Also for making bland UI bolder, loud UI quieter, or ambitious visual effects. Not for backend-only or non-UI tasks.",
+      "description": "Use to design, redesign, critique, audit, polish or animate a frontend: websites, landing pages, dashboards, app UI, components, native iOS/Android screens, or a design system (DESIGN.md).",
       "version": "4.8.0",
       "license": "Apache 2.0",
       "creator": "",
@@ -20,9 +20,9 @@
       "installUrl": "github:pbakaus/impeccable:.claude/skills/impeccable",
       "relPath": ".claude/skills/impeccable",
       "verified": true,
-      "tokenCount": 3136,
+      "tokenCount": 3026,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 75,
         "grade": "C",
         "categories": [
           {
@@ -34,7 +34,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 3,
+            "score": 4,
             "max": 10
           },
           {
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:16:18.233Z",
+        "evaluatedAt": "2026-11-06T01:06:26.895Z",
         "evaluatedVersion": "4.8.0"
       },
       "evalSummaries": {
@@ -95,7 +95,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 70,
+          "overallScore": 71,
           "grade": "C",
           "categories": [
             {
@@ -107,7 +107,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 3,
+              "score": 4,
               "max": 10
             },
             {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:16:18.235Z",
+          "evaluatedAt": "2026-11-06T01:06:26.895Z",
           "evaluatedVersion": "4.8.0"
         },
         "skill-best-practice": {
@@ -177,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:16:18.235Z",
+          "evaluatedAt": "2026-11-06T01:06:26.895Z",
           "evaluatedVersion": "4.8.0"
         }
       }

@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/twostraws/Swift-Concurrency-Agent-Skill.git",
   "owner": "twostraws",
   "repo": "Swift-Concurrency-Agent-Skill",
-  "updatedAt": "2026-10-30T20:12:02.713Z",
+  "updatedAt": "2026-11-06T01:00:44.128Z",
   "skillCount": 1,
   "skills": [
     {
@@ -10,7 +10,7 @@
       "description": "Reviews Swift code for concurrency correctness, modern API usage, and common async/await pitfalls. Use when reading, writing, or reviewing Swift concurrency code.",
       "version": "1.0",
       "license": "MIT",
-      "creator": "",
+      "creator": "Paul Hudson",
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
@@ -22,7 +22,7 @@
       "verified": true,
       "tokenCount": 1497,
       "evalSummary": {
-        "overallScore": 81,
+        "overallScore": 86,
         "grade": "B",
         "categories": [
           {
@@ -64,7 +64,7 @@
           {
             "id": "license",
             "name": "License verification",
-            "score": 5,
+            "score": 10,
             "max": 10
           },
           {
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:12:02.694Z",
+        "evaluatedAt": "2026-11-06T01:00:44.106Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -95,7 +95,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 81,
+          "overallScore": 86,
           "grade": "B",
           "categories": [
             {
@@ -137,7 +137,7 @@
             {
               "id": "license",
               "name": "License verification",
-              "score": 5,
+              "score": 10,
               "max": 10
             },
             {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:12:02.694Z",
+          "evaluatedAt": "2026-11-06T01:00:44.106Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -177,7 +177,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-30T20:12:02.694Z",
+          "evaluatedAt": "2026-11-06T01:00:44.106Z",
           "evaluatedVersion": "1.0"
         }
       }
