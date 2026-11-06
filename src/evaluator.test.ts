@@ -1211,7 +1211,11 @@ describe("license verification", () => {
     });
     const lic = report.categories.find((c) => c.id === "license")!;
     expect(lic.score).toBeLessThan(5);
-    expect(lic.findings.some((f) => /not in the SPDX/i.test(f))).toBe(true);
+    expect(
+      lic.findings.some((f) =>
+        /not in asm's list of recognised SPDX identifiers/i.test(f),
+      ),
+    ).toBe(true);
   });
 
   // ─── Inherited / private licences (issue #771) ─────────────────────────────
