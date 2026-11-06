@@ -428,6 +428,12 @@ asm audit security ./path/to/my-skill
 ```
 
 ```bash
+asm audit security ./skills/   # every skill in a collection folder
+```
+
+A local target starts with `./`, `../`, `/` or `~`, or is an existing path that contains `/`; a bare name always means an installed skill. Local folders are only read. Nothing outside the folder is ever opened, read or walked: a symlink that points outside it is reported as a critical finding (verdict at least WARNING) whose target was not read and must be reviewed by hand; dangling and looping symlinks are reported and not followed. A symlink finding has `critical` severity but raises the verdict only to `WARNING`, not `DANGEROUS`, because the content behind it was not read. If the target you name is itself a symlink (or sits under a linked folder), it is followed and the report shows the real path (`resolvedPath` in `--json`). A regular file with more than one hard link gets an info note, because its content may be shared with a file outside the folder; it does not change the verdict.
+
+```bash
 asm audit security --all
 ```
 
@@ -653,7 +659,7 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm init <name>` | Scaffold a new skill |
 | `asm link <path> [<path2> ...]` | Symlink skills for live dev |
 | `asm audit` | Detect duplicate skills |
-| `asm audit security <name>` | Security audit |
+| `asm audit security <name\|path\|source>` | Security audit (installed, local folder, or GitHub) |
 | `asm audit residency` | Rank skills that do not earn residency |
 | `asm eval <skill>` | Score skill quality |
 | `asm eval-providers list` | List eval providers |

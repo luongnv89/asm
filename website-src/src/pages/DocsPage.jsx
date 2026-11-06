@@ -140,8 +140,8 @@ export default function DocsPage() {
                 desc="Find installed skills that do the same job under different names"
               />
               <Row
-                cmd="asm audit security <name|source>"
-                desc="Run a security audit on an installed or remote skill"
+                cmd="asm audit security <name|path|source>"
+                desc="Run a security audit on an installed, local, or remote skill"
               />
               <Row
                 cmd="asm audit residency"
@@ -1402,8 +1402,8 @@ asm index remove obra/superpowers                 # Remove from index`}</CodeBlo
                 desc="Find installed skills that do the same job under different names"
               />
               <Row
-                cmd="audit security <name|source>"
-                desc="Run security audit on an installed skill or GitHub source"
+                cmd="audit security <name|path|source>"
+                desc="Run security audit on an installed skill, local folder, or GitHub source"
               />
               <Row
                 cmd="audit residency"
@@ -1440,6 +1440,7 @@ asm audit overlap                             # Same-job skills, different names
 asm audit residency                           # Rank demotion candidates
 asm audit residency --json
 asm audit security code-review                # Audit an installed skill
+asm audit security ./my-skill                 # Audit a local folder before install
 asm audit security github:user/repo           # Audit a remote skill before install
 asm audit security --all                      # Audit all installed skills`}</CodeBlock>
         </section>

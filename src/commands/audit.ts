@@ -1,10 +1,13 @@
 import { loadConfig, getLibrarySkillsDir } from "../config";
 import { scanAllSkills } from "../scanner";
-import { realpath as fsRealpath } from "fs/promises";
+import { realpath as fsRealpath, stat as fsStat } from "fs/promises";
+import { basename, dirname, join, resolve } from "path";
 import { buildRemovalPlan, executeRemoval } from "../uninstaller";
 import { formatJSON, ansi, shortenPath } from "../formatter";
 import {
   parseSource,
+  parseLocalSource,
+  isLocalPath,
   assertNoParentSegments,
   assertPathInsideRoot,
   checkGitAvailable,
@@ -13,6 +16,10 @@ import {
   cleanupTemp,
   resolveSubpath,
 } from "../installer";
+import { resolveEvalInput } from "../evaluator-batch";
+import { externalLink, isPathInside, readBoundedTextFile } from "../utils/fs";
+import { parseFrontmatter } from "../utils/frontmatter";
+import type { SecurityAuditReport } from "../utils/types";
 import { computeResidencyAudit, formatResidencyReport } from "../residency";
 import {
   detectDuplicates,
@@ -45,13 +52,30 @@ import type { ParsedArgs } from "../cli";
 function printAuditHelp() {
   console.log(`${ansi.bold("Usage:")} asm audit [subcommand] [options]
 
-Detect duplicate skills or run security audits on installed/remote skills.
+Detect duplicate skills or run security audits on installed, local, or remote skills.
 
 ${ansi.bold("Subcommands:")}
   duplicates             Find duplicate skills (default)
   overlap                Find installed skills that do the same job under different names
-  security <name|source> Run security audit on an installed skill or GitHub source
+  security <name|path|source>
+                         Run security audit on an installed skill, a local
+                         skill or collection folder, or a GitHub source
   residency              Rank installed skills that do not earn their resident context
+
+${ansi.bold("Security target resolution:")}
+  github:… or https://github.com/…  GitHub source, cloned to a temp dir
+  ./x, ../x, /abs/x, ~/x            Local folder, read without installing or
+                                    running it. A folder with no SKILL.md is
+                                    a collection: each child skill is audited
+  a/b (has / or \\) that exists      Local folder, as above
+  anything else                     Installed skill name (honours --scope);
+                                    a bare name never means a local folder
+
+  A local audit never opens, reads or walks anything outside the folder.
+  A symlink in it that points outside, dangles or loops is a critical
+  finding that was NOT read; because the content was not read, it raises
+  the verdict to WARNING, not DANGEROUS. Review those targets by hand. A
+  target that is itself a symlink is followed and its real path is shown.
 
 ${ansi.bold("Options:")}
   --json             Output as JSON
@@ -71,6 +95,8 @@ ${ansi.bold("Examples:")}
   asm audit residency                          ${ansi.dim("Rank demotion candidates")}
   asm audit residency --json                   ${ansi.dim("Residency report as JSON")}
   asm audit security code-review               ${ansi.dim("Audit an installed skill")}
+  asm audit security ./my-skill                ${ansi.dim("Audit a local skill folder before installing")}
+  asm audit security ./skills/                 ${ansi.dim("Audit every skill in a local collection")}
   asm audit security github:user/repo          ${ansi.dim("Audit a remote skill before installing")}
   asm audit security --all                     ${ansi.dim("Audit all installed skills")}
   asm audit security code-review --json        ${ansi.dim("Output audit as JSON")}
@@ -299,14 +325,14 @@ export async function cmdAuditSecurity(args: ParsedArgs, startTime: number) {
         formatMachineError(
           "audit security",
           ErrorCodes.INVALID_ARGUMENT,
-          "Missing target. Provide a skill name, GitHub source, or use --all.",
+          "Missing target. Provide a skill name, local folder, GitHub source, or use --all.",
           startTime,
         ),
       );
       process.exit(2);
     }
     error(
-      "Missing target. Provide a skill name, GitHub source, or use --all.\nUsage: asm audit security <name|github:owner/repo> [--all]",
+      "Missing target. Provide a skill name, local folder, GitHub source, or use --all.\nUsage: asm audit security <name|path|github:owner/repo> [--all]",
     );
     process.exit(2);
   } else if (
@@ -314,8 +340,230 @@ export async function cmdAuditSecurity(args: ParsedArgs, startTime: number) {
     target.startsWith("https://github.com/")
   ) {
     await cmdAuditSecuritySource(args, target, startTime);
+  } else if (await isLocalAuditTarget(target)) {
+    await cmdAuditSecurityLocal(args, target, startTime);
   } else {
     await cmdAuditSecurityInstalled(args, target, startTime);
+  }
+}
+
+const ACCEPTED_SECURITY_TARGETS =
+  'Accepted targets: an installed skill name (see "asm list"), a local skill or collection folder (./path, ../path, /abs/path, ~/path), or a GitHub source (github:owner/repo[#ref][:subpath] or https://github.com/owner/repo[/tree/<ref>/<sub>]).';
+
+/**
+ * A security target is a local path when it starts with `./`, `../`, `/`, `~`
+ * (or is `.`, `..`, a drive path), or when it contains a path separator and
+ * exists. Everything else is an installed-skill name, so a bare name never
+ * resolves to a folder in the current directory (#779).
+ */
+export async function isLocalAuditTarget(target: string): Promise<boolean> {
+  if (isLocalPath(target)) return true;
+  if (!target.includes("/") && !target.includes("\\")) return false;
+  try {
+    await fsStat(resolve(target));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/** `owner/repo`-shaped input that probably meant a GitHub source. */
+const GITHUB_SHORTHAND_RE = /^[A-Za-z0-9_-][A-Za-z0-9_.-]*\/[A-Za-z0-9_.-]+$/;
+
+function printSecurityReports(
+  args: ParsedArgs,
+  reports: SecurityAuditReport[],
+  startTime: number,
+) {
+  if (args.flags.machine) {
+    console.log(
+      formatMachineOutput(
+        "audit security",
+        formatAuditMachineData(reports),
+        startTime,
+      ),
+    );
+  } else if (args.flags.json) {
+    console.log(JSON.stringify(reports, null, 2));
+  } else {
+    for (const report of reports) {
+      console.log(formatSecurityReport(report));
+    }
+
+    const verdictCounts = { safe: 0, caution: 0, warning: 0, dangerous: 0 };
+    for (const r of reports) {
+      verdictCounts[r.verdict]++;
+    }
+    console.log(ansi.bold("\n  Summary:"));
+    if (verdictCounts.dangerous > 0)
+      console.log(`    ${ansi.red(`${verdictCounts.dangerous} dangerous`)}`);
+    if (verdictCounts.warning > 0)
+      console.log(`    ${ansi.yellow(`${verdictCounts.warning} warning`)}`);
+    if (verdictCounts.caution > 0)
+      console.log(`    ${verdictCounts.caution} caution`);
+    if (verdictCounts.safe > 0)
+      console.log(`    ${ansi.green(`${verdictCounts.safe} safe`)}`);
+    console.log("");
+  }
+}
+
+function printSingleSecurityReport(
+  args: ParsedArgs,
+  report: SecurityAuditReport,
+  startTime: number,
+) {
+  if (args.flags.machine) {
+    console.log(
+      formatMachineOutput(
+        "audit security",
+        formatAuditMachineData([report]),
+        startTime,
+      ),
+    );
+  } else if (args.flags.json) {
+    console.log(formatSecurityReportJSON(report));
+  } else {
+    console.log(formatSecurityReport(report));
+  }
+}
+
+function failSecurityTarget(
+  args: ParsedArgs,
+  message: string,
+  startTime: number,
+): never {
+  if (args.flags.machine) {
+    console.log(
+      formatMachineError(
+        "audit security",
+        ErrorCodes.SKILL_NOT_FOUND,
+        message,
+        startTime,
+      ),
+    );
+    process.exit(1);
+  }
+  error(message);
+  process.exit(1);
+}
+
+/**
+ * Frontmatter name, read with the bounded reader and only when SKILL.md
+ * resolves inside `rootReal`; otherwise the folder name.
+ */
+async function localSkillName(
+  skillDir: string,
+  rootReal: string,
+): Promise<string> {
+  try {
+    const mdReal = await fsRealpath(join(skillDir, "SKILL.md"));
+    if (isPathInside(rootReal, mdReal)) {
+      const content = await readBoundedTextFile(mdReal);
+      const name = content === null ? "" : parseFrontmatter(content).name;
+      if (name) return name;
+    }
+  } catch {
+    // unreadable SKILL.md — fall back to the folder name
+  }
+  return basename(skillDir);
+}
+
+/**
+ * `asm audit security <path>` — audit a local skill folder, or every child
+ * skill of a collection folder, without installing it (#779). Resolution of
+ * single-vs-collection is `asm eval`'s (`resolveEvalInput`). The folder is only
+ * read: nothing in it is installed or executed, and nothing outside it is
+ * ever opened, read or walked. Symlinks that resolve outside the audited
+ * folder, dangle, or loop are critical findings (verdict at least `warning`)
+ * whose targets are not read. A collection child that is a symlink out of
+ * the collection is reported under its link name the same way, unread. The
+ * target the user named is itself followed when it is a symlink (or sits
+ * under one), and the report records the real path as `resolvedPath`.
+ */
+export async function cmdAuditSecurityLocal(
+  args: ParsedArgs,
+  target: string,
+  startTime: number,
+) {
+  const absPath = parseLocalSource(target).localPath ?? resolve(target);
+
+  let skillDirs: string[];
+  let isCollection: boolean;
+  let rootReal: string;
+  let givenRoot: string;
+  try {
+    const resolved = await resolveEvalInput(absPath);
+    const mdPath = resolved.targets[0]?.skillMdPath;
+    if (!resolved.isCollection && mdPath && basename(mdPath) !== "SKILL.md") {
+      throw new Error(
+        `Not a skill folder: ${absPath}. Pass a skill folder, its SKILL.md, or a collection folder.`,
+      );
+    }
+    isCollection = resolved.isCollection;
+    const auditRoot = isCollection ? absPath : dirname(mdPath!);
+    givenRoot = resolve(auditRoot);
+    rootReal = await fsRealpath(auditRoot);
+    skillDirs = isCollection
+      ? resolved.targets.map((t) => t.skillPath)
+      : [rootReal];
+  } catch (err) {
+    failSecurityTarget(
+      args,
+      `${errorMessage(err)}\n${ACCEPTED_SECURITY_TARGETS}`,
+      startTime,
+    );
+  }
+
+  // The target the user named is followed even when it (or a parent) is a
+  // symlink, but the report says so (#779).
+  const linkedTarget = rootReal !== givenRoot;
+  if (linkedTarget) {
+    console.error(`Auditing ${target} -> ${rootReal}`);
+  }
+
+  if (isCollection) {
+    console.error(
+      `Auditing ${skillDirs.length} local skill${skillDirs.length > 1 ? "s" : ""} in ${shortenPath(rootReal)}...\n`,
+    );
+  }
+
+  const reports: SecurityAuditReport[] = [];
+  for (const dir of skillDirs) {
+    const real = await fsRealpath(dir);
+    // A collection child that is a symlink out of the collection is never
+    // read: it is reported under its link name with the link as a finding.
+    const outside = !isPathInside(rootReal, real);
+    const name = outside ? basename(dir) : await localSkillName(real, real);
+    console.error(
+      isCollection
+        ? `  Scanning ${ansi.bold(name)}...`
+        : `Auditing local skill: ${ansi.bold(name)}...\n`,
+    );
+    reports.push(
+      await auditSkillSecurity(
+        outside ? dir : real,
+        name,
+        undefined,
+        undefined,
+        outside
+          ? {
+              readFiles: false,
+              externalSymlinks: [
+                externalLink(basename(dir), real, "directory"),
+              ],
+            }
+          : {
+              trackSymlinks: true,
+              ...(linkedTarget ? { resolvedPath: real } : {}),
+            },
+      ),
+    );
+  }
+
+  if (isCollection) {
+    printSecurityReports(args, reports, startTime);
+  } else {
+    printSingleSecurityReport(args, reports[0], startTime);
   }
 }
 
@@ -353,36 +601,7 @@ export async function cmdAuditSecurityAll(args: ParsedArgs, startTime: number) {
     reports.push(report);
   }
 
-  if (args.flags.machine) {
-    console.log(
-      formatMachineOutput(
-        "audit security",
-        formatAuditMachineData(reports),
-        startTime,
-      ),
-    );
-  } else if (args.flags.json) {
-    console.log(JSON.stringify(reports, null, 2));
-  } else {
-    for (const report of reports) {
-      console.log(formatSecurityReport(report));
-    }
-
-    const verdictCounts = { safe: 0, caution: 0, warning: 0, dangerous: 0 };
-    for (const r of reports) {
-      verdictCounts[r.verdict]++;
-    }
-    console.log(ansi.bold("\n  Summary:"));
-    if (verdictCounts.dangerous > 0)
-      console.log(`    ${ansi.red(`${verdictCounts.dangerous} dangerous`)}`);
-    if (verdictCounts.warning > 0)
-      console.log(`    ${ansi.yellow(`${verdictCounts.warning} warning`)}`);
-    if (verdictCounts.caution > 0)
-      console.log(`    ${verdictCounts.caution} caution`);
-    if (verdictCounts.safe > 0)
-      console.log(`    ${ansi.green(`${verdictCounts.safe} safe`)}`);
-    console.log("");
-  }
+  printSecurityReports(args, reports, startTime);
 }
 
 export async function cmdAuditSecuritySource(
@@ -476,21 +695,14 @@ export async function cmdAuditSecurityInstalled(
   const matches = allSkills.filter((s) => s.dirName === target);
 
   if (matches.length === 0) {
-    if (args.flags.machine) {
-      console.log(
-        formatMachineError(
-          "audit security",
-          ErrorCodes.SKILL_NOT_FOUND,
-          `Skill "${target}" not found.`,
-          startTime,
-        ),
-      );
-      process.exit(1);
-    }
-    error(
-      `Skill "${target}" not found. Use "asm list" to see installed skills.`,
+    const hint = GITHUB_SHORTHAND_RE.test(target)
+      ? ` Did you mean github:${target}?`
+      : "";
+    failSecurityTarget(
+      args,
+      `Skill "${target}" not found.${hint}\n${ACCEPTED_SECURITY_TARGETS}`,
+      startTime,
     );
-    process.exit(1);
   }
 
   const skill = matches[0];
@@ -499,17 +711,5 @@ export async function cmdAuditSecurityInstalled(
 
   const report = await auditSkillSecurity(skill.realPath, skill.name);
 
-  if (args.flags.machine) {
-    console.log(
-      formatMachineOutput(
-        "audit security",
-        formatAuditMachineData([report]),
-        startTime,
-      ),
-    );
-  } else if (args.flags.json) {
-    console.log(formatSecurityReportJSON(report));
-  } else {
-    console.log(formatSecurityReport(report));
-  }
+  printSingleSecurityReport(args, report, startTime);
 }

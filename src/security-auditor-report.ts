@@ -161,6 +161,11 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
       color.dim("|"),
   );
   lines.push(color.dim("  +" + "-".repeat(BOX_WIDTH - 2) + "+"));
+  if (report.resolvedPath) {
+    lines.push(
+      `  ${color.dim("Resolved:")} ${report.resolvedPath} ${color.dim("(target is a symlink; followed)")}`,
+    );
+  }
 
   // ── Source line (compact) ──
   if (report.source) {
@@ -193,8 +198,10 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
 
   lines.push("");
 
+  const symlinks = report.externalSymlinks ?? [];
+
   // ── Zone B: Threat Summary ──
-  if (report.codeScans.length === 0) {
+  if (report.codeScans.length === 0 && symlinks.length === 0) {
     lines.push(
       `  ${color.green("*")} ${color.green("No suspicious patterns detected.")}`,
     );
@@ -230,7 +237,9 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
     const permLabel =
       permTypes.length > 0 ? color.dim(`Perms: ${permTypes.join(", ")}`) : "";
 
-    lines.push(`     ${countParts.join(color.dim(" | "))}    ${permLabel}`);
+    if (countParts.length > 0 || permLabel) {
+      lines.push(`     ${countParts.join(color.dim(" | "))}    ${permLabel}`);
+    }
   }
 
   lines.push("");
@@ -344,6 +353,40 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
 
       lines.push("");
     }
+  }
+
+  // ── Zone C2: Symlinks not read — outside, dangling, looping (#779) ──
+  if (symlinks.length > 0) {
+    lines.push(
+      `  ${severityIcon("critical")} ${color.bold("Symlinks not read")} (${color.red(`${symlinks.length} critical`)})`,
+    );
+    for (const link of symlinks) {
+      const note =
+        link.kind === "dangling" || link.kind === "loop"
+          ? `${link.kind}, not followed`
+          : `${link.kind}, NOT read`;
+      lines.push(
+        `     ${color.dim(link.path)} -> ${link.target || color.dim("(unreadable)")} ${color.dim(`(${note})`)}`,
+      );
+    }
+    lines.push(
+      `     ${color.dim("Content outside the skill folder is never read. Review these targets by hand.")}`,
+    );
+    lines.push("");
+  }
+
+  // ── Zone C3: Hard links (info only, #779) ──
+  const hardLinks = report.hardLinks ?? [];
+  if (hardLinks.length > 0) {
+    lines.push(
+      `  ${severityIcon("info")} ${color.bold("Hard links")} (${color.dim(`${hardLinks.length} info`)})`,
+    );
+    for (const h of hardLinks) {
+      lines.push(
+        `     ${color.dim(h.path)} ${color.dim(`(${h.links} links) -- hard link: content may be shared with a file outside the folder`)}`,
+      );
+    }
+    lines.push("");
   }
 
   // ── Zone D: Footer ──
