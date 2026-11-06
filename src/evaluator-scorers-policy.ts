@@ -248,20 +248,23 @@ const OPERATORS = new Set(["AND", "OR", "WITH"]);
  */
 export const MAX_SPDX_NESTING = 64;
 
-/** Most characters of a declared value quoted in one finding. */
+/** Most characters (code points) of a declared value quoted in one finding. */
 export const MAX_QUOTED_VALUE = 200;
-/** Most characters of one identifier or token quoted in a finding. */
+/** Most characters (code points) of one identifier or token in a finding. */
 const MAX_QUOTED_TOKEN = 60;
 
 /**
  * Quote part of a declared licence value in backticks for a finding. A value
- * longer than `max` is cut, marked with `…`, and followed by its original
- * length, so a crafted value cannot blow up the report.
+ * longer than `max` code points is cut, marked with `…`, and followed by its
+ * length in code points, so a crafted value cannot blow up the report. It
+ * counts and cuts by code point, never inside a UTF-16 surrogate pair, so
+ * the finding never carries a lone surrogate into --json / --machine.
  */
 export function quoteValue(value: string, max = MAX_QUOTED_VALUE): string {
-  return value.length <= max
+  const chars = Array.from(value);
+  return chars.length <= max
     ? `\`${value}\``
-    : `\`${value.slice(0, max)}…\` (${value.length} chars)`;
+    : `\`${chars.slice(0, max).join("")}…\` (${chars.length} chars)`;
 }
 
 export type SpdxLeafKind = "spdx" | "ref" | "private" | "unknown";

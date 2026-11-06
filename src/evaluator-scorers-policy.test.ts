@@ -411,6 +411,34 @@ describe("scoreLicense with SPDX expressions (#783)", () => {
     );
   });
 
+  it("quoteValue counts and clips by code point", () => {
+    const emoji = "\u{1F600}"; // one code point, two UTF-16 units
+    const q = quoteValue(emoji.repeat(300));
+    expect(q).toBe(`\`${emoji.repeat(MAX_QUOTED_VALUE)}…\` (300 chars)`);
+    expect(quoteValue(emoji.repeat(MAX_QUOTED_VALUE))).toBe(
+      `\`${emoji.repeat(MAX_QUOTED_VALUE)}\``,
+    );
+  });
+
+  const LONE_SURROGATE =
+    /[\ud800-\udbff](?![\udc00-\udfff])|(?<![\ud800-\udbff])[\udc00-\udfff]/;
+  it.each([
+    [
+      "an emoji straddling the 200-character value cap",
+      `MIT OR ${"x".repeat(MAX_QUOTED_VALUE - 8)}\u{1F600}${"x".repeat(100)}`,
+    ],
+    [
+      "an emoji straddling the 60-character token cap",
+      `MIT OR ${"a".repeat(59)}\u{1F600}${"a".repeat(10)}`,
+    ],
+  ])("never splits a surrogate pair: %s", (_label, v) => {
+    const r = scoreLicense(lic(v), "", OWN_FILE);
+    expect(r.score).toBe(2);
+    for (const f of r.findings) expect(f).not.toMatch(LONE_SURROGATE);
+    expect(r.findings[0]).toContain("\u{1F600}");
+    expect(JSON.parse(JSON.stringify(r))).toEqual(r);
+  });
+
   const ors = (n: number, id: string) => Array(n).fill(id).join(" OR ");
   it.each([
     ["recognised", ors(15_000, "MIT"), 10],
