@@ -22,12 +22,17 @@ import {
   displaySkillInspection,
   executeSkillInstall,
   installSelectedLibrarySkill,
+  type InstallTarget,
   type SkillInspection,
 } from "./install-inspect";
 import { parseArgs } from "../cli";
 import { parseSource } from "../installer";
 import { getLibrarySkillsDir } from "../config";
-import { readLibraryLock } from "../library";
+import {
+  installLibrarySkill,
+  readLibraryLock,
+  writeLibraryLock,
+} from "../library";
 import type {
   AppConfig,
   InstallPlan,
@@ -126,6 +131,17 @@ async function writeSkill(
 
 const githubSource = () => parseSource("github:acme/demo");
 
+/** A provider-target install, as `asm install <source> -p <tool>` builds it. */
+function providerTarget(
+  provider: ProviderConfig,
+  allProviders: ProviderConfig[] | null = null,
+): InstallTarget {
+  return { kind: "provider", provider, allProviders };
+}
+
+/** A library-target install, as `asm install <source> --library` builds it. */
+const libraryTarget: InstallTarget = { kind: "library" };
+
 function localSource(localPath: string): ParsedSource {
   return {
     owner: "local",
@@ -196,7 +212,7 @@ describe("inspectSkillForInstall", () => {
       skillDir,
       null,
       config,
-      provider,
+      providerTarget(provider),
       [],
     );
 
@@ -230,7 +246,7 @@ describe("inspectSkillForInstall", () => {
       skillDir,
       null,
       config,
-      provider,
+      providerTarget(provider),
       [makeSkillInfo({ version: "1.0.0", provider: "claude" })],
     );
 
@@ -252,7 +268,7 @@ describe("inspectSkillForInstall", () => {
       skillDir,
       null,
       config,
-      provider,
+      providerTarget(provider),
       [makeSkillInfo({ version: "1.0.0", provider: "claude" })],
     );
 
@@ -272,7 +288,7 @@ describe("inspectSkillForInstall", () => {
       skillDir,
       null,
       config,
-      provider,
+      providerTarget(provider),
       [makeSkillInfo({ version: "1.0.0", provider: "claude" })],
     );
 
@@ -293,7 +309,7 @@ describe("inspectSkillForInstall", () => {
       skillDir,
       null,
       config,
-      provider,
+      providerTarget(provider),
       [makeSkillInfo({ version: "1.0.0", provider: "codex" })],
     );
 
@@ -317,7 +333,7 @@ describe("inspectSkillForInstall", () => {
       skillDir,
       null,
       makeConfig([provider, codex]),
-      provider,
+      providerTarget(provider),
       [],
     );
 
@@ -342,7 +358,7 @@ describe("inspectSkillForInstall", () => {
       root,
       null,
       config,
-      provider,
+      providerTarget(provider),
       [],
     );
 
@@ -363,7 +379,7 @@ describe("inspectSkillForInstall", () => {
       skillDir,
       "my-override",
       config,
-      provider,
+      providerTarget(provider),
       [],
     );
     expect(withOverride.skillName).toBe("my-override");
@@ -375,7 +391,7 @@ describe("inspectSkillForInstall", () => {
       skillDir,
       null,
       config,
-      provider,
+      providerTarget(provider),
       [],
     );
     // Directory name wins over the frontmatter `name`.
@@ -396,7 +412,7 @@ describe("inspectSkillForInstall", () => {
         skillDir,
         "../escape",
         config,
-        provider,
+        providerTarget(provider),
         [],
       ),
     ).rejects.toThrow(/Invalid skill name/);
@@ -416,7 +432,7 @@ describe("inspectSkillForInstall", () => {
       skillDir,
       null,
       config,
-      provider,
+      providerTarget(provider),
       [],
       "project",
     );
@@ -440,10 +456,267 @@ describe("inspectSkillForInstall", () => {
         notASkill,
         null,
         config,
-        provider,
+        providerTarget(provider),
         [],
       ),
     ).rejects.toThrow(/SKILL\.md not found/);
+  });
+});
+
+// ─── inspectSkillForInstall — library target (#798) ────────────────────────
+
+describe("inspectSkillForInstall — library target", () => {
+  let providerDir: string;
+  let provider: ProviderConfig;
+  let config: AppConfig;
+  const seededLibraryNames: string[] = [];
+
+  beforeEach(async () => {
+    providerDir = join(tempDir, "providers", "claude");
+    await mkdir(providerDir, { recursive: true });
+    provider = makeProvider("claude", "Claude Code", providerDir);
+    config = makeConfig([provider]);
+  });
+
+  afterEach(async () => {
+    // Undo library seeding so state cannot leak into another test.
+    const names = seededLibraryNames.splice(0);
+    if (names.length === 0) return;
+    for (const name of names) {
+      await rm(join(getLibrarySkillsDir(), name), {
+        recursive: true,
+        force: true,
+      });
+    }
+    const lock = await readLibraryLock();
+    for (const name of names) delete lock.skills[name];
+    await writeLibraryLock(lock);
+  });
+
+  /** Seed a real library copy through the production install path. */
+  async function seedLibraryCopy(
+    name: string,
+    version: string,
+  ): Promise<string> {
+    const sourceDir = await writeSkill(
+      join(tempDir, "library-seed", name),
+      `name: ${name}\nversion: ${version}\n`,
+    );
+    await installLibrarySkill({
+      sourceDir,
+      libraryName: name,
+      source: "github:acme/demo",
+      sourceType: "github",
+      commitHash: "seed0000",
+      ref: "main",
+      skillPath: `skills/${name}`,
+      force: true,
+    });
+    seededLibraryNames.push(name);
+    return sourceDir;
+  }
+
+  /** Seed a library directory on disk without a lock entry. */
+  async function seedLibraryDirectoryOnly(
+    name: string,
+    version: string,
+  ): Promise<void> {
+    await writeSkill(
+      join(getLibrarySkillsDir(), name),
+      `name: ${name}\nversion: ${version}\n`,
+    );
+    seededLibraryNames.push(name);
+  }
+
+  /** Inspect a fresh source skill against the library target. */
+  async function inspectLibrary(
+    skillName: string,
+    version: string,
+    over: {
+      source?: ParsedSource;
+      args?: ReturnType<typeof makeArgs>;
+      existingSkills?: SkillInfo[];
+    } = {},
+  ) {
+    const sourceDir = await writeSkill(
+      join(tempDir, "src", skillName),
+      `name: ${skillName}\nversion: ${version}\n`,
+    );
+    return inspectSkillForInstall(
+      over.args ?? makeArgs(),
+      over.source ?? githubSource(),
+      join(tempDir, "src"),
+      sourceDir,
+      null,
+      config,
+      libraryTarget,
+      over.existingSkills ?? [],
+    );
+  }
+
+  test("reports NEW despite a same-named provider install", async () => {
+    const name = "lib-shadow";
+    // A provider copy with a different version: if the preview consulted the
+    // provider inventory this would read UPDATE/LINK_AVAILABLE instead of NEW.
+    await writeSkill(
+      join(providerDir, name),
+      `name: ${name}\nversion: 0.9.0\n`,
+    );
+
+    const inspection = await inspectLibrary(name, "1.0.0", {
+      existingSkills: [
+        makeSkillInfo({ name, provider: "claude", version: "0.9.0" }),
+      ],
+    });
+
+    expect(inspection.installStatus).toBe("NEW");
+    expect(inspection.crossToolLink).toBeNull();
+  });
+
+  test.each([
+    {
+      label: "an existing library copy without --force",
+      oldVersion: "1.0.0",
+      newVersion: "2.0.0",
+      force: false,
+      expected: "EXISTS: 1.0.0 (--force to overwrite)",
+      expectedForce: false,
+    },
+    {
+      label: "an existing library copy with --force and a different version",
+      oldVersion: "1.0.0",
+      newVersion: "2.0.0",
+      force: true,
+      expected: "UPDATE: 1.0.0 → 2.0.0",
+      expectedForce: true,
+    },
+    {
+      label: "an existing library copy with --force and the same version",
+      oldVersion: "1.0.0",
+      newVersion: "1.0.0",
+      force: true,
+      expected: "REINSTALL",
+      expectedForce: true,
+    },
+  ])(
+    "derives $expected from the library lock for $label",
+    async ({ oldVersion, newVersion, force, expected, expectedForce }) => {
+      const name = `lib-state-${oldVersion}-${newVersion}-${force}`;
+      await seedLibraryCopy(name, oldVersion);
+
+      const inspection = await inspectLibrary(name, newVersion, {
+        args: makeArgs(...(force ? ["--force"] : [])),
+      });
+
+      expect(inspection.installStatus).toBe(expected);
+      expect(inspection.crossToolLink).toBeNull();
+      // An existing library copy is only overwritten with explicit --force.
+      expect(inspection.plan.force).toBe(expectedForce);
+    },
+  );
+
+  test("reports EXISTS: unknown when the library directory has no lock entry", async () => {
+    const name = "lib-bare";
+    // On-disk directory, no library-lock.json entry: the target exists but its
+    // version is unknown, so the preview must still ask for --force.
+    await seedLibraryDirectoryOnly(name, "0.5.0");
+
+    const inspection = await inspectLibrary(name, "1.0.0");
+
+    expect(inspection.installStatus).toBe(
+      "EXISTS: unknown (--force to overwrite)",
+    );
+    expect(inspection.crossToolLink).toBeNull();
+    expect(inspection.plan.force).toBe(false);
+  });
+
+  test("reports NEW when a lock entry outlives its deleted directory", async () => {
+    const name = "lib-orphan";
+    const sourceDir = await seedLibraryCopy(name, "1.0.0");
+
+    // Delete only the directory: the lock entry stays, the state `asm library
+    // list` reports as `missing`. installLibrarySkill's guard is directory-only,
+    // so the preview must say NEW — not EXISTS — or it proves an update the
+    // install would actually perform without --force.
+    await rm(join(getLibrarySkillsDir(), name), {
+      recursive: true,
+      force: true,
+    });
+    expect((await readLibraryLock()).skills[name]).toBeDefined();
+
+    const inspection = await inspectLibrary(name, "2.0.0");
+
+    expect(inspection.installStatus).toBe("NEW");
+    expect(inspection.plan.force).toBe(false);
+    expect(inspection.crossToolLink).toBeNull();
+
+    // Proof the preview matches the install: no --force, yet it succeeds.
+    const installed = await installLibrarySkill({
+      sourceDir,
+      libraryName: name,
+      source: "github:acme/demo",
+      sourceType: "github",
+      commitHash: "seed0000",
+      ref: "main",
+      skillPath: `skills/${name}`,
+      force: false,
+    });
+    expect(installed.libraryPath).toBe(join(getLibrarySkillsDir(), name));
+    await expect(
+      readFile(join(installed.libraryPath, "SKILL.md"), "utf-8"),
+    ).resolves.toContain(`name: ${name}`);
+  });
+
+  test("plans a provider-independent install into the library skills dir", async () => {
+    const name = "lib-plan";
+    const inspection = await inspectLibrary(name, "1.0.0");
+
+    expect(inspection.plan).toMatchObject({
+      targetDir: join(getLibrarySkillsDir(), name),
+      providerName: "library",
+      providerLabel: "Library",
+      scope: "global",
+      force: false,
+    });
+    expect(inspection.plan.sourceDir).toBe(join(tempDir, "src", name));
+    expect(inspection.plan.tempDir).toBe(join(tempDir, "src"));
+
+    // --force on a NEW library skill still forces the overwrite.
+    const forced = await inspectLibrary(name, "1.0.0", {
+      args: makeArgs("--force"),
+    });
+    expect(forced.installStatus).toBe("NEW");
+    expect(forced.plan.force).toBe(true);
+  });
+
+  test("reaches the same library judgement from a GitHub or a local source", async () => {
+    const name = "lib-shape";
+    await seedLibraryCopy(name, "1.0.0");
+
+    const fromGithub = await inspectLibrary(name, "2.0.0", {
+      source: githubSource(),
+    });
+    const fromLocal = await inspectLibrary(name, "2.0.0", {
+      source: localSource(join(tempDir, "src", name)),
+    });
+
+    for (const inspection of [fromGithub, fromLocal]) {
+      expect(inspection.installStatus).toBe(
+        "EXISTS: 1.0.0 (--force to overwrite)",
+      );
+      expect(inspection.crossToolLink).toBeNull();
+      expect(inspection.plan).toMatchObject({
+        targetDir: join(getLibrarySkillsDir(), name),
+        providerName: "library",
+        providerLabel: "Library",
+        scope: "global",
+        // No --force: the plan must not silently overwrite the library copy.
+        force: false,
+      });
+    }
+    // The source shape only changes the recorded source, not the judgement.
+    expect(fromGithub.plan.source.isLocal).toBeFalsy();
+    expect(fromLocal.plan.source.isLocal).toBe(true);
   });
 });
 
@@ -488,8 +761,7 @@ describe("displaySkillInspection", () => {
     displaySkillInspection(
       makeInspection(),
       "github:acme/demo",
-      provider,
-      null,
+      providerTarget(provider),
       false,
     );
 
@@ -516,8 +788,7 @@ describe("displaySkillInspection", () => {
         metadata: { name: "demo", version: "1.0.0", description: "" },
       }),
       "github:acme/demo",
-      provider,
-      null,
+      providerTarget(provider),
       false,
     );
 
@@ -530,8 +801,7 @@ describe("displaySkillInspection", () => {
     displaySkillInspection(
       makeInspection({ installStatus: "UPDATE: 1.0.0 → 2.0.0" }),
       "github:acme/demo",
-      provider,
-      null,
+      providerTarget(provider),
       true,
       { index: 2, total: 7 },
     );
@@ -555,8 +825,7 @@ describe("displaySkillInspection", () => {
     displaySkillInspection(
       makeInspection(),
       "github:acme/demo",
-      provider,
-      all,
+      providerTarget(provider, all),
       false,
     );
 
@@ -578,8 +847,7 @@ describe("displaySkillInspection", () => {
         },
       }),
       "github:acme/demo",
-      provider,
-      null,
+      providerTarget(provider),
       false,
     );
 
@@ -611,8 +879,7 @@ describe("displaySkillInspection", () => {
         riskLabel: "[!] High Risk",
       }),
       "github:acme/demo",
-      provider,
-      null,
+      providerTarget(provider),
       false,
     );
 
@@ -625,6 +892,81 @@ describe("displaySkillInspection", () => {
     expect(out).toContain("... and 2 more");
     expect(out).toContain("[Network access] (1 match)");
     expect(out).toContain("scripts/run.sh:3 -- fetch(url)");
+  });
+});
+
+// ─── displaySkillInspection — library target (#798) ─────────────────────────
+
+describe("displaySkillInspection — library target", () => {
+  function libraryInspection(
+    over: Partial<SkillInspection> = {},
+  ): SkillInspection {
+    return {
+      metadata: {
+        name: "demo",
+        version: "1.0.0",
+        description: "A demo skill",
+      },
+      skillName: "demo",
+      warnings: [],
+      installStatus: "NEW",
+      riskLevel: "safe",
+      riskLabel: "[ok] Safe",
+      plan: {
+        source: parseSource("github:acme/demo"),
+        tempDir: "/tmp/asm-temp",
+        sourceDir: "/tmp/asm-temp/demo",
+        targetDir: join(getLibrarySkillsDir(), "demo"),
+        skillName: "demo",
+        force: false,
+        providerName: "library",
+        providerLabel: "Library",
+        scope: "global",
+      },
+      crossToolLink: null,
+      ...over,
+    };
+  }
+
+  test("prints the library tool and library target, with no scope or provider", () => {
+    displaySkillInspection(
+      libraryInspection(),
+      "github:acme/demo",
+      libraryTarget,
+      false,
+    );
+
+    const out = infoText();
+    expect(out).toContain("Tool:    Library");
+    expect(out).toContain(
+      `Target:      ${join(getLibrarySkillsDir(), "demo")}`,
+    );
+    // A library install has no provider and no provider scope.
+    expect(out).not.toContain("Scope:");
+    expect(out).not.toContain("Claude Code");
+    expect(out).not.toContain("(claude)");
+  });
+
+  test("never prints a cross-tool link hint for a library target", () => {
+    displaySkillInspection(
+      libraryInspection({
+        installStatus: "LINK_AVAILABLE",
+        crossToolLink: {
+          existingProvider: "codex",
+          existingProviderLabel: "Codex",
+          existingPath: "/tmp/asm-codex/demo",
+          isLocalSource: false,
+        },
+      }),
+      "github:acme/demo",
+      libraryTarget,
+      false,
+    );
+
+    const out = infoText();
+    expect(out).not.toContain("Already installed in");
+    expect(out).not.toContain("--tool");
+    expect(out).toContain("Tool:    Library");
   });
 });
 

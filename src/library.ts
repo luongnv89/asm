@@ -30,6 +30,7 @@ export {
   activateLibrarySkill,
   // ── Install ──
   installLibrarySkill,
+  getLibraryInstallState,
 } from "./library-core";
 
 export { updateLibrarySkill, updateLibrarySkills } from "./library-update";

@@ -137,6 +137,31 @@ export function findLibrarySkill(
   return exactName ?? null;
 }
 
+/**
+ * Whether the library already holds a skill installed under `dirName` — the
+ * directory name a library install writes (`InstallLibrarySkillPlan.libraryName`).
+ *
+ * `asm install --library` decides NEW vs UPDATE and its overwrite from this,
+ * so the preview describes the state of the library itself rather than of any
+ * provider (#798). Unlike `findLibrarySkill` this never falls back to the
+ * SKILL.md frontmatter name: the install target is keyed by directory name, so
+ * a different directory is a different target.
+ *
+ * The test mirrors `installLibrarySkill`'s overwrite guard exactly — the
+ * directory on disk, not the lock entry. A lock row whose directory has gone
+ * (the state `asm library list` reports as `missing`) is not a conflict: the
+ * install re-creates the copy, so the preview must not claim `EXISTS`.
+ */
+export async function getLibraryInstallState(
+  dirName: string,
+): Promise<{ exists: boolean; version: string | null }> {
+  if (!(await pathExists(join(getLibrarySkillsDir(), dirName)))) {
+    return { exists: false, version: null };
+  }
+  const entry = (await readLibraryLock(getLibraryLockPath())).skills[dirName];
+  return { exists: true, version: entry?.version ?? null };
+}
+
 export function libraryUpdateFailure(
   name: string,
   reason: string,
