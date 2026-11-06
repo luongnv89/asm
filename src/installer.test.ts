@@ -633,6 +633,29 @@ describe("discoverSkills", () => {
     expect(child?.tags).toEqual([]);
   });
 
+  test("resolves creator from metadata.author, metadata.creator, or neither (#787)", async () => {
+    await mkdir(join(tempDir, "both"), { recursive: true });
+    await mkdir(join(tempDir, "neither"), { recursive: true });
+    await writeFile(
+      join(tempDir, "SKILL.md"),
+      '---\nname: root\nmetadata:\n  author: "Luong NGUYEN <luongnv89@gmail.com>"\n---\n',
+    );
+    await writeFile(
+      join(tempDir, "both", "SKILL.md"),
+      "---\nname: both\nmetadata:\n  creator: c1\n  author: a1\n---\n",
+    );
+    await writeFile(
+      join(tempDir, "neither", "SKILL.md"),
+      "---\nname: neither\n---\n",
+    );
+
+    const discovered = await discoverSkills(tempDir);
+    const by = (n: string) => discovered.find((s) => s.name === n)?.creator;
+    expect(by("root")).toBe("Luong NGUYEN");
+    expect(by("both")).toBe("c1");
+    expect(by("neither")).toBe("");
+  });
+
   test("discovers skills in subdirectories", async () => {
     // Create multi-skill repo structure
     await mkdir(join(tempDir, "skills", "code-review"), { recursive: true });

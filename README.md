@@ -1104,16 +1104,17 @@ metadata:
 ---
 ```
 
-| Field              | Required | Description                    |
-| ------------------ | -------- | ------------------------------ |
-| `name`             | yes      | Unique identifier              |
-| `description`      | yes      | One-line summary               |
-| `license`          | no       | SPDX identifier or expression  |
-| `compatibility`    | no       | Compatible agents              |
-| `allowed-tools`    | no       | Tools the skill uses           |
-| `effort`           | no       | `low`, `medium`, `high`, `max` |
-| `metadata.version` | no       | Semver (default `0.0.0`)       |
-| `metadata.creator` | no       | Author                         |
+| Field              | Required | Description                      |
+| ------------------ | -------- | -------------------------------- |
+| `name`             | yes      | Unique identifier                |
+| `description`      | yes      | One-line summary                 |
+| `license`          | no       | SPDX identifier or expression    |
+| `compatibility`    | no       | Compatible agents                |
+| `allowed-tools`    | no       | Tools the skill uses             |
+| `effort`           | no       | `low`, `medium`, `high`, `max`   |
+| `metadata.version` | no       | Semver (default `0.0.0`)         |
+| `metadata.creator` | no       | Author                           |
+| `metadata.author`  | no       | Author, if no `metadata.creator` |
 
 ```bash
 asm init my-skill
