@@ -180,6 +180,13 @@ export interface ReadFilesRecursiveOptions {
    * content may be shared with a file outside the folder.
    */
   onHardLink?: (relPath: string, links: number) => void;
+  /**
+   * Confined mode only: the folder the walk must not leave, when it is wider
+   * than `dir` (#791) — e.g. a `github:` audit of a subfolder is confined to
+   * the whole temp checkout. Defaults to `dir`. When `dir` itself resolves
+   * outside `root`, nothing is read.
+   */
+  root?: string;
 }
 
 export async function readFilesRecursive(
@@ -189,12 +196,15 @@ export async function readFilesRecursive(
   const results: FileContent[] = [];
   const report = options.onExternalSymlink;
   let rootReal = dir;
+  let dirReal = dir;
   if (report) {
     try {
-      rootReal = await realpath(dir);
+      dirReal = await realpath(dir);
+      rootReal = options.root ? await realpath(options.root) : dirReal;
     } catch {
       return results;
     }
+    if (!isPathInside(rootReal, dirReal)) return results;
   }
 
   async function walk(
@@ -288,6 +298,6 @@ export async function readFilesRecursive(
     }
   }
 
-  await walk(dir, "", new Set([rootReal]));
+  await walk(dir, "", new Set([dirReal]));
   return results;
 }

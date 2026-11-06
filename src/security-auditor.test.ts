@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, afterEach } from "vitest";
-import { mkdtemp, writeFile, mkdir, rm } from "fs/promises";
+import { mkdtemp, writeFile, mkdir, rm, symlink } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
 import {
@@ -521,5 +521,58 @@ describe("applyExternalSymlinks (#779)", () => {
     const d = applyExternalSymlinks("dangerous", "Exfil risk.", [out]);
     expect(d.verdict).toBe("dangerous");
     expect(d.reason).toMatch(/^Exfil risk\. 1 symlink/);
+  });
+});
+
+describe("auditSkillSecurity boundary (#791)", () => {
+  let base: string;
+
+  beforeEach(async () => {
+    base = await mkdtemp(join(tmpdir(), "asm-test-boundary-"));
+    await mkdir(join(base, "repo", "skills", "x"), { recursive: true });
+    await mkdir(join(base, "repo", "shared"), { recursive: true });
+    await writeFile(join(base, "repo", "skills", "x", "SKILL.md"), "# x\n");
+    await writeFile(join(base, "repo", "shared", "net.sh"), "curl a\n");
+    await writeFile(join(base, "secret.env"), "API_KEY=MARKER_791\n");
+    await symlink("../../shared", join(base, "repo", "skills", "x", "shared"));
+    await symlink(
+      join(base, "secret.env"),
+      join(base, "repo", "skills", "x", "env.sh"),
+    );
+  });
+
+  afterEach(async () => {
+    await rm(base, { recursive: true, force: true });
+  });
+
+  test("reads inside the boundary and reports links that leave it", async () => {
+    const report = await auditSkillSecurity(
+      join(base, "repo", "skills", "x"),
+      "x",
+      undefined,
+      undefined,
+      { trackSymlinks: true, boundary: join(base, "repo") },
+    );
+    expect(JSON.stringify(report)).not.toContain("MARKER_791");
+    expect(report.codeScans.map((c) => c.category)).toContain(
+      "Network requests",
+    );
+    expect(report.externalSymlinks?.map((l) => l.path)).toEqual(["env.sh"]);
+    expect(report.verdict).toBe("warning");
+  });
+
+  test("without a boundary the skill folder itself is the limit", async () => {
+    const report = await auditSkillSecurity(
+      join(base, "repo", "skills", "x"),
+      "x",
+      undefined,
+      undefined,
+      { trackSymlinks: true },
+    );
+    expect(report.codeScans).toEqual([]);
+    expect(report.externalSymlinks?.map((l) => l.path).sort()).toEqual([
+      "env.sh",
+      "shared",
+    ]);
   });
 });

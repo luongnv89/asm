@@ -151,6 +151,43 @@ describe("readFilesRecursive onExternalSymlink (#779)", () => {
     expect(links.some((l) => l.path === "inner.sh")).toBe(false);
   });
 
+  test("root widens the boundary to a parent folder (#791)", async () => {
+    // A github: subfolder audit is confined to the whole checkout: links into
+    // a sibling folder inside it are read, links out of it are not.
+    await mkdir(join(base, "shared"), { recursive: true });
+    await writeFile(join(base, "shared", "lib.sh"), "echo shared\n");
+    await symlink("../shared", join(skill, "shared"));
+    const links: ExternalSymlink[] = [];
+    const files = await readFilesRecursive(skill, {
+      root: base,
+      onExternalSymlink: (l) => links.push(l),
+    });
+    const paths = files.map((f) => f.relPath);
+    expect(paths).toContain("shared/lib.sh");
+    // outside/ sits inside root, so its links are read too.
+    expect(paths).toContain("rel-escape.sh");
+    expect(links.some((l) => l.path === "shared")).toBe(false);
+
+    await symlink(tmpdir(), join(skill, "tmp-escape"));
+    const links2: ExternalSymlink[] = [];
+    await readFilesRecursive(skill, {
+      root: base,
+      onExternalSymlink: (l) => links2.push(l),
+    });
+    expect(links2).toContainEqual(
+      expect.objectContaining({ path: "tmp-escape", kind: "directory" }),
+    );
+  });
+
+  test("a dir that resolves outside root reads nothing (#791)", async () => {
+    const links: ExternalSymlink[] = [];
+    const files = await readFilesRecursive(join(skill, "escape-dir"), {
+      root: skill,
+      onExternalSymlink: (l) => links.push(l),
+    });
+    expect(files).toEqual([]);
+  });
+
   test("default behaviour still follows symlinks (unchanged for other callers)", async () => {
     await rm(join(skill, "scripts", "loop"));
     await rm(join(skill, "a"));

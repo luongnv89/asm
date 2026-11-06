@@ -184,11 +184,19 @@ export function applyExternalSymlinks(
 
 export interface AuditSkillSecurityOptions {
   /**
-   * Local-folder mode (#779): never read outside `skillPath`. Symlinks that
-   * leave it, dangle, or loop are reported as critical findings (verdict at
-   * least `warning`) and their targets are never opened, read or walked.
+   * Confined mode, used by every `asm audit security` source — local folder
+   * (#779), installed name, `--all` and `github:` (#791): never read outside
+   * `skillPath` (or `boundary`). Symlinks that leave it, dangle, or loop are
+   * reported as critical findings (verdict at least `warning`) and their
+   * targets are never opened, read or walked.
    */
   trackSymlinks?: boolean;
+  /**
+   * Confined mode only: the folder the audit must not leave when it is wider
+   * than `skillPath` — the temp checkout of a `github:` subfolder audit.
+   * Defaults to `skillPath`.
+   */
+  boundary?: string;
   /** Symlinks already found by the caller (e.g. a collection child link). */
   externalSymlinks?: ExternalSymlink[];
   /**
@@ -223,6 +231,7 @@ export async function auditSkillSecurity(
           skillPath,
           options.trackSymlinks
             ? {
+                root: options.boundary,
                 onExternalSymlink: (link) => links.push(link),
                 onHardLink: (path, count) =>
                   hardLinks.push({

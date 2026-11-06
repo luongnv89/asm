@@ -1,6 +1,10 @@
 import { loadConfig, getLibrarySkillsDir } from "../config";
 import { scanAllSkills } from "../scanner";
-import { realpath as fsRealpath, stat as fsStat } from "fs/promises";
+import {
+  lstat as fsLstat,
+  realpath as fsRealpath,
+  stat as fsStat,
+} from "fs/promises";
 import { basename, dirname, join, resolve } from "path";
 import { buildRemovalPlan, executeRemoval } from "../uninstaller";
 import { formatJSON, ansi, shortenPath } from "../formatter";
@@ -12,14 +16,13 @@ import {
   assertPathInsideRoot,
   checkGitAvailable,
   cloneToTemp,
-  validateSkill,
   cleanupTemp,
   resolveSubpath,
 } from "../installer";
 import { resolveEvalInput } from "../evaluator-batch";
 import { externalLink, isPathInside, readBoundedTextFile } from "../utils/fs";
 import { parseFrontmatter } from "../utils/frontmatter";
-import type { SecurityAuditReport } from "../utils/types";
+import type { SecurityAuditReport, SkillInfo } from "../utils/types";
 import { computeResidencyAudit, formatResidencyReport } from "../residency";
 import {
   detectDuplicates,
@@ -71,11 +74,14 @@ ${ansi.bold("Security target resolution:")}
   anything else                     Installed skill name (honours --scope);
                                     a bare name never means a local folder
 
-  A local audit never opens, reads or walks anything outside the folder.
-  A symlink in it that points outside, dangles or loops is a critical
-  finding that was NOT read; because the content was not read, it raises
-  the verdict to WARNING, not DANGEROUS. Review those targets by hand. A
-  target that is itself a symlink is followed and its real path is shown.
+  Every security audit (local folder, installed name, --all, GitHub source)
+  never opens, reads or walks anything outside the skill folder; for a
+  GitHub source the boundary is the temporary checkout. A symlink in it
+  that points outside, dangles or loops is a critical finding that was NOT
+  read; because the content was not read, it raises the verdict to
+  WARNING, not DANGEROUS. Review those targets by hand. A target that is
+  itself a symlink (a linked install, e.g. "asm link") is followed and its
+  real path is shown.
 
 ${ansi.bold("Options:")}
   --json             Output as JSON
@@ -567,6 +573,20 @@ export async function cmdAuditSecurityLocal(
   }
 }
 
+/**
+ * Audit an installed skill confined to its own folder (#791), with the same
+ * rule as a local folder (#779): symlinks inside it that leave it, dangle or
+ * loop are critical findings whose targets are never read. The installed
+ * folder itself is followed when it is a link (a linked or library install),
+ * and the report records the real path as `resolvedPath`.
+ */
+function auditInstalledSkill(skill: SkillInfo): Promise<SecurityAuditReport> {
+  return auditSkillSecurity(skill.realPath, skill.name, undefined, undefined, {
+    trackSymlinks: true,
+    ...(skill.realPath !== skill.path ? { resolvedPath: skill.realPath } : {}),
+  });
+}
+
 export async function cmdAuditSecurityAll(args: ParsedArgs, startTime: number) {
   const config = await loadConfig();
   const allSkills = await scanAllSkills(config, args.flags.scope);
@@ -597,8 +617,7 @@ export async function cmdAuditSecurityAll(args: ParsedArgs, startTime: number) {
   const reports = [];
   for (const skill of uniqueSkills) {
     console.error(`  Scanning ${ansi.bold(skill.name)}...`);
-    const report = await auditSkillSecurity(skill.realPath, skill.name);
-    reports.push(report);
+    reports.push(await auditInstalledSkill(skill));
   }
 
   printSecurityReports(args, reports, startTime);
@@ -642,12 +661,40 @@ export async function cmdAuditSecuritySource(
       throw guardErr;
     }
 
-    const { name } = await validateSkill(auditDir);
+    // The temp checkout is the boundary (#791): nothing outside it is read,
+    // not even SKILL.md. A subfolder that is itself a link out of the
+    // checkout is reported unread under its own name.
+    const notASkill = new Error(
+      "Not a valid skill: SKILL.md not found in repository root",
+    );
+    const rootReal = await fsRealpath(tempDir);
+    const auditReal = await fsRealpath(auditDir).catch(() => {
+      throw notASkill;
+    });
+    const outside = !isPathInside(rootReal, auditReal);
+    // lstat only: validateSkill would read SKILL.md through a link.
+    if (
+      !outside &&
+      !(await fsLstat(join(auditDir, "SKILL.md")).catch(() => null))
+    ) {
+      throw notASkill;
+    }
+    const name = outside
+      ? basename(auditDir)
+      : await localSkillName(auditReal, rootReal);
     const report = await auditSkillSecurity(
       auditDir,
       name,
       source.owner,
       source.repo,
+      outside
+        ? {
+            readFiles: false,
+            externalSymlinks: [
+              externalLink(source.subpath ?? ".", auditReal, "directory"),
+            ],
+          }
+        : { trackSymlinks: true, boundary: tempDir },
     );
 
     if (args.flags.machine) {
@@ -707,9 +754,12 @@ export async function cmdAuditSecurityInstalled(
 
   const skill = matches[0];
 
+  if (skill.realPath !== skill.path) {
+    console.error(`Auditing ${skill.path} -> ${skill.realPath}`);
+  }
   console.error(`Auditing installed skill: ${ansi.bold(skill.name)}...\n`);
 
-  const report = await auditSkillSecurity(skill.realPath, skill.name);
+  const report = await auditInstalledSkill(skill);
 
   printSingleSecurityReport(args, report, startTime);
 }

