@@ -316,6 +316,16 @@ describe("formatOutdatedTable versions (#807)", () => {
     expect(row("local-one")).not.toContain("skill folder unchanged");
   });
 
+  test("widens the name column for names longer than 22 characters", () => {
+    const long: OutdatedSummary = {
+      ...summary,
+      entries: [{ ...summary.entries[0], name: "appstore-review-checker" }],
+    };
+    const lines = formatOutdatedTable(long, false).split("\n");
+    expect(lines[2]).toMatch(/^appstore-review-checker {2}b9a6981/);
+    expect(lines[0].indexOf("Installed")).toBe(lines[2].indexOf("b9a6981"));
+  });
+
   test("JSON adds versions to GitHub entries only and keeps existing fields", () => {
     const parsed = JSON.parse(formatOutdatedJSON(summary));
     expect(parsed.skills[0]).toEqual({

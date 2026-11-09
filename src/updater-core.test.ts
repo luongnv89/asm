@@ -641,6 +641,44 @@ describe("checkOutdated skill folder inspection (#807)", () => {
     });
   });
 
+  it("runs distinct remote lookups in parallel, at most five at once", async () => {
+    const skills: Record<string, LockEntry> = {};
+    for (let i = 0; i < 8; i++) {
+      for (const n of ["a", "b"]) {
+        skills[`r${i}-${n}`] = lockEntry(
+          `file:///repo-${i}.git`,
+          "a".repeat(40),
+          `skills/${n}`,
+        );
+      }
+    }
+    let active = 0;
+    let peak = 0;
+    const calls: string[] = [];
+    const summary = await checkOutdated({
+      lock: { version: 1, skills },
+      fetchRegistryIndexFn: async () => null,
+      getLatestRemoteCommitFn: async (url) => {
+        calls.push(url);
+        active++;
+        peak = Math.max(peak, active);
+        await new Promise((r) => setTimeout(r, 20));
+        active--;
+        return "a".repeat(40);
+      },
+      inspectSkillFoldersFn: async (_url, _latest, probes) =>
+        probes.map(() => ({
+          changed: false,
+          installedVersion: "1.0.0",
+          latestVersion: "1.0.0",
+        })),
+    });
+    expect(calls).toHaveLength(8);
+    expect(new Set(calls).size).toBe(8);
+    expect(peak).toBe(5);
+    expect(summary.upToDateCount).toBe(16);
+  });
+
   it("leaves the commit comparison in force when inspection fails", async () => {
     const summary = await checkOutdated({
       lock: {

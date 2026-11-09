@@ -604,12 +604,17 @@ export function formatOutdatedTable(
   const yellow = useColor ? ansi.yellow : id;
   const dim = useColor ? ansi.dim : id;
 
-  const header = `${"Skill".padEnd(22)}${"Installed".padEnd(14)}${"Latest".padEnd(14)}${"Version".padEnd(18)}Source`;
-  const separator = "─".repeat(78);
+  // Wide enough for the longest name, so it never runs into the next column.
+  const nameWidth = Math.max(
+    22,
+    ...summary.entries.map((e) => e.name.length + 2),
+  );
+  const header = `${"Skill".padEnd(nameWidth)}${"Installed".padEnd(14)}${"Latest".padEnd(14)}${"Version".padEnd(18)}Source`;
+  const separator = "─".repeat(nameWidth + 56);
   const lines: string[] = [header, separator];
 
   for (const entry of summary.entries) {
-    const nameCol = entry.name.padEnd(22);
+    const nameCol = entry.name.padEnd(nameWidth);
     const installedCol = entry.installedCommit.padEnd(14);
     const versionCol = formatVersionCell(entry).padEnd(18);
     let latestCol: string;

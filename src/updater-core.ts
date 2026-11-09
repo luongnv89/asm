@@ -433,32 +433,17 @@ export async function inspectSkillFolders(
       }
     }
 
-    // Read every needed SKILL.md: what is local first, then one fetch for
-    // the blobs the blobless fetch left out.
+    // Fetch every needed SKILL.md blob in one request (a no-op for blobs the
+    // tree fetch already brought), then read them with lazy fetching off: the
+    // blobless fetch marks the URL as a promisor, and git would otherwise
+    // fetch each missing blob in its own round trip.
     const blobOids = new Set<string>();
     for (const found of skillMdByCommit.values()) {
       for (const oid of found.values()) blobOids.add(oid);
     }
     const contents = new Map<string, string>();
-    const readBlobs = async (oids: string[]) => {
-      if (oids.length === 0) return;
-      const run = execFileAsync("git", ["cat-file", "--batch"], {
-        cwd,
-        env,
-        timeout: 10_000,
-        maxBuffer: GIT_MAX_BUFFER,
-        encoding: "buffer",
-      });
-      run.child.stdin?.end(`${oids.join("\n")}\n`);
-      const { stdout } = await run;
-      for (const [oid, text] of parseCatFileBatch(stdout)) {
-        contents.set(oid, text);
-      }
-    };
-    try {
-      await readBlobs([...blobOids]);
-      const missing = [...blobOids].filter((oid) => !contents.has(oid));
-      if (missing.length > 0) {
+    if (blobOids.size > 0) {
+      try {
         await git(
           [
             "-c",
@@ -468,14 +453,25 @@ export async function inspectSkillFolders(
             "--no-tags",
             "--filter=blob:none",
             cloneUrl,
-            ...missing,
+            ...blobOids,
           ],
           60_000,
         );
-        await readBlobs(missing);
+        const run = execFileAsync("git", ["cat-file", "--batch"], {
+          cwd,
+          env: { ...env, GIT_NO_LAZY_FETCH: "1" },
+          timeout: 10_000,
+          maxBuffer: GIT_MAX_BUFFER,
+          encoding: "buffer",
+        });
+        run.child.stdin?.end(`${[...blobOids].join("\n")}\n`);
+        const { stdout } = await run;
+        for (const [oid, text] of parseCatFileBatch(stdout)) {
+          contents.set(oid, text);
+        }
+      } catch (err) {
+        debug(`updater: SKILL.md fetch failed for ${cloneUrl}: ${err}`);
       }
-    } catch (err) {
-      debug(`updater: SKILL.md fetch failed for ${cloneUrl}: ${err}`);
     }
 
     const versionAt = (commit: string, skillPath: string): string | null => {
@@ -513,8 +509,9 @@ export async function inspectSkillFolders(
 /**
  * Check all installed skills for newer versions.
  * Registry skills are compared against index.json.
- * Non-registry skills use git ls-remote.
- * Runs with a concurrency limit of 5.
+ * Non-registry skills use one git ls-remote per repository and ref (at most
+ * 5 at once); GitHub skills then get one folder/version inspection per
+ * repository (`inspectSkillFolders`, #807).
  */
 
 /** @internal — injectable overrides for testing checkOutdated. */
@@ -539,13 +536,29 @@ export async function checkOutdated(
     _overrides?.getLatestRemoteCommitFn ?? getLatestRemoteCommit;
   const inspectFn = _overrides?.inspectSkillFoldersFn ?? inspectSkillFolders;
 
-  // One ls-remote per (repository, ref), however many skills it supplies.
+  // One ls-remote per (repository, ref), however many skills it supplies,
+  // with at most REMOTE_CONCURRENCY running at once.
+  const REMOTE_CONCURRENCY = 5;
+  let activeRemotes = 0;
+  const remoteWaiters: Array<() => void> = [];
+  const limitedLatestCommit = async (url: string, ref: string | null) => {
+    while (activeRemotes >= REMOTE_CONCURRENCY) {
+      await new Promise<void>((resolve) => remoteWaiters.push(resolve));
+    }
+    activeRemotes++;
+    try {
+      return await latestCommitFn(url, ref);
+    } finally {
+      activeRemotes--;
+      remoteWaiters.shift()?.();
+    }
+  };
   const remoteCommits = new Map<string, Promise<string | null>>();
   const resolveRemote = (url: string, ref: string | null) => {
     const key = `${url}\n${ref ?? ""}`;
     let pending = remoteCommits.get(key);
     if (!pending) {
-      pending = latestCommitFn(url, ref);
+      pending = limitedLatestCommit(url, ref);
       remoteCommits.set(key, pending);
     }
     return pending;
@@ -581,9 +594,12 @@ export async function checkOutdated(
     registryIndex = await fetchRegistryFn();
   }
 
+  // Per-entry work is only bookkeeping around the shared remote lookups, so
+  // walk every entry at once: skills from one repository must not hold the
+  // lookups for other repositories behind them.
   const results = await poolAll(
     entries,
-    5,
+    entries.length,
     async ([name, entry]): Promise<OutdatedEntry> => {
       const sourceType = resolveSourceType(entry);
 
