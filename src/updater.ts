@@ -29,6 +29,7 @@ export {
   updateSkill,
   updateSkills,
   installSourceOf,
+  updateAuditSourceOf,
   formatOutdatedTable,
   formatOutdatedJSON,
   formatOutdatedMachine,

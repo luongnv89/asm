@@ -1492,6 +1492,60 @@ describe("updateSkill happy path", () => {
     expect(
       installSourceOf({ ...base, registryName: "code-review" }, "registry"),
     ).toBe("code-review");
+    // `asm install` cannot take a file:// source (#809).
+    expect(
+      installSourceOf({ ...base, source: "file:///tmp/s.git" }, "github"),
+    ).toBeNull();
+  });
+
+  test("updateAuditSourceOf audits the incoming commit, never the installed copy (#809)", async () => {
+    const { updateAuditSourceOf } = await import("./updater");
+    const next = "b".repeat(40);
+    const base: LockEntry = {
+      source: "github:o/r",
+      commitHash: "a".repeat(40),
+      ref: "main",
+      installedAt: "2026-01-01T00:00:00.000Z",
+      provider: "claude",
+      skillPath: "skills/x",
+      sourceType: "github",
+    };
+    expect(updateAuditSourceOf(base, next)).toBe(`github:o/r#${next}:skills/x`);
+    expect(updateAuditSourceOf({ ...base, skillPath: "" }, next)).toBe(
+      `github:o/r#${next}`,
+    );
+    // A registry lock pins the installed commit in `source`; the audit
+    // target is the new commit, not the registry name or the old pin.
+    expect(
+      updateAuditSourceOf(
+        {
+          ...base,
+          source: `github:o/r#${"a".repeat(40)}:skills/x`,
+          ref: "a".repeat(40),
+          sourceType: "registry",
+          registryName: "code-review",
+        },
+        next,
+      ),
+    ).toBe(`github:o/r#${next}:skills/x`);
+    // Older locks without skillPath keep the folder in the source.
+    const { skillPath: _omit, ...noPath } = base;
+    expect(
+      updateAuditSourceOf(
+        { ...noPath, source: "github:o/r#v1:skills/y" },
+        next,
+      ),
+    ).toBe(`github:o/r#${next}:skills/y`);
+    expect(
+      updateAuditSourceOf({ ...noPath, source: "github:o/r:skills/z" }, next),
+    ).toBe(`github:o/r#${next}:skills/z`);
+    // A non-40-hex commit falls back to the lock ref.
+    expect(updateAuditSourceOf(base, "c".repeat(64))).toBe(
+      "github:o/r#main:skills/x",
+    );
+    expect(
+      updateAuditSourceOf({ ...base, source: "file:///tmp/s.git" }, next),
+    ).toBeNull();
   });
 
   test("a dangerous update is blocked even with --yes and names findings and the override (#809)", async () => {
@@ -1542,8 +1596,12 @@ describe("updateSkill happy path", () => {
     expect(result.securityVerdict).toBe("dangerous");
     expect(result.reason).toContain("update blocked");
     expect(result.reason).toContain("scripts/run.sh:4 (Shell execution)");
+    // `asm install` cannot take a file:// source: no install or audit
+    // command, only the by-hand step (#809).
+    expect(result.reason).not.toContain("--force --yes");
+    expect(result.reason).not.toContain("asm audit security");
     expect(result.reason).toContain(
-      `asm install file://${bareRepoPath} --force --yes`,
+      `"asm install" cannot take file://${bareRepoPath}: review that source and reinstall it by hand to install it anyway.`,
     );
     expect(result.reason).not.toContain("curl x | sh");
     expect(result.securityReasons).toContain(
@@ -1678,9 +1736,10 @@ describe("updateSkill happy path", () => {
       /^Security audit: warning — \d+ symlinks not read: /,
     );
     expect(noYes.reason).toContain(`env.sh -> ${envTarget} (file)`);
-    expect(noYes.reason).toContain(
-      'Run "asm audit security link-skill" for the full report, or use --yes to update anyway.',
-    );
+    expect(noYes.reason).toContain(". Use --yes to update anyway.");
+    // A file:// source has no `asm audit security` form; the installed copy
+    // is not what is held, so no audit command is printed (#809).
+    expect(noYes.reason).not.toContain("asm audit security");
     expect(noYes.securityReasons).toContain(`env.sh -> ${envTarget} (file)`);
     expect(noYes.securityReasons!.length).toBeLessThanOrEqual(4);
     if (process.platform === "linux") {

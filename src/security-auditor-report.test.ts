@@ -210,4 +210,27 @@ describe("describeSecurityHold (#791)", () => {
       `Security audit verdict: warning. Run "asm audit security '/tmp/my skill'" for the full report, or use --force to override warnings.`,
     );
   });
+
+  test("without an audit target or override, only the stated step is printed (#809)", () => {
+    const { auditTarget: _none, overrideFlag: _flag, ...rest } = opts;
+    const hold = describeSecurityHold(
+      { verdictReason: "Shell and network." },
+      {
+        ...rest,
+        verdict: "dangerous — update blocked",
+        action: "review that source and reinstall it by hand",
+      },
+    );
+    expect(hold.message).toBe(
+      "Security audit: dangerous — update blocked — Shell and network. Review that source and reinstall it by hand.",
+    );
+    expect(hold.message).not.toContain("asm audit security");
+  });
+
+  test("without an audit target, the override flag still leads (#809)", () => {
+    const { auditTarget: _none, ...rest } = opts;
+    expect(describeSecurityHold({}, rest).message).toBe(
+      "Security audit: warning. Use --yes to update anyway.",
+    );
+  });
 });

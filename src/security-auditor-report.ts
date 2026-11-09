@@ -476,11 +476,13 @@ export function describeSecurityHold(
   opts: {
     verdict: string;
     prefix: string;
-    auditTarget: string;
+    /** `asm audit security` target; omitted when no command can audit it. */
+    auditTarget?: string;
     /** Flag that overrides the hold, e.g. `--yes`. */
     overrideFlag?: string;
     /** Full command that overrides the hold; wins over `overrideFlag`. */
     overrideCommand?: string;
+    /** What the override does — or, with neither override, the whole step. */
     action: string;
     /** Name up to this many code findings in the message (#809). */
     findings?: number;
@@ -511,11 +513,17 @@ export function describeSecurityHold(
     : [];
   const found = findings.length > 0 ? ` Findings: ${findings.join(", ")}.` : "";
   const override = opts.overrideCommand
-    ? `run "${opts.overrideCommand}"`
-    : `use ${opts.overrideFlag}`;
+    ? `run "${opts.overrideCommand}" to ${opts.action}`
+    : opts.overrideFlag
+      ? `use ${opts.overrideFlag} to ${opts.action}`
+      : opts.action;
+  const next =
+    opts.auditTarget !== undefined
+      ? `Run "asm audit security ${shellArg(opts.auditTarget)}" for the full report, or ${override}.`
+      : `${override.charAt(0).toUpperCase()}${override.slice(1)}.`;
   return {
     reasons,
     findings,
-    message: `${opts.prefix}: ${opts.verdict}${why}${found} Run "asm audit security ${shellArg(opts.auditTarget)}" for the full report, or ${override} to ${opts.action}.`,
+    message: `${opts.prefix}: ${opts.verdict}${why}${found} ${next}`,
   };
 }
