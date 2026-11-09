@@ -376,6 +376,29 @@ describe("dynamic execution: real calls only (#809)", () => {
     ["run.js", "spawn('sh', ['-c', cmd])"],
     ["run.js", "cp.spawn('sh')"],
     ["run.py", "child = pexpect.spawn(cmd)"],
+    // A ternary wrapped so the call opens the line: `: {` is its else
+    // branch, never a return type (fix round 1 of #809).
+    ["run.js", "  eval(p) : {};"],
+    ["run.ts", "  eval(p) : { a: 1 };"],
+    ["run.js", "  exec(c): {}"],
+    ["run.ts", "  exec(c): {}"],
+    ["run.js", "  Function(p) : {}"],
+    ["run.ts", "  Function(p) : {}"],
+    ["run.mts", "  Function(p) : {}"],
+    ["run.js", "\teval(x)\t: {}"],
+    ["run.js", "  spawn(cmd) : {}"],
+    ["run.ts", "  spawn(cmd) : {}"],
+    // A return type is TS-only, and without a modifier only a plain name.
+    ["run.js", "  eval(p) : Foo {"],
+    ["run.ts", "  eval(p) : a<b>{}"],
+    ["run.ts", "  eval(p) : a.b<c>{}"],
+    // The receiver on the line before may be the global object.
+    ["run.js", "  .eval(p);"],
+    ["run.js", ".eval(p);"],
+    ["run.ts", "\t.eval(p)"],
+    ["run.js", "  ?.eval(p)"],
+    ["run.js", "  .Function(p)()"],
+    ["run.py", "    .eval(src)"],
   ];
 
   // Must pass: method definitions and calls on other objects.
@@ -403,6 +426,18 @@ describe("dynamic execution: real calls only (#809)", () => {
     ["engine.py", "def Function(name):"],
     ["pool.py", "    def spawn(self, n):"],
     ["pool.js", "function spawn(worker) {"],
+    // TS methods with a plain return type, and no-annotation methods.
+    ["engine.ts", "  eval(node): Value {"],
+    ["engine.ts", "  eval(node: Node): ast.Value {"],
+    ["engine.ts", "  exec(sql): Row[] {"],
+    ["engine.tsx", "  Function(name): Fn {"],
+    ["engine.ts", "  spawn(n): Worker {"],
+    ["engine.ts", "  eval(x) {"],
+    ["engine.ts", "  public eval(x): Map<string, number> {"],
+    ["engine.ts", "  async eval(x): Promise<A | B> {"],
+    // A receiver on the same line, even with a space before `.`.
+    ["page.js", "browser .eval(x)"],
+    ["page.js", "browser\t?.eval(x)"],
   ];
 
   test.each(mustFail)("flags %s: %s", (relPath, line) => {

@@ -19,6 +19,8 @@ interface ScanPattern {
   permissionType?: PermissionRequest["type"];
   /** Files (relative path) this pattern never applies to. */
   skipPaths?: RegExp;
+  /** Used instead of `pattern` in TypeScript files (`isTypeScriptFile`). */
+  tsPattern?: RegExp;
 }
 
 // ─── Real-call matchers (#809) ──────────────────────────────────────────────
@@ -31,32 +33,52 @@ interface ScanPattern {
 
 /** Python source, where `self` is the instance, never the global object. */
 const PYTHON_FILE = /\.pyw?$|\.pyi$/i;
+/** TypeScript source, the only place a `name(params): T {` method exists. */
+const TYPESCRIPT_FILE = /\.[mc]?tsx?$/i;
 
 /** `def name(`, `function name(` or `function* name(`: a definition. */
 const NOT_A_DEFINITION = String.raw`(?<!\b(?:def|function\s*\*?)\s+)`;
 /**
- * `name(params) {` or `name(params): T {` opening the line (after optional
- * modifiers): a JS/TS method definition. Anchored to the line start so a call
- * in an expression, such as `c ? eval(x) : {}`, is never taken for one.
+ * `name(params) {` opening the line (after optional modifiers): a JS/TS
+ * method definition. Anchored to the line start so a call in an expression,
+ * such as `c ? eval(x) : {}`, is never taken for one. With `typed` (TS files
+ * only), a return type is allowed too (#809):
+ * - `name(params): T {`, where `T` is a dotted name, optionally `[]`. Never
+ *   `: {` — the `: {}` branch of a ternary wrapped onto this line — nor
+ *   `: a<b>{}`, which is a comparison;
+ * - after a modifier (`async`, `private`, …), any return type not opening
+ *   with `{`: a modifier before `name(` never continues an expression.
  */
-function notAMethodBody(name: string): string {
-  const mods = String.raw`(?:(?:async|static|get|set|public|private|protected|override)\s+)*`;
-  return String.raw`(?!(?<=^\s*${mods})${name}\s*\([^()]*\)\s*(?::[^{;=?]*)?\{)`;
+function notAMethodBody(name: string, typed = false): string {
+  const mod = String.raw`(?:async|static|get|set|public|private|protected|override)\s+`;
+  const head = String.raw`${name}\s*\([^()]*\)\s*`;
+  const plain = String.raw`(?<=^\s*(?:${mod})*)${head}`;
+  if (!typed) return String.raw`(?!${plain}\{)`;
+  const named = String.raw`(?::\s*[\w$]+(?:\.[\w$]+)*(?:\s*\[\s*\])*\s*)?\{`;
+  const modified = String.raw`(?<=^\s*(?:${mod})+)${head}:\s*[\w$][^{;=?]*\{`;
+  return String.raw`(?!${plain}${named}|${modified})`;
 }
 
 /**
  * Match a call to `name` that can reach the builtin: bare (not preceded by
- * an identifier character or `.`), or through one of `receivers`. Definitions
- * and calls on any other object do not match.
+ * an identifier character or by a receiver's `.`), or through one of
+ * `receivers`. Definitions and calls on any other object do not match.
  */
-function realCall(name: string, receivers: string[] = []): RegExp {
-  // Not after an identifier or a member `.`; a spread `...eval(` is a call.
-  const bare = String.raw`(?<![\w$])(?<!(?:^|[^.])\.)${NOT_A_DEFINITION}`;
+function realCall(
+  name: string,
+  receivers: string[] = [],
+  typed = false,
+): RegExp {
+  // Not after an identifier, and not after `.` when a receiver precedes it on
+  // this line. A spread `...eval(` is a call, and so is a line opening with
+  // `.eval(` or `?.eval(`: its receiver is on the line before and may be `globalThis`
+  // (#809). A wrapped `browser\n  .eval(` is flagged too, by design.
+  const bare = String.raw`(?<![\w$])(?<![^.\s?]\s*\??\.)${NOT_A_DEFINITION}`;
   const via = receivers.length
     ? String.raw`|\b(?:${receivers.join("|")})\s*\??\.\s*`
     : "";
   return new RegExp(
-    String.raw`(?:${bare}${via})${notAMethodBody(name)}${name}\s*\(`,
+    String.raw`(?:${bare}${via})${notAMethodBody(name, typed)}${name}\s*\(`,
   );
 }
 
@@ -73,22 +95,36 @@ const PY_BUILTINS = [
  * The real-call matchers, shared with the `asm install` preview scan so both
  * gates flag the same lines (#809).
  */
+const EVAL_RECEIVERS = [...GLOBAL_OBJECTS, ...PY_BUILTINS];
+const EXEC_RECEIVERS = ["child_process", "childProcess", "cp", ...PY_BUILTINS];
+
 export const REAL_CALL = {
-  eval: realCall("eval", [...GLOBAL_OBJECTS, ...PY_BUILTINS]),
-  exec: realCall("exec", [
-    "child_process",
-    "childProcess",
-    "cp",
-    ...PY_BUILTINS,
-  ]),
+  eval: realCall("eval", EVAL_RECEIVERS),
+  exec: realCall("exec", EXEC_RECEIVERS),
   Function: realCall("Function", GLOBAL_OBJECTS),
   /** `self.eval(` / `self.Function(`: the global object outside Python. */
   selfGlobal: /\bself\s*\??\.\s*(?:eval|Function)\s*\(/,
 } as const;
 
+/**
+ * The TypeScript variants: they also exempt a method definition with a
+ * return type (`eval(e: string): Result {`). Use them for TS files only
+ * (`isTypeScriptFile`); they flag a subset of what `REAL_CALL` flags (#809).
+ */
+export const REAL_CALL_TS = {
+  eval: realCall("eval", EVAL_RECEIVERS, true),
+  exec: realCall("exec", EXEC_RECEIVERS, true),
+  Function: realCall("Function", GLOBAL_OBJECTS, true),
+} as const;
+
 /** Python source never treats `self.` as the global object. */
 export function isPythonFile(relPath: string): boolean {
   return PYTHON_FILE.test(relPath);
+}
+
+/** `.ts`, `.tsx`, `.mts` or `.cts`: method return types are TS-only. */
+export function isTypeScriptFile(relPath: string): boolean {
+  return TYPESCRIPT_FILE.test(relPath);
 }
 
 /**
@@ -167,6 +203,7 @@ const SCAN_PATTERNS: ScanPattern[] = [
     description:
       "Commands that execute shell processes or arbitrary system commands",
     pattern: REAL_CALL.exec,
+    tsPattern: REAL_CALL_TS.exec,
     severity: "critical",
     permissionType: "shell",
   },
@@ -194,6 +231,9 @@ const SCAN_PATTERNS: ScanPattern[] = [
     // real process spawns, so attribute calls stay flagged (#809).
     pattern: new RegExp(
       String.raw`${NOT_A_DEFINITION}${notAMethodBody("spawn")}\bspawn\s*\(`,
+    ),
+    tsPattern: new RegExp(
+      String.raw`${NOT_A_DEFINITION}${notAMethodBody("spawn", true)}\bspawn\s*\(`,
     ),
     severity: "critical",
     permissionType: "shell",
@@ -229,6 +269,7 @@ const SCAN_PATTERNS: ScanPattern[] = [
     description:
       "Patterns that execute dynamically constructed code at runtime",
     pattern: REAL_CALL.eval,
+    tsPattern: REAL_CALL_TS.eval,
     severity: "critical",
     permissionType: "code-execution",
   },
@@ -254,6 +295,7 @@ const SCAN_PATTERNS: ScanPattern[] = [
     description:
       "Patterns that execute dynamically constructed code at runtime",
     pattern: REAL_CALL.Function,
+    tsPattern: REAL_CALL_TS.Function,
     severity: "critical",
     permissionType: "code-execution",
   },
@@ -428,13 +470,15 @@ export function scanCode(files: FileContent[]): CodeScanCategory[] {
 
   for (const { relPath, content } of files) {
     const lines = content.split("\n");
+    const typescript = isTypeScriptFile(relPath);
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
       const trimmed = stripControlBytes(line.trim());
 
       for (const pattern of SCAN_PATTERNS) {
         if (pattern.skipPaths?.test(relPath)) continue;
-        if (pattern.pattern.test(line)) {
+        const re = (typescript && pattern.tsPattern) || pattern.pattern;
+        if (re.test(line)) {
           const key = pattern.category;
           if (!categoryMap.has(key)) {
             categoryMap.set(key, {

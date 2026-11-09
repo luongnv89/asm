@@ -826,17 +826,61 @@ describe("scanForWarnings", () => {
     );
   });
 
-  test("skips .pyc files and never prints control bytes (#809)", async () => {
+  test("skips real .pyc bytecode and never prints control bytes (#809)", async () => {
     await mkdir(join(tempDir, "__pycache__"), { recursive: true });
     await writeFile(
       join(tempDir, "__pycache__", "x.cpython-312.pyc"),
-      "\0\0eval(x)",
+      Buffer.concat([
+        Buffer.from([
+          0xcb, 0x0d, 0x0d, 0x0a, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8,
+        ]),
+        Buffer.from("eval(x)"),
+      ]),
     );
     await writeFile(join(tempDir, "a.js"), "eval(x) // \x1b[31m\0\n");
     const warnings = await scanForWarnings(tempDir);
     expect(warnings.map((w) => w.file)).toEqual(["a.js"]);
     // eslint-disable-next-line no-control-regex
     expect(warnings[0].match).not.toMatch(/[\x00-\x08\x0a-\x1f\x7f-\x9f]/);
+  });
+
+  test("source text under a .pyc/.pyo name is scanned (#809)", async () => {
+    await writeFile(join(tempDir, "helper.pyo"), "eval(input())\n");
+    await writeFile(join(tempDir, "payload.pyc"), "exec(x)\n");
+    const lines = (await scanForWarnings(tempDir)).map(
+      (w) => `${w.category}:${w.file}:${w.line}`,
+    );
+    expect(lines.sort()).toEqual(
+      ["Code execution:helper.pyo:1", "Shell commands:payload.pyc:1"].sort(),
+    );
+  });
+
+  test("wrapped ternaries and receivers stay flagged; TS return types do not (#809)", async () => {
+    await writeFile(
+      join(tempDir, "run.js"),
+      "const r = ok ?\n  eval(p) : {};\nglobalThis\n  .eval(p);\n",
+    );
+    await writeFile(
+      join(tempDir, "run.ts"),
+      "const f = ok ?\n  Function(p) : {};\n",
+    );
+    await writeFile(
+      join(tempDir, "engine.ts"),
+      "class E {\n  eval(node): Value {\n  }\n}\n",
+    );
+    // The same return type outside TS is not a method: still flagged.
+    await writeFile(join(tempDir, "engine.js"), "  eval(node): Value {\n");
+    const lines = (await scanForWarnings(tempDir)).map(
+      (w) => `${w.category}:${w.file}:${w.line}`,
+    );
+    expect([...new Set(lines)].sort()).toEqual(
+      [
+        "Code execution:run.js:2",
+        "Code execution:run.js:4",
+        "Code execution:run.ts:2",
+        "Code execution:engine.js:1",
+      ].sort(),
+    );
   });
 
   test("detects credential patterns", async () => {

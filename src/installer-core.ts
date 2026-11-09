@@ -35,7 +35,9 @@ import { debug } from "./logger";
 import { createDirSymlink, readFilesRecursive } from "./utils/fs";
 import {
   REAL_CALL,
+  REAL_CALL_TS,
   isPythonFile,
+  isTypeScriptFile,
   stripControlBytes,
 } from "./security-auditor-scan";
 
@@ -691,19 +693,33 @@ export interface SecurityWarning {
 const WARNING_PATTERNS: Array<{
   category: string;
   pattern: RegExp;
+  /** Used instead of `pattern` in TypeScript files. */
+  tsPattern?: RegExp;
   skipPython?: boolean;
 }> = [
   { category: "Shell commands", pattern: /\b(bash|sh\s+-c)\b/ },
-  { category: "Shell commands", pattern: REAL_CALL.exec },
+  {
+    category: "Shell commands",
+    pattern: REAL_CALL.exec,
+    tsPattern: REAL_CALL_TS.exec,
+  },
   { category: "Shell commands", pattern: /\bchild_process\b/ },
   { category: "Shell commands", pattern: /\bBun\.spawn\b/ },
-  { category: "Code execution", pattern: REAL_CALL.eval },
+  {
+    category: "Code execution",
+    pattern: REAL_CALL.eval,
+    tsPattern: REAL_CALL_TS.eval,
+  },
   {
     category: "Code execution",
     pattern: REAL_CALL.selfGlobal,
     skipPython: true,
   },
-  { category: "Code execution", pattern: REAL_CALL.Function },
+  {
+    category: "Code execution",
+    pattern: REAL_CALL.Function,
+    tsPattern: REAL_CALL_TS.Function,
+  },
   { category: "Code execution", pattern: /\bnew\s+Function\b/ },
   {
     category: "Credentials",
@@ -743,10 +759,16 @@ export async function scanForWarnings(
   for (const { relPath, content } of files) {
     const lines = content.split("\n");
     const python = isPythonFile(relPath);
+    const typescript = isTypeScriptFile(relPath);
     for (let i = 0; i < lines.length; i++) {
-      for (const { category, pattern, skipPython } of WARNING_PATTERNS) {
+      for (const {
+        category,
+        pattern,
+        tsPattern,
+        skipPython,
+      } of WARNING_PATTERNS) {
         if (skipPython && python) continue;
-        if (pattern.test(lines[i])) {
+        if (((typescript && tsPattern) || pattern).test(lines[i])) {
           const match = stripControlBytes(lines[i].trim());
           warnings.push({
             category,

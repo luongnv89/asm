@@ -11,7 +11,12 @@ import {
 import { join, sep } from "path";
 import { tmpdir } from "os";
 import { spawnSync } from "child_process";
-import { isPathInside, readBoundedTextFile, readFilesRecursive } from "./fs";
+import {
+  hasPythonBytecodeHeader,
+  isPathInside,
+  readBoundedTextFile,
+  readFilesRecursive,
+} from "./fs";
 import type { ExternalSymlink } from "./types";
 
 describe("isPathInside", () => {
@@ -282,12 +287,30 @@ describe("readFilesRecursive binary files (#809)", () => {
     dir = await mkdtemp(join(tmpdir(), "asm-fs-binary-"));
     await mkdir(join(dir, "scripts", "__pycache__"), { recursive: true });
     await writeFile(join(dir, "scripts", "render.py"), "def eval(self):\n");
-    // Compiled bytecode: skipped by extension.
+    // Real CPython 3.12 bytecode: magic `cb 0d 0d 0a`, then zero flags.
     await writeFile(
       join(dir, "scripts", "__pycache__", "render.cpython-312.pyc"),
-      "\x00\x00eval(\x1b[31m",
+      Buffer.concat([
+        Buffer.from([0xcb, 0x0d, 0x0d, 0x0a, 0, 0, 0, 0]),
+        Buffer.from("\x01\x02\x03\x04\x05\x06\x07\x08\xe3eval(\x1b[31m"),
+      ]),
     );
+    // Python 2 bytecode: magic, mtime, then the code object (NULs).
+    await writeFile(
+      join(dir, "scripts", "old.pyo"),
+      Buffer.from([
+        0x03, 0xf3, 0x0d, 0x0a, 1, 2, 3, 4, 0x63, 0, 0, 0, 0, 1, 2, 3,
+      ]),
+    );
+    // Source text under a bytecode name: `python3 x.pyo` and
+    // `runpy.run_path("x.pyc")` run it, so it is scanned.
     await writeFile(join(dir, "scripts", "legacy.pyo"), "eval(x)\n");
+    await writeFile(join(dir, "scripts", "payload.pyc"), "exec(x)\n");
+    // A 4-byte look-alike (`#a\r\n`) with no NUL still runs as source.
+    await writeFile(
+      join(dir, "scripts", "fake.pyc"),
+      "#a\r\nimport os\neval(os.environ['X'])\n",
+    );
     // A NUL byte never hides a file: scripts can carry one, and findings
     // replace control bytes before printing.
     await writeFile(join(dir, "blob.dat"), "abc\0eval(x)\n");
@@ -305,7 +328,7 @@ describe("readFilesRecursive binary files (#809)", () => {
     await rm(dir, { recursive: true, force: true });
   });
 
-  test("skips .pyc/.pyo only; NUL-byte files are still read", async () => {
+  test("skips real .pyc/.pyo bytecode only; NUL-byte files are still read", async () => {
     const paths = (await readFilesRecursive(dir)).map((f) => f.relPath).sort();
     expect(paths).toEqual([
       "blob.dat",
@@ -313,8 +336,25 @@ describe("readFilesRecursive binary files (#809)", () => {
       "noext",
       "run",
       "scripts/__pycache__/evil.py",
+      "scripts/fake.pyc",
+      "scripts/legacy.pyo",
+      "scripts/payload.pyc",
       "scripts/render.py",
     ]);
+  });
+
+  test("hasPythonBytecodeHeader needs the magic's \\r\\n and a NUL in the header", () => {
+    const pyc = Buffer.from([
+      0xcb, 0x0d, 0x0d, 0x0a, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8,
+    ]);
+    expect(hasPythonBytecodeHeader(pyc)).toBe(true);
+    expect(hasPythonBytecodeHeader(pyc.subarray(0, 15))).toBe(false);
+    expect(
+      hasPythonBytecodeHeader(Buffer.from("#a\r\nprint('RAN')  # pad\n")),
+    ).toBe(false);
+    const noCrLf = Buffer.from(pyc);
+    noCrLf[2] = 0x20;
+    expect(hasPythonBytecodeHeader(noCrLf)).toBe(false);
   });
 
   test("confined mode applies the same rule", async () => {
@@ -326,5 +366,7 @@ describe("readFilesRecursive binary files (#809)", () => {
     expect(paths).toContain("hidden.js");
     expect(paths).toContain("blob.dat");
     expect(paths).not.toContain("scripts/__pycache__/render.cpython-312.pyc");
+    expect(paths).not.toContain("scripts/old.pyo");
+    expect(paths).toContain("scripts/legacy.pyo");
   });
 });
