@@ -337,9 +337,11 @@ describe("formatOutdatedTable versions (#807)", () => {
     };
     const table = formatOutdatedTable(failed, false);
     expect(table.split("\n").at(-1)).toBe(
-      "2 skills not checked against their folder (status compares commits only; see --json inspectionError)",
+      "2 skills not fully checked against their folder (see --json inspectionError)",
     );
-    expect(formatOutdatedTable(summary, false)).not.toContain("not checked");
+    expect(formatOutdatedTable(summary, false)).not.toContain(
+      "not fully checked",
+    );
     const parsed = JSON.parse(formatOutdatedJSON(failed));
     expect(parsed.skills[0]).toMatchObject({
       status: "outdated",

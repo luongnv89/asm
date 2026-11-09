@@ -660,12 +660,12 @@ export function formatOutdatedTable(
   if (summary.errorCount > 0) parts.push(dim(`${summary.errorCount} error`));
   lines.push(parts.join(", "));
 
-  // Inspection failures keep the commit comparison; say so without --verbose.
+  // Say when the folder check was incomplete, without needing --verbose.
   const unchecked = summary.entries.filter((e) => e.inspectionError).length;
   if (unchecked > 0) {
     lines.push(
       dim(
-        `${unchecked} skill${unchecked === 1 ? "" : "s"} not checked against ${unchecked === 1 ? "its" : "their"} folder (status compares commits only; see --json inspectionError)`,
+        `${unchecked} skill${unchecked === 1 ? "" : "s"} not fully checked against ${unchecked === 1 ? "its" : "their"} folder (see --json inspectionError)`,
       ),
     );
   }
