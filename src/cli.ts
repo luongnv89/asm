@@ -26,6 +26,13 @@ export interface ParsedArgs {
     yes: boolean;
     noColor: boolean;
     scope: Scope;
+    /**
+     * True when `--scope`/`-s` was passed explicitly. The default scope is
+     * `both`, so commands that must tell an explicit `both` from an omitted
+     * scope (e.g. `asm activate`) need this instead of comparing to the
+     * default.
+     */
+    scopeExplicit: boolean;
     sort: SortBy;
     provider: string | null;
     name: string | null;
@@ -141,6 +148,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
       yes: false,
       noColor: false,
       scope: "both",
+      scopeExplicit: false,
       sort: "name",
       provider: null,
       name: null,
@@ -205,6 +213,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
     } else if (arg === "--no-color") {
       result.flags.noColor = true;
     } else if (arg === "--scope" || arg === "-s") {
+      result.flags.scopeExplicit = true;
       i++;
       const val = args[i];
       // Accept "local" as an alias for "project" (issue #91 examples use it);
