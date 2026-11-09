@@ -164,7 +164,8 @@ const UNICODE_ESCAPE = /\\u\{([0-9a-fA-F]+)\}|\\u([0-9a-fA-F]{4})/g;
 /**
  * The line as the interpreter reads its identifiers, so a receiver cannot
  * hide by spelling (#809): Python NFKC-normalises identifiers (`ｂuiltins` is
- * `builtins`); JS and TS resolve `\u` escapes in them (`globalThis`).
+ * `builtins`); JS and TS resolve `\u` escapes in them (`glob\u0061lThis`
+ * is `globalThis`).
  * The whole line is rewritten, strings and comments included, so it only
  * ever adds a match to the raw line's (`isRealCall`); the candidate still
  * matches the raw line.
