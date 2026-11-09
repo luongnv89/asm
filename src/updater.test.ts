@@ -2647,7 +2647,10 @@ describe("updateSkill refuses an incoming folder with no SKILL.md (#814)", () =>
    * A `skills/c9` + `skills/ok` repo published to a bare remote, `c9`
    * installed from v1, then `change` applied in the work tree as v2.
    */
-  async function setup(change: (work: string) => Promise<void>) {
+  async function setup(
+    change: (work: string) => Promise<void>,
+    shapeV1?: (work: string) => Promise<void>,
+  ) {
     const work = join(tempDir, "work");
     const bare = join(tempDir, "skills.git");
     await mkdir(join(work, "skills", "c9"), { recursive: true });
@@ -2655,6 +2658,7 @@ describe("updateSkill refuses an incoming folder with no SKILL.md (#814)", () =>
     await writeFile(join(work, "skills", "c9", "SKILL.md"), skillMd("c9"));
     await writeFile(join(work, "skills", "c9", "body.md"), "c9 body v1\n");
     await writeFile(join(work, "skills", "ok", "SKILL.md"), skillMd("ok"));
+    await shapeV1?.(work);
     await gitIn(tempDir, "init", "-q", "-b", "main", work);
     await gitIn(work, "add", "-A");
     await gitIn(work, "commit", "-qm", "v1");
@@ -2988,6 +2992,73 @@ describe("updateSkill refuses an incoming folder with no SKILL.md (#814)", () =>
     expect(await readFile(join(okDir, "SKILL.md"), "utf-8")).toContain(
       "version: 1.1.0",
     );
+  });
+
+  // R2-F1: on POSIX `\` is a filename character. A lock `skillPath` of
+  // `skills\c9` names one top-level entry; the walk must check that entry,
+  // not the `skills/c9` that normalizeSkillPath would make of it.
+  const bslash = String.raw`skills\c9`;
+  const bslashV1 = async (w: string) => {
+    await mkdir(join(w, bslash), { recursive: true });
+    await writeFile(join(w, bslash, "SKILL.md"), skillMd("c9"));
+    await writeFile(join(w, bslash, "body.md"), "c9 body v1\n");
+  };
+
+  test.skipIf(process.platform === "win32")(
+    "a backslash lock path whose folder became a symlink is refused (bslash)",
+    async () => {
+      const s = await setup(async (w) => {
+        await mkdir(join(w, "other", "c9"), { recursive: true });
+        await writeFile(
+          join(w, "other", "c9", "SKILL.md"),
+          skillMd("c9", "9.9.9"),
+        );
+        await rm(join(w, bslash), { recursive: true });
+        await symlink("other/c9", join(w, bslash));
+      }, bslashV1);
+      s.entry.skillPath = bslash;
+      const lockBefore = { ...s.entry };
+      const { result, calls, before, after } = await runUpdate(s);
+      expect(result).toEqual({
+        name: "c9",
+        status: "failed",
+        reason: `${missing(s.latest)} (${bslash} is a symlink, which asm does not follow). ${NEXT_GENERIC} other/c9 in file://${s.bare}`,
+      });
+      expect(calls).toEqual({ audit: 0, lock: 0 });
+      expect(s.entry).toEqual(lockBefore);
+      expect(after).toEqual(before);
+      const { lstat } = await import("fs/promises");
+      expect((await lstat(s.installedDir)).isSymbolicLink()).toBe(false);
+    },
+  );
+
+  test.skipIf(process.platform === "win32")(
+    "a backslash lock path with a normal bump still updates (bslash-norm)",
+    async () => {
+      const s = await setup(async (w) => {
+        await writeFile(join(w, bslash, "SKILL.md"), skillMd("c9", "1.1.0"));
+      }, bslashV1);
+      s.entry.skillPath = bslash;
+      const { result, calls, after } = await runUpdate(s);
+      expect(result).toMatchObject({ status: "updated" });
+      expect(calls).toEqual({ audit: 1, lock: 1 });
+      expect(after["SKILL.md"]).toContain("version: 1.1.0");
+    },
+  );
+
+  test("a lock path that leaves the checkout is refused as uncheckable", async () => {
+    const s = await setup(async (w) => {
+      await writeFile(join(w, "skills", "c9", "body.md"), "c9 body v2\n");
+    });
+    s.entry.skillPath = "../outside";
+    const { result, calls, before, after } = await runUpdate(s);
+    expect(result).toEqual({
+      name: "c9",
+      status: "failed",
+      reason: `Could not check SKILL.md at ${s.latest.slice(0, 7)}: the skill path is outside the checkout. The installed copy was kept.`,
+    });
+    expect(calls).toEqual({ audit: 0, lock: 0 });
+    expect(after).toEqual(before);
   });
 
   test("a repo-root skill has no path components to check", async () => {

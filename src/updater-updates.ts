@@ -42,7 +42,7 @@ import type {
   OutdatedSummary,
   UpdateSummary,
 } from "./updater-core";
-import { join } from "path";
+import { isAbsolute, join, relative, sep } from "path";
 import { homedir } from "os";
 import { mkdir, rm, rename, cp, access, lstat, readdir } from "fs/promises";
 import { debug } from "./logger";
@@ -133,22 +133,29 @@ const SKILL_MD_PROBLEM: Record<Exclude<SkillMdState, "file">, string> = {
 };
 
 /**
- * The first component of `skillPath` under `repoDir`, from the checkout root
- * down to the skill folder itself, that is a symlink; `null` when none is.
- * `lstat` on SKILL.md alone would follow a linked folder or parent, and the
- * swap would then install the link itself (#814). A missing component ends
- * the walk (the SKILL.md check reports it); other errors are rethrown.
+ * The first component of the path from `repoDir` to `skillDir`, from the
+ * checkout root down to the skill folder itself, that is a symlink; `null`
+ * when none is. It walks the very path the swap copies, so a lock
+ * `skillPath` that `normalizeSkillPath` would rewrite (e.g. `skills\c9` on
+ * POSIX) cannot hide a link. `lstat` on SKILL.md alone would follow a linked
+ * folder or parent, and the swap would then install the link itself (#814).
+ * A missing component ends the walk (the SKILL.md check reports it); a path
+ * outside the checkout and other errors are thrown.
  */
 async function symlinkInSkillPath(
   repoDir: string,
-  skillPath: string,
+  skillDir: string,
 ): Promise<string | null> {
-  if (skillPath === "") return null;
-  const parts = skillPath.split("/");
+  const rel = relative(repoDir, skillDir);
+  if (rel === "") return null;
+  if (rel === ".." || rel.startsWith(`..${sep}`) || isAbsolute(rel))
+    throw new Error("the skill path is outside the checkout");
+  const parts = rel.split(sep);
   for (let i = 1; i <= parts.length; i++) {
-    const rel = parts.slice(0, i).join("/");
+    const sub = parts.slice(0, i);
     try {
-      if ((await lstat(join(repoDir, rel))).isSymbolicLink()) return rel;
+      if ((await lstat(join(repoDir, ...sub))).isSymbolicLink())
+        return sub.join("/");
     } catch (err) {
       const code = (err as NodeJS.ErrnoException | undefined)?.code;
       if (code === "ENOENT" || code === "ENOTDIR") return null;
@@ -189,7 +196,7 @@ async function refuseInvalidSkillFolder(
   const current = normalizeSkillPath(entry.skillPath);
   let problem: string;
   try {
-    const link = await symlinkInSkillPath(repoDir, current);
+    const link = await symlinkInSkillPath(repoDir, skillDir);
     if (link !== null) {
       problem = ` (${link} is a symlink, which asm does not follow)`;
     } else {
