@@ -24,8 +24,13 @@ import {
   formatUpdateJSON,
   formatUpdateMachine,
   updateSkills,
+  updateSkill,
 } from "./updater";
-import type { OutdatedSummary, UpdateSummary } from "./updater";
+import type {
+  OutdatedSummary,
+  UpdateSummary,
+  _UpdateTestOverrides,
+} from "./updater";
 import type { LockEntry } from "./utils/types";
 
 // ─── shortHash ──────────────────────────────────────────────────────────────
@@ -996,7 +1001,7 @@ describe("checkOutdated with injectable overrides", () => {
 // ─── updateSkill happy path (real local git repo) ───────────────────────────
 
 /**
- * Helper: create a bare git repo with a single commit containing a skill.md.
+ * Helper: create a bare git repo with a single commit containing a SKILL.md.
  * Returns { bareRepoPath, commitHash }.
  */
 async function createBareGitRepo(
@@ -1018,7 +1023,7 @@ async function createBareGitRepo(
   });
   await exec("git", ["-C", workDir, "config", "user.email", "test@test.com"]);
   await exec("git", ["-C", workDir, "config", "user.name", "Test"]);
-  await writeFile(join(workDir, "skill.md"), content);
+  await writeFile(join(workDir, "SKILL.md"), content);
   await exec("git", ["-C", workDir, "add", "."]);
   await exec("git", ["-C", workDir, "commit", "-m", "init"]);
 
@@ -1059,7 +1064,7 @@ describe("updateSkill happy path", () => {
     const installedDir = join(skillsDir, "test-skill");
     await mkdir(installedDir, { recursive: true });
     await writeFile(
-      join(installedDir, "skill.md"),
+      join(installedDir, "SKILL.md"),
       "# Old version\nOld content",
     );
 
@@ -1099,7 +1104,7 @@ describe("updateSkill happy path", () => {
     // Verify the installed directory was swapped
     const { readFile } = await import("fs/promises");
     const installedContent = await readFile(
-      join(installedDir, "skill.md"),
+      join(installedDir, "SKILL.md"),
       "utf-8",
     );
     expect(installedContent).toContain("New version");
@@ -1114,7 +1119,7 @@ describe("updateSkill happy path", () => {
     const skillsDir = join(tempDir, "pinned-skills");
     const installedDir = join(skillsDir, "pinned-skill");
     await mkdir(installedDir, { recursive: true });
-    await writeFile(join(installedDir, "skill.md"), "# Old version");
+    await writeFile(join(installedDir, "SKILL.md"), "# Old version");
 
     let writtenCommit: string | undefined;
     const oldCommit = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
@@ -1153,7 +1158,7 @@ describe("updateSkill happy path", () => {
       securityVerdict: "safe",
     });
     expect(writtenCommit).toBe(knownCommit);
-    expect(await readFile(join(installedDir, "skill.md"), "utf-8")).toBe(
+    expect(await readFile(join(installedDir, "SKILL.md"), "utf-8")).toBe(
       "# Pinned version\nExact content",
     );
   });
@@ -1206,7 +1211,7 @@ describe("updateSkill happy path", () => {
     const skillsDir = join(tempDir, "isolated-pinned-skills");
     const installedDir = join(skillsDir, "isolated-pinned-skill");
     await mkdir(installedDir, { recursive: true });
-    await writeFile(join(installedDir, "skill.md"), "# Old version");
+    await writeFile(join(installedDir, "SKILL.md"), "# Old version");
 
     const { updateSkill } = await import("./updater");
     const entry: LockEntry = {
@@ -1251,7 +1256,7 @@ describe("updateSkill happy path", () => {
     }
 
     expect(result?.status).toBe("updated");
-    expect(await readFile(join(installedDir, "skill.md"), "utf-8")).toBe(
+    expect(await readFile(join(installedDir, "SKILL.md"), "utf-8")).toBe(
       "# Isolated pinned version",
     );
     expect(
@@ -1289,7 +1294,7 @@ describe("updateSkill happy path", () => {
     const skillsDir = join(tempDir, "sha1-pinned-skills");
     const installedDir = join(skillsDir, "sha1-pinned-skill");
     await mkdir(installedDir, { recursive: true });
-    await writeFile(join(installedDir, "skill.md"), "# Old version");
+    await writeFile(join(installedDir, "SKILL.md"), "# Old version");
 
     const { updateSkill } = await import("./updater");
     const entry: LockEntry = {
@@ -1319,7 +1324,7 @@ describe("updateSkill happy path", () => {
       );
 
       expect(result.status).toBe("updated");
-      expect(await readFile(join(installedDir, "skill.md"), "utf-8")).toBe(
+      expect(await readFile(join(installedDir, "SKILL.md"), "utf-8")).toBe(
         "# SHA-1 pinned version",
       );
     } finally {
@@ -1341,7 +1346,7 @@ describe("updateSkill happy path", () => {
     const installedDir = join(skillsDir, "stale-skill");
     const oldContent = "# Installed version\nKeep this";
     await mkdir(installedDir, { recursive: true });
-    await writeFile(join(installedDir, "skill.md"), oldContent);
+    await writeFile(join(installedDir, "SKILL.md"), oldContent);
 
     let auditCalls = 0;
     let lockWrites = 0;
@@ -1375,7 +1380,7 @@ describe("updateSkill happy path", () => {
     expect(result.reason).toContain("unavailable");
     expect(auditCalls).toBe(0);
     expect(lockWrites).toBe(0);
-    expect(await readFile(join(installedDir, "skill.md"), "utf-8")).toBe(
+    expect(await readFile(join(installedDir, "SKILL.md"), "utf-8")).toBe(
       oldContent,
     );
   });
@@ -1390,7 +1395,7 @@ describe("updateSkill happy path", () => {
     const installedDir = join(skillsDir, "rollback-existing-skill");
     await mkdir(installedDir, { recursive: true });
     await writeFile(
-      join(installedDir, "skill.md"),
+      join(installedDir, "SKILL.md"),
       "# Old version\nOld content",
     );
     await writeFile(join(installedDir, "old-only.txt"), "keep me");
@@ -1424,7 +1429,7 @@ describe("updateSkill happy path", () => {
     });
     expect(lockWriteCount).toBe(1);
     await expect(
-      readFile(join(installedDir, "skill.md"), "utf-8"),
+      readFile(join(installedDir, "SKILL.md"), "utf-8"),
     ).resolves.toContain("# Old version");
     await expect(
       readFile(join(installedDir, "old-only.txt"), "utf-8"),
@@ -1744,7 +1749,7 @@ describe("updateSkill happy path", () => {
     const skillsDir = join(tempDir, "warn-skills");
     const installedDir = join(skillsDir, "warn-skill");
     await mkdir(installedDir, { recursive: true });
-    await writeFile(join(installedDir, "skill.md"), "# Old");
+    await writeFile(join(installedDir, "SKILL.md"), "# Old");
 
     const oldCommit = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 
@@ -1800,7 +1805,7 @@ describe("updateSkill happy path", () => {
     await exec("git", ["init", workDir], {
       env: { ...process.env, GIT_DEFAULT_HASH: "sha1" },
     });
-    await writeFile(join(workDir, "skill.md"), "# ok");
+    await writeFile(join(workDir, "SKILL.md"), "# ok");
     await symlink(join(outside, ".env"), join(workDir, "env.sh"));
     await symlink(outside, join(workDir, "linkdir"));
     if (process.platform === "linux") {
@@ -1823,7 +1828,7 @@ describe("updateSkill happy path", () => {
 
     const skillsDir = join(tempDir, "link-skills");
     await mkdir(join(skillsDir, "link-skill"), { recursive: true });
-    await writeFile(join(skillsDir, "link-skill", "skill.md"), "# Old");
+    await writeFile(join(skillsDir, "link-skill", "SKILL.md"), "# Old");
 
     const { auditSkillSecurity } = await import("./security-auditor");
     const reports: unknown[] = [];
@@ -1948,7 +1953,7 @@ describe("updateSkill happy path", () => {
 
     const skillsDir = join(tempDir, "ctrl-skills");
     await mkdir(join(skillsDir, "ctrl"), { recursive: true });
-    await writeFile(join(skillsDir, "ctrl", "skill.md"), "# Old");
+    await writeFile(join(skillsDir, "ctrl", "SKILL.md"), "# Old");
     const { auditSkillSecurity } = await import("./security-auditor");
     const { updateSkill } = await import("./updater");
     const entry: LockEntry = {
@@ -1991,7 +1996,7 @@ describe("updateSkill happy path", () => {
     const skillsDir = join(tempDir, "caution-skills");
     const installedDir = join(skillsDir, "caution-skill");
     await mkdir(installedDir, { recursive: true });
-    await writeFile(join(installedDir, "skill.md"), "# Old");
+    await writeFile(join(installedDir, "SKILL.md"), "# Old");
 
     const oldCommit = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 
@@ -2598,5 +2603,372 @@ describe("updateSkills orchestrator", () => {
     expect(readLockCallCount).toBe(1);
     // checkOutdated should have received the pre-read lock
     expect(checkOutdatedReceivedLock).toBe(true);
+  });
+});
+
+// ─── #814: never install an incoming folder that has no SKILL.md ────────────
+
+describe("updateSkill refuses an incoming folder with no SKILL.md (#814)", () => {
+  let tempDir: string;
+
+  const gitIn = async (cwd: string, ...args: string[]) => {
+    const { execFile } = await import("child_process");
+    const { promisify } = await import("util");
+    const { stdout } = await promisify(execFile)(
+      "git",
+      ["-c", "user.name=t", "-c", "user.email=t@t", ...args],
+      { cwd, env: { ...process.env, GIT_DEFAULT_HASH: "sha1" } },
+    );
+    return stdout.trim();
+  };
+  const skillMd = (name: string, version = "1.0.0") =>
+    `---\nname: ${name}\ndescription: ${name} test skill\nmetadata:\n  version: ${version}\n---\n# ${name}\n`;
+
+  /** Every file and link under `dir` (path -> content or link target). */
+  async function snapshot(dir: string): Promise<Record<string, string>> {
+    const { lstat, readlink } = await import("fs/promises");
+    const out: Record<string, string> = {};
+    const walk = async (rel: string) => {
+      for (const name of (await readdir(join(dir, rel))).sort()) {
+        const path = rel ? `${rel}/${name}` : name;
+        const s = await lstat(join(dir, path));
+        if (s.isSymbolicLink())
+          out[path] = `link:${await readlink(join(dir, path))}`;
+        else if (s.isDirectory()) await walk(path);
+        else out[path] = await readFile(join(dir, path), "utf-8");
+      }
+    };
+    await walk("");
+    return out;
+  }
+
+  /**
+   * A `skills/c9` + `skills/ok` repo published to a bare remote, `c9`
+   * installed from v1, then `change` applied in the work tree as v2.
+   */
+  async function setup(change: (work: string) => Promise<void>) {
+    const work = join(tempDir, "work");
+    const bare = join(tempDir, "skills.git");
+    await mkdir(join(work, "skills", "c9"), { recursive: true });
+    await mkdir(join(work, "skills", "ok"), { recursive: true });
+    await writeFile(join(work, "skills", "c9", "SKILL.md"), skillMd("c9"));
+    await writeFile(join(work, "skills", "c9", "body.md"), "c9 body v1\n");
+    await writeFile(join(work, "skills", "ok", "SKILL.md"), skillMd("ok"));
+    await gitIn(tempDir, "init", "-q", "-b", "main", work);
+    await gitIn(work, "add", "-A");
+    await gitIn(work, "commit", "-qm", "v1");
+    const installed = await gitIn(work, "rev-parse", "HEAD");
+    await change(work);
+    await gitIn(work, "add", "-A");
+    await gitIn(work, "commit", "-qm", "v2");
+    const latest = await gitIn(work, "rev-parse", "HEAD");
+    await gitIn(tempDir, "clone", "-q", "--bare", work, bare);
+
+    const skillsDir = join(tempDir, "installed");
+    const installedDir = join(skillsDir, "c9");
+    await mkdir(installedDir, { recursive: true });
+    await writeFile(join(installedDir, "SKILL.md"), skillMd("c9"));
+    await writeFile(join(installedDir, "body.md"), "c9 body v1\n");
+    const entry: LockEntry = {
+      source: `file://${bare}`,
+      commitHash: installed,
+      ref: "main",
+      installedAt: "2026-01-01T00:00:00.000Z",
+      provider: "claude",
+      sourceType: "github",
+      skillPath: "skills/c9",
+    };
+    return { work, bare, latest, skillsDir, installedDir, entry };
+  }
+
+  async function runUpdate(
+    s: Awaited<ReturnType<typeof setup>>,
+    extra: Partial<_UpdateTestOverrides> = {},
+  ) {
+    const before = await snapshot(s.installedDir);
+    const calls = { audit: 0, lock: 0 };
+    const result = await updateSkill(
+      "c9",
+      s.entry,
+      true,
+      {
+        auditFn: async () => {
+          calls.audit++;
+          return { verdict: "safe" };
+        },
+        loadConfigFn: async () =>
+          ({ providers: [{ name: "claude", global: s.skillsDir }] }) as any,
+        resolveProviderPathFn: (p: string) => p,
+        writeLockEntryFn: async () => {
+          calls.lock++;
+        },
+        ...extra,
+      },
+      s.latest,
+    );
+    return { result, calls, before, after: await snapshot(s.installedDir) };
+  }
+
+  const missing = (latest: string) =>
+    `SKILL.md missing at ${latest.slice(0, 7)}: the skill was removed or moved upstream`;
+  const NEXT_GENERIC = `Run "asm uninstall c9" to remove it, or reinstall it from its new path.`;
+
+  /** Is `dir`'s filesystem case-insensitive (e.g. default macOS)? */
+  async function caseInsensitive(dir: string): Promise<boolean> {
+    await writeFile(join(dir, "case-probe"), "");
+    return access(join(dir, "CASE-PROBE")).then(
+      () => true,
+      () => false,
+    );
+  }
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "asm-update-814-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  const REFUSED: Array<[string, (w: string) => Promise<void>, string]> = [
+    [
+      "SKILL.md deleted",
+      async (w) => rm(join(w, "skills", "c9", "SKILL.md")),
+      "",
+    ],
+    [
+      "the whole skill folder deleted",
+      async (w) => rm(join(w, "skills", "c9"), { recursive: true }),
+      "",
+    ],
+    [
+      "SKILL.md replaced by a directory",
+      async (w) => {
+        await rm(join(w, "skills", "c9", "SKILL.md"));
+        await mkdir(join(w, "skills", "c9", "SKILL.md"));
+        await writeFile(join(w, "skills", "c9", "SKILL.md", "x.md"), "x\n");
+      },
+      " (SKILL.md is a directory)",
+    ],
+    [
+      "SKILL.md replaced by a symlink",
+      async (w) => {
+        await rm(join(w, "skills", "c9", "SKILL.md"));
+        await symlink("../ok/SKILL.md", join(w, "skills", "c9", "SKILL.md"));
+      },
+      " (SKILL.md is a symlink, which asm does not follow)",
+    ],
+  ];
+
+  for (const [label, change, detail] of REFUSED) {
+    test(`${label}: keeps the installed copy and its lock entry, says why`, async () => {
+      const s = await setup(change);
+      const { result, calls, before, after } = await runUpdate(s);
+      expect(result).toEqual({
+        name: "c9",
+        status: "failed",
+        reason: `${missing(s.latest)}${detail}. ${NEXT_GENERIC}`,
+      });
+      // Refused before the audit and the swap: nothing written anywhere.
+      expect(calls).toEqual({ audit: 0, lock: 0 });
+      expect(after).toEqual(before);
+      expect(await readdir(s.skillsDir)).toEqual(["c9"]);
+    });
+  }
+
+  test("SKILL.md moved to another path: names the new path from the same checkout", async () => {
+    const s = await setup(async (w) => {
+      await mkdir(join(w, "skills", "moved"), { recursive: true });
+      await gitIn(w, "mv", "skills/c9", "skills/moved/c9");
+    });
+    const { result, calls, before, after } = await runUpdate(s);
+    expect(result.status).toBe("failed");
+    expect(result.reason).toBe(
+      `${missing(s.latest)}. Run "asm uninstall c9" to remove it, or reinstall it from its new path "skills/moved/c9" in file://${s.bare}.`,
+    );
+    expect(calls).toEqual({ audit: 0, lock: 0 });
+    expect(after).toEqual(before);
+  });
+
+  test("a moved github: skill gets the exact asm install command", async () => {
+    const s = await setup(async (w) => {
+      await gitIn(w, "mv", "skills/c9", "skills/c9-renamed");
+    });
+    // github: sources clone github.com; point it at the bare repo via
+    // ~/.gitconfig (the pinned git env drops GIT_CONFIG_* variables).
+    const home = process.env.HOME!;
+    const gitconfig = join(home, ".gitconfig");
+    await writeFile(
+      gitconfig,
+      `[url "file://${s.bare}"]\n\tinsteadOf = https://github.com/acme/skills.git\n`,
+    );
+    try {
+      s.entry.source = "github:acme/skills";
+      const { result } = await runUpdate(s);
+      expect(result.reason).toBe(
+        `${missing(s.latest)}. Run "asm uninstall c9" to remove it, or reinstall it from its new path: "asm install 'github:acme/skills#main:skills/c9-renamed'".`,
+      );
+    } finally {
+      await rm(gitconfig, { force: true });
+    }
+  });
+
+  test("two folders now claim the name: no path is guessed", async () => {
+    const s = await setup(async (w) => {
+      await rm(join(w, "skills", "c9", "SKILL.md"));
+      for (const d of ["a", "b"]) {
+        await mkdir(join(w, "skills", d), { recursive: true });
+        await writeFile(join(w, "skills", d, "SKILL.md"), skillMd("c9"));
+      }
+    });
+    const { result } = await runUpdate(s);
+    expect(result.reason).toBe(`${missing(s.latest)}. ${NEXT_GENERIC}`);
+  });
+
+  test("control bytes in an upstream path never reach the reason", async () => {
+    const evil = "ev\x1b[31mil\x07";
+    const s = await setup(async (w) => {
+      await mkdir(join(w, "skills", evil), { recursive: true });
+      await gitIn(w, "mv", "skills/c9", `skills/${evil}/c9`);
+    });
+    const { result } = await runUpdate(s);
+    expect(result.reason).toContain(`new path "skills/ev?[31mil?/c9"`);
+    // eslint-disable-next-line no-control-regex
+    expect(result.reason).not.toMatch(/[\x00-\x08\x0a-\x1f\x7f-\x9f]/);
+  });
+
+  for (const variant of ["skill.md", "SKILL.MD"]) {
+    test(`SKILL.md renamed to ${variant}: refused exactly when the installer refuses it`, async () => {
+      const s = await setup(async (w) => {
+        const dir = join(w, "skills", "c9");
+        await gitIn(w, "mv", "skills/c9/SKILL.md", "skills/c9/tmp.md");
+        await gitIn(w, "mv", "skills/c9/tmp.md", `skills/c9/${variant}`);
+        expect(await readdir(dir)).toContain(variant);
+      });
+      // The installer's answer for this exact folder, on this filesystem.
+      const { validateSkill } = await import("./installer-core");
+      const installerAccepts = await validateSkill(
+        join(s.work, "skills", "c9"),
+      ).then(
+        () => true,
+        () => false,
+      );
+      expect(installerAccepts).toBe(await caseInsensitive(tempDir));
+
+      const { result, calls, before, after } = await runUpdate(s);
+      if (installerAccepts) {
+        expect(result.status).toBe("updated");
+        expect(calls).toEqual({ audit: 1, lock: 1 });
+      } else {
+        expect(result).toMatchObject({
+          status: "failed",
+          reason: `${missing(s.latest)}. ${NEXT_GENERIC}`,
+        });
+        expect(calls).toEqual({ audit: 0, lock: 0 });
+        expect(after).toEqual(before);
+      }
+    });
+  }
+
+  test("a SKILL.md check that cannot run keeps the installed copy and says why", async () => {
+    const s = await setup(async (w) => {
+      await writeFile(join(w, "skills", "c9", "body.md"), "c9 body v2\n");
+    });
+    const { result, calls, before, after } = await runUpdate(s, {
+      skillMdStateFn: async () => {
+        throw Object.assign(new Error("EACCES: permission denied"), {
+          code: "EACCES",
+        });
+      },
+    });
+    expect(result).toEqual({
+      name: "c9",
+      status: "failed",
+      reason: `Could not check SKILL.md at ${s.latest.slice(0, 7)}: EACCES: permission denied. The installed copy was kept.`,
+    });
+    expect(calls).toEqual({ audit: 0, lock: 0 });
+    expect(after).toEqual(before);
+  });
+
+  test("an incoming folder with SKILL.md still updates normally", async () => {
+    const s = await setup(async (w) => {
+      await writeFile(
+        join(w, "skills", "c9", "SKILL.md"),
+        skillMd("c9", "1.1.0"),
+      );
+    });
+    const { result, calls, after } = await runUpdate(s);
+    expect(result).toMatchObject({ status: "updated" });
+    expect(calls).toEqual({ audit: 1, lock: 1 });
+    expect(after["SKILL.md"]).toContain("version: 1.1.0");
+  });
+});
+
+describe("removed-upstream in outdated output (#814)", () => {
+  const summary: OutdatedSummary = {
+    entries: [
+      {
+        name: "c9",
+        installedCommit: "a1b2c3d",
+        latestCommit: "e5f6a7b",
+        source: "github:acme/skills",
+        sourceType: "github",
+        status: "removed-upstream",
+        installedVersion: "1.0.0",
+        latestVersion: null,
+      },
+      {
+        name: "ok",
+        installedCommit: "a1b2c3d",
+        latestCommit: "e5f6a7b",
+        source: "github:acme/skills",
+        sourceType: "github",
+        status: "outdated",
+        installedVersion: "1.0.0",
+        latestVersion: "1.1.0",
+      },
+    ],
+    outdatedCount: 1,
+    removedUpstreamCount: 1,
+    upToDateCount: 0,
+    untrackedCount: 0,
+    errorCount: 0,
+  };
+
+  test("the table labels it and counts it", () => {
+    const lines = formatOutdatedTable(summary, false).split("\n");
+    const c9 = lines.find((l) => l.startsWith("c9 "))!;
+    expect(c9).toContain("e5f6a7b");
+    expect(c9).toContain("1.0.0 → ?");
+    expect(c9).toContain("(removed upstream: no SKILL.md)");
+    expect(lines.find((l) => l.startsWith("ok "))).toContain("github");
+    expect(lines).toContain("1 outdated, 1 removed upstream");
+  });
+
+  test("--json keeps every field and adds the status and its count", () => {
+    const parsed = JSON.parse(formatOutdatedJSON(summary));
+    expect(parsed.skills[0]).toEqual({
+      name: "c9",
+      installed: "a1b2c3d",
+      latest: "e5f6a7b",
+      source: "github",
+      status: "removed-upstream",
+      installedVersion: "1.0.0",
+      latestVersion: null,
+    });
+    expect(parsed.summary).toEqual({
+      outdated: 1,
+      removedUpstream: 1,
+      upToDate: 0,
+      untracked: 0,
+      errors: 0,
+    });
+  });
+
+  test("--json reports 0 for a summary without the count", () => {
+    const { removedUpstreamCount: _, ...legacy } = summary;
+    expect(JSON.parse(formatOutdatedJSON(legacy)).summary.removedUpstream).toBe(
+      0,
+    );
   });
 });
