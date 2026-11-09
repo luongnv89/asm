@@ -326,6 +326,28 @@ describe("formatOutdatedTable versions (#807)", () => {
     expect(lines[0].indexOf("Installed")).toBe(lines[2].indexOf("b9a6981"));
   });
 
+  test("shows inspection failures without --verbose, statuses unchanged", () => {
+    const failed: OutdatedSummary = {
+      ...summary,
+      entries: [
+        { ...summary.entries[0], inspectionError: "fetch failed: boom" },
+        { ...summary.entries[3], inspectionError: "fetch failed: boom" },
+        summary.entries[2],
+      ],
+    };
+    const table = formatOutdatedTable(failed, false);
+    expect(table.split("\n").at(-1)).toBe(
+      "2 skills not checked against their folder (status compares commits only; see --json inspectionError)",
+    );
+    expect(formatOutdatedTable(summary, false)).not.toContain("not checked");
+    const parsed = JSON.parse(formatOutdatedJSON(failed));
+    expect(parsed.skills[0]).toMatchObject({
+      status: "outdated",
+      inspectionError: "fetch failed: boom",
+    });
+    expect(parsed.skills[2]).not.toHaveProperty("inspectionError");
+  });
+
   test("JSON adds versions to GitHub entries only and keeps existing fields", () => {
     const parsed = JSON.parse(formatOutdatedJSON(summary));
     expect(parsed.skills[0]).toEqual({

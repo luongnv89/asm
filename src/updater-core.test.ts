@@ -9,7 +9,7 @@
 
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { dirname, join } from "path";
-import { mkdtemp, mkdir, rm, writeFile } from "fs/promises";
+import { access, mkdtemp, mkdir, readFile, rm, writeFile } from "fs/promises";
 import { tmpdir } from "os";
 import { execFile } from "child_process";
 import { promisify } from "util";
@@ -638,6 +638,7 @@ describe("checkOutdated skill folder inspection (#807)", () => {
       status: "outdated",
       installedVersion: null,
       latestVersion: "1.5.0",
+      inspectionError: "installed commit 0123456 could not be fetched",
     });
   });
 
@@ -679,6 +680,161 @@ describe("checkOutdated skill folder inspection (#807)", () => {
     expect(summary.upToDateCount).toBe(16);
   });
 
+  /**
+   * Real change in skills/linkd/; `.claude/skills -> ../skills` is a git
+   * symlink, so `.claude/skills/linkd` is a path git does not know (#811 B1).
+   * skills/quiet is untouched; skills/pre only sees its prefix sibling change.
+   */
+  async function unknownPathRepo() {
+    const repo = await makeRepo("linked", true);
+    for (const name of ["linkd", "quiet", "pre", "pre-extra"]) {
+      await write(repo.work, `skills/${name}/SKILL.md`, skillMd(name, "1.0.0"));
+    }
+    await write(tempDir, "link-target", "../skills");
+    const linkOid = await git(
+      repo.work,
+      "hash-object",
+      "-w",
+      join(tempDir, "link-target"),
+    );
+    await git(repo.work, "add", "skills");
+    await git(
+      repo.work,
+      "update-index",
+      "--add",
+      "--cacheinfo",
+      `120000,${linkOid},.claude/skills`,
+    );
+    await git(repo.work, "commit", "-q", "-m", "v1");
+    const installed = await git(repo.work, "rev-parse", "HEAD");
+    await write(repo.work, "skills/linkd/body.md", "L\n");
+    await write(repo.work, "skills/pre-extra/more.md", "sibling only\n");
+    await git(repo.work, "add", "skills");
+    await git(repo.work, "commit", "-q", "-m", "change linkd and pre-extra");
+    const latest = await git(repo.work, "rev-parse", "HEAD");
+    expect(
+      await git(repo.work, "ls-tree", installed, ".claude/skills"),
+    ).toMatch(/^120000 blob /);
+    await repo.publish();
+    return { ...repo, installed, latest };
+  }
+
+  const unknownPathCases = (pwned: string) => ({
+    "r-symlink-parent": ".claude/skills/linkd",
+    "r-case-mismatch": "skills/Linkd",
+    "r-missing": "skills/nope",
+    "inj-sp": `--output=${pwned}`,
+  });
+
+  it("never treats a skill path git does not know as an unchanged folder", async () => {
+    const repo = await unknownPathRepo();
+    const pwned = join(tempDir, "pwned-sp");
+    const skills: Record<string, LockEntry> = {
+      linkd: lockEntry(repo.url, repo.installed, "skills/linkd"),
+      "sib-only": lockEntry(repo.url, repo.installed, "skills/quiet"),
+      "prefix-sib": lockEntry(repo.url, repo.installed, "skills/pre"),
+    };
+    for (const [name, path] of Object.entries(unknownPathCases(pwned))) {
+      skills[name] = lockEntry(repo.url, repo.installed, path);
+    }
+
+    const summary = await checkOutdated({
+      lock: { version: 1, skills },
+      fetchRegistryIndexFn: async () => null,
+    });
+    const byName = Object.fromEntries(summary.entries.map((e) => [e.name, e]));
+
+    for (const name of Object.keys(unknownPathCases(pwned))) {
+      expect(byName[name].status, name).toBe("outdated");
+      expect(byName[name].inspectionError, name).toMatch(
+        /^no SKILL\.md at ".*" in installed commit [0-9a-f]{7}$/,
+      );
+    }
+    expect(byName.linkd.status).toBe("outdated");
+    expect(byName.linkd.inspectionError).toBeUndefined();
+    expect(byName["sib-only"]).toMatchObject({
+      status: "up-to-date",
+      installedVersion: "1.0.0",
+    });
+    expect(byName["prefix-sib"].status).toBe("up-to-date");
+    expect(byName["sib-only"].inspectionError).toBeUndefined();
+    await expect(access(pwned)).rejects.toThrow();
+
+    // asm update installs every one of them except the two current skills.
+    const updateSkillFn = vi.fn(async (name: string) => ({
+      name,
+      status: "updated" as const,
+    }));
+    await updateSkills(null, true, {
+      readLockFn: async () => ({ version: 1, skills }),
+      checkOutdatedFn: (o) =>
+        checkOutdated({ ...o, fetchRegistryIndexFn: async () => null }),
+      updateSkillFn,
+    });
+    expect(updateSkillFn.mock.calls.map((c) => c[0]).sort()).toEqual([
+      "inj-sp",
+      "linkd",
+      "r-case-mismatch",
+      "r-missing",
+      "r-symlink-parent",
+    ]);
+  });
+
+  it.skipIf(process.platform === "win32")(
+    "keeps skillPath out of git's argv and ends options before URLs and commits",
+    async () => {
+      const repo = await unknownPathRepo();
+      const pwned = join(tempDir, "pwned-argv");
+      const shimDir = join(tempDir, "shim");
+      const log = join(tempDir, "git-argv.log");
+      const realGit = (
+        await exec("sh", ["-c", "command -v git"])
+      ).stdout.trim();
+      await mkdir(shimDir);
+      await writeFile(
+        join(shimDir, "git"),
+        `#!/bin/sh\nprintf '%s\\n' "$*" >> "${log}"\nexec "${realGit}" "$@"\n`,
+        { mode: 0o755 },
+      );
+      const savedPath = process.env.PATH;
+      process.env.PATH = `${shimDir}:${savedPath}`;
+      let summary;
+      try {
+        summary = await checkOutdated({
+          lock: {
+            version: 1,
+            skills: {
+              "inj-sp": lockEntry(
+                repo.url,
+                repo.installed,
+                `--output=${pwned}`,
+              ),
+              "dash-sp": lockEntry(repo.url, repo.installed, "-skills/linkd"),
+            },
+          },
+          fetchRegistryIndexFn: async () => null,
+        });
+      } finally {
+        process.env.PATH = savedPath;
+      }
+      expect(summary.entries.map((e) => e.status)).toEqual([
+        "outdated",
+        "outdated",
+      ]);
+      const calls = (await readFile(log, "utf8")).trim().split("\n");
+      const ours = calls.filter((c) =>
+        /(^| )(fetch|ls-tree|diff-tree) /.test(c),
+      );
+      expect(ours.length).toBeGreaterThanOrEqual(4);
+      for (const call of calls) {
+        expect(call).not.toContain("pwned");
+        expect(call).not.toContain("-skills/linkd");
+      }
+      for (const call of ours) expect(call).toContain(" --end-of-options ");
+      await expect(access(pwned)).rejects.toThrow();
+    },
+  );
+
   it("leaves the commit comparison in force when inspection fails", async () => {
     const summary = await checkOutdated({
       lock: {
@@ -697,6 +853,7 @@ describe("checkOutdated skill folder inspection (#807)", () => {
       status: "outdated",
       installedVersion: null,
       latestVersion: null,
+      inspectionError: "skill folder check failed: network down",
     });
   });
 

@@ -84,6 +84,11 @@ export interface OutdatedEntry {
    */
   installedVersion?: string | null;
   latestVersion?: string | null;
+  /**
+   * Why the skill-folder check could not run for this entry; its status then
+   * rests on the commit comparison alone (#807).
+   */
+  inspectionError?: string;
 }
 
 export interface OutdatedSummary {
@@ -281,6 +286,20 @@ export interface SkillFolderReport {
   changed: boolean | null;
   installedVersion: string | null;
   latestVersion: string | null;
+  /** Why `changed` (or a version) could not be determined, when it matters. */
+  error?: string;
+}
+
+/** First line of a git failure: its stderr when present, else the message. */
+function gitFailure(err: unknown): string {
+  const stderr = (err as { stderr?: unknown })?.stderr;
+  const text =
+    typeof stderr === "string" && stderr.trim()
+      ? stderr
+      : err instanceof Error
+        ? err.message
+        : String(err);
+  return text.trim().split("\n")[0] || "unknown error";
 }
 
 function normalizeSkillPath(skillPath: string | undefined): string {
@@ -329,20 +348,26 @@ function parseCatFileBatch(buf: Buffer): Map<string, string> {
  * installed commit plus the latest one (trees only), then one fetch of just
  * the SKILL.md blobs. Never throws: whatever cannot be determined is `null`,
  * and a `null` `changed` leaves the caller's commit comparison in force.
+ * `changed` is `false` only when the skill folder is known to exist at the
+ * installed commit (the repo root, or a SKILL.md under `skillPath`), so a
+ * path git does not know (a symlinked parent, a different case, a stale
+ * path) never makes a skill current. `skillPath` never reaches git's argv.
  */
 export async function inspectSkillFolders(
   cloneUrl: string,
   latestCommit: string,
   probes: SkillFolderProbe[],
 ): Promise<SkillFolderReport[]> {
-  const unknown = (): SkillFolderReport[] =>
+  const unknown = (error: string): SkillFolderReport[] =>
     probes.map(() => ({
       changed: null,
       installedVersion: null,
       latestVersion: null,
+      error,
     }));
   const latest = latestCommit.toLowerCase();
-  if (!OID_RE.test(latest) || probes.length === 0) return unknown();
+  if (probes.length === 0) return [];
+  if (!OID_RE.test(latest)) return unknown("invalid latest commit");
 
   const env = createPinnedGitEnv(latest.length === 40 ? "sha1" : "sha256");
   let dir: string | undefined;
@@ -367,13 +392,15 @@ export async function inspectSkillFolders(
     ].filter((c) => c !== latest);
 
     const fetchTrees = ["fetch", "-q", "--no-tags", "--depth=1"];
-    fetchTrees.push("--filter=blob:none", cloneUrl);
+    fetchTrees.push("--filter=blob:none", "--end-of-options", cloneUrl);
     try {
       await git([...fetchTrees, latest, ...installedCommits], 60_000);
     } catch (err) {
       // An installed commit may no longer exist upstream; keep the latest.
       debug(`updater: tree fetch failed for ${cloneUrl}: ${err}`);
-      if (installedCommits.length === 0) return unknown();
+      if (installedCommits.length === 0) {
+        return unknown(`fetch failed: ${gitFailure(err)}`);
+      }
       await git([...fetchTrees, latest], 60_000);
     }
 
@@ -388,6 +415,7 @@ export async function inspectSkillFolders(
           "-r",
           "-z",
           "--full-tree",
+          "--end-of-options",
           commit,
         ]);
         const found = new Map<string, string>();
@@ -415,6 +443,7 @@ export async function inspectSkillFolders(
 
     // Changed paths per installed commit, compared with the latest tree.
     const changedByCommit = new Map<string, string[]>();
+    let diffError: string | undefined;
     for (const commit of installedCommits) {
       if (!skillMdByCommit.has(commit)) continue;
       try {
@@ -424,12 +453,14 @@ export async function inspectSkillFolders(
           "-z",
           "--no-renames",
           "--name-only",
+          "--end-of-options",
           commit,
           latest,
         ]);
         changedByCommit.set(commit, stdout.split("\0").filter(Boolean));
       } catch (err) {
         debug(`updater: diff-tree failed for ${cloneUrl}: ${err}`);
+        diffError = gitFailure(err);
       }
     }
 
@@ -442,6 +473,7 @@ export async function inspectSkillFolders(
       for (const oid of found.values()) blobOids.add(oid);
     }
     const contents = new Map<string, string>();
+    let blobError: string | undefined;
     if (blobOids.size > 0) {
       try {
         await git(
@@ -452,6 +484,7 @@ export async function inspectSkillFolders(
             "-q",
             "--no-tags",
             "--filter=blob:none",
+            "--end-of-options",
             cloneUrl,
             ...blobOids,
           ],
@@ -471,6 +504,7 @@ export async function inspectSkillFolders(
         }
       } catch (err) {
         debug(`updater: SKILL.md fetch failed for ${cloneUrl}: ${err}`);
+        blobError = gitFailure(err);
       }
     }
 
@@ -483,22 +517,39 @@ export async function inspectSkillFolders(
     return probes.map((probe, i) => {
       const installed = probe.installedCommit.toLowerCase();
       const skillPath = skillPaths[i];
+      const installedTree = skillMdByCommit.get(installed);
       let changed: boolean | null = null;
+      let error: string | undefined;
       if (installed === latest) {
         changed = false;
+      } else if (!installedTree) {
+        error = `installed commit ${shortHash(installed)} could not be fetched`;
+      } else if (skillPath !== "" && !installedTree.has(skillPath)) {
+        // Unknown to git at that commit: never read as "unchanged".
+        error = `no SKILL.md at "${skillPath}" in installed commit ${shortHash(installed)}`;
       } else {
         const files = changedByCommit.get(installed);
         if (files) changed = files.some((f) => isUnderSkillPath(f, skillPath));
+        else
+          error = `could not compare commits: ${diffError ?? "unknown error"}`;
+      }
+      const wantsBlob = [installed, latest].some((c) => {
+        const oid = skillMdByCommit.get(c)?.get(skillPath);
+        return oid !== undefined && !contents.has(oid);
+      });
+      if (!error && blobError && wantsBlob) {
+        error = `could not read SKILL.md: ${blobError}`;
       }
       return {
         changed,
         installedVersion: versionAt(installed, skillPath),
         latestVersion: versionAt(latest, skillPath),
+        ...(error ? { error } : {}),
       };
     });
   } catch (err) {
     debug(`updater: skill folder inspection failed for ${cloneUrl}: ${err}`);
-    return unknown();
+    return unknown(`skill folder check failed: ${gitFailure(err)}`);
   } finally {
     if (dir) await rm(dir, { recursive: true, force: true }).catch(() => {});
   }
@@ -723,6 +774,8 @@ export async function checkOutdated(
       );
     } catch (err) {
       debug(`updater: inspection failed for ${group.cloneUrl}: ${err}`);
+      const reason = `skill folder check failed: ${gitFailure(err)}`;
+      for (const { entry } of group.items) entry.inspectionError = reason;
       return;
     }
     group.items.forEach(({ entry }, i) => {
@@ -730,6 +783,7 @@ export async function checkOutdated(
       if (!report) return;
       entry.installedVersion = report.installedVersion;
       entry.latestVersion = report.latestVersion;
+      if (report.error) entry.inspectionError = report.error;
       if (entry.status === "outdated" && report.changed === false) {
         entry.status = "up-to-date";
       }
