@@ -4,7 +4,7 @@
  * Split from commands/install.ts (issue #455).
  */
 
-import { loadConfig } from "../config";
+import { loadConfig, getLibrarySkillsDir } from "../config";
 import { ansi, colorEffort } from "../formatter";
 import {
   parseSource,
@@ -21,8 +21,8 @@ import {
 } from "../installer";
 import type { InstallResult, ProviderConfig, SkillInfo } from "../utils/types";
 import type { ResolutionSource } from "../registry";
-import { installLibrarySkill } from "../library";
-import { relative as relativePath } from "path";
+import { installLibrarySkill, getLibraryInstallState } from "../library";
+import { relative as relativePath, join } from "path";
 import { toPortableRelativePath } from "../utils/fs";
 
 import type { ParsedArgs } from "../cli";
@@ -62,6 +62,10 @@ ${ansi.bold("Options:")}
   --skill <name>         Alias for --path (Vercel skills CLI compatibility)
   --all                  Install all skills found in the repo
   --library              Install into asm's neutral local library
+                         Library installs are provider-independent: the preview
+                         shows "Library" and the library target, and --tool /
+                         --scope do not apply. An existing library copy is kept
+                         unless --force is given.
   -m, --method <method>  Install method: default or vercel (default: default)
                          vercel delegates to npx skills add for tracking
   -t, --transport <mode> Transport: https, ssh, or auto (default: auto)
@@ -113,6 +117,22 @@ ${ansi.bold("Vercel skills CLI:")}
 
 // ─── Install: inspect a single skill (returns metadata for review) ──────────
 
+/**
+ * Where an install inspected by `inspectSkillForInstall` will land (#798).
+ *
+ * A `library` target is provider-independent: NEW/UPDATE status, conflict and
+ * overwrite decisions, and the previewed destination all come from the
+ * library, so a same-named provider copy can neither flip the status nor
+ * suggest a link. `provider` keeps the ordinary per-tool behaviour.
+ */
+export type InstallTarget =
+  | {
+      kind: "provider";
+      provider: ProviderConfig;
+      allProviders: ProviderConfig[] | null;
+    }
+  | { kind: "library" };
+
 export interface SkillInspection {
   metadata: {
     name: string;
@@ -137,7 +157,7 @@ export async function inspectSkillForInstall(
   skillDir: string,
   skillNameOverride: string | null,
   config: Awaited<ReturnType<typeof loadConfig>>,
-  provider: ProviderConfig,
+  target: InstallTarget,
   existingSkills: SkillInfo[],
   scope: "global" | "project" = "global",
 ): Promise<SkillInspection> {
@@ -148,43 +168,89 @@ export async function inspectSkillForInstall(
   const rawName = skillNameOverride || dirName || source.repo;
   const skillName = sanitizeName(rawName);
 
-  // Check NEW vs UPDATE status
-  const existingMatch = existingSkills.find(
-    (s) =>
-      s.name.toLowerCase() === metadata.name.toLowerCase() &&
-      s.provider === provider.name,
-  );
   let installStatus: string;
   let crossToolLink: CrossToolLinkInfo | null = null;
-  const alreadyExists = !!existingMatch;
-  if (existingMatch) {
-    if (existingMatch.version === metadata.version) {
-      installStatus = args.flags.force
-        ? "REINSTALL"
-        : `UPDATE: ${existingMatch.version} (same version)`;
-    } else {
-      installStatus = `UPDATE: ${existingMatch.version} → ${metadata.version}`;
-    }
-  } else {
-    // Skill not installed in target provider — check if it exists in another tool
-    crossToolLink = await checkCrossToolLink(skillName, provider.name, config);
-    if (crossToolLink) {
-      installStatus = "LINK_AVAILABLE";
+  let alreadyExists: boolean;
+  let plan: ReturnType<typeof buildInstallPlan>;
+
+  if (target.kind === "library") {
+    // Library state alone decides NEW/UPDATE and the overwrite. Consulting the
+    // provider inventory here is what made the preview report provider status
+    // for an operation that copies into the library (#798).
+    const libraryState = await getLibraryInstallState(skillName);
+    alreadyExists = libraryState.exists;
+    if (alreadyExists) {
+      const currentVersion = libraryState.version ?? "unknown";
+      if (!args.flags.force) {
+        // The library keeps its own overwrite guard: an existing copy is only
+        // replaced with --force. Say so in the preview, so the status cannot
+        // promise an update the install would refuse (#798).
+        installStatus = `EXISTS: ${currentVersion} (--force to overwrite)`;
+      } else if (currentVersion === metadata.version) {
+        installStatus = "REINSTALL";
+      } else {
+        installStatus = `UPDATE: ${currentVersion} → ${metadata.version}`;
+      }
     } else {
       installStatus = "NEW";
     }
-  }
 
-  // If skill already exists, force overwrite (user will confirm at the end)
-  const plan = buildInstallPlan(
-    source,
-    tempDir,
-    skillDir,
-    skillName,
-    provider,
-    args.flags.force || alreadyExists,
-    scope,
-  );
+    plan = {
+      source,
+      tempDir,
+      sourceDir: skillDir,
+      targetDir: join(getLibrarySkillsDir(), skillName),
+      skillName,
+      // Library installs only overwrite an existing copy with an explicit
+      // --force; the preview above states the same rule.
+      force: args.flags.force,
+      providerName: "library",
+      providerLabel: "Library",
+      scope: "global",
+    };
+  } else {
+    const provider = target.provider;
+
+    // Check NEW vs UPDATE status
+    const existingMatch = existingSkills.find(
+      (s) =>
+        s.name.toLowerCase() === metadata.name.toLowerCase() &&
+        s.provider === provider.name,
+    );
+    alreadyExists = !!existingMatch;
+    if (existingMatch) {
+      if (existingMatch.version === metadata.version) {
+        installStatus = args.flags.force
+          ? "REINSTALL"
+          : `UPDATE: ${existingMatch.version} (same version)`;
+      } else {
+        installStatus = `UPDATE: ${existingMatch.version} → ${metadata.version}`;
+      }
+    } else {
+      // Skill not installed in target provider — check if it exists in another tool
+      crossToolLink = await checkCrossToolLink(
+        skillName,
+        provider.name,
+        config,
+      );
+      if (crossToolLink) {
+        installStatus = "LINK_AVAILABLE";
+      } else {
+        installStatus = "NEW";
+      }
+    }
+
+    // If skill already exists, force overwrite (user will confirm at the end)
+    plan = buildInstallPlan(
+      source,
+      tempDir,
+      skillDir,
+      skillName,
+      provider,
+      args.flags.force || alreadyExists,
+      scope,
+    );
+  }
 
   const riskLevel = classifyWarningRisk(warnings);
   const riskLabel =
@@ -211,8 +277,7 @@ export async function inspectSkillForInstall(
 export function displaySkillInspection(
   inspection: SkillInspection,
   sourceStr: string,
-  provider: ProviderConfig,
-  allProviders: ProviderConfig[] | null,
+  target: InstallTarget,
   isBatch: boolean,
   batchContext?: { index: number; total: number },
 ) {
@@ -238,9 +303,13 @@ export function displaySkillInspection(
     );
 
     // Show cross-tool link hint
-    if (installStatus === "LINK_AVAILABLE" && crossToolLink) {
+    if (
+      installStatus === "LINK_AVAILABLE" &&
+      crossToolLink &&
+      target.kind === "provider"
+    ) {
       console.info(
-        `    ${ansi.dim(`Already installed in ${crossToolLink.existingProviderLabel}. `)}${ansi.cyan(`Run with --tool ${provider.name} to link, or reinstall for a fresh copy.`)}`,
+        `    ${ansi.dim(`Already installed in ${crossToolLink.existingProviderLabel}. `)}${ansi.cyan(`Run with --tool ${target.provider.name} to link, or reinstall for a fresh copy.`)}`,
       );
     }
 
@@ -258,27 +327,34 @@ export function displaySkillInspection(
       );
     }
     console.info(`    ${ansi.bold("Source:")}      ${sourceStr}`);
-    if (allProviders) {
+    if (target.kind === "library") {
+      // A library install is provider-independent: it has no provider and no
+      // provider scope, so printing either would describe an operation the
+      // install never performs (#798).
+      console.info(`    ${ansi.bold("Tool:")}    Library`);
+    } else if (target.allProviders) {
       console.info(
-        `    ${ansi.bold("Tool:")}    All (${allProviders.map((p) => p.label).join(", ")})`,
+        `    ${ansi.bold("Tool:")}    All (${target.allProviders.map((p) => p.label).join(", ")})`,
       );
       console.info(
-        `    ${ansi.bold("Primary:")}     ${provider.label} (${provider.name})`,
+        `    ${ansi.bold("Primary:")}     ${target.provider.label} (${target.provider.name})`,
       );
       console.info(
-        `    ${ansi.bold("Symlinks:")}    ${allProviders
-          .filter((p) => p.name !== provider.name)
+        `    ${ansi.bold("Symlinks:")}    ${target.allProviders
+          .filter((p) => p.name !== target.provider.name)
           .map((p) => p.label)
           .join(", ")}`,
       );
     } else {
       console.info(
-        `    ${ansi.bold("Tool:")}    ${provider.label} (${provider.name})`,
+        `    ${ansi.bold("Tool:")}    ${target.provider.label} (${target.provider.name})`,
       );
     }
-    console.info(
-      `    ${ansi.bold("Scope:")}       ${plan.scope === "project" ? "Project" : "Global"}`,
-    );
+    if (target.kind === "provider") {
+      console.info(
+        `    ${ansi.bold("Scope:")}       ${plan.scope === "project" ? "Project" : "Global"}`,
+      );
+    }
     console.info(`    ${ansi.bold("Target:")}      ${plan.targetDir}`);
     console.info(`    ${ansi.bold("Status:")}      ${statusColor}`);
     console.info(`    ${ansi.bold("Risk:")}        ${riskLabel}`);

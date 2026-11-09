@@ -918,6 +918,246 @@ describe("CLI integration: install --library", () => {
     }
   });
 
+  test("install --library previews the library tool and target, not a provider", async () => {
+    const sourceSkillDir = join(tempDir, "source", "library-preview");
+    await mkdir(sourceSkillDir, { recursive: true });
+    await writeFile(
+      join(sourceSkillDir, "SKILL.md"),
+      `---\nname: library-preview\nversion: 1.0.0\n---\n# Library preview\n`,
+    );
+
+    const homeDir = join(tempDir, "home");
+    const librarySkillDir = join(
+      homeDir,
+      ".config",
+      "agent-skill-manager",
+      "library",
+      "skills",
+      "library-preview",
+    );
+
+    const res = await runCliInProcess(
+      ["npx", "tsx", CLI_BIN, "install", sourceSkillDir, "--library", "-y"],
+      { env: { ...process.env, HOME: homeDir, NO_COLOR: "1" } },
+    );
+
+    expect(res.exitCode, `stdout:\n${res.stdout}\nstderr:\n${res.stderr}`).toBe(
+      0,
+    );
+    expect(res.stdout).toContain("Tool:    Library");
+
+    const targetLine = res.stdout
+      .split("\n")
+      .find((line) => line.includes("Target:"));
+    expect(targetLine).toBeDefined();
+    expect(targetLine).toContain(librarySkillDir);
+
+    // A library install is provider-independent: the preview must not describe
+    // a provider destination, provider scope, or an agents install (#798).
+    expect(res.stdout).not.toContain("Tool:    Agents");
+    expect(res.stdout).not.toContain("Scope:       Global");
+    expect(res.stdout).not.toContain(
+      join(".agents", "skills", "library-preview"),
+    );
+
+    // The reported install path is the library copy, not a provider one.
+    expect(res.stderr).toContain(`to ${librarySkillDir}`);
+    await expect(
+      readFile(join(librarySkillDir, "SKILL.md"), "utf-8"),
+    ).resolves.toContain("# Library preview");
+  });
+
+  test("batch library install shows Library settings without a scope line", async () => {
+    const sourceDir = join(tempDir, "batch-source");
+    await mkdir(join(sourceDir, "alpha"), { recursive: true });
+    await mkdir(join(sourceDir, "beta"), { recursive: true });
+    await writeFile(
+      join(sourceDir, "alpha", "SKILL.md"),
+      `---\nname: alpha\nversion: 1.0.0\n---\n# Alpha\n`,
+    );
+    await writeFile(
+      join(sourceDir, "beta", "SKILL.md"),
+      `---\nname: beta\nversion: 1.0.0\n---\n# Beta\n`,
+    );
+
+    const homeDir = join(tempDir, "home");
+    const librarySkillsDir = join(
+      homeDir,
+      ".config",
+      "agent-skill-manager",
+      "library",
+      "skills",
+    );
+
+    const res = await runCliInProcess(
+      ["npx", "tsx", CLI_BIN, "install", sourceDir, "--all", "--library", "-y"],
+      { env: { ...process.env, HOME: homeDir, NO_COLOR: "1" } },
+    );
+
+    expect(res.exitCode, `stdout:\n${res.stdout}\nstderr:\n${res.stderr}`).toBe(
+      0,
+    );
+
+    const settingsStart = res.stdout.indexOf("Install settings:");
+    expect(settingsStart).toBeGreaterThanOrEqual(0);
+    const settings = res.stdout.slice(settingsStart);
+    expect(settings).toContain("Tool:    Library");
+    expect(settings).not.toMatch(/Scope:\s/);
+
+    await expect(
+      readFile(join(librarySkillsDir, "alpha", "SKILL.md"), "utf-8"),
+    ).resolves.toContain("# Alpha");
+    await expect(
+      readFile(join(librarySkillsDir, "beta", "SKILL.md"), "utf-8"),
+    ).resolves.toContain("# Beta");
+    await expect(
+      lstat(join(homeDir, ".agents", "skills", "alpha")),
+    ).rejects.toMatchObject({ code: "ENOENT" });
+  });
+
+  test("library install ignores a same-named provider copy and keeps it untouched", async () => {
+    const sourceSkillDir = join(tempDir, "source", "isolation");
+    await mkdir(sourceSkillDir, { recursive: true });
+    await writeFile(
+      join(sourceSkillDir, "SKILL.md"),
+      `---\nname: isolation\nversion: 1.0.0\n---\n# Provider copy v1\n`,
+    );
+
+    const homeDir = join(tempDir, "home");
+    const providerSkillDir = join(homeDir, ".agents", "skills", "isolation");
+    const librarySkillDir = join(
+      homeDir,
+      ".config",
+      "agent-skill-manager",
+      "library",
+      "skills",
+      "isolation",
+    );
+
+    const providerInstall = await runCliInProcess(
+      [
+        "npx",
+        "tsx",
+        CLI_BIN,
+        "install",
+        sourceSkillDir,
+        "-p",
+        "agents",
+        "-s",
+        "global",
+        "-y",
+      ],
+      { env: { ...process.env, HOME: homeDir, NO_COLOR: "1" } },
+    );
+    expect(
+      providerInstall.exitCode,
+      `stdout:\n${providerInstall.stdout}\nstderr:\n${providerInstall.stderr}`,
+    ).toBe(0);
+    await expect(
+      readFile(join(providerSkillDir, "SKILL.md"), "utf-8"),
+    ).resolves.toContain("# Provider copy v1");
+
+    // Differentiate the two copies so the untouched provider copy is provable.
+    await writeFile(
+      join(sourceSkillDir, "SKILL.md"),
+      `---\nname: isolation\nversion: 2.0.0\n---\n# Library copy v2\n`,
+    );
+
+    const libraryInstall = await runCliInProcess(
+      ["npx", "tsx", CLI_BIN, "install", sourceSkillDir, "--library", "-y"],
+      { env: { ...process.env, HOME: homeDir, NO_COLOR: "1" } },
+    );
+
+    expect(
+      libraryInstall.exitCode,
+      `stdout:\n${libraryInstall.stdout}\nstderr:\n${libraryInstall.stderr}`,
+    ).toBe(0);
+    expect(libraryInstall.stdout).toContain("[NEW]");
+    expect(libraryInstall.stdout).not.toContain("UPDATE");
+    expect(libraryInstall.stdout).not.toContain("LINK_AVAILABLE");
+    expect(libraryInstall.stdout).not.toContain("Already installed in");
+
+    await expect(
+      readFile(join(librarySkillDir, "SKILL.md"), "utf-8"),
+    ).resolves.toContain("# Library copy v2");
+    await expect(
+      readFile(join(providerSkillDir, "SKILL.md"), "utf-8"),
+    ).resolves.toContain("# Provider copy v1");
+  });
+
+  test("reinstalling an existing library skill previews UPDATE and overwrites it", async () => {
+    const sourceSkillDir = join(tempDir, "source", "refresh");
+    await mkdir(sourceSkillDir, { recursive: true });
+    await writeFile(
+      join(sourceSkillDir, "SKILL.md"),
+      `---\nname: refresh\nversion: 1.0.0\n---\n# Library v1\n`,
+    );
+
+    const homeDir = join(tempDir, "home");
+    const librarySkillDir = join(
+      homeDir,
+      ".config",
+      "agent-skill-manager",
+      "library",
+      "skills",
+      "refresh",
+    );
+
+    const firstInstall = await runCliInProcess(
+      ["npx", "tsx", CLI_BIN, "install", sourceSkillDir, "--library", "-y"],
+      { env: { ...process.env, HOME: homeDir, NO_COLOR: "1" } },
+    );
+    expect(
+      firstInstall.exitCode,
+      `stdout:\n${firstInstall.stdout}\nstderr:\n${firstInstall.stderr}`,
+    ).toBe(0);
+
+    await writeFile(
+      join(sourceSkillDir, "SKILL.md"),
+      `---\nname: refresh\nversion: 2.0.0\n---\n# Library v2\n`,
+    );
+
+    // The library's own overwrite guard still applies: without --force the
+    // preview reports EXISTS from library state and the copy is left alone.
+    const guardedInstall = await runCliInProcess(
+      ["npx", "tsx", CLI_BIN, "install", sourceSkillDir, "--library", "-y"],
+      { env: { ...process.env, HOME: homeDir, NO_COLOR: "1" } },
+    );
+    expect(
+      guardedInstall.exitCode,
+      `stdout:\n${guardedInstall.stdout}\nstderr:\n${guardedInstall.stderr}`,
+    ).not.toBe(0);
+    expect(guardedInstall.stdout).toContain(
+      "[EXISTS: 1.0.0 (--force to overwrite)]",
+    );
+    await expect(
+      readFile(join(librarySkillDir, "SKILL.md"), "utf-8"),
+    ).resolves.toContain("# Library v1");
+
+    const forcedInstall = await runCliInProcess(
+      [
+        "npx",
+        "tsx",
+        CLI_BIN,
+        "install",
+        sourceSkillDir,
+        "--library",
+        "--force",
+        "-y",
+      ],
+      { env: { ...process.env, HOME: homeDir, NO_COLOR: "1" } },
+    );
+
+    expect(
+      forcedInstall.exitCode,
+      `stdout:\n${forcedInstall.stdout}\nstderr:\n${forcedInstall.stderr}`,
+    ).toBe(0);
+    expect(forcedInstall.stdout).toContain("[UPDATE: 1.0.0 → 2.0.0]");
+    await expect(
+      readFile(join(librarySkillDir, "SKILL.md"), "utf-8"),
+    ).resolves.toContain("# Library v2");
+  });
+
   test("does not overwrite an existing library skill when only provider install exists", async () => {
     const homeDir = join(tempDir, "home");
     const providerSkillDir = join(homeDir, ".claude", "skills", "foo");
@@ -981,31 +1221,47 @@ describe("CLI integration: install --library", () => {
     );
 
     const res = await runCliInProcess(
-      [
-        "npx",
-        "tsx",
-        CLI_BIN,
-        "install",
-        sourceSkillDir,
-        "--library",
-        "-y",
-        "--json",
-      ],
+      ["npx", "tsx", CLI_BIN, "install", sourceSkillDir, "--library", "-y"],
       {
         env: { ...process.env, HOME: homeDir, NO_COLOR: "1" },
       },
     );
 
-    expect(res.exitCode).not.toBe(0);
+    expect(
+      res.exitCode,
+      `stdout:\n${res.stdout}\nstderr:\n${res.stderr}`,
+    ).not.toBe(0);
     expect(`${res.stdout}\n${res.stderr}`).toMatch(
       /Library skill already exists|--force/,
     );
+
+    // The preview must describe the library target and its own overwrite
+    // guard, not the same-named provider copy (#798).
+    expect(res.stdout).toContain("Tool:    Library");
+    const targetLine = res.stdout
+      .split("\n")
+      .find((line) => line.includes("Target:"));
+    expect(targetLine).toBeDefined();
+    expect(targetLine).toContain(librarySkillDir);
+    const statusLine = res.stdout
+      .split("\n")
+      .find((line) => line.includes("Status:"));
+    expect(statusLine).toBeDefined();
+    expect(statusLine).toContain("EXISTS:");
+    expect(res.stdout).not.toContain("[NEW]");
+    expect(res.stdout).not.toContain("[UPDATE");
+
+    // Refused, so the existing library copy is untouched.
     const librarySkillMd = await readFile(
       join(librarySkillDir, "SKILL.md"),
       "utf-8",
     );
     expect(librarySkillMd).toContain("# Existing library");
-    expect(librarySkillMd).not.toContain("# New source");
+    const providerSkillMd = await readFile(
+      join(providerSkillDir, "SKILL.md"),
+      "utf-8",
+    );
+    expect(providerSkillMd).toContain("# Existing provider");
   });
 
   test("rejects Vercel method for library installs before provider delegation", async () => {

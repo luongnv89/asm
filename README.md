@@ -900,6 +900,8 @@ asm install github:user/skills --method vercel --skill my-skill
 | `-y, --yes`              | Skip confirmation              |
 | `--json`                 | JSON output                    |
 
+`--library` is provider-independent: the preview names the library and its real target path, `--tool` and `--scope` do not apply, and an existing library copy is kept unless `--force` is given.
+
 Multi-skill repos: scans up to 5 levels deep. Root `SKILL.md` installs by default; use `--all` for every skill. Requires `git` on PATH.
 
 If a skill ships `scripts/package.json`, ASM installs its dependencies with `npm install --ignore-scripts`, so no install scripts from the skill or its dependencies run, and git dependencies are refused. Dependencies that need a native build step are not compiled; for a skill you trust, run `npm rebuild` in its `scripts/` directory after installing.

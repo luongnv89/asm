@@ -39,7 +39,7 @@ import {
   buildRepoUrl,
   linkExistingSkill,
 } from "../installer";
-import type { InstallResult, ProviderConfig } from "../utils/types";
+import type { InstallResult } from "../utils/types";
 import { checkboxPicker } from "../utils/checkbox-picker";
 import {
   isBareOrScopedName,
@@ -60,7 +60,7 @@ import { errorMessage } from "../utils/errors";
 import { error, readLine } from "./shared";
 import type { ParsedArgs } from "../cli";
 import { promptInstallScope } from "./install-prompts";
-import type { SkillInspection } from "./install-inspect";
+import type { SkillInspection, InstallTarget } from "./install-inspect";
 import {
   printInstallHelp,
   inspectSkillForInstall,
@@ -295,18 +295,12 @@ export async function cmdInstall(args: ParsedArgs) {
 
     // Step 2: Select provider (before cloning — no wasted time if user cancels)
     const config = await loadConfig();
-    let provider: ProviderConfig;
-    let allProviders: ProviderConfig[] | null = null;
+    let target: InstallTarget;
     let installScope: "global" | "project" = "global";
 
     if (args.flags.library) {
       console.info(stepHeader("Selecting library"));
-      const inspectionProvider =
-        config.providers.find((p) => p.enabled) ?? config.providers[0];
-      if (!inspectionProvider) {
-        throw new Error("No providers configured.");
-      }
-      provider = inspectionProvider;
+      target = { kind: "library" };
       console.info(`  ${ansi.dim(`library: ${getLibrarySkillsDir()}`)}`);
     } else {
       console.info(stepHeader("Selecting provider"));
@@ -315,18 +309,22 @@ export async function cmdInstall(args: ParsedArgs) {
         args.flags.provider,
         !!process.stdin.isTTY,
       );
-      provider = resolved.provider;
-      allProviders = resolved.allProviders;
 
       // Step 3: Select scope (global or project) — shared preamble (#612)
       console.info(stepHeader("Selecting scope"));
       installScope = await promptInstallScope({
         scopeFlag: args.flags.scope,
-        provider,
+        provider: resolved.provider,
         isTTY: !!process.stdin.isTTY,
         yes: !!args.flags.yes,
         log: (message: string) => console.info(message),
       });
+
+      target = {
+        kind: "provider",
+        provider: resolved.provider,
+        allProviders: resolved.allProviders,
+      };
     }
 
     // Step 4: Clone repository (or read local source)
@@ -596,7 +594,10 @@ export async function cmdInstall(args: ParsedArgs) {
 
     // Step 7: Inspect selected skills (security scan + NEW/UPDATE status)
     console.info(stepHeader("Inspecting skills"));
-    const existingSkills = await scanAllSkills(config, "both");
+    // Library installs judge NEW/UPDATE from library state alone, so the
+    // provider inventory is neither needed nor consulted for them (#798).
+    const existingSkills =
+      target.kind === "provider" ? await scanAllSkills(config, "both") : [];
     const inspections: SkillInspection[] = [];
     const isBatch = selectedDirs.length > 1;
 
@@ -609,7 +610,7 @@ export async function cmdInstall(args: ParsedArgs) {
         skillDir,
         nameOverride,
         config,
-        provider,
+        target,
         existingSkills,
         installScope,
       );
@@ -618,8 +619,7 @@ export async function cmdInstall(args: ParsedArgs) {
       displaySkillInspection(
         inspection,
         sourceStr,
-        provider,
-        allProviders,
+        target,
         isBatch,
         isBatch ? { index: i + 1, total: selectedDirs.length } : undefined,
       );
@@ -630,19 +630,23 @@ export async function cmdInstall(args: ParsedArgs) {
       console.info("");
       console.info(`  ${ansi.bold("Install settings:")}`);
       console.info(`    ${ansi.bold("Source:")}      ${sourceStr}`);
-      if (allProviders) {
+      if (target.kind === "library") {
+        console.info(`    ${ansi.bold("Tool:")}    Library`);
+      } else if (target.allProviders) {
         console.info(
-          `    ${ansi.bold("Tool:")}    All (${allProviders.map((p) => p.label).join(", ")})`,
+          `    ${ansi.bold("Tool:")}    All (${target.allProviders.map((p) => p.label).join(", ")})`,
         );
       } else {
         console.info(
-          `    ${ansi.bold("Tool:")}    ${provider.label} (${provider.name})`,
+          `    ${ansi.bold("Tool:")}    ${target.provider.label} (${target.provider.name})`,
         );
       }
 
-      console.info(
-        `    ${ansi.bold("Scope:")}      ${installScope === "project" ? "Project" : "Global"}`,
-      );
+      if (target.kind === "provider") {
+        console.info(
+          `    ${ansi.bold("Scope:")}      ${installScope === "project" ? "Project" : "Global"}`,
+        );
+      }
 
       // Show risk summary
       const highCount = inspections.filter(
@@ -671,7 +675,11 @@ export async function cmdInstall(args: ParsedArgs) {
       (i) => i.installStatus === "LINK_AVAILABLE" && i.crossToolLink,
     );
 
-    if (hasLinkAvailable && !args.flags.yes) {
+    // Library installs copy into the library and never link from a provider,
+    // so `inspectSkillForInstall` leaves `crossToolLink` null for them (#798).
+    const linkTargetProvider =
+      target.kind === "provider" ? target.provider : null;
+    if (linkTargetProvider && hasLinkAvailable && !args.flags.yes) {
       if (!process.stdin.isTTY) {
         // In non-interactive mode with LINK_AVAILABLE, default to Link
         for (let i = 0; i < inspections.length; i++) {
@@ -768,7 +776,11 @@ export async function cmdInstall(args: ParsedArgs) {
         : "  ";
 
       // Handle Link choice: skip clone/copy, just symlink from existing install
-      if (linkChoices.get(i) === "link" && inspection.crossToolLink) {
+      if (
+        linkTargetProvider &&
+        linkChoices.get(i) === "link" &&
+        inspection.crossToolLink
+      ) {
         const ct = inspection.crossToolLink!;
         try {
           console.info(
@@ -777,7 +789,7 @@ export async function cmdInstall(args: ParsedArgs) {
           const targetPath = await linkExistingSkill(
             inspection.skillName,
             ct.existingPath,
-            provider.name,
+            linkTargetProvider.name,
             installScope,
             config,
             args.flags.force,
@@ -801,7 +813,7 @@ export async function cmdInstall(args: ParsedArgs) {
               commitHash: "linked",
               ref: null,
               installedAt: new Date().toISOString(),
-              provider: provider.name,
+              provider: linkTargetProvider.name,
               sourceType: "local",
             });
           } catch {
@@ -834,7 +846,10 @@ export async function cmdInstall(args: ParsedArgs) {
               scanBaseDir,
               force: explicitForce,
             })
-          : await executeSkillInstall(inspection.plan, allProviders);
+          : await executeSkillInstall(
+              inspection.plan,
+              target.kind === "provider" ? target.allProviders : null,
+            );
         results.push(result);
         console.info(
           `${progress}${ansi.green("✓")} ${inspection.metadata.name} installed to ${ansi.dim(result.path)}`,
