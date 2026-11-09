@@ -62,6 +62,7 @@ function printLibraryList(rows: Awaited<ReturnType<typeof listLibrarySkills>>) {
 
   const widths = {
     name: Math.max("Name".length, ...rows.map((r) => r.name.length)),
+    key: Math.max("Key".length, ...rows.map((r) => r.dirName.length)),
     version: Math.max("Version".length, ...rows.map((r) => r.version.length)),
     source: Math.max("Source".length, ...rows.map((r) => r.source.length)),
     path: Math.max("Path".length, ...rows.map((r) => r.skillPath.length)),
@@ -69,6 +70,7 @@ function printLibraryList(rows: Awaited<ReturnType<typeof listLibrarySkills>>) {
   };
   const formatRow = (
     name: string,
+    key: string,
     version: string,
     source: string,
     path: string,
@@ -76,6 +78,9 @@ function printLibraryList(rows: Awaited<ReturnType<typeof listLibrarySkills>>) {
   ) =>
     [
       name.padEnd(widths.name),
+      // The directory key is the handle `asm uninstall <entry> --library`
+      // removes; show it even when it differs from the frontmatter name.
+      key.padEnd(widths.key),
       version.padEnd(widths.version),
       source.padEnd(widths.source),
       path.padEnd(widths.path),
@@ -83,10 +88,11 @@ function printLibraryList(rows: Awaited<ReturnType<typeof listLibrarySkills>>) {
     ].join("  ");
 
   const lines = [
-    ansi.bold(formatRow("Name", "Version", "Source", "Path", "Status")),
+    ansi.bold(formatRow("Name", "Key", "Version", "Source", "Path", "Status")),
     ...rows.map((row) =>
       formatRow(
         row.name,
+        row.dirName,
         row.version,
         row.source,
         row.skillPath,
