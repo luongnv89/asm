@@ -102,7 +102,9 @@ _None recorded._
 
 `.github/workflows/security.yml` runs the same `scripts/security_check.py`
 on `push` to `main` and on every `pull_request`. The workflow installs
-`gitleaks`, `trivy`, and `semgrep`, caches the trivy vulnerability database
+`gitleaks`, `trivy`, and `semgrep` (the gitleaks and trivy archives are
+fetched with `curl -f` and retried, so an HTTP error fails the download step
+by name before the pinned SHA-256 check), caches the trivy vulnerability database
 between runs, and uploads `security/security-report.{json,md}` as the
 `security-reports` artifact. Failure parity with the local hook: any
 `HIGH` or `CRITICAL` finding fails the job.
