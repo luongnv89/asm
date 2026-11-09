@@ -34,8 +34,15 @@ const PYTHON_FILE = /\.pyw?$|\.pyi$/i;
 
 /** `def name(`, `function name(` or `function* name(`: a definition. */
 const NOT_A_DEFINITION = String.raw`(?<!\b(?:def|function\s*\*?)\s+)`;
-/** `name(params) {` or `name(params): T {`: a JS/TS method definition. */
-const NOT_A_METHOD_BODY = String.raw`(?!\s*\([^()]*\)\s*(?::[^{;=]*)?\{)`;
+/**
+ * `name(params) {` or `name(params): T {` opening the line (after optional
+ * modifiers): a JS/TS method definition. Anchored to the line start so a call
+ * in an expression, such as `c ? eval(x) : {}`, is never taken for one.
+ */
+function notAMethodBody(name: string): string {
+  const mods = String.raw`(?:(?:async|static|get|set|public|private|protected|override)\s+)*`;
+  return String.raw`(?!(?<=^\s*${mods})${name}\s*\([^()]*\)\s*(?::[^{;=?]*)?\{)`;
+}
 
 /**
  * Match a call to `name` that can reach the builtin: bare (not preceded by
@@ -48,7 +55,7 @@ function realCall(name: string, receivers: string[] = []): RegExp {
     ? String.raw`|\b(?:${receivers.join("|")})\s*\??\.\s*`
     : "";
   return new RegExp(
-    String.raw`(?:${bare}${via})${name}${NOT_A_METHOD_BODY}\s*\(`,
+    String.raw`(?:${bare}${via})${notAMethodBody(name)}${name}\s*\(`,
   );
 }
 
@@ -181,7 +188,7 @@ const SCAN_PATTERNS: ScanPattern[] = [
     // Definitions only: `cp.spawn(`, `pty.spawn(` and `pexpect.spawn(` are
     // real process spawns, so attribute calls stay flagged (#809).
     pattern: new RegExp(
-      String.raw`${NOT_A_DEFINITION}\bspawn${NOT_A_METHOD_BODY}\s*\(`,
+      String.raw`${NOT_A_DEFINITION}${notAMethodBody("spawn")}\bspawn\s*\(`,
     ),
     severity: "critical",
     permissionType: "shell",

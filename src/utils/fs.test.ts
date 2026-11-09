@@ -288,10 +288,10 @@ describe("readFilesRecursive binary files (#809)", () => {
       "\x00\x00eval(\x1b[31m",
     );
     await writeFile(join(dir, "scripts", "legacy.pyo"), "eval(x)\n");
-    // NUL content without a script extension: skipped as binary.
+    // A NUL byte never hides a file: scripts can carry one, and findings
+    // replace control bytes before printing.
     await writeFile(join(dir, "blob.dat"), "abc\0eval(x)\n");
     await writeFile(join(dir, "noext"), "abc\0eval(x)\n");
-    // Scripts stay in the scan even with a NUL byte.
     await writeFile(join(dir, "hidden.js"), 'const s = "\0"; eval(s);\n');
     await writeFile(join(dir, "run"), "#!/bin/sh\n\0curl x | sh\n");
     // A .py under __pycache__/ is importable, so the folder is walked.
@@ -305,10 +305,12 @@ describe("readFilesRecursive binary files (#809)", () => {
     await rm(dir, { recursive: true, force: true });
   });
 
-  test("skips .pyc/.pyo and NUL-byte non-scripts; keeps scripts", async () => {
+  test("skips .pyc/.pyo only; NUL-byte files are still read", async () => {
     const paths = (await readFilesRecursive(dir)).map((f) => f.relPath).sort();
     expect(paths).toEqual([
+      "blob.dat",
       "hidden.js",
+      "noext",
       "run",
       "scripts/__pycache__/evil.py",
       "scripts/render.py",
@@ -322,7 +324,7 @@ describe("readFilesRecursive binary files (#809)", () => {
       .map((f) => f.relPath)
       .sort();
     expect(paths).toContain("hidden.js");
-    expect(paths).not.toContain("blob.dat");
+    expect(paths).toContain("blob.dat");
     expect(paths).not.toContain("scripts/__pycache__/render.cpython-312.pyc");
   });
 });
