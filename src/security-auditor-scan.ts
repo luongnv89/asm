@@ -50,7 +50,8 @@ function notAMethodBody(name: string): string {
  * and calls on any other object do not match.
  */
 function realCall(name: string, receivers: string[] = []): RegExp {
-  const bare = String.raw`(?<![\w$.])${NOT_A_DEFINITION}`;
+  // Not after an identifier or a member `.`; a spread `...eval(` is a call.
+  const bare = String.raw`(?<![\w$])(?<!(?:^|[^.])\.)${NOT_A_DEFINITION}`;
   const via = receivers.length
     ? String.raw`|\b(?:${receivers.join("|")})\s*\??\.\s*`
     : "";
@@ -62,7 +63,11 @@ function realCall(name: string, receivers: string[] = []): RegExp {
 /** Objects whose `eval` / `Function` is the global one. */
 const GLOBAL_OBJECTS = ["window", "globalThis", "global"];
 /** Python modules whose `eval` / `exec` is the builtin. */
-const PY_BUILTINS = ["builtins", "__builtins__"];
+const PY_BUILTINS = [
+  "builtins",
+  "__builtins__",
+  String.raw`__import__\s*\(\s*['"](?:builtins|__builtin__)['"]\s*\)`,
+];
 
 /**
  * The real-call matchers, shared with the `asm install` preview scan so both
