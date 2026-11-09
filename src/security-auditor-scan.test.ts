@@ -378,7 +378,7 @@ const mustFail: Array<[string, string]> = [
   ["run.js", "\teval(x)\t: {}"],
   ["run.js", "  spawn(cmd) : {}"],
   ["run.ts", "  spawn(cmd) : {}"],
-  // A return type is TS-only, and without a modifier only a plain name.
+  // A return type never makes a call a method (AC1 addendum).
   ["run.js", "  eval(p) : Foo {"],
   ["run.ts", "  eval(p) : a<b>{}"],
   ["run.ts", "  eval(p) : a.b<c>{}"],
@@ -444,10 +444,52 @@ const mustFail: Array<[string, string]> = [
   ["run.py", "\uff42uiltins.exec(code)"],
   ["run.py", "__\uff42uiltins__.eval(code)"],
   ["run.py", "\u{1d41b}uiltins.eval(code)"],
+  // AC1 addendum (Luong, 2026-11-09): a JS/TS method definition is not
+  // exempt, because a call's own arguments can forge its shape. Every such
+  // line is a call, as before #809; only a Python `def` is a definition.
+  ["engine.js", "function eval(node) {"],
+  ["engine.js", "  eval(node) {"],
+  ["engine.ts", "  async eval(node: Node): Promise<Value> {"],
+  ["engine.js", "  exec(command) {"],
+  ["engine.ts", "  static eval(node): Value {"],
+  ["engine.ts", "  private exec(sql: string): Promise<Row[]> {"],
+  ["engine.js", "  Function(name) {"],
+  ["pool.js", "function spawn(worker) {"],
+  ["engine.ts", "  eval(node): Value {"],
+  ["engine.ts", "  eval(node: Node): ast.Value {"],
+  ["engine.ts", "  exec(sql): Row[] {"],
+  ["engine.tsx", "  Function(name): Fn {"],
+  ["engine.ts", "  spawn(n): Worker {"],
+  ["engine.ts", "  eval(x) {"],
+  ["engine.mts", "  eval(x) {"],
+  ["engine.ts", "  public eval(x): Map<string, number> {"],
+  ["engine.ts", "  async eval(x): Promise<A | B> {"],
+  ["engine.ts", "  async eval(x): Promise<T> {"],
+  // The forgeries behind the addendum: `){` inside the call's arguments.
+  ["run.js", 'eval("){".slice(2) + c);'],
+  ["run.js", "eval(/*){*/c);"],
+  ["run.ts", 'eval("): T {".slice(6) + c);'],
+  ["run.py", 'eval("){"[2:] + code)'],
+  // B7 (round 4): an escaped or NFKC `)` and `{` in a string or comment.
+  // A line is real when its raw or its interpreted text matches.
+  ["run.js", 'eval("\\u0029{".slice(2) + c);'],
+  ["run.js", 'eval("\\u0029{");'],
+  ["run.js", "eval(/*\\u0029{*/c);"],
+  ["run.js", 'eval("\\u{29}\\u{7b}".slice(2) + c);'],
+  ["run.js", 'Function("\\u0029{".slice(2) + c)();'],
+  ["run.js", '    eval("\\u0029{".slice(2) + c);'],
+  ["run.ts", 'eval("\\u0029{".slice(2) + c);'],
+  ["run.ts", 'eval("\\u0029: T {".slice(6) + c);'],
+  ["run.js", 'spawn("\\u0029{".slice(2) + cmd);'],
+  ["run.js", 'exec("\\u0029{".slice(2) + cmd);'],
+  ["run.py", 'eval("\uff09\uff5b"[2:] + code)'],
+  ["run.py", 'exec("\ufe5a\ufe5b"[2:] + code)'],
+  ["run.py", '    eval("\uff09\uff5b"[2:] + code)'],
+  ["run.py", "\uff44\uff45\uff46 eval(code)"],
 ];
 
-// Method-shaped: definitions and calls on an identifier receiver. A warning
-// under METHOD_CALL_CATEGORY, never critical (#809).
+// Method-shaped: a Python `def` and calls on an identifier receiver. A
+// warning under METHOD_CALL_CATEGORY, never critical (#809).
 const mustPass: Array<[string, string]> = [
   ["render.py", "    def eval(self, expression):"],
   ["render.py", "    async def eval(self, expression: str) -> str:"],
@@ -460,26 +502,9 @@ const mustPass: Array<[string, string]> = [
   ["match.js", "while ((m = /a(b)/g.exec(s)) !== null) {}"],
   ["page.js", "await page.eval(selector)"],
   ["page.js", "obj?.eval(x)"],
-  ["engine.js", "function eval(node) {"],
-  ["engine.js", "  eval(node) {"],
-  ["engine.ts", "  async eval(node: Node): Promise<Value> {"],
-  ["engine.js", "  exec(command) {"],
-  ["engine.ts", "  static eval(node): Value {"],
-  ["engine.ts", "  private exec(sql: string): Promise<Row[]> {"],
-  ["engine.js", "  Function(name) {"],
   ["engine.js", "this.eval(node)"],
   ["engine.py", "def Function(name):"],
   ["pool.py", "    def spawn(self, n):"],
-  ["pool.js", "function spawn(worker) {"],
-  // TS methods with a plain return type, and no-annotation methods.
-  ["engine.ts", "  eval(node): Value {"],
-  ["engine.ts", "  eval(node: Node): ast.Value {"],
-  ["engine.ts", "  exec(sql): Row[] {"],
-  ["engine.tsx", "  Function(name): Fn {"],
-  ["engine.ts", "  spawn(n): Worker {"],
-  ["engine.ts", "  eval(x) {"],
-  ["engine.ts", "  public eval(x): Map<string, number> {"],
-  ["engine.ts", "  async eval(x): Promise<A | B> {"],
   // A receiver on the same line, even with a space before `.`.
   ["page.js", "browser .eval(x)"],
   ["page.js", "browser\t?.eval(x)"],
@@ -493,6 +518,7 @@ const mustPass: Array<[string, string]> = [
   ["page.js", "bro\\u0077ser.eval(x)"],
   ["engine.ts", "\\u0074his.eval(node)"],
   ["render.py", "\uff53elf.eval(x)"],
+  ["render.py", "    def eval(self, e):  # \uff09\uff5b"],
 ];
 
 describe("dynamic execution: real calls only (#809)", () => {

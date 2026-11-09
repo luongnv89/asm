@@ -30,8 +30,14 @@ interface ScanPattern {
 // `eval`, `exec`, `spawn` and `Function` are only dangerous as calls to the
 // language's own builtin: a bare `eval(x)` / `exec(x)` or one through a global
 // object (`window.eval(x)`, `builtins.exec(x)`). A method with the same name
-// usually is not: `def eval(self, …)`, a JS method `eval(expr) {`,
-// `self.eval(…)` in Python, `browser.eval(…)` or a regex's `re.exec(s)`.
+// usually is not: a Python `def eval(self, …)`, `self.eval(…)` in Python,
+// `browser.eval(…)` or a regex's `re.exec(s)`.
+//
+// A JS/TS method definition (`eval(x) {`, `async eval(x): T {`) and a JS
+// `function eval(` are not exempt: a call's own arguments can forge the
+// method shape (`eval("){".slice(2) + c)`, `eval(/*){*/c)`), so every such
+// line is a call, as before #809 (AC1 addendum). Only a Python `def` makes a
+// name a definition.
 //
 // Invariant: every line the candidate pattern (the rule before #809) matches
 // is still reported. A real call keeps its critical rule; a method-shaped one
@@ -56,66 +62,37 @@ const METHOD_CALL_DESCRIPTION =
   "A method or attribute call named like a builtin (`obj.eval(…)`, `def eval(self, …)`): check it is not dynamic code";
 
 /** The only files whose method shapes the real-call matchers model (#809). */
-type CallLanguage = "python" | "js" | "ts";
+type CallLanguage = "python" | "js";
 const PYTHON_FILE = /\.py$/i;
-const JS_FILE = /\.[mc]?js$/i;
-/** TypeScript source, the only place a `name(params): T {` method exists. */
-const TYPESCRIPT_FILE = /\.(?:tsx?|mts|cts)$/i;
+/** JavaScript and TypeScript source. */
+const JS_FILE = /\.(?:[mc]?js|tsx?|[mc]ts)$/i;
 
 function callLanguage(relPath: string): CallLanguage | null {
   if (PYTHON_FILE.test(relPath)) return "python";
   if (JS_FILE.test(relPath)) return "js";
-  if (TYPESCRIPT_FILE.test(relPath)) return "ts";
   return null;
 }
 
-/** Expression keywords: `: void {}` is a ternary's else-branch, not a type. */
-const NOT_A_TYPE = String.raw`(?!(?:typeof|class|new|delete|await|yield|void)\b)`;
-
 /**
  * Whitespace within one line. `\s` would also span `\r`, which ends a line
- * in JS and Python but not in the `\n` split, so `eval(x)\r{}` (a call, then
- * a block) would pass for a method (#809).
+ * in JS and Python but not in the `\n` split, so `def\reval(x)` (`def`, then
+ * a call) would pass for a definition (#809).
  */
 const H = String.raw`[^\S\r\n\u2028\u2029]`;
 
 /**
- * `def name(`, `function name(` or `function* name(`: a definition. Within
- * one line only (`H`): `def<CR>eval(x)` is `def;` and then a call (#809).
+ * A Python `def name(`: a definition, the only one exempt (#809). Within one
+ * line only (`H`): `def<CR>eval(x)` is `def` and then a call.
  */
-const NOT_A_DEFINITION = String.raw`(?<!\b(?:def|function${H}*\*?)${H}+)`;
-/**
- * `name(params) {` opening the line (after optional modifiers): a JS/TS
- * method definition. Anchored to the line start so a call in an expression,
- * such as `c ? eval(x) : {}`, is never taken for one. With `typed` (TS files
- * only), a return type is allowed too (#809):
- * - `name(params): T {`, where `T` is a dotted name, optionally `[]`. Never
- *   `: {` — the `: {}` branch of a ternary wrapped onto this line — nor an
- *   expression keyword (`: void {}`, `: class {}`), nor `: a<b>{}`, which is
- *   a comparison;
- * - after a modifier (`async`, `private`, …), any return type not opening
- *   with `{`: a modifier before `name(` never continues an expression.
- */
-function notAMethodBody(name: string, typed = false): string {
-  const mod = String.raw`(?:async|static|get|set|public|private|protected|override)${H}+`;
-  const head = String.raw`${name}${H}*\([^()]*\)${H}*`;
-  const plain = String.raw`(?<=^${H}*(?:${mod})*)${head}`;
-  if (!typed) return String.raw`(?!${plain}\{)`;
-  const named = String.raw`(?::${H}*${NOT_A_TYPE}[\w$]+(?:\.[\w$]+)*(?:${H}*\[${H}*\])*${H}*)?\{`;
-  const modified = String.raw`(?<=^${H}*(?:${mod})+)${head}:${H}*[\w$][^{;=?\r\n\u2028\u2029]*\{`;
-  return String.raw`(?!${plain}${named}|${modified})`;
-}
+const NOT_A_DEFINITION = String.raw`(?<!\bdef${H}+)`;
 
 /**
  * Match a call to `name` that can reach the builtin: bare (not preceded by
  * an identifier character or by a receiver's `.`), or through one of
- * `receivers`. Definitions and calls on any other object do not match.
+ * `receivers`. Calls on any other object do not match, nor, with `python`,
+ * a `def`.
  */
-function realCall(
-  name: string,
-  receivers: string[] = [],
-  typed = false,
-): RegExp {
+function realCall(name: string, receivers: string[], python: boolean): RegExp {
   // Not after an identifier, and not after `.` when an identifier receiver
   // precedes it on this line. Any other receiver may be the global object:
   // `(globalThis).eval(`, `globalThis/**/.eval(`, `f().exec(`. A spread
@@ -123,13 +100,10 @@ function realCall(
   // `?.eval(`: its receiver is on the line before and may be `globalThis`
   // (#809). A wrapped `browser\n  .eval(` is flagged too, by design, and so
   // is `browser\r  .eval(`.
-  const bare = String.raw`(?<![\w$])(?<![\w$]${H}*\??\.)${NOT_A_DEFINITION}`;
-  const via = receivers.length
-    ? String.raw`|\b(?:${receivers.join("|")})\s*\??\.\s*`
-    : "";
-  return new RegExp(
-    String.raw`(?:${bare}${via})${notAMethodBody(name, typed)}${name}\s*\(`,
-  );
+  const definition = python ? NOT_A_DEFINITION : "";
+  const bare = String.raw`(?<![\w$])(?<![\w$]${H}*\??\.)${definition}`;
+  const via = String.raw`\b(?:${receivers.join("|")})\s*\??\.\s*`;
+  return new RegExp(String.raw`(?:${bare}|${via})${name}\s*\(`);
 }
 
 /** Objects whose `eval` / `Function` is the global one. */
@@ -145,32 +119,23 @@ const PY_BUILTINS = [
 const EVAL_RECEIVERS = [...GLOBAL_OBJECTS, ...PY_BUILTINS];
 const EXEC_RECEIVERS = ["child_process", "childProcess", "cp", ...PY_BUILTINS];
 
-/** `spawn(` is a process spawn on any receiver: exempt definitions only. */
-function spawnCall(typed = false): RegExp {
-  return new RegExp(
-    String.raw`${NOT_A_DEFINITION}${notAMethodBody("spawn", typed)}\bspawn\s*\(`,
-  );
-}
-
-/** Real-call matchers per language. `self.` is the global object outside Python. */
+/**
+ * Real-call matchers per language. `self.` is the global object outside
+ * Python. `spawn(` is a process spawn on any receiver, so only a Python
+ * `def spawn(` is exempt; in JS/TS every `spawn(` is real.
+ */
 const REAL_CALL: Record<CallLanguage, Record<CallName, RegExp>> = {
   python: {
-    eval: realCall("eval", EVAL_RECEIVERS),
-    exec: realCall("exec", EXEC_RECEIVERS),
-    spawn: spawnCall(),
-    Function: realCall("Function", GLOBAL_OBJECTS),
+    eval: realCall("eval", EVAL_RECEIVERS, true),
+    exec: realCall("exec", EXEC_RECEIVERS, true),
+    spawn: new RegExp(String.raw`${NOT_A_DEFINITION}\bspawn\s*\(`),
+    Function: realCall("Function", GLOBAL_OBJECTS, true),
   },
   js: {
-    eval: realCall("eval", [...EVAL_RECEIVERS, "self"]),
-    exec: realCall("exec", EXEC_RECEIVERS),
-    spawn: spawnCall(),
-    Function: realCall("Function", [...GLOBAL_OBJECTS, "self"]),
-  },
-  ts: {
-    eval: realCall("eval", [...EVAL_RECEIVERS, "self"], true),
-    exec: realCall("exec", EXEC_RECEIVERS, true),
-    spawn: spawnCall(true),
-    Function: realCall("Function", [...GLOBAL_OBJECTS, "self"], true),
+    eval: realCall("eval", [...EVAL_RECEIVERS, "self"], false),
+    exec: realCall("exec", EXEC_RECEIVERS, false),
+    spawn: CALL_CANDIDATE.spawn,
+    Function: realCall("Function", [...GLOBAL_OBJECTS, "self"], false),
   },
 };
 
@@ -178,7 +143,9 @@ const REAL_CALL: Record<CallLanguage, Record<CallName, RegExp>> = {
  * Whether a line that `CALL_CANDIDATE[name]` matches can call the builtin.
  * Only `.py`, `.js`, `.mjs`, `.cjs`, `.ts`, `.tsx`, `.mts` and `.cts` files get
  * the method-shape exemptions; in any other file every candidate is real, as
- * before #809. Shared with the `asm install` preview so both scans agree.
+ * before #809. A line is real when either its raw text or its interpreted
+ * text matches, so a spelling can only make a call more real, never exempt
+ * it. Shared with the `asm install` preview so both scans agree.
  */
 export function isRealCall(
   name: CallName,
@@ -187,7 +154,8 @@ export function isRealCall(
 ): boolean {
   const language = callLanguage(relPath);
   if (language === null) return true;
-  return REAL_CALL[language][name].test(interpretedText(line, language));
+  const matcher = REAL_CALL[language][name];
+  return matcher.test(line) || matcher.test(interpretedText(line, language));
 }
 
 /** A JS/TS `\uXXXX` or `\u{…}` escape, which an identifier may contain. */
@@ -196,8 +164,10 @@ const UNICODE_ESCAPE = /\\u\{([0-9a-fA-F]+)\}|\\u([0-9a-fA-F]{4})/g;
 /**
  * The line as the interpreter reads its identifiers, so a receiver cannot
  * hide by spelling (#809): Python NFKC-normalises identifiers (`ｂuiltins` is
- * `builtins`); JS and TS resolve `\u` escapes in them (`glob\u0061lThis`).
- * Only `isRealCall` reads it; the candidate still matches the raw line.
+ * `builtins`); JS and TS resolve `\u` escapes in them (`globalThis`).
+ * The whole line is rewritten, strings and comments included, so it only
+ * ever adds a match to the raw line's (`isRealCall`); the candidate still
+ * matches the raw line.
  */
 function interpretedText(line: string, language: CallLanguage): string {
   if (language === "python") return line.normalize("NFKC");
@@ -307,8 +277,8 @@ const SCAN_PATTERNS: ScanPattern[] = [
     category: "Shell execution",
     description:
       "Commands that execute shell processes or arbitrary system commands",
-    // Only definitions are method-shaped: `cp.spawn(`, `pty.spawn(` and
-    // `pexpect.spawn(` are real process spawns (#809).
+    // Only a Python `def spawn(` is method-shaped: `cp.spawn(`, `pty.spawn(`
+    // and `pexpect.spawn(` are real process spawns (#809).
     pattern: CALL_CANDIDATE.spawn,
     call: "spawn",
     severity: "critical",

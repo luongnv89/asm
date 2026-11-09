@@ -898,7 +898,7 @@ describe("scanForWarnings", () => {
     );
   });
 
-  test("wrapped ternaries and receivers stay flagged; TS return types do not (#809)", async () => {
+  test("wrapped ternaries, receivers and TS method shapes stay flagged (#809)", async () => {
     await writeFile(
       join(tempDir, "run.js"),
       "const r = ok ?\n  eval(p) : {};\nglobalThis\n  .eval(p);\n",
@@ -911,7 +911,7 @@ describe("scanForWarnings", () => {
       join(tempDir, "engine.ts"),
       "class E {\n  eval(node): Value {\n  }\n}\n",
     );
-    // The same return type outside TS is not a method: still flagged.
+    // AC1 addendum: a JS/TS method shape is not exempt, in TS or JS.
     await writeFile(join(tempDir, "engine.js"), "  eval(node): Value {\n");
     const lines = (await scanForWarnings(tempDir)).map(
       (w) => `${w.category}:${w.file}:${w.line}`,
@@ -922,7 +922,7 @@ describe("scanForWarnings", () => {
         "Code execution:run.js:4",
         "Code execution:run.ts:2",
         "Code execution:engine.js:1",
-        `${METHOD_CALL_CATEGORY}:engine.ts:2`,
+        "Code execution:engine.ts:2",
       ].sort(),
     );
   });
@@ -1012,6 +1012,64 @@ describe("scanForWarnings", () => {
         "Code execution:b5.ts:2",
         "Shell commands:b5.py:1",
         "Code execution:b5.py:2",
+      ].sort(),
+    );
+  });
+
+  test("forged method shapes are high risk: raw, escaped or NFKC `){` (#809)", async () => {
+    const files: Array<[string, string]> = [
+      // The addendum's forgeries, and B7: their escaped/NFKC spellings.
+      [
+        "raw.js",
+        'eval("){".slice(2) + c);\neval(/*){*/c);\nFunction("){".slice(2) + c)();',
+      ],
+      ["raw.py", 'eval("){"[2:] + code)\nexec("){"[2:] + code)'],
+      [
+        "esc.js",
+        [
+          'eval("\\u0029{".slice(2) + c);',
+          'eval("\\u0029{");',
+          "eval(/*\\u0029{*/c);",
+          'eval("\\u{29}\\u{7b}".slice(2) + c);',
+          'Function("\\u0029{".slice(2) + c)();',
+          'if (ok) {\n    eval("\\u0029{".slice(2) + c);\n}',
+          'exec("\\u0029{".slice(2) + cmd);',
+        ].join("\n"),
+      ],
+      [
+        "esc.ts",
+        'eval("\\u0029{".slice(2) + c);\neval("\\u0029: T {".slice(6) + c);',
+      ],
+      [
+        "nfkc.py",
+        'eval("\uff09\uff5b"[2:] + code)\nexec("\ufe5a\ufe5b"[2:] + code)\nif ok:\n    eval("\uff09\uff5b"[2:] + code)',
+      ],
+    ];
+    for (const [name, content] of files) {
+      await writeFile(join(tempDir, name), content);
+    }
+    const lines = (await scanForWarnings(tempDir)).map(
+      (w) => `${w.category}:${w.file}:${w.line}`,
+    );
+    expect([...new Set(lines)].sort()).toEqual(
+      [
+        "Code execution:raw.js:1",
+        "Code execution:raw.js:2",
+        "Code execution:raw.js:3",
+        "Code execution:raw.py:1",
+        "Shell commands:raw.py:2",
+        "Code execution:esc.js:1",
+        "Code execution:esc.js:2",
+        "Code execution:esc.js:3",
+        "Code execution:esc.js:4",
+        "Code execution:esc.js:5",
+        "Code execution:esc.js:7",
+        "Shell commands:esc.js:9",
+        "Code execution:esc.ts:1",
+        "Code execution:esc.ts:2",
+        "Code execution:nfkc.py:1",
+        "Shell commands:nfkc.py:2",
+        "Code execution:nfkc.py:4",
       ].sort(),
     );
   });
