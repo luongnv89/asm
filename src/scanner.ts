@@ -243,6 +243,43 @@ function buildScanLocations(config: AppConfig, scope: Scope): ScanLocation[] {
   return locations;
 }
 
+async function realDir(dir: string): Promise<string> {
+  try {
+    return await realpath(dir);
+  } catch {
+    return resolve(dir);
+  }
+}
+
+/**
+ * Drop project locations whose real path is a global location's real path.
+ * From `$HOME` (or through a symlink) `./.claude/skills` is the same directory
+ * as `~/.claude/skills`; that directory is global, so it is not scanned again
+ * as a project install (#806). Global dirs are checked for every scope so
+ * `-s project` agrees with `-s both`.
+ */
+async function dropProjectAliasesOfGlobal(
+  config: AppConfig,
+  locations: ScanLocation[],
+): Promise<ScanLocation[]> {
+  if (!locations.some((loc) => loc.scope === "project")) return locations;
+
+  const globalReal = new Set(
+    await Promise.all(
+      buildScanLocations(config, "global").map((loc) => realDir(loc.dir)),
+    ),
+  );
+  const keep = await Promise.all(
+    locations.map(async (loc) => {
+      if (loc.scope !== "project") return true;
+      if (!globalReal.has(await realDir(loc.dir))) return true;
+      debug(`scan: skipping ${loc.dir} (${loc.location}) — same as global`);
+      return false;
+    }),
+  );
+  return locations.filter((_, index) => keep[index]);
+}
+
 export async function countFiles(dir: string): Promise<number> {
   try {
     const entries = await readdir(dir, { recursive: true });
@@ -784,7 +821,10 @@ export async function scanAllSkills(
   pluginBaseDir?: string,
   codexCacheDir?: string,
 ): Promise<SkillInfo[]> {
-  const locations = buildScanLocations(config, scope);
+  const locations = await dropProjectAliasesOfGlobal(
+    config,
+    buildScanLocations(config, scope),
+  );
   const isGlobal = scope === "global" || scope === "both";
   const scheduler = createScanEntryScheduler();
 

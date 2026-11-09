@@ -82,7 +82,7 @@ import {
   readdir,
 } from "fs/promises";
 import { join, resolve } from "path";
-import { tmpdir } from "os";
+import { homedir, tmpdir } from "os";
 import {
   searchSkills,
   sortSkills,
@@ -1786,5 +1786,95 @@ describe("creator from metadata.author (#787)", () => {
     expect(by("author-only").creator).toBe("luongnv89");
     expect(by("both-keys").creator).toBe("the-creator");
     expect(by("neither").creator).toBe("");
+  });
+});
+
+// ─── project dir that is the global dir (#806) ──────────────────────────────
+
+describe("scanAllSkills project dir aliasing the global dir (#806)", () => {
+  // HOME is the per-file sandbox from src/test-setup.ts, never the real home.
+  let home: string;
+  let tempDir: string;
+  const prevCwd = process.cwd();
+
+  const config = (): AppConfig => ({
+    ...getDefaultConfig(),
+    providers: [
+      {
+        name: "claude",
+        label: "Claude Code",
+        global: "~/.claude/skills",
+        project: ".claude/skills",
+        enabled: true,
+      },
+    ],
+    customPaths: [],
+  });
+
+  async function writeSkill(dir: string, name: string): Promise<void> {
+    await mkdir(join(dir, name), { recursive: true });
+    await writeFile(
+      join(dir, name, "SKILL.md"),
+      `---\nname: ${name}\ndescription: test\n---\n# ${name}\n`,
+    );
+  }
+
+  async function scanFrom(cwd: string, scope: "both" | "global" | "project") {
+    process.chdir(cwd);
+    try {
+      // Empty plugin dirs keep marketplace/codex rows out of the result.
+      const noPlugins = join(tempDir, "no-plugins");
+      return (await scanAllSkills(config(), scope, noPlugins, noPlugins)).map(
+        (s) => [s.name, s.scope],
+      );
+    } finally {
+      process.chdir(prevCwd);
+    }
+  }
+
+  beforeEach(async () => {
+    resetScanFsControl();
+    home = homedir();
+    expect(home).toBe(process.env.HOME);
+    expect(home).not.toBe(process.env.ASM_TEST_HOST_HOME);
+    tempDir = await mkdtemp(join(tmpdir(), "scanner-806-"));
+    await writeSkill(join(home, ".claude", "skills"), "s1");
+  });
+
+  afterEach(async () => {
+    process.chdir(prevCwd);
+    resetScanFsControl();
+    await rm(join(home, ".claude"), { recursive: true, force: true });
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  it("lists a global skill once, as global, when cwd is HOME", async () => {
+    expect(await scanFrom(home, "both")).toEqual([["s1", "global"]]);
+    expect(await scanFrom(home, "global")).toEqual([["s1", "global"]]);
+    expect(await scanFrom(home, "project")).toEqual([]);
+  });
+
+  it("lists a global skill once when the project dir symlinks to it", async () => {
+    const project = join(tempDir, "proj");
+    await mkdir(join(project, ".claude"), { recursive: true });
+    await createDirSymlink(
+      join(home, ".claude", "skills"),
+      join(project, ".claude", "skills"),
+    );
+
+    expect(await scanFrom(project, "both")).toEqual([["s1", "global"]]);
+    expect(await scanFrom(project, "project")).toEqual([]);
+  });
+
+  it("keeps a real project install as project outside HOME", async () => {
+    const project = join(tempDir, "proj");
+    await writeSkill(join(project, ".claude", "skills"), "s2");
+
+    expect(await scanFrom(project, "both")).toEqual([
+      ["s1", "global"],
+      ["s2", "project"],
+    ]);
+    expect(await scanFrom(project, "global")).toEqual([["s1", "global"]]);
+    expect(await scanFrom(project, "project")).toEqual([["s2", "project"]]);
   });
 });
