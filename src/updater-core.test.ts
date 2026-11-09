@@ -954,7 +954,9 @@ describe("checkOutdated skill folder inspection (#807)", () => {
       await inspectSkillFolders(url, latest, [
         { installedCommit: latest.toUpperCase(), skillPath: "skills/x" },
       ]),
-    ).toEqual([{ changed: false, installedVersion: null, latestVersion: null }]);
+    ).toEqual([
+      { changed: false, installedVersion: null, latestVersion: null },
+    ]);
     // With a stale probe too: the fallback fetch throws as well.
     const reports = await inspectSkillFolders(url, latest, [
       { installedCommit: latest, skillPath: "skills/x" },
