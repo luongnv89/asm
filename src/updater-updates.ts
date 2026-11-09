@@ -29,6 +29,7 @@ import { readLock } from "./utils/lock";
 import {
   auditSkillSecurity,
   describeSecurityHold,
+  shellArg,
   type AuditSkillSecurityOptions,
 } from "./security-auditor";
 import type {
@@ -54,12 +55,69 @@ export interface _UpdateTestOverrides {
     options?: AuditSkillSecurityOptions,
   ) => Promise<
     { verdict: SecurityVerdict } & Partial<
-      Pick<SecurityAuditReport, "verdictReason" | "externalSymlinks">
+      Pick<
+        SecurityAuditReport,
+        "verdictReason" | "externalSymlinks" | "codeScans"
+      >
     >
   >;
   loadConfigFn?: typeof loadConfig;
   resolveProviderPathFn?: typeof resolveProviderPath;
   writeLockEntryFn?: typeof writeLockEntry;
+}
+
+/**
+ * The `asm install` source that reinstalls exactly this skill: the registry
+ * name, or the lock source with its ref and skill folder (`#ref:path`), which
+ * the lock keeps in separate fields (#809). `null` when `asm install` cannot
+ * take the lock source (e.g. `file://`): it must be reinstalled by hand.
+ */
+export function installSourceOf(
+  entry: LockEntry,
+  sourceType: ReturnType<typeof resolveSourceType>,
+): string | null {
+  if (sourceType === "registry" && entry.registryName)
+    return entry.registryName;
+  const { source, ref, skillPath } = entry;
+  if (!source.startsWith("github:")) return null;
+  const hashIdx = source.indexOf("#");
+  if (hashIdx === -1) {
+    return `${source}${ref ? `#${ref}` : ""}${skillPath ? `:${skillPath}` : ""}`;
+  }
+  // Already `#ref` or `#ref:path`: add the folder only when it is missing.
+  const hasPath = source.indexOf(":", hashIdx) !== -1;
+  return !hasPath && skillPath ? `${source}:${skillPath}` : source;
+}
+
+/**
+ * The `asm audit security` source for the incoming update itself: the lock's
+ * GitHub repo pinned to `commit` (the one just audited), plus the skill
+ * folder. A registry name or `#ref` would audit the installed copy or a
+ * moving branch instead (#809). `null` when the lock source is not GitHub.
+ */
+export function updateAuditSourceOf(
+  entry: LockEntry,
+  commit: string,
+): string | null {
+  if (!entry.source.startsWith("github:")) return null;
+  const rest = entry.source.slice("github:".length);
+  const hashIdx = rest.indexOf("#");
+  const head = hashIdx === -1 ? rest : rest.slice(0, hashIdx);
+  const frag = hashIdx === -1 ? "" : rest.slice(hashIdx + 1);
+  // `owner/repo[:path]` before the `#`, or `ref[:path]` after it.
+  const headColon = head.indexOf(":");
+  const repo = headColon === -1 ? head : head.slice(0, headColon);
+  const fragColon = frag.indexOf(":");
+  const sourcePath =
+    headColon !== -1
+      ? head.slice(headColon + 1)
+      : fragColon !== -1
+        ? frag.slice(fragColon + 1)
+        : "";
+  const path = entry.skillPath ?? sourcePath;
+  // `asm audit security` checks out a 40-hex commit; otherwise use the ref.
+  const pin = /^[0-9a-f]{40}$/i.test(commit) ? commit : entry.ref;
+  return `github:${repo}${pin ? `#${pin}` : ""}${path ? `:${path}` : ""}`;
 }
 
 export async function updateSkill(
@@ -199,13 +257,34 @@ export async function updateSkill(
         { trackSymlinks: true, boundary: tempDir },
       );
       securityVerdict = auditReport.verdict;
+      // Audits the incoming commit, never the installed copy (#809).
+      const auditTarget = updateAuditSourceOf(entry, newCommit) ?? undefined;
 
       if (securityVerdict === "dangerous") {
+        // --yes never applies a dangerous update. Name the findings and the
+        // deliberate override: a forced install of the same source, which
+        // runs the install preview and its own risk gate (#809).
+        const source = installSourceOf(entry, sourceType);
+        const hold = describeSecurityHold(auditReport, {
+          verdict: "dangerous — update blocked",
+          prefix: "Security audit",
+          auditTarget,
+          ...(source !== null
+            ? {
+                overrideCommand: `asm install ${shellArg(source)} --force --yes`,
+                action: "install it anyway",
+              }
+            : {
+                action: `"asm install" cannot take ${shellArg(entry.source)}: review that source and reinstall it by hand to install it anyway`,
+              }),
+          findings: 5,
+        });
         return {
           name,
           status: "skipped",
-          reason: "Security audit: dangerous — update blocked",
+          reason: hold.message,
           securityVerdict,
+          securityReasons: [...hold.reasons, ...hold.findings],
         };
       }
 
@@ -214,7 +293,7 @@ export async function updateSkill(
         const hold = describeSecurityHold(auditReport, {
           verdict: securityVerdict,
           prefix: "Security audit",
-          auditTarget: name,
+          auditTarget,
           overrideFlag: "--yes",
           action: "update anyway",
         });

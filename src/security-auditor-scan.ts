@@ -17,6 +17,174 @@ interface ScanPattern {
   pattern: RegExp;
   severity: "critical" | "warning" | "info";
   permissionType?: PermissionRequest["type"];
+  /**
+   * `pattern` is the candidate (`CALL_CANDIDATE[call]`): a line it matches is
+   * always reported, at `severity` when `isRealCall` accepts it and as a
+   * `METHOD_CALL_CATEGORY` warning otherwise (#809).
+   */
+  call?: CallName;
+}
+
+// ─── Real-call matchers (#809) ──────────────────────────────────────────────
+//
+// `eval`, `exec`, `spawn` and `Function` are only dangerous as calls to the
+// language's own builtin: a bare `eval(x)` / `exec(x)` or one through a global
+// object (`window.eval(x)`, `builtins.exec(x)`). A method with the same name
+// usually is not: a Python `def eval(self, …)`, `self.eval(…)` in Python,
+// `browser.eval(…)` or a regex's `re.exec(s)`.
+//
+// A JS/TS method definition (`eval(x) {`, `async eval(x): T {`) and a JS
+// `function eval(` are not exempt: a call's own arguments can forge the
+// method shape (`eval("){".slice(2) + c)`, `eval(/*){*/c)`), so every such
+// line is a call, as before #809 (AC1 addendum). Only a Python `def` makes a
+// name a definition.
+//
+// Invariant: every line the candidate pattern (the rule before #809) matches
+// is still reported. A real call keeps its critical rule; a method-shaped one
+// is a warning under `METHOD_CALL_CATEGORY`, never nothing. A line regex
+// cannot tell `obj.eval` from an alias of the global object, so the warning
+// keeps that line in front of the reader.
+
+/** The builtins a method can share a name with. */
+export type CallName = "eval" | "exec" | "spawn" | "Function";
+
+/** The rules before #809: every line they match is reported. */
+export const CALL_CANDIDATE: Readonly<Record<CallName, RegExp>> = {
+  eval: /\beval\s*\(/,
+  exec: /\bexec\s*\(/,
+  spawn: /\bspawn\s*\(/,
+  Function: /\bFunction\s*\(/,
+};
+
+/** Rule for a candidate that `isRealCall` rejects: a warning (#809). */
+export const METHOD_CALL_CATEGORY = "Method named eval/exec/spawn/Function";
+const METHOD_CALL_DESCRIPTION =
+  "A method or attribute call named like a builtin (`obj.eval(…)`, `def eval(self, …)`): check it is not dynamic code";
+
+/** The only files whose method shapes the real-call matchers model (#809). */
+type CallLanguage = "python" | "js";
+const PYTHON_FILE = /\.py$/i;
+/** JavaScript and TypeScript source. */
+const JS_FILE = /\.(?:[mc]?js|tsx?|[mc]ts)$/i;
+
+function callLanguage(relPath: string): CallLanguage | null {
+  if (PYTHON_FILE.test(relPath)) return "python";
+  if (JS_FILE.test(relPath)) return "js";
+  return null;
+}
+
+/**
+ * Whitespace within one line. `\s` would also span `\r`, which ends a line
+ * in JS and Python but not in the `\n` split, so `def\reval(x)` (`def`, then
+ * a call) would pass for a definition (#809).
+ */
+const H = String.raw`[^\S\r\n\u2028\u2029]`;
+
+/**
+ * A Python `def name(`: a definition, the only one exempt (#809). Within one
+ * line only (`H`): `def<CR>eval(x)` is `def` and then a call.
+ */
+const NOT_A_DEFINITION = String.raw`(?<!\bdef${H}+)`;
+
+/**
+ * Match a call to `name` that can reach the builtin: bare (not preceded by
+ * an identifier character or by a receiver's `.`), or through one of
+ * `receivers`. Calls on any other object do not match, nor, with `python`,
+ * a `def`.
+ */
+function realCall(name: string, receivers: string[], python: boolean): RegExp {
+  // Not after an identifier, and not after `.` when an identifier receiver
+  // precedes it on this line. Any other receiver may be the global object:
+  // `(globalThis).eval(`, `globalThis/**/.eval(`, `f().exec(`. A spread
+  // `...eval(` is a call, and so is a line opening with `.eval(` or
+  // `?.eval(`: its receiver is on the line before and may be `globalThis`
+  // (#809). A wrapped `browser\n  .eval(` is flagged too, by design, and so
+  // is `browser\r  .eval(`.
+  const definition = python ? NOT_A_DEFINITION : "";
+  const bare = String.raw`(?<![\w$])(?<![\w$]${H}*\??\.)${definition}`;
+  const via = String.raw`\b(?:${receivers.join("|")})\s*\??\.\s*`;
+  return new RegExp(String.raw`(?:${bare}|${via})${name}\s*\(`);
+}
+
+/** Objects whose `eval` / `Function` is the global one. */
+const GLOBAL_OBJECTS = ["window", "globalThis", "global"];
+/** Python modules whose `eval` / `exec` is the builtin. */
+const PY_BUILTINS = [
+  "builtins",
+  "__builtins__",
+  String.raw`__import__\s*\(\s*['"](?:builtins|__builtin__)['"]\s*\)`,
+  String.raw`importlib\s*\.\s*import_module\s*\(\s*['"]builtins['"]\s*\)`,
+];
+
+const EVAL_RECEIVERS = [...GLOBAL_OBJECTS, ...PY_BUILTINS];
+const EXEC_RECEIVERS = ["child_process", "childProcess", "cp", ...PY_BUILTINS];
+
+/**
+ * Real-call matchers per language. `self.` is the global object outside
+ * Python. `spawn(` is a process spawn on any receiver, so only a Python
+ * `def spawn(` is exempt; in JS/TS every `spawn(` is real.
+ */
+const REAL_CALL: Record<CallLanguage, Record<CallName, RegExp>> = {
+  python: {
+    eval: realCall("eval", EVAL_RECEIVERS, true),
+    exec: realCall("exec", EXEC_RECEIVERS, true),
+    spawn: new RegExp(String.raw`${NOT_A_DEFINITION}\bspawn\s*\(`),
+    Function: realCall("Function", GLOBAL_OBJECTS, true),
+  },
+  js: {
+    eval: realCall("eval", [...EVAL_RECEIVERS, "self"], false),
+    exec: realCall("exec", EXEC_RECEIVERS, false),
+    spawn: CALL_CANDIDATE.spawn,
+    Function: realCall("Function", [...GLOBAL_OBJECTS, "self"], false),
+  },
+};
+
+/**
+ * Whether a line that `CALL_CANDIDATE[name]` matches can call the builtin.
+ * Only `.py`, `.js`, `.mjs`, `.cjs`, `.ts`, `.tsx`, `.mts` and `.cts` files get
+ * the method-shape exemptions; in any other file every candidate is real, as
+ * before #809. A line is real when either its raw text or its interpreted
+ * text matches, so a spelling can only make a call more real, never exempt
+ * it. Shared with the `asm install` preview so both scans agree.
+ */
+export function isRealCall(
+  name: CallName,
+  line: string,
+  relPath: string,
+): boolean {
+  const language = callLanguage(relPath);
+  if (language === null) return true;
+  const matcher = REAL_CALL[language][name];
+  return matcher.test(line) || matcher.test(interpretedText(line, language));
+}
+
+/** A JS/TS `\uXXXX` or `\u{…}` escape, which an identifier may contain. */
+const UNICODE_ESCAPE = /\\u\{([0-9a-fA-F]+)\}|\\u([0-9a-fA-F]{4})/g;
+
+/**
+ * The line as the interpreter reads its identifiers, so a receiver cannot
+ * hide by spelling (#809): Python NFKC-normalises identifiers (`ｂuiltins` is
+ * `builtins`); JS and TS resolve `\u` escapes in them (`glob\u0061lThis`
+ * is `globalThis`).
+ * The whole line is rewritten, strings and comments included, so it only
+ * ever adds a match to the raw line's (`isRealCall`); the candidate still
+ * matches the raw line.
+ */
+function interpretedText(line: string, language: CallLanguage): string {
+  if (language === "python") return line.normalize("NFKC");
+  return line.replace(UNICODE_ESCAPE, (escape, braced, plain) => {
+    const codePoint = parseInt(braced ?? plain, 16);
+    return codePoint <= 0x10ffff ? String.fromCodePoint(codePoint) : escape;
+  });
+}
+
+/**
+ * Replace control bytes (C0 except tab, DEL, C1) so a finding never writes
+ * raw NUL or escape sequences to the terminal (#809).
+ */
+export function stripControlBytes(text: string): string {
+  // eslint-disable-next-line no-control-regex
+  return text.replace(/[\x00-\x08\x0a-\x1f\x7f-\x9f]/g, "?");
 }
 
 const SCAN_PATTERNS: ScanPattern[] = [
@@ -85,7 +253,8 @@ const SCAN_PATTERNS: ScanPattern[] = [
     category: "Shell execution",
     description:
       "Commands that execute shell processes or arbitrary system commands",
-    pattern: /\bexec\s*\(/,
+    pattern: CALL_CANDIDATE.exec,
+    call: "exec",
     severity: "critical",
     permissionType: "shell",
   },
@@ -109,7 +278,10 @@ const SCAN_PATTERNS: ScanPattern[] = [
     category: "Shell execution",
     description:
       "Commands that execute shell processes or arbitrary system commands",
-    pattern: /\bspawn\s*\(/,
+    // Only a Python `def spawn(` is method-shaped: `cp.spawn(`, `pty.spawn(`
+    // and `pexpect.spawn(` are real process spawns (#809).
+    pattern: CALL_CANDIDATE.spawn,
+    call: "spawn",
     severity: "critical",
     permissionType: "shell",
   },
@@ -143,7 +315,8 @@ const SCAN_PATTERNS: ScanPattern[] = [
     category: "Dynamic code execution",
     description:
       "Patterns that execute dynamically constructed code at runtime",
-    pattern: /\beval\s*\(/,
+    pattern: CALL_CANDIDATE.eval,
+    call: "eval",
     severity: "critical",
     permissionType: "code-execution",
   },
@@ -159,7 +332,8 @@ const SCAN_PATTERNS: ScanPattern[] = [
     category: "Dynamic code execution",
     description:
       "Patterns that execute dynamically constructed code at runtime",
-    pattern: /\bFunction\s*\(/,
+    pattern: CALL_CANDIDATE.Function,
+    call: "Function",
     severity: "critical",
     permissionType: "code-execution",
   },
@@ -336,26 +510,30 @@ export function scanCode(files: FileContent[]): CodeScanCategory[] {
     const lines = content.split("\n");
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
-      const trimmed = line.trim();
+      const trimmed = stripControlBytes(line.trim());
 
       for (const pattern of SCAN_PATTERNS) {
-        if (pattern.pattern.test(line)) {
-          const key = pattern.category;
-          if (!categoryMap.has(key)) {
-            categoryMap.set(key, {
-              description: pattern.description,
-              matches: [],
-            });
-          }
-          const match =
-            trimmed.length > 120 ? trimmed.slice(0, 120) + "..." : trimmed;
-          categoryMap.get(key)!.matches.push({
-            file: relPath,
-            line: i + 1,
-            match,
-            severity: pattern.severity,
+        if (!pattern.pattern.test(line)) continue;
+        // A candidate is always reported: critical when it can reach the
+        // builtin, otherwise a method-shaped warning (#809).
+        const method =
+          pattern.call !== undefined &&
+          !isRealCall(pattern.call, line, relPath);
+        const key = method ? METHOD_CALL_CATEGORY : pattern.category;
+        if (!categoryMap.has(key)) {
+          categoryMap.set(key, {
+            description: method ? METHOD_CALL_DESCRIPTION : pattern.description,
+            matches: [],
           });
         }
+        const match =
+          trimmed.length > 120 ? trimmed.slice(0, 120) + "..." : trimmed;
+        categoryMap.get(key)!.matches.push({
+          file: stripControlBytes(relPath),
+          line: i + 1,
+          match,
+          severity: method ? "warning" : pattern.severity,
+        });
       }
     }
   }

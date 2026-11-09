@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, afterEach } from "vitest";
-import { mkdtemp, writeFile, mkdir, rm } from "fs/promises";
+import { mkdtemp, writeFile, mkdir, rm, symlink } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
 import { auditSkillSecurity } from "./security-auditor";
@@ -53,6 +53,27 @@ describe("formatSecurityReport", () => {
     expect(output).toContain("danger");
     expect(output).toContain("Findings");
     expect(output).toContain("Perms:");
+  });
+
+  test("never prints control bytes from a file name or symlink target (#809)", async () => {
+    await writeFile(
+      join(tempDir, "SKILL.md"),
+      "---\nname: names\n---\n# Names\n",
+    );
+    await writeFile(join(tempDir, "e\x1b[31mvil.py"), "eval(x)\n");
+    await symlink("/nowhere/t\x1b[31marget\x07", join(tempDir, "l\x1bnk.sh"));
+
+    const output = formatSecurityReport(
+      await auditSkillSecurity(tempDir, "names", undefined, undefined, {
+        trackSymlinks: true,
+      }),
+    );
+    expect(output).toContain("e?[31mvil.py");
+    expect(output).toContain("l?nk.sh");
+    expect(output).toContain("/nowhere/t?[31marget?");
+    expect(output).not.toContain("e\x1b[31mvil");
+    expect(output).not.toContain("t\x1b[31marget");
+    expect(output).not.toContain("l\x1bnk");
   });
 });
 
@@ -126,6 +147,22 @@ describe("describeSecurityHold (#791)", () => {
     expect(hold.message).not.toContain("more");
   });
 
+  test("link paths, targets and the verdict reason carry no control bytes (#809)", () => {
+    const hold = describeSecurityHold(
+      {
+        externalSymlinks: [
+          externalLink("l\x1b]8;;https:y\x07nk", "/t\x1b[31m\x9b", "dangling"),
+        ],
+      },
+      opts,
+    );
+    expect(hold.reasons).toEqual(["l?]8;;https:y?nk -> /t?[31m? (dangling)"]);
+    expect(
+      describeSecurityHold({ verdictReason: "o\x9but\x1b[2Jside." }, opts)
+        .message,
+    ).toContain("warning — o?ut?[2Jside.");
+  });
+
   test("without links the verdict reason is the reason", () => {
     const hold = describeSecurityHold(
       { verdictReason: "Skill executes shell commands." },
@@ -135,6 +172,64 @@ describe("describeSecurityHold (#791)", () => {
     expect(hold.message).toBe(
       'Security audit: caution — Skill executes shell commands. Run "asm audit security leaky" for the full report, or use --yes to update anyway.',
     );
+  });
+
+  test("names the top findings and an override command (#809)", () => {
+    const m = (
+      file: string,
+      line: number,
+      severity: "critical" | "warning",
+    ) => ({
+      file,
+      line,
+      match: "content never shown",
+      severity,
+    });
+    const hold = describeSecurityHold(
+      {
+        verdictReason: "Skill has shell execution and network access.",
+        codeScans: [
+          {
+            category: "External URLs",
+            description: "",
+            matches: [m("a.py", 9, "warning"), m("a.py", 10, "warning")],
+          },
+          {
+            category: "Shell execution",
+            description: "",
+            matches: [m("run\x1b.sh", 3, "critical")],
+          },
+          {
+            category: "Environment variable access",
+            description: "",
+            matches: [{ ...m("e.js", 1, "warning"), severity: "info" }],
+          },
+        ],
+      },
+      {
+        ...opts,
+        verdict: "dangerous — update blocked",
+        auditTarget: "github:o/r:skills/x",
+        overrideCommand: "asm install github:o/r:skills/x --force --yes",
+        action: "install it anyway",
+        findings: 2,
+      },
+    );
+    expect(hold.findings).toEqual([
+      "run?.sh:3 (Shell execution)",
+      "a.py:9 (External URLs)",
+      "and 1 more",
+    ]);
+    expect(hold.message).toBe(
+      'Security audit: dangerous — update blocked — Skill has shell execution and network access. Findings: run?.sh:3 (Shell execution), a.py:9 (External URLs), and 1 more. Run "asm audit security github:o/r:skills/x" for the full report, or run "asm install github:o/r:skills/x --force --yes" to install it anyway.',
+    );
+    expect(hold.message).not.toContain("content never shown");
+  });
+
+  test("findings are omitted unless asked for", () => {
+    const hold = describeSecurityHold({ verdictReason: "r" }, opts);
+    expect(hold.findings).toEqual([]);
+    expect(hold.message).not.toContain("Findings:");
   });
 
   test("a path with spaces is quoted in the suggested command", () => {
@@ -150,6 +245,29 @@ describe("describeSecurityHold (#791)", () => {
     );
     expect(hold.message).toBe(
       `Security audit verdict: warning. Run "asm audit security '/tmp/my skill'" for the full report, or use --force to override warnings.`,
+    );
+  });
+
+  test("without an audit target or override, only the stated step is printed (#809)", () => {
+    const { auditTarget: _none, overrideFlag: _flag, ...rest } = opts;
+    const hold = describeSecurityHold(
+      { verdictReason: "Shell and network." },
+      {
+        ...rest,
+        verdict: "dangerous — update blocked",
+        action: "review that source and reinstall it by hand",
+      },
+    );
+    expect(hold.message).toBe(
+      "Security audit: dangerous — update blocked — Shell and network. Review that source and reinstall it by hand.",
+    );
+    expect(hold.message).not.toContain("asm audit security");
+  });
+
+  test("without an audit target, the override flag still leads (#809)", () => {
+    const { auditTarget: _none, ...rest } = opts;
+    expect(describeSecurityHold({}, rest).message).toBe(
+      "Security audit: warning. Use --yes to update anyway.",
     );
   });
 });

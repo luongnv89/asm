@@ -4,6 +4,7 @@ import type {
   SecurityAuditReport,
   SecurityVerdict,
 } from "./utils/types";
+import { stripControlBytes } from "./security-auditor-scan";
 // Split from security-auditor.ts (issue #677).
 
 // ─── Report Formatting ──────────────────────────────────────────────────────
@@ -366,7 +367,7 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
           ? `${link.kind}, not followed`
           : `${link.kind}, NOT read`;
       lines.push(
-        `     ${color.dim(link.path)} -> ${link.target || color.dim("(unreadable)")} ${color.dim(`(${note})`)}`,
+        `     ${color.dim(stripControlBytes(link.path))} -> ${link.target ? stripControlBytes(link.target) : color.dim("(unreadable)")} ${color.dim(`(${note})`)}`,
       );
     }
     lines.push(
@@ -383,7 +384,7 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
     );
     for (const h of hardLinks) {
       lines.push(
-        `     ${color.dim(h.path)} ${color.dim(`(${h.links} links) -- hard link: content may be shared with a file outside the folder`)}`,
+        `     ${color.dim(stripControlBytes(h.path))} ${color.dim(`(${h.links} links) -- hard link: content may be shared with a file outside the folder`)}`,
       );
     }
     lines.push("");
@@ -421,7 +422,7 @@ export function formatSecurityReportJSON(report: SecurityAuditReport): string {
 const HOLD_LINKS_SHOWN = 3;
 
 /** Quote a path for a copy-pasteable shell command when it needs it. */
-function shellArg(arg: string): string {
+export function shellArg(arg: string): string {
   return /^[\w@%+=:,./~-]+$/.test(arg)
     ? arg
     : `'${arg.replace(/'/g, `'\\''`)}'`;
@@ -434,8 +435,30 @@ export interface SecurityHold {
    * are none, the verdict reason. Paths and the reason only; never content.
    */
   reasons: string[];
-  /** One line: verdict, reasons, and the next step. */
+  /**
+   * The top code findings as `file:line (category)`, critical first — only
+   * when `opts.findings` asks for them (#809). Paths only; never content.
+   */
+  findings: string[];
+  /** One line: verdict, reasons, findings, and the next step. */
   message: string;
+}
+
+/** Top `limit` code findings, critical first, as `file:line (category)`. */
+function topFindings(
+  codeScans: SecurityAuditReport["codeScans"] | undefined,
+  limit: number,
+): string[] {
+  const rank = { critical: 0, warning: 1, info: 2 };
+  const ranked = (codeScans ?? [])
+    .flatMap((c) => c.matches.map((m) => ({ ...m, category: c.category })))
+    .filter((m) => m.severity !== "info")
+    .sort((a, b) => rank[a.severity] - rank[b.severity]);
+  const shown = ranked
+    .slice(0, limit)
+    .map((m) => `${stripControlBytes(m.file)}:${m.line} (${m.category})`);
+  const hidden = ranked.length - shown.length;
+  return hidden > 0 ? [...shown, `and ${hidden} more`] : shown;
 }
 
 /**
@@ -445,14 +468,24 @@ export interface SecurityHold {
  */
 export function describeSecurityHold(
   report: Partial<
-    Pick<SecurityAuditReport, "verdict" | "verdictReason" | "externalSymlinks">
+    Pick<
+      SecurityAuditReport,
+      "verdict" | "verdictReason" | "externalSymlinks" | "codeScans"
+    >
   >,
   opts: {
     verdict: string;
     prefix: string;
-    auditTarget: string;
-    overrideFlag: string;
+    /** `asm audit security` target; omitted when no command can audit it. */
+    auditTarget?: string;
+    /** Flag that overrides the hold, e.g. `--yes`. */
+    overrideFlag?: string;
+    /** Full command that overrides the hold; wins over `overrideFlag`. */
+    overrideCommand?: string;
+    /** What the override does — or, with neither override, the whole step. */
     action: string;
+    /** Name up to this many code findings in the message (#809). */
+    findings?: number;
   },
 ): SecurityHold {
   const links = report.externalSymlinks ?? [];
@@ -461,13 +494,16 @@ export function describeSecurityHold(
       ? [
           ...links
             .slice(0, HOLD_LINKS_SHOWN)
-            .map((l) => `${l.path} -> ${l.target} (${l.kind})`),
+            .map(
+              (l) =>
+                `${stripControlBytes(l.path)} -> ${stripControlBytes(l.target)} (${l.kind})`,
+            ),
           ...(links.length > HOLD_LINKS_SHOWN
             ? [`and ${links.length - HOLD_LINKS_SHOWN} more`]
             : []),
         ]
       : report.verdictReason
-        ? [report.verdictReason.trim()]
+        ? [stripControlBytes(report.verdictReason.trim())]
         : [];
   const why =
     links.length > 0
@@ -475,8 +511,22 @@ export function describeSecurityHold(
       : reasons.length > 0
         ? ` — ${reasons[0].replace(/\.$/, "")}.`
         : ".";
+  const findings = opts.findings
+    ? topFindings(report.codeScans, opts.findings)
+    : [];
+  const found = findings.length > 0 ? ` Findings: ${findings.join(", ")}.` : "";
+  const override = opts.overrideCommand
+    ? `run "${opts.overrideCommand}" to ${opts.action}`
+    : opts.overrideFlag
+      ? `use ${opts.overrideFlag} to ${opts.action}`
+      : opts.action;
+  const next =
+    opts.auditTarget !== undefined
+      ? `Run "asm audit security ${shellArg(opts.auditTarget)}" for the full report, or ${override}.`
+      : `${override.charAt(0).toUpperCase()}${override.slice(1)}.`;
   return {
     reasons,
-    message: `${opts.prefix}: ${opts.verdict}${why} Run "asm audit security ${shellArg(opts.auditTarget)}" for the full report, or use ${opts.overrideFlag} to ${opts.action}.`,
+    findings,
+    message: `${opts.prefix}: ${opts.verdict}${why}${found} ${next}`,
   };
 }

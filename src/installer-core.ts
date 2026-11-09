@@ -33,6 +33,13 @@ import { estimateTokenCount } from "./utils/token-count";
 import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
 import { createDirSymlink, readFilesRecursive } from "./utils/fs";
+import {
+  CALL_CANDIDATE,
+  METHOD_CALL_CATEGORY,
+  isRealCall,
+  stripControlBytes,
+  type CallName,
+} from "./security-auditor-scan";
 
 import type {
   ParsedSource,
@@ -680,13 +687,29 @@ export interface SecurityWarning {
   match: string;
 }
 
-const WARNING_PATTERNS: Array<{ category: string; pattern: RegExp }> = [
+// `exec`, `eval` and `Function` use the audit's candidate + real-call rule
+// (#809), so `asm install` and `asm audit security` / `asm update` classify the
+// same lines: a real call is "Shell commands" / "Code execution" (high risk), a
+// method-shaped one such as `obj.eval(` is `METHOD_CALL_CATEGORY` (medium risk).
+const WARNING_PATTERNS: Array<{
+  category: string;
+  pattern: RegExp;
+  /** `pattern` is `CALL_CANDIDATE[call]`; see `isRealCall`. */
+  call?: CallName;
+}> = [
   { category: "Shell commands", pattern: /\b(bash|sh\s+-c)\b/ },
-  { category: "Shell commands", pattern: /\bexec\(/ },
+  { category: "Shell commands", pattern: CALL_CANDIDATE.exec, call: "exec" },
   { category: "Shell commands", pattern: /\bchild_process\b/ },
   { category: "Shell commands", pattern: /\bBun\.spawn\b/ },
-  { category: "Code execution", pattern: /\beval\(/ },
-  { category: "Code execution", pattern: /\bFunction\(/ },
+  // As in the audit: `shell.exec(cmd)` is method-shaped, so the import is
+  // what keeps a shelljs skill high risk (#809).
+  { category: "Shell commands", pattern: /\bshelljs\b/ },
+  { category: "Code execution", pattern: CALL_CANDIDATE.eval, call: "eval" },
+  {
+    category: "Code execution",
+    pattern: CALL_CANDIDATE.Function,
+    call: "Function",
+  },
   { category: "Code execution", pattern: /\bnew\s+Function\b/ },
   {
     category: "Credentials",
@@ -714,28 +737,29 @@ export async function scanForWarnings(
     onExternalSymlink: (link) =>
       warnings.push({
         category: OUTSIDE_SYMLINK_CATEGORY,
-        file: link.path,
+        file: stripControlBytes(link.path),
         line: 0,
         match:
           link.kind === "dangling" || link.kind === "loop"
-            ? `symlink ${link.kind === "loop" ? "loops" : "dangles"} -> ${link.target} — not followed`
-            : `symlink leaves the skill folder -> ${link.target} (${link.kind}) — not read`,
+            ? `symlink ${link.kind === "loop" ? "loops" : "dangles"} -> ${stripControlBytes(link.target)} — not followed`
+            : `symlink leaves the skill folder -> ${stripControlBytes(link.target)} (${link.kind}) — not read`,
       }),
   });
 
   for (const { relPath, content } of files) {
     const lines = content.split("\n");
     for (let i = 0; i < lines.length; i++) {
-      for (const { category, pattern } of WARNING_PATTERNS) {
-        if (pattern.test(lines[i])) {
-          const match = lines[i].trim();
-          warnings.push({
-            category,
-            file: relPath,
-            line: i + 1,
-            match: match.length > 100 ? match.slice(0, 100) + "…" : match,
-          });
-        }
+      for (const { category, pattern, call } of WARNING_PATTERNS) {
+        if (!pattern.test(lines[i])) continue;
+        const method =
+          call !== undefined && !isRealCall(call, lines[i], relPath);
+        const match = stripControlBytes(lines[i].trim());
+        warnings.push({
+          category: method ? METHOD_CALL_CATEGORY : category,
+          file: stripControlBytes(relPath),
+          line: i + 1,
+          match: match.length > 100 ? match.slice(0, 100) + "…" : match,
+        });
       }
     }
   }
@@ -751,7 +775,7 @@ export const HIGH_RISK_WARNING_CATEGORIES = [
   OUTSIDE_SYMLINK_CATEGORY,
 ];
 /** Warning categories that make an install a medium-risk preview. */
-const MEDIUM_RISK_WARNING_CATEGORIES = ["External URLs"];
+const MEDIUM_RISK_WARNING_CATEGORIES = ["External URLs", METHOD_CALL_CATEGORY];
 
 /**
  * Collapse raw `scanForWarnings` output into the High / Medium / Safe label

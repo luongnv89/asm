@@ -1551,6 +1551,7 @@ describe("installed, --all and github: audits never read outside the skill folde
     git("add", "-A");
     git("commit", "-qm", "v2");
     git("push", "-q", join(cwd, "leaky.git"), "HEAD");
+    const v2 = git("rev-parse", "HEAD").stdout.trim();
     // `asm update` strips GIT_CONFIG_* from git's environment, so the
     // github.com -> bare-repo rewrite goes in the sandbox ~/.gitconfig.
     await writeFile(
@@ -1564,14 +1565,17 @@ describe("installed, --all and github: audits never read outside the skill folde
     const text = await runAudit("update");
     expect(text.exitCode).toBe(0);
     expect(text.stdout).toContain(
-      `Security audit: warning — 2 symlinks not read: ${env}, ${dir}. Run "asm audit security leaky" for the full report, or use --yes to update anyway.`,
+      `Security audit: warning — 2 symlinks not read: ${env}, ${dir}. Run "asm audit security 'github:acme/leaky#${v2}'" for the full report, or use --yes to update anyway.`,
     );
     expect(text.stdout + text.stderr).not.toContain(MARKER);
 
     const json = JSON.parse((await runAudit("update", "--json")).stdout);
     expect(json.results[0].status).toBe("skipped");
     expect(json.results[0].securityReasons).toEqual([env, dir]);
-    expect(json.results[0].reason).toContain("asm audit security leaky");
+    // The audit command targets the incoming commit, not the installed copy (#809).
+    expect(json.results[0].reason).toContain(
+      `asm audit security 'github:acme/leaky#${v2}'`,
+    );
 
     // --machine implies --yes (src/cli.ts), so it updates and still reports why.
     const machine = JSON.parse((await runAudit("update", "--machine")).stdout);
