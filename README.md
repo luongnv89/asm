@@ -675,7 +675,7 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm library update --all` | Update all local library skills |
 | `asm export` | Export inventory as JSON |
 | `asm import <file>` | Import skills from exported manifest |
-| `asm outdated` | Show outdated skills |
+| `asm outdated` | Show outdated skills, with `metadata.version` for GitHub sources; a commit outside the skill's folder does not count |
 | `asm update [name...]` | Update outdated skills |
 | `asm disable <target>` | Disable skill(s) without uninstalling |
 | `asm enable <target>` | Re-enable disabled skill(s) |

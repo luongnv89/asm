@@ -10,9 +10,12 @@ import { execFile } from "child_process";
 import { promisify } from "util";
 
 import { join } from "path";
+import { mkdtemp, rm } from "fs/promises";
+import { tmpdir } from "os";
 
 import { debug } from "./logger";
 import { readLock } from "./utils/lock";
+import { parseFrontmatter } from "./utils/frontmatter";
 import { fetchRegistryIndex } from "./registry";
 import type { RegistryIndex } from "./registry";
 import type { LockEntry } from "./utils/types";
@@ -74,6 +77,18 @@ export interface OutdatedEntry {
   sourceType: "registry" | "github" | "local";
   status: OutdatedStatus;
   error?: string;
+  /**
+   * The skill's `metadata.version` at the installed and latest commits. Set on
+   * GitHub-sourced entries only; `null` when the SKILL.md declares no version
+   * or could not be read (#807).
+   */
+  installedVersion?: string | null;
+  latestVersion?: string | null;
+  /**
+   * Why the skill-folder check could not run for this entry; its status then
+   * rests on the commit comparison alone (#807).
+   */
+  inspectionError?: string;
 }
 
 export interface OutdatedSummary {
@@ -254,13 +269,300 @@ export function getUpdateSourceDir(tempDir: string, entry: LockEntry): string {
   return entry.skillPath ? join(tempDir, entry.skillPath) : tempDir;
 }
 
+// ─── Skill Folder Inspection (#807) ─────────────────────────────────────────
+
+const OID_RE = /^(?:[0-9a-f]{40}|[0-9a-f]{64})$/;
+const GIT_MAX_BUFFER = 64 * 1024 * 1024;
+
+export interface SkillFolderProbe {
+  /** Full OID of the commit the skill was installed from. */
+  installedCommit: string;
+  /** Repo-relative skill directory; empty for a skill at the repo root. */
+  skillPath: string;
+}
+
+export interface SkillFolderReport {
+  /** Whether anything under the skill folder differs; null when unknown. */
+  changed: boolean | null;
+  installedVersion: string | null;
+  latestVersion: string | null;
+  /** Why `changed` (or a version) could not be determined, when it matters. */
+  error?: string;
+}
+
+/** First line of a git failure: its stderr when present, else the message. */
+function gitFailure(err: unknown): string {
+  const stderr = (err as { stderr?: unknown })?.stderr;
+  const text =
+    typeof stderr === "string" && stderr.trim()
+      ? stderr
+      : err instanceof Error
+        ? err.message
+        : String(err);
+  return text.trim().split("\n")[0] || "unknown error";
+}
+
+function normalizeSkillPath(skillPath: string | undefined): string {
+  const p = (skillPath ?? "")
+    .replace(/\\/g, "/")
+    .replace(/^(?:\.\/)+/, "")
+    .replace(/\/+$/, "");
+  return p === "." ? "" : p;
+}
+
+function isUnderSkillPath(file: string, skillPath: string): boolean {
+  return (
+    skillPath === "" || file === skillPath || file.startsWith(`${skillPath}/`)
+  );
+}
+
+/** Version from SKILL.md frontmatter: `metadata.version`, else `version`. */
+export function readSkillVersion(content: string): string | null {
+  const fm = parseFrontmatter(content);
+  return fm["metadata.version"] || fm.version || null;
+}
+
+/** Parse `git cat-file --batch` output into oid -> content. */
+function parseCatFileBatch(buf: Buffer): Map<string, string> {
+  const out = new Map<string, string>();
+  let pos = 0;
+  while (pos < buf.length) {
+    const nl = buf.indexOf(0x0a, pos);
+    if (nl === -1) break;
+    const [oid, type, size] = buf.toString("utf8", pos, nl).split(" ");
+    pos = nl + 1;
+    if (!size || type === "missing") continue;
+    const end = pos + Number(size);
+    if (type === "blob") out.set(oid, buf.toString("utf8", pos, end));
+    pos = end + 1;
+  }
+  return out;
+}
+
+/**
+ * For skills installed from one repository, decide whether each skill's own
+ * folder changed between its installed commit and `latestCommit`, and read
+ * `metadata.version` at both commits.
+ *
+ * Network cost per repository: one blobless, depth-1 fetch of every distinct
+ * installed commit plus the latest one (trees only), then one fetch of just
+ * the SKILL.md blobs. Never throws: whatever cannot be determined is `null`,
+ * and a `null` `changed` leaves the caller's commit comparison in force.
+ * `changed` is `false` only when the skill folder is known to exist at the
+ * installed commit (the repo root, or a SKILL.md under `skillPath`), so a
+ * path git does not know (a symlinked parent, a different case, a stale
+ * path) never makes a skill current. `skillPath` never reaches git's argv.
+ */
+export async function inspectSkillFolders(
+  cloneUrl: string,
+  latestCommit: string,
+  probes: SkillFolderProbe[],
+): Promise<SkillFolderReport[]> {
+  const latest = latestCommit.toLowerCase();
+  // A probe already at the latest commit never depends on the folder check.
+  const unknown = (error: string): SkillFolderReport[] =>
+    probes.map((p) =>
+      p.installedCommit.toLowerCase() === latest
+        ? { changed: false, installedVersion: null, latestVersion: null }
+        : { changed: null, installedVersion: null, latestVersion: null, error },
+    );
+  if (probes.length === 0) return [];
+  if (!OID_RE.test(latest)) return unknown("invalid latest commit");
+
+  const env = createPinnedGitEnv(latest.length === 40 ? "sha1" : "sha256");
+  let dir: string | undefined;
+  try {
+    dir = await mkdtemp(join(tmpdir(), "asm-outdated-"));
+    const cwd = dir;
+    const git = (args: string[], timeout = 10_000) =>
+      execFileAsync("git", args, {
+        cwd,
+        env,
+        timeout,
+        maxBuffer: GIT_MAX_BUFFER,
+      });
+    await git(["init", "-q"]);
+
+    const installedCommits = [
+      ...new Set(
+        probes
+          .map((p) => p.installedCommit.toLowerCase())
+          .filter((c) => c.length === latest.length && OID_RE.test(c)),
+      ),
+    ].filter((c) => c !== latest);
+
+    const fetchTrees = ["fetch", "-q", "--no-tags", "--depth=1"];
+    fetchTrees.push("--filter=blob:none", "--end-of-options", cloneUrl);
+    try {
+      await git([...fetchTrees, latest, ...installedCommits], 60_000);
+    } catch (err) {
+      // An installed commit may no longer exist upstream; keep the latest.
+      debug(`updater: tree fetch failed for ${cloneUrl}: ${err}`);
+      if (installedCommits.length === 0) {
+        return unknown(`fetch failed: ${gitFailure(err)}`);
+      }
+      await git([...fetchTrees, latest], 60_000);
+    }
+
+    // Commit -> (path -> blob OID) for the SKILL.md files we care about.
+    const skillPaths = probes.map((p) => normalizeSkillPath(p.skillPath));
+    const wantedDirs = new Set(skillPaths);
+    const skillMdByCommit = new Map<string, Map<string, string>>();
+    for (const commit of [latest, ...installedCommits]) {
+      try {
+        const { stdout } = await git([
+          "ls-tree",
+          "-r",
+          "-z",
+          "--full-tree",
+          "--end-of-options",
+          commit,
+        ]);
+        const found = new Map<string, string>();
+        for (const record of stdout.split("\0")) {
+          const tab = record.indexOf("\t");
+          if (tab === -1) continue;
+          const [, type, oid] = record.slice(0, tab).split(" ");
+          const path = record.slice(tab + 1);
+          const slash = path.lastIndexOf("/");
+          const dirName = slash === -1 ? "" : path.slice(0, slash);
+          const base = path.slice(slash + 1);
+          if (type !== "blob" || !wantedDirs.has(dirName)) continue;
+          if (
+            base === "SKILL.md" ||
+            (!found.has(dirName) && /^skill\.md$/i.test(base))
+          ) {
+            found.set(dirName, oid);
+          }
+        }
+        skillMdByCommit.set(commit, found);
+      } catch {
+        // Commit not fetched (gone upstream): its probes stay unknown.
+      }
+    }
+
+    // Changed paths per installed commit, compared with the latest tree.
+    const changedByCommit = new Map<string, string[]>();
+    const diffErrors = new Map<string, string>();
+    for (const commit of installedCommits) {
+      if (!skillMdByCommit.has(commit)) continue;
+      try {
+        const { stdout } = await git([
+          "diff-tree",
+          "-r",
+          "-z",
+          "--no-renames",
+          "--name-only",
+          "--end-of-options",
+          commit,
+          latest,
+        ]);
+        changedByCommit.set(commit, stdout.split("\0").filter(Boolean));
+      } catch (err) {
+        debug(`updater: diff-tree failed for ${cloneUrl}: ${err}`);
+        diffErrors.set(commit, gitFailure(err));
+      }
+    }
+
+    // Fetch every needed SKILL.md blob in one request (a no-op for blobs the
+    // tree fetch already brought), then read them with lazy fetching off: the
+    // blobless fetch marks the URL as a promisor, and git would otherwise
+    // fetch each missing blob in its own round trip.
+    const blobOids = new Set<string>();
+    for (const found of skillMdByCommit.values()) {
+      for (const oid of found.values()) blobOids.add(oid);
+    }
+    const contents = new Map<string, string>();
+    let blobError: string | undefined;
+    if (blobOids.size > 0) {
+      try {
+        await git(
+          [
+            "-c",
+            "fetch.negotiationAlgorithm=noop",
+            "fetch",
+            "-q",
+            "--no-tags",
+            "--filter=blob:none",
+            "--end-of-options",
+            cloneUrl,
+            ...blobOids,
+          ],
+          60_000,
+        );
+        const run = execFileAsync("git", ["cat-file", "--batch"], {
+          cwd,
+          env: { ...env, GIT_NO_LAZY_FETCH: "1" },
+          timeout: 10_000,
+          maxBuffer: GIT_MAX_BUFFER,
+          encoding: "buffer",
+        });
+        run.child.stdin?.end(`${[...blobOids].join("\n")}\n`);
+        const { stdout } = await run;
+        for (const [oid, text] of parseCatFileBatch(stdout)) {
+          contents.set(oid, text);
+        }
+      } catch (err) {
+        debug(`updater: SKILL.md fetch failed for ${cloneUrl}: ${err}`);
+        blobError = gitFailure(err);
+      }
+    }
+
+    const versionAt = (commit: string, skillPath: string): string | null => {
+      const oid = skillMdByCommit.get(commit)?.get(skillPath);
+      const text = oid ? contents.get(oid) : undefined;
+      return text === undefined ? null : readSkillVersion(text);
+    };
+
+    return probes.map((probe, i) => {
+      const installed = probe.installedCommit.toLowerCase();
+      const skillPath = skillPaths[i];
+      const installedTree = skillMdByCommit.get(installed);
+      let changed: boolean | null = null;
+      let error: string | undefined;
+      if (installed === latest) {
+        changed = false;
+      } else if (!installedTree) {
+        error = `installed commit ${shortHash(installed)} could not be fetched`;
+      } else if (skillPath !== "" && !installedTree.has(skillPath)) {
+        // Unknown to git at that commit: never read as "unchanged".
+        error = `no SKILL.md at "${skillPath}" in installed commit ${shortHash(installed)}`;
+      } else {
+        const files = changedByCommit.get(installed);
+        if (files) changed = files.some((f) => isUnderSkillPath(f, skillPath));
+        else
+          error = `could not compare commits: ${diffErrors.get(installed) ?? "unknown error"}`;
+      }
+      const wantsBlob = [installed, latest].some((c) => {
+        const oid = skillMdByCommit.get(c)?.get(skillPath);
+        return oid !== undefined && !contents.has(oid);
+      });
+      if (!error && blobError && wantsBlob) {
+        error = `could not read SKILL.md: ${blobError}`;
+      }
+      return {
+        changed,
+        installedVersion: versionAt(installed, skillPath),
+        latestVersion: versionAt(latest, skillPath),
+        ...(error ? { error } : {}),
+      };
+    });
+  } catch (err) {
+    debug(`updater: skill folder inspection failed for ${cloneUrl}: ${err}`);
+    return unknown(`skill folder check failed: ${gitFailure(err)}`);
+  } finally {
+    if (dir) await rm(dir, { recursive: true, force: true }).catch(() => {});
+  }
+}
+
 // ─── Outdated Check ─────────────────────────────────────────────────────────
 
 /**
  * Check all installed skills for newer versions.
  * Registry skills are compared against index.json.
- * Non-registry skills use git ls-remote.
- * Runs with a concurrency limit of 5.
+ * Non-registry skills use one git ls-remote per repository and ref (at most
+ * 5 at once); GitHub skills then get one folder/version inspection per
+ * repository (`inspectSkillFolders`, #807).
  */
 
 /** @internal — injectable overrides for testing checkOutdated. */
@@ -269,6 +571,8 @@ export interface _CheckOutdatedTestOverrides {
   fetchRegistryIndexFn?: typeof fetchRegistryIndex;
   /** Pre-read lock file — avoids a redundant readLock() call when the caller already has it. */
   lock?: import("./utils/types").LockFile;
+  getLatestRemoteCommitFn?: typeof getLatestRemoteCommit;
+  inspectSkillFoldersFn?: typeof inspectSkillFolders;
 }
 
 export async function checkOutdated(
@@ -279,6 +583,48 @@ export async function checkOutdated(
     _overrides?.fetchRegistryIndexFn ?? fetchRegistryIndex;
   const lock = _overrides?.lock ?? (await readLockFn());
   const entries = Object.entries(lock.skills);
+  const latestCommitFn =
+    _overrides?.getLatestRemoteCommitFn ?? getLatestRemoteCommit;
+  const inspectFn = _overrides?.inspectSkillFoldersFn ?? inspectSkillFolders;
+
+  // One ls-remote per (repository, ref), however many skills it supplies,
+  // with at most REMOTE_CONCURRENCY running at once.
+  const REMOTE_CONCURRENCY = 5;
+  let activeRemotes = 0;
+  const remoteWaiters: Array<() => void> = [];
+  const limitedLatestCommit = async (url: string, ref: string | null) => {
+    while (activeRemotes >= REMOTE_CONCURRENCY) {
+      await new Promise<void>((resolve) => remoteWaiters.push(resolve));
+    }
+    activeRemotes++;
+    try {
+      return await latestCommitFn(url, ref);
+    } finally {
+      activeRemotes--;
+      remoteWaiters.shift()?.();
+    }
+  };
+  const remoteCommits = new Map<string, Promise<string | null>>();
+  const resolveRemote = (url: string, ref: string | null) => {
+    const key = `${url}\n${ref ?? ""}`;
+    let pending = remoteCommits.get(key);
+    if (!pending) {
+      pending = limitedLatestCommit(url, ref);
+      remoteCommits.set(key, pending);
+    }
+    return pending;
+  };
+
+  // GitHub entries whose latest commit resolved, grouped per repository and
+  // latest commit for the folder/version inspection below.
+  const inspectGroups = new Map<
+    string,
+    {
+      cloneUrl: string;
+      latestCommit: string;
+      items: { entry: OutdatedEntry; probe: SkillFolderProbe }[];
+    }
+  >();
 
   if (entries.length === 0) {
     return {
@@ -299,7 +645,11 @@ export async function checkOutdated(
     registryIndex = await fetchRegistryFn();
   }
 
-  const results = await poolAll(entries, 5, async ([name, entry]) => {
+  // Per-entry work is only bookkeeping around the shared remote lookups, so
+  // walk every entry at once: skills from one repository must not hold the
+  // lookups for other repositories behind them.
+  const width = entries.length;
+  const results = await poolAll(entries, width, async ([name, entry]) => {
     const sourceType = resolveSourceType(entry);
 
     // Untracked: no commit hash recorded (pre-registry installs)
@@ -365,7 +715,7 @@ export async function checkOutdated(
       };
     }
 
-    const latestCommit = await getLatestRemoteCommit(cloneUrl, entry.ref);
+    const latestCommit = await resolveRemote(cloneUrl, entry.ref);
     if (!latestCommit) {
       return {
         name,
@@ -379,7 +729,7 @@ export async function checkOutdated(
     }
 
     const isOutdated = latestCommit !== entry.commitHash;
-    return recordResolvedLatestCommit(
+    const result = recordResolvedLatestCommit(
       {
         name,
         installedCommit: shortHash(entry.commitHash),
@@ -392,7 +742,66 @@ export async function checkOutdated(
       },
       latestCommit,
     );
+    if (sourceType === "github") {
+      const key = `${cloneUrl}\n${latestCommit}`;
+      const group = inspectGroups.get(key) ?? {
+        cloneUrl,
+        latestCommit,
+        items: [],
+      };
+      group.items.push({
+        entry: result,
+        probe: {
+          installedCommit: entry.commitHash,
+          skillPath: entry.skillPath ?? "",
+        },
+      });
+      inspectGroups.set(key, group);
+    }
+    return result;
   });
+
+  // A commit that changes nothing under the skill's own folder does not make
+  // it outdated (#807). The lock keeps the installed commit; only `asm update`
+  // records a new one, when it actually installs. Only a pre-inspection
+  // `outdated` entry (installed != latest) depends on the folder check, so
+  // only such an entry can carry an `inspectionError`.
+  await poolAll([...inspectGroups.values()], 4, async (group) => {
+    let reports: SkillFolderReport[];
+    try {
+      reports = await inspectFn(
+        group.cloneUrl,
+        group.latestCommit,
+        group.items.map((item) => item.probe),
+      );
+    } catch (err) {
+      debug(`updater: inspection failed for ${group.cloneUrl}: ${err}`);
+      const reason = `skill folder check failed: ${gitFailure(err)}`;
+      for (const { entry } of group.items) {
+        if (entry.status === "outdated") entry.inspectionError = reason;
+      }
+      return;
+    }
+    group.items.forEach(({ entry }, i) => {
+      const report = reports[i];
+      if (!report) return;
+      entry.installedVersion = report.installedVersion;
+      entry.latestVersion = report.latestVersion;
+      if (report.error && entry.status === "outdated") {
+        entry.inspectionError = report.error;
+      }
+      if (entry.status === "outdated" && report.changed === false) {
+        entry.status = "up-to-date";
+      }
+    });
+  });
+
+  for (const result of results as OutdatedEntry[]) {
+    if (result.sourceType === "github") {
+      result.installedVersion ??= null;
+      result.latestVersion ??= null;
+    }
+  }
 
   return {
     entries: results,

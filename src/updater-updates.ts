@@ -33,6 +33,7 @@ import {
 } from "./security-auditor";
 import type {
   _CheckOutdatedTestOverrides,
+  OutdatedEntry,
   OutdatedSummary,
   UpdateSummary,
 } from "./updater-core";
@@ -574,6 +575,21 @@ export async function updateSkills(
 
 // ─── Formatting ─────────────────────────────────────────────────────────────
 
+/**
+ * `1.6.0 → 1.7.0` for an outdated skill, the single version otherwise, `-`
+ * when unknown or for non-GitHub sources (#807).
+ */
+function formatVersionCell(entry: OutdatedEntry): string {
+  if (entry.sourceType !== "github") return "-";
+  const installed = entry.installedVersion ?? null;
+  const latest = entry.latestVersion ?? null;
+  if (installed === null && latest === null) return "-";
+  if (entry.status === "outdated" || installed !== latest) {
+    return `${installed ?? "?"} → ${latest ?? "?"}`;
+  }
+  return installed ?? "-";
+}
+
 export function formatOutdatedTable(
   summary: OutdatedSummary,
   useColor: boolean,
@@ -588,13 +604,19 @@ export function formatOutdatedTable(
   const yellow = useColor ? ansi.yellow : id;
   const dim = useColor ? ansi.dim : id;
 
-  const header = `${"Skill".padEnd(22)}${"Installed".padEnd(14)}${"Latest".padEnd(14)}Source`;
-  const separator = "─".repeat(60);
+  // Wide enough for the longest name, so it never runs into the next column.
+  const nameWidth = Math.max(
+    22,
+    ...summary.entries.map((e) => e.name.length + 2),
+  );
+  const header = `${"Skill".padEnd(nameWidth)}${"Installed".padEnd(14)}${"Latest".padEnd(14)}${"Version".padEnd(18)}Source`;
+  const separator = "─".repeat(nameWidth + 56);
   const lines: string[] = [header, separator];
 
   for (const entry of summary.entries) {
-    const nameCol = entry.name.padEnd(22);
+    const nameCol = entry.name.padEnd(nameWidth);
     const installedCol = entry.installedCommit.padEnd(14);
+    const versionCol = formatVersionCell(entry).padEnd(18);
     let latestCol: string;
     let sourceCol: string;
 
@@ -605,7 +627,12 @@ export function formatOutdatedTable(
         break;
       case "up-to-date":
         latestCol = green(entry.latestCommit.padEnd(14));
-        sourceCol = dim("(up to date)");
+        // Newer repo commit that leaves this skill's folder untouched.
+        sourceCol = dim(
+          entry.installedCommit !== entry.latestCommit
+            ? "(up to date, skill folder unchanged)"
+            : "(up to date)",
+        );
         break;
       case "untracked":
         latestCol = yellow("untracked".padEnd(14));
@@ -617,7 +644,9 @@ export function formatOutdatedTable(
         break;
     }
 
-    lines.push(`${nameCol}${installedCol}${latestCol}${sourceCol}`);
+    lines.push(
+      `${nameCol}${installedCol}${latestCol}${versionCol}${sourceCol}`,
+    );
   }
 
   lines.push("");
@@ -631,6 +660,16 @@ export function formatOutdatedTable(
   if (summary.errorCount > 0) parts.push(dim(`${summary.errorCount} error`));
   lines.push(parts.join(", "));
 
+  // Say when the folder check was incomplete, without needing --verbose.
+  const unchecked = summary.entries.filter((e) => e.inspectionError).length;
+  if (unchecked > 0) {
+    lines.push(
+      dim(
+        `${unchecked} skill${unchecked === 1 ? "" : "s"} not fully checked against ${unchecked === 1 ? "its" : "their"} folder (see --json inspectionError)`,
+      ),
+    );
+  }
+
   return lines.join("\n");
 }
 
@@ -643,7 +682,14 @@ export function formatOutdatedJSON(summary: OutdatedSummary): string {
         latest: e.latestCommit,
         source: e.sourceType,
         status: e.status,
+        ...(e.sourceType === "github"
+          ? {
+              installedVersion: e.installedVersion ?? null,
+              latestVersion: e.latestVersion ?? null,
+            }
+          : {}),
         ...(e.error ? { error: e.error } : {}),
+        ...(e.inspectionError ? { inspectionError: e.inspectionError } : {}),
       })),
       summary: {
         outdated: summary.outdatedCount,
