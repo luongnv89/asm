@@ -835,6 +835,55 @@ describe("checkOutdated skill folder inspection (#807)", () => {
     },
   );
 
+  it.skipIf(process.platform === "win32")(
+    "reports each installed commit's own diff-tree failure",
+    async () => {
+      const repo = await makeRepo("diff-fail", true);
+      await write(repo.work, "skills/x/SKILL.md", skillMd("x", "1.0.0"));
+      const first = await commitAll(repo.work, "v1");
+      await write(repo.work, "skills/x/a.md", "a\n");
+      const second = await commitAll(repo.work, "v2");
+      await write(repo.work, "skills/x/b.md", "b\n");
+      const latest = await commitAll(repo.work, "v3");
+      await repo.publish();
+
+      // A git shim that fails `diff-tree` with text naming the installed commit.
+      const shimDir = join(tempDir, "shim");
+      const realGit = (
+        await exec("sh", ["-c", "command -v git"])
+      ).stdout.trim();
+      await mkdir(shimDir);
+      await writeFile(
+        join(shimDir, "git"),
+        [
+          "#!/bin/sh",
+          'case " $* " in',
+          `  *" diff-tree "*" ${first} "*) echo "fatal: bad tree one" >&2; exit 128 ;;`,
+          `  *" diff-tree "*" ${second} "*) echo "fatal: bad tree two" >&2; exit 128 ;;`,
+          "esac",
+          `exec "${realGit}" "$@"`,
+          "",
+        ].join("\n"),
+        { mode: 0o755 },
+      );
+      const savedPath = process.env.PATH;
+      process.env.PATH = `${shimDir}:${savedPath}`;
+      let reports;
+      try {
+        reports = await inspectSkillFolders(repo.url, latest, [
+          { installedCommit: first, skillPath: "skills/x" },
+          { installedCommit: second, skillPath: "skills/x" },
+        ]);
+      } finally {
+        process.env.PATH = savedPath;
+      }
+      expect(reports.map((r) => [r.changed, r.error])).toEqual([
+        [null, "could not compare commits: fatal: bad tree one"],
+        [null, "could not compare commits: fatal: bad tree two"],
+      ]);
+    },
+  );
+
   it("leaves the commit comparison in force when inspection fails", async () => {
     const summary = await checkOutdated({
       lock: {

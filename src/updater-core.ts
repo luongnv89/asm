@@ -443,7 +443,7 @@ export async function inspectSkillFolders(
 
     // Changed paths per installed commit, compared with the latest tree.
     const changedByCommit = new Map<string, string[]>();
-    let diffError: string | undefined;
+    const diffErrors = new Map<string, string>();
     for (const commit of installedCommits) {
       if (!skillMdByCommit.has(commit)) continue;
       try {
@@ -460,7 +460,7 @@ export async function inspectSkillFolders(
         changedByCommit.set(commit, stdout.split("\0").filter(Boolean));
       } catch (err) {
         debug(`updater: diff-tree failed for ${cloneUrl}: ${err}`);
-        diffError = gitFailure(err);
+        diffErrors.set(commit, gitFailure(err));
       }
     }
 
@@ -531,7 +531,7 @@ export async function inspectSkillFolders(
         const files = changedByCommit.get(installed);
         if (files) changed = files.some((f) => isUnderSkillPath(f, skillPath));
         else
-          error = `could not compare commits: ${diffError ?? "unknown error"}`;
+          error = `could not compare commits: ${diffErrors.get(installed) ?? "unknown error"}`;
       }
       const wantsBlob = [installed, latest].some((c) => {
         const oid = skillMdByCommit.get(c)?.get(skillPath);
