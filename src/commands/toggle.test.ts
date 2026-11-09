@@ -142,6 +142,30 @@ describe("reconstructDisabledSkills project dir that is the global dir (#806)", 
       ["s1", "project"],
     ]);
   });
+
+  it("uses a precomputed alias set when the caller passes one", async () => {
+    const global = join(root, "home", ".claude", "skills");
+    const project = join(root, "proj", ".claude", "skills");
+    await disabledSkill(global, "s1");
+    await disabledSkill(project, "s1");
+    const config = configWith(global, project);
+    const state = emptyState();
+    setDisabled(state, "s1", "claude", "global");
+    setDisabled(state, "s1", "claude", "project");
+
+    expect(
+      rowsOf(
+        await reconstructDisabledSkills(
+          config,
+          state,
+          "both",
+          undefined,
+          undefined,
+          new Set(["claude"]),
+        ),
+      ),
+    ).toEqual([["s1", "global"]]);
+  });
 });
 
 describe("asm enable with cwd = HOME (#806)", () => {

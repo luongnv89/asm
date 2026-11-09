@@ -122,9 +122,11 @@ export async function reconstructDisabledSkills(
    * instance always wins, so the skill is never listed twice.
    */
   activeKeys?: Set<string>,
+  /** Precomputed `providersWithProjectAlias(config)`; computed when omitted. */
+  aliasedProviders?: Set<string>,
 ): Promise<SkillInfo[]> {
   const providersByName = new Map(config.providers.map((p) => [p.name, p]));
-  const aliased = await providersWithProjectAlias(config);
+  const aliased = aliasedProviders ?? (await providersWithProjectAlias(config));
   const results: SkillInfo[] = [];
 
   for (const [dirName, byProvider] of Object.entries(state.disabled)) {
@@ -405,6 +407,9 @@ export async function cmdEnable(args: ParsedArgs) {
     config,
     state,
     args.flags.scope,
+    undefined,
+    undefined,
+    aliased,
   );
   const candidates = providerFilter
     ? disabledPool.filter((s) => s.provider === providerFilter)
