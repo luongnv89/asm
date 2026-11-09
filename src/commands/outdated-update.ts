@@ -22,6 +22,9 @@ function printOutdatedHelp() {
 
 Show which installed skills have newer versions available.
 
+GitHub-sourced skills also show their metadata.version (installed → latest)
+and count as outdated only when a newer commit changes the skill's own folder.
+
 ${ansi.bold("Options:")}
   --json               Output as JSON
   --machine            Output in stable machine-readable format
