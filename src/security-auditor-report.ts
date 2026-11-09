@@ -494,13 +494,16 @@ export function describeSecurityHold(
       ? [
           ...links
             .slice(0, HOLD_LINKS_SHOWN)
-            .map((l) => `${l.path} -> ${l.target} (${l.kind})`),
+            .map(
+              (l) =>
+                `${stripControlBytes(l.path)} -> ${stripControlBytes(l.target)} (${l.kind})`,
+            ),
           ...(links.length > HOLD_LINKS_SHOWN
             ? [`and ${links.length - HOLD_LINKS_SHOWN} more`]
             : []),
         ]
       : report.verdictReason
-        ? [report.verdictReason.trim()]
+        ? [stripControlBytes(report.verdictReason.trim())]
         : [];
   const why =
     links.length > 0

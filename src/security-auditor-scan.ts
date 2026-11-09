@@ -79,8 +79,11 @@ const NOT_A_TYPE = String.raw`(?!(?:typeof|class|new|delete|await|yield|void)\b)
  */
 const H = String.raw`[^\S\r\n\u2028\u2029]`;
 
-/** `def name(`, `function name(` or `function* name(`: a definition. */
-const NOT_A_DEFINITION = String.raw`(?<!\b(?:def|function\s*\*?)\s+)`;
+/**
+ * `def name(`, `function name(` or `function* name(`: a definition. Within
+ * one line only (`H`): `def<CR>eval(x)` is `def;` and then a call (#809).
+ */
+const NOT_A_DEFINITION = String.raw`(?<!\b(?:def|function${H}*\*?)${H}+)`;
 /**
  * `name(params) {` opening the line (after optional modifiers): a JS/TS
  * method definition. Anchored to the line start so a call in an expression,
@@ -183,7 +186,25 @@ export function isRealCall(
   relPath: string,
 ): boolean {
   const language = callLanguage(relPath);
-  return language === null || REAL_CALL[language][name].test(line);
+  if (language === null) return true;
+  return REAL_CALL[language][name].test(interpretedText(line, language));
+}
+
+/** A JS/TS `\uXXXX` or `\u{…}` escape, which an identifier may contain. */
+const UNICODE_ESCAPE = /\\u\{([0-9a-fA-F]+)\}|\\u([0-9a-fA-F]{4})/g;
+
+/**
+ * The line as the interpreter reads its identifiers, so a receiver cannot
+ * hide by spelling (#809): Python NFKC-normalises identifiers (`ｂuiltins` is
+ * `builtins`); JS and TS resolve `\u` escapes in them (`glob\u0061lThis`).
+ * Only `isRealCall` reads it; the candidate still matches the raw line.
+ */
+function interpretedText(line: string, language: CallLanguage): string {
+  if (language === "python") return line.normalize("NFKC");
+  return line.replace(UNICODE_ESCAPE, (escape, braced, plain) => {
+    const codePoint = parseInt(braced ?? plain, 16);
+    return codePoint <= 0x10ffff ? String.fromCodePoint(codePoint) : escape;
+  });
 }
 
 /**

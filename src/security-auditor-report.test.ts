@@ -147,6 +147,22 @@ describe("describeSecurityHold (#791)", () => {
     expect(hold.message).not.toContain("more");
   });
 
+  test("link paths, targets and the verdict reason carry no control bytes (#809)", () => {
+    const hold = describeSecurityHold(
+      {
+        externalSymlinks: [
+          externalLink("l\x1b]8;;https:y\x07nk", "/t\x1b[31m\x9b", "dangling"),
+        ],
+      },
+      opts,
+    );
+    expect(hold.reasons).toEqual(["l?]8;;https:y?nk -> /t?[31m? (dangling)"]);
+    expect(
+      describeSecurityHold({ verdictReason: "o\x9but\x1b[2Jside." }, opts)
+        .message,
+    ).toContain("warning — o?ut?[2Jside.");
+  });
+
   test("without links the verdict reason is the reason", () => {
     const hold = describeSecurityHold(
       { verdictReason: "Skill executes shell commands." },

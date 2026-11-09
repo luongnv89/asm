@@ -977,6 +977,58 @@ describe("scanForWarnings", () => {
     expect(classifyWarningRisk(alias)).toBe("medium");
   });
 
+  test("round-3 bypasses are high risk: CR/LS/PS after def, escaped receivers (#809)", async () => {
+    const files: Array<[string, string]> = [
+      // B4: CR, LS or PS after `def`/`function` ends the line.
+      ["b4.js", 'var def\reval("1");\nvar def\u2028eval("1");'],
+      ["b4b.js", 'var def\u2029eval("1");\nvar def\rFunction("1")();'],
+      ["b4.py", 'function = 0\rfunction\reval("1")\nfunction\rexec("1")'],
+      // B5: a global spelled with a `\u` escape or an NFKC character.
+      [
+        "b5.js",
+        "glob\\u0061lThis.eval(x);\n\\u{67}lobalThis.Function(x)();\n\\u0063p.exec(c);",
+      ],
+      ["b5.ts", "win\\u0064ow.eval(x);\n\\u0073elf.eval(x);"],
+      ["b5.py", "\uff42uiltins.exec(c)\n__\uff42uiltins__.eval(c)"],
+    ];
+    for (const [name, content] of files) {
+      await writeFile(join(tempDir, name), content);
+    }
+    const lines = (await scanForWarnings(tempDir)).map(
+      (w) => `${w.category}:${w.file}:${w.line}`,
+    );
+    expect([...new Set(lines)].sort()).toEqual(
+      [
+        "Code execution:b4.js:1",
+        "Code execution:b4.js:2",
+        "Code execution:b4b.js:1",
+        "Code execution:b4b.js:2",
+        "Code execution:b4.py:1",
+        "Shell commands:b4.py:2",
+        "Code execution:b5.js:1",
+        "Code execution:b5.js:2",
+        "Shell commands:b5.js:3",
+        "Code execution:b5.ts:1",
+        "Code execution:b5.ts:2",
+        "Shell commands:b5.py:1",
+        "Code execution:b5.py:2",
+      ].sort(),
+    );
+  });
+
+  test("shelljs keeps the preview high risk, as in the audit (#809)", async () => {
+    await writeFile(
+      join(tempDir, "run.js"),
+      "const shell = require('shelljs');\nshell.exec(cmd);\n",
+    );
+    const warnings = await scanForWarnings(tempDir);
+    expect(warnings.map((w) => `${w.category}:${w.line}`)).toEqual([
+      "Shell commands:1",
+      `${METHOD_CALL_CATEGORY}:2`,
+    ]);
+    expect(classifyWarningRisk(warnings)).toBe("high");
+  });
+
   test("invariant: every line main's preview flagged is still a warning (#809)", async () => {
     // The preview's rules before #809, copied here, not imported.
     const main = [/\bexec\(/, /\beval\(/, /\bFunction\(/];

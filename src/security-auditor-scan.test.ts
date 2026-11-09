@@ -423,6 +423,27 @@ const mustFail: Array<[string, string]> = [
   ["run.js", "  exec(cmd)\u2028{}"],
   ["run.ts", "  eval(p) :\r Foo {"],
   ["run.js", "browser\r  .eval(x)"],
+  // B4 (round 3): CR, LS or PS after `def`/`function` ends the line, so the
+  // name that follows is a call, not a definition.
+  ["run.js", 'var def\reval("1");'],
+  ["run.js", 'var def\u2028eval("1");'],
+  ["run.js", 'var def\u2029eval("1");'],
+  ["run.js", 'var def\rFunction("1")();'],
+  ["run.js", "var def\rspawn('ls');"],
+  ["run.py", 'function = 0\rfunction\reval("1")\r'],
+  ["run.py", 'function = 0\rfunction\rexec("1")\r'],
+  // B5 (round 3): a global spelled with a JS `\u` escape or a Python
+  // NFKC-equivalent character is still that global.
+  ["run.js", "glob\\u0061lThis.eval(x);"],
+  ["run.js", "\\u{67}lobalThis.eval(x);"],
+  ["run.js", "win\\u0064ow.eval(x);"],
+  ["run.js", "\\u0073elf.eval(x);"],
+  ["run.js", "glob\\u0061lThis.Function(x)();"],
+  ["run.ts", "glob\\u0061lThis.eval(x);"],
+  ["run.js", "\\u0063p.exec(cmd);"],
+  ["run.py", "\uff42uiltins.exec(code)"],
+  ["run.py", "__\uff42uiltins__.eval(code)"],
+  ["run.py", "\u{1d41b}uiltins.eval(code)"],
 ];
 
 // Method-shaped: definitions and calls on an identifier receiver. A warning
@@ -468,6 +489,10 @@ const mustPass: Array<[string, string]> = [
   ["run.js", "top.eval(x);"],
   ["run.js", "window.parent.eval(code);"],
   ["run.py", "b.exec(code)"],
+  // An escaped or NFKC spelling of a non-global receiver is still a method.
+  ["page.js", "bro\\u0077ser.eval(x)"],
+  ["engine.ts", "\\u0074his.eval(node)"],
+  ["render.py", "\uff53elf.eval(x)"],
 ];
 
 describe("dynamic execution: real calls only (#809)", () => {

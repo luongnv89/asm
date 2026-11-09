@@ -701,6 +701,9 @@ const WARNING_PATTERNS: Array<{
   { category: "Shell commands", pattern: CALL_CANDIDATE.exec, call: "exec" },
   { category: "Shell commands", pattern: /\bchild_process\b/ },
   { category: "Shell commands", pattern: /\bBun\.spawn\b/ },
+  // As in the audit: `shell.exec(cmd)` is method-shaped, so the import is
+  // what keeps a shelljs skill high risk (#809).
+  { category: "Shell commands", pattern: /\bshelljs\b/ },
   { category: "Code execution", pattern: CALL_CANDIDATE.eval, call: "eval" },
   {
     category: "Code execution",
