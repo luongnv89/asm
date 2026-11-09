@@ -189,9 +189,14 @@ metadata:
         "--json",
       );
       expect(exitCode).toBe(0);
+      // A single link reports the activate-style six-field payload (#800).
       const result = JSON.parse(stdout);
-      expect(result.success).toBe(true);
       expect(result.name).toBe("linked-src");
+      expect(result.skill).toBe("linked-src");
+      expect(result.provider).toBe("claude");
+      expect(result.scope).toBe("global");
+      expect(result.path).toBe(providerLink);
+      expect(result.target).toBe(linkedSrc);
     } finally {
       await rm(providerLink, { force: true }).catch(() => {});
     }
@@ -257,10 +262,14 @@ metadata:
       );
       expect(exitCode).toBe(0);
 
+      // One discovered skill is a single link: it reports the activate-style
+      // six-field payload rather than the bulk container (#800).
       const result = JSON.parse(stdout);
-      expect(result.success).toBe(true);
-      expect(result.linked.length).toBe(1);
-      expect(result.linked[0].name).toBe("custom");
+      expect(result.name).toBe("custom");
+      expect(result.skill).toBe("only-skill");
+      expect(result.provider).toBe("claude");
+      expect(result.scope).toBe("global");
+      expect(result.path).toBe(customLink);
     } finally {
       await rm(customLink, { force: true }).catch(() => {});
     }

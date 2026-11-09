@@ -3,9 +3,19 @@ import { describe, expect, it, beforeEach, afterEach } from "vitest";
 import {
   validateLinkSource,
   createLink,
+  createLinkSafely,
   discoverLinkableSkills,
 } from "./linker";
-import { mkdtemp, writeFile, mkdir, rm, lstat, readlink } from "fs/promises";
+import {
+  mkdtemp,
+  writeFile,
+  mkdir,
+  rm,
+  lstat,
+  readlink,
+  readFile,
+  symlink,
+} from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
 
@@ -160,6 +170,126 @@ describe("createLink", () => {
     const stats = await lstat(join(targetDir, "my-skill"));
     expect(stats.isSymbolicLink()).toBe(true);
   });
+});
+
+describe("createLinkSafely", () => {
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "linker-test-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  it("creates a symlink at target", async () => {
+    const source = join(tempDir, "source");
+    const targetDir = join(tempDir, "target");
+    await mkdir(source);
+    await mkdir(targetDir);
+
+    await createLinkSafely(source, targetDir, "my-skill", false);
+
+    const linkPath = join(targetDir, "my-skill");
+    const stats = await lstat(linkPath);
+    expect(stats.isSymbolicLink()).toBe(true);
+    expect(await readlink(linkPath)).toBe(source);
+  });
+
+  it("throws when the target exists and force is false", async () => {
+    const source = join(tempDir, "source");
+    const targetDir = join(tempDir, "target");
+    await mkdir(source);
+    await mkdir(targetDir);
+    await createLinkSafely(source, targetDir, "my-skill", false);
+
+    await expect(
+      createLinkSafely(source, targetDir, "my-skill", false),
+    ).rejects.toThrow("Target already exists");
+  });
+
+  it("replaces an existing symlink when force is true", async () => {
+    const source = join(tempDir, "source");
+    const other = join(tempDir, "other");
+    const targetDir = join(tempDir, "target");
+    await mkdir(source);
+    await mkdir(other);
+    await mkdir(targetDir);
+    await createLinkSafely(other, targetDir, "my-skill", false);
+
+    await createLinkSafely(source, targetDir, "my-skill", true);
+
+    const linkPath = join(targetDir, "my-skill");
+    expect((await lstat(linkPath)).isSymbolicLink()).toBe(true);
+    expect(await readlink(linkPath)).toBe(source);
+  });
+
+  it("refuses to overwrite a real directory and keeps its contents", async () => {
+    const source = join(tempDir, "source");
+    const targetDir = join(tempDir, "target");
+    const existing = join(targetDir, "my-skill");
+    await mkdir(source);
+    await mkdir(targetDir);
+    await mkdir(existing);
+    await writeFile(join(existing, "keep.txt"), "precious");
+
+    await expect(
+      createLinkSafely(source, targetDir, "my-skill", true),
+    ).rejects.toThrow("Refusing to overwrite non-symlink target");
+
+    // The directory and its contents must survive untouched.
+    expect((await lstat(existing)).isDirectory()).toBe(true);
+    expect(await readFile(join(existing, "keep.txt"), "utf-8")).toBe(
+      "precious",
+    );
+  });
+
+  it("refuses to overwrite a real file and keeps its contents", async () => {
+    const source = join(tempDir, "source");
+    const targetDir = join(tempDir, "target");
+    await mkdir(source);
+    await mkdir(targetDir);
+    await writeFile(join(targetDir, "my-skill"), "precious");
+
+    await expect(
+      createLinkSafely(source, targetDir, "my-skill", true),
+    ).rejects.toThrow("Refusing to overwrite non-symlink target");
+
+    expect(await readFile(join(targetDir, "my-skill"), "utf-8")).toBe(
+      "precious",
+    );
+  });
+
+  it.skipIf(process.platform === "win32")(
+    "replaces a dangling symlink when force is true",
+    async () => {
+      const source = join(tempDir, "source");
+      const targetDir = join(tempDir, "target");
+      await mkdir(source);
+      await mkdir(targetDir);
+      const linkPath = join(targetDir, "my-skill");
+      await symlink(join(tempDir, "gone"), linkPath);
+
+      await createLinkSafely(source, targetDir, "my-skill", true);
+
+      expect((await lstat(linkPath)).isSymbolicLink()).toBe(true);
+      expect(await readlink(linkPath)).toBe(source);
+    },
+  );
+
+  it.skipIf(process.platform === "win32")(
+    "reports a dangling symlink as an existing target without force",
+    async () => {
+      const source = join(tempDir, "source");
+      const targetDir = join(tempDir, "target");
+      await mkdir(source);
+      await mkdir(targetDir);
+      await symlink(join(tempDir, "gone"), join(targetDir, "my-skill"));
+
+      await expect(
+        createLinkSafely(source, targetDir, "my-skill", false),
+      ).rejects.toThrow("Target already exists");
+    },
+  );
 });
 
 describe("discoverLinkableSkills", () => {
