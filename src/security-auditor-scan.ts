@@ -17,6 +17,75 @@ interface ScanPattern {
   pattern: RegExp;
   severity: "critical" | "warning" | "info";
   permissionType?: PermissionRequest["type"];
+  /** Files (relative path) this pattern never applies to. */
+  skipPaths?: RegExp;
+}
+
+// ─── Real-call matchers (#809) ──────────────────────────────────────────────
+//
+// `eval`, `exec` and `Function` are only dangerous as calls to the language's
+// own builtin: a bare `eval(x)` / `exec(x)` or one through a global object
+// (`window.eval(x)`, `builtins.exec(x)`). A method with the same name is not:
+// `def eval(self, …)`, a JS method `eval(expr) {`, `self.eval(…)`,
+// `browser.eval(…)` or a regex's `re.exec(s)` never reach the builtin.
+
+/** Python source, where `self` is the instance, never the global object. */
+const PYTHON_FILE = /\.pyw?$|\.pyi$/i;
+
+/** `def name(`, `function name(` or `function* name(`: a definition. */
+const NOT_A_DEFINITION = String.raw`(?<!\b(?:def|function\s*\*?)\s+)`;
+/** `name(params) {` or `name(params): T {`: a JS/TS method definition. */
+const NOT_A_METHOD_BODY = String.raw`(?!\s*\([^()]*\)\s*(?::[^{;=]*)?\{)`;
+
+/**
+ * Match a call to `name` that can reach the builtin: bare (not preceded by
+ * an identifier character or `.`), or through one of `receivers`. Definitions
+ * and calls on any other object do not match.
+ */
+function realCall(name: string, receivers: string[] = []): RegExp {
+  const bare = String.raw`(?<![\w$.])${NOT_A_DEFINITION}`;
+  const via = receivers.length
+    ? String.raw`|\b(?:${receivers.join("|")})\s*\??\.\s*`
+    : "";
+  return new RegExp(
+    String.raw`(?:${bare}${via})${name}${NOT_A_METHOD_BODY}\s*\(`,
+  );
+}
+
+/** Objects whose `eval` / `Function` is the global one. */
+const GLOBAL_OBJECTS = ["window", "globalThis", "global"];
+/** Python modules whose `eval` / `exec` is the builtin. */
+const PY_BUILTINS = ["builtins", "__builtins__"];
+
+/**
+ * The real-call matchers, shared with the `asm install` preview scan so both
+ * gates flag the same lines (#809).
+ */
+export const REAL_CALL = {
+  eval: realCall("eval", [...GLOBAL_OBJECTS, ...PY_BUILTINS]),
+  exec: realCall("exec", [
+    "child_process",
+    "childProcess",
+    "cp",
+    ...PY_BUILTINS,
+  ]),
+  Function: realCall("Function", GLOBAL_OBJECTS),
+  /** `self.eval(` / `self.Function(`: the global object outside Python. */
+  selfGlobal: /\bself\s*\??\.\s*(?:eval|Function)\s*\(/,
+} as const;
+
+/** Python source never treats `self.` as the global object. */
+export function isPythonFile(relPath: string): boolean {
+  return PYTHON_FILE.test(relPath);
+}
+
+/**
+ * Replace control bytes (C0 except tab, DEL, C1) so a finding never writes
+ * raw NUL or escape sequences to the terminal (#809).
+ */
+export function stripControlBytes(text: string): string {
+  // eslint-disable-next-line no-control-regex
+  return text.replace(/[\x00-\x08\x0a-\x1f\x7f-\x9f]/g, "?");
 }
 
 const SCAN_PATTERNS: ScanPattern[] = [
@@ -85,7 +154,7 @@ const SCAN_PATTERNS: ScanPattern[] = [
     category: "Shell execution",
     description:
       "Commands that execute shell processes or arbitrary system commands",
-    pattern: /\bexec\s*\(/,
+    pattern: REAL_CALL.exec,
     severity: "critical",
     permissionType: "shell",
   },
@@ -109,7 +178,11 @@ const SCAN_PATTERNS: ScanPattern[] = [
     category: "Shell execution",
     description:
       "Commands that execute shell processes or arbitrary system commands",
-    pattern: /\bspawn\s*\(/,
+    // Definitions only: `cp.spawn(`, `pty.spawn(` and `pexpect.spawn(` are
+    // real process spawns, so attribute calls stay flagged (#809).
+    pattern: new RegExp(
+      String.raw`${NOT_A_DEFINITION}\bspawn${NOT_A_METHOD_BODY}\s*\(`,
+    ),
     severity: "critical",
     permissionType: "shell",
   },
@@ -143,9 +216,18 @@ const SCAN_PATTERNS: ScanPattern[] = [
     category: "Dynamic code execution",
     description:
       "Patterns that execute dynamically constructed code at runtime",
-    pattern: /\beval\s*\(/,
+    pattern: REAL_CALL.eval,
     severity: "critical",
     permissionType: "code-execution",
+  },
+  {
+    category: "Dynamic code execution",
+    description:
+      "Patterns that execute dynamically constructed code at runtime",
+    pattern: REAL_CALL.selfGlobal,
+    severity: "critical",
+    permissionType: "code-execution",
+    skipPaths: PYTHON_FILE,
   },
   {
     category: "Dynamic code execution",
@@ -159,7 +241,7 @@ const SCAN_PATTERNS: ScanPattern[] = [
     category: "Dynamic code execution",
     description:
       "Patterns that execute dynamically constructed code at runtime",
-    pattern: /\bFunction\s*\(/,
+    pattern: REAL_CALL.Function,
     severity: "critical",
     permissionType: "code-execution",
   },
@@ -336,9 +418,10 @@ export function scanCode(files: FileContent[]): CodeScanCategory[] {
     const lines = content.split("\n");
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
-      const trimmed = line.trim();
+      const trimmed = stripControlBytes(line.trim());
 
       for (const pattern of SCAN_PATTERNS) {
+        if (pattern.skipPaths?.test(relPath)) continue;
         if (pattern.pattern.test(line)) {
           const key = pattern.category;
           if (!categoryMap.has(key)) {

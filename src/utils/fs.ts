@@ -91,7 +91,47 @@ export const BINARY_EXTENSIONS = new Set([
   ".pdf",
   ".doc",
   ".docx",
+  ".pyc",
+  ".pyo",
 ]);
+
+/**
+ * Script sources stay in the scan even with a NUL byte: JavaScript and shell
+ * accept one, so skipping them would let a script hide from the audit.
+ */
+const SCRIPT_EXTENSIONS = new Set([
+  ".js",
+  ".mjs",
+  ".cjs",
+  ".jsx",
+  ".ts",
+  ".mts",
+  ".cts",
+  ".tsx",
+  ".py",
+  ".sh",
+  ".bash",
+  ".zsh",
+  ".ps1",
+  ".rb",
+  ".pl",
+  ".php",
+  ".lua",
+]);
+
+/**
+ * A file the text scans skip as binary (#809): its content holds a NUL byte
+ * and it is not a script source (by extension or `#!` line). Compiled Python
+ * (`.pyc`, `.pyo`, e.g. under `__pycache__/`) is skipped by extension; a `.py`
+ * file in `__pycache__/` is importable, so that folder is still walked.
+ */
+export function isBinaryContent(content: string, ext: string): boolean {
+  return (
+    content.includes("\0") &&
+    !SCRIPT_EXTENSIONS.has(ext) &&
+    !content.startsWith("#!")
+  );
+}
 
 export const MAX_FILE_SIZE = 512 * 1024; // 512KB
 
@@ -300,7 +340,7 @@ export async function readFilesRecursive(
           if (report && s.nlink > 1) options.onHardLink?.(relPath, s.nlink);
 
           const content = await readBoundedTextFile(fullPath);
-          if (content === null) continue;
+          if (content === null || isBinaryContent(content, ext)) continue;
           results.push({
             relPath,
             content,

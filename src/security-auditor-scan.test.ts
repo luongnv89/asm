@@ -1,5 +1,9 @@
 import { describe, test, expect } from "vitest";
-import { scanCode, analyzePermissions } from "./security-auditor-scan";
+import {
+  scanCode,
+  analyzePermissions,
+  stripControlBytes,
+} from "./security-auditor-scan";
 describe("scanCode", () => {
   test("detects curl usage", () => {
     const files = [
@@ -326,3 +330,115 @@ describe("analyzePermissions", () => {
 });
 
 // ─── calculateVerdict tests ─────────────────────────────────────────────────
+
+// ─── Real-call matchers (#809) ──────────────────────────────────────────────
+
+describe("dynamic execution: real calls only (#809)", () => {
+  const critical = (relPath: string, content: string) =>
+    scanCode([{ relPath, content, lineCount: 1 }])
+      .filter(
+        (c) =>
+          c.category === "Dynamic code execution" ||
+          c.category === "Shell execution",
+      )
+      .flatMap((c) => c.matches)
+      .filter((m) => m.severity === "critical");
+
+  // Must stay critical: each reaches the language's builtin.
+  const mustFail: Array<[string, string]> = [
+    ["run.py", "result = eval(user_input)"],
+    ["run.py", "exec(code)"],
+    ["run.py", "    value = eval (expr)"],
+    ["run.py", "builtins.eval(src)"],
+    ["run.py", "__builtins__.exec(src)"],
+    ["run.js", "const out = eval(x);"],
+    ["run.js", "const f = new Function(x);"],
+    ["run.js", "const f = Function('return 1');"],
+    ["run.js", "window.eval(x)"],
+    ["run.js", "globalThis.eval(x)"],
+    ["run.js", "self.eval(x)"],
+    ["run.js", "window.Function(x)()"],
+    ["run.js", "if (eval(x)) {"],
+    ["run.js", "exec('rm -rf /tmp/x')"],
+    ["run.js", "cp.exec(cmd)"],
+    ["run.js", "child_process.exec(cmd)"],
+    ["run.js", "spawn('sh', ['-c', cmd])"],
+    ["run.js", "cp.spawn('sh')"],
+    ["run.py", "child = pexpect.spawn(cmd)"],
+  ];
+
+  // Must pass: method definitions and calls on other objects.
+  const mustPass: Array<[string, string]> = [
+    ["render.py", "    def eval(self, expression):"],
+    ["render.py", "    async def eval(self, expression: str) -> str:"],
+    ["render.py", 'if self.eval("window.__ready === true"):'],
+    ["render.py", 'browser.eval("document.title")'],
+    ["render.py", "Browser().eval(expr)"],
+    ["render.py", "    def exec(self, sql):"],
+    ["db.py", "cursor.execute(query)"],
+    ["db.py", "self.exec(sql)"],
+    ["match.js", "const m = re.exec(line);"],
+    ["match.js", "while ((m = /a(b)/g.exec(s)) !== null) {}"],
+    ["page.js", "await page.eval(selector)"],
+    ["page.js", "obj?.eval(x)"],
+    ["engine.js", "function eval(node) {"],
+    ["engine.js", "  eval(node) {"],
+    ["engine.ts", "  async eval(node: Node): Promise<Value> {"],
+    ["engine.js", "  exec(command) {"],
+    ["engine.js", "  Function(name) {"],
+    ["engine.js", "this.eval(node)"],
+    ["engine.py", "def Function(name):"],
+    ["pool.py", "    def spawn(self, n):"],
+    ["pool.js", "function spawn(worker) {"],
+  ];
+
+  test.each(mustFail)("flags %s: %s", (relPath, line) => {
+    expect(critical(relPath, line).length).toBeGreaterThan(0);
+  });
+
+  test.each(mustPass)("does not flag %s: %s", (relPath, line) => {
+    expect(critical(relPath, line)).toEqual([]);
+  });
+
+  test("the issue repro reports no dynamic code execution", () => {
+    const content = [
+      "class Browser:",
+      "    def eval(self, expression):",
+      '        return self.send("Runtime.evaluate", {"expression": expression})',
+      "",
+      'Browser().eval("window.ready === true")',
+    ].join("\n");
+    const results = scanCode([
+      { relPath: "scripts/render.py", content, lineCount: 5 },
+    ]);
+    expect(results.find((r) => r.category === "Dynamic code execution")).toBe(
+      undefined,
+    );
+  });
+
+  test("a real call on the same file as a method is still flagged", () => {
+    const content = "def eval(self, e):\n    return eval(e)\n";
+    const results = scanCode([{ relPath: "x.py", content, lineCount: 2 }]);
+    const cat = results.find((r) => r.category === "Dynamic code execution");
+    expect(cat!.matches.map((m) => m.line)).toEqual([2]);
+    expect(analyzePermissions(results).map((p) => p.type)).toContain(
+      "code-execution",
+    );
+  });
+});
+
+describe("control bytes in findings (#809)", () => {
+  test("a finding never carries NUL, escape or other control bytes", () => {
+    const content = "abc\0\0eval(\x01\x1b[31mX\x7f\x9b";
+    const results = scanCode([{ relPath: "blob.js", content, lineCount: 1 }]);
+    const match = results.flatMap((r) => r.matches)[0];
+    expect(match).toBeDefined();
+    // eslint-disable-next-line no-control-regex
+    expect(match.match).not.toMatch(/[\x00-\x08\x0a-\x1f\x7f-\x9f]/);
+    expect(match.match).toBe("abc??eval(??[31mX??");
+  });
+
+  test("tabs are kept", () => {
+    expect(stripControlBytes("a\tb\0c")).toBe("a\tb?c");
+  });
+});

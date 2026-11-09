@@ -293,5 +293,6 @@ export {
   formatSecurityReport,
   formatSecurityReportJSON,
   describeSecurityHold,
+  shellArg,
   type SecurityHold,
 } from "./security-auditor-report";

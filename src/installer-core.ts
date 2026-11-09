@@ -33,6 +33,11 @@ import { estimateTokenCount } from "./utils/token-count";
 import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
 import { createDirSymlink, readFilesRecursive } from "./utils/fs";
+import {
+  REAL_CALL,
+  isPythonFile,
+  stripControlBytes,
+} from "./security-auditor-scan";
 
 import type {
   ParsedSource,
@@ -680,13 +685,25 @@ export interface SecurityWarning {
   match: string;
 }
 
-const WARNING_PATTERNS: Array<{ category: string; pattern: RegExp }> = [
+// `exec`, `eval` and `Function` use the audit's real-call matchers (#809), so
+// `asm install` and `asm audit security` / `asm update` flag the same lines:
+// a method named `eval` or a regex `.exec(` is not a builtin call.
+const WARNING_PATTERNS: Array<{
+  category: string;
+  pattern: RegExp;
+  skipPython?: boolean;
+}> = [
   { category: "Shell commands", pattern: /\b(bash|sh\s+-c)\b/ },
-  { category: "Shell commands", pattern: /\bexec\(/ },
+  { category: "Shell commands", pattern: REAL_CALL.exec },
   { category: "Shell commands", pattern: /\bchild_process\b/ },
   { category: "Shell commands", pattern: /\bBun\.spawn\b/ },
-  { category: "Code execution", pattern: /\beval\(/ },
-  { category: "Code execution", pattern: /\bFunction\(/ },
+  { category: "Code execution", pattern: REAL_CALL.eval },
+  {
+    category: "Code execution",
+    pattern: REAL_CALL.selfGlobal,
+    skipPython: true,
+  },
+  { category: "Code execution", pattern: REAL_CALL.Function },
   { category: "Code execution", pattern: /\bnew\s+Function\b/ },
   {
     category: "Credentials",
@@ -725,10 +742,12 @@ export async function scanForWarnings(
 
   for (const { relPath, content } of files) {
     const lines = content.split("\n");
+    const python = isPythonFile(relPath);
     for (let i = 0; i < lines.length; i++) {
-      for (const { category, pattern } of WARNING_PATTERNS) {
+      for (const { category, pattern, skipPython } of WARNING_PATTERNS) {
+        if (skipPython && python) continue;
         if (pattern.test(lines[i])) {
-          const match = lines[i].trim();
+          const match = stripControlBytes(lines[i].trim());
           warnings.push({
             category,
             file: relPath,

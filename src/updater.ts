@@ -28,6 +28,7 @@ export {
   type _UpdateSkillsTestOverrides,
   updateSkill,
   updateSkills,
+  installSourceOf,
   formatOutdatedTable,
   formatOutdatedJSON,
   formatOutdatedMachine,

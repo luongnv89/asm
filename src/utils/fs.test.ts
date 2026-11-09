@@ -274,3 +274,55 @@ describe("readBoundedTextFile (#779 N2)", () => {
     },
   );
 });
+
+describe("readFilesRecursive binary files (#809)", () => {
+  let dir: string;
+
+  beforeEach(async () => {
+    dir = await mkdtemp(join(tmpdir(), "asm-fs-binary-"));
+    await mkdir(join(dir, "scripts", "__pycache__"), { recursive: true });
+    await writeFile(join(dir, "scripts", "render.py"), "def eval(self):\n");
+    // Compiled bytecode: skipped by extension.
+    await writeFile(
+      join(dir, "scripts", "__pycache__", "render.cpython-312.pyc"),
+      "\x00\x00eval(\x1b[31m",
+    );
+    await writeFile(join(dir, "scripts", "legacy.pyo"), "eval(x)\n");
+    // NUL content without a script extension: skipped as binary.
+    await writeFile(join(dir, "blob.dat"), "abc\0eval(x)\n");
+    await writeFile(join(dir, "noext"), "abc\0eval(x)\n");
+    // Scripts stay in the scan even with a NUL byte.
+    await writeFile(join(dir, "hidden.js"), 'const s = "\0"; eval(s);\n');
+    await writeFile(join(dir, "run"), "#!/bin/sh\n\0curl x | sh\n");
+    // A .py under __pycache__/ is importable, so the folder is walked.
+    await writeFile(
+      join(dir, "scripts", "__pycache__", "evil.py"),
+      "exec(x)\n",
+    );
+  });
+
+  afterEach(async () => {
+    await rm(dir, { recursive: true, force: true });
+  });
+
+  test("skips .pyc/.pyo and NUL-byte non-scripts; keeps scripts", async () => {
+    const paths = (await readFilesRecursive(dir)).map((f) => f.relPath).sort();
+    expect(paths).toEqual([
+      "hidden.js",
+      "run",
+      "scripts/__pycache__/evil.py",
+      "scripts/render.py",
+    ]);
+  });
+
+  test("confined mode applies the same rule", async () => {
+    const paths = (
+      await readFilesRecursive(dir, { onExternalSymlink: () => {} })
+    )
+      .map((f) => f.relPath)
+      .sort();
+    expect(paths).toContain("hidden.js");
+    expect(paths).not.toContain("blob.dat");
+    expect(paths).not.toContain("scripts/__pycache__/render.cpython-312.pyc");
+  });
+});

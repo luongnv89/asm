@@ -788,6 +788,57 @@ describe("scanForWarnings", () => {
     expect(warnings.some((w) => w.category === "Code execution")).toBe(true);
   });
 
+  test("uses the audit's real-call rule for eval/exec/Function (#809)", async () => {
+    await mkdir(join(tempDir, "scripts"), { recursive: true });
+    await writeFile(
+      join(tempDir, "scripts", "render.py"),
+      [
+        "class Browser:",
+        "    def eval(self, expression):",
+        "        return self.send(expression)",
+        'Browser().eval("x")',
+        "self.eval(y)",
+        "m = re.exec(s)",
+      ].join("\n"),
+    );
+    expect(await scanForWarnings(tempDir)).toEqual([]);
+
+    await writeFile(
+      join(tempDir, "scripts", "run.py"),
+      "eval(user_input)\nexec(code)\n",
+    );
+    await writeFile(
+      join(tempDir, "scripts", "run.js"),
+      "window.eval(x)\nself.eval(x)\nnew Function(x)\n",
+    );
+    const lines = (await scanForWarnings(tempDir)).map(
+      (w) => `${w.category}:${w.file}:${w.line}`,
+    );
+    // `new Function(` hits both Function rules, as before; compare lines.
+    expect([...new Set(lines)].sort()).toEqual(
+      [
+        "Code execution:scripts/run.py:1",
+        "Shell commands:scripts/run.py:2",
+        "Code execution:scripts/run.js:1",
+        "Code execution:scripts/run.js:2",
+        "Code execution:scripts/run.js:3",
+      ].sort(),
+    );
+  });
+
+  test("skips .pyc files and never prints control bytes (#809)", async () => {
+    await mkdir(join(tempDir, "__pycache__"), { recursive: true });
+    await writeFile(
+      join(tempDir, "__pycache__", "x.cpython-312.pyc"),
+      "\0\0eval(x)",
+    );
+    await writeFile(join(tempDir, "a.js"), "eval(x) // \x1b[31m\0\n");
+    const warnings = await scanForWarnings(tempDir);
+    expect(warnings.map((w) => w.file)).toEqual(["a.js"]);
+    // eslint-disable-next-line no-control-regex
+    expect(warnings[0].match).not.toMatch(/[\x00-\x08\x0a-\x1f\x7f-\x9f]/);
+  });
+
   test("detects credential patterns", async () => {
     await writeFile(join(tempDir, "config.txt"), "API_KEY = sk-1234567890\n");
 

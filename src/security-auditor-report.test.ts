@@ -137,6 +137,64 @@ describe("describeSecurityHold (#791)", () => {
     );
   });
 
+  test("names the top findings and an override command (#809)", () => {
+    const m = (
+      file: string,
+      line: number,
+      severity: "critical" | "warning",
+    ) => ({
+      file,
+      line,
+      match: "content never shown",
+      severity,
+    });
+    const hold = describeSecurityHold(
+      {
+        verdictReason: "Skill has shell execution and network access.",
+        codeScans: [
+          {
+            category: "External URLs",
+            description: "",
+            matches: [m("a.py", 9, "warning"), m("a.py", 10, "warning")],
+          },
+          {
+            category: "Shell execution",
+            description: "",
+            matches: [m("run\x1b.sh", 3, "critical")],
+          },
+          {
+            category: "Environment variable access",
+            description: "",
+            matches: [{ ...m("e.js", 1, "warning"), severity: "info" }],
+          },
+        ],
+      },
+      {
+        ...opts,
+        verdict: "dangerous — update blocked",
+        auditTarget: "github:o/r:skills/x",
+        overrideCommand: "asm install github:o/r:skills/x --force --yes",
+        action: "install it anyway",
+        findings: 2,
+      },
+    );
+    expect(hold.findings).toEqual([
+      "run?.sh:3 (Shell execution)",
+      "a.py:9 (External URLs)",
+      "and 1 more",
+    ]);
+    expect(hold.message).toBe(
+      'Security audit: dangerous — update blocked — Skill has shell execution and network access. Findings: run?.sh:3 (Shell execution), a.py:9 (External URLs), and 1 more. Run "asm audit security github:o/r:skills/x" for the full report, or run "asm install github:o/r:skills/x --force --yes" to install it anyway.',
+    );
+    expect(hold.message).not.toContain("content never shown");
+  });
+
+  test("findings are omitted unless asked for", () => {
+    const hold = describeSecurityHold({ verdictReason: "r" }, opts);
+    expect(hold.findings).toEqual([]);
+    expect(hold.message).not.toContain("Findings:");
+  });
+
   test("a path with spaces is quoted in the suggested command", () => {
     const hold = describeSecurityHold(
       {},

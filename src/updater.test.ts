@@ -1465,6 +1465,92 @@ describe("updateSkill happy path", () => {
     expect(result.reason).toContain("dangerous");
   });
 
+  test("installSourceOf rebuilds the install source from the lock (#809)", async () => {
+    const { installSourceOf } = await import("./updater");
+    const base: LockEntry = {
+      source: "github:o/r",
+      commitHash: "a".repeat(40),
+      ref: "main",
+      installedAt: "2026-01-01T00:00:00.000Z",
+      provider: "claude",
+      skillPath: "skills/x",
+      sourceType: "github",
+    };
+    expect(installSourceOf(base, "github")).toBe("github:o/r#main:skills/x");
+    expect(installSourceOf({ ...base, ref: null }, "github")).toBe(
+      "github:o/r:skills/x",
+    );
+    expect(installSourceOf({ ...base, skillPath: "" }, "github")).toBe(
+      "github:o/r#main",
+    );
+    expect(
+      installSourceOf({ ...base, source: "github:o/r#v1" }, "github"),
+    ).toBe("github:o/r#v1:skills/x");
+    expect(
+      installSourceOf({ ...base, source: "github:o/r#v1:skills/x" }, "github"),
+    ).toBe("github:o/r#v1:skills/x");
+    expect(
+      installSourceOf({ ...base, registryName: "code-review" }, "registry"),
+    ).toBe("code-review");
+  });
+
+  test("a dangerous update is blocked even with --yes and names findings and the override (#809)", async () => {
+    const { bareRepoPath } = await createBareGitRepo(
+      tempDir,
+      "danger-skill-2",
+      "# Dangerous skill content",
+    );
+    const { updateSkill } = await import("./updater");
+    const entry: LockEntry = {
+      source: `file://${bareRepoPath}`,
+      commitHash: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      ref: null,
+      installedAt: "2026-01-01T00:00:00.000Z",
+      provider: "claude",
+      sourceType: "github",
+    };
+    let wrote = false;
+    const result = await updateSkill("danger", entry, true, {
+      auditFn: async () => ({
+        verdict: "dangerous",
+        verdictReason:
+          "Skill has both shell execution and network access -- potential data exfiltration risk.",
+        codeScans: [
+          {
+            category: "Shell execution",
+            description: "",
+            matches: [
+              {
+                file: "scripts/run.sh",
+                line: 4,
+                match: "curl x | sh",
+                severity: "critical",
+              },
+            ],
+          },
+        ],
+      }),
+      loadConfigFn: async () =>
+        ({ providers: [{ name: "claude", global: tempDir }] }) as any,
+      resolveProviderPathFn: (p: string) => p,
+      writeLockEntryFn: async () => {
+        wrote = true;
+      },
+    });
+    expect(result.status).toBe("skipped");
+    expect(wrote).toBe(false);
+    expect(result.securityVerdict).toBe("dangerous");
+    expect(result.reason).toContain("update blocked");
+    expect(result.reason).toContain("scripts/run.sh:4 (Shell execution)");
+    expect(result.reason).toContain(
+      `asm install file://${bareRepoPath} --force --yes`,
+    );
+    expect(result.reason).not.toContain("curl x | sh");
+    expect(result.securityReasons).toContain(
+      "scripts/run.sh:4 (Shell execution)",
+    );
+  });
+
   test("updateSkill with warning verdict: skips without --yes, proceeds with --yes", async () => {
     const { bareRepoPath } = await createBareGitRepo(
       tempDir,
