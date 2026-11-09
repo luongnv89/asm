@@ -25,6 +25,7 @@ import {
   formatUpdateMachine,
   updateSkills,
   updateSkill,
+  checkOutdated,
 } from "./updater";
 import type {
   OutdatedSummary,
@@ -2711,7 +2712,7 @@ describe("updateSkill refuses an incoming folder with no SKILL.md (#814)", () =>
 
   const missing = (latest: string) =>
     `SKILL.md missing at ${latest.slice(0, 7)}: the skill was removed or moved upstream`;
-  const NEXT_GENERIC = `Run "asm uninstall c9" to remove it, or reinstall it from its new path.`;
+  const NEXT_GENERIC = `Run: asm uninstall c9 — or reinstall it from its new path`;
 
   /** Is `dir`'s filesystem case-insensitive (e.g. default macOS)? */
   async function caseInsensitive(dir: string): Promise<boolean> {
@@ -2784,7 +2785,7 @@ describe("updateSkill refuses an incoming folder with no SKILL.md (#814)", () =>
     const { result, calls, before, after } = await runUpdate(s);
     expect(result.status).toBe("failed");
     expect(result.reason).toBe(
-      `${missing(s.latest)}. Run "asm uninstall c9" to remove it, or reinstall it from its new path "skills/moved/c9" in file://${s.bare}.`,
+      `${missing(s.latest)}. ${NEXT_GENERIC} skills/moved/c9 in file://${s.bare}`,
     );
     expect(calls).toEqual({ audit: 0, lock: 0 });
     expect(after).toEqual(before);
@@ -2806,7 +2807,7 @@ describe("updateSkill refuses an incoming folder with no SKILL.md (#814)", () =>
       s.entry.source = "github:acme/skills";
       const { result } = await runUpdate(s);
       expect(result.reason).toBe(
-        `${missing(s.latest)}. Run "asm uninstall c9" to remove it, or reinstall it from its new path: "asm install 'github:acme/skills#main:skills/c9-renamed'".`,
+        `${missing(s.latest)}. ${NEXT_GENERIC}: asm install 'github:acme/skills#main:skills/c9-renamed'`,
       );
     } finally {
       await rm(gitconfig, { force: true });
@@ -2832,7 +2833,7 @@ describe("updateSkill refuses an incoming folder with no SKILL.md (#814)", () =>
       await gitIn(w, "mv", "skills/c9", `skills/${evil}/c9`);
     });
     const { result } = await runUpdate(s);
-    expect(result.reason).toContain(`new path "skills/ev?[31mil?/c9"`);
+    expect(result.reason).toContain(`new path 'skills/ev?[31mil?/c9' in `);
     // eslint-disable-next-line no-control-regex
     expect(result.reason).not.toMatch(/[\x00-\x08\x0a-\x1f\x7f-\x9f]/);
   });
@@ -2860,15 +2861,143 @@ describe("updateSkill refuses an incoming folder with no SKILL.md (#814)", () =>
         expect(result.status).toBe("updated");
         expect(calls).toEqual({ audit: 1, lock: 1 });
       } else {
+        // Say which name was found, so "outdated" then a refusal is clear.
         expect(result).toMatchObject({
           status: "failed",
-          reason: `${missing(s.latest)}. ${NEXT_GENERIC}`,
+          reason: `${missing(s.latest)} (found ${variant}; asm needs SKILL.md). ${NEXT_GENERIC}`,
         });
         expect(calls).toEqual({ audit: 0, lock: 0 });
         expect(after).toEqual(before);
       }
     });
   }
+
+  test("a folder named SKILL.md is never offered as the new path", async () => {
+    const s = await setup(async (w) => {
+      await rm(join(w, "skills", "c9", "SKILL.md"));
+      await mkdir(join(w, "skills", "c9", "SKILL.md"));
+      await writeFile(
+        join(w, "skills", "c9", "SKILL.md", "SKILL.md"),
+        skillMd("c9", "1.1.0"),
+      );
+    });
+    const { result } = await runUpdate(s);
+    expect(result.reason).toBe(
+      `${missing(s.latest)} (SKILL.md is a directory). ${NEXT_GENERIC}`,
+    );
+  });
+
+  // ─── B1: a symlink anywhere on the skill folder's path ───────────────────
+
+  const LINKED: Array<
+    [string, (w: string, outside: string) => Promise<void>, string, string]
+  > = [
+    [
+      "skill folder replaced by a symlink inside the repo (skills/c9 -> ../other/c9)",
+      async (w) => {
+        await mkdir(join(w, "other", "c9"), { recursive: true });
+        await writeFile(
+          join(w, "other", "c9", "SKILL.md"),
+          skillMd("c9", "9.9.9"),
+        );
+        await rm(join(w, "skills", "c9"), { recursive: true });
+        await symlink("../other/c9", join(w, "skills", "c9"));
+      },
+      "skills/c9",
+      // The linked-to folder holds the same name: offered as the new path.
+      ` other/c9 in file://`,
+    ],
+    [
+      "skill folder replaced by a symlink outside the repo",
+      async (w, outside) => {
+        await mkdir(join(outside, "c9"), { recursive: true });
+        await writeFile(
+          join(outside, "c9", "SKILL.md"),
+          skillMd("c9", "9.9.9"),
+        );
+        await writeFile(join(outside, "c9", "payload.txt"), "PAYLOAD\n");
+        await rm(join(w, "skills", "c9"), { recursive: true });
+        await symlink(join(outside, "c9"), join(w, "skills", "c9"));
+      },
+      "skills/c9",
+      "",
+    ],
+    [
+      "a symlinked grandparent (skills -> pkgs)",
+      async (w) => {
+        await gitIn(w, "mv", "skills", "pkgs");
+        await symlink("pkgs", join(w, "skills"));
+      },
+      "skills",
+      ` pkgs/c9 in file://`,
+    ],
+  ];
+
+  for (const [label, change, link, hint] of LINKED) {
+    test(`${label}: refused, never installed, and outdated agrees`, async () => {
+      const outside = join(tempDir, "outside");
+      const s = await setup((w) => change(w, outside));
+      const { result, calls, before, after } = await runUpdate(s);
+      expect(result.status).toBe("failed");
+      expect(result.reason).toBe(
+        `${missing(s.latest)} (${link} is a symlink, which asm does not follow). ${NEXT_GENERIC}${hint ? `${hint}${s.bare}` : ""}`,
+      );
+      expect(calls).toEqual({ audit: 0, lock: 0 });
+      expect(after).toEqual(before);
+      // Still a real folder, never a link into the (deleted) checkout.
+      const { lstat } = await import("fs/promises");
+      expect((await lstat(s.installedDir)).isSymbolicLink()).toBe(false);
+
+      // The two halves agree: outdated calls the same upstream removed.
+      const summary = await checkOutdated({
+        lock: { version: 1, skills: { c9: s.entry } },
+        fetchRegistryIndexFn: async () => null,
+      });
+      expect(summary.entries[0].status).toBe("removed-upstream");
+    });
+  }
+
+  test("every skill whose path has no symlink still updates (sibling of a linked folder)", async () => {
+    const s = await setup(async (w) => {
+      await mkdir(join(w, "other", "c9"), { recursive: true });
+      await writeFile(join(w, "other", "c9", "SKILL.md"), skillMd("c9"));
+      await rm(join(w, "skills", "c9"), { recursive: true });
+      await symlink("../other/c9", join(w, "skills", "c9"));
+      await writeFile(
+        join(w, "skills", "ok", "SKILL.md"),
+        skillMd("ok", "1.1.0"),
+      );
+    });
+    const okDir = join(s.skillsDir, "ok");
+    await mkdir(okDir, { recursive: true });
+    await writeFile(join(okDir, "SKILL.md"), skillMd("ok"));
+    const result = await updateSkill(
+      "ok",
+      { ...s.entry, skillPath: "skills/ok" },
+      true,
+      {
+        auditFn: async () => ({ verdict: "safe" }),
+        loadConfigFn: async () =>
+          ({ providers: [{ name: "claude", global: s.skillsDir }] }) as any,
+        resolveProviderPathFn: (p: string) => p,
+        writeLockEntryFn: async () => {},
+      },
+      s.latest,
+    );
+    expect(result.status).toBe("updated");
+    expect(await readFile(join(okDir, "SKILL.md"), "utf-8")).toContain(
+      "version: 1.1.0",
+    );
+  });
+
+  test("a repo-root skill has no path components to check", async () => {
+    const s = await setup(async (w) => {
+      await writeFile(join(w, "SKILL.md"), skillMd("c9", "2.0.0"));
+    });
+    s.entry.skillPath = "";
+    const { result } = await runUpdate(s);
+    expect(result.status).toBe("updated");
+  });
 
   test("a SKILL.md check that cannot run keeps the installed copy and says why", async () => {
     const s = await setup(async (w) => {

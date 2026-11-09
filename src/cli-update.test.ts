@@ -16,6 +16,7 @@ import {
   readdir,
   readlink,
   rm,
+  symlink,
   writeFile,
 } from "fs/promises";
 import { tmpdir } from "os";
@@ -191,7 +192,7 @@ describe("asm update refuses a skill whose SKILL.md is gone upstream (#814)", ()
     const update = await asm("update", "--yes");
     expect(update.exitCode).toBe(1);
     expect(update.stdout).toContain(
-      `✗ c9 SKILL.md missing at ${short}: the skill was removed or moved upstream. Run "asm uninstall c9" to remove it, or reinstall it from its new path.`,
+      `✗ c9 SKILL.md missing at ${short}: the skill was removed or moved upstream. Run: asm uninstall c9 — or reinstall it from its new path\n`,
     );
     expect(update.stdout).toMatch(/✓ ok \S+ → \S+/);
     expect(update.stdout).toContain("1 updated, 1 failed");
@@ -213,7 +214,8 @@ describe("asm update refuses a skill whose SKILL.md is gone upstream (#814)", ()
     const short = latest.slice(0, 7);
     const lockSum = await sha256(lockPath());
     const c9Before = await snapshot(join(skillsDir(), "c9"));
-    const reason = `✗ c9 SKILL.md missing at ${short}: the skill was removed or moved upstream. Run "asm uninstall c9" to remove it, or reinstall it from its new path: "asm install 'github:acme/skills#main:skills/v2/c9'".`;
+    // Commands are printed bare, never inside "…", so a copy never expands $(…).
+    const reason = `✗ c9 SKILL.md missing at ${short}: the skill was removed or moved upstream. Run: asm uninstall c9 — or reinstall it from its new path: asm install 'github:acme/skills#main:skills/v2/c9'`;
 
     for (const args of [
       ["update"],
@@ -230,7 +232,11 @@ describe("asm update refuses a skill whose SKILL.md is gone upstream (#814)", ()
       );
     }
 
-    const json = JSON.parse((await asm("update", "c9", "--json")).stdout);
+    // --json reports the refusal as "failed" and exits 0, as for every
+    // per-skill failure (README); only the table output exits 1.
+    const jsonRun = await asm("update", "c9", "--json");
+    expect(jsonRun.exitCode).toBe(0);
+    const json = JSON.parse(jsonRun.stdout);
     expect(json.results).toEqual([
       { name: "c9", status: "failed", reason: reason.slice("✗ c9 ".length) },
     ]);
@@ -241,6 +247,59 @@ describe("asm update refuses a skill whose SKILL.md is gone upstream (#814)", ()
       machine.data.find((d: { name: string }) => d.name === "c9").status,
     ).toBe("removed-upstream");
   });
+
+  // B1: the skill folder itself replaced upstream by a symlink.
+  for (const target of ["inside", "outside"] as const) {
+    for (const yes of [false, true]) {
+      test(`skill folder replaced by a symlink ${target} the repo${yes ? " with --yes" : ""}: refused, other skill updates`, async () => {
+        let linkTo: string;
+        if (target === "inside") {
+          await mkdir(join(work, "other", "c9"), { recursive: true });
+          await writeFile(
+            join(work, "other", "c9", "SKILL.md"),
+            SKILL_MD("c9", "9.9.9"),
+          );
+          linkTo = "../other/c9";
+        } else {
+          linkTo = join(cwd, "outside", "c9");
+          await mkdir(linkTo, { recursive: true });
+          await writeFile(join(linkTo, "SKILL.md"), SKILL_MD("c9", "9.9.9"));
+          await writeFile(join(linkTo, "payload.txt"), "PAYLOAD-OUT\n");
+        }
+        git("rm", "-rq", "skills/c9");
+        await symlink(linkTo, join(work, "skills", "c9"));
+        await writeFile(
+          join(work, "skills", "ok", "SKILL.md"),
+          SKILL_MD("ok", "1.1.0"),
+        );
+        const latest = publish(`v2: c9 -> ${target}`);
+        const short = latest.slice(0, 7);
+
+        const out = JSON.parse((await asm("outdated", "--json")).stdout);
+        expect(
+          out.skills.find((x: { name: string }) => x.name === "c9").status,
+        ).toBe("removed-upstream");
+
+        const c9Before = await snapshot(join(skillsDir(), "c9"));
+        const c9LockBefore = (await readLock()).skills.c9;
+        const update = await asm("update", ...(yes ? ["--yes"] : []));
+        expect(update.exitCode).toBe(1);
+        expect(update.stdout).toContain(
+          `✗ c9 SKILL.md missing at ${short}: the skill was removed or moved upstream (skills/c9 is a symlink, which asm does not follow). Run: asm uninstall c9 — or reinstall it from its new path`,
+        );
+        expect(update.stdout).toMatch(/✓ ok \S+ → \S+/);
+        expect(update.stdout).toContain("1 updated, 1 failed");
+
+        expect((await lstat(join(skillsDir(), "c9"))).isSymbolicLink()).toBe(
+          false,
+        );
+        expect(await snapshot(join(skillsDir(), "c9"))).toEqual(c9Before);
+        const lock = await readLock();
+        expect(lock.skills.c9).toEqual(c9LockBefore);
+        expect(lock.skills.ok.commitHash).toBe(latest);
+      });
+    }
+  }
 
   test("nothing removed upstream: update behaves as before", async () => {
     await writeFile(join(work, "skills", "c9", "body.md"), "c9 v2\n");

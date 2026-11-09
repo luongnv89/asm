@@ -27,7 +27,7 @@ import {
   findSkillFoldersByName,
   normalizeSkillPath,
 } from "./updater-core";
-import { skillMdState, type SkillMdState } from "./installer-core";
+import { SKILL_MD, skillMdState, type SkillMdState } from "./installer-core";
 import { stripControlBytes } from "./security-auditor-scan";
 import { readLock } from "./utils/lock";
 import {
@@ -44,7 +44,7 @@ import type {
 } from "./updater-core";
 import { join } from "path";
 import { homedir } from "os";
-import { mkdir, rm, rename, cp, access } from "fs/promises";
+import { mkdir, rm, rename, cp, access, lstat, readdir } from "fs/promises";
 import { debug } from "./logger";
 import { ansi } from "./formatter";
 
@@ -133,12 +133,49 @@ const SKILL_MD_PROBLEM: Record<Exclude<SkillMdState, "file">, string> = {
 };
 
 /**
- * Refuse an update whose incoming folder is no skill (#814): its SKILL.md is
- * missing, a directory or a symlink, or could not be checked. `null` when the
- * folder is a skill. Runs before the audit and the swap, so a refused skill
- * keeps its installed copy and its lock entry. The next step names the
- * skill's new folder only when this checkout already shows exactly one
- * SKILL.md with the same frontmatter `name` (no extra network call).
+ * The first component of `skillPath` under `repoDir`, from the checkout root
+ * down to the skill folder itself, that is a symlink; `null` when none is.
+ * `lstat` on SKILL.md alone would follow a linked folder or parent, and the
+ * swap would then install the link itself (#814). A missing component ends
+ * the walk (the SKILL.md check reports it); other errors are rethrown.
+ */
+async function symlinkInSkillPath(
+  repoDir: string,
+  skillPath: string,
+): Promise<string | null> {
+  if (skillPath === "") return null;
+  const parts = skillPath.split("/");
+  for (let i = 1; i <= parts.length; i++) {
+    const rel = parts.slice(0, i).join("/");
+    try {
+      if ((await lstat(join(repoDir, rel))).isSymbolicLink()) return rel;
+    } catch (err) {
+      const code = (err as NodeJS.ErrnoException | undefined)?.code;
+      if (code === "ENOENT" || code === "ENOTDIR") return null;
+      throw err;
+    }
+  }
+  return null;
+}
+
+/** ` (found skill.md; asm needs SKILL.md)` for a SKILL.md in another case. */
+async function caseVariantNote(skillDir: string): Promise<string> {
+  const entries = await readdir(skillDir).catch(() => [] as string[]);
+  const variant = entries.find(
+    (e) => e !== SKILL_MD && e.toLowerCase() === SKILL_MD.toLowerCase(),
+  );
+  return variant ? ` (found ${variant}; asm needs ${SKILL_MD})` : "";
+}
+
+/**
+ * Refuse an update whose incoming folder is no skill (#814): a component of
+ * its path is a symlink, or its SKILL.md is missing, a directory or a
+ * symlink, or the check could not run. `null` when the folder is a skill.
+ * Runs before the audit and the swap, so a refused skill keeps its installed
+ * copy and its lock entry. The next step names the skill's new folder only
+ * when this checkout already shows exactly one SKILL.md with the same
+ * frontmatter `name` (no extra network call). Commands are printed bare,
+ * never inside quotes, so copying them never expands `$(…)`.
  */
 async function refuseInvalidSkillFolder(
   name: string,
@@ -149,9 +186,20 @@ async function refuseInvalidSkillFolder(
   stateFn: typeof skillMdState,
 ): Promise<UpdateResult | null> {
   const at = shortHash(commit);
-  let state: SkillMdState;
+  const current = normalizeSkillPath(entry.skillPath);
+  let problem: string;
   try {
-    state = await stateFn(skillDir);
+    const link = await symlinkInSkillPath(repoDir, current);
+    if (link !== null) {
+      problem = ` (${link} is a symlink, which asm does not follow)`;
+    } else {
+      const state = await stateFn(skillDir);
+      if (state === "file") return null;
+      problem =
+        state === "missing"
+          ? await caseVariantNote(skillDir)
+          : SKILL_MD_PROBLEM[state];
+    }
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     return {
@@ -162,18 +210,22 @@ async function refuseInvalidSkillFolder(
       ),
     };
   }
-  if (state === "file") return null;
 
-  const current = normalizeSkillPath(entry.skillPath);
+  // A folder named SKILL.md is never offered as the new path.
   const moved = (
     await findSkillFoldersByName(
       repoDir,
       name,
       commit.length === 64 ? "sha256" : "sha1",
     )
-  ).filter((dir) => dir !== current);
-  const uninstall = `"asm uninstall ${shellArg(name)}"`;
-  let next = `Run ${uninstall} to remove it, or reinstall it from its new path.`;
+  ).filter(
+    (dir) =>
+      dir !== current &&
+      dir.slice(dir.lastIndexOf("/") + 1).toLowerCase() !==
+        SKILL_MD.toLowerCase(),
+  );
+  const uninstall = `asm uninstall ${shellArg(name)}`;
+  let next = `Run: ${uninstall} — or reinstall it from its new path`;
   if (moved.length === 1) {
     const repoSource = entry.source.split("#")[0];
     const install = installSourceOf(
@@ -182,14 +234,14 @@ async function refuseInvalidSkillFolder(
     );
     next =
       install !== null
-        ? `Run ${uninstall} to remove it, or reinstall it from its new path: "asm install ${shellArg(install)}".`
-        : `Run ${uninstall} to remove it, or reinstall it from its new path "${moved[0] || "."}" in ${repoSource}.`;
+        ? `${next}: asm install ${shellArg(install)}`
+        : `${next} ${shellArg(moved[0] || ".")} in ${shellArg(repoSource)}`;
   }
   return {
     name,
     status: "failed",
     reason: stripControlBytes(
-      `SKILL.md missing at ${at}: the skill was removed or moved upstream${SKILL_MD_PROBLEM[state]}. ${next}`,
+      `SKILL.md missing at ${at}: the skill was removed or moved upstream${problem}. ${next}`,
     ),
   };
 }

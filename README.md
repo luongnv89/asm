@@ -676,7 +676,7 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm export` | Export inventory as JSON |
 | `asm import <file>` | Import skills from exported manifest |
 | `asm outdated` | Show outdated skills, with `metadata.version` for GitHub sources; a commit outside the skill's folder does not count, and a skill whose SKILL.md is gone upstream is `removed-upstream` |
-| `asm update [name...]` | Update outdated skills; keeps the installed copy, and exits 1, when the incoming folder has no SKILL.md |
+| `asm update [name...]` | Update outdated skills; keeps the installed copy when the incoming folder has no SKILL.md (or is reached through a symlink) and reports it as failed: the table output exits 1, while `--json`/`--machine` report `"status": "failed"` and exit 0, as for every per-skill failure |
 | `asm disable <target>` | Disable skill(s) without uninstalling |
 | `asm enable <target>` | Re-enable disabled skill(s) |
 | `asm index ingest <repo>` | Index a skill repo |
