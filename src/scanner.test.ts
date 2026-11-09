@@ -1878,3 +1878,133 @@ describe("scanAllSkills project dir aliasing the global dir (#806)", () => {
     expect(await scanFrom(project, "project")).toEqual([["s2", "project"]]);
   });
 });
+
+describe("scanAllSkills alias check is per provider (#806)", () => {
+  // HOME is the per-file sandbox from src/test-setup.ts, never the real home.
+  let home: string;
+  let tempDir: string;
+  const prevCwd = process.cwd();
+
+  const provider = (name: string) => ({
+    name,
+    label: name,
+    global: `~/.${name}/skills`,
+    project: `.${name}/skills`,
+    enabled: true,
+  });
+
+  async function writeSkill(dir: string, name: string): Promise<void> {
+    await mkdir(join(dir, name), { recursive: true });
+    await writeFile(
+      join(dir, name, "SKILL.md"),
+      `---\nname: ${name}\ndescription: test\n---\n# ${name}\n`,
+    );
+  }
+
+  async function scanFrom(
+    cwd: string,
+    scope: "both" | "global" | "project",
+    config: AppConfig,
+  ) {
+    process.chdir(cwd);
+    try {
+      const noPlugins = join(tempDir, "no-plugins");
+      return (await scanAllSkills(config, scope, noPlugins, noPlugins)).map(
+        (s) => [s.name, s.scope, s.provider],
+      );
+    } finally {
+      process.chdir(prevCwd);
+    }
+  }
+
+  beforeEach(async () => {
+    resetScanFsControl();
+    home = homedir();
+    expect(home).toBe(process.env.HOME);
+    tempDir = await mkdtemp(join(tmpdir(), "scanner-806-provider-"));
+  });
+
+  afterEach(async () => {
+    process.chdir(prevCwd);
+    resetScanFsControl();
+    await rm(join(home, ".agents"), { recursive: true, force: true });
+    await rm(join(home, ".claude"), { recursive: true, force: true });
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  it("keeps a project dir linked to another provider's global dir as project", async () => {
+    // Review case 9: proj/.claude/skills -> ~/.agents/skills.
+    await writeSkill(join(home, ".agents", "skills"), "a1");
+    await writeSkill(join(home, ".claude", "skills"), "s1");
+    const project = join(tempDir, "proj9");
+    await mkdir(join(project, ".claude"), { recursive: true });
+    await createDirSymlink(
+      join(home, ".agents", "skills"),
+      join(project, ".claude", "skills"),
+    );
+    const config: AppConfig = {
+      ...getDefaultConfig(),
+      providers: [provider("agents"), provider("claude")],
+      customPaths: [],
+    };
+
+    expect(await scanFrom(project, "both", config)).toEqual([
+      ["a1", "global", "agents"],
+      ["s1", "global", "claude"],
+      ["a1", "project", "claude"],
+    ]);
+    expect(await scanFrom(project, "project", config)).toEqual([
+      ["a1", "project", "claude"],
+    ]);
+    // From HOME each provider's project dir is its own global dir.
+    expect(await scanFrom(home, "both", config)).toEqual([
+      ["a1", "global", "agents"],
+      ["s1", "global", "claude"],
+    ]);
+  });
+
+  it("keeps a provider project dir that is a global custom path as project", async () => {
+    // Review case 6b: a global custom path equals proj6/.claude/skills.
+    await writeSkill(join(home, ".claude", "skills"), "s1");
+    const project = join(tempDir, "proj6");
+    await writeSkill(join(project, ".claude", "skills"), "s6");
+    const config: AppConfig = {
+      ...getDefaultConfig(),
+      providers: [provider("claude")],
+      customPaths: [
+        {
+          path: join(project, ".claude", "skills"),
+          label: "Custom",
+          scope: "global",
+        },
+      ],
+    };
+
+    expect(await scanFrom(project, "project", config)).toEqual([
+      ["s6", "project", "claude"],
+    ]);
+    expect(await scanFrom(project, "both", config)).toEqual([
+      ["s1", "global", "claude"],
+      ["s6", "project", "claude"],
+      ["s6", "global", "custom"],
+    ]);
+  });
+
+  it("drops a custom project path that is a global custom path", async () => {
+    const shared = join(tempDir, "shared");
+    await writeSkill(shared, "c1");
+    const config: AppConfig = {
+      ...getDefaultConfig(),
+      providers: [],
+      customPaths: [
+        { path: shared, label: "G", scope: "global" },
+        { path: shared, label: "P", scope: "project" },
+      ],
+    };
+
+    expect(await scanFrom(tempDir, "both", config)).toEqual([
+      ["c1", "global", "custom"],
+    ]);
+    expect(await scanFrom(tempDir, "project", config)).toEqual([]);
+  });
+});

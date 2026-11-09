@@ -163,3 +163,46 @@ describe("CLI integration: list with cwd = HOME (#806)", () => {
     }
   });
 });
+
+describe("CLI integration: list disabled skills with cwd = HOME (#806)", () => {
+  test("old {global,project} disabled state lists the skill once, as global", async () => {
+    // A fresh home inside the src/test-setup.ts sandbox, never the real home.
+    const home = await mkdtemp(join(homedir(), "home-806-disabled-"));
+    try {
+      const skillDir = join(home, ".claude", "skills", "s1");
+      await mkdir(skillDir, { recursive: true });
+      await writeFile(
+        join(skillDir, "SKILL.md.disabled"),
+        "---\nname: s1\ndescription: test\n---\n# s1\n",
+      );
+      // State as a pre-fix `asm disable s1` from HOME wrote it.
+      const configDir = join(home, ".config", "agent-skill-manager");
+      await mkdir(configDir, { recursive: true });
+      await writeFile(
+        join(configDir, "skill-state.json"),
+        JSON.stringify({
+          version: 1,
+          disabled: { s1: { claude: { global: true, project: true } } },
+        }),
+      );
+      const opts = { env: { HOME: home }, cwd: home };
+
+      const json = await runCliInProcess(["list", "--json"], opts);
+      expect(json.exitCode).toBe(0);
+      const rows = JSON.parse(json.stdout).map(
+        (s: { name: string; scope: string; disabled?: boolean }) => [
+          s.name,
+          s.scope,
+          s.disabled,
+        ],
+      );
+      expect(rows).toEqual([["s1", "global", true]]);
+
+      const table = await runCliInProcess(["list"], opts);
+      expect(table.exitCode).toBe(0);
+      expect(table.stdout).toContain("1 global, 0 project");
+    } finally {
+      await rm(home, { recursive: true, force: true });
+    }
+  });
+});

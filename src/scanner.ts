@@ -252,11 +252,29 @@ async function realDir(dir: string): Promise<string> {
 }
 
 /**
- * Drop project locations whose real path is a global location's real path.
+ * True when `projectDir` has the same real path as one of `globalDirs`.
  * From `$HOME` (or through a symlink) `./.claude/skills` is the same directory
- * as `~/.claude/skills`; that directory is global, so it is not scanned again
- * as a project install (#806). Global dirs are checked for every scope so
- * `-s project` agrees with `-s both`.
+ * as `~/.claude/skills`; that directory is a global install, not a project one
+ * (#806). Callers pass the same provider's global dir (or, for a custom project
+ * path, the global custom paths), so a project dir that links to another
+ * provider's global dir still counts as a project install.
+ */
+export async function isProjectAliasOfGlobal(
+  projectDir: string,
+  globalDirs: readonly string[],
+): Promise<boolean> {
+  if (globalDirs.length === 0) return false;
+  const [projectReal, ...globalReal] = await Promise.all(
+    [projectDir, ...globalDirs].map(realDir),
+  );
+  return globalReal.includes(projectReal);
+}
+
+/**
+ * Drop project locations that alias their own provider's global location
+ * (custom project paths: a global custom path), so that directory is scanned
+ * once, as global. Checked for every scope, so `-s project` agrees with
+ * `-s both`.
  */
 async function dropProjectAliasesOfGlobal(
   config: AppConfig,
@@ -264,15 +282,20 @@ async function dropProjectAliasesOfGlobal(
 ): Promise<ScanLocation[]> {
   if (!locations.some((loc) => loc.scope === "project")) return locations;
 
-  const globalReal = new Set(
-    await Promise.all(
-      buildScanLocations(config, "global").map((loc) => realDir(loc.dir)),
-    ),
+  const providerGlobal = new Map(
+    config.providers.map((p) => [p.name, resolveProviderPath(p.global)]),
   );
+  const customGlobal = config.customPaths
+    .filter((custom) => custom.scope === "global")
+    .map((custom) => resolveProviderPath(custom.path));
+
   const keep = await Promise.all(
     locations.map(async (loc) => {
       if (loc.scope !== "project") return true;
-      if (!globalReal.has(await realDir(loc.dir))) return true;
+      const own = providerGlobal.get(loc.providerName);
+      const globalDirs =
+        loc.location === "project-custom" ? customGlobal : own ? [own] : [];
+      if (!(await isProjectAliasOfGlobal(loc.dir, globalDirs))) return true;
       debug(`scan: skipping ${loc.dir} (${loc.location}) — same as global`);
       return false;
     }),

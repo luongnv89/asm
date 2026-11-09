@@ -1,5 +1,5 @@
 import { loadConfig, resolveProviderPath } from "../config";
-import { scanAllSkills } from "../scanner";
+import { scanAllSkills, isProjectAliasOfGlobal } from "../scanner";
 import {
   parseFrontmatter,
   resolveCreator,
@@ -103,6 +103,10 @@ ${ansi.bold("Examples:")}
  * SKILL.md.disabled for metadata. Only instances whose disabled marker
  * actually exists on disk are returned. Honors the same scope/provider filters
  * as the scanner.
+ *
+ * A project entry whose directory is the same provider's global directory
+ * (cwd is `$HOME`, or a symlink) is the global instance: it folds into the
+ * global row and is never listed as project (#806).
  */
 
 export async function reconstructDisabledSkills(
@@ -120,6 +124,7 @@ export async function reconstructDisabledSkills(
   activeKeys?: Set<string>,
 ): Promise<SkillInfo[]> {
   const providersByName = new Map(config.providers.map((p) => [p.name, p]));
+  const aliased = await providersWithProjectAlias(config);
   const results: SkillInfo[] = [];
 
   for (const [dirName, byProvider] of Object.entries(state.disabled)) {
@@ -128,8 +133,13 @@ export async function reconstructDisabledSkills(
       const provider = providersByName.get(providerName);
       if (!provider) continue;
 
+      const projectIsGlobal = aliased.has(providerName);
       for (const scope of ["global", "project"] as const) {
-        if (!byScope[scope]) continue;
+        const recorded =
+          scope === "global"
+            ? byScope.global || (projectIsGlobal && byScope.project)
+            : byScope.project && !projectIsGlobal;
+        if (!recorded) continue;
         if (scopeFilter === "global" && scope !== "global") continue;
         if (scopeFilter === "project" && scope !== "project") continue;
 
@@ -188,6 +198,28 @@ export async function reconstructDisabledSkills(
   }
 
   return results;
+}
+
+/**
+ * Providers whose project dir, resolved from the cwd, is their own global dir
+ * (`isProjectAliasOfGlobal`). Their project state entries name the global
+ * instance (#806).
+ */
+async function providersWithProjectAlias(
+  config: AppConfig,
+): Promise<Set<string>> {
+  const names = await Promise.all(
+    config.providers.map(async (p) =>
+      p.project &&
+      p.global &&
+      (await isProjectAliasOfGlobal(resolveProviderPath(p.project), [
+        resolveProviderPath(p.global),
+      ]))
+        ? p.name
+        : null,
+    ),
+  );
+  return new Set(names.filter((n): n is string => n !== null));
 }
 
 interface ToggleResult {
@@ -368,6 +400,7 @@ export async function cmdEnable(args: ParsedArgs) {
   // discovered — enabling renames the shared SKILL.md.disabled for all of them,
   // so state must be cleared for every sibling too (honest shared semantics).
   const state = await loadSkillState();
+  const aliased = await providersWithProjectAlias(config);
   const disabledPool = await reconstructDisabledSkills(
     config,
     state,
@@ -433,6 +466,10 @@ export async function cmdEnable(args: ParsedArgs) {
       await enableSkillInstance(g.representative.path);
       for (const s of g.siblings) {
         clearDisabled(state, s.dirName, s.provider, s.scope);
+        // A project entry folded into this global row names the same dir.
+        if (s.scope === "global" && aliased.has(s.provider)) {
+          clearDisabled(state, s.dirName, s.provider, "project");
+        }
         done.push({
           name: s.name,
           provider: s.provider,
