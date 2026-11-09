@@ -1104,7 +1104,12 @@ asm eval-providers list`}</CodeBlock>
           <h3>
             <code>asm outdated</code>
           </h3>
-          <p>Show which installed skills have newer versions available.</p>
+          <p>
+            Show which installed skills have newer versions available. For
+            GitHub-sourced skills it also shows <code>metadata.version</code>{" "}
+            (installed → latest), and a newer commit that changes nothing in
+            the skill&apos;s own folder leaves the skill up to date.
+          </p>
           <FlagTable
             rows={[
               ["--json", "Output as JSON"],

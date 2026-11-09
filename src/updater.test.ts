@@ -244,6 +244,97 @@ describe("formatOutdatedTable", () => {
   });
 });
 
+describe("formatOutdatedTable versions (#807)", () => {
+  const base = {
+    source: "github:user/repo",
+    sourceType: "github" as const,
+  };
+  const summary: OutdatedSummary = {
+    entries: [
+      {
+        ...base,
+        name: "bumped",
+        installedCommit: "b9a6981",
+        latestCommit: "a8464c5",
+        status: "outdated",
+        installedVersion: "1.6.0",
+        latestVersion: "1.7.0",
+      },
+      {
+        ...base,
+        name: "same-version",
+        installedCommit: "b9a6981",
+        latestCommit: "a8464c5",
+        status: "outdated",
+        installedVersion: "1.3.0",
+        latestVersion: "1.3.0",
+      },
+      {
+        ...base,
+        name: "untouched",
+        installedCommit: "b9a6981",
+        latestCommit: "a8464c5",
+        status: "up-to-date",
+        installedVersion: "2.0.0",
+        latestVersion: "2.0.0",
+      },
+      {
+        ...base,
+        name: "no-version",
+        installedCommit: "b9a6981",
+        latestCommit: "a8464c5",
+        status: "outdated",
+        installedVersion: null,
+        latestVersion: null,
+      },
+      {
+        name: "local-one",
+        installedCommit: "abc1234",
+        latestCommit: "abc1234",
+        source: "local:/x",
+        sourceType: "local",
+        status: "up-to-date",
+      },
+    ],
+    outdatedCount: 3,
+    upToDateCount: 2,
+    untrackedCount: 0,
+    errorCount: 0,
+  };
+
+  test("shows installed → latest versions and marks untouched folders", () => {
+    const lines = formatOutdatedTable(summary, false).split("\n");
+    expect(lines[0]).toContain("Version");
+    const row = (name: string) => lines.find((l) => l.startsWith(name)) ?? "";
+    expect(row("bumped")).toContain("1.6.0 → 1.7.0");
+    expect(row("same-version")).toContain("1.3.0 → 1.3.0");
+    expect(row("untouched")).toContain("2.0.0");
+    expect(row("untouched")).not.toContain("→");
+    expect(row("untouched")).toContain("(up to date, skill folder unchanged)");
+    expect(row("no-version")).toMatch(/a8464c5\s+-\s+github/);
+    expect(row("local-one")).toContain("(up to date)");
+    expect(row("local-one")).not.toContain("skill folder unchanged");
+  });
+
+  test("JSON adds versions to GitHub entries only and keeps existing fields", () => {
+    const parsed = JSON.parse(formatOutdatedJSON(summary));
+    expect(parsed.skills[0]).toEqual({
+      name: "bumped",
+      installed: "b9a6981",
+      latest: "a8464c5",
+      source: "github",
+      status: "outdated",
+      installedVersion: "1.6.0",
+      latestVersion: "1.7.0",
+    });
+    expect(parsed.skills[2].status).toBe("up-to-date");
+    expect(parsed.skills[3].installedVersion).toBeNull();
+    expect(parsed.skills[3].latestVersion).toBeNull();
+    expect(parsed.skills[4]).not.toHaveProperty("installedVersion");
+    expect(parsed.skills[4]).not.toHaveProperty("latestVersion");
+  });
+});
+
 // ─── formatOutdatedJSON ─────────────────────────────────────────────────────
 
 describe("formatOutdatedJSON", () => {

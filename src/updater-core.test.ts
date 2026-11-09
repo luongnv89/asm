@@ -7,8 +7,12 @@
  * cannot reach them — everything here imports from `./updater-core` directly.
  */
 
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { join } from "path";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { dirname, join } from "path";
+import { mkdtemp, mkdir, rm, writeFile } from "fs/promises";
+import { tmpdir } from "os";
+import { execFile } from "child_process";
+import { promisify } from "util";
 import {
   createPinnedGitEnv,
   resolvedLatestCommits,
@@ -16,7 +20,11 @@ import {
   poolAll,
   getUpdateSourceDir,
   checkOutdated,
+  getLatestRemoteCommit,
+  inspectSkillFolders,
+  readSkillVersion,
 } from "./updater-core";
+import { updateSkills } from "./updater-updates";
 import type { LockEntry } from "./utils/types";
 import type { RegistryIndex } from "./registry";
 
@@ -429,5 +437,296 @@ describe("getUpdateSourceDir", () => {
     expect(getUpdateSourceDir("/tmp/clone", entryWith("../outside"))).toBe(
       "/tmp/outside",
     );
+  });
+});
+
+// ─── checkOutdated: skill folder + metadata.version (#807) ─────────────────
+
+describe("checkOutdated skill folder inspection (#807)", () => {
+  const exec = promisify(execFile);
+  let tempDir: string;
+
+  const git = async (cwd: string, ...args: string[]) =>
+    (
+      await exec("git", args, {
+        cwd,
+        env: { ...process.env, GIT_DEFAULT_HASH: "sha1" },
+      })
+    ).stdout.trim();
+
+  const skillMd = (name: string, version?: string) =>
+    [
+      "---",
+      `name: ${name}`,
+      `description: ${name} test skill`,
+      ...(version ? ["metadata:", `  version: ${version}`] : []),
+      "---",
+      `# ${name}`,
+      "",
+    ].join("\n");
+
+  async function write(root: string, rel: string, content: string) {
+    await mkdir(dirname(join(root, rel)), { recursive: true });
+    await writeFile(join(root, rel), content);
+  }
+
+  async function commitAll(work: string, message: string) {
+    await git(work, "add", "-A");
+    await git(work, "commit", "-q", "-m", message);
+    return git(work, "rev-parse", "HEAD");
+  }
+
+  /** Work repo + bare "remote"; `blobless` lets the bare serve partial fetches like GitHub. */
+  async function makeRepo(name: string, blobless: boolean) {
+    const work = join(tempDir, `${name}-work`);
+    const bare = join(tempDir, `${name}.git`);
+    await mkdir(work, { recursive: true });
+    await git(tempDir, "init", "-q", "-b", "main", work);
+    await git(work, "config", "user.email", "test@test.com");
+    await git(work, "config", "user.name", "Test");
+    await git(tempDir, "init", "-q", "--bare", "-b", "main", bare);
+    if (blobless) await git(bare, "config", "uploadpack.allowFilter", "true");
+    const publish = () => git(work, "push", "-q", bare, "HEAD:refs/heads/main");
+    return { work, url: `file://${bare}`, publish };
+  }
+
+  const lockEntry = (
+    url: string,
+    commitHash: string,
+    skillPath: string,
+  ): LockEntry => ({
+    source: url,
+    commitHash,
+    ref: "main",
+    installedAt: "2026-01-01T00:00:00.000Z",
+    provider: "claude",
+    sourceType: "github",
+    skillPath,
+  });
+
+  /** One repo, four skills installed at v1; then a bump, sibling-only changes and an unversioned change. */
+  async function multiSkillRepo() {
+    const repo = await makeRepo("skills", true);
+    await write(repo.work, "skills/alpha/SKILL.md", skillMd("alpha", "1.6.0"));
+    await write(repo.work, "skills/beta/SKILL.md", skillMd("beta", "1.5.0"));
+    await write(repo.work, "skills/gamma/SKILL.md", skillMd("gamma", "2.0.0"));
+    await write(repo.work, "skills/plain/SKILL.md", skillMd("plain"));
+    // A sibling whose name shares beta's prefix must not count as beta.
+    await write(repo.work, "skills/beta-extra/SKILL.md", skillMd("x", "0.1.0"));
+    const installed = await commitAll(repo.work, "v1");
+
+    await write(repo.work, "skills/alpha/SKILL.md", skillMd("alpha", "1.7.0"));
+    await write(repo.work, "skills/alpha/references/new.md", "new\n");
+    await commitAll(repo.work, "alpha 1.7.0");
+    await write(repo.work, "skills/beta-extra/more.md", "sibling only\n");
+    await write(repo.work, "README.md", "repo readme\n");
+    await commitAll(repo.work, "touch beta-extra and README only");
+    await write(repo.work, "skills/plain/extra.md", "plain change\n");
+    const latest = await commitAll(repo.work, "plain change");
+    await repo.publish();
+    return { ...repo, installed, latest };
+  }
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "asm-outdated-807-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  it("reports versions, keeps outdated skills outdated, and treats untouched folders as current", async () => {
+    const repo = await multiSkillRepo();
+    const skills: Record<string, LockEntry> = {};
+    for (const name of ["alpha", "beta", "gamma", "plain"]) {
+      skills[name] = lockEntry(repo.url, repo.installed, `skills/${name}`);
+    }
+    const lsRemote = vi.fn(getLatestRemoteCommit);
+    const inspect = vi.fn(inspectSkillFolders);
+
+    const summary = await checkOutdated({
+      lock: { version: 1, skills },
+      fetchRegistryIndexFn: async () => null,
+      getLatestRemoteCommitFn: lsRemote,
+      inspectSkillFoldersFn: inspect,
+    });
+    const byName = Object.fromEntries(summary.entries.map((e) => [e.name, e]));
+
+    // Version bump: outdated, with both versions.
+    expect(byName.alpha).toMatchObject({
+      status: "outdated",
+      installedVersion: "1.6.0",
+      latestVersion: "1.7.0",
+      installedCommit: repo.installed.slice(0, 7),
+      latestCommit: repo.latest.slice(0, 7),
+    });
+    // Only a sibling folder (and README) changed: current, not outdated.
+    expect(byName.beta).toMatchObject({
+      status: "up-to-date",
+      installedVersion: "1.5.0",
+      latestVersion: "1.5.0",
+      installedCommit: repo.installed.slice(0, 7),
+      latestCommit: repo.latest.slice(0, 7),
+    });
+    expect(byName.gamma).toMatchObject({
+      status: "up-to-date",
+      installedVersion: "2.0.0",
+      latestVersion: "2.0.0",
+    });
+    // No metadata.version: null on both sides, still outdated on a change.
+    expect(byName.plain).toMatchObject({
+      status: "outdated",
+      installedVersion: null,
+      latestVersion: null,
+    });
+    expect(summary.outdatedCount).toBe(2);
+    expect(summary.upToDateCount).toBe(2);
+
+    // One ls-remote and one inspection for the whole repository.
+    expect(lsRemote).toHaveBeenCalledTimes(1);
+    expect(inspect).toHaveBeenCalledTimes(1);
+    // The resolved full OID is still recorded for `asm update`.
+    expect(resolvedLatestCommits.get(byName.alpha)).toBe(repo.latest);
+  });
+
+  it("treats every change as a change for a skill installed from the repo root", async () => {
+    const repo = await makeRepo("root-skill", false);
+    await write(repo.work, "SKILL.md", skillMd("root-skill", "3.0.0"));
+    const installed = await commitAll(repo.work, "v1");
+    await write(repo.work, "docs/guide.md", "outside SKILL.md\n");
+    const latest = await commitAll(repo.work, "docs only");
+    await repo.publish();
+
+    const outdated = await checkOutdated({
+      lock: {
+        version: 1,
+        skills: { "root-skill": lockEntry(repo.url, installed, "") },
+      },
+      fetchRegistryIndexFn: async () => null,
+    });
+    expect(outdated.entries[0]).toMatchObject({
+      status: "outdated",
+      installedVersion: "3.0.0",
+      latestVersion: "3.0.0",
+    });
+
+    const current = await checkOutdated({
+      lock: {
+        version: 1,
+        skills: { "root-skill": lockEntry(repo.url, latest, "") },
+      },
+      fetchRegistryIndexFn: async () => null,
+    });
+    expect(current.entries[0]).toMatchObject({
+      status: "up-to-date",
+      installedVersion: "3.0.0",
+      latestVersion: "3.0.0",
+    });
+  });
+
+  it("stays outdated, with the latest version, when the installed commit is gone upstream", async () => {
+    const repo = await multiSkillRepo();
+    const gone = "0123456789abcdef0123456789abcdef01234567";
+    const summary = await checkOutdated({
+      lock: {
+        version: 1,
+        skills: { beta: lockEntry(repo.url, gone, "skills/beta") },
+      },
+      fetchRegistryIndexFn: async () => null,
+    });
+    expect(summary.entries[0]).toMatchObject({
+      status: "outdated",
+      installedVersion: null,
+      latestVersion: "1.5.0",
+    });
+  });
+
+  it("leaves the commit comparison in force when inspection fails", async () => {
+    const summary = await checkOutdated({
+      lock: {
+        version: 1,
+        skills: {
+          one: lockEntry("file:///nowhere.git", "a".repeat(40), "skills/one"),
+        },
+      },
+      fetchRegistryIndexFn: async () => null,
+      getLatestRemoteCommitFn: async () => "b".repeat(40),
+      inspectSkillFoldersFn: async () => {
+        throw new Error("network down");
+      },
+    });
+    expect(summary.entries[0]).toMatchObject({
+      status: "outdated",
+      installedVersion: null,
+      latestVersion: null,
+    });
+  });
+
+  it("does not add version fields to non-GitHub entries", async () => {
+    const summary = await checkOutdated({
+      lock: {
+        version: 1,
+        skills: {
+          mine: {
+            source: "local:/somewhere",
+            commitHash: "abc1234",
+            ref: null,
+            installedAt: "2026-01-01T00:00:00.000Z",
+            provider: "claude",
+          },
+        },
+      },
+      fetchRegistryIndexFn: async () => null,
+    });
+    expect(summary.entries[0]).not.toHaveProperty("installedVersion");
+    expect(summary.entries[0]).not.toHaveProperty("latestVersion");
+  });
+
+  it("asm update updates the outdated skills and skips the current ones", async () => {
+    const repo = await multiSkillRepo();
+    const skills: Record<string, LockEntry> = {};
+    for (const name of ["alpha", "beta", "gamma", "plain"]) {
+      skills[name] = lockEntry(repo.url, repo.installed, `skills/${name}`);
+    }
+    const updateSkillFn = vi.fn(
+      async (
+        name: string,
+        _entry: LockEntry,
+        _yes: boolean,
+        _o?: unknown,
+        known?: string,
+      ) => ({
+        name,
+        status: "updated" as const,
+        newCommit: known,
+      }),
+    );
+    const summary = await updateSkills(null, true, {
+      readLockFn: async () => ({ version: 1, skills }),
+      checkOutdatedFn: (o) =>
+        checkOutdated({ ...o, fetchRegistryIndexFn: async () => null }),
+      updateSkillFn,
+    });
+    expect(updateSkillFn.mock.calls.map((c) => c[0]).sort()).toEqual([
+      "alpha",
+      "plain",
+    ]);
+    for (const call of updateSkillFn.mock.calls) {
+      expect(call[4]).toBe(repo.latest);
+    }
+    expect(summary.updatedCount).toBe(2);
+  });
+});
+
+describe("readSkillVersion", () => {
+  it("prefers metadata.version and falls back to a top-level version", () => {
+    expect(
+      readSkillVersion("---\nname: a\nmetadata:\n  version: 1.2.3\n---\n"),
+    ).toBe("1.2.3");
+    expect(readSkillVersion("---\nname: a\nversion: 0.9.0\n---\n")).toBe(
+      "0.9.0",
+    );
+    expect(readSkillVersion("---\nname: a\n---\n")).toBeNull();
+    expect(readSkillVersion("no frontmatter")).toBeNull();
   });
 });
