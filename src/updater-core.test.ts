@@ -9,7 +9,15 @@
 
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { dirname, join } from "path";
-import { access, mkdtemp, mkdir, readFile, rm, writeFile } from "fs/promises";
+import {
+  access,
+  mkdtemp,
+  mkdir,
+  readFile,
+  rm,
+  symlink,
+  writeFile,
+} from "fs/promises";
 import { tmpdir } from "os";
 import { execFile } from "child_process";
 import { promisify } from "util";
@@ -1024,6 +1032,158 @@ describe("checkOutdated skill folder inspection (#807)", () => {
       expect(call[4]).toBe(repo.latest);
     }
     expect(summary.updatedCount).toBe(2);
+  });
+
+  // ─── #814: a folder with no SKILL.md upstream is removed-upstream ────────
+
+  /** Six skills at v1; v2 removes or breaks five SKILL.md files and bumps one. */
+  async function removedRepo() {
+    const repo = await makeRepo("removed", true);
+    const names = [
+      "deleted",
+      "moved",
+      "gone",
+      "dir",
+      "link",
+      "lower",
+      "bumped",
+    ];
+    for (const n of names) {
+      await write(repo.work, `skills/${n}/SKILL.md`, skillMd(n, "1.0.0"));
+      await write(repo.work, `skills/${n}/body.md`, `${n}\n`);
+    }
+    const installed = await commitAll(repo.work, "v1");
+    await rm(join(repo.work, "skills/deleted/SKILL.md"));
+    await mkdir(join(repo.work, "skills/elsewhere"), { recursive: true });
+    await git(repo.work, "mv", "skills/moved", "skills/elsewhere/moved");
+    await rm(join(repo.work, "skills/gone"), { recursive: true });
+    await rm(join(repo.work, "skills/dir/SKILL.md"));
+    await write(repo.work, "skills/dir/SKILL.md/x.md", "x\n");
+    await rm(join(repo.work, "skills/link/SKILL.md"));
+    await symlink(
+      "../bumped/SKILL.md",
+      join(repo.work, "skills/link/SKILL.md"),
+    );
+    await git(repo.work, "mv", "skills/lower/SKILL.md", "skills/lower/tmp");
+    await git(repo.work, "mv", "skills/lower/tmp", "skills/lower/skill.md");
+    await write(
+      repo.work,
+      "skills/bumped/SKILL.md",
+      skillMd("bumped", "1.1.0"),
+    );
+    const latest = await commitAll(repo.work, "v2");
+    await repo.publish();
+    return { ...repo, names, installed, latest };
+  }
+
+  it.skipIf(process.platform === "win32")(
+    "marks a skill whose SKILL.md is gone upstream removed-upstream, with no extra fetch",
+    async () => {
+      const repo = await removedRepo();
+      const skills: Record<string, LockEntry> = {};
+      for (const n of repo.names) {
+        skills[n] = lockEntry(repo.url, repo.installed, `skills/${n}`);
+      }
+      // Count git's network commands through a PATH shim.
+      const shimDir = join(tempDir, "shim");
+      const log = join(tempDir, "git-argv.log");
+      const realGit = (
+        await exec("sh", ["-c", "command -v git"])
+      ).stdout.trim();
+      await mkdir(shimDir);
+      await writeFile(
+        join(shimDir, "git"),
+        `#!/bin/sh\nprintf '%s\\n' "$*" >> "${log}"\nexec "${realGit}" "$@"\n`,
+        { mode: 0o755 },
+      );
+      const savedPath = process.env.PATH;
+      process.env.PATH = `${shimDir}:${savedPath}`;
+      let summary;
+      try {
+        summary = await checkOutdated({
+          lock: { version: 1, skills },
+          fetchRegistryIndexFn: async () => null,
+        });
+      } finally {
+        process.env.PATH = savedPath;
+      }
+      const byName = Object.fromEntries(
+        summary.entries.map((e) => [e.name, e]),
+      );
+      for (const n of ["deleted", "moved", "gone", "dir", "link"]) {
+        expect(byName[n], n).toMatchObject({
+          status: "removed-upstream",
+          installedVersion: "1.0.0",
+          latestVersion: null,
+          latestCommit: repo.latest.slice(0, 7),
+        });
+      }
+      // A case variant may be a skill on a case-insensitive filesystem, so
+      // only \`asm update\`'s own check decides it; a normal bump is untouched.
+      expect(byName.lower.status).toBe("outdated");
+      expect(byName.bumped).toMatchObject({
+        status: "outdated",
+        installedVersion: "1.0.0",
+        latestVersion: "1.1.0",
+      });
+      expect(summary.removedUpstreamCount).toBe(5);
+      expect(summary.outdatedCount).toBe(2);
+
+      // #807's budget: one ls-remote, one tree fetch, one SKILL.md blob fetch.
+      const calls = (await readFile(log, "utf8")).trim().split("\n");
+      const network = calls.filter((c) => /(^| )(ls-remote|fetch) /.test(c));
+      expect(network).toHaveLength(3);
+
+      // asm update gets them all: it checks each incoming folder itself.
+      const updateSkillFn = vi.fn(async (name: string) => ({
+        name,
+        status: "updated" as const,
+      }));
+      await updateSkills(null, true, {
+        readLockFn: async () => ({ version: 1, skills }),
+        checkOutdatedFn: async () => summary,
+        updateSkillFn,
+      });
+      expect(updateSkillFn.mock.calls.map((c) => c[0]).sort()).toEqual(
+        [...repo.names].sort(),
+      );
+    },
+  );
+
+  it("never marks an unchanged skill or an unreadable latest tree removed-upstream", async () => {
+    const repo = await removedRepo();
+    // Installed at the latest commit: nothing to update, whatever its folder.
+    const current = await checkOutdated({
+      lock: {
+        version: 1,
+        skills: { deleted: lockEntry(repo.url, repo.latest, "skills/deleted") },
+      },
+      fetchRegistryIndexFn: async () => null,
+    });
+    expect(current.entries[0].status).toBe("up-to-date");
+    expect(current.removedUpstreamCount).toBe(0);
+
+    // Unknown is not "removed": a report without the flag stays outdated.
+    const unknown = await checkOutdated({
+      lock: {
+        version: 1,
+        skills: {
+          deleted: lockEntry(repo.url, repo.installed, "skills/deleted"),
+        },
+      },
+      fetchRegistryIndexFn: async () => null,
+      inspectSkillFoldersFn: async (_u, _l, probes) =>
+        probes.map(() => ({
+          changed: null,
+          installedVersion: null,
+          latestVersion: null,
+          error: "fetch failed: boom",
+        })),
+    });
+    expect(unknown.entries[0]).toMatchObject({
+      status: "outdated",
+      inspectionError: "fetch failed: boom",
+    });
   });
 });
 

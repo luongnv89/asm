@@ -24,6 +24,8 @@ Show which installed skills have newer versions available.
 
 GitHub-sourced skills also show their metadata.version (installed → latest)
 and count as outdated only when a newer commit changes the skill's own folder.
+A skill whose folder has no SKILL.md at the latest commit is listed as
+removed-upstream: "asm update" keeps the installed copy of it.
 
 ${ansi.bold("Options:")}
   --json               Output as JSON
@@ -73,7 +75,7 @@ export async function cmdOutdated(args: ParsedArgs) {
     const useColor = !args.flags.noColor && process.stdout.isTTY !== false;
     console.log(formatOutdatedTable(summary, useColor));
 
-    if (summary.outdatedCount > 0) {
+    if (summary.outdatedCount > 0 || (summary.removedUpstreamCount ?? 0) > 0) {
       process.exitCode = 1;
     }
   } catch (err) {

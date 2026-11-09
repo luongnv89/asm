@@ -24,7 +24,11 @@ import {
   normalizedTargetIdentity,
   checkOutdated,
   poolAll,
+  findSkillFoldersByName,
+  normalizeSkillPath,
 } from "./updater-core";
+import { SKILL_MD, skillMdState, type SkillMdState } from "./installer-core";
+import { stripControlBytes } from "./security-auditor-scan";
 import { readLock } from "./utils/lock";
 import {
   auditSkillSecurity,
@@ -38,9 +42,9 @@ import type {
   OutdatedSummary,
   UpdateSummary,
 } from "./updater-core";
-import { join } from "path";
+import { isAbsolute, join, relative, sep } from "path";
 import { homedir } from "os";
-import { mkdir, rm, rename, cp, access } from "fs/promises";
+import { mkdir, rm, rename, cp, access, lstat, readdir } from "fs/promises";
 import { debug } from "./logger";
 import { ansi } from "./formatter";
 
@@ -64,6 +68,7 @@ export interface _UpdateTestOverrides {
   loadConfigFn?: typeof loadConfig;
   resolveProviderPathFn?: typeof resolveProviderPath;
   writeLockEntryFn?: typeof writeLockEntry;
+  skillMdStateFn?: typeof skillMdState;
 }
 
 /**
@@ -118,6 +123,134 @@ export function updateAuditSourceOf(
   // `asm audit security` checks out a 40-hex commit; otherwise use the ref.
   const pin = /^[0-9a-f]{40}$/i.test(commit) ? commit : entry.ref;
   return `github:${repo}${pin ? `#${pin}` : ""}${path ? `:${path}` : ""}`;
+}
+
+const SKILL_MD_PROBLEM: Record<Exclude<SkillMdState, "file">, string> = {
+  missing: "",
+  directory: " (SKILL.md is a directory)",
+  symlink: " (SKILL.md is a symlink, which asm does not follow)",
+  other: " (SKILL.md is not a regular file)",
+};
+
+/**
+ * The first component of the path from `repoDir` to `skillDir`, from the
+ * checkout root down to the skill folder itself, that is a symlink; `null`
+ * when none is. It walks the very path the swap copies, so a lock
+ * `skillPath` that `normalizeSkillPath` would rewrite (e.g. `skills\c9` on
+ * POSIX) cannot hide a link. `lstat` on SKILL.md alone would follow a linked
+ * folder or parent, and the swap would then install the link itself (#814).
+ * A missing component ends the walk (the SKILL.md check reports it); a path
+ * outside the checkout and other errors are thrown.
+ */
+async function symlinkInSkillPath(
+  repoDir: string,
+  skillDir: string,
+): Promise<string | null> {
+  const rel = relative(repoDir, skillDir);
+  if (rel === "") return null;
+  if (rel === ".." || rel.startsWith(`..${sep}`) || isAbsolute(rel))
+    throw new Error("the skill path is outside the checkout");
+  const parts = rel.split(sep);
+  for (let i = 1; i <= parts.length; i++) {
+    const sub = parts.slice(0, i);
+    try {
+      if ((await lstat(join(repoDir, ...sub))).isSymbolicLink())
+        return sub.join("/");
+    } catch (err) {
+      const code = (err as NodeJS.ErrnoException | undefined)?.code;
+      if (code === "ENOENT" || code === "ENOTDIR") return null;
+      throw err;
+    }
+  }
+  return null;
+}
+
+/** ` (found skill.md; asm needs SKILL.md)` for a SKILL.md in another case. */
+async function caseVariantNote(skillDir: string): Promise<string> {
+  const entries = await readdir(skillDir).catch(() => [] as string[]);
+  const variant = entries.find(
+    (e) => e !== SKILL_MD && e.toLowerCase() === SKILL_MD.toLowerCase(),
+  );
+  return variant ? ` (found ${variant}; asm needs ${SKILL_MD})` : "";
+}
+
+/**
+ * Refuse an update whose incoming folder is no skill (#814): a component of
+ * its path is a symlink, or its SKILL.md is missing, a directory or a
+ * symlink, or the check could not run. `null` when the folder is a skill.
+ * Runs before the audit and the swap, so a refused skill keeps its installed
+ * copy and its lock entry. The next step names the skill's new folder only
+ * when this checkout already shows exactly one SKILL.md with the same
+ * frontmatter `name` (no extra network call). Commands are printed bare,
+ * never inside quotes, so copying them never expands `$(…)`.
+ */
+async function refuseInvalidSkillFolder(
+  name: string,
+  entry: LockEntry,
+  repoDir: string,
+  skillDir: string,
+  commit: string,
+  stateFn: typeof skillMdState,
+): Promise<UpdateResult | null> {
+  const at = shortHash(commit);
+  const current = normalizeSkillPath(entry.skillPath);
+  let problem: string;
+  try {
+    const link = await symlinkInSkillPath(repoDir, skillDir);
+    if (link !== null) {
+      problem = ` (${link} is a symlink, which asm does not follow)`;
+    } else {
+      const state = await stateFn(skillDir);
+      if (state === "file") return null;
+      problem =
+        state === "missing"
+          ? await caseVariantNote(skillDir)
+          : SKILL_MD_PROBLEM[state];
+    }
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return {
+      name,
+      status: "failed",
+      reason: stripControlBytes(
+        `Could not check SKILL.md at ${at}: ${msg}. The installed copy was kept.`,
+      ),
+    };
+  }
+
+  // A folder named SKILL.md is never offered as the new path.
+  const moved = (
+    await findSkillFoldersByName(
+      repoDir,
+      name,
+      commit.length === 64 ? "sha256" : "sha1",
+    )
+  ).filter(
+    (dir) =>
+      dir !== current &&
+      dir.slice(dir.lastIndexOf("/") + 1).toLowerCase() !==
+        SKILL_MD.toLowerCase(),
+  );
+  const uninstall = `asm uninstall ${shellArg(name)}`;
+  let next = `Run: ${uninstall} — or reinstall it from its new path`;
+  if (moved.length === 1) {
+    const repoSource = entry.source.split("#")[0];
+    const install = installSourceOf(
+      { ...entry, source: repoSource, skillPath: moved[0] },
+      "github",
+    );
+    next =
+      install !== null
+        ? `${next}: asm install ${shellArg(install)}`
+        : `${next} ${shellArg(moved[0] || ".")} in ${shellArg(repoSource)}`;
+  }
+  return {
+    name,
+    status: "failed",
+    reason: stripControlBytes(
+      `SKILL.md missing at ${at}: the skill was removed or moved upstream${problem}. ${next}`,
+    ),
+  };
 }
 
 export async function updateSkill(
@@ -240,7 +373,19 @@ export async function updateSkill(
 
     const updateSourceDir = getUpdateSourceDir(tempDir, entry);
 
-    // Step 2: Security audit on the new version
+    // Step 2: The incoming folder must still be a skill, before anything
+    // touches the installed copy (#814).
+    const refused = await refuseInvalidSkillFolder(
+      name,
+      entry,
+      tempDir,
+      updateSourceDir,
+      newCommit,
+      _overrides?.skillMdStateFn ?? skillMdState,
+    );
+    if (refused) return refused;
+
+    // Step 3: Security audit on the new version
     debug(`updater: running security audit on ${name}`);
     let securityVerdict: SecurityVerdict = "safe";
     let securityReasons: string[] | undefined;
@@ -324,7 +469,7 @@ export async function updateSkill(
       };
     }
 
-    // Step 3: Atomic swap
+    // Step 4: Atomic swap
     // Determine the installed path from the provider config.
     const loadConfigFn = _overrides?.loadConfigFn ?? loadConfig;
     const resolvePathFn =
@@ -462,7 +607,7 @@ export async function updateSkill(
       };
     }
 
-    // Step 4: Update the lock before discarding the previous installation.
+    // Step 5: Update the lock before discarding the previous installation.
     try {
       await writeLockFn(name, updatedEntry);
     } catch (lockErr: unknown) {
@@ -548,8 +693,11 @@ export async function updateSkills(
   const lock = await readLockFn();
   const outdated = await checkOutdatedFn({ lock });
 
-  // Filter to outdated skills only
-  let toUpdate = outdated.entries.filter((e) => e.status === "outdated");
+  // Outdated skills, plus those removed upstream: updateSkill checks the
+  // incoming folder itself and reports why it keeps the installed copy (#814).
+  let toUpdate = outdated.entries.filter(
+    (e) => e.status === "outdated" || e.status === "removed-upstream",
+  );
 
   // Track warnings for skills requested by name but not found in lock file
   const notFoundWarnings: string[] = [];
@@ -704,6 +852,10 @@ export function formatOutdatedTable(
         latestCol = red(entry.latestCommit.padEnd(14));
         sourceCol = entry.sourceType;
         break;
+      case "removed-upstream":
+        latestCol = red(entry.latestCommit.padEnd(14));
+        sourceCol = red("(removed upstream: no SKILL.md)");
+        break;
       case "up-to-date":
         latestCol = green(entry.latestCommit.padEnd(14));
         // Newer repo commit that leaves this skill's folder untouched.
@@ -732,6 +884,9 @@ export function formatOutdatedTable(
   const parts: string[] = [];
   if (summary.outdatedCount > 0)
     parts.push(red(`${summary.outdatedCount} outdated`));
+  const removedUpstream = summary.removedUpstreamCount ?? 0;
+  if (removedUpstream > 0)
+    parts.push(red(`${removedUpstream} removed upstream`));
   if (summary.upToDateCount > 0)
     parts.push(green(`${summary.upToDateCount} up to date`));
   if (summary.untrackedCount > 0)
@@ -772,6 +927,7 @@ export function formatOutdatedJSON(summary: OutdatedSummary): string {
       })),
       summary: {
         outdated: summary.outdatedCount,
+        removedUpstream: summary.removedUpstreamCount ?? 0,
         upToDate: summary.upToDateCount,
         untracked: summary.untrackedCount,
         errors: summary.errorCount,

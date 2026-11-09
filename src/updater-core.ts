@@ -67,7 +67,13 @@ export function createPinnedGitEnv(
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
-export type OutdatedStatus = "outdated" | "up-to-date" | "untracked" | "error";
+/**
+ * `removed-upstream`: the skill folder at the latest commit has no SKILL.md
+ * file (deleted, moved, or replaced by a directory or a symlink), so
+ * `asm update` keeps the installed copy and refuses it (#814).
+ */
+export type OutdatedStatus =
+  "outdated" | "removed-upstream" | "up-to-date" | "untracked" | "error";
 
 export interface OutdatedEntry {
   name: string;
@@ -94,6 +100,8 @@ export interface OutdatedEntry {
 export interface OutdatedSummary {
   entries: OutdatedEntry[];
   outdatedCount: number;
+  /** Entries whose status is `removed-upstream` (#814); absent means 0. */
+  removedUpstreamCount?: number;
   upToDateCount: number;
   untrackedCount: number;
   errorCount: number;
@@ -288,6 +296,12 @@ export interface SkillFolderReport {
   latestVersion: string | null;
   /** Why `changed` (or a version) could not be determined, when it matters. */
   error?: string;
+  /**
+   * The skill folder had a SKILL.md at the installed commit and has no
+   * SKILL.md file, in any case, at the latest one (#814). Absent when either
+   * tree could not be read or the installed one had no SKILL.md there.
+   */
+  removedUpstream?: boolean;
 }
 
 /** First line of a git failure: its stderr when present, else the message. */
@@ -302,7 +316,7 @@ function gitFailure(err: unknown): string {
   return text.trim().split("\n")[0] || "unknown error";
 }
 
-function normalizeSkillPath(skillPath: string | undefined): string {
+export function normalizeSkillPath(skillPath: string | undefined): string {
   const p = (skillPath ?? "")
     .replace(/\\/g, "/")
     .replace(/^(?:\.\/)+/, "")
@@ -320,6 +334,11 @@ function isUnderSkillPath(file: string, skillPath: string): boolean {
 export function readSkillVersion(content: string): string | null {
   const fm = parseFrontmatter(content);
   return fm["metadata.version"] || fm.version || null;
+}
+
+/** A `git ls-tree` mode for a regular file: never a symlink (120000). */
+function isRegularFileMode(mode: string | undefined): boolean {
+  return mode === "100644" || mode === "100755";
 }
 
 /** Parse `git cat-file --batch` output into oid -> content. */
@@ -408,6 +427,10 @@ export async function inspectSkillFolders(
     const skillPaths = probes.map((p) => normalizeSkillPath(p.skillPath));
     const wantedDirs = new Set(skillPaths);
     const skillMdByCommit = new Map<string, Map<string, string>>();
+    // Skill folders holding a SKILL.md regular file at the latest commit. Any
+    // case counts here: whether `skill.md` is a skill depends on the
+    // filesystem, so only `asm update`'s own check can refuse it (#814).
+    const skillMdFileAtLatest = new Set<string>();
     for (const commit of [latest, ...installedCommits]) {
       try {
         const { stdout } = await git([
@@ -422,12 +445,19 @@ export async function inspectSkillFolders(
         for (const record of stdout.split("\0")) {
           const tab = record.indexOf("\t");
           if (tab === -1) continue;
-          const [, type, oid] = record.slice(0, tab).split(" ");
+          const [mode, type, oid] = record.slice(0, tab).split(" ");
           const path = record.slice(tab + 1);
           const slash = path.lastIndexOf("/");
           const dirName = slash === -1 ? "" : path.slice(0, slash);
           const base = path.slice(slash + 1);
           if (type !== "blob" || !wantedDirs.has(dirName)) continue;
+          if (
+            commit === latest &&
+            isRegularFileMode(mode) &&
+            /^skill\.md$/i.test(base)
+          ) {
+            skillMdFileAtLatest.add(dirName);
+          }
           if (
             base === "SKILL.md" ||
             (!found.has(dirName) && /^skill\.md$/i.test(base))
@@ -545,6 +575,11 @@ export async function inspectSkillFolders(
         installedVersion: versionAt(installed, skillPath),
         latestVersion: versionAt(latest, skillPath),
         ...(error ? { error } : {}),
+        // Known only when both trees were read and the installed one had a
+        // SKILL.md there; a path git never knew stays a plain `outdated`.
+        ...(skillMdByCommit.has(latest) && installedTree?.has(skillPath)
+          ? { removedUpstream: !skillMdFileAtLatest.has(skillPath) }
+          : {}),
       };
     });
   } catch (err) {
@@ -552,6 +587,62 @@ export async function inspectSkillFolders(
     return unknown(`skill folder check failed: ${gitFailure(err)}`);
   } finally {
     if (dir) await rm(dir, { recursive: true, force: true }).catch(() => {});
+  }
+}
+
+/**
+ * Repo-relative folders whose SKILL.md (a regular file named exactly
+ * `SKILL.md`, as the installer reads it) declares frontmatter `name: <name>`,
+ * read from `HEAD` of the local checkout `repoDir` (#814). Local only: the
+ * update's own fetch already brought every blob, and lazy fetching is off,
+ * so this never touches the network. Reads git objects, never the worktree,
+ * so a symlink in the repo is never followed. `[]` on any failure.
+ */
+export async function findSkillFoldersByName(
+  repoDir: string,
+  name: string,
+  objectFormat: "sha1" | "sha256",
+): Promise<string[]> {
+  const env = { ...createPinnedGitEnv(objectFormat), GIT_NO_LAZY_FETCH: "1" };
+  try {
+    const { stdout } = await execFileAsync(
+      "git",
+      ["ls-tree", "-r", "-z", "--full-tree", "--end-of-options", "HEAD"],
+      { cwd: repoDir, env, timeout: 10_000, maxBuffer: GIT_MAX_BUFFER },
+    );
+    const dirsByOid = new Map<string, string[]>();
+    for (const record of stdout.split("\0")) {
+      const tab = record.indexOf("\t");
+      if (tab === -1) continue;
+      const [mode, type, oid] = record.slice(0, tab).split(" ");
+      const path = record.slice(tab + 1);
+      const slash = path.lastIndexOf("/");
+      if (type !== "blob" || !isRegularFileMode(mode)) continue;
+      if (path.slice(slash + 1) !== "SKILL.md") continue;
+      const dirs = dirsByOid.get(oid) ?? [];
+      dirs.push(slash === -1 ? "" : path.slice(0, slash));
+      dirsByOid.set(oid, dirs);
+    }
+    if (dirsByOid.size === 0) return [];
+    const run = execFileAsync("git", ["cat-file", "--batch"], {
+      cwd: repoDir,
+      env,
+      timeout: 10_000,
+      maxBuffer: GIT_MAX_BUFFER,
+      encoding: "buffer",
+    });
+    run.child.stdin?.end(`${[...dirsByOid.keys()].join("\n")}\n`);
+    const { stdout: batch } = await run;
+    const found: string[] = [];
+    for (const [oid, text] of parseCatFileBatch(batch)) {
+      if ((parseFrontmatter(text).name || "").trim() === name) {
+        found.push(...(dirsByOid.get(oid) ?? []));
+      }
+    }
+    return found.sort();
+  } catch (err) {
+    debug(`updater: skill name search failed in ${repoDir}: ${err}`);
+    return [];
   }
 }
 
@@ -793,6 +884,10 @@ export async function checkOutdated(
       if (entry.status === "outdated" && report.changed === false) {
         entry.status = "up-to-date";
       }
+      // Still outdated and the latest folder is no skill: say so (#814).
+      if (entry.status === "outdated" && report.removedUpstream === true) {
+        entry.status = "removed-upstream";
+      }
     });
   });
 
@@ -806,6 +901,8 @@ export async function checkOutdated(
   return {
     entries: results,
     outdatedCount: results.filter((r) => r.status === "outdated").length,
+    removedUpstreamCount: results.filter((r) => r.status === "removed-upstream")
+      .length,
     upToDateCount: results.filter((r) => r.status === "up-to-date").length,
     untrackedCount: results.filter((r) => r.status === "untracked").length,
     errorCount: results.filter((r) => r.status === "error").length,

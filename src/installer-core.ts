@@ -495,13 +495,42 @@ export async function cloneToTemp(
   }
 }
 
+/** The file that makes a folder a skill: every install reads `join(dir, SKILL_MD)`. */
+export const SKILL_MD = "SKILL.md";
+
+/** What `dir`'s SKILL.md is, without following a symlink (#814). */
+export type SkillMdState =
+  "file" | "missing" | "directory" | "symlink" | "other";
+
+/**
+ * Classify `dir`'s SKILL.md by the installer's rule — `join(dir, SKILL_MD)` as
+ * the filesystem resolves it, so its case handling is the filesystem's — but
+ * with `lstat`: only a regular file is a skill, and a symlink is never
+ * followed out of the folder. `dir` itself missing is `missing`. Any other
+ * error is rethrown, so a caller that cannot tell treats the folder as
+ * invalid rather than as a skill.
+ */
+export async function skillMdState(dir: string): Promise<SkillMdState> {
+  let stats: Awaited<ReturnType<typeof lstat>>;
+  try {
+    stats = await lstat(join(dir, SKILL_MD));
+  } catch (err) {
+    const code = (err as NodeJS.ErrnoException | undefined)?.code;
+    if (code === "ENOENT" || code === "ENOTDIR") return "missing";
+    throw err;
+  }
+  if (stats.isSymbolicLink()) return "symlink";
+  if (stats.isDirectory()) return "directory";
+  return stats.isFile() ? "file" : "other";
+}
+
 export async function validateSkill(tempDir: string): Promise<{
   name: string;
   version: string;
   description: string;
   effort?: string;
 }> {
-  const skillMdPath = join(tempDir, "SKILL.md");
+  const skillMdPath = join(tempDir, SKILL_MD);
 
   let content: string;
   try {
@@ -831,7 +860,7 @@ export async function executeInstall(
   debug(`install: copied files to ${plan.targetDir}`);
 
   // Verify SKILL.md at target
-  const skillMd = join(plan.targetDir, "SKILL.md");
+  const skillMd = join(plan.targetDir, SKILL_MD);
   try {
     await access(skillMd);
   } catch {
