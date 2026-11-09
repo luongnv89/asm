@@ -13,6 +13,7 @@ import {
   analyzeSource,
   scanCode,
   analyzePermissions,
+  stripControlBytes,
 } from "./security-auditor-scan";
 
 // ─── Verdict Calculation ─────────────────────────────────────────────────────
@@ -164,12 +165,12 @@ export function applyExternalSymlinks(
   const parts: string[] = [];
   if (outside.length > 0) {
     parts.push(
-      `${count(outside.length, "symlink points", "symlinks point")} outside the skill folder (${outside.map((l) => l.path).join(", ")}); content outside the folder was NOT read and must be reviewed by hand`,
+      `${count(outside.length, "symlink points", "symlinks point")} outside the skill folder (${outside.map((l) => stripControlBytes(l.path)).join(", ")}); content outside the folder was NOT read and must be reviewed by hand`,
     );
   }
   if (broken.length > 0) {
     parts.push(
-      `${count(broken.length, "symlink dangles or loops and was", "symlinks dangle or loop and were")} not followed (${broken.map((l) => l.path).join(", ")})`,
+      `${count(broken.length, "symlink dangles or loops and was", "symlinks dangle or loop and were")} not followed (${broken.map((l) => stripControlBytes(l.path)).join(", ")})`,
     );
   }
   const symlinkReason = `${parts.join("; ")}.`;

@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, afterEach } from "vitest";
-import { mkdtemp, writeFile, mkdir, rm } from "fs/promises";
+import { mkdtemp, writeFile, mkdir, rm, symlink } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
 import { auditSkillSecurity } from "./security-auditor";
@@ -53,6 +53,27 @@ describe("formatSecurityReport", () => {
     expect(output).toContain("danger");
     expect(output).toContain("Findings");
     expect(output).toContain("Perms:");
+  });
+
+  test("never prints control bytes from a file name or symlink target (#809)", async () => {
+    await writeFile(
+      join(tempDir, "SKILL.md"),
+      "---\nname: names\n---\n# Names\n",
+    );
+    await writeFile(join(tempDir, "e\x1b[31mvil.py"), "eval(x)\n");
+    await symlink("/nowhere/t\x1b[31marget\x07", join(tempDir, "l\x1bnk.sh"));
+
+    const output = formatSecurityReport(
+      await auditSkillSecurity(tempDir, "names", undefined, undefined, {
+        trackSymlinks: true,
+      }),
+    );
+    expect(output).toContain("e?[31mvil.py");
+    expect(output).toContain("l?nk.sh");
+    expect(output).toContain("/nowhere/t?[31marget?");
+    expect(output).not.toContain("e\x1b[31mvil");
+    expect(output).not.toContain("t\x1b[31marget");
+    expect(output).not.toContain("l\x1bnk");
   });
 });
 

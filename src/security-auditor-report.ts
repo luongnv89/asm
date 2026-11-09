@@ -367,7 +367,7 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
           ? `${link.kind}, not followed`
           : `${link.kind}, NOT read`;
       lines.push(
-        `     ${color.dim(link.path)} -> ${link.target || color.dim("(unreadable)")} ${color.dim(`(${note})`)}`,
+        `     ${color.dim(stripControlBytes(link.path))} -> ${link.target ? stripControlBytes(link.target) : color.dim("(unreadable)")} ${color.dim(`(${note})`)}`,
       );
     }
     lines.push(
@@ -384,7 +384,7 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
     );
     for (const h of hardLinks) {
       lines.push(
-        `     ${color.dim(h.path)} ${color.dim(`(${h.links} links) -- hard link: content may be shared with a file outside the folder`)}`,
+        `     ${color.dim(stripControlBytes(h.path))} ${color.dim(`(${h.links} links) -- hard link: content may be shared with a file outside the folder`)}`,
       );
     }
     lines.push("");

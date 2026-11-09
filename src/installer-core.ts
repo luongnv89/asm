@@ -734,12 +734,12 @@ export async function scanForWarnings(
     onExternalSymlink: (link) =>
       warnings.push({
         category: OUTSIDE_SYMLINK_CATEGORY,
-        file: link.path,
+        file: stripControlBytes(link.path),
         line: 0,
         match:
           link.kind === "dangling" || link.kind === "loop"
-            ? `symlink ${link.kind === "loop" ? "loops" : "dangles"} -> ${link.target} — not followed`
-            : `symlink leaves the skill folder -> ${link.target} (${link.kind}) — not read`,
+            ? `symlink ${link.kind === "loop" ? "loops" : "dangles"} -> ${stripControlBytes(link.target)} — not followed`
+            : `symlink leaves the skill folder -> ${stripControlBytes(link.target)} (${link.kind}) — not read`,
       }),
   });
 
@@ -753,7 +753,7 @@ export async function scanForWarnings(
         const match = stripControlBytes(lines[i].trim());
         warnings.push({
           category: method ? METHOD_CALL_CATEGORY : category,
-          file: relPath,
+          file: stripControlBytes(relPath),
           line: i + 1,
           match: match.length > 100 ? match.slice(0, 100) + "…" : match,
         });

@@ -72,6 +72,13 @@ function callLanguage(relPath: string): CallLanguage | null {
 /** Expression keywords: `: void {}` is a ternary's else-branch, not a type. */
 const NOT_A_TYPE = String.raw`(?!(?:typeof|class|new|delete|await|yield|void)\b)`;
 
+/**
+ * Whitespace within one line. `\s` would also span `\r`, which ends a line
+ * in JS and Python but not in the `\n` split, so `eval(x)\r{}` (a call, then
+ * a block) would pass for a method (#809).
+ */
+const H = String.raw`[^\S\r\n\u2028\u2029]`;
+
 /** `def name(`, `function name(` or `function* name(`: a definition. */
 const NOT_A_DEFINITION = String.raw`(?<!\b(?:def|function\s*\*?)\s+)`;
 /**
@@ -87,12 +94,12 @@ const NOT_A_DEFINITION = String.raw`(?<!\b(?:def|function\s*\*?)\s+)`;
  *   with `{`: a modifier before `name(` never continues an expression.
  */
 function notAMethodBody(name: string, typed = false): string {
-  const mod = String.raw`(?:async|static|get|set|public|private|protected|override)\s+`;
-  const head = String.raw`${name}\s*\([^()]*\)\s*`;
-  const plain = String.raw`(?<=^\s*(?:${mod})*)${head}`;
+  const mod = String.raw`(?:async|static|get|set|public|private|protected|override)${H}+`;
+  const head = String.raw`${name}${H}*\([^()]*\)${H}*`;
+  const plain = String.raw`(?<=^${H}*(?:${mod})*)${head}`;
   if (!typed) return String.raw`(?!${plain}\{)`;
-  const named = String.raw`(?::\s*${NOT_A_TYPE}[\w$]+(?:\.[\w$]+)*(?:\s*\[\s*\])*\s*)?\{`;
-  const modified = String.raw`(?<=^\s*(?:${mod})+)${head}:\s*[\w$][^{;=?]*\{`;
+  const named = String.raw`(?::${H}*${NOT_A_TYPE}[\w$]+(?:\.[\w$]+)*(?:${H}*\[${H}*\])*${H}*)?\{`;
+  const modified = String.raw`(?<=^${H}*(?:${mod})+)${head}:${H}*[\w$][^{;=?\r\n\u2028\u2029]*\{`;
   return String.raw`(?!${plain}${named}|${modified})`;
 }
 
@@ -111,8 +118,9 @@ function realCall(
   // `(globalThis).eval(`, `globalThis/**/.eval(`, `f().exec(`. A spread
   // `...eval(` is a call, and so is a line opening with `.eval(` or
   // `?.eval(`: its receiver is on the line before and may be `globalThis`
-  // (#809). A wrapped `browser\n  .eval(` is flagged too, by design.
-  const bare = String.raw`(?<![\w$])(?<![\w$]\s*\??\.)${NOT_A_DEFINITION}`;
+  // (#809). A wrapped `browser\n  .eval(` is flagged too, by design, and so
+  // is `browser\r  .eval(`.
+  const bare = String.raw`(?<![\w$])(?<![\w$]${H}*\??\.)${NOT_A_DEFINITION}`;
   const via = receivers.length
     ? String.raw`|\b(?:${receivers.join("|")})\s*\??\.\s*`
     : "";
@@ -529,7 +537,7 @@ export function scanCode(files: FileContent[]): CodeScanCategory[] {
         const match =
           trimmed.length > 120 ? trimmed.slice(0, 120) + "..." : trimmed;
         categoryMap.get(key)!.matches.push({
-          file: relPath,
+          file: stripControlBytes(relPath),
           line: i + 1,
           match,
           severity: method ? "warning" : pattern.severity,

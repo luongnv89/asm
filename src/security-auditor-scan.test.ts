@@ -416,6 +416,13 @@ const mustFail: Array<[string, string]> = [
   ["run.py", 'importlib.import_module("builtins").exec(code)'],
   ["render.py", "Browser().eval(expr)"],
   ["match.js", "getRe().exec(s)"],
+  // `\r` ends a line in JS and Python: a call, then a block or a receiver
+  // on the line before (CodeRabbit on fix round 3).
+  ["run.js", "eval(payload)\r{}"],
+  ["run.ts", "eval(payload)\r{}"],
+  ["run.js", "  exec(cmd)\u2028{}"],
+  ["run.ts", "  eval(p) :\r Foo {"],
+  ["run.js", "browser\r  .eval(x)"],
 ];
 
 // Method-shaped: definitions and calls on an identifier receiver. A warning
@@ -655,6 +662,13 @@ describe("control bytes in findings (#809)", () => {
     // eslint-disable-next-line no-control-regex
     expect(match.match).not.toMatch(/[\x00-\x08\x0a-\x1f\x7f-\x9f]/);
     expect(match.match).toBe("abc??eval(??[31mX??");
+  });
+
+  test("a file name never carries control bytes (#809)", () => {
+    const [cat] = scanCode([
+      { relPath: "e\x1b[31mvil\x07.py", content: "eval(x)", lineCount: 1 },
+    ]);
+    expect(cat.matches[0].file).toBe("e?[31mvil?.py");
   });
 
   test("tabs are kept", () => {

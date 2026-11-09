@@ -874,6 +874,19 @@ describe("scanForWarnings", () => {
     expect(lines).toEqual(["Code execution:run.pyc:3"]);
   });
 
+  test("file names and symlink targets carry no control bytes (#809)", async () => {
+    await writeFile(join(tempDir, "e\x1b[31mvil.py"), "eval(x)\n");
+    await symlink("/nowhere/t\x1b[31marget", join(tempDir, "l\x1bnk"));
+    const warnings = await scanForWarnings(tempDir);
+    expect(warnings.map((w) => w.file).sort()).toEqual(
+      ["e?[31mvil.py", "l?nk"].sort(),
+    );
+    for (const w of warnings) {
+      // eslint-disable-next-line no-control-regex
+      expect(w.file + w.match).not.toMatch(/[\x00-\x08\x0a-\x1f\x7f-\x9f]/);
+    }
+  });
+
   test("source text under a .pyc/.pyo name is scanned (#809)", async () => {
     await writeFile(join(tempDir, "helper.pyo"), "eval(input())\n");
     await writeFile(join(tempDir, "payload.pyc"), "exec(x)\n");
