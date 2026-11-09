@@ -93,29 +93,6 @@ export const BINARY_EXTENSIONS = new Set([
   ".docx",
 ]);
 
-/**
- * Compiled-Python names. Skipped only when the bytes really are bytecode
- * (`hasPythonBytecodeHeader`): `python3 x.pyo` and `runpy.run_path("x.pyc")`
- * run a source-text file under these names as source, so it is scanned (#809).
- */
-const PYTHON_BYTECODE_EXTENSIONS = new Set([".pyc", ".pyo"]);
-
-/**
- * True when `bytes` start like CPython bytecode: a 2-byte magic number, then
- * `\r\n`, then a header (flags, mtime, size — or, in Python 2, the code
- * object) holding at least one NUL byte. Python 3.12+ refuses to run source
- * containing a NUL byte, so a file a `python3` can run as source never
- * passes; a 4-byte look-alike such as `#a\r\n` does not either (#809).
- */
-export function hasPythonBytecodeHeader(bytes: Uint8Array): boolean {
-  return (
-    bytes.length >= 16 &&
-    bytes[2] === 0x0d &&
-    bytes[3] === 0x0a &&
-    bytes.subarray(4, 16).includes(0)
-  );
-}
-
 export const MAX_FILE_SIZE = 512 * 1024; // 512KB
 
 export interface FileContent {
@@ -145,15 +122,6 @@ export async function readBoundedTextFile(
   path: string,
   maxBytes: number = MAX_FILE_SIZE,
 ): Promise<string | null> {
-  const bytes = await readBoundedBytes(path, maxBytes);
-  return bytes === null ? null : bytes.toString("utf-8");
-}
-
-/** `readBoundedTextFile`, but the raw bytes. */
-async function readBoundedBytes(
-  path: string,
-  maxBytes: number,
-): Promise<Buffer | null> {
   let handle;
   try {
     handle = await open(
@@ -178,7 +146,7 @@ async function readBoundedBytes(
       total += bytesRead;
     }
     if (total > maxBytes) return null;
-    return buf.subarray(0, total);
+    return buf.subarray(0, total).toString("utf-8");
   } catch {
     return null;
   } finally {
@@ -331,16 +299,8 @@ export async function readFilesRecursive(
           if (s.size > MAX_FILE_SIZE) continue;
           if (report && s.nlink > 1) options.onHardLink?.(relPath, s.nlink);
 
-          const bytes = await readBoundedBytes(fullPath, MAX_FILE_SIZE);
-          if (bytes === null) continue;
-          // Real bytecode is not text; anything else under a .pyc/.pyo name
-          // is scanned, since Python can run it as source (#809).
-          if (
-            PYTHON_BYTECODE_EXTENSIONS.has(ext) &&
-            hasPythonBytecodeHeader(bytes)
-          )
-            continue;
-          const content = bytes.toString("utf-8");
+          const content = await readBoundedTextFile(fullPath);
+          if (content === null) continue;
           results.push({
             relPath,
             content,

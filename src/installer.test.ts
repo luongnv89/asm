@@ -826,7 +826,7 @@ describe("scanForWarnings", () => {
     );
   });
 
-  test("skips real .pyc bytecode and never prints control bytes (#809)", async () => {
+  test("scans real .pyc bytecode as text and never prints control bytes (#809)", async () => {
     await mkdir(join(tempDir, "__pycache__"), { recursive: true });
     await writeFile(
       join(tempDir, "__pycache__", "x.cpython-312.pyc"),
@@ -834,14 +834,35 @@ describe("scanForWarnings", () => {
         Buffer.from([
           0xcb, 0x0d, 0x0d, 0x0a, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8,
         ]),
-        Buffer.from("eval(x)"),
+        Buffer.from("\neval(x) \x1b[31m\0\n"),
       ]),
     );
     await writeFile(join(tempDir, "a.js"), "eval(x) // \x1b[31m\0\n");
     const warnings = await scanForWarnings(tempDir);
-    expect(warnings.map((w) => w.file)).toEqual(["a.js"]);
-    // eslint-disable-next-line no-control-regex
-    expect(warnings[0].match).not.toMatch(/[\x00-\x08\x0a-\x1f\x7f-\x9f]/);
+    expect(warnings.map((w) => w.file)).toContain(
+      "__pycache__/x.cpython-312.pyc",
+    );
+    expect(warnings.map((w) => w.file)).toContain("a.js");
+    for (const w of warnings) {
+      // eslint-disable-next-line no-control-regex
+      expect(w.match).not.toMatch(/[\x00-\x08\x0a-\x1f\x7f-\x9f]/);
+    }
+  });
+
+  test("a .pyc polyglot behind a valid 3.14 bytecode header is flagged (#809)", async () => {
+    await writeFile(
+      join(tempDir, "run.pyc"),
+      Buffer.concat([
+        Buffer.from([0x2b, 0x0e, 0x0d, 0x0a, 0, 0, 0, 0]),
+        Buffer.from([1, 2, 3, 4, 5, 6, 7, 8, 0xe3]),
+        Buffer.from("\neval(process.env.X)\n"),
+      ]),
+    );
+    const lines = (await scanForWarnings(tempDir)).map(
+      (w) => `${w.category}:${w.file}:${w.line}`,
+    );
+    // The magic's `\r\n` ends line 1, so the payload is line 3.
+    expect(lines).toEqual(["Code execution:run.pyc:3"]);
   });
 
   test("source text under a .pyc/.pyo name is scanned (#809)", async () => {
