@@ -358,14 +358,14 @@ export async function inspectSkillFolders(
   latestCommit: string,
   probes: SkillFolderProbe[],
 ): Promise<SkillFolderReport[]> {
-  const unknown = (error: string): SkillFolderReport[] =>
-    probes.map(() => ({
-      changed: null,
-      installedVersion: null,
-      latestVersion: null,
-      error,
-    }));
   const latest = latestCommit.toLowerCase();
+  // A probe already at the latest commit never depends on the folder check.
+  const unknown = (error: string): SkillFolderReport[] =>
+    probes.map((p) =>
+      p.installedCommit.toLowerCase() === latest
+        ? { changed: false, installedVersion: null, latestVersion: null }
+        : { changed: null, installedVersion: null, latestVersion: null, error },
+    );
   if (probes.length === 0) return [];
   if (!OID_RE.test(latest)) return unknown("invalid latest commit");
 
@@ -763,7 +763,9 @@ export async function checkOutdated(
 
   // A commit that changes nothing under the skill's own folder does not make
   // it outdated (#807). The lock keeps the installed commit; only `asm update`
-  // records a new one, when it actually installs.
+  // records a new one, when it actually installs. Only a pre-inspection
+  // `outdated` entry (installed != latest) depends on the folder check, so
+  // only such an entry can carry an `inspectionError`.
   await poolAll([...inspectGroups.values()], 4, async (group) => {
     let reports: SkillFolderReport[];
     try {
@@ -775,7 +777,9 @@ export async function checkOutdated(
     } catch (err) {
       debug(`updater: inspection failed for ${group.cloneUrl}: ${err}`);
       const reason = `skill folder check failed: ${gitFailure(err)}`;
-      for (const { entry } of group.items) entry.inspectionError = reason;
+      for (const { entry } of group.items) {
+        if (entry.status === "outdated") entry.inspectionError = reason;
+      }
       return;
     }
     group.items.forEach(({ entry }, i) => {
@@ -783,7 +787,9 @@ export async function checkOutdated(
       if (!report) return;
       entry.installedVersion = report.installedVersion;
       entry.latestVersion = report.latestVersion;
-      if (report.error) entry.inspectionError = report.error;
+      if (report.error && entry.status === "outdated") {
+        entry.inspectionError = report.error;
+      }
       if (entry.status === "outdated" && report.changed === false) {
         entry.status = "up-to-date";
       }

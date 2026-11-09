@@ -857,6 +857,69 @@ describe("checkOutdated skill folder inspection (#807)", () => {
     });
   });
 
+  it("flags only rows whose status depends on a failed folder check", async () => {
+    const latest = "b".repeat(40);
+    const lock = {
+      version: 1 as const,
+      skills: {
+        current: lockEntry("file:///nowhere.git", latest, "skills/current"),
+        stale: lockEntry("file:///nowhere.git", "a".repeat(40), "skills/stale"),
+      },
+    };
+    const failures: Array<typeof inspectSkillFolders> = [
+      async () => {
+        throw new Error("network down");
+      },
+      async (_url, _latest, probes) =>
+        probes.map(() => ({
+          changed: null,
+          installedVersion: null,
+          latestVersion: null,
+          error: "skill folder check failed: network down",
+        })),
+    ];
+    for (const inspectSkillFoldersFn of failures) {
+      const summary = await checkOutdated({
+        lock,
+        fetchRegistryIndexFn: async () => null,
+        getLatestRemoteCommitFn: async () => latest,
+        inspectSkillFoldersFn,
+      });
+      const byName = Object.fromEntries(
+        summary.entries.map((e) => [e.name, e]),
+      );
+      expect(byName.current.status).toBe("up-to-date");
+      expect(byName.current).not.toHaveProperty("inspectionError");
+      expect(byName.stale).toMatchObject({
+        status: "outdated",
+        inspectionError: "skill folder check failed: network down",
+      });
+    }
+  });
+
+  it("reports no folder error for a probe already at the latest commit", async () => {
+    const latest = "b".repeat(40);
+    const url = `file://${join(tempDir, "missing.git")}`;
+    // Only a current probe: the single tree fetch fails.
+    expect(
+      await inspectSkillFolders(url, latest, [
+        { installedCommit: latest.toUpperCase(), skillPath: "skills/x" },
+      ]),
+    ).toEqual([{ changed: false, installedVersion: null, latestVersion: null }]);
+    // With a stale probe too: the fallback fetch throws as well.
+    const reports = await inspectSkillFolders(url, latest, [
+      { installedCommit: latest, skillPath: "skills/x" },
+      { installedCommit: "a".repeat(40), skillPath: "skills/y" },
+    ]);
+    expect(reports[0]).toEqual({
+      changed: false,
+      installedVersion: null,
+      latestVersion: null,
+    });
+    expect(reports[1]).toMatchObject({ changed: null });
+    expect(reports[1].error).toMatch(/^skill folder check failed: /);
+  });
+
   it("does not add version fields to non-GitHub entries", async () => {
     const summary = await checkOutdated({
       lock: {
