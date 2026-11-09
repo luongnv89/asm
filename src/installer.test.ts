@@ -45,6 +45,7 @@ import {
   checkCrossToolLink,
   linkExistingSkill,
 } from "./installer";
+import { METHOD_CALL_CATEGORY } from "./security-auditor-scan";
 import type { AppConfig, ProviderConfig } from "./utils/types";
 
 // ─── Module mocks for resolveProvider interactive picker tests ───────────────
@@ -796,12 +797,17 @@ describe("scanForWarnings", () => {
         "class Browser:",
         "    def eval(self, expression):",
         "        return self.send(expression)",
-        'Browser().eval("x")',
+        'browser.eval("x")',
         "self.eval(y)",
         "m = re.exec(s)",
       ].join("\n"),
     );
-    expect(await scanForWarnings(tempDir)).toEqual([]);
+    // Method-shaped: a medium-risk warning, never nothing (#809).
+    const methods = await scanForWarnings(tempDir);
+    expect(methods.map((w) => `${w.category}:${w.line}`)).toEqual(
+      [2, 4, 5, 6].map((n) => `${METHOD_CALL_CATEGORY}:${n}`),
+    );
+    expect(classifyWarningRisk(methods)).toBe("medium");
 
     await writeFile(
       join(tempDir, "scripts", "run.py"),
@@ -822,6 +828,9 @@ describe("scanForWarnings", () => {
         "Code execution:scripts/run.js:1",
         "Code execution:scripts/run.js:2",
         "Code execution:scripts/run.js:3",
+        ...[2, 4, 5, 6].map(
+          (n) => `${METHOD_CALL_CATEGORY}:scripts/render.py:${n}`,
+        ),
       ].sort(),
     );
   });
@@ -900,8 +909,101 @@ describe("scanForWarnings", () => {
         "Code execution:run.js:4",
         "Code execution:run.ts:2",
         "Code execution:engine.js:1",
+        `${METHOD_CALL_CATEGORY}:engine.ts:2`,
       ].sort(),
     );
+  });
+
+  test("round-2 bypasses are high risk again; aliases warn (#809)", async () => {
+    const files: Array<[string, string]> = [
+      // B1: an expression keyword after `:` is a ternary's else-branch.
+      ["b1.ts", "const r = ok ?\n  eval(p) : void {};\n  exec(c) : typeof {};"],
+      ["b1.tsx", "const r = ok ?\n  eval(p) : class {};"],
+      // B2: other file types keep the rule before #809.
+      ["b2.rb", "eval(payload) {}\nKernel.exec(cmd)\nbinding.eval(code)"],
+      ["B2.java", "Runtime.getRuntime().exec(cmd);"],
+      // B3: only an identifier receiver is exempt.
+      ["b3.js", "(globalThis).eval(x);\nglobalThis/**/.eval(x);"],
+      [
+        "b3.py",
+        'importlib.import_module("builtins").exec(code)\nBrowser().eval(x)',
+      ],
+    ];
+    for (const [name, content] of files) {
+      await writeFile(join(tempDir, name), content);
+    }
+    const lines = (await scanForWarnings(tempDir)).map(
+      (w) => `${w.category}:${w.file}:${w.line}`,
+    );
+    expect([...new Set(lines)].sort()).toEqual(
+      [
+        "Code execution:b1.ts:2",
+        "Shell commands:b1.ts:3",
+        "Code execution:b1.tsx:2",
+        "Code execution:b2.rb:1",
+        "Shell commands:b2.rb:2",
+        "Code execution:b2.rb:3",
+        "Shell commands:B2.java:1",
+        "Code execution:b3.js:1",
+        "Code execution:b3.js:2",
+        "Shell commands:b3.py:1",
+        "Code execution:b3.py:2",
+      ].sort(),
+    );
+
+    await rm(tempDir, { recursive: true, force: true });
+    await mkdir(tempDir, { recursive: true });
+    await writeFile(
+      join(tempDir, "alias.js"),
+      "g.eval(x);\nthis.eval(x);\ntop.eval(x);\nwindow.parent.eval(code);\n",
+    );
+    const alias = await scanForWarnings(tempDir);
+    expect(alias.map((w) => w.category)).toEqual(
+      Array(4).fill(METHOD_CALL_CATEGORY),
+    );
+    expect(classifyWarningRisk(alias)).toBe("medium");
+  });
+
+  test("invariant: every line main's preview flagged is still a warning (#809)", async () => {
+    // The preview's rules before #809, copied here, not imported.
+    const main = [/\bexec\(/, /\beval\(/, /\bFunction\(/];
+    const probes: Array<[string, string]> = [
+      [
+        "a.py",
+        "class B:\n    def eval(self, e):\n        return e\nself.eval(x)\nbrowser.eval(x)\nb.exec(code)",
+      ],
+      [
+        "a.js",
+        "browser.eval(x);\nre.exec(s);\nthis.eval(x);\n  eval(x) {\nfunction eval(n) {\n(0, eval)(x);",
+      ],
+      [
+        "a.ts",
+        "  eval(x: string): string {\n  async eval(x): Promise<T> {\n  eval(p) : void {};",
+      ],
+      ["a.rb", "def eval(x)\nKernel.exec(cmd)\neval(payload) {}"],
+      ["a.pyc", "self.eval(x)\ndef exec(self):"],
+      [
+        "b.js",
+        "const r = ok ?\n  eval(p) : {};\nglobalThis\n  .eval(p);\n(globalThis).eval(x);",
+      ],
+    ];
+    for (const [name, content] of probes) {
+      await writeFile(join(tempDir, name), content);
+    }
+    const reported = new Set(
+      (await scanForWarnings(tempDir))
+        .filter((w) => classifyWarningRisk([w]) !== "safe")
+        .map((w) => `${w.file}:${w.line}`),
+    );
+    for (const [name, content] of probes) {
+      content.split("\n").forEach((line, i) => {
+        if (main.some((re) => re.test(line))) {
+          expect(reported, `${name}:${i + 1} ${line}`).toContain(
+            `${name}:${i + 1}`,
+          );
+        }
+      });
+    }
   });
 
   test("detects credential patterns", async () => {

@@ -34,11 +34,11 @@ import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
 import { createDirSymlink, readFilesRecursive } from "./utils/fs";
 import {
-  REAL_CALL,
-  REAL_CALL_TS,
-  isPythonFile,
-  isTypeScriptFile,
+  CALL_CANDIDATE,
+  METHOD_CALL_CATEGORY,
+  isRealCall,
   stripControlBytes,
+  type CallName,
 } from "./security-auditor-scan";
 
 import type {
@@ -687,38 +687,25 @@ export interface SecurityWarning {
   match: string;
 }
 
-// `exec`, `eval` and `Function` use the audit's real-call matchers (#809), so
-// `asm install` and `asm audit security` / `asm update` flag the same lines:
-// a method named `eval` or a regex `.exec(` is not a builtin call.
+// `exec`, `eval` and `Function` use the audit's candidate + real-call rule
+// (#809), so `asm install` and `asm audit security` / `asm update` classify the
+// same lines: a real call is "Shell commands" / "Code execution" (high risk), a
+// method-shaped one such as `obj.eval(` is `METHOD_CALL_CATEGORY` (medium risk).
 const WARNING_PATTERNS: Array<{
   category: string;
   pattern: RegExp;
-  /** Used instead of `pattern` in TypeScript files. */
-  tsPattern?: RegExp;
-  skipPython?: boolean;
+  /** `pattern` is `CALL_CANDIDATE[call]`; see `isRealCall`. */
+  call?: CallName;
 }> = [
   { category: "Shell commands", pattern: /\b(bash|sh\s+-c)\b/ },
-  {
-    category: "Shell commands",
-    pattern: REAL_CALL.exec,
-    tsPattern: REAL_CALL_TS.exec,
-  },
+  { category: "Shell commands", pattern: CALL_CANDIDATE.exec, call: "exec" },
   { category: "Shell commands", pattern: /\bchild_process\b/ },
   { category: "Shell commands", pattern: /\bBun\.spawn\b/ },
+  { category: "Code execution", pattern: CALL_CANDIDATE.eval, call: "eval" },
   {
     category: "Code execution",
-    pattern: REAL_CALL.eval,
-    tsPattern: REAL_CALL_TS.eval,
-  },
-  {
-    category: "Code execution",
-    pattern: REAL_CALL.selfGlobal,
-    skipPython: true,
-  },
-  {
-    category: "Code execution",
-    pattern: REAL_CALL.Function,
-    tsPattern: REAL_CALL_TS.Function,
+    pattern: CALL_CANDIDATE.Function,
+    call: "Function",
   },
   { category: "Code execution", pattern: /\bnew\s+Function\b/ },
   {
@@ -758,25 +745,18 @@ export async function scanForWarnings(
 
   for (const { relPath, content } of files) {
     const lines = content.split("\n");
-    const python = isPythonFile(relPath);
-    const typescript = isTypeScriptFile(relPath);
     for (let i = 0; i < lines.length; i++) {
-      for (const {
-        category,
-        pattern,
-        tsPattern,
-        skipPython,
-      } of WARNING_PATTERNS) {
-        if (skipPython && python) continue;
-        if (((typescript && tsPattern) || pattern).test(lines[i])) {
-          const match = stripControlBytes(lines[i].trim());
-          warnings.push({
-            category,
-            file: relPath,
-            line: i + 1,
-            match: match.length > 100 ? match.slice(0, 100) + "…" : match,
-          });
-        }
+      for (const { category, pattern, call } of WARNING_PATTERNS) {
+        if (!pattern.test(lines[i])) continue;
+        const method =
+          call !== undefined && !isRealCall(call, lines[i], relPath);
+        const match = stripControlBytes(lines[i].trim());
+        warnings.push({
+          category: method ? METHOD_CALL_CATEGORY : category,
+          file: relPath,
+          line: i + 1,
+          match: match.length > 100 ? match.slice(0, 100) + "…" : match,
+        });
       }
     }
   }
@@ -792,7 +772,7 @@ export const HIGH_RISK_WARNING_CATEGORIES = [
   OUTSIDE_SYMLINK_CATEGORY,
 ];
 /** Warning categories that make an install a medium-risk preview. */
-const MEDIUM_RISK_WARNING_CATEGORIES = ["External URLs"];
+const MEDIUM_RISK_WARNING_CATEGORIES = ["External URLs", METHOD_CALL_CATEGORY];
 
 /**
  * Collapse raw `scanForWarnings` output into the High / Medium / Safe label
