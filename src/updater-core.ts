@@ -597,121 +597,118 @@ export async function checkOutdated(
   // Per-entry work is only bookkeeping around the shared remote lookups, so
   // walk every entry at once: skills from one repository must not hold the
   // lookups for other repositories behind them.
-  const results = await poolAll(
-    entries,
-    entries.length,
-    async ([name, entry]): Promise<OutdatedEntry> => {
-      const sourceType = resolveSourceType(entry);
+  const width = entries.length;
+  const results = await poolAll(entries, width, async ([name, entry]) => {
+    const sourceType = resolveSourceType(entry);
 
-      // Untracked: no commit hash recorded (pre-registry installs)
-      if (!entry.commitHash || entry.commitHash === "unknown") {
-        return {
-          name,
-          installedCommit: entry.commitHash || "unknown",
-          latestCommit: "unknown",
-          source: entry.source,
-          sourceType,
-          status: "untracked" as OutdatedStatus,
-        };
-      }
+    // Untracked: no commit hash recorded (pre-registry installs)
+    if (!entry.commitHash || entry.commitHash === "unknown") {
+      return {
+        name,
+        installedCommit: entry.commitHash || "unknown",
+        latestCommit: "unknown",
+        source: entry.source,
+        sourceType,
+        status: "untracked" as OutdatedStatus,
+      };
+    }
 
-      // Local skills: cannot check for updates remotely
-      if (sourceType === "local") {
-        return {
-          name,
-          installedCommit: entry.commitHash,
-          latestCommit: entry.commitHash,
-          source: entry.source,
-          sourceType,
-          status: "up-to-date" as OutdatedStatus,
-        };
-      }
+    // Local skills: cannot check for updates remotely
+    if (sourceType === "local") {
+      return {
+        name,
+        installedCommit: entry.commitHash,
+        latestCommit: entry.commitHash,
+        source: entry.source,
+        sourceType,
+        status: "up-to-date" as OutdatedStatus,
+      };
+    }
 
-      // Registry skills: check against index.json manifest
-      if (sourceType === "registry" && registryIndex) {
-        const registryName = entry.registryName || name;
-        const manifest = registryIndex.manifests.find(
-          (m) => m.name.toLowerCase() === registryName.toLowerCase(),
-        );
-        if (manifest) {
-          const isOutdated = manifest.commit !== entry.commitHash;
-          return recordResolvedLatestCommit(
-            {
-              name,
-              installedCommit: shortHash(entry.commitHash),
-              latestCommit: shortHash(manifest.commit),
-              source: entry.source,
-              sourceType,
-              status: isOutdated
-                ? ("outdated" as OutdatedStatus)
-                : ("up-to-date" as OutdatedStatus),
-            },
-            manifest.commit,
-          );
-        }
-        // Registry skill not found in index — fall through to git ls-remote
-      }
-
-      // GitHub skills: use git ls-remote
-      const cloneUrl = sourceToCloneUrl(entry.source);
-      if (!cloneUrl) {
-        return {
-          name,
-          installedCommit: shortHash(entry.commitHash),
-          latestCommit: "unknown",
-          source: entry.source,
-          sourceType,
-          status: "error" as OutdatedStatus,
-          error: "Cannot determine remote URL",
-        };
-      }
-
-      const latestCommit = await resolveRemote(cloneUrl, entry.ref);
-      if (!latestCommit) {
-        return {
-          name,
-          installedCommit: shortHash(entry.commitHash),
-          latestCommit: "unknown",
-          source: entry.source,
-          sourceType,
-          status: "error" as OutdatedStatus,
-          error: "Failed to fetch remote commit",
-        };
-      }
-
-      const isOutdated = latestCommit !== entry.commitHash;
-      const result = recordResolvedLatestCommit(
-        {
-          name,
-          installedCommit: shortHash(entry.commitHash),
-          latestCommit: shortHash(latestCommit),
-          source: entry.source,
-          sourceType,
-          status: isOutdated
-            ? ("outdated" as OutdatedStatus)
-            : ("up-to-date" as OutdatedStatus),
-        },
-        latestCommit,
+    // Registry skills: check against index.json manifest
+    if (sourceType === "registry" && registryIndex) {
+      const registryName = entry.registryName || name;
+      const manifest = registryIndex.manifests.find(
+        (m) => m.name.toLowerCase() === registryName.toLowerCase(),
       );
-      if (sourceType === "github") {
-        const key = `${cloneUrl}\n${latestCommit}`;
-        const group = inspectGroups.get(key) ?? {
-          cloneUrl,
-          latestCommit,
-          items: [],
-        };
-        group.items.push({
-          entry: result,
-          probe: {
-            installedCommit: entry.commitHash,
-            skillPath: entry.skillPath ?? "",
+      if (manifest) {
+        const isOutdated = manifest.commit !== entry.commitHash;
+        return recordResolvedLatestCommit(
+          {
+            name,
+            installedCommit: shortHash(entry.commitHash),
+            latestCommit: shortHash(manifest.commit),
+            source: entry.source,
+            sourceType,
+            status: isOutdated
+              ? ("outdated" as OutdatedStatus)
+              : ("up-to-date" as OutdatedStatus),
           },
-        });
-        inspectGroups.set(key, group);
+          manifest.commit,
+        );
       }
-      return result;
-    },
-  );
+      // Registry skill not found in index — fall through to git ls-remote
+    }
+
+    // GitHub skills: use git ls-remote
+    const cloneUrl = sourceToCloneUrl(entry.source);
+    if (!cloneUrl) {
+      return {
+        name,
+        installedCommit: shortHash(entry.commitHash),
+        latestCommit: "unknown",
+        source: entry.source,
+        sourceType,
+        status: "error" as OutdatedStatus,
+        error: "Cannot determine remote URL",
+      };
+    }
+
+    const latestCommit = await resolveRemote(cloneUrl, entry.ref);
+    if (!latestCommit) {
+      return {
+        name,
+        installedCommit: shortHash(entry.commitHash),
+        latestCommit: "unknown",
+        source: entry.source,
+        sourceType,
+        status: "error" as OutdatedStatus,
+        error: "Failed to fetch remote commit",
+      };
+    }
+
+    const isOutdated = latestCommit !== entry.commitHash;
+    const result = recordResolvedLatestCommit(
+      {
+        name,
+        installedCommit: shortHash(entry.commitHash),
+        latestCommit: shortHash(latestCommit),
+        source: entry.source,
+        sourceType,
+        status: isOutdated
+          ? ("outdated" as OutdatedStatus)
+          : ("up-to-date" as OutdatedStatus),
+      },
+      latestCommit,
+    );
+    if (sourceType === "github") {
+      const key = `${cloneUrl}\n${latestCommit}`;
+      const group = inspectGroups.get(key) ?? {
+        cloneUrl,
+        latestCommit,
+        items: [],
+      };
+      group.items.push({
+        entry: result,
+        probe: {
+          installedCommit: entry.commitHash,
+          skillPath: entry.skillPath ?? "",
+        },
+      });
+      inspectGroups.set(key, group);
+    }
+    return result;
+  });
 
   // A commit that changes nothing under the skill's own folder does not make
   // it outdated (#807). The lock keeps the installed commit; only `asm update`
@@ -739,7 +736,7 @@ export async function checkOutdated(
     });
   });
 
-  for (const result of results) {
+  for (const result of results as OutdatedEntry[]) {
     if (result.sourceType === "github") {
       result.installedVersion ??= null;
       result.latestVersion ??= null;
