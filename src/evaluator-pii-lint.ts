@@ -259,7 +259,7 @@ export async function scorePII(skillPath: string): Promise<CategoryResult> {
  *
  * In-scope:
  *   - Bash / shell scripts (.sh, .bash) → shellcheck
- *   - Python scripts (.py) → python3 -m py_compile (syntax check)
+ *   - Python scripts (.py) → in-memory syntax check (PY_SYNTAX_CHECK)
  *
  * Deliberately out of scope:
  *   - JavaScript / TypeScript (handled by the build system)
@@ -271,6 +271,37 @@ export async function scorePII(skillPath: string): Promise<CategoryResult> {
  */
 
 const SCRIPT_EXTENSIONS = new Set([".sh", ".bash", ".py"]);
+
+/**
+ * Python syntax check that writes nothing (issue #823).
+ *
+ * `python3 -m py_compile <file>` writes `__pycache__/<name>.cpython-*.pyc`
+ * next to the source and ignores PYTHONDONTWRITEBYTECODE, so linting
+ * mutated the skill folder being evaluated. This runs the same compile step
+ * as `py_compile.compile()` (SourceFileLoader.source_to_code), raises the
+ * same `py_compile.PyCompileError`, and prints what `py_compile`'s CLI
+ * prints (the same stderr text and exit code 1). It skips the bytecode
+ * write, so the stderr parser below sees the same output as before.
+ * Run with `-I -B`: isolated mode keeps the skill folder off `sys.path`,
+ * and -B stops any stdlib import from writing bytecode.
+ */
+const PY_SYNTAX_CHECK = [
+  "import sys, importlib.machinery, py_compile",
+  "f = sys.argv[1]",
+  "try:",
+  "    loader = importlib.machinery.SourceFileLoader('<py_compile>', f)",
+  "    data = loader.get_data(f)",
+  "    try:",
+  "        loader.source_to_code(data, f)",
+  "    except Exception as err:",
+  "        raise py_compile.PyCompileError(err.__class__, err, f)",
+  "except py_compile.PyCompileError as e:",
+  "    sys.stderr.write(e.msg)",
+  "    sys.exit(1)",
+  "except OSError as e:",
+  "    sys.stderr.write(str(e))",
+  "    sys.exit(1)",
+].join("\n");
 
 const LINTER_CONFIG: Record<
   string,
@@ -292,7 +323,7 @@ const LINTER_CONFIG: Record<
   },
   ".py": {
     command: "python3",
-    args: ["-m", "py_compile"],
+    args: ["-I", "-B", "-c", PY_SYNTAX_CHECK],
     language: "python",
   },
 };
@@ -412,7 +443,7 @@ export async function runLinter(
  * Lint executable scripts bundled with a skill.
  *
  * Scans for .sh, .bash, and .py files. Runs shellcheck for shell scripts
- * and python3 -m py_compile for Python scripts. When a linter is
+ * and an in-memory Python compile (no __pycache__) for Python scripts. When a linter is
  * unavailable the check is marked as "skipped".
  */
 export async function scoreScriptLint(
