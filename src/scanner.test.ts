@@ -81,6 +81,7 @@ import {
   realpath,
   readdir,
 } from "fs/promises";
+import { spawnSync } from "child_process";
 import { join, resolve } from "path";
 import { homedir, tmpdir } from "os";
 import {
@@ -473,6 +474,31 @@ describe("countFiles", () => {
       await symlink(join(tempDir, "missing"), join(tempDir, "dangling"));
       await symlink("self", join(tempDir, "self"));
       expect(await countFiles(tempDir)).toBe(1);
+    },
+  );
+
+  it.skipIf(process.platform !== "linux")(
+    "confines loops, links through outside links, system paths and FIFOs",
+    async () => {
+      const skill = join(tempDir, "skill");
+      const outside = join(tempDir, "outside");
+      await mkdir(skill);
+      await mkdir(outside);
+      await writeFile(join(outside, "one.txt"), "1");
+      await writeFile(join(skill, "SKILL.md"), "x");
+      // Two-link loop.
+      await symlink("B", join(skill, "A"));
+      await symlink("A", join(skill, "B"));
+      // A link out, and a link through that link to a file outside.
+      await symlink(outside, join(skill, "outlink"), "dir");
+      await symlink("outlink/one.txt", join(skill, "via"));
+      // System paths: a device, the root, and a /proc self-link.
+      await symlink("/dev/zero", join(skill, "zero"));
+      await symlink("/", join(skill, "root"), "dir");
+      await symlink("/proc/self", join(skill, "self"), "dir");
+      // A FIFO is not a regular file and must not block the walk.
+      expect(spawnSync("mkfifo", [join(skill, "fifo")]).status).toBe(0);
+      expect(await countFiles(skill)).toBe(1);
     },
   );
 
