@@ -307,11 +307,15 @@ describe.skipIf(!HAS_PYTHON)(
       await writePySkill(currentDir, "s1");
 
       // Legacy: the pre-#823 command line, run on its own copy of the skill.
+      // `-E` keeps the shell's PYTHON* vars (PYTHONWARNINGS, PYTHONPATH, …)
+      // out of it, as `-I` does for the current command, so the comparison
+      // does not depend on the developer's environment.
       const legacyRuns: Record<string, unknown> = {};
       runCommandMock.mockImplementation(async (argv: string[]) => {
         const file = argv[argv.length - 1];
         const result = await realRunCommand([
           "python3",
+          "-E",
           "-m",
           "py_compile",
           file,
