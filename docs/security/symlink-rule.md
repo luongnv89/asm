@@ -1,10 +1,11 @@
 # Symlink rule for skill scans
 
-Every asm command that reads a skill's files to scan them follows one rule:
+Every asm command that reads a skill's files to scan or score them follows one rule:
 **nothing outside the skill folder is opened, read, walked or printed.** A
 symlink that leaves the folder is a finding and is never followed
 ([#779](https://github.com/luongnv89/asm/issues/779),
-[#791](https://github.com/luongnv89/asm/issues/791)).
+[#791](https://github.com/luongnv89/asm/issues/791),
+[#825](https://github.com/luongnv89/asm/issues/825)).
 
 ## Where it applies
 
@@ -17,9 +18,14 @@ symlink that leaves the folder is a finding and is never followed
 | `asm install` preview, `asm get` preview of a remote skill | the clone or local source root                                                  |
 | `asm update`                                               | the clone of the new version                                                    |
 | `asm publish`                                              | the skill folder                                                                |
+| `asm eval <skill folder or SKILL.md>`, `asm eval --fix`    | the skill folder (the folder holding `SKILL.md`)                                |
+| `asm eval <collection>`                                    | each child skill's folder, and the child must sit inside the collection         |
+| `asm eval github:…`                                        | each skill's folder, and the skill must sit inside the temporary clone          |
 
-The boundary of a remote source is the whole checkout, so a skill may link
-to a sibling folder in the same repository.
+The boundary of a remote source is the whole checkout for `audit`, `get`,
+`install` and `update`, so a skill may link to a sibling folder in the same
+repository. `asm eval` scores one skill folder, so its boundary is that
+folder, also for a remote source.
 
 ## What a link becomes
 
@@ -30,6 +36,10 @@ to a sibling folder in the same repository.
 - **Named `.git` or `node_modules`:** checked before the skip-list, so a link
   with one of those names that leaves the folder is still reported. Real
   `.git` and `node_modules` folders are skipped as before.
+- **`SKILL.md` leaves the folder** (`asm eval`): the skill is not evaluated;
+  the error is `Symlink not read: SKILL.md -> target (kind, NOT read)`, and
+  `--fix` writes nothing. `--fix` also refuses to write its `SKILL.md.bak`
+  backup through a link that leaves the folder or dangles.
 - **Hard link** (a regular file with `st_nlink > 1`): read like any file,
   with an info note that its content may be shared with a file outside the
   folder. A hard link cannot be told apart from a normal file by its path.
@@ -50,6 +60,32 @@ Review those targets by hand. In practice:
   `asm install` then copies such a link is tracked in
   [#753](https://github.com/luongnv89/asm/issues/753).
 
+## In `asm eval`
+
+A link that leaves the skill folder, dangles or loops is never linted,
+PII-scanned or scored. It is reported once, however many in-folder paths
+lead to it:
+
+- `--json` and `--machine`: a `structure` finding
+  `Symlink not read: path -> target (kind, NOT read)` (`not followed` for a
+  dangling or looping link), and, in `--json`, `externalSymlinks` with the
+  same fields as the audit's.
+- Text: a `Symlinks not read (N):` block after the suggestions.
+
+The link changes no score, so the score never depends on what it points
+to. A link that stays inside the folder is read and scored as before: a
+folder reached through an in-folder link is walked again under that path,
+at most 8 times per real folder, so folders that link to each other cannot
+make the walk explode. Hidden folders and `node_modules` are skipped by
+name, but a link with such a name that leaves the folder is still
+reported. `shellcheck` runs with `--norc`, so a `.shellcheckrc` in or above
+the skill cannot make it follow `source` lines out of the folder.
+
+In a collection (`asm eval skills/`), a child skill folder that links
+outside the collection, or a `github:` subpath that links outside the
+clone, is not evaluated: its result is an error
+`Symlink not read: name -> target (directory, NOT read)`.
+
 ## Linked folders
 
 The folder you name, or an installed skill's folder, may itself be a link or
@@ -59,7 +95,9 @@ It is followed, and the report shows its real path (`resolvedPath` in
 
 Every file read inside the folder is bounded. It is opened non-blocking,
 `fstat` is checked on the descriptor (regular files only), and at most
-`512 KiB + 1` bytes are read.
+`512 KiB + 1` bytes are read. `asm eval` raises that bound to the file's
+size as the walk saw it, so a large file inside the folder is still read in
+full.
 
 ## Known limits
 
@@ -67,6 +105,10 @@ Every file read inside the folder is bounded. It is opened non-blocking,
   `SKILL.md`'s frontmatter, even through a link. An audit never prints a
   name taken from a `SKILL.md` outside the folder, but `asm list` and the
   body that `asm get` prints can show it.
+- `asm eval` gives a skill with no licence file credit for the repository's
+  (#771): it lists the names in the folders above the skill, up to the git
+  root, and `stat`s a `LICENSE` candidate there. It never opens a file
+  outside the skill folder.
 - The walk resolves each entry, checks it, and then opens it by path. A link
   swapped in during that window could be followed (TOCTOU). It needs a writer
   racing the scan inside the folder.

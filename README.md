@@ -431,7 +431,7 @@ asm audit security ./path/to/my-skill
 asm audit security ./skills/   # every skill in a collection folder
 ```
 
-A local target starts with `./`, `../`, `/` or `~`, or is an existing path that contains `/`; a bare name always means an installed skill. Every scan of a skill's files (audit, `get --audit`, install and get previews, update, publish) stays inside the skill folder: a symlink out of it is a critical finding that is never read, and it makes the verdict at least WARNING. See [docs/security/symlink-rule.md](docs/security/symlink-rule.md).
+A local target starts with `./`, `../`, `/` or `~`, or is an existing path that contains `/`; a bare name always means an installed skill. Every scan of a skill's files (audit, `get --audit`, install and get previews, update, publish, eval) stays inside the skill folder: a symlink out of it is a critical finding that is never read, and it makes the verdict at least WARNING. See [docs/security/symlink-rule.md](docs/security/symlink-rule.md).
 
 ```bash
 asm audit security --all
@@ -515,6 +515,8 @@ asm eval ./my-skill --machine
 ```bash
 asm eval ./my-skill --fix
 ```
+
+Like every scan of a skill's files, `asm eval` stays inside the skill folder: a symlink out of it is listed under "Symlinks not read", never linted, PII-scanned or scored, and a `SKILL.md` that links outside is not evaluated. See [docs/security/symlink-rule.md](docs/security/symlink-rule.md).
 
 Gate skills in CI with inclusive floors: `--min-score N` (0–100) fails a skill whose overall score is below N, and `--min-category N` (0–10) fails a skill with any category below N. Each skill is marked PASS or FAIL (naming the failing categories), the batch summary adds passed/failed counts, and the command exits `1` when any skill fails (`0` when all pass). A gate never passes on missing evidence: a skill whose evaluation errors is marked ERROR and counts as failed. The skill standard's Gate 2 (overall > 85, every category >= 8) is:
 

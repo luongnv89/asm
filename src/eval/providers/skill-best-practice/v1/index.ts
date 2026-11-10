@@ -1,4 +1,4 @@
-import { readFile, stat } from "fs/promises";
+import { stat } from "fs/promises";
 import { basename } from "path";
 import { parse as parseYaml } from "yaml";
 import type {
@@ -10,6 +10,7 @@ import type {
   SkillContext,
 } from "../../../types";
 import { errorMessage } from "../../../../utils/errors";
+import { readSkillMd } from "../../../../evaluator-files";
 
 const PROVIDER_ID = "skill-best-practice";
 const PROVIDER_VERSION = "1.2.0";
@@ -109,7 +110,11 @@ async function validate(ctx: SkillContext): Promise<{
   findings: Finding[];
   raw: ValidationPayload;
 }> {
-  const content = await readFile(ctx.skillMdPath, "utf-8");
+  // Never reads a SKILL.md that links outside the skill folder (#825).
+  const content = await readSkillMd(ctx.skillMdPath);
+  if (content === null) {
+    throw new Error(`SKILL.md not found at ${ctx.skillMdPath}`);
+  }
   const checks: ValidationCheck[] = [];
   const frontmatterBlock = extractFrontmatter(content);
 

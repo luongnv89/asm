@@ -11,7 +11,12 @@ import {
 import { join, sep } from "path";
 import { tmpdir } from "os";
 import { spawnSync } from "child_process";
-import { isPathInside, readBoundedTextFile, readFilesRecursive } from "./fs";
+import {
+  isPathInside,
+  readBoundedTextFile,
+  readFilesRecursive,
+  walkFiles,
+} from "./fs";
 import type { ExternalSymlink } from "./types";
 
 describe("isPathInside", () => {
@@ -213,6 +218,47 @@ describe("readFilesRecursive onExternalSymlink (#779)", () => {
     });
     expect(Date.now() - started).toBeLessThan(5_000);
     expect(files).toHaveLength(names.length);
+  });
+
+  test("walkFiles maxFolderVisits re-walks in-folder links, reports each outside link once (#825)", async () => {
+    const root = join(base, "multi");
+    await mkdir(join(root, "lib"), { recursive: true });
+    await writeFile(join(root, "lib", "a.sh"), "echo a\n");
+    await symlink(join(outside, "secret.sh"), join(root, "lib", "out.sh"));
+    await symlink("lib", join(root, "alias"));
+    const seen: string[] = [];
+    const links: ExternalSymlink[] = [];
+    await walkFiles(root, (f) => void seen.push(f.relPath), {
+      onExternalSymlink: (l) => links.push(l),
+      maxFolderVisits: 8,
+    });
+    // lib is walked through both paths, as eval always did...
+    expect(seen.sort()).toEqual(["alias/a.sh", "lib/a.sh"]);
+    // ...but its outside link is one finding, under the first path seen.
+    expect(links).toHaveLength(1);
+    expect(links[0].kind).toBe("file");
+  });
+
+  test("walkFiles maxFolderVisits bounds folders that link to each other (#825)", async () => {
+    const mesh = join(base, "mesh2");
+    const names = ["d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8", "d9"];
+    for (const n of names) {
+      await mkdir(join(mesh, n), { recursive: true });
+      await writeFile(join(mesh, n, "f.sh"), `echo ${n}\n`);
+    }
+    for (const n of names) {
+      for (const m of names) {
+        if (m !== n) await symlink(`../${m}`, join(mesh, n, `to-${m}`));
+      }
+    }
+    const started = Date.now();
+    let files = 0;
+    await walkFiles(mesh, () => void files++, {
+      onExternalSymlink: () => {},
+      maxFolderVisits: 8,
+    });
+    expect(Date.now() - started).toBeLessThan(5_000);
+    expect(files).toBeLessThanOrEqual(8 * names.length);
   });
 
   test("default behaviour still follows symlinks (unchanged for other callers)", async () => {

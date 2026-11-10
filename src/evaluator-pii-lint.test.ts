@@ -82,8 +82,10 @@ describe("runLinter", () => {
 
     const findings = await runLinter(SH_FILE, ".sh");
 
+    // --norc: no .shellcheckrc can enable external sources (#825); never -x.
     expect(runCommandMock).toHaveBeenCalledWith([
       "shellcheck",
+      "--norc",
       "--format=json1",
       SH_FILE,
     ]);

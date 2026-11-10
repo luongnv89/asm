@@ -59,6 +59,7 @@ import { join as joinPath } from "path";
 import type { TransportMode } from "../utils/types";
 
 import { error } from "./shared";
+import { skillDirOutside, unreadLinkFinding } from "../evaluator-files";
 import type { ParsedArgs } from "../cli";
 
 function printEvalHelp() {
@@ -220,6 +221,17 @@ async function runSingleEval(target: EvalTarget): Promise<{
 }> {
   ensureEvalBuiltins();
   try {
+    // A skill folder that links out of its collection or clone is never
+    // read (#825): it is reported as the link it is.
+    const outside = target.boundary
+      ? await skillDirOutside(target.skillPath, target.boundary)
+      : null;
+    if (outside) {
+      return {
+        report: null,
+        error: `${unreadLinkFinding({ ...outside, path: target.label })}. The skill folder leaves the folder being evaluated; asm eval reads nothing outside it.`,
+      };
+    }
     const ctx = {
       skillPath: target.skillPath,
       skillMdPath: target.skillMdPath,

@@ -6,9 +6,12 @@
  * evaluateSkillContent via Promise.all.
  */
 
-import { readFile, readdir, stat } from "fs/promises";
-import { join, isAbsolute, resolve } from "path";
 import type { CategoryResult } from "./evaluator-core";
+import {
+  listSkillFiles,
+  readSkillFile,
+  type SkillFiles,
+} from "./evaluator-files";
 
 // ─── PII detection scorer ──────────────────────────────────────────────────
 
@@ -127,15 +130,19 @@ const PII_PATTERNS: {
  * Scans files with extensions: .md, .txt, .json, .yaml, .yml, .sh, .py, .bash,
  * .js, .ts, .jsx, .tsx, .html, .css, .log.
  *
+ * Only files inside the skill folder are read (#825); `files` is the
+ * folder's confined listing, computed here when the caller has none.
+ *
  * Returns a CategoryResult with findings per-file:per-line.
  */
-export async function scorePII(skillPath: string): Promise<CategoryResult> {
+export async function scorePII(
+  skillPath: string,
+  files?: SkillFiles,
+): Promise<CategoryResult> {
   const findings: string[] = [];
   const suggestions: string[] = [];
   let score = 10; // start perfect; deduct for each category found
   const categoryHits = new Set<string>();
-
-  const resolved = isAbsolute(skillPath) ? skillPath : resolve(skillPath);
 
   // Collect text files to scan
   const textExtensions = new Set([
@@ -156,80 +163,49 @@ export async function scorePII(skillPath: string): Promise<CategoryResult> {
     ".log",
   ]);
 
-  async function scanDir(dir: string): Promise<void> {
-    let entries: string[];
-    try {
-      entries = await readdir(dir);
-    } catch {
-      return;
-    }
-    for (const entry of entries) {
-      const full = join(dir, entry);
-      let s;
-      try {
-        s = await stat(full);
-      } catch {
-        continue;
-      }
-      if (s.isDirectory()) {
-        // Skip hidden dirs, node_modules, dist, build
-        if (entry.startsWith(".") || entry === "node_modules") continue;
-        await scanDir(full);
-      } else if (s.isFile()) {
-        const ext = entry.includes(".") ? "." + entry.split(".").pop() : "";
-        if (!textExtensions.has(ext)) continue;
-        try {
-          const content = await readFile(full, "utf-8");
-          const lines = content.split("\n");
-          let inFrontmatter = false;
-          let inCodeFence = false;
-          for (const pii of PII_PATTERNS) {
-            pii.pattern.lastIndex = 0;
-            inFrontmatter = false;
-            inCodeFence = false;
-            for (let lineIdx = 0; lineIdx < lines.length; lineIdx++) {
-              const line = lines[lineIdx];
-              // Toggle frontmatter block
-              if (line.trim() === "---") {
-                inFrontmatter = !inFrontmatter;
-                continue;
-              }
-              // Toggle code fence blocks
-              if (line.trim().startsWith("```")) {
-                inCodeFence = !inCodeFence;
-                continue;
-              }
-              // Skip lines inside frontmatter or code fences
-              if (inFrontmatter || inCodeFence) continue;
-              const matches = [...line.matchAll(pii.pattern)]
-                .filter(
-                  (m) =>
-                    !pii.ignore?.(
-                      m[0],
-                      codePointAt(line, m.index + m[0].length),
-                    ),
-                )
-                .map((m) => m[0]);
-              if (matches.length > 0) {
-                if (!categoryHits.has(pii.category)) {
-                  categoryHits.add(pii.category);
-                  score -= 2;
-                }
-                const relPath = full.replace(resolved + "/", "");
-                findings.push(
-                  `[${pii.category}] ${relPath}:${lineIdx + 1} — found ${matches.length} match(es)`,
-                );
-              }
-            }
+  for (const file of (files ?? (await listSkillFiles(skillPath))).files) {
+    const entry = file.name;
+    const ext = entry.includes(".") ? "." + entry.split(".").pop() : "";
+    if (!textExtensions.has(ext)) continue;
+    const content = await readSkillFile(file);
+    if (content === null) continue; // Skip files we can't read
+    const lines = content.split("\n");
+    for (const pii of PII_PATTERNS) {
+      pii.pattern.lastIndex = 0;
+      let inFrontmatter = false;
+      let inCodeFence = false;
+      for (let lineIdx = 0; lineIdx < lines.length; lineIdx++) {
+        const line = lines[lineIdx];
+        // Toggle frontmatter block
+        if (line.trim() === "---") {
+          inFrontmatter = !inFrontmatter;
+          continue;
+        }
+        // Toggle code fence blocks
+        if (line.trim().startsWith("```")) {
+          inCodeFence = !inCodeFence;
+          continue;
+        }
+        // Skip lines inside frontmatter or code fences
+        if (inFrontmatter || inCodeFence) continue;
+        const matches = [...line.matchAll(pii.pattern)]
+          .filter(
+            (m) =>
+              !pii.ignore?.(m[0], codePointAt(line, m.index + m[0].length)),
+          )
+          .map((m) => m[0]);
+        if (matches.length > 0) {
+          if (!categoryHits.has(pii.category)) {
+            categoryHits.add(pii.category);
+            score -= 2;
           }
-        } catch {
-          // Skip files we can't read
+          findings.push(
+            `[${pii.category}] ${file.relPath}:${lineIdx + 1} — found ${matches.length} match(es)`,
+          );
         }
       }
     }
   }
-
-  await scanDir(resolved);
 
   if (categoryHits.size === 0) {
     findings.push("No PII detected in skill files.");
@@ -313,12 +289,16 @@ const LINTER_CONFIG: Record<
 > = {
   ".sh": {
     command: "shellcheck",
-    args: ["--format=json1"],
+    // --norc: a .shellcheckrc in the skill folder or above it could turn on
+    // external-sources and make shellcheck open files outside it (#825).
+    args: ["--norc", "--format=json1"],
     language: "bash/shell",
   },
   ".bash": {
     command: "shellcheck",
-    args: ["--format=json1"],
+    // --norc: a .shellcheckrc in the skill folder or above it could turn on
+    // external-sources and make shellcheck open files outside it (#825).
+    args: ["--norc", "--format=json1"],
     language: "bash/shell",
   },
   ".py": {
@@ -444,10 +424,12 @@ export async function runLinter(
  *
  * Scans for .sh, .bash, and .py files. Runs shellcheck for shell scripts
  * and an in-memory Python compile (no __pycache__) for Python scripts. When a linter is
- * unavailable the check is marked as "skipped".
+ * unavailable the check is marked as "skipped". Only scripts inside the
+ * skill folder are linted (#825); `files` is as for `scorePII`.
  */
 export async function scoreScriptLint(
   skillPath: string,
+  files?: SkillFiles,
 ): Promise<CategoryResult> {
   const findings: string[] = [];
   const suggestions: string[] = [];
@@ -456,52 +438,27 @@ export async function scoreScriptLint(
   let skipped = false;
   const allFindings: LintFinding[] = [];
 
-  const resolved = isAbsolute(skillPath) ? skillPath : resolve(skillPath);
-
-  async function scanDir(dir: string): Promise<void> {
-    let entries: string[];
-    try {
-      entries = await readdir(dir);
-    } catch {
-      return;
-    }
-    for (const entry of entries) {
-      const full = join(dir, entry);
-      let s;
-      try {
-        s = await stat(full);
-      } catch {
-        continue;
-      }
-      if (s.isDirectory()) {
-        if (entry.startsWith(".") || entry === "node_modules") continue;
-        await scanDir(full);
-      } else if (s.isFile()) {
-        const ext = entry.includes(".") ? "." + entry.split(".").pop() : "";
-        if (!SCRIPT_EXTENSIONS.has(ext)) continue;
-        const relPath = full.replace(resolved + "/", "");
-        const linterResult = await runLinter(full, ext);
-        if (linterResult === null) {
-          skipped = true;
-          const lang = LINTER_CONFIG[ext]?.language || ext;
-          findings.push(
-            `[${lang}] ${relPath}: lint skipped — linter not available`,
-          );
-        } else {
-          lintedCount++;
-          allFindings.push(...linterResult);
-          for (const f of linterResult) {
-            const sev = f.severity.toUpperCase();
-            findings.push(
-              `[${sev}] ${relPath}:${f.line || "*"} — ${f.message}`,
-            );
-          }
-        }
+  for (const file of (files ?? (await listSkillFiles(skillPath))).files) {
+    const entry = file.name;
+    const ext = entry.includes(".") ? "." + entry.split(".").pop() : "";
+    if (!SCRIPT_EXTENSIONS.has(ext)) continue;
+    const relPath = file.relPath;
+    const linterResult = await runLinter(file.fullPath, ext);
+    if (linterResult === null) {
+      skipped = true;
+      const lang = LINTER_CONFIG[ext]?.language || ext;
+      findings.push(
+        `[${lang}] ${relPath}: lint skipped — linter not available`,
+      );
+    } else {
+      lintedCount++;
+      allFindings.push(...linterResult);
+      for (const f of linterResult) {
+        const sev = f.severity.toUpperCase();
+        findings.push(`[${sev}] ${relPath}:${f.line || "*"} — ${f.message}`);
       }
     }
   }
-
-  await scanDir(resolved);
 
   if (lintedCount === 0 && !skipped) {
     findings.push("No bundled scripts found to lint.");
