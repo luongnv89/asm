@@ -1,13 +1,24 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { mkdtemp, rm, writeFile } from "fs/promises";
+import { spawnSync } from "child_process";
+import {
+  chmod,
+  lstat,
+  mkdir,
+  mkdtemp,
+  readdir,
+  rm,
+  writeFile,
+} from "fs/promises";
 import { tmpdir } from "os";
-import { join } from "path";
+import { join, relative } from "path";
 import {
   isPlaceholderEmail,
   isReservedEmailDomain,
   runLinter,
   scorePII,
+  scoreScriptLint,
 } from "./evaluator-pii-lint";
+import { evaluateSkill } from "./evaluator";
 
 // Issue #663 — shellcheck --format=json1 emits its JSON report on stdout,
 // but runLinter parsed result.stderr (runCommand keeps the streams separate,
@@ -163,10 +174,14 @@ describe("runLinter", () => {
 
     const findings = await runLinter(pyFile, ".py");
 
+    // Issue #823 — an in-memory compile, not `-m py_compile` (which writes
+    // __pycache__ next to the source).
     expect(runCommandMock).toHaveBeenCalledWith([
       "python3",
-      "-m",
-      "py_compile",
+      "-I",
+      "-B",
+      "-c",
+      expect.stringContaining("source_to_code"),
       pyFile,
     ]);
     expect(findings).toEqual([
@@ -179,6 +194,182 @@ describe("runLinter", () => {
     ]);
   });
 });
+
+// Issue #823 — `python3 -m py_compile` wrote __pycache__/<name>.cpython-*.pyc
+// into the evaluated skill's folder (PYTHONDONTWRITEBYTECODE does not stop
+// it). These tests run the real interpreter through the real runCommand.
+
+const HAS_PYTHON =
+  spawnSync("python3", ["--version"], { stdio: "ignore" }).status === 0;
+
+type Snapshot = Record<string, { type: string; size: number; mtimeMs: number }>;
+
+async function snapshotTree(root: string): Promise<Snapshot> {
+  const out: Snapshot = {};
+  async function walk(dir: string): Promise<void> {
+    for (const entry of await readdir(dir)) {
+      const full = join(dir, entry);
+      const s = await lstat(full);
+      out[relative(root, full)] = {
+        type: s.isDirectory() ? "dir" : s.isFile() ? "file" : "other",
+        size: s.isDirectory() ? 0 : s.size,
+        mtimeMs: s.mtimeMs,
+      };
+      if (s.isDirectory()) await walk(full);
+    }
+  }
+  const rootStat = await lstat(root);
+  out["."] = { type: "dir", size: 0, mtimeMs: rootStat.mtimeMs };
+  await walk(root);
+  return out;
+}
+
+// Broken and clean sources covering each stderr shape py_compile prints:
+// a located SyntaxError, the "Sorry: <Error>: …" form for SyntaxError
+// subclasses, an unlocated SyntaxError, an encoding error, a warning on a
+// clean compile, and a clean file.
+const PY_SOURCES: Record<string, string> = {
+  "unclosed.py": "def broken(\n    # Missing closing paren\n",
+  "indent.py": "def f():\nreturn 1\n",
+  "tabs.py": "if 1:\n\tx = 1\n        y = 2\n",
+  "nul.py": "x = 1\0\n",
+  "coding.py": "# -*- coding: bogus -*-\nx = 1\n",
+  "outside.py": "return 5\n",
+  "warn.py": 'x = "\\d"\n',
+  "ok.py": "print('hi')\n",
+};
+
+async function writePySkill(dir: string, name: string): Promise<void> {
+  await mkdir(join(dir, "scripts"), { recursive: true });
+  await writeFile(
+    join(dir, "SKILL.md"),
+    `---\nname: ${name}\ndescription: "Use when testing. Prints hi."\nlicense: MIT\n---\n\n# ${name}\n\nRun \`python3 scripts/ok.py\`.\n`,
+  );
+  for (const [file, src] of Object.entries(PY_SOURCES)) {
+    await writeFile(join(dir, "scripts", file), src);
+  }
+}
+
+describe.skipIf(!HAS_PYTHON)(
+  "Python syntax lint leaves the skill folder unchanged (#823)",
+  () => {
+    let base: string;
+    let realRunCommand: typeof import("./utils/spawn").runCommand;
+
+    beforeEach(async () => {
+      base = await mkdtemp(join(tmpdir(), "lint-823-"));
+      realRunCommand = (
+        await vi.importActual<typeof import("./utils/spawn")>("./utils/spawn")
+      ).runCommand;
+      runCommandMock.mockReset();
+      runCommandMock.mockImplementation((argv: string[]) =>
+        realRunCommand(argv),
+      );
+    });
+
+    afterEach(async () => {
+      vi.unstubAllEnvs();
+      await chmod(base, 0o755).catch(() => {});
+      for (const entry of await readdir(base, { recursive: true })) {
+        await chmod(join(base, entry), 0o755).catch(() => {});
+      }
+      await rm(base, { recursive: true, force: true });
+    });
+
+    it.each([
+      ["without PYTHONDONTWRITEBYTECODE", undefined],
+      ["with PYTHONDONTWRITEBYTECODE=1", "1"],
+    ])(
+      "asm eval writes nothing into the skill dir (%s)",
+      async (_label, dontWrite) => {
+        if (dontWrite === undefined) {
+          vi.stubEnv("PYTHONDONTWRITEBYTECODE", undefined);
+        } else {
+          vi.stubEnv("PYTHONDONTWRITEBYTECODE", dontWrite);
+        }
+        const dir = join(base, "s1");
+        await writePySkill(dir, "s1");
+        const before = await snapshotTree(dir);
+
+        const report = await evaluateSkill(dir);
+
+        expect(await snapshotTree(dir)).toEqual(before);
+        const lint = report.categories.find((c) => c.id === "script-lint")!;
+        expect(lint.findings.join("\n")).not.toMatch(/skipped/);
+        expect(runCommandMock).toHaveBeenCalled();
+      },
+    );
+
+    it("reports the same findings and score as `python3 -m py_compile`", async () => {
+      const legacyDir = join(base, "legacy", "s1");
+      const currentDir = join(base, "current", "s1");
+      await writePySkill(legacyDir, "s1");
+      await writePySkill(currentDir, "s1");
+
+      // Legacy: the pre-#823 command line, run on its own copy of the skill.
+      const legacyRuns: Record<string, unknown> = {};
+      runCommandMock.mockImplementation(async (argv: string[]) => {
+        const file = argv[argv.length - 1];
+        const result = await realRunCommand([
+          "python3",
+          "-m",
+          "py_compile",
+          file,
+        ]);
+        legacyRuns[relative(legacyDir, file)] = {
+          exitCode: result.exitCode,
+          stderr: result.stderr.split(legacyDir).join("<skill>"),
+        };
+        return result;
+      });
+      const legacy = await scoreScriptLint(legacyDir);
+
+      const currentRuns: Record<string, unknown> = {};
+      runCommandMock.mockImplementation(async (argv: string[]) => {
+        const file = argv[argv.length - 1];
+        const result = await realRunCommand(argv);
+        currentRuns[relative(currentDir, file)] = {
+          exitCode: result.exitCode,
+          stderr: result.stderr.split(currentDir).join("<skill>"),
+        };
+        return result;
+      });
+      const current = await scoreScriptLint(currentDir);
+
+      expect(Object.keys(currentRuns).sort()).toEqual(
+        Object.keys(PY_SOURCES)
+          .map((f) => join("scripts", f))
+          .sort(),
+      );
+      expect(currentRuns).toEqual(legacyRuns);
+      expect(current).toEqual(legacy);
+      // The broken file still yields its located finding and costs score.
+      expect(current.findings).toContain(
+        "[ERROR] scripts/unclosed.py:1 — SyntaxError: '(' was never closed",
+      );
+      expect(current.score).toBeLessThan(10);
+    });
+
+    it("scores a read-only skill the same as a writable copy", async () => {
+      const writable = join(base, "rw", "s1");
+      const readOnly = join(base, "ro", "s1");
+      await writePySkill(writable, "s1");
+      await writePySkill(readOnly, "s1");
+      for (const entry of await readdir(readOnly, { recursive: true })) {
+        await chmod(join(readOnly, entry), 0o555);
+      }
+      await chmod(readOnly, 0o555);
+      const before = await snapshotTree(readOnly);
+
+      const rw = await evaluateSkill(writable);
+      const ro = await evaluateSkill(readOnly);
+
+      expect(await snapshotTree(readOnly)).toEqual(before);
+      expect(ro.overallScore).toBe(rw.overallScore);
+      expect(ro.categories).toEqual(rw.categories);
+    });
+  },
+);
 
 // Issue #772 — addresses on domains reserved for documentation and testing
 // (RFC 2606 / RFC 6761) are placeholders, not PII, so the email check must
