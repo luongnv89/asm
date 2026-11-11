@@ -758,6 +758,29 @@ describe("formatAuditReport", () => {
     // eslint-disable-next-line no-control-regex
     expect(output).not.toMatch(/[\x00-\x08\x0b-\x1f\x7f-\x9f]/);
   });
+
+  it("strips each spelling on the variants line (#830)", () => {
+    const skills = [
+      makeSkill({
+        name: "Dup\x1b[31mX",
+        dirName: "Dup\x1b[31mX",
+        path: "/claude/a",
+        location: "global-claude",
+      }),
+      makeSkill({
+        name: "dup\x1b[31mx",
+        dirName: "dup\x1b[31mx",
+        path: "/codex/b",
+        location: "global-codex",
+      }),
+    ];
+    const report = detectDuplicates(skills);
+    expect(report.duplicateGroups[0].variants).toHaveLength(2);
+    const output = formatAuditReport(report);
+    expect(output).toContain('variants: "Dup?[31mX", "dup?[31mx"');
+    // eslint-disable-next-line no-control-regex
+    expect(output).not.toMatch(/[\x00-\x08\x0b-\x1f\x7f-\x9f]/);
+  });
 });
 
 // ─── formatAuditReportJSON ──────────────────────────────────────────────────
