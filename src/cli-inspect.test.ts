@@ -466,6 +466,10 @@ describe("CLI integration: inspect <path> (#829)", () => {
     expect(mdDir.stderr).toContain(
       `${join(work, ".md-dir", "SKILL.md")} is not a regular file or could not be read.`,
     );
+    const mdDirMachine = await inspect(["./.md-dir", "--machine"]);
+    expect(JSON.parse(mdDirMachine.stdout).error.code).toBe(
+      "SKILL_MD_UNREADABLE",
+    );
   });
 
   test.skipIf(!POSIX)(
@@ -501,6 +505,13 @@ describe("CLI integration: inspect <path> (#829)", () => {
       const text = await inspect([".md-locked"]);
       expect(text.exitCode).toBe(1);
       expect(text.stderr).toContain(
+        `${md} is not a regular file or could not be read.`,
+      );
+      const machine = await inspect([".md-locked", "--machine"]);
+      expect(machine.exitCode).toBe(1);
+      const env = JSON.parse(machine.stdout);
+      expect(env.error.code).toBe("SKILL_MD_UNREADABLE");
+      expect(env.error.message).toBe(
         `${md} is not a regular file or could not be read.`,
       );
     },

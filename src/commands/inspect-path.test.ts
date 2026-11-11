@@ -8,6 +8,8 @@ import {
   symlink,
   realpath,
 } from "fs/promises";
+import { execFileSync } from "child_process";
+import { createServer } from "net";
 import { join } from "path";
 import { tmpdir } from "os";
 import {
@@ -194,8 +196,59 @@ describe("readSkillFolder (#829)", () => {
     await mkdir(join(odd, "SKILL.md"), { recursive: true });
     const err = await readSkillFolder(odd).catch((e) => e);
     expect(err).toBeInstanceOf(InspectPathError);
+    expect(err.code).toBe("SKILL_MD_UNREADABLE");
     expect(err.message).toContain("not a regular file");
   });
+
+  test.skipIf(!POSIX)(
+    "a SKILL.md that is a FIFO or a socket is SKILL_MD_UNREADABLE",
+    async () => {
+      const fifoDir = join(root, "fifo");
+      await mkdir(fifoDir);
+      execFileSync("mkfifo", [join(fifoDir, "SKILL.md")]);
+      const sockDir = join(root, "sock");
+      await mkdir(sockDir);
+      const server = createServer();
+      await new Promise<void>((done) =>
+        server.listen(join(sockDir, "SKILL.md"), done),
+      );
+      try {
+        for (const dir of [fifoDir, sockDir]) {
+          const err = await readSkillFolder(dir).catch((e) => e);
+          expect(err).toBeInstanceOf(InspectPathError);
+          expect(err.code).toBe("SKILL_MD_UNREADABLE");
+          expect(err.message).toBe(
+            `${join(dir, "SKILL.md")} is not a regular file or could not be read.`,
+          );
+        }
+      } finally {
+        await new Promise((done) => server.close(done));
+      }
+    },
+  );
+
+  test.skipIf(!POSIX || process.getuid?.() === 0)(
+    "an unreadable SKILL.md, or a link to one inside the folder, is SKILL_MD_UNREADABLE",
+    async () => {
+      const locked = join(root, "locked");
+      await mkdir(locked);
+      await writeFile(join(locked, "SKILL.md"), "---\nname: l\n---\n");
+      await chmod(join(locked, "SKILL.md"), 0o000);
+      const viaLink = join(root, "via-link");
+      await mkdir(viaLink);
+      await writeFile(join(viaLink, "real.md"), "---\nname: v\n---\n");
+      await chmod(join(viaLink, "real.md"), 0o000);
+      await symlink("real.md", join(viaLink, "SKILL.md"));
+      for (const dir of [locked, viaLink]) {
+        const err = await readSkillFolder(dir).catch((e) => e);
+        expect(err).toBeInstanceOf(InspectPathError);
+        expect(err.code).toBe("SKILL_MD_UNREADABLE");
+        expect(err.message).toContain(
+          "is not a regular file or could not be read.",
+        );
+      }
+    },
+  );
 
   test.skipIf(!POSIX)(
     "a SKILL.md link out of the folder is SKILL_MD_OUTSIDE_LINK",

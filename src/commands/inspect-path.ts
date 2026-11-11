@@ -2,9 +2,10 @@
 //
 // `asm inspect` takes its argument as a path when it contains `/` (or `\` on
 // Windows), is `.` or `..`, or starts with `.` and names a folder holding a
-// readable SKILL.md file (see `isInspectPathArg`). Anything else is looked up as an installed skill name first; a
-// dot-named argument that is not installed but exists on disk then gets the
-// path error (see `isInspectPathFallback`).
+// readable SKILL.md file (see `isInspectPathArg`). Anything else is looked up
+// as an installed skill name first; a dot-named argument that is not
+// installed but exists on disk then gets the path error (see
+// `isInspectPathFallback`).
 // The folder is read under the skill-folder boundary of
 // docs/security/symlink-rule.md, the same rule as `asm eval` and
 // `asm audit security`: SKILL.md is read only through `readSkillMd` (a link
@@ -50,12 +51,13 @@ export const NOT_INSTALLED = "not installed";
  * True when `asm inspect` takes `arg` as a folder path rather than an
  * installed skill name: it contains `/` (or the platform separator), is `.` or
  * `..`, or starts with `.` and `resolve(cwd, arg)` is a folder (or a link to
- * one) whose `SKILL.md` is a readable regular file inside it (a link to one is
- * followed only while it stays in the folder). Any other dot-named argument (a
- * file, an empty folder, a dangling link, a folder whose `SKILL.md` is a
- * folder, a FIFO, a dangling or outside link or unreadable, nothing at all) is
- * looked up by name first, so an installed `.hidden-skill` resolves as before. A bare name that also exists
- * as a folder in the working directory stays a name.
+ * one) whose `SKILL.md` is a readable regular file inside it (a `SKILL.md`
+ * that is a link counts only when its final target is inside the folder).
+ * Any other dot-named argument (a file, an empty folder, a dangling link, a
+ * folder whose `SKILL.md` is a folder, a FIFO, a dangling or outside link or
+ * unreadable, nothing at all) is looked up by name first, so an installed
+ * `.hidden-skill` resolves as before. A bare name that also exists as a
+ * folder in the working directory stays a name.
  */
 export function isInspectPathArg(arg: string, cwd = process.cwd()): boolean {
   if (arg.includes("/") || arg.includes(sep)) return true;
@@ -152,8 +154,11 @@ export async function readSkillFolder(arg: string): Promise<SkillInfo> {
         ErrorCodes.SKILL_MD_OUTSIDE_LINK,
       );
     }
+    // SKILL.md exists but is not a readable regular file (mode 000, a
+    // folder, a FIFO or socket, a link to an unreadable file inside).
     throw new InspectPathError(
       err instanceof Error ? err.message : String(err),
+      ErrorCodes.SKILL_MD_UNREADABLE,
     );
   }
   if (content === null) {

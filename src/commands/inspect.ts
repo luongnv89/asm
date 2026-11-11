@@ -33,9 +33,10 @@ ${ansi.bold("Examples:")}
 ${ansi.bold("Name or path:")}
   The argument is a path when it contains "/" (./x, ../x, /abs/x, skills/x)
   or is "." or "..". A name starting with "." (.x) is a path only when ./.x
-  is a folder whose SKILL.md is a readable file inside it; otherwise it is
-  the installed skill .x, and if no skill .x is installed but ./.x exists,
-  the path error is shown.
+  is a folder whose SKILL.md is a readable file inside it (a SKILL.md that
+  is a link counts only when its final target is inside the folder);
+  otherwise it is the installed skill .x, and if no skill .x is installed
+  but ./.x exists, the path error is shown.
   Anything else is an installed skill name, even when a folder of that name
   exists here (use ./name for the folder). A path must be a folder holding a
   SKILL.md. It is read like asm eval reads it: nothing outside the folder is
