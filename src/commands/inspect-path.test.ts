@@ -11,17 +11,28 @@ import {
 const POSIX = process.platform !== "win32";
 
 describe("isInspectPathArg (#829)", () => {
-  test.each(["./x", "../x", "/abs/x", "skills/x", ".", "..", ".hidden", "x/"])(
+  let cwd: string;
+
+  beforeEach(async () => {
+    cwd = await realpath(await mkdtemp(join(tmpdir(), "asm-inspect-arg-")));
+    await mkdir(join(cwd, ".present"));
+  });
+
+  afterEach(async () => {
+    await rm(cwd, { recursive: true, force: true });
+  });
+
+  test.each(["./x", "../x", "/abs/x", "skills/x", ".", "..", "x/", ".present"])(
     "%s is a path",
     (arg) => {
-      expect(isInspectPathArg(arg)).toBe(true);
+      expect(isInspectPathArg(arg, cwd)).toBe(true);
     },
   );
 
-  test.each(["code-review", "my_skill", "x.y", "skill-1.0"])(
+  test.each(["code-review", "my_skill", "x.y", "skill-1.0", ".hidden", "..x"])(
     "%s is a name",
     (arg) => {
-      expect(isInspectPathArg(arg)).toBe(false);
+      expect(isInspectPathArg(arg, cwd)).toBe(false);
     },
   );
 });

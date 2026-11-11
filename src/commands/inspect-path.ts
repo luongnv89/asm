@@ -1,7 +1,9 @@
 // ─── `asm inspect <path>`: a skill folder that is not installed (#829) ──────
 //
 // `asm inspect` takes its argument as a path when it contains `/` (or `\` on
-// Windows) or starts with `.`; anything else stays an installed skill name.
+// Windows), is `.` or `..`, or starts with `.` and names something that exists
+// (so an installed `.hidden-skill` still resolves by name); anything else
+// stays an installed skill name.
 // The folder is read under the skill-folder boundary of
 // docs/security/symlink-rule.md, the same rule as `asm eval` and
 // `asm audit security`: SKILL.md is read only through `readSkillMd` (a link
@@ -9,7 +11,15 @@
 // confined `countFiles` walk. A folder that is itself a link is followed and
 // its real path announced.
 
-import { lstat, readlink, realpath, stat } from "fs/promises";
+import { existsSync } from "fs";
+import {
+  access,
+  constants,
+  lstat,
+  readlink,
+  realpath,
+  stat,
+} from "fs/promises";
 import { basename, join, resolve, sep } from "path";
 import { cacheSkillMdContent, skillFieldsFromSkillMd } from "../scanner";
 import {
@@ -17,6 +27,7 @@ import {
   SkillMdOutsideLinkError,
   unreadLinkFinding,
 } from "../evaluator-files";
+import { stripControlBytes } from "../security-auditor-scan";
 import { estimateTokenCount } from "../utils/token-count";
 import {
   ErrorCodes,
@@ -35,12 +46,16 @@ export const NOT_INSTALLED = "not installed";
 
 /**
  * True when `asm inspect` takes `arg` as a folder path rather than an
- * installed skill name: it contains `/` (or the platform separator) or starts
- * with `.`. A bare name that also exists as a folder in the working directory
- * stays a name.
+ * installed skill name: it contains `/` (or the platform separator), is `.` or
+ * `..`, or starts with `.` and something exists at `resolve(cwd, arg)`. A
+ * dot-named argument with nothing there stays a name, so an installed
+ * `.hidden-skill` resolves as before. A bare name that also exists as a folder
+ * in the working directory stays a name.
  */
-export function isInspectPathArg(arg: string): boolean {
-  return arg.includes("/") || arg.includes(sep) || arg.startsWith(".");
+export function isInspectPathArg(arg: string, cwd = process.cwd()): boolean {
+  if (arg.includes("/") || arg.includes(sep)) return true;
+  if (arg === "." || arg === "..") return true;
+  return arg.startsWith(".") && existsSync(resolve(cwd, arg));
 }
 
 /** A path that cannot be inspected, with its `--machine` error code. */
@@ -73,6 +88,14 @@ export async function readSkillFolder(arg: string): Promise<SkillInfo> {
   if (!(await stat(real)).isDirectory()) {
     throw new InspectPathError(
       `"${arg}" is not a folder. ${NEEDS_SKILL_FOLDER}`,
+    );
+  }
+  try {
+    await access(real, constants.R_OK | constants.X_OK);
+  } catch {
+    throw new InspectPathError(
+      `Cannot read ${abs} (permission denied).`,
+      ErrorCodes.SKILL_DIR_UNREADABLE,
     );
   }
 
@@ -132,7 +155,11 @@ export async function cmdInspectPath(args: ParsedArgs, arg: string) {
   try {
     skill = await readSkillFolder(arg);
   } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
+    // The message carries the argument and resolved paths: strip control
+    // bytes so a folder name cannot write escape sequences to the terminal.
+    const message = stripControlBytes(
+      err instanceof Error ? err.message : String(err),
+    );
     const code =
       err instanceof InspectPathError ? err.code : ErrorCodes.UNKNOWN_ERROR;
     if (args.flags.machine) {
@@ -158,7 +185,7 @@ export async function cmdInspectPath(args: ParsedArgs, arg: string) {
   const lines: string[] = [];
   if (skill.realPath !== skill.path) {
     lines.push(
-      `${ansi.dim("Resolved:")} ${skill.realPath} ${ansi.dim(
+      `${ansi.dim("Resolved:")} ${stripControlBytes(skill.realPath)} ${ansi.dim(
         skill.isSymlink
           ? "(target is a symlink; followed)"
           : "(a parent folder is a symlink; followed)",

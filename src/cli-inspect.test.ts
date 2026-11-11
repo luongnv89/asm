@@ -1,5 +1,13 @@
 import { describe, test, expect, beforeEach, afterEach } from "vitest";
-import { mkdtemp, mkdir, writeFile, rm, symlink, realpath } from "fs/promises";
+import {
+  chmod,
+  mkdtemp,
+  mkdir,
+  writeFile,
+  rm,
+  symlink,
+  realpath,
+} from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
 import { runCLI, runCliInProcess } from "./cli-test-harness";
@@ -326,4 +334,109 @@ describe("CLI integration: inspect <path> (#829)", () => {
     expect(exitCode).toBe(1);
     expect(stderr).toContain(`Skill "local-skill" not found.`);
   });
+
+  test("a dot-named installed skill resolves by name when no such path exists", async () => {
+    await installSkill(".hidden-skill", "hidden");
+    const { stdout, stderr, exitCode } = await inspect([".hidden-skill"]);
+    expect(stderr).toBe("");
+    expect(exitCode).toBe(0);
+    expect(stdout).toContain("Name: hidden");
+    expect(stdout).toContain("Version: 9.9.9");
+    expect(stdout).toContain("Tool: Claude Code");
+    expect(stdout).not.toContain("not installed");
+
+    const json = JSON.parse(
+      (await inspect([".hidden-skill", "--json"])).stdout,
+    );
+    expect(json).toMatchObject({ dirName: ".hidden-skill", name: "hidden" });
+
+    const missing = await inspect([".no-such-skill"]);
+    expect(missing.exitCode).toBe(1);
+    expect(missing.stderr).toContain(`Skill ".no-such-skill" not found.`);
+  });
+
+  test("a dot-named argument that exists as a folder is the folder, even if installed", async () => {
+    await installSkill(".hidden-skill", "hidden");
+    const folder = join(work, ".hidden-skill");
+    await mkdir(folder);
+    await writeFile(
+      join(folder, "SKILL.md"),
+      "---\nname: hidden-folder\ndescription: d\n---\n\nB\n",
+    );
+    const { stdout, exitCode } = await inspect([".hidden-skill"]);
+    expect(exitCode).toBe(0);
+    expect(stdout).toContain("Name: hidden-folder");
+    expect(stdout).toContain("Tool: not installed");
+    expect(stdout).toContain(`Path: ${folder}`);
+  });
+
+  test.skipIf(!POSIX || process.getuid?.() === 0)(
+    "an unreadable folder says permission denied, not No SKILL.md",
+    async () => {
+      const locked = join(work, "locked");
+      await mkdir(locked);
+      await writeFile(join(locked, "SKILL.md"), SKILL_MD);
+      await chmod(locked, 0o000);
+      try {
+        const text = await inspect(["./locked"]);
+        expect(text.exitCode).toBe(1);
+        expect(text.stdout).toBe("");
+        expect(text.stderr).toContain(
+          `Cannot read ${locked} (permission denied).`,
+        );
+        expect(text.stderr).not.toContain("No SKILL.md");
+
+        const machine = await inspect(["./locked", "--machine"]);
+        expect(machine.exitCode).toBe(1);
+        expect(JSON.parse(machine.stdout).error.code).toBe(
+          "SKILL_DIR_UNREADABLE",
+        );
+      } finally {
+        await chmod(locked, 0o755);
+      }
+    },
+  );
+
+  test.skipIf(!POSIX)(
+    "the Resolved: line and path errors carry no raw control bytes",
+    async () => {
+      // ESC, BEL, C1 CSI (U+009B) and DEL in folder and link-target names.
+      const CTL = "\x1b[31mX\x07\u009b31m\x7f";
+      // eslint-disable-next-line no-control-regex
+      const RAW = /[\x00-\x08\x0b-\x1f\x7f-\x9f]/g;
+      const raw = (text: string) => (text.match(RAW) ?? []).length;
+
+      const ctlDir = join(work, `ctl-${CTL}`);
+      await mkdir(ctlDir);
+      await writeFile(join(ctlDir, "SKILL.md"), SKILL_MD);
+      await symlink(ctlDir, join(work, "via-ctl"));
+      const linked = await inspect(["./via-ctl"]);
+      expect(linked.exitCode).toBe(0);
+      const resolvedLine = linked.stdout.split("\n")[0];
+      expect(resolvedLine).toMatch(/^Resolved: /);
+      expect(raw(resolvedLine)).toBe(0);
+
+      const empty = join(work, `empty-${CTL}`);
+      await mkdir(empty);
+      await writeFile(join(work, `file-${CTL}`), "f");
+      const outside = join(root, `outside-${CTL}.md`);
+      await writeFile(outside, "---\nname: x\n---\n");
+      const badMd = join(work, `badmd-${CTL}`);
+      await mkdir(badMd);
+      await symlink(outside, join(badMd, "SKILL.md"));
+      for (const arg of [
+        `./missing-${CTL}`,
+        `./file-${CTL}`,
+        `./empty-${CTL}`,
+        `./badmd-${CTL}`,
+      ]) {
+        const res = await inspect([arg]);
+        expect(res.exitCode).toBe(1);
+        expect(res.stderr).not.toBe("");
+        expect(raw(res.stderr)).toBe(0);
+        const machine = await inspect([arg, "--machine"]);
+        expect(raw(JSON.parse(machine.stdout).error.message)).toBe(0);
+      }
+    },
+  );
 });

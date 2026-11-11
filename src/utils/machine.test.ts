@@ -108,6 +108,7 @@ describe("ErrorCodes", () => {
   test("contains expected error codes", () => {
     expect(ErrorCodes.SKILL_NOT_FOUND).toBe("SKILL_NOT_FOUND");
     expect(ErrorCodes.SKILL_MD_OUTSIDE_LINK).toBe("SKILL_MD_OUTSIDE_LINK");
+    expect(ErrorCodes.SKILL_DIR_UNREADABLE).toBe("SKILL_DIR_UNREADABLE");
     expect(ErrorCodes.AUDIT_FAILED).toBe("AUDIT_FAILED");
     expect(ErrorCodes.INSTALL_FAILED).toBe("INSTALL_FAILED");
     expect(ErrorCodes.PUBLISH_FAILED).toBe("PUBLISH_FAILED");
