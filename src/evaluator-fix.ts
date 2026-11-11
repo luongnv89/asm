@@ -52,6 +52,11 @@ import {
   findLicenseFileName,
   isLicenseFileName,
 } from "./evaluator-scorers-policy";
+import {
+  stringifyForOutput,
+  stripControlBytes,
+  stripControlBytesDeep,
+} from "./utils/control-chars";
 
 // ─── Report aggregator ─────────────────────────────────────────────────────
 
@@ -829,6 +834,7 @@ function bar(score: number, max: number, width = 20): string {
 export function formatReport(
   report: EvaluationReport & { providers?: ProviderEvalReport[] },
 ): string {
+  report = stripControlBytesDeep(report);
   const lines: string[] = [];
   lines.push(`Skill evaluation: ${report.skillPath}`);
   lines.push(`SKILL.md:         ${report.skillMdPath}`);
@@ -941,10 +947,16 @@ function extractProviderChecks(raw: unknown): ProviderCheck[] | null {
 }
 
 export function formatReportJSON(report: EvaluationReport): string {
-  return JSON.stringify(report, null, 2);
+  return stringifyForOutput(report, null, 2);
 }
 
 export function formatFixPreview(result: FixResult): string {
+  // Strip author control bytes (#830); the diff keeps its line structure.
+  const diff = result.diff
+    .split("\n")
+    .map((line) => stripControlBytes(line.replace(/\r$/, "")))
+    .join("\n");
+  result = { ...stripControlBytesDeep(result), diff };
   const lines: string[] = [];
   if (result.applied.length === 0 && result.skipped.length === 0) {
     lines.push("No fixes needed — SKILL.md is already clean.");

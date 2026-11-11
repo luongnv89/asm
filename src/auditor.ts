@@ -4,6 +4,11 @@ import { join } from "path";
 import { ansi, colorProvider, shortenPath } from "./formatter";
 import { cacheSkillMdContent } from "./scanner";
 import type { SkillInfo, DuplicateGroup, AuditReport } from "./utils/types";
+import {
+  stringifyForOutput,
+  stripControlBytes,
+  stripControlBytesDeep,
+} from "./utils/control-chars";
 
 // ─── Detection ─────────────────────────────────────────────────────────────
 
@@ -323,6 +328,8 @@ export function reasonLabel(reason: DuplicateGroup["reason"]): string {
 // ─── CLI Formatters ────────────────────────────────────────────────────────
 
 export function formatAuditReport(report: AuditReport): string {
+  // Strip only at render (#830): the keep order and the version list come
+  // from the original instances, the same order `asm audit --yes` acts on.
   if (report.duplicateGroups.length === 0) {
     return ansi.green("No duplicate skills found.");
   }
@@ -337,11 +344,14 @@ export function formatAuditReport(report: AuditReport): string {
   lines.push("");
 
   for (const group of report.duplicateGroups) {
+    const key = stripControlBytes(group.key);
     lines.push(
-      `  ${ansi.yellow(`"${group.key}"`)} ${ansi.dim(`(${reasonLabel(group.reason)})`)}`,
+      `  ${ansi.yellow(`"${key}"`)} ${ansi.dim(`(${reasonLabel(group.reason)})`)}`,
     );
     if (group.variants && group.variants.length > 1) {
-      const spellings = group.variants.map((v) => `"${v}"`).join(", ");
+      const spellings = stripControlBytesDeep(group.variants)
+        .map((v) => `"${v}"`)
+        .join(", ");
       lines.push(ansi.dim(`     variants: ${spellings}`));
     }
     if (group.contentClass === "identical") {
@@ -355,14 +365,17 @@ export function formatAuditReport(report: AuditReport): string {
       );
     }
     if (group.versionDivergence) {
-      const newestFirst = distinctVersions(group.instances).slice().reverse();
+      const newestFirst = stripControlBytesDeep(
+        distinctVersions(group.instances).slice().reverse(),
+      );
       lines.push(
         ansi.red(
           `     ⚠ versions differ: ${newestFirst.map((v) => `v${v}`).join(", ")} — possible upgrade/shadow, not identical copies`,
         ),
       );
     }
-    const sorted = sortInstancesForKeep(group.instances);
+    // Row 0 is the copy `asm audit --yes` keeps.
+    const sorted = stripControlBytesDeep(sortInstancesForKeep(group.instances));
     for (let i = 0; i < sorted.length; i++) {
       const s = sorted[i];
       const provider = colorProvider(s.provider, s.providerLabel);
@@ -385,5 +398,5 @@ export function formatAuditReport(report: AuditReport): string {
 }
 
 export function formatAuditReportJSON(report: AuditReport): string {
-  return JSON.stringify(report, null, 2);
+  return stringifyForOutput(report, null, 2);
 }

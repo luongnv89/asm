@@ -201,6 +201,40 @@ describe("non-interactive import conflict diffs", () => {
     expect(lines.join("\n")).toContain("+++ imported/SKILL.md");
     expect(lines.join("\n")).not.toContain("unchanged-skill");
   });
+
+  test("the conflict header and diff title strip manifest control bytes (#830)", async () => {
+    const H = "\x1b[31m\x07\u009b\x7f";
+    const conflict = {
+      ...makeImportConflict(),
+      skillName: `n${H}`,
+      provider: `p${H}`,
+      scope: `s${H}` as ImportConflict["scope"],
+    };
+    const lines: string[] = [];
+    await promptForImportConflict(conflict, {
+      readAnswer: async () => "s",
+      writeLine: (line) => lines.push(line),
+      writePrompt: () => {},
+    });
+    await printImportConflictDiffs(
+      [
+        {
+          skillName: conflict.skillName,
+          provider: conflict.provider,
+          scope: conflict.scope,
+          status: "skipped",
+          conflict,
+        } as ImportResult,
+      ],
+      async () => "",
+      (line) => lines.push(line),
+    );
+    const out = lines.join("\n");
+    expect(out).toContain("n?[31m??? (p?[31m???/s?[31m???)");
+    expect(out).toContain("Conflict diff: n?[31m???");
+    // eslint-disable-next-line no-control-regex
+    expect(out).not.toMatch(/[\x00-\x08\x0b-\x1f\x7f-\x9f]/);
+  });
 });
 
 // ─── CLI integration: import ────────────────────────────────────────────────

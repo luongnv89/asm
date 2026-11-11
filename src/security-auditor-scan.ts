@@ -7,6 +7,7 @@ import type {
   PermissionRequest,
 } from "./utils/types";
 import { errorMessage } from "./utils/errors";
+import { stripControlBytes } from "./utils/control-chars";
 // Split from security-auditor.ts (issue #677).
 
 // ─── Code Scan Patterns ─────────────────────────────────────────────────────
@@ -178,14 +179,10 @@ function interpretedText(line: string, language: CallLanguage): string {
   });
 }
 
-/**
- * Replace control bytes (C0 except tab, DEL, C1) so a finding never writes
- * raw NUL or escape sequences to the terminal (#809).
- */
-export function stripControlBytes(text: string): string {
-  // eslint-disable-next-line no-control-regex
-  return text.replace(/[\x00-\x08\x0a-\x1f\x7f-\x9f]/g, "?");
-}
+// Replace control bytes (C0 except tab, DEL, C1) so a finding never writes
+// raw NUL or escape sequences to the terminal (#809). Shared with every human
+// formatter since #830; re-exported here for existing importers.
+export { stripControlBytes };
 
 const SCAN_PATTERNS: ScanPattern[] = [
   // Network / Data Exfiltration

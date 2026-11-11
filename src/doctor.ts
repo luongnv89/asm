@@ -22,6 +22,7 @@ import { REGISTRY_INDEX_URL } from "./registry";
 import { buildShadowingReport } from "./utils/path-shadowing";
 import type { AppConfig, LockFile } from "./utils/types";
 import { errorMessage } from "./utils/errors";
+import { stringifyForOutput, stripControlBytes } from "./utils/control-chars";
 
 const execFileAsync = promisify(execFile);
 
@@ -671,7 +672,8 @@ export function formatDoctorReport(report: DoctorReport): string {
   for (const check of report.checks) {
     const icon = STATUS_ICONS[check.status];
     const line = `  ${icon} ${check.name}${check.message ? ` (${check.message})` : ""}`;
-    lines.push(line);
+    // Messages can name lock keys and paths (#830): stripped at render.
+    lines.push(stripControlBytes(line));
     if (check.fix && check.status !== "pass") {
       let fixText: string;
       if (check.fix.startsWith("Run: ")) {
@@ -681,7 +683,7 @@ export function formatDoctorReport(report: DoctorReport): string {
       } else {
         fixText = `Fix: ${check.fix}`;
       }
-      lines.push(`      \u2192 ${fixText}`);
+      lines.push(`      \u2192 ${stripControlBytes(fixText)}`);
     }
   }
 
@@ -694,7 +696,7 @@ export function formatDoctorReport(report: DoctorReport): string {
 }
 
 export function formatDoctorJSON(report: DoctorReport): string {
-  return JSON.stringify(
+  return stringifyForOutput(
     {
       checks: report.checks.map((c) => ({
         name: c.name,
@@ -718,7 +720,7 @@ export function formatDoctorJSON(report: DoctorReport): string {
  * Retained for backward compatibility with external consumers. Use formatMachineOutput() instead.
  */
 export function formatDoctorMachine(report: DoctorReport): string {
-  return JSON.stringify({
+  return stringifyForOutput({
     v: 1,
     type: "doctor",
     data: {

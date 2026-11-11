@@ -18,10 +18,18 @@ import {
   shortenPath,
   wordWrap,
 } from "./formatter-core";
+import { stripControlBytesDeep } from "./utils/control-chars";
 
 // ─── Detail formatter ───────────────────────────────────────────────────────
 
 export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
+  // Count on the real path, then render only control-stripped strings (#830).
+  // Count files, sort eval summaries and judge tool risk on the originals;
+  // only the rendered strings are stripped (#830).
+  const fileCount = skill.fileCount ?? (await countFiles(skill.path));
+  const evalSummaries = stripControlBytesDeep(getEvalSummaries(skill));
+  const toolWarning = toolRiskWarning(skill.allowedTools ?? []);
+  skill = stripControlBytesDeep(skill);
   const lines: string[] = [];
   const label = (key: string, value: string) =>
     `${useColor() ? ansi.bold(key + ":") : key + ":"} ${value}`;
@@ -53,7 +61,6 @@ export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
   if (skill.isSymlink && skill.symlinkTarget) {
     lines.push(label("Symlink Target", skill.symlinkTarget));
   }
-  const fileCount = skill.fileCount ?? (await countFiles(skill.path));
   lines.push(label("File Count", String(fileCount)));
   if (typeof skill.tokenCount === "number") {
     lines.push(label("Est. Tokens", formatTokenCount(skill.tokenCount)));
@@ -67,9 +74,10 @@ export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
     lines.push("");
     lines.push(useColor() ? ansi.bold("Allowed Tools:") : "Allowed Tools:");
     lines.push(`  ${formatAllowedTools(skill.allowedTools)}`);
-    const warning = toolRiskWarning(skill.allowedTools);
-    if (warning) {
-      lines.push(`  ${useColor() ? ansi.yellow("\u26A0") : "!"} ${warning}`);
+    if (toolWarning) {
+      lines.push(
+        `  ${useColor() ? ansi.yellow("\u26A0") : "!"} ${toolWarning}`,
+      );
     }
   }
 
@@ -78,7 +86,6 @@ export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
   // "broken or missing".
   lines.push("");
   lines.push(useColor() ? ansi.bold("Eval Score:") : "Eval Score:");
-  const evalSummaries = getEvalSummaries(skill);
   if (evalSummaries.length > 0) {
     const multipleProviders = evalSummaries.length > 1;
     for (const ev of evalSummaries) {
@@ -177,6 +184,10 @@ function getEvalSummaries(
 export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
   if (skills.length === 0) return "No skills found.";
   if (skills.length === 1) return formatSkillDetail(skills[0]);
+  const fileCount = skills[0].fileCount ?? (await countFiles(skills[0].path));
+  const refEvalSummaries = stripControlBytesDeep(getEvalSummaries(skills[0]));
+  const refToolWarning = toolRiskWarning(skills[0].allowedTools ?? []);
+  skills = stripControlBytesDeep(skills);
 
   const lines: string[] = [];
   const label = (key: string, value: string) =>
@@ -214,7 +225,6 @@ export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
     lines.push(label("  Tags", ref.tags.join(", ")));
   }
 
-  const fileCount = ref.fileCount ?? (await countFiles(ref.path));
   lines.push(label("  File Count", String(fileCount)));
   if (typeof ref.tokenCount === "number") {
     lines.push(label("  Est. Tokens", formatTokenCount(ref.tokenCount)));
@@ -229,7 +239,6 @@ export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
   // Eval summary block
   lines.push("");
   lines.push(useColor() ? ansi.bold("  Eval Score:") : "  Eval Score:");
-  const refEvalSummaries = getEvalSummaries(ref);
   if (refEvalSummaries.length > 0) {
     const multipleProviders = refEvalSummaries.length > 1;
     for (const ev of refEvalSummaries) {
@@ -281,9 +290,10 @@ export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
     lines.push("");
     lines.push(useColor() ? ansi.bold("  Allowed Tools:") : "  Allowed Tools:");
     lines.push(`    ${formatAllowedTools(ref.allowedTools)}`);
-    const warning = toolRiskWarning(ref.allowedTools);
-    if (warning) {
-      lines.push(`    ${useColor() ? ansi.yellow("\u26A0") : "!"} ${warning}`);
+    if (refToolWarning) {
+      lines.push(
+        `    ${useColor() ? ansi.yellow("\u26A0") : "!"} ${refToolWarning}`,
+      );
     }
   }
 

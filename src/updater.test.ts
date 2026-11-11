@@ -250,6 +250,68 @@ describe("formatOutdatedTable", () => {
   });
 });
 
+describe("outdated output carries no raw control bytes (#830)", () => {
+  const hostile = "evil\x1b[31m\x1b]8;;mailto:e@x\x07L\x1b]8;;\x07\u009b\x7f";
+  const summary: OutdatedSummary = {
+    entries: [
+      {
+        name: `name-${hostile}`,
+        installedCommit: "abc1234",
+        latestCommit: "def5678",
+        source: `github:user/${hostile}`,
+        sourceType: "github",
+        status: "error",
+        error: `boom ${hostile}`,
+      },
+    ],
+    outdatedCount: 0,
+    upToDateCount: 0,
+    untrackedCount: 0,
+    errorCount: 1,
+  };
+  // eslint-disable-next-line no-control-regex
+  const raw = /[\x00-\x08\x0b-\x1f\x7f-\x9f]/;
+
+  test("the human table strips them", () => {
+    const table = formatOutdatedTable(summary, false);
+    expect(table).not.toMatch(raw);
+    expect(table).toContain("name-evil?[31m");
+  });
+
+  test("commits and versions are compared before they are stripped", () => {
+    const table = formatOutdatedTable(
+      {
+        entries: [
+          {
+            name: "moved",
+            installedCommit: "abc\x01",
+            latestCommit: "abc\x02",
+            source: "github:user/repo",
+            sourceType: "github",
+            status: "up-to-date",
+            installedVersion: "1.0\x01",
+            latestVersion: "1.0\x02",
+          },
+        ],
+        outdatedCount: 0,
+        upToDateCount: 1,
+        untrackedCount: 0,
+        errorCount: 0,
+      },
+      false,
+    );
+    expect(table).toContain("(up to date, skill folder unchanged)");
+    expect(table).toContain("1.0? → 1.0?");
+    expect(table).not.toMatch(raw);
+  });
+
+  test("the JSON escapes them and decodes to the original strings", () => {
+    const json = formatOutdatedJSON(summary);
+    expect(json).not.toMatch(raw);
+    expect(JSON.parse(json).skills[0].name).toBe(`name-${hostile}`);
+  });
+});
+
 describe("formatOutdatedTable versions (#807)", () => {
   const base = {
     source: "github:user/repo",
