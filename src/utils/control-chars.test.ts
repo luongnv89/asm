@@ -2,6 +2,7 @@ import { describe, test, expect } from "vitest";
 import {
   stripControlBytes,
   stripControlBytesDeep,
+  stripControlBytesLine,
   stringifyForOutput,
 } from "./control-chars";
 
@@ -30,7 +31,27 @@ describe("stripControlBytes", () => {
   });
 });
 
+describe("stripControlBytesLine", () => {
+  test("also replaces TAB, for single-line display fields", () => {
+    expect(stripControlBytesLine("a\tb\0c\nd\x7fe\u0080f\u009fg")).toBe(
+      "a?b?c?d?e?f?g",
+    );
+    expect(stripControlBytesLine("skill — 研究 ü   ok")).toBe(
+      "skill — 研究 ü   ok",
+    );
+  });
+});
+
 describe("stripControlBytesDeep", () => {
+  test("takes the per-string strip to apply", () => {
+    expect(
+      stripControlBytesDeep({ a: ["x\ty\x1b"] }, stripControlBytesLine),
+    ).toEqual({ a: ["x?y?"] });
+    expect(stripControlBytesDeep({ a: ["x\ty\x1b"] })).toEqual({
+      a: ["x\ty?"],
+    });
+  });
+
   test("strips every string in nested arrays and plain objects, keys too", () => {
     const input = {
       name: HOSTILE,

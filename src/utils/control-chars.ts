@@ -6,6 +6,12 @@
  * - Human output: {@link stripControlBytes} / {@link stripControlBytesDeep}
  *   replace every C0 (except TAB), DEL and C1 character with `?`, so nothing
  *   an author wrote can act as a terminal control sequence.
+ *   {@link stripControlBytesLine} also replaces TAB, for single-line display
+ *   fields such as table cells and list names.
+ * - Strip only at render: sorting, grouping, dedupe keys, comparisons and
+ *   anything that leads to an action run on the original strings. Two
+ *   different strings can strip to the same text, so a stripped copy is for
+ *   printing only.
  * - `--json` / `--machine` output: {@link stringifyForOutput} is
  *   `JSON.stringify` plus `\uXXXX` escapes for DEL and C1. `JSON.stringify`
  *   already escapes C0, so the JSON stays valid and decodes to the original
@@ -15,6 +21,10 @@
 /** C0 except TAB, plus DEL (U+007F) and C1 (U+0080–U+009F). */
 // eslint-disable-next-line no-control-regex
 const CONTROL_BYTES = /[\x00-\x08\x0a-\x1f\x7f-\x9f]/g;
+
+/** {@link CONTROL_BYTES} plus TAB, for single-line display fields. */
+// eslint-disable-next-line no-control-regex
+const CONTROL_BYTES_AND_TAB = /[\x00-\x1f\x7f-\x9f]/g;
 
 /** DEL and C1: the control characters `JSON.stringify` leaves raw. */
 const JSON_RAW_CONTROLS = /[\u007f-\u009f]/g;
@@ -27,6 +37,15 @@ export function stripControlBytes(text: string): string {
   return text.replace(CONTROL_BYTES, "?");
 }
 
+/**
+ * {@link stripControlBytes} that also replaces TAB with `?`. Use it on a
+ * single-line display field (a table cell, a list name), where a TAB would
+ * break the column alignment.
+ */
+export function stripControlBytesLine(text: string): string {
+  return text.replace(CONTROL_BYTES_AND_TAB, "?");
+}
+
 function isPlainObject(value: object): boolean {
   const proto = Object.getPrototypeOf(value);
   return proto === Object.prototype || proto === null;
@@ -37,14 +56,21 @@ function isPlainObject(value: object): boolean {
  * string inside it — object keys included — walking arrays and plain objects.
  * Other values (numbers, Dates, class instances) are kept as they are.
  *
- * Human formatters call this once on their input, so every author string they
- * render is clean without touching each field. Never pass the result to file
- * system calls: its paths are for display only.
+ * `strip` picks the per-string treatment: {@link stripControlBytes} (the
+ * default) or {@link stripControlBytesLine} for single-line display fields.
+ *
+ * Call it on the values a formatter is about to print, after every decision:
+ * keys that collide after stripping merge, and different strings can compare
+ * equal, so never sort, group, dedupe, compare or look up on the result, and
+ * never pass it to file system calls. Its strings are for display only.
  */
-export function stripControlBytesDeep<T>(value: T): T {
+export function stripControlBytesDeep<T>(
+  value: T,
+  strip: (text: string) => string = stripControlBytes,
+): T {
   const seen = new Map<object, unknown>();
   const walk = (v: unknown): unknown => {
-    if (typeof v === "string") return stripControlBytes(v);
+    if (typeof v === "string") return strip(v);
     if (v === null || typeof v !== "object") return v;
     if (seen.has(v)) return seen.get(v);
     if (Array.isArray(v)) {
@@ -57,7 +83,7 @@ export function stripControlBytesDeep<T>(value: T): T {
     const out: Record<string, unknown> = {};
     seen.set(v, out);
     for (const [key, item] of Object.entries(v)) {
-      out[stripControlBytes(key)] = walk(item);
+      out[strip(key)] = walk(item);
     }
     return out;
   };

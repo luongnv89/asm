@@ -33,7 +33,11 @@ import { join as joinPath } from "path";
 import { error, readLine } from "./shared";
 import { promptInstallScope, selectBundleSkills } from "./install-prompts";
 import type { ParsedArgs } from "../cli";
-import { stringifyForOutput } from "../utils/control-chars";
+import {
+  stringifyForOutput,
+  stripControlBytes,
+  stripControlBytesDeep,
+} from "../utils/control-chars";
 
 function printBundleHelp() {
   console.log(`${ansi.bold("Usage:")} asm bundle <subcommand> [options]
@@ -228,16 +232,22 @@ export async function cmdBundle(args: ParsedArgs) {
         process.exit(1);
       }
 
+      // Bundle files are shared: their strings are stripped at render (#830).
+      const shown = stripControlBytesDeep({
+        name: bundle.name,
+        description: bundle.description,
+        skills: bundle.skills,
+      });
       console.error(
-        `${ansi.bold("Bundle:")} ${bundle.name} (${bundle.skills.length} skills)`,
+        `${ansi.bold("Bundle:")} ${shown.name} (${bundle.skills.length} skills)`,
       );
-      if (bundle.description) {
-        console.error(`  ${ansi.dim(bundle.description)}`);
+      if (shown.description) {
+        console.error(`  ${ansi.dim(shown.description)}`);
       }
       console.error("");
 
       // Show skills to install
-      for (const skill of bundle.skills) {
+      for (const skill of shown.skills) {
         const versionTag = skill.version ? ` v${skill.version}` : "";
         console.error(
           `  ${ansi.cyan(skill.name)}${ansi.dim(versionTag)} ${ansi.dim(`-> ${skill.installUrl}`)}`,
@@ -318,7 +328,8 @@ export async function cmdBundle(args: ParsedArgs) {
       }> = [];
 
       for (const skill of skillsToInstall) {
-        console.error(`\n  Installing ${ansi.bold(skill.name)}...`);
+        const shownName = stripControlBytes(skill.name);
+        console.error(`\n  Installing ${ansi.bold(shownName)}...`);
         try {
           // Check if git is available for remote installs
           const isRemote =
@@ -395,7 +406,7 @@ export async function cmdBundle(args: ParsedArgs) {
               await executeInstall(plan);
             }
             results.push({ name: skill.name, status: "installed" });
-            console.error(`    ${ansi.green("+++")} ${skill.name} installed`);
+            console.error(`    ${ansi.green("+++")} ${shownName} installed`);
           } finally {
             if (tempDir) {
               await cleanupTemp(tempDir);
@@ -408,7 +419,9 @@ export async function cmdBundle(args: ParsedArgs) {
             status: "failed",
             reason,
           });
-          console.error(`    ${ansi.red("!!!")} ${skill.name}: ${reason}`);
+          console.error(
+            `    ${ansi.red("!!!")} ${shownName}: ${stripControlBytes(reason)}`,
+          );
         }
       }
 
@@ -470,7 +483,8 @@ export async function cmdBundle(args: ParsedArgs) {
           console.error(
             ansi.bold(`Pre-defined Bundles (${predefinedBundles.length}):\n`),
           );
-          for (const bundle of predefinedBundles) {
+          for (const listed of predefinedBundles) {
+            const bundle = stripControlBytesDeep(listed); // render only (#830)
             const tagsStr =
               bundle.tags && bundle.tags.length > 0
                 ? ` ${ansi.dim(`[${bundle.tags.join(", ")}]`)}`
@@ -510,7 +524,8 @@ export async function cmdBundle(args: ParsedArgs) {
         console.log(stringifyForOutput(bundles, null, 2));
       } else {
         console.error(ansi.bold(`Saved Bundles (${bundles.length}):\n`));
-        for (const bundle of bundles) {
+        for (const listed of bundles) {
+          const bundle = stripControlBytesDeep(listed); // render only (#830)
           const tagsStr =
             bundle.tags && bundle.tags.length > 0
               ? ` ${ansi.dim(`[${bundle.tags.join(", ")}]`)}`
@@ -698,13 +713,14 @@ export async function cmdBundle(args: ParsedArgs) {
         newAuthor === null &&
         newTags === null
       ) {
-        console.error(ansi.bold(`Modifying bundle "${bundle.name}"`));
+        const shown = stripControlBytesDeep(bundle); // render only (#830)
+        console.error(ansi.bold(`Modifying bundle "${shown.name}"`));
         console.error(
-          `  Current skills: ${bundle.skills.map((s) => s.name).join(", ")}`,
+          `  Current skills: ${shown.skills.map((s) => s.name).join(", ")}`,
         );
-        console.error(`  Description: ${bundle.description}`);
-        console.error(`  Author: ${bundle.author}`);
-        console.error(`  Tags: ${bundle.tags?.join(", ") ?? "(none)"}`);
+        console.error(`  Description: ${shown.description}`);
+        console.error(`  Author: ${shown.author}`);
+        console.error(`  Tags: ${shown.tags?.join(", ") ?? "(none)"}`);
         console.error(``);
 
         process.stderr.write(
@@ -756,7 +772,7 @@ export async function cmdBundle(args: ParsedArgs) {
       } else {
         console.error(
           ansi.green(
-            `Bundle "${bundle.name}" updated (${bundle.skills.length} skill(s)).`,
+            `Bundle "${stripControlBytes(bundle.name)}" updated (${bundle.skills.length} skill(s)).`,
           ),
         );
         console.error(`  Saved to: ${ansi.dim(savedPath)}`);

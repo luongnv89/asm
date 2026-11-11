@@ -1,7 +1,10 @@
 import type { SkillInfo } from "./utils/types";
 import { useColor, ansi, colorEffort, providerBadge } from "./formatter-colors";
 import { groupSkills, shortenPath } from "./formatter-table";
-import { stripControlBytesDeep } from "./utils/control-chars";
+import {
+  stripControlBytesDeep,
+  stripControlBytesLine,
+} from "./utils/control-chars";
 // Split from formatter-core.ts (issue #677).
 
 // ─── Search result formatter ────────────────────────────────────────────────
@@ -20,12 +23,15 @@ export function formatSearchResults(
   skills: SkillInfo[],
   query: string,
 ): string {
-  skills = stripControlBytesDeep(skills);
   if (skills.length === 0) {
     return `No skills matching "${query}". Try ${ansi.bold("asm list")} to see all skills.`;
   }
 
-  const grouped = groupSkills(skills);
+  // Group on the original strings, then strip each display row (#830).
+  const grouped = stripControlBytesDeep(
+    groupSkills(skills),
+    stripControlBytesLine,
+  );
   const lines: string[] = [];
 
   // Summary header
@@ -114,14 +120,16 @@ export interface LocatedSearchResult {
 export function formatLocatedSearchResults(
   results: LocatedSearchResult[],
 ): string {
-  results = stripControlBytesDeep(results);
-  const rows = results.map((r) => [
-    r.skill.name,
-    String(r.score),
-    r.skill.providerLabel,
-    r.projectRoot ? shortenPath(r.projectRoot) : "global",
-    shortenPath(r.skill.path),
-  ]);
+  // Rows keep the given order; each cell is stripped at render (#830).
+  const rows = results.map((r) =>
+    [
+      r.skill.name,
+      String(r.score),
+      r.skill.providerLabel,
+      r.projectRoot ? shortenPath(r.projectRoot) : "global",
+      shortenPath(r.skill.path),
+    ].map(stripControlBytesLine),
+  );
   const headers = ["Name", "Score", "Tool", "Location", "Path"];
   const widths = headers.map((h, col) =>
     Math.max(h.length, ...rows.map((row) => row[col].length)),
@@ -158,6 +166,7 @@ export function formatAvailableSearchResults(
   results: AvailableSkillResult[],
   query: string,
 ): string {
+  // Render-only: no decision below reads these strings (#830).
   results = stripControlBytesDeep(results);
   if (results.length === 0) {
     return "";

@@ -8,7 +8,10 @@ import {
   colorProvider,
   providerBadge,
 } from "./formatter-colors";
-import { stripControlBytesDeep } from "./utils/control-chars";
+import {
+  stripControlBytesDeep,
+  stripControlBytesLine,
+} from "./utils/control-chars";
 // Split from formatter-core.ts (issue #677).
 
 // ─── Path shortening ───────────────────────────────────────────────────────
@@ -24,7 +27,6 @@ export function shortenPath(fullPath: string): string {
 // ─── Table formatter ────────────────────────────────────────────────────────
 
 export function formatSkillTable(skills: SkillInfo[]): string {
-  skills = stripControlBytesDeep(skills);
   if (skills.length === 0) {
     return "No skills found.";
   }
@@ -41,19 +43,22 @@ export function formatSkillTable(skills: SkillInfo[]): string {
     "Path",
   ];
 
-  const rows = skills.map((s) => [
-    // Append a `[disabled]` tag to the name cell for disabled instances so the
-    // column width accounts for it; the whole line is dimmed below (issue #91).
-    s.disabled ? `${s.name} [disabled]` : s.name,
-    s.version,
-    s.creator || "\u2014",
-    s.effort || "\u2014",
-    formatInvocability(s.modelInvocable, s.userInvocable),
-    s.providerLabel,
-    s.scope,
-    s.isSymlink ? "symlink" : "directory",
-    shortenPath(s.path),
-  ]);
+  // Author strings are stripped per cell, at render (#830).
+  const rows = skills
+    .map((s) => [
+      // Append a `[disabled]` tag to the name cell for disabled instances so the
+      // column width accounts for it; the whole line is dimmed below (issue #91).
+      s.disabled ? `${s.name} [disabled]` : s.name,
+      s.version,
+      s.creator || "\u2014",
+      s.effort || "\u2014",
+      formatInvocability(s.modelInvocable, s.userInvocable),
+      s.providerLabel,
+      s.scope,
+      s.isSymlink ? "symlink" : "directory",
+      shortenPath(s.path),
+    ])
+    .map((row) => row.map(stripControlBytesLine));
 
   // Calculate column widths
   const widths = headers.map((h, i) =>
@@ -176,7 +181,8 @@ export function formatListSummary(
   skills: SkillInfo[],
   options: { topN?: number; showHint?: boolean } = {},
 ): string {
-  skills = stripControlBytesDeep(skills);
+  // Counts and groups use the original strings; labels are stripped at
+  // render (#830).
   const topN = options.topN ?? 5;
   const showHint = options.showHint ?? true;
 
@@ -212,9 +218,8 @@ export function formatListSummary(
 
   lines.push(useColor() ? ansi.bold("Top tools:") : "Top tools:");
   for (const [provider, { label, count }] of topTools) {
-    const badge = useColor()
-      ? colorProvider(provider, `[${label}]`)
-      : `[${label}]`;
+    const shown = `[${stripControlBytesLine(label)}]`;
+    const badge = useColor() ? colorProvider(provider, shown) : shown;
     lines.push(`  ${badge}  ${count} skill${count === 1 ? "" : "s"}`);
   }
 
@@ -239,7 +244,8 @@ export function formatListSummary(
       .slice(0, topN);
     lines.push("");
     lines.push(useColor() ? ansi.bold("Top efforts:") : "Top efforts:");
-    for (const [effort, count] of topEfforts) {
+    for (const [rawEffort, count] of topEfforts) {
+      const effort = stripControlBytesLine(rawEffort);
       const coloredEffort = colorEffort(effort);
       // Pad by visual width, not string length — `colorEffort` wraps the
       // value in ANSI escape codes when colors are enabled, which inflates
@@ -269,12 +275,15 @@ export function formatListSummary(
  * with aligned columns and colorized provider badges.
  */
 export function formatCompactTable(skills: SkillInfo[]): string {
-  skills = stripControlBytesDeep(skills);
   if (skills.length === 0) {
     return "No skills found.";
   }
 
-  const grouped = groupSkills(skills);
+  // Group on the original strings, then strip each display row (#830).
+  const grouped = stripControlBytesDeep(
+    groupSkills(skills),
+    stripControlBytesLine,
+  );
   const lines: string[] = [];
 
   const nameW = Math.max(4, ...grouped.map((g) => groupDisplayName(g).length));
@@ -326,7 +335,6 @@ export function formatGroupByTable(
   skills: SkillInfo[],
   axis: GroupByAxis,
 ): string {
-  skills = stripControlBytesDeep(skills);
   if (skills.length === 0) {
     return "No skills found.";
   }
@@ -358,9 +366,11 @@ export function formatGroupByTable(
     return a[0].localeCompare(b[0]);
   });
 
+  // Buckets and their order use the original labels; the header is stripped
+  // at render, and formatCompactTable strips its own rows (#830).
   const lines: string[] = [];
   for (const [label, members] of ordered) {
-    const header = `${label} (${members.length})`;
+    const header = `${stripControlBytesLine(label)} (${members.length})`;
     lines.push(useColor() ? ansi.bold(header) : header);
     // Reuse compact formatter for dense rows
     const body = formatCompactTable(members);
@@ -405,12 +415,15 @@ export function applyListLimit(
 }
 
 export function formatGroupedTable(skills: SkillInfo[]): string {
-  skills = stripControlBytesDeep(skills);
   if (skills.length === 0) {
     return "No skills found.";
   }
 
-  const grouped = groupSkills(skills);
+  // Group on the original strings, then strip each display row (#830).
+  const grouped = stripControlBytesDeep(
+    groupSkills(skills),
+    stripControlBytesLine,
+  );
   const lines: string[] = [];
 
   // Calculate column widths

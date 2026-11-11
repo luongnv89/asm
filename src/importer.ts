@@ -77,7 +77,7 @@ export function validateManifest(data: unknown): ManifestValidation {
     }
     if (s.scope !== "global" && s.scope !== "project") {
       errors.push(
-        `skills[${i}]: invalid 'scope' "${String(s.scope)}". Must be "global" or "project".`,
+        `skills[${i}]: invalid 'scope' ${stringifyForOutput(s.scope)}. Must be "global" or "project".`,
       );
     }
   }

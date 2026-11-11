@@ -21,8 +21,12 @@ export function debug(msg: string): void {
   const prefix = noColor
     ? `[verbose] +${elapsed}ms`
     : `\x1b[2m[verbose] +${elapsed}ms\x1b[0m`;
-  // Messages carry author folder and file names: strip their control bytes
-  // (#830), keeping the line breaks and the prefix's own styling.
-  const clean = msg.split("\n").map(stripControlBytes).join("\n");
+  // Messages carry author folder and file names (#830): one debug() call is
+  // one log line, so LF and CR show as visible `\n` / `\r` markers and every
+  // other control byte as `?`. A caller with several lines calls debug() once
+  // per line.
+  const clean = stripControlBytes(
+    msg.replace(/\n/g, "\\n").replace(/\r/g, "\\r"),
+  );
   console.error(`${prefix} ${clean}`);
 }

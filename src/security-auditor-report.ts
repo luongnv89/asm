@@ -131,6 +131,16 @@ function groupMatchesByFile(matches: CodeScanMatch[]): FileGroup[] {
 }
 
 export function formatSecurityReport(report: SecurityAuditReport): string {
+  // Dedupe and group findings on the original file names, then strip what is
+  // rendered (#830). Below the strip, strings are only printed or compared
+  // with fixed constants (verdict, severity, category).
+  const findingsByCategory = report.codeScans.map((category) => {
+    const deduped = deduplicateMatches(category.matches);
+    return stripControlBytesDeep({
+      deduped,
+      fileGroups: groupMatchesByFile(deduped),
+    });
+  });
   report = stripControlBytesDeep(report);
   const lines: string[] = [];
 
@@ -255,8 +265,8 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
     lines.push(`  ${color.bold("Findings")}`);
     lines.push(color.dim("  " + "=".repeat(BOX_WIDTH - 2)));
 
-    for (const category of report.codeScans) {
-      const dedupedMatches = deduplicateMatches(category.matches);
+    for (const [index, category] of report.codeScans.entries()) {
+      const { deduped: dedupedMatches, fileGroups } = findingsByCategory[index];
       const critCount = dedupedMatches.filter(
         (m) => m.severity === "critical",
       ).length;
@@ -295,8 +305,7 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
         lines.push(headerLeft);
       }
 
-      // Group matches by file and render compactly
-      const fileGroups = groupMatchesByFile(dedupedMatches);
+      // Matches grouped by file (above, on the originals), rendered compactly
 
       // Compute max file name length for alignment (capped)
       const maxFileLen = Math.min(

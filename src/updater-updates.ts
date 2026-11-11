@@ -50,6 +50,7 @@ import { ansi } from "./formatter";
 import {
   stringifyForOutput,
   stripControlBytesDeep,
+  stripControlBytesLine,
 } from "./utils/control-chars";
 
 const execFileAsync = promisify(execFile);
@@ -825,10 +826,18 @@ export function formatOutdatedTable(
   summary: OutdatedSummary,
   useColor: boolean,
 ): string {
-  summary = stripControlBytesDeep(summary);
   if (summary.entries.length === 0) {
     return "No skills installed.";
   }
+  // Compare commits and versions on the original strings, then strip the
+  // table cells at render (#830).
+  const versionCells = summary.entries.map((e) =>
+    stripControlBytesLine(formatVersionCell(e)),
+  );
+  const folderUnchanged = summary.entries.map(
+    (e) => e.installedCommit !== e.latestCommit,
+  );
+  summary = stripControlBytesDeep(summary, stripControlBytesLine);
 
   const id = (s: string) => s;
   const red = useColor ? ansi.red : id;
@@ -845,10 +854,10 @@ export function formatOutdatedTable(
   const separator = "─".repeat(nameWidth + 56);
   const lines: string[] = [header, separator];
 
-  for (const entry of summary.entries) {
+  for (const [index, entry] of summary.entries.entries()) {
     const nameCol = entry.name.padEnd(nameWidth);
     const installedCol = entry.installedCommit.padEnd(14);
-    const versionCol = formatVersionCell(entry).padEnd(18);
+    const versionCol = versionCells[index].padEnd(18);
     let latestCol: string;
     let sourceCol: string;
 
@@ -865,7 +874,7 @@ export function formatOutdatedTable(
         latestCol = green(entry.latestCommit.padEnd(14));
         // Newer repo commit that leaves this skill's folder untouched.
         sourceCol = dim(
-          entry.installedCommit !== entry.latestCommit
+          folderUnchanged[index]
             ? "(up to date, skill folder unchanged)"
             : "(up to date)",
         );

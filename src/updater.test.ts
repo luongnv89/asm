@@ -278,6 +278,33 @@ describe("outdated output carries no raw control bytes (#830)", () => {
     expect(table).toContain("name-evil?[31m");
   });
 
+  test("commits and versions are compared before they are stripped", () => {
+    const table = formatOutdatedTable(
+      {
+        entries: [
+          {
+            name: "moved",
+            installedCommit: "abc\x01",
+            latestCommit: "abc\x02",
+            source: "github:user/repo",
+            sourceType: "github",
+            status: "up-to-date",
+            installedVersion: "1.0\x01",
+            latestVersion: "1.0\x02",
+          },
+        ],
+        outdatedCount: 0,
+        upToDateCount: 1,
+        untrackedCount: 0,
+        errorCount: 0,
+      },
+      false,
+    );
+    expect(table).toContain("(up to date, skill folder unchanged)");
+    expect(table).toContain("1.0? → 1.0?");
+    expect(table).not.toMatch(raw);
+  });
+
   test("the JSON escapes them and decodes to the original strings", () => {
     const json = formatOutdatedJSON(summary);
     expect(json).not.toMatch(raw);

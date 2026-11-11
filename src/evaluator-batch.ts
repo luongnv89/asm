@@ -465,6 +465,10 @@ export function formatBatchSummary(
   batch: EvalBatchResult,
   widthHint: number = 28,
 ): string {
+  // Compare the original labels, then strip what is rendered (#830).
+  const showBottom =
+    !!batch.aggregate.bottom &&
+    batch.aggregate.bottom.label !== batch.aggregate.top?.label;
   batch = stripControlBytesDeep(batch);
   const lines: string[] = [];
   lines.push("");
@@ -483,10 +487,7 @@ export function formatBatchSummary(
       `  Top:                   ${batch.aggregate.top.label} (${batch.aggregate.top.score}/100)`,
     );
   }
-  if (
-    batch.aggregate.bottom &&
-    batch.aggregate.bottom.label !== batch.aggregate.top?.label
-  ) {
+  if (showBottom && batch.aggregate.bottom) {
     lines.push(
       `  Bottom:                ${batch.aggregate.bottom.label} (${batch.aggregate.bottom.score}/100)`,
     );

@@ -3,7 +3,12 @@ import { listLibrarySkills, updateLibrarySkills } from "../library";
 
 import { error } from "./shared";
 import type { ParsedArgs } from "../cli";
-import { stringifyForOutput } from "../utils/control-chars";
+import {
+  stringifyForOutput,
+  stripControlBytes,
+  stripControlBytesDeep,
+  stripControlBytesLine,
+} from "../utils/control-chars";
 
 function printLibraryHelp() {
   console.log(`${ansi.bold("Usage:")} asm library <subcommand> [options]
@@ -55,11 +60,15 @@ export async function cmdLibrary(args: ParsedArgs) {
   process.exit(2);
 }
 
-function printLibraryList(rows: Awaited<ReturnType<typeof listLibrarySkills>>) {
-  if (rows.length === 0) {
+function printLibraryList(
+  libraryRows: Awaited<ReturnType<typeof listLibrarySkills>>,
+) {
+  if (libraryRows.length === 0) {
     console.log(ansi.dim("No skills installed in the local library."));
     return;
   }
+  // Table cells from the lock and frontmatter: stripped at render (#830).
+  const rows = stripControlBytesDeep(libraryRows, stripControlBytesLine);
 
   const widths = {
     name: Math.max("Name".length, ...rows.map((r) => r.name.length)),
@@ -102,19 +111,21 @@ function printLibraryUpdateHuman(
   summary: Awaited<ReturnType<typeof updateLibrarySkills>>,
 ) {
   for (const result of summary.results) {
+    // Names, versions and reasons from the lock: stripped at render (#830).
+    const name = stripControlBytes(result.name);
     if (result.status === "updated") {
       console.log(
-        `${ansi.green("✓")} ${result.name}: ${
-          result.oldVersion ?? "unknown"
-        } -> ${result.newVersion ?? "unknown"}`,
+        `${ansi.green("✓")} ${name}: ${stripControlBytes(
+          result.oldVersion ?? "unknown",
+        )} -> ${stripControlBytes(result.newVersion ?? "unknown")}`,
       );
     } else if (result.status === "skipped") {
       console.log(
-        `${ansi.yellow("-")} ${result.name}: ${result.reason ?? "skipped"}`,
+        `${ansi.yellow("-")} ${name}: ${stripControlBytes(result.reason ?? "skipped")}`,
       );
     } else {
       console.log(
-        `${ansi.red("x")} ${result.name}: ${result.reason ?? "failed"}`,
+        `${ansi.red("x")} ${name}: ${stripControlBytes(result.reason ?? "failed")}`,
       );
     }
   }

@@ -14,7 +14,10 @@ import type {
 } from "./utils/types";
 import { formatTokenCount } from "./utils/token-count";
 import { ansi } from "./formatter-colors";
-import { stringifyForOutput } from "./utils/control-chars";
+import {
+  stringifyForOutput,
+  stripControlBytesDeep,
+} from "./utils/control-chars";
 
 // ─── Tag editing ─────────────────────────────────────────────────────────────
 
@@ -32,7 +35,7 @@ export function formatTagUpdates(
   results: TagUpdateResult[],
 ): string {
   const verb = action === "add" ? "Added tags to" : "Removed tags from";
-  return results
+  return stripControlBytesDeep(results) // render only (#830)
     .map((result) => {
       const applied =
         result.applied.length > 0 ? result.applied.join(", ") : "(none)";
@@ -49,6 +52,7 @@ export function formatTagUpdates(
 // ─── Reference-tier output ─────────────────────────────────────────────────
 
 export function formatGetProvenance(result: GetResult | GetPathResult): string {
+  result = stripControlBytesDeep(result); // render only (#830)
   const lines = [
     `  ${ansi.bold(result.name)}  ${ansi.dim(formatTokenCount(result.tokenCount))}`,
     `  ${ansi.dim("source:")} ${result.source}${result.commit ? ` @ ${result.commit.slice(0, 7)}` : ""} ${ansi.dim(`(${result.tier})`)}`,
@@ -118,6 +122,7 @@ export function formatDependencyDiscovery(result: {
   source: string;
   dependencies: string[];
 }): string {
+  result = stripControlBytesDeep(result); // render only (#830)
   if (result.dependencies.length === 0) {
     return `${result.name} declares no optional skill dependencies.`;
   }
@@ -130,6 +135,7 @@ export function formatDependencyDiscovery(result: {
 export function formatDependencyAcquisition(
   result: DependencyAcquireResult,
 ): string {
+  result = stripControlBytesDeep(result); // render only (#830)
   const status = result.owned ? "lease-owned copy" : "pre-existing target";
   return `${ansi.green("✓")} ${result.name} ready at ${result.path} (${status}${result.reused ? ", reused" : ""})`;
 }

@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeAll, afterAll } from "vitest";
-import { mkdtemp, mkdir, writeFile, symlink, rm, cp } from "fs/promises";
+import { mkdtemp, mkdir, writeFile, symlink, rm, cp, lstat } from "fs/promises";
 import { tmpdir } from "os";
 import { join } from "path";
 import { runCliInProcess } from "./cli-test-harness";
@@ -258,4 +258,272 @@ describe("author control bytes in commands that change skills (#830)", () => {
       expect(row.split("\t")).toHaveLength(4);
     }
   }, 60_000);
+});
+
+// ─── Fix round: strip only at render (#830 review of PR #833) ──────────────
+
+/** An empty scratch home; the caller lays out what it needs. */
+async function emptyHome() {
+  const root = await mkdtemp(join(tmpdir(), "asm-830-fix-"));
+  scratchHomes.push(root);
+  return root;
+}
+
+async function writeSkillAt(dir: string, name: string, body = "# Body\n") {
+  await mkdir(dir, { recursive: true });
+  await writeFile(
+    join(dir, "SKILL.md"),
+    `---\nname: ${name}\ndescription: collide probe skill description text\n---\n\n${body}`,
+  );
+}
+
+describe("decisions run on the original strings, stripping only at render (#830)", () => {
+  test("list and search: folders that strip alike stay two rows, like --json", async () => {
+    const root = await emptyHome();
+    const skills = join(root, ".claude", "skills");
+    await writeSkillAt(join(skills, "x\x1by"), "one");
+    await writeSkillAt(join(skills, "x\x07y"), "two");
+
+    const json = JSON.parse((await runIn(root, "list", "--json")).stdout);
+    expect(json).toHaveLength(2);
+    for (const argv of [
+      ["list"],
+      ["list", "--compact"],
+      ["list", "--group-by", "tool"],
+      ["search", "collide"],
+    ]) {
+      const { stdout, stderr, exitCode } = await runIn(root, ...argv);
+      expect(exitCode).toBe(0);
+      expect(stdout).toMatch(/\bone\b/);
+      expect(stdout).toMatch(/\btwo\b/);
+      expect(rawControls(stdout + stderr)).toEqual([]);
+    }
+    // Installed hits only: the bundled index may match the query too.
+    const searchJson = JSON.parse(
+      (await runIn(root, "search", "collide", "--json")).stdout,
+    ) as { provider?: string }[];
+    expect(searchJson.filter((r) => r.provider === "claude")).toHaveLength(2);
+  }, 60_000);
+
+  test("audit: the [keep] row is the copy audit --yes keeps", async () => {
+    // ICU collation ignores ESC but sorts `?` before letters: ordering the
+    // stripped paths would flip the keep tie-break.
+    const root = await emptyHome();
+    const skills = join(root, ".claude", "skills");
+    await writeSkillAt(join(skills, "\x1bzz"), "dup");
+    await writeSkillAt(join(skills, "b"), "dup");
+
+    const shown = await runIn(root, "audit");
+    const keepRow = shown.stdout.split("\n").find((l) => l.includes("[keep]"));
+    expect(keepRow?.trimEnd().endsWith("/skills/b")).toBe(true);
+
+    const { stderr, exitCode } = await runIn(root, "audit", "--yes");
+    expect(exitCode).toBe(0);
+    expect(stderr).toMatch(/Removed directory: .*\/skills\/\?zz/);
+    expect(rawControls(stderr)).toEqual([]);
+    expect((await lstat(join(skills, "b"))).isDirectory()).toBe(true);
+    expect((await lstat(join(skills, "\x1bzz"))).isSymbolicLink()).toBe(true);
+  }, 60_000);
+
+  test("audit --yes --force on diverged copies removes the non-[keep] copy", async () => {
+    const root = await emptyHome();
+    const skills = join(root, ".claude", "skills");
+    await writeSkillAt(join(skills, "\x1bzz"), "dup", "# One body\n");
+    await writeSkillAt(join(skills, "b"), "dup", "# Another body\n");
+
+    const shown = await runIn(root, "audit");
+    const keepRow = shown.stdout.split("\n").find((l) => l.includes("[keep]"));
+    expect(keepRow?.trimEnd().endsWith("/skills/b")).toBe(true);
+
+    const guarded = await runIn(root, "audit", "--yes");
+    expect(guarded.stderr).toMatch(
+      /Skipping ~\/\.claude\/skills\/\?zz .*Kept ~\/\.claude\/skills\/b\./,
+    );
+    expect(rawControls(guarded.stderr)).toEqual([]);
+
+    const forced = await runIn(root, "audit", "--yes", "--force");
+    expect(forced.exitCode).toBe(0);
+    expect(forced.stderr).toMatch(/Removed directory: .*\/skills\/\?zz/);
+    expect((await lstat(join(skills, "b"))).isDirectory()).toBe(true);
+    expect((await lstat(join(skills, "\x1bzz"))).isSymbolicLink()).toBe(true);
+  }, 60_000);
+
+  test("--verbose: an LF in a folder name cannot forge a [verbose] line", async () => {
+    const root = await emptyHome();
+    const skills = join(root, ".claude", "skills");
+    await writeSkillAt(join(skills, "ok"), "ok");
+    await mkdir(join(skills, "nofile\n[verbose] +1ms FORGED all clear"));
+
+    const { stderr, exitCode } = await runIn(
+      root,
+      "list",
+      "--verbose",
+      "--no-color",
+    );
+    expect(exitCode).toBe(0);
+    expect(stderr).toContain("nofile\\n[verbose] +1ms FORGED all clear");
+    const lines = stderr.split("\n");
+    expect(lines.filter((l) => l.includes("FORGED"))).toHaveLength(1);
+    expect(lines.filter((l) => /^\[verbose\] \+\d+ms FORGED/.test(l))).toEqual(
+      [],
+    );
+    for (const line of lines.filter((l) => l.length > 0)) {
+      expect(line.startsWith("[verbose] ")).toBe(true);
+    }
+  }, 60_000);
+});
+
+describe("author control bytes in more human output (#830 fix round)", () => {
+  test("audit security <collection> and --all: the Scanning lines are stripped", async () => {
+    for (const argv of [
+      ["audit", "security", skillsRoot],
+      ["audit", "security", "--all"],
+    ]) {
+      const { stdout, stderr, exitCode } = await run(...argv);
+      expect(exitCode).toBe(0);
+      expect(stderr).toContain("  Scanning ");
+      expect(stderr).toContain("evil?[31m");
+      expect(rawControls(stdout)).toEqual([]);
+      expect(rawControls(stderr)).toEqual([]);
+    }
+  }, 60_000);
+
+  test("library list and library update: rows from the lock are stripped", async () => {
+    const root = await emptyHome();
+    const cfg = join(root, "cfg");
+    const libDir = `lib${H}dir`;
+    const libPath = join(cfg, "library", "skills", libDir);
+    await writeSkillAt(libPath, "okname");
+    await writeFile(
+      join(cfg, "library", "library-lock.json"),
+      JSON.stringify({
+        version: 1,
+        skills: {
+          [libDir]: {
+            name: NAME,
+            version: `9${H}`,
+            source: `local:${libPath}`,
+            commitHash: `c${H}`,
+            ref: null,
+            skillPath: "",
+            libraryPath: libPath,
+            installedAt: "2026-01-01T00:00:00.000Z",
+            sourceType: "local",
+          },
+        },
+      }),
+    );
+    const list = await runIn(root, "library", "list");
+    expect(list.exitCode).toBe(0);
+    expect(list.stdout).toContain("evil?[31m");
+    expect(rawControls(list.stdout + list.stderr)).toEqual([]);
+
+    const update = await runIn(root, "library", "update", "--all");
+    expect(update.stdout).toContain("lib?[31m");
+    expect(rawControls(update.stdout + update.stderr)).toEqual([]);
+  }, 60_000);
+
+  test("import: result lines and the manifest validation error are stripped", async () => {
+    const root = await emptyHome();
+    const good = {
+      name: `n${H}`,
+      version: `1${H}`,
+      dirName: `d${H}`,
+      provider: "claude",
+      scope: "global",
+      path: `/nonexistent/p${H}`,
+      isSymlink: false,
+      symlinkTarget: null,
+    };
+    const manifest = (skills: unknown[]) =>
+      JSON.stringify({
+        version: 1,
+        exportedAt: "2026-01-01T00:00:00.000Z",
+        skills,
+      });
+    await writeFile(join(root, "ok.json"), manifest([good]));
+    await writeFile(
+      join(root, "bad.json"),
+      manifest([{ ...good, scope: `s${H}` }]),
+    );
+
+    const ok = await runIn(root, "import", "ok.json", "-y");
+    expect(ok.stderr).toContain("n?[31m");
+    expect(rawControls(ok.stdout + ok.stderr)).toEqual([]);
+
+    for (const extra of [[], ["--json"]]) {
+      const bad = await runIn(root, "import", "bad.json", "-y", ...extra);
+      expect(bad.exitCode).not.toBe(0);
+      expect(bad.stderr).toContain("invalid 'scope' \"s\\u001b[31m");
+      expect(rawControls(bad.stdout + bad.stderr)).toEqual([]);
+    }
+  }, 60_000);
+
+  test("bundle list and bundle install: names and reasons are stripped", async () => {
+    const root = await emptyHome();
+    const bundles = join(root, "cfg", "bundles");
+    await mkdir(bundles, { recursive: true });
+    const file = join(bundles, "b1.json");
+    await writeFile(
+      file,
+      JSON.stringify({
+        version: 1,
+        name: "b1",
+        description: `bundle${H}desc`,
+        author: `me${H}`,
+        createdAt: "2026-01-01T00:00:00.000Z",
+        tags: [`t${H}`],
+        skills: [
+          {
+            name: `s${H}`,
+            installUrl: `/nonexistent/${H}src`,
+            version: `1${H}`,
+          },
+        ],
+      }),
+    );
+    const list = await runIn(root, "bundle", "list");
+    expect(list.exitCode).toBe(0);
+    expect(list.stderr).toContain("bundle?[31m");
+    expect(rawControls(list.stdout + list.stderr)).toEqual([]);
+
+    const install = await runIn(
+      root,
+      "bundle",
+      "install",
+      file,
+      "--yes",
+      "--tool",
+      "claude",
+    );
+    expect(install.stderr).toContain("Installing s?[31m");
+    expect(install.stderr).toMatch(/!!! s\?\[31m/);
+    expect(rawControls(install.stdout + install.stderr)).toEqual([]);
+
+    const modify = await runIn(root, "bundle", "modify", "b1", "--yes");
+    expect(rawControls(modify.stdout + modify.stderr)).toEqual([]);
+  }, 60_000);
+
+  test("doctor: the Missing: line names a lock key without its control bytes", async () => {
+    const root = await emptyHome();
+    await mkdir(join(root, "cfg"), { recursive: true });
+    await writeFile(
+      join(root, "cfg", ".skill-lock.json"),
+      JSON.stringify({
+        version: 1,
+        skills: {
+          [`u${H}`]: {
+            source: "github:o/r",
+            commitHash: "unknown",
+            ref: null,
+            installedAt: "2026-01-01T00:00:00.000Z",
+            provider: "claude",
+          },
+        },
+      }),
+    );
+    const { stdout, stderr } = await runIn(root, "doctor");
+    expect(stdout).toContain("Missing: u?[31m");
+    expect(rawControls(stdout + stderr)).toEqual([]);
+  }, 120_000);
 });
