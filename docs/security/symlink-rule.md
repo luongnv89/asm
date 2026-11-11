@@ -21,6 +21,7 @@ symlink that leaves the folder is a finding and is never followed
 | `asm eval <skill folder or SKILL.md>`, `asm eval --fix`    | the skill folder (the folder holding `SKILL.md`)                                |
 | `asm eval <collection>`                                    | each child skill's folder; a child that is a link is its own real folder        |
 | `asm eval github:…`                                        | each skill's folder, and the skill must sit inside the temporary clone          |
+| `asm inspect <path>`                                       | the folder you name                                                             |
 
 The boundary of a remote source is the whole checkout for `audit`, `get`,
 `install` and `update`, so a skill may link to a sibling folder in the same
@@ -33,6 +34,10 @@ content and reports no finding: it counts regular files only (folders add 0),
 a link inside the folder counts as its target (each real folder once), and a
 link that leaves the folder, dangles or loops adds 0
 ([#826](https://github.com/luongnv89/asm/issues/826)).
+`asm inspect <path>` (a folder that is not installed,
+[#829](https://github.com/luongnv89/asm/issues/829)) reads only that folder's
+`SKILL.md`, and refuses one that links outside the folder as `asm eval` does
+(`SKILL_MD_OUTSIDE_LINK` with `--machine`).
 
 ## What a link becomes
 

@@ -379,6 +379,47 @@ export function cacheSkillMdContent(skill: SkillInfo, content: string): void {
   });
 }
 
+/**
+ * The `SkillInfo` fields a skill's `SKILL.md` frontmatter defines, in the key
+ * order `--json` prints them. Shared by the installed-skill scan and
+ * `asm inspect <path>` (#829) so both read a `SKILL.md` the same way.
+ * `fallbackName` is the folder name, used when the frontmatter has no name.
+ */
+export function skillFieldsFromSkillMd(
+  content: string,
+  fallbackName: string,
+): Pick<
+  SkillInfo,
+  | "name"
+  | "version"
+  | "description"
+  | "creator"
+  | "license"
+  | "compatibility"
+  | "allowedTools"
+  | "tags"
+  | "dependencies"
+  | "modelInvocable"
+  | "userInvocable"
+  | "effort"
+> {
+  const fm = parseFrontmatter(content);
+  return {
+    name: fm.name || fallbackName,
+    version: resolveVersion(fm),
+    description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
+    creator: resolveCreator(fm),
+    license: (fm.license || "").trim(),
+    compatibility: (fm.compatibility || "").trim(),
+    allowedTools: resolveAllowedTools(fm),
+    tags: resolveTags(fm),
+    dependencies: resolveSkillDependencies(fm),
+    modelInvocable: resolveModelInvocable(fm),
+    userInvocable: resolveUserInvocable(fm),
+    effort: fm.effort || fm["metadata.effort"] || undefined,
+  };
+}
+
 export async function scanDirectory(
   loc: ScanLocation,
   scheduler: ScanEntryScheduler,
@@ -417,8 +458,6 @@ export async function scanDirectory(
         return;
       }
 
-      const fm = parseFrontmatter(content);
-
       let isSymlink = false;
       let symlinkTarget: string | null = null;
       try {
@@ -440,18 +479,7 @@ export async function scanDirectory(
       }
 
       const skill: SkillInfo = {
-        name: fm.name || entry,
-        version: resolveVersion(fm),
-        description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
-        creator: resolveCreator(fm),
-        license: (fm.license || "").trim(),
-        compatibility: (fm.compatibility || "").trim(),
-        allowedTools: resolveAllowedTools(fm),
-        tags: resolveTags(fm),
-        dependencies: resolveSkillDependencies(fm),
-        modelInvocable: resolveModelInvocable(fm),
-        userInvocable: resolveUserInvocable(fm),
-        effort: fm.effort || fm["metadata.effort"] || undefined,
+        ...skillFieldsFromSkillMd(content, entry),
         dirName: entry,
         path: resolvedPath,
         originalPath: entryPath,
