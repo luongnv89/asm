@@ -15,7 +15,15 @@ vi.mock("./installer", async (importOriginal) => {
   };
 });
 import { join } from "path";
-import { mkdtemp, rm, writeFile, mkdir, readFile, symlink } from "fs/promises";
+import {
+  mkdtemp,
+  rm,
+  writeFile,
+  mkdir,
+  readFile,
+  realpath,
+  symlink,
+} from "fs/promises";
 import { tmpdir } from "os";
 import { runCLI } from "./cli-test-harness";
 
@@ -467,33 +475,93 @@ describe("CLI integration: eval", () => {
     );
 
     test.skipIf(process.platform === "win32")(
-      "a collection child that links outside is an errored item, not read",
+      "a collection child linked to a skill folder is evaluated as its own folder",
       async () => {
-        const { base, outside } = await fixture();
+        const { base, outside, skill } = await fixture();
         const coll = join(base, "coll");
         try {
           await mkdir(join(coll, "ok"), { recursive: true });
           await writeFile(join(coll, "ok", "SKILL.md"), skillMd("ok"));
-          await mkdir(join(outside, "away"));
-          await writeFile(
-            join(outside, "away", "SKILL.md"),
-            skillMd("away").replace("Prints hi.", MARKER),
+          // `asm activate` / `asm link` layout: the child links to a skill
+          // folder elsewhere, which itself links out to `outside`.
+          await symlink(skill, join(coll, "s1"));
+          await mkdir(join(outside, "nomd"));
+          await symlink(join(outside, "nomd"), join(coll, "nomd"));
+          await symlink("/", join(coll, "root"));
+          const target = await realpath(skill);
+
+          const direct = JSON.parse(
+            (await runCLI("eval", skill, "--json")).stdout,
           );
-          await symlink(join(outside, "away"), join(coll, "away"));
-          const { stdout } = await runCLI("eval", coll, "--json");
-          expect(stdout).not.toContain(MARKER);
-          const parsed = JSON.parse(stdout);
-          const away = parsed.results.find(
-            (r: { label: string }) => r.label === "away",
+          const json = await runCLI("eval", coll, "--json");
+          expect(json.exitCode).toBe(0);
+          expect(json.stdout).not.toContain(MARKER);
+          const parsed = JSON.parse(json.stdout);
+          expect(parsed.aggregate).toMatchObject({ total: 2, failed: 0 });
+          const s1 = parsed.results.find(
+            (r: { label: string }) => r.label === "s1",
           );
-          expect(away.report).toBeNull();
-          expect(away.error).toMatch(
-            /^Symlink not read: away -> .*away \(directory, NOT read\)/,
-          );
+          expect(s1.error).toBeNull();
+          expect(s1.link).toEqual({ path: "s1", target });
+          // Same score and findings as `asm eval <child>`.
+          expect(s1.report.overallScore).toBe(direct.overallScore);
+          expect(s1.report.categories).toEqual(direct.categories);
+          expect(
+            s1.report.externalSymlinks.map((l: { path: string }) => l.path),
+          ).toEqual(expect.arrayContaining(["scripts/linked.py"]));
           const ok = parsed.results.find(
             (r: { label: string }) => r.label === "ok",
           );
-          expect(ok.error).toBeNull();
+          expect(ok).not.toHaveProperty("link");
+
+          const text = await runCLI("eval", coll);
+          expect(text.stdout).not.toContain(MARKER);
+          expect(text.stdout).toContain(
+            `info: s1 -> ${target} (linked skill folder, evaluated at its real path)`,
+          );
+          expect(text.stdout).not.toMatch(/error:/);
+
+          const machine = JSON.parse(
+            (await runCLI("eval", coll, "--machine")).stdout,
+          );
+          const m1 = machine.data.results.find(
+            (r: { label: string }) => r.label === "s1",
+          );
+          expect(m1.link).toEqual({ path: "s1", target });
+
+          // A gate scores the linked child like any other.
+          const gated = await runCLI("eval", coll, "--min-score", "10");
+          expect(gated.exitCode).toBe(0);
+        } finally {
+          await rm(base, { recursive: true, force: true });
+        }
+      },
+    );
+
+    test.skipIf(process.platform === "win32")(
+      "a SKILL.md that links outside has its own --machine error code",
+      async () => {
+        const { base, outside } = await fixture();
+        const linked = join(base, "s2");
+        try {
+          await mkdir(linked);
+          await writeFile(join(outside, "SKILL.md"), `# ${MARKER}\n`);
+          await symlink(join(outside, "SKILL.md"), join(linked, "SKILL.md"));
+          for (const extra of [[], ["--fix"]]) {
+            const { stdout, exitCode } = await runCLI(
+              "eval",
+              linked,
+              "--machine",
+              ...extra,
+            );
+            expect(exitCode).toBe(1);
+            expect(stdout).not.toContain(MARKER);
+            const parsed = JSON.parse(stdout);
+            expect(parsed.error.code).toBe("SKILL_MD_OUTSIDE_LINK");
+            expect(parsed.error.message).toMatch(
+              /^Symlink not read: SKILL\.md -> .*\(file, NOT read\)/,
+            );
+          }
         } finally {
           await rm(base, { recursive: true, force: true });
         }

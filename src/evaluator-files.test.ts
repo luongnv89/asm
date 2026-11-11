@@ -13,10 +13,11 @@ import { existsSync } from "fs";
 import { tmpdir } from "os";
 import { join } from "path";
 import {
+  formatLinkedSkillFolder,
   listSkillFiles,
   readSkillMd,
   skillDirOutside,
-  unreadLinkFinding,
+  SkillMdOutsideLinkError,
 } from "./evaluator-files";
 import {
   applyFix,
@@ -216,6 +217,7 @@ describe("asm eval keeps to the skill folder (#825)", () => {
     );
     const err = await evaluateSkill(linked).catch((e: unknown) => e);
     expect(String(err)).not.toContain(MARKER);
+    expect(err).toBeInstanceOf(SkillMdOutsideLinkError);
     // Named directly, its folder is still the boundary.
     await expect(evaluateSkill(join(linked, "SKILL.md"))).rejects.toThrow(
       /NOT read/,
@@ -266,13 +268,13 @@ describe("asm eval keeps to the skill folder (#825)", () => {
     await writeFile(join(linked, "SKILL.md"), SKILL_MD); // no version: fixable
     await symlink(victim, join(linked, "SKILL.md.bak"));
     await expect(applyFix(linked, { dryRun: false })).rejects.toThrow(
-      /Refusing to write through SKILL\.md\.bak -> /,
+      /Refusing to write through SKILL\.md\.bak -> .*\(file, NOT written\)/,
     );
     expect(await readFile(victim, "utf-8")).toBe("keep me\n");
     expect(await readFile(join(linked, "SKILL.md"), "utf-8")).toBe(SKILL_MD);
   });
 
-  test("a collection child that links outside the collection is not read", async () => {
+  test("a collection child linked to a skill folder is its own skill folder", async () => {
     const coll = join(base, "coll");
     await mkdir(join(coll, "real"), { recursive: true });
     await writeFile(join(coll, "real", "SKILL.md"), SKILL_MD);
@@ -280,14 +282,68 @@ describe("asm eval keeps to the skill folder (#825)", () => {
     const resolved = await resolveEvalInput(coll);
     expect(resolved.isCollection).toBe(true);
     const away = resolved.targets.find((t) => t.label === "away")!;
-    expect(away.boundary).toBe(coll);
-    const link = await skillDirOutside(away.skillPath, away.boundary!);
-    expect(link).toMatchObject({ path: "away", kind: "directory" });
-    expect(unreadLinkFinding(link!)).toBe(
-      `Symlink not read: away -> ${skill} (directory, NOT read)`,
+    // Evaluated as `asm eval <child>` would be: no collection boundary, and
+    // the link is reported as information.
+    expect(away.boundary).toBeUndefined();
+    expect(away.link).toEqual({ path: "away", target: skill });
+    expect(formatLinkedSkillFolder(away.link!)).toBe(
+      `away -> ${skill} (linked skill folder, evaluated at its real path)`,
     );
+    const single = await resolveEvalInput(join(coll, "away"));
+    expect(single.targets[0]).toEqual({
+      skillPath: away.skillPath,
+      skillMdPath: away.skillMdPath,
+      label: away.label,
+    });
     const real = resolved.targets.find((t) => t.label === "real")!;
+    expect(real.boundary).toBe(coll);
+    expect(real.link).toBeUndefined();
     expect(await skillDirOutside(real.skillPath, real.boundary!)).toBeNull();
+
+    // Inside the linked child, links out of its real path are still unread.
+    await plantOutsideLinks();
+    const report = await evaluateSkill(away.skillPath);
+    expect(report.externalSymlinks?.map((l) => l.path)).toContain(
+      "scripts/linked.py",
+    );
+    expect(formatReportJSON(report)).not.toContain(MARKER);
+  });
+
+  test("a collection child link with no SKILL.md behind it is never listed", async () => {
+    const coll = join(base, "coll");
+    await mkdir(join(coll, "real"), { recursive: true });
+    await writeFile(join(coll, "real", "SKILL.md"), SKILL_MD);
+    await symlink(join(outside, "dir"), join(coll, "nomd")); // dir, no SKILL.md
+    await symlink(join(outside, "SKILL.md"), join(coll, "filelink"));
+    if (POSIX) await symlink("/", join(coll, "root"));
+    if (LINUX) await symlink("/proc/self", join(coll, "proc"));
+    const started = Date.now();
+    const resolved = await resolveEvalInput(coll);
+    expect(Date.now() - started).toBeLessThan(5_000);
+    expect(resolved.targets.map((t) => t.label)).toEqual(["real"]);
+  });
+
+  test("an outside or dangling LICENSE link earns no licence credit", async () => {
+    const lic = (r: Awaited<ReturnType<typeof evaluateSkill>>) =>
+      r.categories.find((c) => c.id === "license")!.score;
+    const none = await evaluateSkill(skill);
+    await writeFile(join(outside, "LICENSE"), "MIT License\n");
+    await symlink(join(outside, "LICENSE"), join(skill, "LICENSE"));
+    const outsideLink = await evaluateSkill(skill);
+    expect(lic(outsideLink)).toBe(lic(none));
+    expect(outsideLink.overallScore).toBe(none.overallScore);
+    expect(outsideLink.externalSymlinks?.map((l) => l.path)).toEqual([
+      "LICENSE",
+    ]);
+    await rm(join(skill, "LICENSE"));
+    await symlink(join(outside, "gone"), join(skill, "LICENSE"));
+    const dangling = await evaluateSkill(skill);
+    expect(lic(dangling)).toBe(lic(none));
+    expect(dangling.overallScore).toBe(none.overallScore);
+    // A real LICENSE in the folder still earns credit.
+    await rm(join(skill, "LICENSE"));
+    await writeFile(join(skill, "LICENSE"), "MIT License\n");
+    expect(lic(await evaluateSkill(skill))).toBeGreaterThan(lic(none));
   });
 
   test("a remote subpath that links out of the clone is never listed", async () => {

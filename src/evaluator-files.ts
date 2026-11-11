@@ -10,7 +10,7 @@
  */
 
 import { lstat, readlink, realpath, stat } from "fs/promises";
-import { basename, dirname, isAbsolute, relative, resolve } from "path";
+import { basename, dirname, isAbsolute, join, relative, resolve } from "path";
 import {
   externalLink,
   isPathInside,
@@ -79,12 +79,18 @@ export function readSkillFile(file: SkillFile): Promise<string | null> {
   return readBoundedTextFile(file.fullPath, Math.max(MAX_FILE_SIZE, file.size));
 }
 
-/** `path -> target (kind, NOT read)`, as `asm audit security` prints it. */
-export function formatUnreadLink(link: ExternalSymlink): string {
+/**
+ * `path -> target (kind, NOT read)`, as `asm audit security` prints it.
+ * `verb` names what was refused: `written` for the `--fix` backup.
+ */
+export function formatUnreadLink(
+  link: ExternalSymlink,
+  verb: "read" | "written" = "read",
+): string {
   const note =
     link.kind === "dangling" || link.kind === "loop"
       ? `${link.kind}, not followed`
-      : `${link.kind}, NOT read`;
+      : `${link.kind}, NOT ${verb}`;
   const target = link.target ? stripControlBytes(link.target) : "(unreadable)";
   return `${stripControlBytes(link.path)} -> ${target} (${note})`;
 }
@@ -95,12 +101,62 @@ export function unreadLinkFinding(link: ExternalSymlink): string {
 }
 
 /**
- * Read a skill's SKILL.md only when it resolves inside its folder (the
- * parent's real path). Returns null when it does not exist. Throws, without
- * opening it, when it is a link that leaves the folder, and when it is not a
- * regular file.
+ * A collection child folder that is itself a link, reported as information:
+ * it is evaluated as its own skill folder at its real path (#825).
  */
-export async function readSkillMd(skillMdPath: string): Promise<string | null> {
+export interface LinkedSkillFolder {
+  /** The child's name in the collection. */
+  path: string;
+  /** The child's real path: the boundary of its evaluation. */
+  target: string;
+}
+
+/** `path -> target (linked skill folder, evaluated at its real path)`. */
+export function formatLinkedSkillFolder(link: LinkedSkillFolder): string {
+  return `${stripControlBytes(link.path)} -> ${stripControlBytes(link.target)} (linked skill folder, evaluated at its real path)`;
+}
+
+/**
+ * When the collection child `childDir` is a link to a folder whose real
+ * path holds a `SKILL.md`, that folder is a skill in its own right (an
+ * `asm activate`, cross-tool or `asm link` install): returns the link, to be
+ * evaluated as `asm eval <child>` would. Returns null for a child that is not
+ * a link, and for a link whose target is not such a folder (a link to `/` or
+ * `/proc/self` is resolved, never walked).
+ */
+export async function linkedSkillFolder(
+  childDir: string,
+): Promise<LinkedSkillFolder | null> {
+  try {
+    if (!(await lstat(childDir)).isSymbolicLink()) return null;
+    const real = await realpath(childDir);
+    if (!(await stat(real)).isDirectory()) return null;
+    if (!(await stat(join(real, "SKILL.md"))).isFile()) return null;
+    return { path: basename(childDir), target: real };
+  } catch {
+    return null;
+  }
+}
+
+/** A `SKILL.md` that links out of its folder: refused, never opened. */
+export class SkillMdOutsideLinkError extends Error {
+  readonly link: ExternalSymlink;
+  constructor(link: ExternalSymlink) {
+    super(
+      `${unreadLinkFinding(link)}. asm eval reads nothing outside the skill folder.`,
+    );
+    this.name = "SkillMdOutsideLinkError";
+    this.link = link;
+  }
+}
+
+/**
+ * The link `SKILL.md` is when it resolves outside its folder (the parent's
+ * real path), else null. Also null when it does not exist.
+ */
+export async function skillMdOutside(
+  skillMdPath: string,
+): Promise<ExternalSymlink | null> {
   const abs = resolve(skillMdPath);
   let folderReal: string;
   let mdReal: string;
@@ -110,15 +166,25 @@ export async function readSkillMd(skillMdPath: string): Promise<string | null> {
   } catch {
     return null;
   }
-  if (!isPathInside(folderReal, mdReal)) {
-    const link = externalLink(
-      basename(abs),
-      mdReal,
-      await outsideLinkKind(abs),
-    );
-    throw new Error(
-      `${unreadLinkFinding(link)}. asm eval reads nothing outside the skill folder.`,
-    );
+  if (isPathInside(folderReal, mdReal)) return null;
+  return externalLink(basename(abs), mdReal, await outsideLinkKind(abs));
+}
+
+/**
+ * Read a skill's SKILL.md only when it resolves inside its folder (the
+ * parent's real path). Returns null when it does not exist. Throws, without
+ * opening it, a `SkillMdOutsideLinkError` when it is a link that leaves the
+ * folder, and an error when it is not a regular file.
+ */
+export async function readSkillMd(skillMdPath: string): Promise<string | null> {
+  const abs = resolve(skillMdPath);
+  const outside = await skillMdOutside(abs);
+  if (outside) throw new SkillMdOutsideLinkError(outside);
+  let mdReal: string;
+  try {
+    mdReal = await realpath(abs);
+  } catch {
+    return null;
   }
   let size: number;
   try {
@@ -184,6 +250,6 @@ export async function assertNoLinkOut(path: string): Promise<void> {
     real === null ? "dangling" : await outsideLinkKind(path),
   );
   throw new Error(
-    `Refusing to write through ${formatUnreadLink(link)}: it leaves the skill folder. Remove the link and run --fix again.`,
+    `Refusing to write through ${formatUnreadLink(link, "written")}: it leaves the skill folder. Remove the link and run --fix again.`,
   );
 }

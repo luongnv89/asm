@@ -18,7 +18,11 @@
 
 import { stat, readdir } from "fs/promises";
 import { join, resolve, basename, isAbsolute, relative } from "path";
-import { skillDirOutside } from "./evaluator-files";
+import {
+  linkedSkillFolder,
+  skillDirOutside,
+  type LinkedSkillFolder,
+} from "./evaluator-files";
 import type { EvaluationReport, FixResult } from "./evaluator-core";
 
 // Re-export types so consumers can import from evaluator-batch directly
@@ -51,6 +55,12 @@ export interface EvalTarget {
    * a link.
    */
   boundary?: string;
+  /**
+   * Set when this collection child is a link to a folder holding a
+   * `SKILL.md` (#825): it is its own skill folder, evaluated as
+   * `asm eval <child>` would, and the link is reported as information.
+   */
+  link?: LinkedSkillFolder;
 }
 
 export interface EvalProvenance {
@@ -310,12 +320,22 @@ export async function resolveEvalInput(
     );
   }
 
-  // Children of a collection must stay inside it (#825), as for audit.
+  // Children of a collection must stay inside it (#825), as for audit. A
+  // child that is a link to a skill folder (`asm activate`, cross-tool
+  // install, `asm link`) is a skill folder in its own right: its boundary is
+  // its real path, as for `asm eval <child>` ("Linked folders" in the rule).
   const collection = classification.kind === "collection";
+  const targets = await Promise.all(
+    classification.skillDirs.map(async (dir): Promise<EvalTarget> => {
+      if (!collection) return buildTargetFromSkillDir(dir);
+      const link = await linkedSkillFolder(dir);
+      return link
+        ? { ...buildTargetFromSkillDir(dir), link }
+        : buildTargetFromSkillDir(dir, abs);
+    }),
+  );
   return {
-    targets: classification.skillDirs.map((dir) =>
-      buildTargetFromSkillDir(dir, collection ? abs : undefined),
-    ),
+    targets,
     isCollection: collection,
     cleanup: async () => {},
     provenance: { input, remote: false, sourceRef: null },
@@ -333,6 +353,8 @@ export interface EvalBatchItem {
   report: EvaluationReport | null;
   /** Error message when eval failed for this skill (non-fatal — kept in results). */
   error: string | null;
+  /** The collection child is a link to its own skill folder (#825). */
+  link?: LinkedSkillFolder;
 }
 
 export interface EvalBatchAggregate {
@@ -504,6 +526,7 @@ export function buildBatchMachineData(batch: EvalBatchResult) {
       label: r.label,
       skill_path: r.skillPath,
       error: r.error,
+      ...(r.link ? { link: r.link } : {}),
       report: r.report ? buildEvalMachineData(r.report, null) : null,
     })),
   };

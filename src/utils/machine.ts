@@ -31,6 +31,8 @@ export interface MachineOutput<T = unknown> {
 
 export const ErrorCodes = {
   SKILL_NOT_FOUND: "SKILL_NOT_FOUND",
+  /** `asm eval`: SKILL.md is a link out of its folder, refused unread (#825). */
+  SKILL_MD_OUTSIDE_LINK: "SKILL_MD_OUTSIDE_LINK",
   AUDIT_FAILED: "AUDIT_FAILED",
   INSTALL_FAILED: "INSTALL_FAILED",
   PUBLISH_FAILED: "PUBLISH_FAILED",
