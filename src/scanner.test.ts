@@ -93,6 +93,7 @@ import {
   readCodexMarketplaceFiles,
   compareSemver,
   countFiles,
+  skillFieldsFromSkillMd,
 } from "./scanner";
 import { setVerbose } from "./logger";
 import { getDefaultConfig } from "./config";
@@ -2106,5 +2107,52 @@ describe("scanAllSkills alias check is per provider (#806)", () => {
       ["c1", "global", "custom"],
     ]);
     expect(await scanFrom(tempDir, "project", config)).toEqual([]);
+  });
+});
+
+describe("skillFieldsFromSkillMd (#829)", () => {
+  it("maps frontmatter to SkillInfo fields in --json key order", () => {
+    const fields = skillFieldsFromSkillMd(
+      [
+        "---",
+        "name: n",
+        "description: |",
+        "  line one",
+        "  line two",
+        "license: MIT",
+        "effort: high",
+        "metadata:",
+        "  version: 1.0.0",
+        "  author: someone",
+        "---",
+        "Body",
+      ].join("\n"),
+      "folder",
+    );
+    expect(Object.keys(fields)).toEqual([
+      "name",
+      "version",
+      "description",
+      "creator",
+      "license",
+      "compatibility",
+      "allowedTools",
+      "tags",
+      "dependencies",
+      "modelInvocable",
+      "userInvocable",
+      "effort",
+    ]);
+    expect(fields).toMatchObject({
+      name: "n",
+      version: "1.0.0",
+      description: "line one line two",
+      creator: "someone",
+      license: "MIT",
+      effort: "high",
+    });
+    expect(skillFieldsFromSkillMd("no frontmatter", "folder").name).toBe(
+      "folder",
+    );
   });
 });

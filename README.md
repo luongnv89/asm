@@ -445,6 +445,12 @@ asm inspect my-skill
 asm inspect my-skill --json
 ```
 
+```bash
+asm inspect ./drafts/my-skill   # a skill folder that is not installed
+```
+
+`asm inspect` takes its argument as a path when it contains `/` or starts with `.` (`./x`, `../x`, `/abs/x`, `skills/x`); anything else is an installed skill name, even when a folder of that name exists in the current directory (write `./name` for the folder). The folder must hold a `SKILL.md`. It shows the same fields as an installed skill, read from the folder; the installation fields (tool, scope, location) show `not installed`, and in `--json` they are empty (`provider`, `providerLabel`, `location`) or `null` (`scope`). The folder is read under the [symlink rule](docs/security/symlink-rule.md): a `SKILL.md` that links outside it is refused unread (`SKILL_MD_OUTSIDE_LINK` with `--machine`), a link inside it that leaves the folder adds nothing to the File Count, and a folder that is itself a link is followed and its real path shown as `Resolved:`.
+
 ### Test install flow
 
 ```bash
@@ -651,7 +657,7 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm search <query>` | Search by name/description/provider |
 | `asm search <query> --fuzzy` | Fuzzy-find installed skills in global dirs; `--root <dir>` adds projects under `<dir>` |
 | `asm tag add\|remove` | Edit local tags on an installed skill |
-| `asm inspect <skill-name>` | Show detailed info for a skill |
+| `asm inspect <skill-name\|path>` | Show detailed info for an installed skill or a skill folder |
 | `asm get <skill>` | Print a skill's body, install nothing — `--path` borrows the full directory |
 | `asm cleanup <path>` | Remove a directory borrowed by `asm get --path` |
 | `asm deps discover\|acquire\|release\|cleanup` | Manage caller-owned temporary dependency leases |

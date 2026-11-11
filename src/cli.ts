@@ -450,7 +450,7 @@ ${ansi.bold("Commands:")}
   search <query>         Search skills by name/description/tool
   search <query> --fuzzy Fuzzy-find installed skills; --root <dir> adds projects
   tag add|remove         Edit local tags for an installed skill
-  inspect <skill-name>   Show detailed info for a skill
+  inspect <name|path>    Show detailed info for a skill or skill folder
   get <skill>            Print a skill body, or borrow its directory with --path
   cleanup <path>         Remove an exact directory borrowed by get --path
   deps                   Manage caller-owned temporary dependency leases
