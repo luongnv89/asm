@@ -68,4 +68,14 @@ describe("logger", () => {
     expect(output).toContain("[verbose]");
     expect(output).toContain("no color test");
   });
+
+  test("debug() strips control bytes from the message, keeping newlines (#830)", () => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+    setVerbose(true);
+    debug("skip: evil\x1b[31m\x07\u009b\x7f\nnext");
+    const output = stderrSpy.mock.calls[0][0] as string;
+    expect(output).toMatch(/skip: evil\?\[31m\?\?\?\nnext/);
+    // eslint-disable-next-line no-control-regex
+    expect(output).not.toMatch(/[\x00-\x08\x0b-\x1f\x7f-\x9f]/);
+  });
 });
