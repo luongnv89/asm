@@ -38,9 +38,9 @@ ${ansi.bold("Name or path:")}
   Anything else is an installed skill name, even when a folder of that name
   exists here (use ./name for the folder). A path must be a folder holding a
   SKILL.md. It is read like asm eval reads it: nothing outside the folder is
-  opened. Installation fields (tool, scope, location)
-  show "not installed" (empty, or null for scope, in --json). --scope applies
-  to names only; --machine prints the v1 envelope for a path.`);
+  opened. Installation fields (tool, scope, location) show "not installed"
+  (empty, or null for scope, in --json). --scope applies to names only;
+  --machine prints the v1 envelope for a path.`);
 }
 
 export async function cmdInspect(args: ParsedArgs) {
