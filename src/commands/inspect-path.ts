@@ -158,7 +158,11 @@ export async function cmdInspectPath(args: ParsedArgs, arg: string) {
   const lines: string[] = [];
   if (skill.realPath !== skill.path) {
     lines.push(
-      `${ansi.dim("Resolved:")} ${skill.realPath} ${ansi.dim("(target is a symlink; followed)")}`,
+      `${ansi.dim("Resolved:")} ${skill.realPath} ${ansi.dim(
+        skill.isSymlink
+          ? "(target is a symlink; followed)"
+          : "(a parent folder is a symlink; followed)",
+      )}`,
     );
   }
   lines.push(

@@ -292,6 +292,21 @@ describe("CLI integration: inspect <path> (#829)", () => {
     },
   );
 
+  test.skipIf(!POSIX)(
+    "a folder under a linked parent is announced without calling it a link",
+    async () => {
+      await symlink(work, join(root, "work-link"));
+      const { stdout, exitCode } = await inspect([
+        join(root, "work-link", "local-skill"),
+      ]);
+      expect(exitCode).toBe(0);
+      expect(stdout.split("\n")[0]).toBe(
+        `Resolved: ${skillDir} (a parent folder is a symlink; followed)`,
+      );
+      expect(stdout).toContain("Type: directory");
+    },
+  );
+
   test("a name that is also a folder in cwd resolves as the installed name", async () => {
     await installSkill("local-skill", "installed-twin");
     const byName = await inspect(["local-skill"]);
