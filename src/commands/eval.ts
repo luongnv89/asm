@@ -59,6 +59,13 @@ import { join as joinPath } from "path";
 import type { TransportMode } from "../utils/types";
 
 import { error } from "./shared";
+import {
+  formatLinkedSkillFolder,
+  skillDirOutside,
+  skillMdOutside,
+  SkillMdOutsideLinkError,
+  unreadLinkFinding,
+} from "../evaluator-files";
 import type { ParsedArgs } from "../cli";
 
 function printEvalHelp() {
@@ -217,9 +224,26 @@ export async function fetchRemoteSkillDir(
 async function runSingleEval(target: EvalTarget): Promise<{
   report: (EvaluationReport & { providers: ProviderEvalReport[] }) | null;
   error: string | null;
+  /** The thrown error, so a refused `SKILL.md` link keeps its own code. */
+  cause?: unknown;
 }> {
   ensureEvalBuiltins();
   try {
+    // A skill folder that links out of its collection or clone is never
+    // read (#825): it is reported as the link it is.
+    const outside = target.boundary
+      ? await skillDirOutside(target.skillPath, target.boundary)
+      : null;
+    if (outside) {
+      return {
+        report: null,
+        error: `${unreadLinkFinding({ ...outside, path: target.label })}. The skill folder leaves the folder being evaluated; asm eval reads nothing outside it.`,
+      };
+    }
+    // A SKILL.md that links out of its folder is refused before any
+    // provider runs, so the refusal keeps its type (and machine code).
+    const mdOutside = await skillMdOutside(target.skillMdPath);
+    if (mdOutside) throw new SkillMdOutsideLinkError(mdOutside);
     const ctx = {
       skillPath: target.skillPath,
       skillMdPath: target.skillMdPath,
@@ -248,8 +272,15 @@ async function runSingleEval(target: EvalTarget): Promise<{
       error: null,
     };
   } catch (err) {
-    return { report: null, error: errorMessage(err) };
+    return { report: null, error: errorMessage(err), cause: err };
   }
+}
+
+/** The `--machine` error code for a failed eval. */
+function evalErrorCode(err: unknown) {
+  return err instanceof SkillMdOutsideLinkError
+    ? ErrorCodes.SKILL_MD_OUTSIDE_LINK
+    : ErrorCodes.SKILL_NOT_FOUND;
 }
 
 export async function cmdEval(args: ParsedArgs) {
@@ -382,7 +413,7 @@ export async function cmdEval(args: ParsedArgs) {
         console.log(
           formatMachineError(
             "eval",
-            ErrorCodes.SKILL_NOT_FOUND,
+            evalErrorCode(err),
             errorMessage(err),
             startTime,
           ),
@@ -424,9 +455,11 @@ export async function cmdEval(args: ParsedArgs) {
     // Single-skill path — preserve byte-identical output locked in by existing tests.
     if (!resolved.isCollection && resolved.targets.length === 1) {
       const target = resolved.targets[0];
-      const { report, error: runErr } = await runSingleEval(target);
+      const { report, error: runErr, cause } = await runSingleEval(target);
       if (!report) {
-        throw new Error(runErr ?? "eval failed");
+        throw cause instanceof SkillMdOutsideLinkError
+          ? cause
+          : new Error(runErr ?? "eval failed");
       }
       const verdict = gate ? checkThresholds(report, thresholds) : null;
       // exitCode, not exit(): output below must flush and `finally` must run.
@@ -525,6 +558,7 @@ export async function cmdEval(args: ParsedArgs) {
           skillPath: target.skillPath,
           report,
           error: runErr,
+          ...(target.link ? { link: target.link } : {}),
         };
       },
     );
@@ -591,6 +625,7 @@ export async function cmdEval(args: ParsedArgs) {
               label: r.label,
               skillPath: r.skillPath,
               error: r.error,
+              ...(r.link ? { link: r.link } : {}),
               report: r.report,
               ...(verdicts ? { threshold: verdicts[idx] } : {}),
             })),
@@ -604,6 +639,9 @@ export async function cmdEval(args: ParsedArgs) {
 
     // Human-readable text: print each report then the summary footer.
     for (const [idx, item] of batch.results.entries()) {
+      if (item.link) {
+        console.log(ansi.dim(`info: ${formatLinkedSkillFolder(item.link)}`));
+      }
       if (item.report) {
         console.log(formatReport(item.report));
         const verdict = verdicts?.[idx];
@@ -636,7 +674,7 @@ export async function cmdEval(args: ParsedArgs) {
       console.log(
         formatMachineError(
           "eval",
-          ErrorCodes.SKILL_NOT_FOUND,
+          evalErrorCode(err),
           errorMessage(err),
           startTime,
         ),

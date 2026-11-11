@@ -17,7 +17,12 @@
  */
 
 import { stat, readdir } from "fs/promises";
-import { join, resolve, basename, isAbsolute } from "path";
+import { join, resolve, basename, isAbsolute, relative } from "path";
+import {
+  linkedSkillFolder,
+  skillDirOutside,
+  type LinkedSkillFolder,
+} from "./evaluator-files";
 import type { EvaluationReport, FixResult } from "./evaluator-core";
 
 // Re-export types so consumers can import from evaluator-batch directly
@@ -42,6 +47,20 @@ export interface EvalTarget {
   skillMdPath: string;
   /** Short display label (the skill's directory basename). */
   label: string;
+  /**
+   * The folder this skill was found in and must not leave (#825): the
+   * collection folder the user named, or the clone of a remote source. A
+   * skill folder that resolves outside it is reported and never read. Unset
+   * for a single local skill, whose own folder is followed even when it is
+   * a link.
+   */
+  boundary?: string;
+  /**
+   * Set when this collection child is a link to a folder holding a
+   * `SKILL.md` (#825): it is its own skill folder, evaluated as
+   * `asm eval <child>` would, and the link is reported as information.
+   */
+  link?: LinkedSkillFolder;
 }
 
 export interface EvalProvenance {
@@ -166,11 +185,15 @@ export function looksLikeGithubInput(input: string): boolean {
   return false;
 }
 
-function buildTargetFromSkillDir(skillDir: string): EvalTarget {
+function buildTargetFromSkillDir(
+  skillDir: string,
+  boundary?: string,
+): EvalTarget {
   return {
     skillPath: skillDir,
     skillMdPath: join(skillDir, "SKILL.md"),
     label: basename(skillDir),
+    ...(boundary ? { boundary } : {}),
   };
 }
 
@@ -194,6 +217,8 @@ export interface ResolveEvalInputOptions {
     cleanup: () => Promise<void>;
     sourceRef: string;
     commitSha: string | null;
+    /** The clone root, when `rootDir` is a folder inside it (#825). */
+    tempDir?: string;
   }>;
 }
 
@@ -212,6 +237,29 @@ export async function resolveEvalInput(
       );
     }
     const remote = await options.fetchRemote(input);
+    const boundary = remote.tempDir ?? remote.rootDir;
+    const provenance: EvalProvenance = {
+      input,
+      remote: true,
+      sourceRef: remote.sourceRef,
+      commitSha: remote.commitSha,
+      tempPath: remote.rootDir,
+    };
+    // A subpath that links out of the clone is never listed (#825): one
+    // target that `asm eval` reports as a link it did not read.
+    if (await skillDirOutside(remote.rootDir, boundary)) {
+      return {
+        targets: [
+          {
+            ...buildTargetFromSkillDir(remote.rootDir, boundary),
+            label: relative(boundary, remote.rootDir) || ".",
+          },
+        ],
+        isCollection: false,
+        cleanup: remote.cleanup,
+        provenance,
+      };
+    }
     let classification: DirectoryClassification;
     try {
       classification = await classifyEvalDirectory(remote.rootDir);
@@ -226,16 +274,12 @@ export async function resolveEvalInput(
       );
     }
     return {
-      targets: classification.skillDirs.map(buildTargetFromSkillDir),
+      targets: classification.skillDirs.map((dir) =>
+        buildTargetFromSkillDir(dir, boundary),
+      ),
       isCollection: classification.kind === "collection",
       cleanup: remote.cleanup,
-      provenance: {
-        input,
-        remote: true,
-        sourceRef: remote.sourceRef,
-        commitSha: remote.commitSha,
-        tempPath: remote.rootDir,
-      },
+      provenance,
     };
   }
 
@@ -276,9 +320,23 @@ export async function resolveEvalInput(
     );
   }
 
+  // Children of a collection must stay inside it (#825), as for audit. A
+  // child that is a link to a skill folder (`asm activate`, cross-tool
+  // install, `asm link`) is a skill folder in its own right: its boundary is
+  // its real path, as for `asm eval <child>` ("Linked folders" in the rule).
+  const collection = classification.kind === "collection";
+  const targets = await Promise.all(
+    classification.skillDirs.map(async (dir): Promise<EvalTarget> => {
+      if (!collection) return buildTargetFromSkillDir(dir);
+      const link = await linkedSkillFolder(dir);
+      return link
+        ? { ...buildTargetFromSkillDir(dir), link }
+        : buildTargetFromSkillDir(dir, abs);
+    }),
+  );
   return {
-    targets: classification.skillDirs.map(buildTargetFromSkillDir),
-    isCollection: classification.kind === "collection",
+    targets,
+    isCollection: collection,
     cleanup: async () => {},
     provenance: { input, remote: false, sourceRef: null },
   };
@@ -295,6 +353,8 @@ export interface EvalBatchItem {
   report: EvaluationReport | null;
   /** Error message when eval failed for this skill (non-fatal — kept in results). */
   error: string | null;
+  /** The collection child is a link to its own skill folder (#825). */
+  link?: LinkedSkillFolder;
 }
 
 export interface EvalBatchAggregate {
@@ -466,6 +526,7 @@ export function buildBatchMachineData(batch: EvalBatchResult) {
       label: r.label,
       skill_path: r.skillPath,
       error: r.error,
+      ...(r.link ? { link: r.link } : {}),
       report: r.report ? buildEvalMachineData(r.report, null) : null,
     })),
   };

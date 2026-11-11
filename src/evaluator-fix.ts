@@ -7,14 +7,7 @@
  * `evaluator-batch.ts`.
  */
 
-import {
-  readFile,
-  writeFile,
-  stat,
-  copyFile,
-  readdir,
-  realpath,
-} from "fs/promises";
+import { writeFile, stat, copyFile, readdir, realpath } from "fs/promises";
 import {
   join,
   resolve,
@@ -49,6 +42,13 @@ import {
 } from "./evaluator-core";
 import { scorePII, scoreScriptLint } from "./evaluator-pii-lint";
 import {
+  assertNoLinkOut,
+  formatUnreadLink,
+  listSkillFiles,
+  readSkillMd,
+  unreadLinkFinding,
+} from "./evaluator-files";
+import {
   findLicenseFileName,
   isLicenseFileName,
 } from "./evaluator-scorers-policy";
@@ -79,6 +79,23 @@ export async function evaluateSkillContent(args: {
   const fm = parseFrontmatter(content);
   const { rawFrontmatter, body } = splitSkillMd(content);
 
+  // One confined walk for both file scorers (#825): nothing outside the
+  // skill folder is read, and each link that leaves it is reported once.
+  const files = await listSkillFiles(skillPath);
+
+  // A root entry that is such a link earns no licence credit by its name:
+  // an outside or dangling LICENSE link scores as no LICENSE at all (#825).
+  const unreadAtRoot = new Set(
+    files.externalSymlinks
+      .map((link) => link.path)
+      .filter((path) => !path.includes("/")),
+  );
+  const licenseEntries = rootEntries?.filter((e) => !unreadAtRoot.has(e));
+  const licenseInherited =
+    findLicenseFileName(rootEntries) && !findLicenseFileName(licenseEntries)
+      ? await findInheritedLicenseFile(skillPath)
+      : inheritedLicenseFile;
+
   // Synchronous scorers run immediately; async scorers run in parallel.
   const syncCategories: CategoryResult[] = [
     scoreStructure(fm, body, rawFrontmatter, rootEntries),
@@ -87,14 +104,23 @@ export async function evaluateSkillContent(args: {
     scoreContextEfficiency(fm, body),
     scoreSafety(fm, body),
     scoreTestability(fm, body),
-    scoreLicense(fm, body, rootEntries, inheritedLicenseFile),
+    scoreLicense(fm, body, licenseEntries, licenseInherited),
     scoreNaming(fm, body),
   ];
 
   const [piiResult, scriptLintResult] = await Promise.all([
-    scorePII(skillPath),
-    scoreScriptLint(skillPath),
+    scorePII(skillPath, files),
+    scoreScriptLint(skillPath, files),
   ]);
+  const unreadLinks = files.externalSymlinks;
+  if (unreadLinks.length > 0) {
+    // Reported, never scored: the score cannot depend on what is behind it.
+    const structure = syncCategories.find((c) => c.id === "structure")!;
+    for (const link of unreadLinks) {
+      structure.findings.push(unreadLinkFinding(link));
+    }
+    structure.suggestions.push(UNREAD_LINK_SUGGESTION);
+  }
 
   const categories: CategoryResult[] = [
     ...syncCategories,
@@ -149,8 +175,12 @@ export async function evaluateSkillContent(args: {
     grade,
     topSuggestions,
     frontmatter: fm,
+    ...(unreadLinks.length > 0 ? { externalSymlinks: unreadLinks } : {}),
   };
 }
+
+const UNREAD_LINK_SUGGESTION =
+  "Replace symlinks that leave the skill folder with the files themselves: asm eval does not read them, and they do not travel with the skill.";
 
 /**
  * Synchronous version of evaluateSkillContent for callers that only have
@@ -265,9 +295,11 @@ export async function evaluateSkill(
   let content: string;
 
   if (s.isFile()) {
-    // Accept a direct SKILL.md path
+    // Accept a direct SKILL.md path. Its folder is the skill folder (#825).
     skillMdPath = resolved;
-    content = await readFile(skillMdPath, "utf-8");
+    const md = await readSkillMd(skillMdPath);
+    if (md === null) throw new Error(`SKILL.md not found at ${skillMdPath}.`);
+    content = md;
     return evaluateSkillContent({
       content,
       skillPath:
@@ -281,13 +313,14 @@ export async function evaluateSkill(
   }
 
   skillMdPath = join(resolved, "SKILL.md");
-  try {
-    content = await readFile(skillMdPath, "utf-8");
-  } catch {
+  // Throws, without reading it, when SKILL.md links outside the folder.
+  const md = await readSkillMd(skillMdPath);
+  if (md === null) {
     throw new Error(
       `SKILL.md not found in ${resolved}. Run "asm init" to create one.`,
     );
   }
+  content = md;
 
   return evaluateSkillContent({
     content,
@@ -719,12 +752,10 @@ export async function applyFix(
     throw new Error(`Skill path is not a directory or file: ${resolved}`);
   }
 
-  let original: string;
-  try {
-    original = await readFile(skillMdPath, "utf-8");
-  } catch {
-    throw new Error(`SKILL.md not found at ${skillMdPath}.`);
-  }
+  // Throws, without reading or writing it, when SKILL.md links outside.
+  const md = await readSkillMd(skillMdPath);
+  if (md === null) throw new Error(`SKILL.md not found at ${skillMdPath}.`);
+  const original = md;
 
   const plan = buildFixPlan(original, { gitAuthor: options.gitAuthor });
   const diff = unifiedDiff(original, plan.newContent);
@@ -732,6 +763,7 @@ export async function applyFix(
   let backupPath: string | null = null;
   if (!options.dryRun && plan.newContent !== original) {
     backupPath = `${skillMdPath}.bak`;
+    await assertNoLinkOut(backupPath);
     await copyFile(skillMdPath, backupPath);
     await writeFile(skillMdPath, plan.newContent, "utf-8");
   }
@@ -830,6 +862,18 @@ export function formatReport(
     }
   } else {
     lines.push("No suggestions — skill looks great.");
+  }
+
+  const unreadLinks = report.externalSymlinks ?? [];
+  if (unreadLinks.length > 0) {
+    lines.push("");
+    lines.push(`Symlinks not read (${unreadLinks.length}):`);
+    for (const link of unreadLinks) {
+      lines.push(`  ${formatUnreadLink(link)}`);
+    }
+    lines.push(
+      "  Content outside the skill folder is never read or scored. Review these targets by hand.",
+    );
   }
 
   for (const provider of extraProviders) {

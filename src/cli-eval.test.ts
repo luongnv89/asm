@@ -15,7 +15,15 @@ vi.mock("./installer", async (importOriginal) => {
   };
 });
 import { join } from "path";
-import { mkdtemp, rm, writeFile, mkdir, readFile } from "fs/promises";
+import {
+  mkdtemp,
+  rm,
+  writeFile,
+  mkdir,
+  readFile,
+  realpath,
+  symlink,
+} from "fs/promises";
 import { tmpdir } from "os";
 import { runCLI } from "./cli-test-harness";
 
@@ -409,6 +417,188 @@ describe("CLI integration: eval", () => {
       remoteClone.dir = null;
       await rm(clone, { recursive: true, force: true });
     }
+  });
+
+  describe("symlinks that leave the skill folder (#825)", () => {
+    const MARKER = "OUTSIDE-MARKER-825";
+    const skillMd = (name: string) =>
+      `---\nname: ${name}\ndescription: "Use when testing. Prints hi."\nlicense: MIT\n---\n\n# ${name}\n\nRun \`python3 scripts/linked.py\`.\n`;
+
+    async function fixture() {
+      const base = await mkdtemp(join(tmpdir(), "eval-cli-links-"));
+      const outside = join(base, "outside");
+      const skill = join(base, "s1");
+      await mkdir(join(outside, "dir"), { recursive: true });
+      await mkdir(join(skill, "scripts"), { recursive: true });
+      await writeFile(
+        join(outside, "secret.py"),
+        `def broken(:\n    pass  # ${MARKER}\n`,
+      );
+      await writeFile(join(outside, "dir", "bad2.py"), `x = (  # ${MARKER}\n`);
+      await writeFile(join(skill, "SKILL.md"), skillMd("s1"));
+      await symlink(
+        join(outside, "secret.py"),
+        join(skill, "scripts", "linked.py"),
+      );
+      await symlink(join(outside, "dir"), join(skill, "scripts", "linkdir"));
+      return { base, outside, skill };
+    }
+
+    test.skipIf(process.platform === "win32")(
+      "eval --json and text report the links and never their content",
+      async () => {
+        const { base, skill } = await fixture();
+        try {
+          const json = await runCLI("eval", skill, "--json");
+          expect(json.exitCode).toBe(0);
+          expect(json.stdout).not.toContain(MARKER);
+          const report = JSON.parse(json.stdout);
+          expect(
+            report.externalSymlinks.map((l: { path: string }) => l.path).sort(),
+          ).toEqual(["scripts/linkdir", "scripts/linked.py"]);
+          const lint = report.categories.find(
+            (c: { id: string }) => c.id === "script-lint",
+          );
+          expect(lint.findings).toEqual(["No bundled scripts found to lint."]);
+
+          const text = await runCLI("eval", skill);
+          expect(text.exitCode).toBe(0);
+          expect(text.stdout).not.toContain(MARKER);
+          expect(text.stdout).toContain("Symlinks not read (2):");
+          expect(text.stdout).toMatch(
+            /scripts\/linked\.py -> .*secret\.py \(file, NOT read\)/,
+          );
+        } finally {
+          await rm(base, { recursive: true, force: true });
+        }
+      },
+    );
+
+    test.skipIf(process.platform === "win32")(
+      "a collection child linked to a skill folder is evaluated as its own folder",
+      async () => {
+        const { base, outside, skill } = await fixture();
+        const coll = join(base, "coll");
+        try {
+          await mkdir(join(coll, "ok"), { recursive: true });
+          await writeFile(join(coll, "ok", "SKILL.md"), skillMd("ok"));
+          // `asm activate` / `asm link` layout: the child links to a skill
+          // folder elsewhere, which itself links out to `outside`.
+          await symlink(skill, join(coll, "s1"));
+          await mkdir(join(outside, "nomd"));
+          await symlink(join(outside, "nomd"), join(coll, "nomd"));
+          await symlink("/", join(coll, "root"));
+          const target = await realpath(skill);
+
+          const direct = JSON.parse(
+            (await runCLI("eval", skill, "--json")).stdout,
+          );
+          const json = await runCLI("eval", coll, "--json");
+          expect(json.exitCode).toBe(0);
+          expect(json.stdout).not.toContain(MARKER);
+          const parsed = JSON.parse(json.stdout);
+          expect(parsed.aggregate).toMatchObject({ total: 2, failed: 0 });
+          const s1 = parsed.results.find(
+            (r: { label: string }) => r.label === "s1",
+          );
+          expect(s1.error).toBeNull();
+          expect(s1.link).toEqual({ path: "s1", target });
+          // Same score and findings as `asm eval <child>`.
+          expect(s1.report.overallScore).toBe(direct.overallScore);
+          expect(s1.report.categories).toEqual(direct.categories);
+          expect(
+            s1.report.externalSymlinks.map((l: { path: string }) => l.path),
+          ).toEqual(expect.arrayContaining(["scripts/linked.py"]));
+          const ok = parsed.results.find(
+            (r: { label: string }) => r.label === "ok",
+          );
+          expect(ok).not.toHaveProperty("link");
+
+          const text = await runCLI("eval", coll);
+          expect(text.stdout).not.toContain(MARKER);
+          expect(text.stdout).toContain(
+            `info: s1 -> ${target} (linked skill folder, evaluated at its real path)`,
+          );
+          expect(text.stdout).not.toMatch(/error:/);
+
+          const machine = JSON.parse(
+            (await runCLI("eval", coll, "--machine")).stdout,
+          );
+          const m1 = machine.data.results.find(
+            (r: { label: string }) => r.label === "s1",
+          );
+          expect(m1.link).toEqual({ path: "s1", target });
+
+          // A gate scores the linked child like any other.
+          const gated = await runCLI("eval", coll, "--min-score", "10");
+          expect(gated.exitCode).toBe(0);
+        } finally {
+          await rm(base, { recursive: true, force: true });
+        }
+      },
+    );
+
+    test.skipIf(process.platform === "win32")(
+      "a SKILL.md that links outside has its own --machine error code",
+      async () => {
+        const { base, outside } = await fixture();
+        const linked = join(base, "s2");
+        try {
+          await mkdir(linked);
+          await writeFile(join(outside, "SKILL.md"), `# ${MARKER}\n`);
+          await symlink(join(outside, "SKILL.md"), join(linked, "SKILL.md"));
+          for (const extra of [[], ["--fix"]]) {
+            const { stdout, exitCode } = await runCLI(
+              "eval",
+              linked,
+              "--machine",
+              ...extra,
+            );
+            expect(exitCode).toBe(1);
+            expect(stdout).not.toContain(MARKER);
+            const parsed = JSON.parse(stdout);
+            expect(parsed.error.code).toBe("SKILL_MD_OUTSIDE_LINK");
+            expect(parsed.error.message).toMatch(
+              /^Symlink not read: SKILL\.md -> .*\(file, NOT read\)/,
+            );
+          }
+        } finally {
+          await rm(base, { recursive: true, force: true });
+        }
+      },
+    );
+
+    test.skipIf(process.platform === "win32")(
+      "a remote subpath that links out of the clone is not listed or read",
+      async () => {
+        const { base, outside } = await fixture();
+        const clone = join(base, "clone");
+        try {
+          await mkdir(join(clone, ".git"), { recursive: true });
+          await mkdir(join(outside, "child"));
+          await writeFile(
+            join(outside, "child", "SKILL.md"),
+            skillMd("child").replace("Prints hi.", MARKER),
+          );
+          await symlink(outside, join(clone, "skills"));
+          remoteClone.dir = clone;
+          const { stdout, stderr, exitCode } = await runCLI(
+            "eval",
+            "github:acme/linked:skills",
+            "--json",
+            "--keep",
+          );
+          expect(exitCode).toBe(1);
+          expect(stdout + stderr).not.toContain(MARKER);
+          expect(stderr).toMatch(
+            /Symlink not read: skills -> .*outside \(directory, NOT read\)/,
+          );
+        } finally {
+          remoteClone.dir = null;
+          await rm(base, { recursive: true, force: true });
+        }
+      },
+    );
   });
 
   test("eval --fix on github: shorthand is rejected with a clear error", async () => {
