@@ -6,6 +6,7 @@ import {
   readFile,
   realpath,
 } from "fs/promises";
+import type { Dirent } from "fs";
 import { join, resolve, basename } from "path";
 import { homedir } from "os";
 import {
@@ -19,6 +20,7 @@ import {
   resolveTags,
 } from "./utils/frontmatter";
 import { estimateTokenCount } from "./utils/token-count";
+import { isPathInside } from "./utils/fs";
 import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
 import type {
@@ -303,13 +305,63 @@ async function dropProjectAliasesOfGlobal(
   return locations.filter((_, index) => keep[index]);
 }
 
+/**
+ * Number of regular files in a skill folder — the one definition behind every
+ * "File Count" (`asm inspect`, the TUI detail view, `SkillInfo.fileCount`)
+ * (#826). Folders, empty or not, add 0.
+ *
+ * Confined to the skill folder like every scan of a skill's files (#791): a
+ * symlink that resolves inside the folder counts as what it points to (a file
+ * adds 1, a folder is walked, each real folder once), while a link that leaves
+ * the folder, dangles or loops is never followed and adds 0. A skill folder
+ * that is itself a symlink is counted at its target. Unreadable paths add 0.
+ */
 export async function countFiles(dir: string): Promise<number> {
+  let root: string;
   try {
-    const entries = await readdir(dir, { recursive: true });
-    return entries.length;
+    root = await realpath(dir);
   } catch {
     return 0;
   }
+  const walked = new Set<string>([root]);
+
+  async function walk(current: string): Promise<number> {
+    let entries: Dirent[];
+    try {
+      entries = await readdir(current, { withFileTypes: true });
+    } catch {
+      return 0;
+    }
+    let count = 0;
+    for (const entry of entries) {
+      // `current` is always a real path, so a real child folder's path is real.
+      let target = join(current, entry.name);
+      let kind: "file" | "dir" | "other" = entry.isFile()
+        ? "file"
+        : entry.isDirectory()
+          ? "dir"
+          : "other";
+      if (entry.isSymbolicLink()) {
+        try {
+          target = await realpath(target);
+          if (!isPathInside(root, target)) continue;
+          const s = await stat(target);
+          kind = s.isFile() ? "file" : s.isDirectory() ? "dir" : "other";
+        } catch {
+          continue; // dangling or looping link
+        }
+      }
+      if (kind === "file") {
+        count++;
+      } else if (kind === "dir" && !walked.has(target)) {
+        walked.add(target);
+        count += await walk(target);
+      }
+    }
+    return count;
+  }
+
+  return walk(root);
 }
 
 /**

@@ -27,6 +27,13 @@ The boundary of a remote source is the whole checkout for `audit`, `get`,
 repository. `asm eval` scores one skill folder, so its boundary is that
 folder, also for a remote source.
 
+The "File Count" in `asm inspect` (skills and references) and the TUI detail
+view walks the skill's real folder under the same boundary but reads no file
+content and reports no finding: it counts regular files only (folders add 0),
+a link inside the folder counts as its target (each real folder once), and a
+link that leaves the folder, dangles or loops adds 0
+([#826](https://github.com/luongnv89/asm/issues/826)).
+
 ## What a link becomes
 
 - **Leaves the folder** (file, directory, FIFO or device, `~`, `/proc/self`,

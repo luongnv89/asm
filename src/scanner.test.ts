@@ -81,6 +81,7 @@ import {
   realpath,
   readdir,
 } from "fs/promises";
+import { spawnSync } from "child_process";
 import { join, resolve } from "path";
 import { homedir, tmpdir } from "os";
 import {
@@ -401,15 +402,114 @@ describe("countFiles", () => {
     expect(count).toBe(2);
   });
 
-  it("counts files recursively", async () => {
+  it("counts files recursively; folders add 0 (#826)", async () => {
     await writeFile(join(tempDir, "a.txt"), "a");
     await mkdir(join(tempDir, "sub"));
     await writeFile(join(tempDir, "sub", "b.txt"), "b");
     await writeFile(join(tempDir, "sub", "c.txt"), "c");
-    const count = await countFiles(tempDir);
-    // readdir({ recursive: true }) returns all entries including subdirectory names
-    // 4 entries: a.txt, sub, sub/b.txt, sub/c.txt
-    expect(count).toBe(4);
+    expect(await countFiles(tempDir)).toBe(3);
+  });
+
+  it("nested and empty folders add 0 (#826)", async () => {
+    await writeFile(join(tempDir, "SKILL.md"), "x");
+    await mkdir(join(tempDir, "a", "b", "c"), { recursive: true });
+    await mkdir(join(tempDir, "empty"));
+    expect(await countFiles(tempDir)).toBe(1);
+  });
+
+  it("counts the issue repro as 2: SKILL.md + a/b/f.txt (#826)", async () => {
+    await mkdir(join(tempDir, "a", "b"), { recursive: true });
+    await writeFile(join(tempDir, "SKILL.md"), "---\nname: fc-probe\n---\n");
+    await writeFile(join(tempDir, "a", "b", "f.txt"), "x\n");
+    expect(await countFiles(tempDir)).toBe(2);
+  });
+
+  it("counts an agent-profile-shaped skill as 4 (#826)", async () => {
+    await mkdir(join(tempDir, "references"));
+    await mkdir(join(tempDir, "scripts"));
+    await writeFile(join(tempDir, "SKILL.md"), "x");
+    await writeFile(join(tempDir, "references", "harnesses.md"), "x");
+    await writeFile(join(tempDir, "references", "profile-format.md"), "x");
+    await writeFile(join(tempDir, "scripts", "agent_profile.py"), "x");
+    expect(await countFiles(tempDir)).toBe(4);
+  });
+
+  it.skipIf(process.platform === "win32")(
+    "never follows a symlink out of the skill folder (#791, #826)",
+    async () => {
+      const skill = join(tempDir, "skill");
+      const outside = join(tempDir, "outside");
+      await mkdir(skill);
+      await mkdir(outside);
+      await writeFile(join(outside, "one.txt"), "1");
+      await writeFile(join(outside, "two.txt"), "2");
+      await writeFile(join(skill, "SKILL.md"), "x");
+      await symlink(join(outside, "one.txt"), join(skill, "file-link"));
+      await symlink(outside, join(skill, "dir-link"), "dir");
+      await symlink("../outside", join(skill, "relative-dir-link"), "dir");
+      expect(await countFiles(skill)).toBe(1);
+    },
+  );
+
+  it.skipIf(process.platform === "win32")(
+    "counts in-folder links as their target, each real folder once",
+    async () => {
+      await mkdir(join(tempDir, "sub"));
+      await writeFile(join(tempDir, "SKILL.md"), "x");
+      await writeFile(join(tempDir, "sub", "f.txt"), "x");
+      // File link inside the folder counts as a file.
+      await symlink("SKILL.md", join(tempDir, "alias.md"));
+      // Folder link to an already-counted folder adds nothing more.
+      await symlink("sub", join(tempDir, "sub-link"), "dir");
+      // Link back to the root (a loop) is not followed.
+      await symlink("..", join(tempDir, "sub", "up"), "dir");
+      expect(await countFiles(tempDir)).toBe(3);
+    },
+  );
+
+  it.skipIf(process.platform === "win32")(
+    "dangling and self-looping links add 0",
+    async () => {
+      await writeFile(join(tempDir, "SKILL.md"), "x");
+      await symlink(join(tempDir, "missing"), join(tempDir, "dangling"));
+      await symlink("self", join(tempDir, "self"));
+      expect(await countFiles(tempDir)).toBe(1);
+    },
+  );
+
+  it.skipIf(process.platform !== "linux")(
+    "confines loops, links through outside links, system paths and FIFOs",
+    async () => {
+      const skill = join(tempDir, "skill");
+      const outside = join(tempDir, "outside");
+      await mkdir(skill);
+      await mkdir(outside);
+      await writeFile(join(outside, "one.txt"), "1");
+      await writeFile(join(skill, "SKILL.md"), "x");
+      // Two-link loop.
+      await symlink("B", join(skill, "A"));
+      await symlink("A", join(skill, "B"));
+      // A link out, and a link through that link to a file outside.
+      await symlink(outside, join(skill, "outlink"), "dir");
+      await symlink("outlink/one.txt", join(skill, "via"));
+      // System paths: a device, the root, and a /proc self-link.
+      await symlink("/dev/zero", join(skill, "zero"));
+      await symlink("/", join(skill, "root"), "dir");
+      await symlink("/proc/self", join(skill, "self"), "dir");
+      // A FIFO is not a regular file and must not block the walk.
+      expect(spawnSync("mkfifo", [join(skill, "fifo")]).status).toBe(0);
+      expect(await countFiles(skill)).toBe(1);
+    },
+  );
+
+  it("counts a symlinked skill folder at its target", async () => {
+    const real = join(tempDir, "real");
+    await mkdir(join(real, "sub"), { recursive: true });
+    await writeFile(join(real, "SKILL.md"), "x");
+    await writeFile(join(real, "sub", "f.txt"), "x");
+    const link = join(tempDir, "linked");
+    await createDirSymlink(real, link);
+    expect(await countFiles(link)).toBe(2);
   });
 
   it("returns 0 for non-existent directory", async () => {
