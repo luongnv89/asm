@@ -21,6 +21,13 @@ symlink that leaves the folder is a finding and is never followed
 The boundary of a remote source is the whole checkout, so a skill may link
 to a sibling folder in the same repository.
 
+The "File Count" in `asm inspect` (skills and references) and the TUI detail
+view walks the skill's real folder under the same boundary but reads no file
+content and reports no finding: it counts regular files only (folders add 0),
+a link inside the folder counts as its target (each real folder once), and a
+link that leaves the folder, dangles or loops adds 0
+([#826](https://github.com/luongnv89/asm/issues/826)).
+
 ## What a link becomes
 
 - **Leaves the folder** (file, directory, FIFO or device, `~`, `/proc/self`,

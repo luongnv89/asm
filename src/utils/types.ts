@@ -31,6 +31,7 @@ export interface SkillInfo {
   isSymlink: boolean;
   symlinkTarget: string | null;
   realPath: string;
+  /** Regular files only, as `countFiles` in `scanner.ts` defines it (#826). */
   fileCount?: number;
   effort?: string;
   warnings?: SkillWarning[];
