@@ -203,9 +203,11 @@ export async function cmdAudit(args: ParsedArgs) {
               : "contents differ from the kept copy";
           console.error(
             ansi.yellow(
-              `  Skipping ${shortenPath(skill.path)} — ${why}. ` +
-                `Kept ${shortenPath(kept.path)}. ` +
-                `Re-run with --force to remove it anyway.`,
+              stripControlBytes(
+                `  Skipping ${shortenPath(skill.path)} — ${why}. ` +
+                  `Kept ${shortenPath(kept.path)}. ` +
+                  `Re-run with --force to remove it anyway.`,
+              ),
             ),
           );
           continue;
@@ -213,7 +215,7 @@ export async function cmdAudit(args: ParsedArgs) {
         const plan = buildRemovalPlan(skill, config);
         const log = await executeRemoval(plan, kept.path);
         for (const entry of log) {
-          console.error(entry);
+          console.error(stripControlBytes(entry));
         }
         removed++;
       }

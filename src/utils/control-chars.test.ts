@@ -11,7 +11,7 @@ const HOSTILE = "a\x1b[31m\x1b]8;;mailto:e@x\x07L\x1b]8;;\x07\x07\u009b\x7fz";
 /** Raw control characters a JSON text may not carry outside its whitespace. */
 function rawControls(text: string): string[] {
   // eslint-disable-next-line no-control-regex
-  return text.match(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\x9f]/g) ?? [];
+  return text.match(/[\x00-\x08\x0b-\x1f\x7f-\x9f]/g) ?? [];
 }
 
 describe("stripControlBytes", () => {

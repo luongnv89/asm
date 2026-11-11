@@ -54,6 +54,7 @@ import {
 } from "./evaluator-scorers-policy";
 import {
   stringifyForOutput,
+  stripControlBytes,
   stripControlBytesDeep,
 } from "./utils/control-chars";
 
@@ -950,6 +951,12 @@ export function formatReportJSON(report: EvaluationReport): string {
 }
 
 export function formatFixPreview(result: FixResult): string {
+  // Strip author control bytes (#830); the diff keeps its line structure.
+  const diff = result.diff
+    .split("\n")
+    .map((line) => stripControlBytes(line.replace(/\r$/, "")))
+    .join("\n");
+  result = { ...stripControlBytesDeep(result), diff };
   const lines: string[] = [];
   if (result.applied.length === 0 && result.skipped.length === 0) {
     lines.push("No fixes needed — SKILL.md is already clean.");
