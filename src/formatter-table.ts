@@ -8,6 +8,7 @@ import {
   colorProvider,
   providerBadge,
 } from "./formatter-colors";
+import { stripControlBytesDeep } from "./utils/control-chars";
 // Split from formatter-core.ts (issue #677).
 
 // ─── Path shortening ───────────────────────────────────────────────────────
@@ -23,6 +24,7 @@ export function shortenPath(fullPath: string): string {
 // ─── Table formatter ────────────────────────────────────────────────────────
 
 export function formatSkillTable(skills: SkillInfo[]): string {
+  skills = stripControlBytesDeep(skills);
   if (skills.length === 0) {
     return "No skills found.";
   }
@@ -174,6 +176,7 @@ export function formatListSummary(
   skills: SkillInfo[],
   options: { topN?: number; showHint?: boolean } = {},
 ): string {
+  skills = stripControlBytesDeep(skills);
   const topN = options.topN ?? 5;
   const showHint = options.showHint ?? true;
 
@@ -266,6 +269,7 @@ export function formatListSummary(
  * with aligned columns and colorized provider badges.
  */
 export function formatCompactTable(skills: SkillInfo[]): string {
+  skills = stripControlBytesDeep(skills);
   if (skills.length === 0) {
     return "No skills found.";
   }
@@ -322,6 +326,7 @@ export function formatGroupByTable(
   skills: SkillInfo[],
   axis: GroupByAxis,
 ): string {
+  skills = stripControlBytesDeep(skills);
   if (skills.length === 0) {
     return "No skills found.";
   }
@@ -400,6 +405,7 @@ export function applyListLimit(
 }
 
 export function formatGroupedTable(skills: SkillInfo[]): string {
+  skills = stripControlBytesDeep(skills);
   if (skills.length === 0) {
     return "No skills found.";
   }

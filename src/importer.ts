@@ -26,6 +26,7 @@ import type {
   AppConfig,
   SkillInfo,
 } from "./utils/types";
+import { stringifyForOutput } from "./utils/control-chars";
 
 // ─── Manifest Validation ────────────────────────────────────────────────────
 
@@ -45,7 +46,7 @@ export function validateManifest(data: unknown): ManifestValidation {
 
   if (obj.version !== 1) {
     errors.push(
-      `Unsupported manifest version: ${JSON.stringify(obj.version)}. Expected 1.`,
+      `Unsupported manifest version: ${stringifyForOutput(obj.version)}. Expected 1.`,
     );
   }
 

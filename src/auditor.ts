@@ -4,6 +4,10 @@ import { join } from "path";
 import { ansi, colorProvider, shortenPath } from "./formatter";
 import { cacheSkillMdContent } from "./scanner";
 import type { SkillInfo, DuplicateGroup, AuditReport } from "./utils/types";
+import {
+  stringifyForOutput,
+  stripControlBytesDeep,
+} from "./utils/control-chars";
 
 // ─── Detection ─────────────────────────────────────────────────────────────
 
@@ -323,6 +327,7 @@ export function reasonLabel(reason: DuplicateGroup["reason"]): string {
 // ─── CLI Formatters ────────────────────────────────────────────────────────
 
 export function formatAuditReport(report: AuditReport): string {
+  report = stripControlBytesDeep(report);
   if (report.duplicateGroups.length === 0) {
     return ansi.green("No duplicate skills found.");
   }
@@ -385,5 +390,5 @@ export function formatAuditReport(report: AuditReport): string {
 }
 
 export function formatAuditReportJSON(report: AuditReport): string {
-  return JSON.stringify(report, null, 2);
+  return stringifyForOutput(report, null, 2);
 }

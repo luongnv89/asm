@@ -16,6 +16,7 @@ import type {
 import { error, readLine } from "./shared";
 import { errorMessage } from "../utils/errors";
 import type { ParsedArgs } from "../cli";
+import { stringifyForOutput } from "../utils/control-chars";
 
 function printExportHelp() {
   console.log(`${ansi.bold("Usage:")} asm export [options]
@@ -43,7 +44,7 @@ export async function cmdExport(args: ParsedArgs) {
   const config = await loadConfig();
   const allSkills = await scanAllSkills(config, args.flags.scope);
   const manifest = buildManifest(allSkills);
-  console.log(JSON.stringify(manifest, null, 2));
+  console.log(stringifyForOutput(manifest, null, 2));
 }
 
 // ─── Import ─────────────────────────────────────────────────────────────────
@@ -192,7 +193,7 @@ export async function cmdImport(args: ParsedArgs) {
   if (skillCount === 0) {
     if (args.flags.json) {
       console.log(
-        JSON.stringify(
+        stringifyForOutput(
           {
             total: 0,
             installed: 0,
@@ -259,7 +260,7 @@ export async function cmdImport(args: ParsedArgs) {
 
   // Output results
   if (args.flags.json) {
-    console.log(JSON.stringify(summary, null, 2));
+    console.log(stringifyForOutput(summary, null, 2));
     return;
   }
 

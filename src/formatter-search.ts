@@ -1,6 +1,7 @@
 import type { SkillInfo } from "./utils/types";
 import { useColor, ansi, colorEffort, providerBadge } from "./formatter-colors";
 import { groupSkills, shortenPath } from "./formatter-table";
+import { stripControlBytesDeep } from "./utils/control-chars";
 // Split from formatter-core.ts (issue #677).
 
 // ─── Search result formatter ────────────────────────────────────────────────
@@ -19,6 +20,7 @@ export function formatSearchResults(
   skills: SkillInfo[],
   query: string,
 ): string {
+  skills = stripControlBytesDeep(skills);
   if (skills.length === 0) {
     return `No skills matching "${query}". Try ${ansi.bold("asm list")} to see all skills.`;
   }
@@ -112,6 +114,7 @@ export interface LocatedSearchResult {
 export function formatLocatedSearchResults(
   results: LocatedSearchResult[],
 ): string {
+  results = stripControlBytesDeep(results);
   const rows = results.map((r) => [
     r.skill.name,
     String(r.score),
@@ -155,6 +158,7 @@ export function formatAvailableSearchResults(
   results: AvailableSkillResult[],
   query: string,
 ): string {
+  results = stripControlBytesDeep(results);
   if (results.length === 0) {
     return "";
   }

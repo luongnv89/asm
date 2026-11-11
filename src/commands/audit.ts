@@ -47,6 +47,7 @@ import { errorMessage } from "../utils/errors";
 
 import { formatAuditMachineData, error } from "./shared";
 import type { ParsedArgs } from "../cli";
+import { stringifyForOutput, stripControlBytes } from "../utils/control-chars";
 
 function printAuditHelp() {
   console.log(`${ansi.bold("Usage:")} asm audit [subcommand] [options]
@@ -388,7 +389,7 @@ function printSecurityReports(
       ),
     );
   } else if (args.flags.json) {
-    console.log(JSON.stringify(reports, null, 2));
+    console.log(stringifyForOutput(reports, null, 2));
   } else {
     for (const report of reports) {
       console.log(formatSecurityReport(report));
@@ -523,12 +524,12 @@ export async function cmdAuditSecurityLocal(
   // symlink, but the report says so (#779).
   const linkedTarget = rootReal !== givenRoot;
   if (linkedTarget) {
-    console.error(`Auditing ${target} -> ${rootReal}`);
+    console.error(stripControlBytes(`Auditing ${target} -> ${rootReal}`));
   }
 
   if (isCollection) {
     console.error(
-      `Auditing ${skillDirs.length} local skill${skillDirs.length > 1 ? "s" : ""} in ${shortenPath(rootReal)}...\n`,
+      `Auditing ${skillDirs.length} local skill${skillDirs.length > 1 ? "s" : ""} in ${stripControlBytes(shortenPath(rootReal))}...\n`,
     );
   }
 
@@ -541,8 +542,8 @@ export async function cmdAuditSecurityLocal(
     const name = outside ? basename(dir) : await localSkillName(real, real);
     console.error(
       isCollection
-        ? `  Scanning ${ansi.bold(name)}...`
-        : `Auditing local skill: ${ansi.bold(name)}...\n`,
+        ? `  Scanning ${ansi.bold(stripControlBytes(name))}...`
+        : `Auditing local skill: ${ansi.bold(stripControlBytes(name))}...\n`,
     );
     reports.push(
       await auditSkillSecurity(
@@ -682,7 +683,7 @@ export async function cmdAuditSecurityAll(args: ParsedArgs, startTime: number) {
   const reports = [];
   for (const skill of uniqueSkills) {
     const name = await installedSkillName(skill);
-    console.error(`  Scanning ${ansi.bold(name)}...`);
+    console.error(`  Scanning ${ansi.bold(stripControlBytes(name))}...`);
     reports.push(await auditInstalledSkill(skill, name));
   }
 
@@ -810,10 +811,14 @@ export async function cmdAuditSecurityInstalled(
   const skill = matches[0];
 
   if (skill.realPath !== skill.path) {
-    console.error(`Auditing ${skill.path} -> ${skill.realPath}`);
+    console.error(
+      stripControlBytes(`Auditing ${skill.path} -> ${skill.realPath}`),
+    );
   }
   const name = await installedSkillName(skill);
-  console.error(`Auditing installed skill: ${ansi.bold(name)}...\n`);
+  console.error(
+    `Auditing installed skill: ${ansi.bold(stripControlBytes(name))}...\n`,
+  );
 
   const report = await auditInstalledSkill(skill, name);
 

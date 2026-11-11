@@ -14,6 +14,7 @@ import type {
 } from "./utils/types";
 import { formatTokenCount } from "./utils/token-count";
 import { ansi } from "./formatter-colors";
+import { stringifyForOutput } from "./utils/control-chars";
 
 // ─── Tag editing ─────────────────────────────────────────────────────────────
 
@@ -163,7 +164,7 @@ export function formatDependencyStaleCleanup(
 // ─── JSON formatter ─────────────────────────────────────────────────────────
 
 export function formatJSON(data: unknown): string {
-  return JSON.stringify(data, null, 2);
+  return stringifyForOutput(data, null, 2);
 }
 
 // Re-exports — public surface preserved after the split (#677).

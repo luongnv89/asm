@@ -3,6 +3,7 @@ import { listLibrarySkills, updateLibrarySkills } from "../library";
 
 import { error } from "./shared";
 import type { ParsedArgs } from "../cli";
+import { stringifyForOutput } from "../utils/control-chars";
 
 function printLibraryHelp() {
   console.log(`${ansi.bold("Usage:")} asm library <subcommand> [options]
@@ -39,7 +40,7 @@ export async function cmdLibrary(args: ParsedArgs) {
     const rows = await listLibrarySkills();
 
     if (args.flags.json) {
-      console.log(JSON.stringify(rows, null, 2));
+      console.log(stringifyForOutput(rows, null, 2));
       return;
     }
 
@@ -142,7 +143,7 @@ export async function cmdLibraryUpdate(args: ParsedArgs) {
   const summary = await updateLibrarySkills(args.flags.all ? null : names);
 
   if (args.flags.json) {
-    console.log(JSON.stringify(summary, null, 2));
+    console.log(stringifyForOutput(summary, null, 2));
   } else {
     printLibraryUpdateHuman(summary);
   }

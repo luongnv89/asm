@@ -47,6 +47,10 @@ import { homedir } from "os";
 import { mkdir, rm, rename, cp, access, lstat, readdir } from "fs/promises";
 import { debug } from "./logger";
 import { ansi } from "./formatter";
+import {
+  stringifyForOutput,
+  stripControlBytesDeep,
+} from "./utils/control-chars";
 
 const execFileAsync = promisify(execFile);
 
@@ -821,6 +825,7 @@ export function formatOutdatedTable(
   summary: OutdatedSummary,
   useColor: boolean,
 ): string {
+  summary = stripControlBytesDeep(summary);
   if (summary.entries.length === 0) {
     return "No skills installed.";
   }
@@ -908,7 +913,7 @@ export function formatOutdatedTable(
 }
 
 export function formatOutdatedJSON(summary: OutdatedSummary): string {
-  return JSON.stringify(
+  return stringifyForOutput(
     {
       skills: summary.entries.map((e) => ({
         name: e.name,
@@ -943,7 +948,7 @@ export function formatOutdatedJSON(summary: OutdatedSummary): string {
  * Retained for backward compatibility with external consumers. Use formatMachineOutput() instead.
  */
 export function formatOutdatedMachine(summary: OutdatedSummary): string {
-  return JSON.stringify({
+  return stringifyForOutput({
     v: 1,
     type: "outdated",
     data: {
@@ -962,7 +967,7 @@ export function formatOutdatedMachine(summary: OutdatedSummary): string {
 }
 
 export function formatUpdateJSON(summary: UpdateSummary): string {
-  return JSON.stringify(
+  return stringifyForOutput(
     {
       results: summary.results.map((r) => ({
         name: r.name,
@@ -989,7 +994,7 @@ export function formatUpdateJSON(summary: UpdateSummary): string {
  * Retained for backward compatibility with external consumers. Use formatMachineOutput() instead.
  */
 export function formatUpdateMachine(summary: UpdateSummary): string {
-  return JSON.stringify({
+  return stringifyForOutput({
     v: 1,
     type: "update",
     data: {

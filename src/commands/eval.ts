@@ -67,6 +67,7 @@ import {
   unreadLinkFinding,
 } from "../evaluator-files";
 import type { ParsedArgs } from "../cli";
+import { stringifyForOutput, stripControlBytes } from "../utils/control-chars";
 
 function printEvalHelp() {
   console.log(`${ansi.bold("Usage:")} asm eval <target> [options]
@@ -385,7 +386,7 @@ export async function cmdEval(args: ParsedArgs) {
 
       if (args.flags.json) {
         console.log(
-          JSON.stringify(
+          stringifyForOutput(
             {
               report: fix.report,
               fix: {
@@ -500,7 +501,7 @@ export async function cmdEval(args: ParsedArgs) {
         // path in output") is met for the JSON surface too.
         if (resolved.provenance.remote) {
           console.log(
-            JSON.stringify(
+            stringifyForOutput(
               {
                 ...report,
                 provenance: {
@@ -518,7 +519,7 @@ export async function cmdEval(args: ParsedArgs) {
           );
         } else if (verdict) {
           console.log(
-            JSON.stringify(
+            stringifyForOutput(
               { ...report, ...gateJSON(verdict, thresholds) },
               null,
               2,
@@ -608,7 +609,7 @@ export async function cmdEval(args: ParsedArgs) {
 
     if (args.flags.json) {
       console.log(
-        JSON.stringify(
+        stringifyForOutput(
           {
             provenance: batch.provenance,
             aggregate:
@@ -650,9 +651,9 @@ export async function cmdEval(args: ParsedArgs) {
           console.log(formatVerdictLine(item.report, verdict, thresholds));
         }
       } else {
-        console.log(`Skill evaluation: ${item.skillPath}`);
+        console.log(`Skill evaluation: ${stripControlBytes(item.skillPath)}`);
         console.log(
-          `  ${ansi.red("error:")} ${item.error ?? "unknown failure"}`,
+          `  ${ansi.red("error:")} ${stripControlBytes(item.error ?? "unknown failure")}`,
         );
         const verdict = verdicts?.[idx];
         if (verdict) {

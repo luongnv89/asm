@@ -5,6 +5,10 @@ import type {
   SecurityVerdict,
 } from "./utils/types";
 import { stripControlBytes } from "./security-auditor-scan";
+import {
+  stringifyForOutput,
+  stripControlBytesDeep,
+} from "./utils/control-chars";
 // Split from security-auditor.ts (issue #677).
 
 // ─── Report Formatting ──────────────────────────────────────────────────────
@@ -127,6 +131,7 @@ function groupMatchesByFile(matches: CodeScanMatch[]): FileGroup[] {
 }
 
 export function formatSecurityReport(report: SecurityAuditReport): string {
+  report = stripControlBytesDeep(report);
   const lines: string[] = [];
 
   // ── Zone A: Header Box ──
@@ -413,7 +418,7 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
 }
 
 export function formatSecurityReportJSON(report: SecurityAuditReport): string {
-  return JSON.stringify(report, null, 2);
+  return stringifyForOutput(report, null, 2);
 }
 
 // ─── Hold messages (update / publish) ────────────────────────────────────────

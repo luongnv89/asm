@@ -12,6 +12,7 @@ import {
 
 import { error } from "./shared";
 import type { ParsedArgs } from "../cli";
+import { stringifyForOutput } from "../utils/control-chars";
 
 function printActivateHelp() {
   console.log(`${ansi.bold("Usage:")} asm activate <skill> -p <tool> -s <scope> [options]
@@ -115,7 +116,7 @@ export async function cmdActivate(args: ParsedArgs) {
   };
 
   if (args.flags.json) {
-    console.log(JSON.stringify(payload, null, 2));
+    console.log(stringifyForOutput(payload, null, 2));
     return;
   }
 
@@ -167,7 +168,7 @@ export async function cmdDeactivate(args: ParsedArgs) {
     });
 
     if (args.flags.json) {
-      console.log(JSON.stringify(result, null, 2));
+      console.log(stringifyForOutput(result, null, 2));
       return;
     }
 
@@ -177,7 +178,7 @@ export async function cmdDeactivate(args: ParsedArgs) {
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     if (args.flags.json) {
-      console.log(JSON.stringify({ error: message }, null, 2));
+      console.log(stringifyForOutput({ error: message }, null, 2));
       process.exit(1);
     }
     error(message);

@@ -13,6 +13,7 @@ import type {
   BundleValidation,
   SkillInfo,
 } from "./utils/types";
+import { stringifyForOutput } from "./utils/control-chars";
 
 // ─── Constants ─────────────────────────────────────────────────────────────
 
@@ -39,7 +40,7 @@ export function validateBundle(data: unknown): BundleValidation {
 
   if (obj.version !== 1) {
     errors.push(
-      `Unsupported bundle version: ${JSON.stringify(obj.version)}. Expected 1.`,
+      `Unsupported bundle version: ${stringifyForOutput(obj.version)}. Expected 1.`,
     );
   }
 

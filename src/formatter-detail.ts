@@ -18,10 +18,14 @@ import {
   shortenPath,
   wordWrap,
 } from "./formatter-core";
+import { stripControlBytesDeep } from "./utils/control-chars";
 
 // ─── Detail formatter ───────────────────────────────────────────────────────
 
 export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
+  // Count on the real path, then render only control-stripped strings (#830).
+  const fileCount = skill.fileCount ?? (await countFiles(skill.path));
+  skill = stripControlBytesDeep(skill);
   const lines: string[] = [];
   const label = (key: string, value: string) =>
     `${useColor() ? ansi.bold(key + ":") : key + ":"} ${value}`;
@@ -53,7 +57,6 @@ export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
   if (skill.isSymlink && skill.symlinkTarget) {
     lines.push(label("Symlink Target", skill.symlinkTarget));
   }
-  const fileCount = skill.fileCount ?? (await countFiles(skill.path));
   lines.push(label("File Count", String(fileCount)));
   if (typeof skill.tokenCount === "number") {
     lines.push(label("Est. Tokens", formatTokenCount(skill.tokenCount)));
@@ -177,6 +180,8 @@ function getEvalSummaries(
 export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
   if (skills.length === 0) return "No skills found.";
   if (skills.length === 1) return formatSkillDetail(skills[0]);
+  const fileCount = skills[0].fileCount ?? (await countFiles(skills[0].path));
+  skills = stripControlBytesDeep(skills);
 
   const lines: string[] = [];
   const label = (key: string, value: string) =>
@@ -214,7 +219,6 @@ export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
     lines.push(label("  Tags", ref.tags.join(", ")));
   }
 
-  const fileCount = ref.fileCount ?? (await countFiles(ref.path));
   lines.push(label("  File Count", String(fileCount)));
   if (typeof ref.tokenCount === "number") {
     lines.push(label("  Est. Tokens", formatTokenCount(ref.tokenCount)));

@@ -68,6 +68,7 @@ import {
   executeSkillInstall,
   installSelectedLibrarySkill,
 } from "./install-inspect";
+import { stringifyForOutput } from "../utils/control-chars";
 
 export async function cmdInstall(args: ParsedArgs) {
   if (args.flags.help) {
@@ -926,7 +927,11 @@ export async function cmdInstall(args: ParsedArgs) {
         resolutionSource: resolutionSource,
       }));
       console.log(
-        JSON.stringify(enriched.length === 1 ? enriched[0] : enriched, null, 2),
+        stringifyForOutput(
+          enriched.length === 1 ? enriched[0] : enriched,
+          null,
+          2,
+        ),
       );
     } else if (results.length === 1) {
       console.error(
@@ -966,7 +971,7 @@ export async function cmdInstall(args: ParsedArgs) {
       if (duplicates) {
         payload.duplicates = duplicates;
       }
-      console.log(JSON.stringify(payload, null, 2));
+      console.log(stringifyForOutput(payload, null, 2));
     } else {
       error(message);
     }

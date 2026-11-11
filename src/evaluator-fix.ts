@@ -52,6 +52,10 @@ import {
   findLicenseFileName,
   isLicenseFileName,
 } from "./evaluator-scorers-policy";
+import {
+  stringifyForOutput,
+  stripControlBytesDeep,
+} from "./utils/control-chars";
 
 // ─── Report aggregator ─────────────────────────────────────────────────────
 
@@ -829,6 +833,7 @@ function bar(score: number, max: number, width = 20): string {
 export function formatReport(
   report: EvaluationReport & { providers?: ProviderEvalReport[] },
 ): string {
+  report = stripControlBytesDeep(report);
   const lines: string[] = [];
   lines.push(`Skill evaluation: ${report.skillPath}`);
   lines.push(`SKILL.md:         ${report.skillMdPath}`);
@@ -941,7 +946,7 @@ function extractProviderChecks(raw: unknown): ProviderCheck[] | null {
 }
 
 export function formatReportJSON(report: EvaluationReport): string {
-  return JSON.stringify(report, null, 2);
+  return stringifyForOutput(report, null, 2);
 }
 
 export function formatFixPreview(result: FixResult): string {

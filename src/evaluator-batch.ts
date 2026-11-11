@@ -24,6 +24,7 @@ import {
   type LinkedSkillFolder,
 } from "./evaluator-files";
 import type { EvaluationReport, FixResult } from "./evaluator-core";
+import { stripControlBytesDeep } from "./utils/control-chars";
 
 // Re-export types so consumers can import from evaluator-batch directly
 export type {
@@ -464,6 +465,7 @@ export function formatBatchSummary(
   batch: EvalBatchResult,
   widthHint: number = 28,
 ): string {
+  batch = stripControlBytesDeep(batch);
   const lines: string[] = [];
   lines.push("");
   lines.push("Batch summary:");

@@ -26,6 +26,7 @@ import type { Scope, AppConfig, SkillStateFile } from "../utils/types";
 
 import { error, readLine, groupBySource } from "./shared";
 import type { ParsedArgs } from "../cli";
+import { stringifyForOutput } from "../utils/control-chars";
 
 function printDisableHelp() {
   console.log(`${ansi.bold("Usage:")} asm disable <target> [options]
@@ -235,7 +236,7 @@ interface ToggleResult {
 
 function emitToggleOutput(args: ParsedArgs, done: ToggleResult[]): void {
   if (args.flags.json) {
-    console.log(JSON.stringify(done, null, 2));
+    console.log(stringifyForOutput(done, null, 2));
   } else if (args.flags.machine) {
     for (const d of done) {
       console.log([d.name, d.provider, d.scope, d.action].join("\t"));

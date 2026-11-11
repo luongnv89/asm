@@ -33,6 +33,7 @@ import { join as joinPath } from "path";
 import { error, readLine } from "./shared";
 import { promptInstallScope, selectBundleSkills } from "./install-prompts";
 import type { ParsedArgs } from "../cli";
+import { stringifyForOutput } from "../utils/control-chars";
 
 function printBundleHelp() {
   console.log(`${ansi.bold("Usage:")} asm bundle <subcommand> [options]
@@ -199,7 +200,7 @@ export async function cmdBundle(args: ParsedArgs) {
       const savedPath = await saveBundle(bundle);
 
       if (args.flags.json) {
-        console.log(JSON.stringify(bundle, null, 2));
+        console.log(stringifyForOutput(bundle, null, 2));
       } else {
         console.error(
           ansi.green(
@@ -418,7 +419,7 @@ export async function cmdBundle(args: ParsedArgs) {
 
       if (args.flags.json) {
         console.log(
-          JSON.stringify(
+          stringifyForOutput(
             {
               bundleName: bundle.name,
               total: results.length,
@@ -464,7 +465,7 @@ export async function cmdBundle(args: ParsedArgs) {
         }
 
         if (args.flags.json) {
-          console.log(JSON.stringify(predefinedBundles, null, 2));
+          console.log(stringifyForOutput(predefinedBundles, null, 2));
         } else {
           console.error(
             ansi.bold(`Pre-defined Bundles (${predefinedBundles.length}):\n`),
@@ -506,7 +507,7 @@ export async function cmdBundle(args: ParsedArgs) {
       }
 
       if (args.flags.json) {
-        console.log(JSON.stringify(bundles, null, 2));
+        console.log(stringifyForOutput(bundles, null, 2));
       } else {
         console.error(ansi.bold(`Saved Bundles (${bundles.length}):\n`));
         for (const bundle of bundles) {
@@ -545,7 +546,7 @@ export async function cmdBundle(args: ParsedArgs) {
       }
 
       if (args.flags.json) {
-        console.log(JSON.stringify(bundle, null, 2));
+        console.log(stringifyForOutput(bundle, null, 2));
       } else {
         console.error(ansi.bold(`Bundle: ${bundle.name}`));
         if (bundle.description) {
@@ -751,7 +752,7 @@ export async function cmdBundle(args: ParsedArgs) {
       const savedPath = await saveBundle(bundle);
 
       if (args.flags.json) {
-        console.log(JSON.stringify(bundle, null, 2));
+        console.log(stringifyForOutput(bundle, null, 2));
       } else {
         console.error(
           ansi.green(
@@ -823,7 +824,7 @@ export async function cmdBundle(args: ParsedArgs) {
 
       if (args.flags.json) {
         console.log(
-          JSON.stringify(
+          stringifyForOutput(
             { exported: true, path: absOutputPath, bundle },
             null,
             2,
