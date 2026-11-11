@@ -14,6 +14,7 @@ import {
 } from "../utils/machine";
 
 import { error } from "./shared";
+import { stripControlBytesDeep } from "../utils/control-chars";
 import { errorMessage } from "../utils/errors";
 import type { ParsedArgs } from "../cli";
 
@@ -136,7 +137,7 @@ export async function cmdUpdate(args: ParsedArgs) {
   names.push(...args.positional);
 
   try {
-    const summary = await updateSkills(
+    let summary = await updateSkills(
       names.length > 0 ? names : null,
       args.flags.yes,
     );
@@ -161,7 +162,9 @@ export async function cmdUpdate(args: ParsedArgs) {
       return;
     }
 
-    // Human-readable output
+    // Human-readable output: author names and reasons, control bytes
+    // stripped (#830).
+    summary = stripControlBytesDeep(summary);
 
     // Warn that scope detection is not yet supported
     if (summary.results.length > 0) {

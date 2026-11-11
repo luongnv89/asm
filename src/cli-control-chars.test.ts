@@ -170,6 +170,19 @@ describe("author control bytes in human output (#830)", () => {
     60_000,
   );
 
+  test("eval collection --min-score: the Failed: line is stripped", async () => {
+    const { stdout, stderr, exitCode } = await run(
+      "eval",
+      skillsRoot,
+      "--min-score",
+      "100",
+    );
+    expect(exitCode).not.toBe(0);
+    expect(stdout).toMatch(/Failed:\s+1\/1/);
+    expect(rawControls(stdout)).toEqual([]);
+    expect(rawControls(stderr)).toEqual([]);
+  }, 60_000);
+
   test("eval labels, the frontmatter-name finding and Top: show the stripped names", async () => {
     const { stdout } = await run("eval", skillsRoot);
     const dir = "evil?[31m?]8;;mailto:e@x?L?]8;;????skill";
@@ -211,6 +224,17 @@ describe("author control bytes in commands that change skills (#830)", () => {
     expect(exitCode).toBe(0);
     expect(stderr).toMatch(/Removed (directory|symlink)/);
     expect(rawControls(stderr)).toEqual([]);
+  }, 60_000);
+
+  test("disable then enable: the human lines are stripped", async () => {
+    const { root } = await freshHome();
+    for (const cmd of ["disable", "enable"]) {
+      const { stdout, stderr, exitCode } = await runIn(root, cmd, DIR, "--yes");
+      expect(exitCode).toBe(0);
+      expect(stdout).toContain(`${cmd}d evil?[31m`);
+      expect(rawControls(stdout)).toEqual([]);
+      expect(rawControls(stderr)).toEqual([]);
+    }
   }, 60_000);
 
   test("disable --machine: one clean tab-separated row per instance", async () => {
