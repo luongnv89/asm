@@ -2,7 +2,7 @@
 //
 // `asm inspect` takes its argument as a path when it contains `/` (or `\` on
 // Windows), is `.` or `..`, or starts with `.` and names a folder holding a
-// SKILL.md. Anything else is looked up as an installed skill name first; a
+// readable SKILL.md file (see `isInspectPathArg`). Anything else is looked up as an installed skill name first; a
 // dot-named argument that is not installed but exists on disk then gets the
 // path error (see `isInspectPathFallback`).
 // The folder is read under the skill-folder boundary of
@@ -12,7 +12,7 @@
 // confined `countFiles` walk. A folder that is itself a link is followed and
 // its real path announced.
 
-import { existsSync, statSync } from "fs";
+import { accessSync, existsSync, realpathSync, statSync } from "fs";
 import {
   access,
   constants,
@@ -23,6 +23,7 @@ import {
 } from "fs/promises";
 import { basename, join, resolve, sep } from "path";
 import { cacheSkillMdContent, skillFieldsFromSkillMd } from "../scanner";
+import { isPathInside } from "../utils/fs";
 import {
   readSkillMd,
   SkillMdOutsideLinkError,
@@ -49,9 +50,11 @@ export const NOT_INSTALLED = "not installed";
  * True when `asm inspect` takes `arg` as a folder path rather than an
  * installed skill name: it contains `/` (or the platform separator), is `.` or
  * `..`, or starts with `.` and `resolve(cwd, arg)` is a folder (or a link to
- * one) that holds a `SKILL.md`. Any other dot-named argument (a file, an empty
- * folder, a dangling link, nothing at all) is looked up by name first, so an
- * installed `.hidden-skill` resolves as before. A bare name that also exists
+ * one) whose `SKILL.md` is a readable regular file inside it (a link to one is
+ * followed only while it stays in the folder). Any other dot-named argument (a
+ * file, an empty folder, a dangling link, a folder whose `SKILL.md` is a
+ * folder, a FIFO, a dangling or outside link or unreadable, nothing at all) is
+ * looked up by name first, so an installed `.hidden-skill` resolves as before. A bare name that also exists
  * as a folder in the working directory stays a name.
  */
 export function isInspectPathArg(arg: string, cwd = process.cwd()): boolean {
@@ -73,12 +76,18 @@ export function isInspectPathFallback(
   return arg.startsWith(".") && existsSync(resolve(cwd, arg));
 }
 
+/**
+ * True when `dir` is a folder whose SKILL.md `readSkillMd` would read: it
+ * resolves inside the folder, is a regular file, and is readable.
+ */
 function holdsSkillMd(dir: string): boolean {
   try {
-    return (
-      statSync(dir, { throwIfNoEntry: false })?.isDirectory() === true &&
-      existsSync(join(dir, "SKILL.md"))
-    );
+    if (!statSync(dir).isDirectory()) return false;
+    const md = realpathSync(join(dir, "SKILL.md"));
+    if (!isPathInside(realpathSync(dir), md)) return false;
+    if (!statSync(md).isFile()) return false;
+    accessSync(md, constants.R_OK);
+    return true;
   } catch {
     return false;
   }
@@ -121,6 +130,7 @@ export async function readSkillFolder(arg: string): Promise<SkillInfo> {
   if (!(await stat(real)).isDirectory()) {
     throw new InspectPathError(
       `"${arg}" is not a folder. ${NEEDS_SKILL_FOLDER}`,
+      ErrorCodes.SKILL_PATH_NOT_DIR,
     );
   }
   try {

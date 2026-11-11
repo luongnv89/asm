@@ -28,9 +28,19 @@ describe("isInspectPathArg (#829)", () => {
     await writeFile(join(cwd, ".skill", "SKILL.md"), "---\nname: s\n---\n");
     await mkdir(join(cwd, ".empty"));
     await writeFile(join(cwd, ".file"), "x");
+    await mkdir(join(cwd, ".md-dir", "SKILL.md"), { recursive: true });
     if (POSIX) {
       await symlink(join(cwd, ".skill"), join(cwd, ".skill-link"));
       await symlink(join(cwd, "gone"), join(cwd, ".dangling"));
+      await writeFile(join(cwd, "outside.md"), "---\nname: o\n---\n");
+      await mkdir(join(cwd, ".md-out"));
+      await symlink(join(cwd, "outside.md"), join(cwd, ".md-out", "SKILL.md"));
+      await mkdir(join(cwd, ".md-in"));
+      await writeFile(join(cwd, ".md-in", "real.md"), "---\nname: i\n---\n");
+      await symlink("real.md", join(cwd, ".md-in", "SKILL.md"));
+      await mkdir(join(cwd, ".md-locked"));
+      await writeFile(join(cwd, ".md-locked", "SKILL.md"), "x");
+      await chmod(join(cwd, ".md-locked", "SKILL.md"), 0o000);
     }
   });
 
@@ -54,6 +64,7 @@ describe("isInspectPathArg (#829)", () => {
     "..x",
     ".empty",
     ".file",
+    ".md-dir",
   ])("%s is a name", (arg) => {
     expect(isInspectPathArg(arg, cwd)).toBe(false);
   });
@@ -63,6 +74,21 @@ describe("isInspectPathArg (#829)", () => {
     () => {
       expect(isInspectPathArg(".skill-link", cwd)).toBe(true);
       expect(isInspectPathArg(".dangling", cwd)).toBe(false);
+    },
+  );
+
+  test.skipIf(!POSIX)(
+    "a SKILL.md link counts only while it stays inside the folder",
+    () => {
+      expect(isInspectPathArg(".md-in", cwd)).toBe(true);
+      expect(isInspectPathArg(".md-out", cwd)).toBe(false);
+    },
+  );
+
+  test.skipIf(!POSIX || process.getuid?.() === 0)(
+    "an unreadable SKILL.md does not make a dot name a path",
+    () => {
+      expect(isInspectPathArg(".md-locked", cwd)).toBe(false);
     },
   );
 
@@ -144,6 +170,15 @@ describe("readSkillFolder (#829)", () => {
     expect(err).toBeInstanceOf(InspectPathError);
     expect(err.code).toBe("SKILL_NOT_FOUND");
     expect(err.message).toContain("No folder at");
+  });
+
+  test("a path that is a file is SKILL_PATH_NOT_DIR", async () => {
+    const err = await readSkillFolder(join(skillDir, "SKILL.md")).catch(
+      (e) => e,
+    );
+    expect(err).toBeInstanceOf(InspectPathError);
+    expect(err.code).toBe("SKILL_PATH_NOT_DIR");
+    expect(err.message).toContain("is not a folder");
   });
 
   test("a folder without SKILL.md is SKILL_NOT_FOUND", async () => {

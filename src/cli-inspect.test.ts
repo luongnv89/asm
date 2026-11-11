@@ -219,6 +219,16 @@ describe("CLI integration: inspect <path> (#829)", () => {
     const file = await inspect(["./local-skill/notes.txt"]);
     expect(file.exitCode).toBe(1);
     expect(file.stderr).toContain(`"./local-skill/notes.txt" is not a folder`);
+
+    const missingMachine = await inspect(["./nope", "--machine"]);
+    expect(JSON.parse(missingMachine.stdout).error.code).toBe(
+      "SKILL_NOT_FOUND",
+    );
+    const fileMachine = await inspect(["./local-skill/notes.txt", "--machine"]);
+    expect(fileMachine.exitCode).toBe(1);
+    expect(JSON.parse(fileMachine.stdout).error.code).toBe(
+      "SKILL_PATH_NOT_DIR",
+    );
   });
 
   test.skipIf(!POSIX)(
@@ -384,6 +394,29 @@ describe("CLI integration: inspect <path> (#829)", () => {
       true,
     ],
     ["a dangling link", (p) => symlink(join(p, "..", "gone"), p), POSIX],
+    [
+      "a folder whose SKILL.md is a folder",
+      (p) => mkdir(join(p, "SKILL.md"), { recursive: true }),
+      true,
+    ],
+    [
+      "a folder whose SKILL.md links outside it",
+      async (p) => {
+        await writeFile(join(root, "outside.md"), SKILL_MD);
+        await mkdir(p);
+        await symlink(join(root, "outside.md"), join(p, "SKILL.md"));
+      },
+      POSIX,
+    ],
+    [
+      "a folder whose SKILL.md is unreadable (mode 000)",
+      async (p) => {
+        await mkdir(p);
+        await writeFile(join(p, "SKILL.md"), SKILL_MD);
+        await chmod(join(p, "SKILL.md"), 0o000);
+      },
+      POSIX && process.getuid?.() !== 0,
+    ],
   ];
   for (const [kind, make, run] of collisions) {
     test.skipIf(!run)(
@@ -422,7 +455,56 @@ describe("CLI integration: inspect <path> (#829)", () => {
     const machine = await inspect([".an-empty", "--machine"]);
     expect(JSON.parse(machine.stdout).error.code).toBe("SKILL_NOT_FOUND");
     expect(machine.stdout).toContain("No SKILL.md in");
+    const fileMachine = await inspect([".a-file", "--machine"]);
+    expect(JSON.parse(fileMachine.stdout).error.code).toBe(
+      "SKILL_PATH_NOT_DIR",
+    );
+
+    await mkdir(join(work, ".md-dir", "SKILL.md"), { recursive: true });
+    const mdDir = await inspect([".md-dir"]);
+    expect(mdDir.exitCode).toBe(1);
+    expect(mdDir.stderr).toContain(
+      `${join(work, ".md-dir", "SKILL.md")} is not a regular file or could not be read.`,
+    );
   });
+
+  test.skipIf(!POSIX)(
+    "a dot name that is not installed, with a SKILL.md linking out, is refused unread",
+    async () => {
+      await writeFile(
+        join(root, "outside.md"),
+        "---\nname: OUTSIDE-SECRET-NAME\ndescription: leaked\n---\nBody\n",
+      );
+      await mkdir(join(work, ".md-out"));
+      await symlink(
+        join(root, "outside.md"),
+        join(work, ".md-out", "SKILL.md"),
+      );
+      const text = await inspect([".md-out"]);
+      expect(text.exitCode).toBe(1);
+      expect(text.stderr).toContain("Symlink not read: SKILL.md ->");
+      expect(text.stderr).not.toContain("OUTSIDE-SECRET-NAME");
+      const machine = await inspect([".md-out", "--machine"]);
+      expect(JSON.parse(machine.stdout).error.code).toBe(
+        "SKILL_MD_OUTSIDE_LINK",
+      );
+    },
+  );
+
+  test.skipIf(!POSIX || process.getuid?.() === 0)(
+    "a dot name that is not installed, with an unreadable SKILL.md, says it could not be read",
+    async () => {
+      const md = join(work, ".md-locked", "SKILL.md");
+      await mkdir(join(work, ".md-locked"));
+      await writeFile(md, SKILL_MD);
+      await chmod(md, 0o000);
+      const text = await inspect([".md-locked"]);
+      expect(text.exitCode).toBe(1);
+      expect(text.stderr).toContain(
+        `${md} is not a regular file or could not be read.`,
+      );
+    },
+  );
 
   test.skipIf(!POSIX || process.getuid?.() === 0)(
     "a dot name that is not installed and an unreadable folder says permission denied",

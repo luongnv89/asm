@@ -35,6 +35,8 @@ export const ErrorCodes = {
   SKILL_MD_OUTSIDE_LINK: "SKILL_MD_OUTSIDE_LINK",
   /** `asm inspect <path>`: the folder exists but cannot be read (#829). */
   SKILL_DIR_UNREADABLE: "SKILL_DIR_UNREADABLE",
+  /** `asm inspect <path>`: the path exists but is not a folder (#829). */
+  SKILL_PATH_NOT_DIR: "SKILL_PATH_NOT_DIR",
   AUDIT_FAILED: "AUDIT_FAILED",
   INSTALL_FAILED: "INSTALL_FAILED",
   PUBLISH_FAILED: "PUBLISH_FAILED",
