@@ -1,9 +1,10 @@
 // ─── `asm inspect <path>`: a skill folder that is not installed (#829) ──────
 //
 // `asm inspect` takes its argument as a path when it contains `/` (or `\` on
-// Windows), is `.` or `..`, or starts with `.` and names something that exists
-// (so an installed `.hidden-skill` still resolves by name); anything else
-// stays an installed skill name.
+// Windows), is `.` or `..`, or starts with `.` and names a folder holding a
+// SKILL.md. Anything else is looked up as an installed skill name first; a
+// dot-named argument that is not installed but exists on disk then gets the
+// path error (see `isInspectPathFallback`).
 // The folder is read under the skill-folder boundary of
 // docs/security/symlink-rule.md, the same rule as `asm eval` and
 // `asm audit security`: SKILL.md is read only through `readSkillMd` (a link
@@ -11,7 +12,7 @@
 // confined `countFiles` walk. A folder that is itself a link is followed and
 // its real path announced.
 
-import { existsSync } from "fs";
+import { existsSync, statSync } from "fs";
 import {
   access,
   constants,
@@ -47,15 +48,40 @@ export const NOT_INSTALLED = "not installed";
 /**
  * True when `asm inspect` takes `arg` as a folder path rather than an
  * installed skill name: it contains `/` (or the platform separator), is `.` or
- * `..`, or starts with `.` and something exists at `resolve(cwd, arg)`. A
- * dot-named argument with nothing there stays a name, so an installed
- * `.hidden-skill` resolves as before. A bare name that also exists as a folder
- * in the working directory stays a name.
+ * `..`, or starts with `.` and `resolve(cwd, arg)` is a folder (or a link to
+ * one) that holds a `SKILL.md`. Any other dot-named argument (a file, an empty
+ * folder, a dangling link, nothing at all) is looked up by name first, so an
+ * installed `.hidden-skill` resolves as before. A bare name that also exists
+ * as a folder in the working directory stays a name.
  */
 export function isInspectPathArg(arg: string, cwd = process.cwd()): boolean {
   if (arg.includes("/") || arg.includes(sep)) return true;
   if (arg === "." || arg === "..") return true;
+  return arg.startsWith(".") && holdsSkillMd(resolve(cwd, arg));
+}
+
+/**
+ * True when a dot-named argument that `isInspectPathArg` left to the name
+ * lookup, and that matched no installed skill, names something on disk: the
+ * caller then reports the path error ("is not a folder", "No SKILL.md in …",
+ * "Cannot read …") instead of `Skill "<x>" not found.`
+ */
+export function isInspectPathFallback(
+  arg: string,
+  cwd = process.cwd(),
+): boolean {
   return arg.startsWith(".") && existsSync(resolve(cwd, arg));
+}
+
+function holdsSkillMd(dir: string): boolean {
+  try {
+    return (
+      statSync(dir, { throwIfNoEntry: false })?.isDirectory() === true &&
+      existsSync(join(dir, "SKILL.md"))
+    );
+  } catch {
+    return false;
+  }
 }
 
 /** A path that cannot be inspected, with its `--machine` error code. */
@@ -82,7 +108,14 @@ export async function readSkillFolder(arg: string): Promise<SkillInfo> {
   let real: string;
   try {
     real = await realpath(abs);
-  } catch {
+  } catch (err) {
+    const code = (err as NodeJS.ErrnoException).code;
+    if (code === "EACCES" || code === "EPERM") {
+      throw new InspectPathError(
+        `Cannot read ${abs} (permission denied).`,
+        ErrorCodes.SKILL_DIR_UNREADABLE,
+      );
+    }
     throw new InspectPathError(`No folder at "${arg}" (${abs}).`);
   }
   if (!(await stat(real)).isDirectory()) {

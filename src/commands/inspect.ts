@@ -6,7 +6,11 @@ import type { GetResult } from "../utils/types";
 
 import { error, enrichWithHealth } from "./shared";
 import type { ParsedArgs } from "../cli";
-import { cmdInspectPath, isInspectPathArg } from "./inspect-path";
+import {
+  cmdInspectPath,
+  isInspectPathArg,
+  isInspectPathFallback,
+} from "./inspect-path";
 
 function printInspectHelp() {
   console.log(`${ansi.bold("Usage:")} asm inspect <skill-name|path> [options]
@@ -28,11 +32,13 @@ ${ansi.bold("Examples:")}
 
 ${ansi.bold("Name or path:")}
   The argument is a path when it contains "/" (./x, ../x, /abs/x, skills/x)
-  or is "." or "..". A name starting with "." (.x) is a path only when
-  something exists at ./.x; otherwise it is the installed skill .x. Anything
-  else is an installed skill name, even when a folder of that name exists
-  here (use ./name for the folder). A path must be a folder holding a SKILL.md. It is read like asm eval reads it: nothing
-  outside the folder is opened. Installation fields (tool, scope, location)
+  or is "." or "..". A name starting with "." (.x) is a path only when ./.x
+  is a folder holding a SKILL.md; otherwise it is the installed skill .x, and
+  if no skill .x is installed but ./.x exists, the path error is shown.
+  Anything else is an installed skill name, even when a folder of that name
+  exists here (use ./name for the folder). A path must be a folder holding a
+  SKILL.md. It is read like asm eval reads it: nothing outside the folder is
+  opened. Installation fields (tool, scope, location)
   show "not installed" (empty, or null for scope, in --json). --scope applies
   to names only; --machine prints the v1 envelope for a path.`);
 }
@@ -60,6 +66,10 @@ export async function cmdInspect(args: ParsedArgs) {
   const matches = allSkills.filter((s) => s.dirName === skillName);
 
   if (matches.length === 0) {
+    if (isInspectPathFallback(skillName)) {
+      await cmdInspectPath(args, skillName);
+      return;
+    }
     error(`Skill "${skillName}" not found.`);
     console.error(
       ansi.dim(

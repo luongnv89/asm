@@ -355,7 +355,7 @@ describe("CLI integration: inspect <path> (#829)", () => {
     expect(missing.stderr).toContain(`Skill ".no-such-skill" not found.`);
   });
 
-  test("a dot-named argument that exists as a folder is the folder, even if installed", async () => {
+  test("a dot-named folder holding a SKILL.md is the folder, even if installed", async () => {
     await installSkill(".hidden-skill", "hidden");
     const folder = join(work, ".hidden-skill");
     await mkdir(folder);
@@ -369,6 +369,107 @@ describe("CLI integration: inspect <path> (#829)", () => {
     expect(stdout).toContain("Tool: not installed");
     expect(stdout).toContain(`Path: ${folder}`);
   });
+
+  // An installed dot-named skill and something in cwd with the same name that
+  // is not a skill folder: the name wins, output identical to an empty cwd.
+  const collisions: [string, (p: string) => Promise<unknown>, boolean][] = [
+    ["a file", (p) => writeFile(p, "x"), true],
+    ["an empty folder", (p) => mkdir(p), true],
+    [
+      "a folder without SKILL.md",
+      async (p) => {
+        await mkdir(p);
+        await writeFile(join(p, "README.md"), "r");
+      },
+      true,
+    ],
+    ["a dangling link", (p) => symlink(join(p, "..", "gone"), p), POSIX],
+  ];
+  for (const [kind, make, run] of collisions) {
+    test.skipIf(!run)(
+      `an installed dot-named skill resolves by name over ${kind} in cwd`,
+      async () => {
+        await installSkill(".hidden-skill", "hidden");
+        const variants = [[], ["--json"], ["--machine"], ["-s", "global"]];
+        const before = [];
+        for (const v of variants)
+          before.push(await inspect([".hidden-skill", ...v]));
+        await make(join(work, ".hidden-skill"));
+        for (const [i, v] of variants.entries()) {
+          const after = await inspect([".hidden-skill", ...v]);
+          expect(after.exitCode).toBe(0);
+          expect(after.stderr).toBe(before[i].stderr);
+          const strip = (out: string) =>
+            out.replace(/"(timestamp|duration_ms)":[^,}]*/g, '"$1":X');
+          expect(strip(after.stdout)).toBe(strip(before[i].stdout));
+        }
+        expect(before[0].stdout).toContain("Tool: Claude Code");
+      },
+    );
+  }
+
+  test("a dot name that is not installed shows the path error for what is there", async () => {
+    await writeFile(join(work, ".a-file"), "x");
+    const file = await inspect([".a-file"]);
+    expect(file.exitCode).toBe(1);
+    expect(file.stderr).toContain(`".a-file" is not a folder`);
+
+    await mkdir(join(work, ".an-empty"));
+    const empty = await inspect([".an-empty"]);
+    expect(empty.exitCode).toBe(1);
+    expect(empty.stderr).toContain(`No SKILL.md in ${join(work, ".an-empty")}`);
+    expect(empty.stderr).not.toContain("not found");
+    const machine = await inspect([".an-empty", "--machine"]);
+    expect(JSON.parse(machine.stdout).error.code).toBe("SKILL_NOT_FOUND");
+    expect(machine.stdout).toContain("No SKILL.md in");
+  });
+
+  test.skipIf(!POSIX || process.getuid?.() === 0)(
+    "a dot name that is not installed and an unreadable folder says permission denied",
+    async () => {
+      const locked = join(work, ".locked");
+      await mkdir(locked);
+      await writeFile(join(locked, "SKILL.md"), SKILL_MD);
+      await chmod(locked, 0o000);
+      try {
+        const text = await inspect([".locked"]);
+        expect(text.exitCode).toBe(1);
+        expect(text.stderr).toContain(
+          `Cannot read ${locked} (permission denied).`,
+        );
+        const machine = await inspect([".locked", "--machine"]);
+        expect(JSON.parse(machine.stdout).error.code).toBe(
+          "SKILL_DIR_UNREADABLE",
+        );
+      } finally {
+        await chmod(locked, 0o755);
+      }
+    },
+  );
+
+  test.skipIf(!POSIX || process.getuid?.() === 0)(
+    "a path whose parent cannot be entered says permission denied",
+    async () => {
+      const parent = join(work, "p");
+      await mkdir(join(parent, "s"), { recursive: true });
+      await writeFile(join(parent, "s", "SKILL.md"), SKILL_MD);
+      await chmod(parent, 0o600);
+      try {
+        const text = await inspect(["./p/s"]);
+        expect(text.exitCode).toBe(1);
+        expect(text.stderr).toContain(
+          `Cannot read ${join(parent, "s")} (permission denied).`,
+        );
+        expect(text.stderr).not.toContain("No folder at");
+        const machine = await inspect(["./p/s", "--machine"]);
+        expect(JSON.parse(machine.stdout).error.code).toBe(
+          "SKILL_DIR_UNREADABLE",
+        );
+      } finally {
+        await chmod(parent, 0o755);
+      }
+    },
+  );
 
   test.skipIf(!POSIX || process.getuid?.() === 0)(
     "an unreadable folder says permission denied, not No SKILL.md",
