@@ -6,7 +6,7 @@ compatibility: Claude Code
 allowed-tools: Bash Read Write Edit Grep Glob WebFetch Agent
 effort: high
 metadata:
-  version: 2.2.0
+  version: 2.3.0
   author: luongnv89
 ---
 
@@ -158,15 +158,22 @@ Create the scratch directory once and record its literal path (many hosts start 
 mktemp -d    # e.g. /var/folders/.../tmp.AbC123 — use this literal path as INGEST_HOME below
 ```
 
-Then, once per repo:
+Then, once per repo. When the repo's entry in `data/skill-index-resources.json` has `excludeSkills`, pass each name as its own `--exclude` flag, so the file matches what `npm run preindex` would write (no entry or no `excludeSkills`: no flags):
 
 ```bash
 ROOT="$(git rev-parse --show-toplevel)"
 INGEST_HOME="<literal path from mktemp>"
+EXCLUDE_ARGS=()
+while IFS= read -r name; do EXCLUDE_ARGS+=(--exclude "$name"); done < <(
+  jq -r --arg s "github:{owner}/{repo}" \
+    '.repos[] | select(.source == $s) | (.excludeSkills // [])[]' \
+    "$ROOT/data/skill-index-resources.json")
 ASM_CONFIG_DIR="$INGEST_HOME" npx tsx "$ROOT/bin/agent-skill-manager.ts" \
-  index ingest "github:{owner}/{repo}" --json
+  index ingest "github:{owner}/{repo}" "${EXCLUDE_ARGS[@]}" --json
 cp "$INGEST_HOME/skill-index/{owner}_{repo}.json" "$ROOT/data/skill-index/"
 ```
+
+With `--exclude`, the JSON output adds `excluded` (names left out) and `unmatchedExcludes` (names that matched no discovered skill). A non-empty `unmatchedExcludes` is not a failure, but it means an exclusion is misspelled or the skill was renamed or removed upstream: list it under Uncertainty in the final output.
 
 The ingested file's `skillCount` is authoritative. Use it in Step 9, the commit message, and the PR. If it differs from the Step 2 count, report both. The ingester populates `tokenCount` and `evalSummary` (`overallScore`, `grade`, `categories`, `evaluatedAt`, `evaluatedVersion`) on every skill entry; these power the catalog's "est. tokens" and "eval score" badges.
 

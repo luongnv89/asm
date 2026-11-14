@@ -47,6 +47,8 @@ export interface ParsedArgs {
     userInvocable: boolean;
     /** Repeatable/comma-separated tag filters for list and search. */
     tagFilters: string[];
+    /** `asm index ingest --exclude` — repeatable/comma-separated skill names (#837). */
+    exclude: string[];
     /**
      * `asm search --fuzzy` — fuzzy-ranked search of installed skills in every
      * tool's global skill dir (issue #735).
@@ -160,6 +162,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
       modelInvocable: false,
       userInvocable: false,
       tagFilters: [],
+      exclude: [],
       fuzzy: false,
       root: null,
       dryRun: false,
@@ -361,6 +364,15 @@ export function parseArgs(argv: string[]): ParsedArgs {
         process.exit(2);
       }
       result.flags.tagFilters.push(args[i]);
+    } else if (arg === "--exclude") {
+      i++;
+      if (!args[i]) {
+        error('Missing value for "--exclude".');
+        process.exit(2);
+      }
+      for (const name of args[i].split(",")) {
+        if (name.trim()) result.flags.exclude.push(name.trim());
+      }
     } else if (arg === "--fuzzy") {
       result.flags.fuzzy = true;
     } else if (arg === "--root") {

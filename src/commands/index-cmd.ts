@@ -35,12 +35,14 @@ ${ansi.bold("Options:")}
   --missing <field> Only show skills missing <field> (license, creator, version)
   --model-invocable Only skills the model can invoke
   --user-invocable  Only skills the user can invoke
-  -y, --yes        Skip confirmation prompts
+  --exclude <name>  ingest: leave out the named skill (repeat, or comma-separate)
+  -y, --yes       Skip confirmation prompts
   --no-color       Disable ANSI colors
   -V, --verbose    Show debug output
 
 ${ansi.bold("Examples:")}
   asm index ingest github:obra/superpowers          ${ansi.dim("Index superpowers repo")}
+  asm index ingest github:o/r --exclude a,b          ${ansi.dim("Index without skills a and b")}
   asm index search code review                       ${ansi.dim("Search for skills")}
   asm index search marketing --has license           ${ansi.dim("Only with license")}
   asm index search "" --missing creator              ${ansi.dim("Skills missing creator")}
@@ -74,7 +76,11 @@ export async function cmdIndex(args: ParsedArgs) {
       }
 
       console.error(ansi.blueBold(`Ingesting ${repo}...`));
-      const result = await ingestRepo(repo);
+      const excludeSkills = args.flags.exclude;
+      const result =
+        excludeSkills.length > 0
+          ? await ingestRepo(repo, { excludeSkills })
+          : await ingestRepo(repo);
 
       if (!result.success) {
         error(`Failed to ingest: ${result.error}`);
@@ -82,6 +88,7 @@ export async function cmdIndex(args: ParsedArgs) {
       }
 
       if (result.repoIndex) {
+        const exclusions = result.exclusions;
         if (args.flags.json) {
           console.log(
             formatJSON({
@@ -90,6 +97,10 @@ export async function cmdIndex(args: ParsedArgs) {
               repo: result.repoIndex.repo,
               skillCount: result.repoIndex.skillCount,
               updatedAt: result.repoIndex.updatedAt,
+              ...(exclusions && {
+                excluded: exclusions.excluded,
+                unmatchedExcludes: exclusions.unmatched,
+              }),
             }),
           );
         } else {
@@ -99,6 +110,16 @@ export async function cmdIndex(args: ParsedArgs) {
             ),
           );
           console.error(`  Skills found: ${result.repoIndex.skillCount}`);
+          if (exclusions && exclusions.excluded.length > 0) {
+            console.error(`  Excluded: ${exclusions.excluded.join(", ")}`);
+          }
+          if (exclusions && exclusions.unmatched.length > 0) {
+            console.error(
+              ansi.yellow(
+                `  ⚠ --exclude matched no skill: ${exclusions.unmatched.join(", ")}`,
+              ),
+            );
+          }
         }
       }
       break;

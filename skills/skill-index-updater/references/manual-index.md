@@ -5,7 +5,9 @@ bypasses the ingester, so name every manually generated repo in the Step 9
 summary under **Uncertainty**.
 
 Create `data/skill-index/{owner}_{repo}.json` with this structure, one `skills[]`
-entry per skill from that repo's Step 2 worker result:
+entry per skill from that repo's Step 2 worker result, leaving out every name in
+the repo's `excludeSkills` in `data/skill-index-resources.json` (as Step 7's
+`--exclude` flags would):
 
 ```json
 {
