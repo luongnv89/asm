@@ -48,7 +48,7 @@ graph TD
 /refresh-index
 ```
 
-Run it inside the `agent-skill-manager` repo with `node`, `npm`, `git`, and an authenticated `gh` on PATH.
+Run it inside the `agent-skill-manager` repo with `node`, `npm`, `git`, `jq`, and an authenticated `gh` on PATH.
 
 ## Resources
 
@@ -63,4 +63,4 @@ Run it inside the `agent-skill-manager` repo with `node`, `npm`, `git`, and an a
 ## Output
 
 - A four-bucket summary (updated, unchanged, failed, skipped) with before/after skill counts
-- On `yes`, one data-only PR touching `data/skill-index/` only; `website/catalog.json` is never staged
+- On `yes`, one data-only PR touching `data/skill-index/` (plus `data/skill-index-resources.json` only when you bumped it on purpose); `website/catalog.json` is never staged
