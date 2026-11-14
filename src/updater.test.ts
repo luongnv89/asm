@@ -741,8 +741,10 @@ describe("getLatestRemoteCommit", () => {
         await createBareGitRepo(tempDir, "ambiguous-skill", "# Branch");
       const workDir = join(tempDir, "ambiguous-skill-work");
 
-      await writeFile(join(workDir, "skill.md"), "# Tag\n");
-      await exec("git", ["-C", workDir, "add", "skill.md"]);
+      // Rewrite the exact SKILL.md path: a lower-case `skill.md` is the same
+      // file on case-insensitive filesystems (macOS), so nothing would stage.
+      await writeFile(join(workDir, "SKILL.md"), "# Tag\n");
+      await exec("git", ["-C", workDir, "add", "SKILL.md"]);
       await exec("git", ["-C", workDir, "commit", "-m", "tag target"]);
       const { stdout } = await exec("git", [
         "-C",
@@ -751,6 +753,7 @@ describe("getLatestRemoteCommit", () => {
         "HEAD",
       ]);
       const tagCommit = stdout.trim();
+      expect(tagCommit).not.toBe(branchCommit);
       await exec("git", [
         "-C",
         workDir,
