@@ -17,6 +17,7 @@
 - **Per-step context delegation** — discovery and audit run in workers, each handed only the contract file it needs; the main agent holds the returned JSON, never the clones or the `references/` tree
 - Detects existing repos and shows what changed (new/removed/updated skills)
 - Rebuilds the website catalog and creates a ready-to-merge PR
+- Self-Improve: at the end of a run, the agent may propose one edit that adapts the skill to your style, environment, and behavior — optional, and applied only when you approve
 
 ## When to Use
 

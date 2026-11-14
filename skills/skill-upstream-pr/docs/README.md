@@ -16,6 +16,7 @@
 - Builds a PR body from a template with the full `asm eval` before/after table
 - Enforces a "preview and confirm" step before any public action
 - Friendly, suggestion-style tone — maintainers can close without guilt
+- Self-Improve: at the end of a run, the agent may propose one edit that adapts the skill to your style, environment, and behavior — optional, and applied only when you approve
 
 ## When to Use
 
