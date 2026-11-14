@@ -16,6 +16,7 @@
 - Offers once to backfill missing versions from git history, or backfills on request
 - Stops or asks instead of guessing: shallow clones, unstaged or ambiguous renames; never writes a version twice
 - Writes files only; never commits
+- Self-Improve: at the end of a run, the agent may propose one edit that adapts the skill to your style, environment, and behavior — optional, and applied only when you approve
 
 ## When to Use
 
