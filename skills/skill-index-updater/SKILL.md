@@ -178,6 +178,7 @@ if EXCLUDES="$(jq -r --arg s "github:{owner}/{repo}" '
   cp "$INGEST_HOME/skill-index/{owner}_{repo}.json" "$ROOT/data/skill-index/"
 else
   echo "Step 7 stopped for {owner}/{repo}: fix its excludeSkills entry (see the jq error above), then rerun" >&2
+  false
 fi
 ```
 
