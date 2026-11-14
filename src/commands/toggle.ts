@@ -26,6 +26,7 @@ import type { Scope, AppConfig, SkillStateFile } from "../utils/types";
 
 import { error, readLine, groupBySource } from "./shared";
 import type { ParsedArgs } from "../cli";
+import { stringifyForOutput, stripControlBytes } from "../utils/control-chars";
 
 function printDisableHelp() {
   console.log(`${ansi.bold("Usage:")} asm disable <target> [options]
@@ -235,10 +236,14 @@ interface ToggleResult {
 
 function emitToggleOutput(args: ParsedArgs, done: ToggleResult[]): void {
   if (args.flags.json) {
-    console.log(JSON.stringify(done, null, 2));
+    console.log(stringifyForOutput(done, null, 2));
   } else if (args.flags.machine) {
     for (const d of done) {
-      console.log([d.name, d.provider, d.scope, d.action].join("\t"));
+      // Author names never carry control bytes or a field-splitting TAB (#830).
+      const fields = [d.name, d.provider, d.scope, d.action].map((field) =>
+        stripControlBytes(field).replace(/\t/g, "?"),
+      );
+      console.log(fields.join("\t"));
     }
   }
 }
@@ -325,13 +330,13 @@ export async function cmdDisable(args: ParsedArgs) {
           ? ""
           : ansi.yellow(" (shared via symlink)");
         console.log(
-          `  ${ansi.dim("•")} ${s.name} (${s.provider}, ${s.scope})${extra}`,
+          `  ${ansi.dim("•")} ${stripControlBytes(s.name)} (${s.provider}, ${s.scope})${extra}`,
         );
       }
       if (g.siblings.length > 1) {
         console.log(
           ansi.yellow(
-            `    ⚠ ${g.representative.name} shares one SKILL.md across ` +
+            `    ⚠ ${stripControlBytes(g.representative.name)} shares one SKILL.md across ` +
               `${g.siblings.length} tools — disabling affects all of them.`,
           ),
         );
@@ -363,7 +368,7 @@ export async function cmdDisable(args: ParsedArgs) {
         });
         if (!args.flags.json && !args.flags.machine) {
           console.log(
-            `${ansi.green("✓")} disabled ${s.name} (${s.provider}, ${s.scope})`,
+            `${ansi.green("✓")} disabled ${stripControlBytes(s.name)} (${s.provider}, ${s.scope})`,
           );
         }
       }
@@ -443,13 +448,13 @@ export async function cmdEnable(args: ParsedArgs) {
           ? ""
           : ansi.yellow(" (shared via symlink)");
         console.log(
-          `  ${ansi.dim("•")} ${s.name} (${s.provider}, ${s.scope})${extra}`,
+          `  ${ansi.dim("•")} ${stripControlBytes(s.name)} (${s.provider}, ${s.scope})${extra}`,
         );
       }
       if (g.siblings.length > 1) {
         console.log(
           ansi.yellow(
-            `    ⚠ ${g.representative.name} shares one SKILL.md across ` +
+            `    ⚠ ${stripControlBytes(g.representative.name)} shares one SKILL.md across ` +
               `${g.siblings.length} tools — enabling affects all of them.`,
           ),
         );
@@ -483,7 +488,7 @@ export async function cmdEnable(args: ParsedArgs) {
         });
         if (!args.flags.json && !args.flags.machine) {
           console.log(
-            `${ansi.green("✓")} enabled ${s.name} (${s.provider}, ${s.scope})`,
+            `${ansi.green("✓")} enabled ${stripControlBytes(s.name)} (${s.provider}, ${s.scope})`,
           );
         }
       }

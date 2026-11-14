@@ -4,6 +4,7 @@
 // See: https://github.com/luongnv89/asm/issues/109
 
 import { VERSION } from "./version";
+import { stringifyForOutput } from "./control-chars";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -100,7 +101,7 @@ export function formatMachineOutput<T>(
     meta: buildMeta(startTime),
   };
   const indent = process.stdout.isTTY ? 2 : 0;
-  return JSON.stringify(envelope, null, indent);
+  return stringifyForOutput(envelope, null, indent);
 }
 
 /**
@@ -123,5 +124,5 @@ export function formatMachineError(
     meta: buildMeta(startTime),
   };
   const indent = process.stdout.isTTY ? 2 : 0;
-  return JSON.stringify(envelope, null, indent);
+  return stringifyForOutput(envelope, null, indent);
 }

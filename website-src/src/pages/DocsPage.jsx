@@ -1368,9 +1368,14 @@ asm bundle remove my-workflow       # Remove a saved bundle`}</CodeBlock>
                 "--threshold <n>",
                 "(overlap) Similarity cutoff between 0 and 1",
               ],
+              [
+                "--exclude <name>",
+                "(ingest) Leave the named skill out; repeat or comma-separate. Names that match no skill are listed",
+              ],
             ]}
           />
           <CodeBlock>{`asm index ingest github:obra/superpowers          # Index a repo
+asm index ingest github:o/r --exclude a,b          # Index without skills a and b
 asm index search code review                       # Search indexed skills
 asm index search marketing --has license           # Only with license
 asm index search "" --missing creator              # Skills missing creator

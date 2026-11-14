@@ -185,6 +185,23 @@ describe("text rendering", () => {
   });
 });
 
+describe("formatThresholdSummary control bytes (#830)", () => {
+  it("strips author control bytes from failing folder names", () => {
+    const out = formatThresholdSummary(
+      {
+        passed: 0,
+        failed: 1,
+        errored: 0,
+        failedLabels: ["evil\x1b[31m\x07\u009b\x7fskill"],
+      },
+      GATE2,
+    );
+    expect(out).toContain("  Failed:                1/1  (evil?[31m???skill)");
+    // eslint-disable-next-line no-control-regex
+    expect(out).not.toMatch(/[\x00-\x08\x0b-\x1f\x7f-\x9f]/);
+  });
+});
+
 describe("structured shapes", () => {
   it("emits camelCase for --json and snake_case for --machine", () => {
     expect(thresholdsJSON(GATE2)).toEqual({ minScore: 86, minCategory: 8 });

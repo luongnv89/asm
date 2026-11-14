@@ -30,6 +30,10 @@ import type {
   OverlapSide,
   SkillInfo,
 } from "./utils/types";
+import {
+  stringifyForOutput,
+  stripControlBytesDeep,
+} from "./utils/control-chars";
 
 // ─── Thresholds ─────────────────────────────────────────────────────────────
 
@@ -506,6 +510,7 @@ export function detectSemanticOverlaps(
 
 /** Render the overlap report as CLI text. All output goes through `ansi`. */
 export function formatOverlapReport(report: InstalledOverlapReport): string {
+  report = stripControlBytesDeep(report);
   const lines: string[] = [];
   lines.push("");
   lines.push(ansi.blueBold("  Semantic Overlap Audit"));
@@ -576,5 +581,5 @@ export function formatOverlapReport(report: InstalledOverlapReport): string {
 export function formatOverlapReportJSON(
   report: InstalledOverlapReport,
 ): string {
-  return JSON.stringify(report, null, 2);
+  return stringifyForOutput(report, null, 2);
 }

@@ -16,6 +16,7 @@ import type { PublishResult } from "./utils/types";
 import { debug } from "./logger";
 import { toPortableRelativePath } from "./utils/fs";
 import { runCommand } from "./utils/spawn";
+import { stringifyForOutput } from "./utils/control-chars";
 
 // ─── Sanitization ──────────────────────────────────────────────────────────
 
@@ -765,7 +766,7 @@ export async function publishSkill(
  * Retained for backward compatibility with external consumers. Use formatMachineOutput() instead.
  */
 export function formatPublishMachine(result: PublishResult): string {
-  return JSON.stringify(
+  return stringifyForOutput(
     {
       version: 1,
       type: "publish",
@@ -804,7 +805,7 @@ export function formatFallbackInstructions(result: PublishResult): string {
     `  Run "asm doctor" to fix your environment.`,
     "",
     "  Generated manifest:",
-    JSON.stringify(manifest, null, 2)
+    stringifyForOutput(manifest, null, 2)
       .split("\n")
       .map((l) => `    ${l}`)
       .join("\n"),

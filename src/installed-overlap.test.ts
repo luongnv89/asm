@@ -477,6 +477,35 @@ describe("formatOverlapReport", () => {
     expect(out).toContain("/b");
     expect(out).toContain("Nothing was changed");
   });
+
+  it("strips author control bytes from names, labels and paths (#830)", () => {
+    const H = "\x1b[31m\x07\u009b\x7f";
+    const report = detectSemanticOverlaps([
+      makeSkill({
+        name: `kube${H}helper`,
+        dirName: "kube-helper",
+        path: `/a${H}`,
+        realPath: `/a${H}`,
+        description:
+          "Manage kubernetes deployments: apply manifests, roll out updates and debug pods.",
+      }),
+      makeSkill({
+        name: `cluster${H}ops`,
+        dirName: "cluster-ops",
+        path: `/b${H}`,
+        realPath: `/b${H}`,
+        description:
+          "Operate kubernetes deployments — apply manifests, roll out releases and debug pods.",
+      }),
+    ]);
+    expect(report.pairs.length).toBeGreaterThan(0);
+    const out = formatOverlapReport(report as InstalledOverlapReport);
+    expect(out).toContain("kube?[31m???helper");
+    expect(out).toContain("cluster?[31m???ops");
+    expect(out).toContain("/a?[31m???");
+    // eslint-disable-next-line no-control-regex
+    expect(out).not.toMatch(/[\x00-\x08\x0b-\x1f\x7f-\x9f]/);
+  });
 });
 
 describe("formatOverlapReportJSON", () => {

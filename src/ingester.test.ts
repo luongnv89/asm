@@ -543,6 +543,20 @@ describe("ingestRepo excludeSkills", () => {
       b.skills.map((s) => s.name),
     );
     expect(bundled).not.toContain("beta");
+    expect(result.exclusions).toEqual({ excluded: ["beta"], unmatched: [] });
+  });
+
+  it("reports names that matched no discovered skill as unmatched", async () => {
+    const result = await ingestRepo(`github:exclude-tests/${repoName}`, {
+      excludeSkills: ["gamma", "betta", "alpha"],
+    });
+
+    expect(result.success).toBe(true);
+    expect(result.repoIndex!.skills.map((s) => s.name)).toEqual(["beta"]);
+    expect(result.exclusions).toEqual({
+      excluded: ["gamma", "alpha"],
+      unmatched: ["betta"],
+    });
   });
 
   it("keeps every skill when no exclusions are given", async () => {
@@ -554,6 +568,7 @@ describe("ingestRepo excludeSkills", () => {
       "beta",
       "gamma",
     ]);
+    expect(result).not.toHaveProperty("exclusions");
   });
 });
 

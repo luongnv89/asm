@@ -18,6 +18,7 @@
 
 import { ansi } from "./formatter";
 import type { EvaluationReport } from "./evaluator-types";
+import { stripControlBytesDeep } from "./utils/control-chars";
 
 export const MIN_SCORE_MAX = 100;
 export const MIN_CATEGORY_MAX = 10;
@@ -186,6 +187,7 @@ export function formatThresholdSummary(
   counts: ThresholdCounts,
   t: EvalThresholds,
 ): string {
+  counts = stripControlBytesDeep(counts); // author folder names (#830)
   const judged = counts.passed + counts.failed;
   const lines = [
     `  Thresholds:            ${describeThresholds(t)}`,

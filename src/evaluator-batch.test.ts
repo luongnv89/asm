@@ -286,6 +286,23 @@ describe("batch reporting — failure aggregates", () => {
     expect(out).not.toContain("Fetched to:");
   });
 
+  it("formatBatchSummary compares Top and Bottom on the original labels (#830)", () => {
+    const out = formatBatchSummary({
+      provenance: { input: "./skills", remote: false, sourceRef: null },
+      aggregate: {
+        total: 2,
+        succeeded: 2,
+        failed: 0,
+        meanScore: 70,
+        top: { label: "x\x1by", score: 90 },
+        bottom: { label: "x\x07y", score: 50 },
+      },
+      results: [],
+    });
+    expect(out).toMatch(/Top:\s+x\?y \(90\/100\)/);
+    expect(out).toMatch(/Bottom:\s+x\?y \(50\/100\)/);
+  });
+
   it("buildBatchMachineData keeps a failed item's error and null report", () => {
     const data = buildBatchMachineData({
       provenance: { input: "./skills", remote: false, sourceRef: null },

@@ -24,6 +24,7 @@ import {
   type LinkedSkillFolder,
 } from "./evaluator-files";
 import type { EvaluationReport, FixResult } from "./evaluator-core";
+import { stripControlBytesDeep } from "./utils/control-chars";
 
 // Re-export types so consumers can import from evaluator-batch directly
 export type {
@@ -464,6 +465,11 @@ export function formatBatchSummary(
   batch: EvalBatchResult,
   widthHint: number = 28,
 ): string {
+  // Compare the original labels, then strip what is rendered (#830).
+  const showBottom =
+    !!batch.aggregate.bottom &&
+    batch.aggregate.bottom.label !== batch.aggregate.top?.label;
+  batch = stripControlBytesDeep(batch);
   const lines: string[] = [];
   lines.push("");
   lines.push("Batch summary:");
@@ -481,10 +487,7 @@ export function formatBatchSummary(
       `  Top:                   ${batch.aggregate.top.label} (${batch.aggregate.top.score}/100)`,
     );
   }
-  if (
-    batch.aggregate.bottom &&
-    batch.aggregate.bottom.label !== batch.aggregate.top?.label
-  ) {
+  if (showBottom && batch.aggregate.bottom) {
     lines.push(
       `  Bottom:                ${batch.aggregate.bottom.label} (${batch.aggregate.bottom.score}/100)`,
     );

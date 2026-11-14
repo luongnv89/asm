@@ -47,6 +47,8 @@ export interface ParsedArgs {
     userInvocable: boolean;
     /** Repeatable/comma-separated tag filters for list and search. */
     tagFilters: string[];
+    /** `asm index ingest --exclude` — repeatable/comma-separated skill names (#837). */
+    exclude: string[];
     /**
      * `asm search --fuzzy` — fuzzy-ranked search of installed skills in every
      * tool's global skill dir (issue #735).
@@ -160,6 +162,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
       modelInvocable: false,
       userInvocable: false,
       tagFilters: [],
+      exclude: [],
       fuzzy: false,
       root: null,
       dryRun: false,
@@ -361,6 +364,19 @@ export function parseArgs(argv: string[]): ParsedArgs {
         process.exit(2);
       }
       result.flags.tagFilters.push(args[i]);
+    } else if (arg === "--exclude") {
+      i++;
+      // A value that is another long flag (`--exclude --json`) or splits to
+      // no names (`--exclude ,`) is a missing value, not a skill name.
+      const names = (args[i]?.startsWith("--") ? "" : (args[i] ?? ""))
+        .split(",")
+        .map((name) => name.trim())
+        .filter((name) => name.length > 0);
+      if (names.length === 0) {
+        error('Missing value for "--exclude".');
+        process.exit(2);
+      }
+      result.flags.exclude.push(...names);
     } else if (arg === "--fuzzy") {
       result.flags.fuzzy = true;
     } else if (arg === "--root") {
@@ -553,6 +569,18 @@ export async function runCLI(argv: string[]): Promise<void> {
   // Apply --verbose
   if (args.flags.verbose) {
     setVerbose(true);
+  }
+
+  // --exclude is parsed globally but only `index ingest` reads it; reject it
+  // elsewhere so e.g. `asm install … --exclude x` cannot ignore it (#837).
+  // Every accepted --exclude adds at least one name, so a non-empty list
+  // means the flag was given.
+  if (
+    args.flags.exclude.length > 0 &&
+    !(args.command === "index" && args.subcommand === "ingest")
+  ) {
+    error('--exclude applies only to "asm index ingest".');
+    process.exit(2);
   }
 
   // --version at top level
