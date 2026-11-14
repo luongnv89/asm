@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-14T12:00:00Z",
+  "updatedAt": "2026-11-14T12:00:00Z",
   "repos": [
     {
       "source": "github:luongnv89/asm",
@@ -776,6 +776,21 @@
       "maintainer": "@Illyism",
       "enabled": true,
       "excludeSkills": ["linkdr"]
+    },
+    {
+      "source": "github:vercel-labs/ui",
+      "url": "https://github.com/vercel-labs/ui",
+      "owner": "vercel-labs",
+      "repo": "ui",
+      "description": "A library of behaviors for agents to build the next generation of user interfaces.",
+      "maintainer": "@vercel-labs",
+      "enabled": true,
+      "excludeSkills": [
+        "ui-sdk-expert-review",
+        "ui-sdk-unslop",
+        "ui-sdk-write-code",
+        "ui-sdk-write-docs"
+      ]
     }
   ]
 }
