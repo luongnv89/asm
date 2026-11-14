@@ -600,11 +600,37 @@ describe("catalog: star counts degrade honestly (issue #598)", () => {
     expect(covered.length / repos.size).toBeGreaterThan(0.5);
   });
 
-  test("workflows pass GITHUB_TOKEN to the catalog build", () => {
-    for (const wf of ["deploy-website.yml", "ci.yml"]) {
-      const src = readFileSync(join(ROOT, ".github", "workflows", wf), "utf-8");
-      expect(src).toContain("GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}");
-    }
+  test("deploy workflow passes GITHUB_TOKEN to the catalog build", () => {
+    const src = readFileSync(
+      join(ROOT, ".github", "workflows", "deploy-website.yml"),
+      "utf-8",
+    );
+    expect(src).toContain("GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}");
+  });
+
+  // Issue #784: CI test builds must not depend on live api.github.com; the
+  // production deploy keeps the live fetch and its refuse-to-publish gate.
+  test("build supports an offline, baseline-only star mode", () => {
+    expect(buildSrc).toContain("starsOfflineFromEnv()");
+    expect(starsSrc).toContain('STAR_OFFLINE_ENV = "ASM_STARS_OFFLINE"');
+  });
+
+  test("e2e CI builds offline; deploy is offline only for pull requests", () => {
+    const ci = readFileSync(
+      join(ROOT, ".github", "workflows", "ci.yml"),
+      "utf-8",
+    );
+    expect(ci).toContain('ASM_STARS_OFFLINE: "1"');
+    const deploy = readFileSync(
+      join(ROOT, ".github", "workflows", "deploy-website.yml"),
+      "utf-8",
+    );
+    const offlineLines = deploy
+      .split("\n")
+      .filter((line) => line.includes("ASM_STARS_OFFLINE"));
+    expect(offlineLines).toEqual([
+      "          ASM_STARS_OFFLINE: ${{ github.event_name == 'pull_request' && '1' || '' }}",
+    ]);
   });
 });
 

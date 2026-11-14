@@ -256,7 +256,11 @@ describe("temporary dependency leases", () => {
     );
     const probedPids: number[] = [];
     const acquired = await acquire("run-reused-pid", true, "helper", {
-      lockTimeoutMs: 100,
+      // The lock deadline is absolute: it also covers the fsync'd owner
+      // writes and candidate reads, which took up to 125 ms on a loaded CI
+      // runner (#792). Recovery, not timing, is under test here; if the stale
+      // owner were not removed, this would still time out and fail.
+      lockTimeoutMs: 10_000,
       lockRetryMs: 5,
       lockProcessLiveness: () => "alive",
       lockPlatform: "win32",

@@ -21,6 +21,9 @@ import {
   formatGroupByTable,
   applyListLimit,
   LARGE_LIST_THRESHOLD,
+  formatDependencyDiscovery,
+  formatDependencyAcquisition,
+  formatGetProvenance,
 } from "./formatter";
 import type { AvailableSkillResult } from "./formatter";
 import type { SkillInfo } from "./utils/types";
@@ -1681,5 +1684,140 @@ describe("formatGroupedTable large-list output", () => {
   test("footer summary still renders for any size", () => {
     const output = formatGroupedTable(makeManySkills(3));
     expect(output).toMatch(/3 skills \(3 unique\)/);
+  });
+});
+
+// ─── Author control bytes: strip only at render (#830) ─────────────────────
+
+describe("table formatters strip at render, after grouping (#830)", () => {
+  beforeEach(() => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+  });
+  afterEach(() => {
+    delete (globalThis as any).__CLI_NO_COLOR;
+  });
+  // eslint-disable-next-line no-control-regex
+  const raw = /[\x00-\x08\x0b-\x1f\x7f-\x9f]/;
+  const collide = () => [
+    makeSkill({ name: "one", dirName: "x\x1by", path: "/s/x\x1by" }),
+    makeSkill({ name: "two", dirName: "x\x07y", path: "/s/x\x07y" }),
+  ];
+
+  test.each([
+    ["formatGroupedTable", (s: SkillInfo[]) => formatGroupedTable(s)],
+    ["formatCompactTable", (s: SkillInfo[]) => formatCompactTable(s)],
+    ["formatSkillTable", (s: SkillInfo[]) => formatSkillTable(s)],
+    ["formatSearchResults", (s: SkillInfo[]) => formatSearchResults(s, "o")],
+    ["formatGroupByTable", (s: SkillInfo[]) => formatGroupByTable(s, "tool")],
+  ])("%s keeps folders that strip alike as two rows", (_name, render) => {
+    const out = render(collide());
+    expect(out).toMatch(/\bone\b/);
+    expect(out).toMatch(/\btwo\b/);
+    expect(out).not.toMatch(raw);
+  });
+
+  test("formatListSummary counts efforts that strip alike separately", () => {
+    const out = formatListSummary([
+      makeSkill({ dirName: "a", effort: "e\x01" as SkillInfo["effort"] }),
+      makeSkill({ dirName: "b", effort: "e\x02" as SkillInfo["effort"] }),
+    ]);
+    expect(out.match(/ {2}e\? +1 skill$/gm)).toHaveLength(2);
+    expect(out).not.toMatch(raw);
+  });
+
+  test("a TAB in a single-line cell is replaced like other control bytes", () => {
+    const skills = [
+      makeSkill({ name: "tab\tname", dirName: "t", version: "1\t0" }),
+    ];
+    for (const out of [
+      formatGroupedTable(skills),
+      formatCompactTable(skills),
+      formatSkillTable(skills),
+      formatSearchResults(skills, "tab"),
+    ]) {
+      expect(out).toContain("tab?name");
+      expect(out).not.toContain("\t");
+    }
+  });
+});
+
+describe("tag, deps and get formatters strip author strings (#830)", () => {
+  const H = "\x1b[31m\x07\u009b\x7f";
+  // eslint-disable-next-line no-control-regex
+  const raw = /[\x00-\x08\x0b-\x1f\x7f-\x9f]/;
+
+  test("formatTagUpdates", () => {
+    const out = formatTagUpdates("remove", [
+      {
+        name: `n${H}`,
+        path: "/p",
+        tags: [`keep${H}`],
+        applied: [`gone${H}`],
+        changed: true,
+      },
+    ]);
+    expect(out).toContain("n?[31m???");
+    expect(out).toContain("gone?[31m???");
+    expect(out).toContain("keep?[31m???");
+    expect(out).not.toMatch(raw);
+  });
+
+  test("formatDependencyDiscovery and formatDependencyAcquisition", () => {
+    const discovery = formatDependencyDiscovery({
+      name: `n${H}`,
+      source: `github:o/r${H}`,
+      dependencies: [`dep${H}`],
+    });
+    expect(discovery).toContain("dep?[31m???");
+    expect(discovery).not.toMatch(raw);
+    const acquired = formatDependencyAcquisition({
+      name: `n${H}`,
+      path: `/leases/n${H}`,
+      owned: true,
+      reused: false,
+    } as Parameters<typeof formatDependencyAcquisition>[0]);
+    expect(acquired).toContain("/leases/n?[31m???");
+    expect(acquired).not.toMatch(raw);
+  });
+
+  test("formatGetProvenance", () => {
+    const out = formatGetProvenance({
+      name: `n${H}`,
+      source: `github:o/r${H}`,
+      commit: `abcdef0${H}`,
+      tier: "reference",
+      tokenCount: 10,
+      security: { risk: "medium", warnings: 1, categories: [`cat${H}`] },
+    } as unknown as Parameters<typeof formatGetProvenance>[0]);
+    expect(out).toContain("n?[31m???");
+    expect(out).toContain("cat?[31m???");
+    expect(out).not.toMatch(raw);
+  });
+});
+
+describe("formatSkillDetail sorts eval summaries before stripping (#830)", () => {
+  test("provider ids that strip alike both render", async () => {
+    const summary = (providerId: string, overallScore: number) => ({
+      providerId,
+      providerVersion: "1.0.0",
+      overallScore,
+      grade: "B" as const,
+      categories: [],
+      evaluatedAt: "2026-04-20T10:00:00.000Z",
+    });
+    const output = await formatSkillDetail(
+      makeSkill({
+        evalSummary: undefined,
+        evalSummaries: {
+          "p\x01": summary("p\x01", 61),
+          "p\x02": summary("p\x02", 62),
+        },
+      }),
+    );
+    expect(output.match(/p\?@1\.0\.0/g)).toHaveLength(2);
+    expect(output).toContain("61");
+    expect(output).toContain("62");
+    // eslint-disable-next-line no-control-regex
+    expect(output).not.toMatch(/[\x00-\x08\x0b-\x1f\x7f-\x9f]/);
   });
 });

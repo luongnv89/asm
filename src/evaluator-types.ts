@@ -1,5 +1,7 @@
 // Split from evaluator-core.ts (issue #677).
 
+import type { ExternalSymlink } from "./utils/types";
+
 // ─── Types ──────────────────────────────────────────────────────────────────
 
 export interface CategoryResult {
@@ -34,6 +36,11 @@ export interface EvaluationReport {
   topSuggestions: string[];
   /** Parsed frontmatter (for follow-up tooling). */
   frontmatter: Record<string, string>;
+  /**
+   * Symlinks in the skill folder that leave it, dangle or loop, which eval
+   * did not read or follow (#825). Present only when non-empty.
+   */
+  externalSymlinks?: ExternalSymlink[];
 }
 
 export interface FixPlanItem {

@@ -149,7 +149,6 @@ const RECOGNISED_LICENSES = new Set([
   "MIT",
   "MIT-0",
   "Apache-2.0",
-  "Apache-2.0 WITH LLVM-exception",
   "BSD-2-Clause",
   "BSD-3-Clause",
   "ISC",
@@ -205,29 +204,399 @@ const RECOGNISED_LICENSES = new Set([
 ]);
 
 /**
+ * Deprecated ids still on the SPDX License List (`isDeprecatedLicenseId`).
+ * They are recognised, so `GPL-2.0+` parses as `GPL-2.0` plus `+`, but the
+ * scorer suggests the `-only` / `-or-later` form.
+ */
+const DEPRECATED_LICENSES = new Set([
+  "GPL-2.0",
+  "GPL-3.0",
+  "LGPL-2.1",
+  "LGPL-3.0",
+  "AGPL-3.0",
+]);
+
+/** A few common ids from the SPDX License Exceptions List. */
+const RECOGNISED_EXCEPTIONS = [
+  "LLVM-exception",
+  "Classpath-exception-2.0",
+  "GCC-exception-3.1",
+  "Autoconf-exception-3.0",
+  "Bison-exception-2.2",
+];
+
+/** Lower-cased id → canonical id; SPDX ids match in any case (Annex D.2). */
+const LICENSE_BY_LOWER = new Map(
+  [...RECOGNISED_LICENSES, ...DEPRECATED_LICENSES].map((id) => [
+    id.toLowerCase(),
+    id,
+  ]),
+);
+const EXCEPTION_BY_LOWER = new Map(
+  RECOGNISED_EXCEPTIONS.map((id) => [id.toLowerCase(), id]),
+);
+
+/** `idstring = 1*(ALPHA / DIGIT / "-" / ".")` */
+const IDSTRING_RE = /^[A-Za-z0-9.-]+$/;
+/** `license-ref = ["DocumentRef-" idstring ":"] "LicenseRef-" idstring` */
+const LICENSE_REF_RE =
+  /^(?:DocumentRef-[A-Za-z0-9.-]+:)?LicenseRef-[A-Za-z0-9.-]+$/;
+const OPERATORS = new Set(["AND", "OR", "WITH"]);
+/**
+ * Deepest parenthesis nesting the parser accepts. Recursion would otherwise
+ * overflow the stack on crafted input (a few thousand levels).
+ */
+export const MAX_SPDX_NESTING = 64;
+
+/** Most characters (code points) of a declared value quoted in one finding. */
+export const MAX_QUOTED_VALUE = 200;
+/** Most characters (code points) of one identifier or token in a finding. */
+const MAX_QUOTED_TOKEN = 60;
+
+/**
+ * Quote part of a declared licence value in backticks for a finding. A value
+ * longer than `max` code points is cut, marked with `…`, and followed by its
+ * length in code points, so a crafted value cannot blow up the report. It
+ * counts and cuts by code point, never inside a UTF-16 surrogate pair, so
+ * the finding never carries a lone surrogate into --json / --machine.
+ */
+export function quoteValue(value: string, max = MAX_QUOTED_VALUE): string {
+  const chars = Array.from(value);
+  return chars.length <= max
+    ? `\`${value}\``
+    : `\`${chars.slice(0, max).join("")}…\` (${chars.length} chars)`;
+}
+
+export type SpdxLeafKind = "spdx" | "ref" | "private" | "unknown";
+
+export type SpdxExpressionParse =
+  | {
+      ok: true;
+      /** Licence ids and references, in order (any `+` stripped). */
+      leaves: { id: string; kind: SpdxLeafKind }[];
+      exceptions: { id: string; known: boolean }[];
+      /** Canonical deprecated ids used; `orLater` when written with `+`. */
+      deprecated: { id: string; orLater: boolean }[];
+    }
+  | { ok: false; error: string };
+
+/**
+ * Kind of a single licence token: a listed SPDX id, a `LicenseRef-`, a
+ * one-word private form (`Proprietary`, `UNLICENSED`, `private`), or unknown.
+ */
+function leafKind(id: string): SpdxLeafKind {
+  if (LICENSE_BY_LOWER.has(id.toLowerCase())) return "spdx";
+  if (LICENSE_REF_RE.test(id)) return "ref";
+  if (isPrivateLicense(id)) return "private";
+  return "unknown";
+}
+
+/**
+ * Parse an SPDX license expression (SPDX 2.3 Annex D,
+ * https://spdx.github.io/spdx-spec/v2.3/SPDX-license-expressions/):
+ *
+ *   simple-expression   = license-id / license-id"+" / license-ref
+ *   compound-expression = simple-expression
+ *                       / simple-expression "WITH" license-exception-id
+ *                       / compound-expression "AND" compound-expression
+ *                       / compound-expression "OR" compound-expression
+ *                       / "(" compound-expression ")"
+ *
+ * Precedence is `+`, `WITH`, `AND`, `OR` (D.4.5). Operators are matched
+ * case-sensitively and identifiers case-insensitively (D.2), so prose such as
+ * "Proprietary and confidential" is not read as an expression. Syntax only:
+ * leaves are classified, not rejected, when they are not on the list.
+ */
+export function parseSpdxExpression(input: string): SpdxExpressionParse {
+  const tokens = input.match(/\(|\)|[^\s()]+/g) ?? [];
+  if (tokens.length === 0) return { ok: false, error: "empty expression" };
+
+  const leaves: { id: string; kind: SpdxLeafKind }[] = [];
+  const exceptions: { id: string; known: boolean }[] = [];
+  const deprecated: { id: string; orLater: boolean }[] = [];
+  let pos = 0;
+  let depth = 0;
+
+  class SyntaxError_ extends Error {}
+  const fail = (message: string): never => {
+    throw new SyntaxError_(message);
+  };
+  const q = (tok: string) => quoteValue(tok, MAX_QUOTED_TOKEN);
+  const after = () => (pos > 0 ? ` after ${q(tokens[pos - 1])}` : "");
+
+  const parseSimple = (): void => {
+    const tok = tokens[pos];
+    if (tok === undefined) fail(`expected a licence identifier${after()}`);
+    if (tok === "(" || tok === ")" || OPERATORS.has(tok) || tok === "+") {
+      fail(`expected a licence identifier but found ${q(tok)}`);
+    }
+    pos++;
+    const plus = tok.endsWith("+");
+    const id = plus ? tok.slice(0, -1) : tok;
+    if (LICENSE_REF_RE.test(id)) {
+      if (plus) fail(`\`+\` may follow only a licence identifier (${q(tok)})`);
+      leaves.push({ id, kind: "ref" });
+      return;
+    }
+    if (!IDSTRING_RE.test(id)) {
+      fail(`${q(tok)} is not a valid licence identifier`);
+    }
+    const canonical = LICENSE_BY_LOWER.get(id.toLowerCase());
+    if (canonical && DEPRECATED_LICENSES.has(canonical)) {
+      deprecated.push({ id: canonical, orLater: plus });
+    }
+    leaves.push({ id, kind: leafKind(id) });
+  };
+
+  const parseTerm = (): void => {
+    if (tokens[pos] === "(") {
+      if (++depth > MAX_SPDX_NESTING) {
+        fail(`parentheses nested more than ${MAX_SPDX_NESTING} deep`);
+      }
+      pos++;
+      parseOr();
+      if (tokens[pos] !== ")") fail(`expected \`)\`${after()}`);
+      pos++;
+      depth--;
+      if (tokens[pos] === "WITH") {
+        fail("WITH must follow a single licence identifier, not `)`");
+      }
+      return;
+    }
+    parseSimple();
+    if (tokens[pos] === "WITH") {
+      pos++;
+      const exc = tokens[pos];
+      if (
+        exc === undefined ||
+        exc === "(" ||
+        exc === ")" ||
+        OPERATORS.has(exc) ||
+        !IDSTRING_RE.test(exc)
+      ) {
+        fail("expected a licence exception after `WITH`");
+      }
+      pos++;
+      exceptions.push({
+        id: exc,
+        known: EXCEPTION_BY_LOWER.has(exc.toLowerCase()),
+      });
+    }
+  };
+
+  const parseAnd = (): void => {
+    parseTerm();
+    while (tokens[pos] === "AND") {
+      pos++;
+      parseTerm();
+    }
+  };
+
+  function parseOr(): void {
+    parseAnd();
+    while (tokens[pos] === "OR") {
+      pos++;
+      parseAnd();
+    }
+  }
+
+  try {
+    parseOr();
+    if (pos < tokens.length) {
+      const tok = tokens[pos];
+      const hint = OPERATORS.has(tok.toUpperCase())
+        ? " (operators AND, OR, WITH are upper-case)"
+        : "";
+      fail(`unexpected ${q(tok)}${hint}`);
+    }
+  } catch (err) {
+    if (err instanceof SyntaxError_) return { ok: false, error: err.message };
+    throw err;
+  }
+  return { ok: true, leaves, exceptions, deprecated };
+}
+
+/** Licence file names (case-insensitive) recognised at a directory root. */
+const LICENSE_FILE_NAMES = new Set([
+  "license",
+  "license.md",
+  "license.txt",
+  "copying",
+  "copying.md",
+  "copying.txt",
+]);
+
+/** Whether `name` is a recognised licence file name (case-insensitive). */
+export function isLicenseFileName(name: string): boolean {
+  return LICENSE_FILE_NAMES.has(name.toLowerCase());
+}
+
+/** Return the first licence file name among `entries`, if any. */
+export function findLicenseFileName(entries?: string[]): string | undefined {
+  return entries?.find(isLicenseFileName);
+}
+
+/**
+ * Declarations that mark a skill as private / proprietary rather than
+ * openly licensed: `Proprietary`, npm's `UNLICENSED`, `SEE LICENSE IN <file>`,
+ * `private`, and any "All rights reserved" notice. The SPDX `Unlicense`
+ * (public domain) is deliberately not matched.
+ */
+const PRIVATE_LICENSE_PATTERNS: RegExp[] = [
+  /^proprietary\b/i,
+  /^unlicensed$/i,
+  /^private\b/i,
+  /^see licen[cs]e in\s+\S/i,
+  /\ball rights reserved\b/i,
+];
+
+export function isPrivateLicense(license: string): boolean {
+  const id = license.trim();
+  return PRIVATE_LICENSE_PATTERNS.some((re) => re.test(id));
+}
+
+type LicenseAssessment =
+  | { status: "recognised"; finding: string; suggestions: string[] }
+  | { status: "private" }
+  | { status: "unrecognised"; reason: string };
+
+/** Quote up to five ids for a finding, each clipped, then "and N more". */
+const codeList = (ids: string[]) => {
+  const shown = ids.slice(0, 5).map((id) => quoteValue(id, MAX_QUOTED_TOKEN));
+  if (ids.length > 5) shown.push(`and ${ids.length - 5} more`);
+  return shown.join(", ");
+};
+
+/**
+ * Classify a declared `license:` value (#771, #783).
+ *
+ * The #771 rule (private if `isPrivateLicense` matches the whole value, else
+ * not recognised) applies when the value names no listed SPDX id and no
+ * `LicenseRef-`, or does not parse as an expression. So "PROPRIETARY AND
+ * CONFIDENTIAL", "All rights reserved" and `SEE LICENSE IN <file>` stay
+ * private, while `MIT OR` is not recognised.
+ *
+ * Otherwise the expression's ids and exceptions must all be recognised. One that also names private terms
+ * (`Apache-2.0 OR Proprietary`) is scored under the SPDX rule, because the
+ * SPDX terms need the licence text. A private alternative must not lift the
+ * no-file score above what the open licence earns alone.
+ */
+function assessLicense(value: string): LicenseAssessment {
+  const words = value.match(/[^\s()]+/g) ?? [];
+  const namesOpenLicence = words.some((w) => {
+    const kind = leafKind(w.endsWith("+") ? w.slice(0, -1) : w);
+    return kind === "spdx" || kind === "ref";
+  });
+  const parsed = namesOpenLicence ? parseSpdxExpression(value) : undefined;
+  if (!parsed?.ok) {
+    if (isPrivateLicense(value)) return { status: "private" };
+    return {
+      status: "unrecognised",
+      reason: parsed
+        ? `but it is not a valid SPDX license expression: ${parsed.error}.`
+        : "but not in asm's list of recognised SPDX identifiers.",
+    };
+  }
+
+  const unknownIds = parsed.leaves
+    .filter((l) => l.kind === "unknown")
+    .map((l) => l.id);
+  const unknownExceptions = parsed.exceptions
+    .filter((e) => !e.known)
+    .map((e) => e.id);
+  if (unknownIds.length || unknownExceptions.length) {
+    const parts: string[] = [];
+    if (unknownIds.length) {
+      parts.push(
+        `${codeList(unknownIds)} ${unknownIds.length > 1 ? "are" : "is"} not in asm's list of recognised SPDX identifiers`,
+      );
+    }
+    if (unknownExceptions.length) {
+      parts.push(
+        `${codeList(unknownExceptions)} ${unknownExceptions.length > 1 ? "are" : "is"} not in asm's list of recognised SPDX exceptions`,
+      );
+    }
+    return { status: "unrecognised", reason: `but ${parts.join("; ")}.` };
+  }
+
+  const suggestions = [
+    ...new Set(
+      parsed.deprecated.map(({ id, orLater }) =>
+        orLater
+          ? `\`${id}+\` is deprecated on the SPDX License List — use \`${id}-or-later\`.`
+          : `\`${id}\` is deprecated on the SPDX License List — use \`${id}-only\` or \`${id}-or-later\`.`,
+      ),
+    ),
+  ];
+  const privateTerms = parsed.leaves
+    .filter((l) => l.kind === "private")
+    .map((l) => l.id);
+  const refs = parsed.leaves.filter((l) => l.kind === "ref").map((l) => l.id);
+  const refNote = refs.length
+    ? ` Custom reference ${codeList(refs)}: its text belongs in the licence file.`
+    : "";
+
+  if (privateTerms.length) {
+    return {
+      status: "recognised",
+      finding: `License declared: ${quoteValue(value)} mixes SPDX terms with private terms (${codeList(privateTerms)}), so it is not valid SPDX as written (use ${codeList(privateTerms.map((t) => `LicenseRef-${t}`))} for the private terms) — SPDX licence rule applied: the SPDX terms need a licence file; the private-licence rule (#771) covers only declarations with no SPDX identifier.${refNote}`,
+      suggestions,
+    };
+  }
+  const single =
+    parsed.leaves.length === 1 &&
+    parsed.exceptions.length === 0 &&
+    parsed.leaves[0].kind === "spdx" &&
+    words.length === 1 &&
+    !value.endsWith("+");
+  return {
+    status: "recognised",
+    finding: single
+      ? `License declared: ${quoteValue(value)} (SPDX recognised).`
+      : `License declared: ${quoteValue(value)} (valid SPDX license expression, every identifier recognised).${refNote}`,
+    suggestions,
+  };
+}
+
+/**
  * Score whether a skill declares a license and whether that declaration is
- * a recognised SPDX identifier.
+ * a recognised SPDX identifier or a private licence (issue #771).
+ *
+ * A licence file is the skill's own LICENSE / LICENSE.md / LICENSE.txt /
+ * COPYING at the skill root, or — when the skill has none — one inherited
+ * from the enclosing repository (`inheritedLicenseFile`, a path relative to
+ * the skill dir, resolved by the caller up to the git root).
+ *
+ * "Recognised SPDX" covers a listed id and a valid SPDX license expression
+ * (#783, `parseSpdxExpression`) whose ids and exceptions are all recognised,
+ * including `LicenseRef-` references and expressions that mix SPDX terms
+ * with private ones (`Apache-2.0 OR Proprietary`).
  *
  * Scoring:
- *   10 — recognised SPDX licence declared in frontmatter AND a matching
- *        LICENSE file present at the skill root.
- *    5 — recognised SPDX licence declared in frontmatter but no LICENSE file.
+ *   10 — recognised SPDX or private licence declared AND a licence file
+ *        (own or inherited) present.
+ *    8 — private licence declared (`Proprietary`, `UNLICENSED`,
+ *        `SEE LICENSE IN <file>`, `private`, "All rights reserved") with no
+ *        licence file — private terms need neither SPDX nor a LICENSE file.
+ *    5 — recognised SPDX licence declared but no licence file anywhere.
  *    2 — a licence is declared (in frontmatter or LICENSE file) but the
- *        identifier is not in the SPDX list.
- *    0 — no licence found at all.
+ *        identifier is neither SPDX nor private, or an expression names an
+ *        unknown id or exception, or has invalid syntax.
+ *    0 — no licence declared at all (an inherited file alone does not count).
  *
  * The scorer also records a `licenseStatus` tag on the result so callers can
  * surface the position without parsing free-text findings.
  */
 export interface CategoryResultWithLicense extends CategoryResult {
   /** Stable tag describing the licence position. */
-  licenseStatus?: "recognised" | "unrecognised" | "missing";
+  licenseStatus?: "recognised" | "private" | "unrecognised" | "missing";
 }
 
 export function scoreLicense(
   fm: Record<string, string>,
   body: string,
   rootEntries?: string[],
+  inheritedLicenseFile?: string,
 ): CategoryResultWithLicense {
   const findings: string[] = [];
   const suggestions: string[] = [];
@@ -236,24 +605,24 @@ export function scoreLicense(
   const fmLicense = (fm.license || "").trim();
   const hasFmLicense = Boolean(fmLicense);
 
-  // Check for a LICENSE file at the skill root
-  const licenseFile = rootEntries?.find(
-    (e) =>
-      e.toLowerCase() === "license" ||
-      e.toLowerCase() === "license.md" ||
-      e.toLowerCase() === "license.txt",
-  );
-  const hasLicenseFile = Boolean(licenseFile);
+  // Check for a LICENSE file at the skill root, else one inherited from the
+  // enclosing repository.
+  const hasLicenseFile = Boolean(findLicenseFileName(rootEntries));
+  const inherited = hasLicenseFile ? undefined : inheritedLicenseFile;
+  const licenseFileFinding = hasLicenseFile
+    ? "LICENSE file present at skill root."
+    : inherited
+      ? `LICENSE inherited from the enclosing repository (\`${inherited}\`).`
+      : undefined;
 
   // Classify
-  let licenseStatus: "recognised" | "unrecognised" | "missing" = "missing";
+  let licenseStatus: "recognised" | "private" | "unrecognised" | "missing" =
+    "missing";
+  let assessment: LicenseAssessment | undefined;
 
   if (hasFmLicense) {
-    if (RECOGNISED_LICENSES.has(fmLicense)) {
-      licenseStatus = "recognised";
-    } else {
-      licenseStatus = "unrecognised";
-    }
+    assessment = assessLicense(fmLicense);
+    licenseStatus = assessment.status;
   } else if (hasLicenseFile) {
     // License file exists but no frontmatter declaration — treat as
     // "unrecognised" because we cannot programmatically verify the file
@@ -263,29 +632,37 @@ export function scoreLicense(
 
   switch (licenseStatus) {
     case "recognised": {
-      score = hasLicenseFile ? 10 : 5;
-      findings.push(`License declared: \`${fmLicense}\` (SPDX recognised).`);
-      if (hasLicenseFile) {
-        findings.push(`LICENSE file present at skill root.`);
-      } else {
-        findings.push(
-          `No LICENSE file found — consider adding one for clarity.`,
-        );
+      score = licenseFileFinding ? 10 : 5;
+      if (assessment?.status === "recognised") {
+        findings.push(assessment.finding);
+        suggestions.push(...assessment.suggestions);
       }
+      findings.push(
+        licenseFileFinding ??
+          "No LICENSE file found — consider adding one for clarity.",
+      );
+      break;
+    }
+    case "private": {
+      score = licenseFileFinding ? 10 : 8;
+      findings.push(
+        `Private licence declared: ${quoteValue(fmLicense)} — no SPDX identifier or LICENSE file required.`,
+      );
+      if (licenseFileFinding) findings.push(licenseFileFinding);
       break;
     }
     case "unrecognised": {
       score = 2;
-      if (hasFmLicense) {
+      if (assessment?.status === "unrecognised") {
         findings.push(
-          `License declared as \`${fmLicense}\` but not in the SPDX list.`,
+          `License declared as ${quoteValue(fmLicense)} ${assessment.reason}`,
         );
       }
       if (hasLicenseFile && !hasFmLicense) {
         findings.push(`LICENSE file present but no frontmatter license field.`);
       }
       suggestions.push(
-        "Use a standard SPDX licence identifier (e.g. `MIT`, `Apache-2.0`, `GPL-3.0-only`) so tooling can verify redistributability.",
+        "Use a standard SPDX licence identifier or expression (e.g. `MIT`, `Apache-2.0`, `MIT OR Apache-2.0`) so tooling can verify redistributability.",
       );
       break;
     }

@@ -30,7 +30,8 @@ jobs:
           GITLEAKS_VERSION=8.30.1
           # SHA256 of gitleaks_8.30.1_linux_x64.tar.gz (from gitleaks_8.30.1_checksums.txt)
           GITLEAKS_SHA256=551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
-          curl -sSL -o /tmp/gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          curl -fsSL --retry 5 --retry-all-errors --retry-delay 5 --connect-timeout 20 --max-time 300 -o /tmp/gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
+            || { echo "::error::Downloading gitleaks ${GITLEAKS_VERSION} failed (curl error above); the archive was not checksummed"; exit 1; }
           echo "${GITLEAKS_SHA256}  /tmp/gitleaks.tar.gz" | sha256sum -c -
           sudo tar -xz -C /usr/local/bin -f /tmp/gitleaks.tar.gz gitleaks
           gitleaks version
@@ -40,7 +41,8 @@ jobs:
           TRIVY_VERSION=0.70.0
           # SHA256 of trivy_0.70.0_Linux-64bit.tar.gz (from trivy_0.70.0_checksums.txt)
           TRIVY_SHA256=8b4376d5d6befe5c24d503f10ff136d9e0c49f9127a4279fd110b727929a5aa9
-          curl -sSL -o /tmp/trivy.tar.gz "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz"
+          curl -fsSL --retry 5 --retry-all-errors --retry-delay 5 --connect-timeout 20 --max-time 300 -o /tmp/trivy.tar.gz "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz" \
+            || { echo "::error::Downloading trivy ${TRIVY_VERSION} failed (curl error above); the archive was not checksummed"; exit 1; }
           echo "${TRIVY_SHA256}  /tmp/trivy.tar.gz" | sha256sum -c -
           sudo tar -xz -C /usr/local/bin -f /tmp/trivy.tar.gz trivy
           trivy --version

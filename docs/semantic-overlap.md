@@ -37,7 +37,9 @@ These can be adjusted in the source or via the `--threshold` CLI flag.
 ## Performance
 
 The algorithm is O(n²) on the number of skills compared. The CLI command caps
-comparison at 500 skills to keep runtime reasonable.
+comparison at 500 skills to keep runtime reasonable. Each skill is tokenized
+once before the pairwise loop, and `asm index overlap` passes its pairs to
+`groupOverlaps` so the comparison runs only once.
 
 ## API
 
@@ -56,9 +58,10 @@ import {
 
 Returns all overlapping pairs above the threshold, sorted by score descending.
 
-### `groupOverlaps(skills, threshold?)`
+### `groupOverlaps(skills, threshold?, pairs?)`
 
-Groups overlapping skills into clusters using union-find.
+Groups overlapping skills into clusters using union-find. Pass `pairs` from
+`findOverlapPairs(skills, threshold)` to reuse them instead of recomputing.
 
 ### `checkCandidateOverlap(candidate, indexedSkills, threshold?)`
 

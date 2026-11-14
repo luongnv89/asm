@@ -81,8 +81,9 @@ import {
   realpath,
   readdir,
 } from "fs/promises";
+import { spawnSync } from "child_process";
 import { join, resolve } from "path";
-import { tmpdir } from "os";
+import { homedir, tmpdir } from "os";
 import {
   searchSkills,
   sortSkills,
@@ -92,6 +93,7 @@ import {
   readCodexMarketplaceFiles,
   compareSemver,
   countFiles,
+  skillFieldsFromSkillMd,
 } from "./scanner";
 import { setVerbose } from "./logger";
 import { getDefaultConfig } from "./config";
@@ -401,15 +403,114 @@ describe("countFiles", () => {
     expect(count).toBe(2);
   });
 
-  it("counts files recursively", async () => {
+  it("counts files recursively; folders add 0 (#826)", async () => {
     await writeFile(join(tempDir, "a.txt"), "a");
     await mkdir(join(tempDir, "sub"));
     await writeFile(join(tempDir, "sub", "b.txt"), "b");
     await writeFile(join(tempDir, "sub", "c.txt"), "c");
-    const count = await countFiles(tempDir);
-    // readdir({ recursive: true }) returns all entries including subdirectory names
-    // 4 entries: a.txt, sub, sub/b.txt, sub/c.txt
-    expect(count).toBe(4);
+    expect(await countFiles(tempDir)).toBe(3);
+  });
+
+  it("nested and empty folders add 0 (#826)", async () => {
+    await writeFile(join(tempDir, "SKILL.md"), "x");
+    await mkdir(join(tempDir, "a", "b", "c"), { recursive: true });
+    await mkdir(join(tempDir, "empty"));
+    expect(await countFiles(tempDir)).toBe(1);
+  });
+
+  it("counts the issue repro as 2: SKILL.md + a/b/f.txt (#826)", async () => {
+    await mkdir(join(tempDir, "a", "b"), { recursive: true });
+    await writeFile(join(tempDir, "SKILL.md"), "---\nname: fc-probe\n---\n");
+    await writeFile(join(tempDir, "a", "b", "f.txt"), "x\n");
+    expect(await countFiles(tempDir)).toBe(2);
+  });
+
+  it("counts an agent-profile-shaped skill as 4 (#826)", async () => {
+    await mkdir(join(tempDir, "references"));
+    await mkdir(join(tempDir, "scripts"));
+    await writeFile(join(tempDir, "SKILL.md"), "x");
+    await writeFile(join(tempDir, "references", "harnesses.md"), "x");
+    await writeFile(join(tempDir, "references", "profile-format.md"), "x");
+    await writeFile(join(tempDir, "scripts", "agent_profile.py"), "x");
+    expect(await countFiles(tempDir)).toBe(4);
+  });
+
+  it.skipIf(process.platform === "win32")(
+    "never follows a symlink out of the skill folder (#791, #826)",
+    async () => {
+      const skill = join(tempDir, "skill");
+      const outside = join(tempDir, "outside");
+      await mkdir(skill);
+      await mkdir(outside);
+      await writeFile(join(outside, "one.txt"), "1");
+      await writeFile(join(outside, "two.txt"), "2");
+      await writeFile(join(skill, "SKILL.md"), "x");
+      await symlink(join(outside, "one.txt"), join(skill, "file-link"));
+      await symlink(outside, join(skill, "dir-link"), "dir");
+      await symlink("../outside", join(skill, "relative-dir-link"), "dir");
+      expect(await countFiles(skill)).toBe(1);
+    },
+  );
+
+  it.skipIf(process.platform === "win32")(
+    "counts in-folder links as their target, each real folder once",
+    async () => {
+      await mkdir(join(tempDir, "sub"));
+      await writeFile(join(tempDir, "SKILL.md"), "x");
+      await writeFile(join(tempDir, "sub", "f.txt"), "x");
+      // File link inside the folder counts as a file.
+      await symlink("SKILL.md", join(tempDir, "alias.md"));
+      // Folder link to an already-counted folder adds nothing more.
+      await symlink("sub", join(tempDir, "sub-link"), "dir");
+      // Link back to the root (a loop) is not followed.
+      await symlink("..", join(tempDir, "sub", "up"), "dir");
+      expect(await countFiles(tempDir)).toBe(3);
+    },
+  );
+
+  it.skipIf(process.platform === "win32")(
+    "dangling and self-looping links add 0",
+    async () => {
+      await writeFile(join(tempDir, "SKILL.md"), "x");
+      await symlink(join(tempDir, "missing"), join(tempDir, "dangling"));
+      await symlink("self", join(tempDir, "self"));
+      expect(await countFiles(tempDir)).toBe(1);
+    },
+  );
+
+  it.skipIf(process.platform !== "linux")(
+    "confines loops, links through outside links, system paths and FIFOs",
+    async () => {
+      const skill = join(tempDir, "skill");
+      const outside = join(tempDir, "outside");
+      await mkdir(skill);
+      await mkdir(outside);
+      await writeFile(join(outside, "one.txt"), "1");
+      await writeFile(join(skill, "SKILL.md"), "x");
+      // Two-link loop.
+      await symlink("B", join(skill, "A"));
+      await symlink("A", join(skill, "B"));
+      // A link out, and a link through that link to a file outside.
+      await symlink(outside, join(skill, "outlink"), "dir");
+      await symlink("outlink/one.txt", join(skill, "via"));
+      // System paths: a device, the root, and a /proc self-link.
+      await symlink("/dev/zero", join(skill, "zero"));
+      await symlink("/", join(skill, "root"), "dir");
+      await symlink("/proc/self", join(skill, "self"), "dir");
+      // A FIFO is not a regular file and must not block the walk.
+      expect(spawnSync("mkfifo", [join(skill, "fifo")]).status).toBe(0);
+      expect(await countFiles(skill)).toBe(1);
+    },
+  );
+
+  it("counts a symlinked skill folder at its target", async () => {
+    const real = join(tempDir, "real");
+    await mkdir(join(real, "sub"), { recursive: true });
+    await writeFile(join(real, "SKILL.md"), "x");
+    await writeFile(join(real, "sub", "f.txt"), "x");
+    const link = join(tempDir, "linked");
+    await createDirSymlink(real, link);
+    expect(await countFiles(link)).toBe(2);
   });
 
   it("returns 0 for non-existent directory", async () => {
@@ -1718,5 +1819,340 @@ describe("readCodexMarketplaceFiles", () => {
       "repo-only",
       "user-only",
     ]);
+  });
+});
+
+// ─── creator resolution (#787) ──────────────────────────────────────────────
+
+describe("creator from metadata.author (#787)", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "scanner-creator-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  async function writeSkill(root: string, dir: string, meta: string[]) {
+    await mkdir(join(root, dir), { recursive: true });
+    await writeFile(
+      join(root, dir, "SKILL.md"),
+      ["---", `name: ${dir}`, "description: d", ...meta, "---", "Body"].join(
+        "\n",
+      ),
+    );
+  }
+
+  it("installed scan: author-only, both keys, and neither", async () => {
+    await writeSkill(tempDir, "author-only", [
+      "metadata:",
+      '  author: "Luong NGUYEN <luongnv89@gmail.com>"',
+    ]);
+    await writeSkill(tempDir, "both-keys", [
+      "metadata:",
+      "  creator: the-creator",
+      "  author: the-author",
+    ]);
+    await writeSkill(tempDir, "neither", ["metadata:", "  version: 1.0.0"]);
+
+    const skills = await scanAllSkills(makeScanConfig([tempDir]), "project");
+    const by = (n: string) => skills.find((s) => s.name === n)!;
+    expect(by("author-only").creator).toBe("Luong NGUYEN");
+    expect(by("both-keys").creator).toBe("the-creator");
+    expect(by("neither").creator).toBe("");
+
+    // Creator search matches the metadata.author value.
+    expect(searchSkills(skills, "luong nguyen").map((s) => s.name)).toEqual([
+      "author-only",
+    ]);
+  });
+
+  it("plugin marketplace scan: author-only, both keys, and neither", async () => {
+    const skillsRoot = join(tempDir, "mkt", "skills");
+    await writeSkill(skillsRoot, "author-only", [
+      "metadata:",
+      "  author: luongnv89",
+    ]);
+    await writeSkill(skillsRoot, "both-keys", [
+      "metadata:",
+      "  creator: the-creator",
+      "  author: the-author",
+    ]);
+    await writeSkill(skillsRoot, "neither", []);
+
+    const skills = await scanPluginMarketplaces(tempDir);
+    const by = (n: string) => skills.find((s) => s.name === n)!;
+    expect(by("author-only").creator).toBe("luongnv89");
+    expect(by("both-keys").creator).toBe("the-creator");
+    expect(by("neither").creator).toBe("");
+  });
+});
+
+// ─── project dir that is the global dir (#806) ──────────────────────────────
+
+describe("scanAllSkills project dir aliasing the global dir (#806)", () => {
+  // HOME is the per-file sandbox from src/test-setup.ts, never the real home.
+  let home: string;
+  let tempDir: string;
+  const prevCwd = process.cwd();
+
+  const config = (): AppConfig => ({
+    ...getDefaultConfig(),
+    providers: [
+      {
+        name: "claude",
+        label: "Claude Code",
+        global: "~/.claude/skills",
+        project: ".claude/skills",
+        enabled: true,
+      },
+    ],
+    customPaths: [],
+  });
+
+  async function writeSkill(dir: string, name: string): Promise<void> {
+    await mkdir(join(dir, name), { recursive: true });
+    await writeFile(
+      join(dir, name, "SKILL.md"),
+      `---\nname: ${name}\ndescription: test\n---\n# ${name}\n`,
+    );
+  }
+
+  async function scanFrom(cwd: string, scope: "both" | "global" | "project") {
+    process.chdir(cwd);
+    try {
+      // Empty plugin dirs keep marketplace/codex rows out of the result.
+      const noPlugins = join(tempDir, "no-plugins");
+      return (await scanAllSkills(config(), scope, noPlugins, noPlugins)).map(
+        (s) => [s.name, s.scope],
+      );
+    } finally {
+      process.chdir(prevCwd);
+    }
+  }
+
+  beforeEach(async () => {
+    resetScanFsControl();
+    home = homedir();
+    expect(home).toBe(process.env.HOME);
+    expect(home).not.toBe(process.env.ASM_TEST_HOST_HOME);
+    tempDir = await mkdtemp(join(tmpdir(), "scanner-806-"));
+    await writeSkill(join(home, ".claude", "skills"), "s1");
+  });
+
+  afterEach(async () => {
+    process.chdir(prevCwd);
+    resetScanFsControl();
+    await rm(join(home, ".claude"), { recursive: true, force: true });
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  it("lists a global skill once, as global, when cwd is HOME", async () => {
+    expect(await scanFrom(home, "both")).toEqual([["s1", "global"]]);
+    expect(await scanFrom(home, "global")).toEqual([["s1", "global"]]);
+    expect(await scanFrom(home, "project")).toEqual([]);
+  });
+
+  it("lists a global skill once when the project dir symlinks to it", async () => {
+    const project = join(tempDir, "proj");
+    await mkdir(join(project, ".claude"), { recursive: true });
+    await createDirSymlink(
+      join(home, ".claude", "skills"),
+      join(project, ".claude", "skills"),
+    );
+
+    expect(await scanFrom(project, "both")).toEqual([["s1", "global"]]);
+    expect(await scanFrom(project, "project")).toEqual([]);
+  });
+
+  it("keeps a real project install as project outside HOME", async () => {
+    const project = join(tempDir, "proj");
+    await writeSkill(join(project, ".claude", "skills"), "s2");
+
+    expect(await scanFrom(project, "both")).toEqual([
+      ["s1", "global"],
+      ["s2", "project"],
+    ]);
+    expect(await scanFrom(project, "global")).toEqual([["s1", "global"]]);
+    expect(await scanFrom(project, "project")).toEqual([["s2", "project"]]);
+  });
+});
+
+describe("scanAllSkills alias check is per provider (#806)", () => {
+  // HOME is the per-file sandbox from src/test-setup.ts, never the real home.
+  let home: string;
+  let tempDir: string;
+  const prevCwd = process.cwd();
+
+  const provider = (name: string) => ({
+    name,
+    label: name,
+    global: `~/.${name}/skills`,
+    project: `.${name}/skills`,
+    enabled: true,
+  });
+
+  async function writeSkill(dir: string, name: string): Promise<void> {
+    await mkdir(join(dir, name), { recursive: true });
+    await writeFile(
+      join(dir, name, "SKILL.md"),
+      `---\nname: ${name}\ndescription: test\n---\n# ${name}\n`,
+    );
+  }
+
+  async function scanFrom(
+    cwd: string,
+    scope: "both" | "global" | "project",
+    config: AppConfig,
+  ) {
+    process.chdir(cwd);
+    try {
+      const noPlugins = join(tempDir, "no-plugins");
+      return (await scanAllSkills(config, scope, noPlugins, noPlugins)).map(
+        (s) => [s.name, s.scope, s.provider],
+      );
+    } finally {
+      process.chdir(prevCwd);
+    }
+  }
+
+  beforeEach(async () => {
+    resetScanFsControl();
+    home = homedir();
+    expect(home).toBe(process.env.HOME);
+    tempDir = await mkdtemp(join(tmpdir(), "scanner-806-provider-"));
+  });
+
+  afterEach(async () => {
+    process.chdir(prevCwd);
+    resetScanFsControl();
+    await rm(join(home, ".agents"), { recursive: true, force: true });
+    await rm(join(home, ".claude"), { recursive: true, force: true });
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  it("keeps a project dir linked to another provider's global dir as project", async () => {
+    // Review case 9: proj/.claude/skills -> ~/.agents/skills.
+    await writeSkill(join(home, ".agents", "skills"), "a1");
+    await writeSkill(join(home, ".claude", "skills"), "s1");
+    const project = join(tempDir, "proj9");
+    await mkdir(join(project, ".claude"), { recursive: true });
+    await createDirSymlink(
+      join(home, ".agents", "skills"),
+      join(project, ".claude", "skills"),
+    );
+    const config: AppConfig = {
+      ...getDefaultConfig(),
+      providers: [provider("agents"), provider("claude")],
+      customPaths: [],
+    };
+
+    expect(await scanFrom(project, "both", config)).toEqual([
+      ["a1", "global", "agents"],
+      ["s1", "global", "claude"],
+      ["a1", "project", "claude"],
+    ]);
+    expect(await scanFrom(project, "project", config)).toEqual([
+      ["a1", "project", "claude"],
+    ]);
+    // From HOME each provider's project dir is its own global dir.
+    expect(await scanFrom(home, "both", config)).toEqual([
+      ["a1", "global", "agents"],
+      ["s1", "global", "claude"],
+    ]);
+  });
+
+  it("keeps a provider project dir that is a global custom path as project", async () => {
+    // Review case 6b: a global custom path equals proj6/.claude/skills.
+    await writeSkill(join(home, ".claude", "skills"), "s1");
+    const project = join(tempDir, "proj6");
+    await writeSkill(join(project, ".claude", "skills"), "s6");
+    const config: AppConfig = {
+      ...getDefaultConfig(),
+      providers: [provider("claude")],
+      customPaths: [
+        {
+          path: join(project, ".claude", "skills"),
+          label: "Custom",
+          scope: "global",
+        },
+      ],
+    };
+
+    expect(await scanFrom(project, "project", config)).toEqual([
+      ["s6", "project", "claude"],
+    ]);
+    expect(await scanFrom(project, "both", config)).toEqual([
+      ["s1", "global", "claude"],
+      ["s6", "project", "claude"],
+      ["s6", "global", "custom"],
+    ]);
+  });
+
+  it("drops a custom project path that is a global custom path", async () => {
+    const shared = join(tempDir, "shared");
+    await writeSkill(shared, "c1");
+    const config: AppConfig = {
+      ...getDefaultConfig(),
+      providers: [],
+      customPaths: [
+        { path: shared, label: "G", scope: "global" },
+        { path: shared, label: "P", scope: "project" },
+      ],
+    };
+
+    expect(await scanFrom(tempDir, "both", config)).toEqual([
+      ["c1", "global", "custom"],
+    ]);
+    expect(await scanFrom(tempDir, "project", config)).toEqual([]);
+  });
+});
+
+describe("skillFieldsFromSkillMd (#829)", () => {
+  it("maps frontmatter to SkillInfo fields in --json key order", () => {
+    const fields = skillFieldsFromSkillMd(
+      [
+        "---",
+        "name: n",
+        "description: |",
+        "  line one",
+        "  line two",
+        "license: MIT",
+        "effort: high",
+        "metadata:",
+        "  version: 1.0.0",
+        "  author: someone",
+        "---",
+        "Body",
+      ].join("\n"),
+      "folder",
+    );
+    expect(Object.keys(fields)).toEqual([
+      "name",
+      "version",
+      "description",
+      "creator",
+      "license",
+      "compatibility",
+      "allowedTools",
+      "tags",
+      "dependencies",
+      "modelInvocable",
+      "userInvocable",
+      "effort",
+    ]);
+    expect(fields).toMatchObject({
+      name: "n",
+      version: "1.0.0",
+      description: "line one line two",
+      creator: "someone",
+      license: "MIT",
+      effort: "high",
+    });
+    expect(skillFieldsFromSkillMd("no frontmatter", "folder").name).toBe(
+      "folder",
+    );
   });
 });

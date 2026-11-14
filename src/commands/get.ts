@@ -23,7 +23,8 @@ import {
   classifyWarningRisk,
 } from "../installer";
 import { isBareOrScopedName, resolveFromRegistry } from "../registry";
-import { auditSkillSecurity, formatSecurityReport } from "../security-auditor";
+import { formatSecurityReport } from "../security-auditor";
+import { auditSkillFolder } from "./audit";
 import { looksLikeGithubInput } from "../evaluator";
 import {
   formatMachineOutput,
@@ -157,7 +158,10 @@ async function fetchGetFromRemote(
     );
     const dependencies = resolveSkillDependencies(parseFrontmatter(content));
 
-    const warnings = await scanForWarnings(remote.rootDir);
+    // Confined to the clone (#791): links out of it are warnings, not read.
+    const warnings = await scanForWarnings(remote.rootDir, {
+      root: remote.tempDir,
+    });
     const security: GetSecurityVerdict = {
       risk: classifyWarningRisk(warnings),
       warnings: warnings.length,
@@ -178,6 +182,7 @@ async function fetchGetFromRemote(
       },
       cleanup: remote.cleanup,
       dir: remote.rootDir,
+      boundary: remote.tempDir,
       owner: parsed.owner,
       repo: parsed.repo,
     };
@@ -365,13 +370,22 @@ export async function cmdGet(args: ParsedArgs) {
     // `--audit` applies to whatever was resolved: a temp clone is still on disk
     // at this point, and installed/library/local tiers have a real directory
     // too, so the flag never silently does nothing.
+    // The audit is confined like `asm audit security` (#791): the skill's
+    // own folder (followed and announced when it is a link) or, for a remote
+    // tier, the temp clone; nothing outside it is read or printed.
     if (args.flags.audit) {
-      const report = await auditSkillSecurity(
-        resolution.dir,
-        result.name,
-        resolution.owner,
-        resolution.repo,
-      );
+      const report = await auditSkillFolder({
+        dir: resolution.dir,
+        boundary: resolution.boundary,
+        fallbackName: result.name,
+        owner: resolution.owner,
+        repo: resolution.repo,
+      });
+      if (report.resolvedPath) {
+        process.stderr.write(
+          `Auditing ${resolution.dir} -> ${report.resolvedPath}\n`,
+        );
+      }
       process.stderr.write(formatSecurityReport(report) + "\n");
     }
 

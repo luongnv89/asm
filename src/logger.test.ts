@@ -68,4 +68,30 @@ describe("logger", () => {
     expect(output).toContain("[verbose]");
     expect(output).toContain("no color test");
   });
+
+  test("debug() strips control bytes and keeps each message on one line (#830)", () => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+    setVerbose(true);
+    debug("skip: evil\x1b[31m\x07\u009b\x7f\nnext\r\tend");
+    const output = stderrSpy.mock.calls[0][0] as string;
+    expect(output).toMatch(/skip: evil\?\[31m\?\?\?\\nnext\\r\tend$/);
+    expect(output).not.toContain("\n");
+    // eslint-disable-next-line no-control-regex
+    expect(output).not.toMatch(/[\x00-\x08\x0a-\x1f\x7f-\x9f]/);
+  });
+
+  test("an author folder name cannot forge a [verbose] line (#830)", () => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+    setVerbose(true);
+    debug(
+      "scanner: skipped nofile\n[verbose] +1ms FORGED all clear (no SKILL.md)",
+    );
+    const output = stderrSpy.mock.calls[0][0] as string;
+    const lines = output.split("\n");
+    expect(lines).toHaveLength(1);
+    expect(lines.filter((l) => l.startsWith("[verbose] +1ms FORGED"))).toEqual(
+      [],
+    );
+    expect(output).toContain("nofile\\n[verbose] +1ms FORGED all clear");
+  });
 });

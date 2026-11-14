@@ -35,6 +35,7 @@ export {
   evaluateSkillContent,
   evaluateSkillContentSync,
   evaluateSkill,
+  findInheritedLicenseFile,
   buildFixPlan,
   unifiedDiff,
   applyFix,

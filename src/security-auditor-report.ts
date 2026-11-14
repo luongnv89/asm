@@ -4,6 +4,11 @@ import type {
   SecurityAuditReport,
   SecurityVerdict,
 } from "./utils/types";
+import { stripControlBytes } from "./security-auditor-scan";
+import {
+  stringifyForOutput,
+  stripControlBytesDeep,
+} from "./utils/control-chars";
 // Split from security-auditor.ts (issue #677).
 
 // ─── Report Formatting ──────────────────────────────────────────────────────
@@ -126,6 +131,17 @@ function groupMatchesByFile(matches: CodeScanMatch[]): FileGroup[] {
 }
 
 export function formatSecurityReport(report: SecurityAuditReport): string {
+  // Dedupe and group findings on the original file names, then strip what is
+  // rendered (#830). Below the strip, strings are only printed or compared
+  // with fixed constants (verdict, severity, category).
+  const findingsByCategory = report.codeScans.map((category) => {
+    const deduped = deduplicateMatches(category.matches);
+    return stripControlBytesDeep({
+      deduped,
+      fileGroups: groupMatchesByFile(deduped),
+    });
+  });
+  report = stripControlBytesDeep(report);
   const lines: string[] = [];
 
   // ── Zone A: Header Box ──
@@ -161,6 +177,11 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
       color.dim("|"),
   );
   lines.push(color.dim("  +" + "-".repeat(BOX_WIDTH - 2) + "+"));
+  if (report.resolvedPath) {
+    lines.push(
+      `  ${color.dim("Resolved:")} ${report.resolvedPath} ${color.dim("(target is a symlink; followed)")}`,
+    );
+  }
 
   // ── Source line (compact) ──
   if (report.source) {
@@ -193,8 +214,10 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
 
   lines.push("");
 
+  const symlinks = report.externalSymlinks ?? [];
+
   // ── Zone B: Threat Summary ──
-  if (report.codeScans.length === 0) {
+  if (report.codeScans.length === 0 && symlinks.length === 0) {
     lines.push(
       `  ${color.green("*")} ${color.green("No suspicious patterns detected.")}`,
     );
@@ -230,7 +253,9 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
     const permLabel =
       permTypes.length > 0 ? color.dim(`Perms: ${permTypes.join(", ")}`) : "";
 
-    lines.push(`     ${countParts.join(color.dim(" | "))}    ${permLabel}`);
+    if (countParts.length > 0 || permLabel) {
+      lines.push(`     ${countParts.join(color.dim(" | "))}    ${permLabel}`);
+    }
   }
 
   lines.push("");
@@ -240,8 +265,8 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
     lines.push(`  ${color.bold("Findings")}`);
     lines.push(color.dim("  " + "=".repeat(BOX_WIDTH - 2)));
 
-    for (const category of report.codeScans) {
-      const dedupedMatches = deduplicateMatches(category.matches);
+    for (const [index, category] of report.codeScans.entries()) {
+      const { deduped: dedupedMatches, fileGroups } = findingsByCategory[index];
       const critCount = dedupedMatches.filter(
         (m) => m.severity === "critical",
       ).length;
@@ -280,8 +305,7 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
         lines.push(headerLeft);
       }
 
-      // Group matches by file and render compactly
-      const fileGroups = groupMatchesByFile(dedupedMatches);
+      // Matches grouped by file (above, on the originals), rendered compactly
 
       // Compute max file name length for alignment (capped)
       const maxFileLen = Math.min(
@@ -346,6 +370,40 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
     }
   }
 
+  // ── Zone C2: Symlinks not read — outside, dangling, looping (#779) ──
+  if (symlinks.length > 0) {
+    lines.push(
+      `  ${severityIcon("critical")} ${color.bold("Symlinks not read")} (${color.red(`${symlinks.length} critical`)})`,
+    );
+    for (const link of symlinks) {
+      const note =
+        link.kind === "dangling" || link.kind === "loop"
+          ? `${link.kind}, not followed`
+          : `${link.kind}, NOT read`;
+      lines.push(
+        `     ${color.dim(stripControlBytes(link.path))} -> ${link.target ? stripControlBytes(link.target) : color.dim("(unreadable)")} ${color.dim(`(${note})`)}`,
+      );
+    }
+    lines.push(
+      `     ${color.dim("Content outside the skill folder is never read. Review these targets by hand.")}`,
+    );
+    lines.push("");
+  }
+
+  // ── Zone C3: Hard links (info only, #779) ──
+  const hardLinks = report.hardLinks ?? [];
+  if (hardLinks.length > 0) {
+    lines.push(
+      `  ${severityIcon("info")} ${color.bold("Hard links")} (${color.dim(`${hardLinks.length} info`)})`,
+    );
+    for (const h of hardLinks) {
+      lines.push(
+        `     ${color.dim(stripControlBytes(h.path))} ${color.dim(`(${h.links} links) -- hard link: content may be shared with a file outside the folder`)}`,
+      );
+    }
+    lines.push("");
+  }
+
   // ── Zone D: Footer ──
   lines.push(color.dim("  " + "=".repeat(BOX_WIDTH - 2)));
   const date = new Date(report.scannedAt);
@@ -369,5 +427,120 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
 }
 
 export function formatSecurityReportJSON(report: SecurityAuditReport): string {
-  return JSON.stringify(report, null, 2);
+  return stringifyForOutput(report, null, 2);
+}
+
+// ─── Hold messages (update / publish) ────────────────────────────────────────
+
+/** Links named in a hold message before "and N more". */
+const HOLD_LINKS_SHOWN = 3;
+
+/** Quote a path for a copy-pasteable shell command when it needs it. */
+export function shellArg(arg: string): string {
+  return /^[\w@%+=:,./~-]+$/.test(arg)
+    ? arg
+    : `'${arg.replace(/'/g, `'\\''`)}'`;
+}
+
+export interface SecurityHold {
+  /**
+   * Why the audit holds the action: each symlink it did not read as
+   * `path -> target (kind)` — at most 3, then "and N more" — or, when there
+   * are none, the verdict reason. Paths and the reason only; never content.
+   */
+  reasons: string[];
+  /**
+   * The top code findings as `file:line (category)`, critical first — only
+   * when `opts.findings` asks for them (#809). Paths only; never content.
+   */
+  findings: string[];
+  /** One line: verdict, reasons, findings, and the next step. */
+  message: string;
+}
+
+/** Top `limit` code findings, critical first, as `file:line (category)`. */
+function topFindings(
+  codeScans: SecurityAuditReport["codeScans"] | undefined,
+  limit: number,
+): string[] {
+  const rank = { critical: 0, warning: 1, info: 2 };
+  const ranked = (codeScans ?? [])
+    .flatMap((c) => c.matches.map((m) => ({ ...m, category: c.category })))
+    .filter((m) => m.severity !== "info")
+    .sort((a, b) => rank[a.severity] - rank[b.severity]);
+  const shown = ranked
+    .slice(0, limit)
+    .map((m) => `${stripControlBytes(m.file)}:${m.line} (${m.category})`);
+  const hidden = ranked.length - shown.length;
+  return hidden > 0 ? [...shown, `and ${hidden} more`] : shown;
+}
+
+/**
+ * Describe a security verdict that holds `asm update` or `asm publish`
+ * (#791): name the reasons and the next step — the full report with
+ * `asm audit security <target>`, or the override flag to go ahead.
+ */
+export function describeSecurityHold(
+  report: Partial<
+    Pick<
+      SecurityAuditReport,
+      "verdict" | "verdictReason" | "externalSymlinks" | "codeScans"
+    >
+  >,
+  opts: {
+    verdict: string;
+    prefix: string;
+    /** `asm audit security` target; omitted when no command can audit it. */
+    auditTarget?: string;
+    /** Flag that overrides the hold, e.g. `--yes`. */
+    overrideFlag?: string;
+    /** Full command that overrides the hold; wins over `overrideFlag`. */
+    overrideCommand?: string;
+    /** What the override does — or, with neither override, the whole step. */
+    action: string;
+    /** Name up to this many code findings in the message (#809). */
+    findings?: number;
+  },
+): SecurityHold {
+  const links = report.externalSymlinks ?? [];
+  const reasons =
+    links.length > 0
+      ? [
+          ...links
+            .slice(0, HOLD_LINKS_SHOWN)
+            .map(
+              (l) =>
+                `${stripControlBytes(l.path)} -> ${stripControlBytes(l.target)} (${l.kind})`,
+            ),
+          ...(links.length > HOLD_LINKS_SHOWN
+            ? [`and ${links.length - HOLD_LINKS_SHOWN} more`]
+            : []),
+        ]
+      : report.verdictReason
+        ? [stripControlBytes(report.verdictReason.trim())]
+        : [];
+  const why =
+    links.length > 0
+      ? ` — ${links.length} symlink${links.length === 1 ? "" : "s"} not read: ${reasons.join(", ")}.`
+      : reasons.length > 0
+        ? ` — ${reasons[0].replace(/\.$/, "")}.`
+        : ".";
+  const findings = opts.findings
+    ? topFindings(report.codeScans, opts.findings)
+    : [];
+  const found = findings.length > 0 ? ` Findings: ${findings.join(", ")}.` : "";
+  const override = opts.overrideCommand
+    ? `run "${opts.overrideCommand}" to ${opts.action}`
+    : opts.overrideFlag
+      ? `use ${opts.overrideFlag} to ${opts.action}`
+      : opts.action;
+  const next =
+    opts.auditTarget !== undefined
+      ? `Run "asm audit security ${shellArg(opts.auditTarget)}" for the full report, or ${override}.`
+      : `${override.charAt(0).toUpperCase()}${override.slice(1)}.`;
+  return {
+    reasons,
+    findings,
+    message: `${opts.prefix}: ${opts.verdict}${why}${found} ${next}`,
+  };
 }

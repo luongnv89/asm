@@ -42,11 +42,32 @@ import {
   redirectConsoleToStderr,
 } from "../utils/machine";
 import { errorMessage } from "../utils/errors";
+import {
+  checkThresholds,
+  countVerdicts,
+  erroredVerdict,
+  formatThresholdSummary,
+  formatVerdictLine,
+  hasThresholds,
+  thresholdsJSON,
+  thresholdsMachine,
+  verdictMachine,
+  type EvalThresholds,
+  type ThresholdVerdict,
+} from "../eval-threshold";
 import { join as joinPath } from "path";
 import type { TransportMode } from "../utils/types";
 
 import { error } from "./shared";
+import {
+  formatLinkedSkillFolder,
+  skillDirOutside,
+  skillMdOutside,
+  SkillMdOutsideLinkError,
+  unreadLinkFinding,
+} from "../evaluator-files";
 import type { ParsedArgs } from "../cli";
+import { stringifyForOutput, stripControlBytes } from "../utils/control-chars";
 
 function printEvalHelp() {
   console.log(`${ansi.bold("Usage:")} asm eval <target> [options]
@@ -70,10 +91,26 @@ ${ansi.bold("Options:")}
   --json               Output report as JSON
   --machine            Output in stable machine-readable v1 envelope format
   --concurrency N      Cap parallel per-skill evals in batch mode (default: 4)
+  --min-score N        Fail a skill whose overall score is below N (0-100)
+  --min-category N     Fail a skill with any category score below N (0-10)
   --keep               Preserve the temp dir used for remote clones
   -t, --transport M    Git transport (auto|https|ssh) for remote targets
   --no-color           Disable ANSI colors
   -V, --verbose        Show debug output
+
+${ansi.bold("Quality gates:")}
+  --min-score and --min-category are inclusive floors ("at least N") and can be
+  combined. Each skill is marked PASS or FAIL; the command exits 1 when any
+  skill fails, 0 when all pass. A gate never passes on missing evidence: a
+  skill whose evaluation errors is marked ERROR and counts as failed. Gate 2
+  of the skill standard (overall > 85 and every category >= 8) is:
+    asm eval ./skills/ --min-score 86 --min-category 8
+
+${ansi.bold("Exit codes:")}
+  0  Evaluated (and, with a gate, every skill passed)
+  1  A gate failed (incl. a skill that errored), or the target could not be
+     evaluated
+  2  Invalid arguments
 
 ${ansi.bold("Examples:")}
   asm eval ./my-skill                                ${ansi.dim("Score a single skill")}
@@ -85,6 +122,7 @@ ${ansi.bold("Examples:")}
   asm eval ./my-skill --fix                          ${ansi.dim("Auto-fix deterministic issues")}
   asm eval ./my-skill --fix --dry-run                ${ansi.dim("Preview fixes as diff")}
   asm eval ./my-skill --machine                      ${ansi.dim("Machine-readable v1 envelope")}
+  asm eval ./skills/ --min-score 86 --min-category 8 ${ansi.dim("Gate a collection in CI")}
   asm eval-providers list                            ${ansi.dim("List registered eval providers")}`);
 }
 
@@ -187,9 +225,26 @@ export async function fetchRemoteSkillDir(
 async function runSingleEval(target: EvalTarget): Promise<{
   report: (EvaluationReport & { providers: ProviderEvalReport[] }) | null;
   error: string | null;
+  /** The thrown error, so a refused `SKILL.md` link keeps its own code. */
+  cause?: unknown;
 }> {
   ensureEvalBuiltins();
   try {
+    // A skill folder that links out of its collection or clone is never
+    // read (#825): it is reported as the link it is.
+    const outside = target.boundary
+      ? await skillDirOutside(target.skillPath, target.boundary)
+      : null;
+    if (outside) {
+      return {
+        report: null,
+        error: `${unreadLinkFinding({ ...outside, path: target.label })}. The skill folder leaves the folder being evaluated; asm eval reads nothing outside it.`,
+      };
+    }
+    // A SKILL.md that links out of its folder is refused before any
+    // provider runs, so the refusal keeps its type (and machine code).
+    const mdOutside = await skillMdOutside(target.skillMdPath);
+    if (mdOutside) throw new SkillMdOutsideLinkError(mdOutside);
     const ctx = {
       skillPath: target.skillPath,
       skillMdPath: target.skillMdPath,
@@ -218,8 +273,15 @@ async function runSingleEval(target: EvalTarget): Promise<{
       error: null,
     };
   } catch (err) {
-    return { report: null, error: errorMessage(err) };
+    return { report: null, error: errorMessage(err), cause: err };
   }
+}
+
+/** The `--machine` error code for a failed eval. */
+function evalErrorCode(err: unknown) {
+  return err instanceof SkillMdOutsideLinkError
+    ? ErrorCodes.SKILL_MD_OUTSIDE_LINK
+    : ErrorCodes.SKILL_NOT_FOUND;
 }
 
 export async function cmdEval(args: ParsedArgs) {
@@ -260,7 +322,31 @@ export async function cmdEval(args: ParsedArgs) {
   // handling, and a --continue-on-error surface — none of which either issue
   // #193 or #194 asks for. Keep the diff minimal; surface a clear error when
   // the user points --fix at a collection or a remote input.
+  const thresholds: EvalThresholds = {
+    minScore: args.flags.minScore,
+    minCategory: args.flags.minCategory,
+  };
+  const gate = hasThresholds(thresholds);
+
   if (args.flags.fix) {
+    if (gate) {
+      const msg =
+        "--min-score and --min-category cannot be combined with --fix. Run --fix first, then gate with a separate `asm eval`.";
+      if (args.flags.machine) {
+        restoreConsole?.();
+        console.log(
+          formatMachineError(
+            "eval",
+            ErrorCodes.INVALID_ARGUMENT,
+            msg,
+            startTime,
+          ),
+        );
+        process.exit(2);
+      }
+      error(msg);
+      process.exit(2);
+    }
     if (looksLikeGithubInput(rawInput)) {
       const msg =
         "--fix is only supported for local skill paths. Clone the repo first or run `asm install` to materialise it locally.";
@@ -300,7 +386,7 @@ export async function cmdEval(args: ParsedArgs) {
 
       if (args.flags.json) {
         console.log(
-          JSON.stringify(
+          stringifyForOutput(
             {
               report: fix.report,
               fix: {
@@ -328,7 +414,7 @@ export async function cmdEval(args: ParsedArgs) {
         console.log(
           formatMachineError(
             "eval",
-            ErrorCodes.SKILL_NOT_FOUND,
+            evalErrorCode(err),
             errorMessage(err),
             startTime,
           ),
@@ -370,10 +456,15 @@ export async function cmdEval(args: ParsedArgs) {
     // Single-skill path — preserve byte-identical output locked in by existing tests.
     if (!resolved.isCollection && resolved.targets.length === 1) {
       const target = resolved.targets[0];
-      const { report, error: runErr } = await runSingleEval(target);
+      const { report, error: runErr, cause } = await runSingleEval(target);
       if (!report) {
-        throw new Error(runErr ?? "eval failed");
+        throw cause instanceof SkillMdOutsideLinkError
+          ? cause
+          : new Error(runErr ?? "eval failed");
       }
+      const verdict = gate ? checkThresholds(report, thresholds) : null;
+      // exitCode, not exit(): output below must flush and `finally` must run.
+      if (verdict && !verdict.passed) process.exitCode = 1;
 
       if (args.flags.machine) {
         restoreConsole?.();
@@ -392,7 +483,14 @@ export async function cmdEval(args: ParsedArgs) {
               },
             }
           : data;
-        console.log(formatMachineOutput("eval", augmented, startTime));
+        const gated = verdict
+          ? {
+              ...augmented,
+              thresholds: thresholdsMachine(thresholds),
+              threshold: verdictMachine(verdict),
+            }
+          : augmented;
+        console.log(formatMachineOutput("eval", gated, startTime));
         return;
       }
 
@@ -403,7 +501,7 @@ export async function cmdEval(args: ParsedArgs) {
         // path in output") is met for the JSON surface too.
         if (resolved.provenance.remote) {
           console.log(
-            JSON.stringify(
+            stringifyForOutput(
               {
                 ...report,
                 provenance: {
@@ -413,7 +511,16 @@ export async function cmdEval(args: ParsedArgs) {
                   commitSha: resolved.provenance.commitSha ?? null,
                   tempPath: resolved.provenance.tempPath ?? null,
                 },
+                ...gateJSON(verdict, thresholds),
               },
+              null,
+              2,
+            ),
+          );
+        } else if (verdict) {
+          console.log(
+            stringifyForOutput(
+              { ...report, ...gateJSON(verdict, thresholds) },
               null,
               2,
             ),
@@ -425,6 +532,10 @@ export async function cmdEval(args: ParsedArgs) {
       }
 
       console.log(formatReport(report));
+      if (verdict) {
+        console.log("");
+        console.log(formatVerdictLine(report, verdict, thresholds));
+      }
       if (resolved.provenance.remote) {
         printRemoteProvenance(resolved.provenance);
       }
@@ -448,6 +559,7 @@ export async function cmdEval(args: ParsedArgs) {
           skillPath: target.skillPath,
           report,
           error: runErr,
+          ...(target.link ? { link: target.link } : {}),
         };
       },
     );
@@ -457,26 +569,66 @@ export async function cmdEval(args: ParsedArgs) {
       aggregate,
       results: items,
     };
+    // Per-skill verdicts, only when gated. An errored eval is a failure: a
+    // gate never passes on missing evidence.
+    const verdicts: ThresholdVerdict[] | null = gate
+      ? items.map((i) =>
+          i.report ? checkThresholds(i.report, thresholds) : erroredVerdict(),
+        )
+      : null;
+    const counts = verdicts
+      ? countVerdicts(
+          items.map((i, idx) => ({ label: i.label, verdict: verdicts[idx] })),
+        )
+      : null;
+    if (counts && counts.failed > 0) process.exitCode = 1;
 
     if (args.flags.machine) {
       restoreConsole?.();
-      console.log(
-        formatMachineOutput("eval", buildBatchMachineData(batch), startTime),
-      );
+      const data = buildBatchMachineData(batch);
+      const gated =
+        verdicts && counts
+          ? {
+              ...data,
+              thresholds: thresholdsMachine(thresholds),
+              aggregate: {
+                ...data.aggregate,
+                threshold_passed: counts.passed,
+                threshold_failed: counts.failed,
+                threshold_errored: counts.errored,
+              },
+              results: data.results.map((r, idx) => ({
+                ...r,
+                threshold: verdictMachine(verdicts[idx]),
+              })),
+            }
+          : data;
+      console.log(formatMachineOutput("eval", gated, startTime));
       return;
     }
 
     if (args.flags.json) {
       console.log(
-        JSON.stringify(
+        stringifyForOutput(
           {
             provenance: batch.provenance,
-            aggregate: batch.aggregate,
-            results: batch.results.map((r) => ({
+            aggregate:
+              counts !== null
+                ? {
+                    ...batch.aggregate,
+                    thresholdPassed: counts.passed,
+                    thresholdFailed: counts.failed,
+                    thresholdErrored: counts.errored,
+                  }
+                : batch.aggregate,
+            ...(verdicts ? { thresholds: thresholdsJSON(thresholds) } : {}),
+            results: batch.results.map((r, idx) => ({
               label: r.label,
               skillPath: r.skillPath,
               error: r.error,
+              ...(r.link ? { link: r.link } : {}),
               report: r.report,
+              ...(verdicts ? { threshold: verdicts[idx] } : {}),
             })),
           },
           null,
@@ -487,18 +639,32 @@ export async function cmdEval(args: ParsedArgs) {
     }
 
     // Human-readable text: print each report then the summary footer.
-    for (const item of batch.results) {
+    for (const [idx, item] of batch.results.entries()) {
+      if (item.link) {
+        console.log(ansi.dim(`info: ${formatLinkedSkillFolder(item.link)}`));
+      }
       if (item.report) {
         console.log(formatReport(item.report));
+        const verdict = verdicts?.[idx];
+        if (verdict) {
+          console.log("");
+          console.log(formatVerdictLine(item.report, verdict, thresholds));
+        }
       } else {
-        console.log(`Skill evaluation: ${item.skillPath}`);
+        console.log(`Skill evaluation: ${stripControlBytes(item.skillPath)}`);
         console.log(
-          `  ${ansi.red("error:")} ${item.error ?? "unknown failure"}`,
+          `  ${ansi.red("error:")} ${stripControlBytes(item.error ?? "unknown failure")}`,
         );
+        const verdict = verdicts?.[idx];
+        if (verdict) {
+          console.log("");
+          console.log(formatVerdictLine(null, verdict, thresholds));
+        }
       }
       console.log("");
     }
     console.log(formatBatchSummary(batch));
+    if (counts) console.log(formatThresholdSummary(counts, thresholds));
     if (resolved.provenance.remote && !args.flags.verbose) {
       // formatBatchSummary already prints provenance for remote inputs, so
       // we deliberately skip the extra print here to avoid duplication.
@@ -509,7 +675,7 @@ export async function cmdEval(args: ParsedArgs) {
       console.log(
         formatMachineError(
           "eval",
-          ErrorCodes.SKILL_NOT_FOUND,
+          evalErrorCode(err),
           errorMessage(err),
           startTime,
         ),
@@ -527,6 +693,15 @@ export async function cmdEval(args: ParsedArgs) {
       }
     }
   }
+}
+
+/** `--json` fields added only when a gate flag is set (additive, #773). */
+function gateJSON(
+  verdict: ThresholdVerdict | null,
+  thresholds: EvalThresholds,
+): Record<string, unknown> {
+  if (!verdict) return {};
+  return { thresholds: thresholdsJSON(thresholds), threshold: verdict };
 }
 
 function printRemoteProvenance(provenance: EvalProvenance): void {

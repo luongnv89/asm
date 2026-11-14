@@ -6,9 +6,12 @@
  * evaluateSkillContent via Promise.all.
  */
 
-import { readFile, readdir, stat } from "fs/promises";
-import { join, isAbsolute, resolve } from "path";
 import type { CategoryResult } from "./evaluator-core";
+import {
+  listSkillFiles,
+  readSkillFile,
+  type SkillFiles,
+} from "./evaluator-files";
 
 // ─── PII detection scorer ──────────────────────────────────────────────────
 
@@ -28,18 +31,79 @@ import type { CategoryResult } from "./evaluator-core";
  *   - Credit-card numbers (handled by a separate secrets scan)
  *   - Passport / visa numbers (jurisdictional noise)
  *
+ * Email addresses on domains reserved for documentation and testing
+ * (RFC 2606 / RFC 6761) are placeholders, not personal data, and are ignored —
+ * see isReservedEmailDomain (issue #772).
+ *
  * Severity: "warning" — a PII hit does NOT block indexing; it warns the
  * author so they can scrub examples, transcripts, or fixture data before
  * publishing.
  */
 
+/** Second-level domains reserved for documentation by RFC 2606 §3. */
+const RESERVED_EMAIL_DOMAINS = ["example.com", "example.org", "example.net"];
+
+/** Top-level domains reserved by RFC 2606 §2 and RFC 6761 §6. */
+const RESERVED_EMAIL_TLDS = new Set([
+  "example",
+  "test",
+  "invalid",
+  "localhost",
+]);
+
+/**
+ * True when `domain` is reserved for documentation or testing: example.com,
+ * example.org, example.net or a subdomain of one, any name under the
+ * .example, .test, .invalid or .localhost TLDs, or `localhost` itself.
+ * Matching is case-insensitive and on whole labels, so look-alikes such as
+ * `example.com.evil.io`, `notexample.com` and `example.co` are not reserved.
+ */
+export function isReservedEmailDomain(domain: string): boolean {
+  const d = domain.toLowerCase().replace(/\.+$/, "");
+  if (d === "localhost") return true;
+  const tld = d.slice(d.lastIndexOf(".") + 1);
+  if (RESERVED_EMAIL_TLDS.has(tld)) return true;
+  return RESERVED_EMAIL_DOMAINS.some((r) => d === r || d.endsWith("." + r));
+}
+
+/** True when an email address's domain is reserved (see isReservedEmailDomain). */
+export function isPlaceholderEmail(email: string): boolean {
+  const at = email.lastIndexOf("@");
+  return at >= 0 && isReservedEmailDomain(email.slice(at + 1));
+}
+
+/**
+ * True when an email match may be exempted as a placeholder. The email
+ * pattern's `\b` and character classes are ASCII-only, so a non-ASCII letter,
+ * combining mark (decomposed accents) or digit ends the match early:
+ * `contact@team.testé.fr` matches as `contact@team.test`. A match followed
+ * directly by one of those does not show the real domain, so it is not
+ * exempted and stays flagged.
+ */
+function isIgnorableEmailMatch(match: string, nextChar: string): boolean {
+  if (/[\p{L}\p{M}\p{N}]/u.test(nextChar)) return false;
+  return isPlaceholderEmail(match);
+}
+
+/** The full code point at UTF-16 index `i` of `line` ("" past the end). */
+function codePointAt(line: string, i: number): string {
+  const cp = line.codePointAt(i);
+  return cp === undefined ? "" : String.fromCodePoint(cp);
+}
+
 const PII_PATTERNS: {
   category: string;
   pattern: RegExp;
+  /**
+   * Matches for which this returns true are not reported. `nextChar` is the
+   * code point right after the match ("" at end of line).
+   */
+  ignore?: (match: string, nextChar: string) => boolean;
 }[] = [
   {
     category: "email",
     pattern: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/gi,
+    ignore: isIgnorableEmailMatch,
   },
   {
     category: "phone",
@@ -66,15 +130,19 @@ const PII_PATTERNS: {
  * Scans files with extensions: .md, .txt, .json, .yaml, .yml, .sh, .py, .bash,
  * .js, .ts, .jsx, .tsx, .html, .css, .log.
  *
+ * Only files inside the skill folder are read (#825); `files` is the
+ * folder's confined listing, computed here when the caller has none.
+ *
  * Returns a CategoryResult with findings per-file:per-line.
  */
-export async function scorePII(skillPath: string): Promise<CategoryResult> {
+export async function scorePII(
+  skillPath: string,
+  files?: SkillFiles,
+): Promise<CategoryResult> {
   const findings: string[] = [];
   const suggestions: string[] = [];
   let score = 10; // start perfect; deduct for each category found
   const categoryHits = new Set<string>();
-
-  const resolved = isAbsolute(skillPath) ? skillPath : resolve(skillPath);
 
   // Collect text files to scan
   const textExtensions = new Set([
@@ -95,72 +163,49 @@ export async function scorePII(skillPath: string): Promise<CategoryResult> {
     ".log",
   ]);
 
-  async function scanDir(dir: string): Promise<void> {
-    let entries: string[];
-    try {
-      entries = await readdir(dir);
-    } catch {
-      return;
-    }
-    for (const entry of entries) {
-      const full = join(dir, entry);
-      let s;
-      try {
-        s = await stat(full);
-      } catch {
-        continue;
-      }
-      if (s.isDirectory()) {
-        // Skip hidden dirs, node_modules, dist, build
-        if (entry.startsWith(".") || entry === "node_modules") continue;
-        await scanDir(full);
-      } else if (s.isFile()) {
-        const ext = entry.includes(".") ? "." + entry.split(".").pop() : "";
-        if (!textExtensions.has(ext)) continue;
-        try {
-          const content = await readFile(full, "utf-8");
-          const lines = content.split("\n");
-          let inFrontmatter = false;
-          let inCodeFence = false;
-          for (const pii of PII_PATTERNS) {
-            pii.pattern.lastIndex = 0;
-            inFrontmatter = false;
-            inCodeFence = false;
-            for (let lineIdx = 0; lineIdx < lines.length; lineIdx++) {
-              const line = lines[lineIdx];
-              // Toggle frontmatter block
-              if (line.trim() === "---") {
-                inFrontmatter = !inFrontmatter;
-                continue;
-              }
-              // Toggle code fence blocks
-              if (line.trim().startsWith("```")) {
-                inCodeFence = !inCodeFence;
-                continue;
-              }
-              // Skip lines inside frontmatter or code fences
-              if (inFrontmatter || inCodeFence) continue;
-              const matches = line.match(pii.pattern);
-              if (matches && matches.length > 0) {
-                if (!categoryHits.has(pii.category)) {
-                  categoryHits.add(pii.category);
-                  score -= 2;
-                }
-                const relPath = full.replace(resolved + "/", "");
-                findings.push(
-                  `[${pii.category}] ${relPath}:${lineIdx + 1} — found ${matches.length} match(es)`,
-                );
-              }
-            }
+  for (const file of (files ?? (await listSkillFiles(skillPath))).files) {
+    const entry = file.name;
+    const ext = entry.includes(".") ? "." + entry.split(".").pop() : "";
+    if (!textExtensions.has(ext)) continue;
+    const content = await readSkillFile(file);
+    if (content === null) continue; // Skip files we can't read
+    const lines = content.split("\n");
+    for (const pii of PII_PATTERNS) {
+      pii.pattern.lastIndex = 0;
+      let inFrontmatter = false;
+      let inCodeFence = false;
+      for (let lineIdx = 0; lineIdx < lines.length; lineIdx++) {
+        const line = lines[lineIdx];
+        // Toggle frontmatter block
+        if (line.trim() === "---") {
+          inFrontmatter = !inFrontmatter;
+          continue;
+        }
+        // Toggle code fence blocks
+        if (line.trim().startsWith("```")) {
+          inCodeFence = !inCodeFence;
+          continue;
+        }
+        // Skip lines inside frontmatter or code fences
+        if (inFrontmatter || inCodeFence) continue;
+        const matches = [...line.matchAll(pii.pattern)]
+          .filter(
+            (m) =>
+              !pii.ignore?.(m[0], codePointAt(line, m.index + m[0].length)),
+          )
+          .map((m) => m[0]);
+        if (matches.length > 0) {
+          if (!categoryHits.has(pii.category)) {
+            categoryHits.add(pii.category);
+            score -= 2;
           }
-        } catch {
-          // Skip files we can't read
+          findings.push(
+            `[${pii.category}] ${file.relPath}:${lineIdx + 1} — found ${matches.length} match(es)`,
+          );
         }
       }
     }
   }
-
-  await scanDir(resolved);
 
   if (categoryHits.size === 0) {
     findings.push("No PII detected in skill files.");
@@ -190,7 +235,7 @@ export async function scorePII(skillPath: string): Promise<CategoryResult> {
  *
  * In-scope:
  *   - Bash / shell scripts (.sh, .bash) → shellcheck
- *   - Python scripts (.py) → python3 -m py_compile (syntax check)
+ *   - Python scripts (.py) → in-memory syntax check (PY_SYNTAX_CHECK)
  *
  * Deliberately out of scope:
  *   - JavaScript / TypeScript (handled by the build system)
@@ -203,6 +248,37 @@ export async function scorePII(skillPath: string): Promise<CategoryResult> {
 
 const SCRIPT_EXTENSIONS = new Set([".sh", ".bash", ".py"]);
 
+/**
+ * Python syntax check that writes nothing (issue #823).
+ *
+ * `python3 -m py_compile <file>` writes `__pycache__/<name>.cpython-*.pyc`
+ * next to the source and ignores PYTHONDONTWRITEBYTECODE, so linting
+ * mutated the skill folder being evaluated. This runs the same compile step
+ * as `py_compile.compile()` (SourceFileLoader.source_to_code), raises the
+ * same `py_compile.PyCompileError`, and prints what `py_compile`'s CLI
+ * prints (the same stderr text and exit code 1). It skips the bytecode
+ * write, so the stderr parser below sees the same output as before.
+ * Run with `-I -B`: isolated mode keeps the skill folder off `sys.path`,
+ * and -B stops any stdlib import from writing bytecode.
+ */
+const PY_SYNTAX_CHECK = [
+  "import sys, importlib.machinery, py_compile",
+  "f = sys.argv[1]",
+  "try:",
+  "    loader = importlib.machinery.SourceFileLoader('<py_compile>', f)",
+  "    data = loader.get_data(f)",
+  "    try:",
+  "        loader.source_to_code(data, f)",
+  "    except Exception as err:",
+  "        raise py_compile.PyCompileError(err.__class__, err, f)",
+  "except py_compile.PyCompileError as e:",
+  "    sys.stderr.write(e.msg)",
+  "    sys.exit(1)",
+  "except OSError as e:",
+  "    sys.stderr.write(str(e))",
+  "    sys.exit(1)",
+].join("\n");
+
 const LINTER_CONFIG: Record<
   string,
   {
@@ -213,17 +289,21 @@ const LINTER_CONFIG: Record<
 > = {
   ".sh": {
     command: "shellcheck",
-    args: ["--format=json1"],
+    // --norc: a .shellcheckrc in the skill folder or above it could turn on
+    // external-sources and make shellcheck open files outside it (#825).
+    args: ["--norc", "--format=json1"],
     language: "bash/shell",
   },
   ".bash": {
     command: "shellcheck",
-    args: ["--format=json1"],
+    // --norc: a .shellcheckrc in the skill folder or above it could turn on
+    // external-sources and make shellcheck open files outside it (#825).
+    args: ["--norc", "--format=json1"],
     language: "bash/shell",
   },
   ".py": {
     command: "python3",
-    args: ["-m", "py_compile"],
+    args: ["-I", "-B", "-c", PY_SYNTAX_CHECK],
     language: "python",
   },
 };
@@ -343,11 +423,13 @@ export async function runLinter(
  * Lint executable scripts bundled with a skill.
  *
  * Scans for .sh, .bash, and .py files. Runs shellcheck for shell scripts
- * and python3 -m py_compile for Python scripts. When a linter is
- * unavailable the check is marked as "skipped".
+ * and an in-memory Python compile (no __pycache__) for Python scripts. When a linter is
+ * unavailable the check is marked as "skipped". Only scripts inside the
+ * skill folder are linted (#825); `files` is as for `scorePII`.
  */
 export async function scoreScriptLint(
   skillPath: string,
+  files?: SkillFiles,
 ): Promise<CategoryResult> {
   const findings: string[] = [];
   const suggestions: string[] = [];
@@ -356,52 +438,27 @@ export async function scoreScriptLint(
   let skipped = false;
   const allFindings: LintFinding[] = [];
 
-  const resolved = isAbsolute(skillPath) ? skillPath : resolve(skillPath);
-
-  async function scanDir(dir: string): Promise<void> {
-    let entries: string[];
-    try {
-      entries = await readdir(dir);
-    } catch {
-      return;
-    }
-    for (const entry of entries) {
-      const full = join(dir, entry);
-      let s;
-      try {
-        s = await stat(full);
-      } catch {
-        continue;
-      }
-      if (s.isDirectory()) {
-        if (entry.startsWith(".") || entry === "node_modules") continue;
-        await scanDir(full);
-      } else if (s.isFile()) {
-        const ext = entry.includes(".") ? "." + entry.split(".").pop() : "";
-        if (!SCRIPT_EXTENSIONS.has(ext)) continue;
-        const relPath = full.replace(resolved + "/", "");
-        const linterResult = await runLinter(full, ext);
-        if (linterResult === null) {
-          skipped = true;
-          const lang = LINTER_CONFIG[ext]?.language || ext;
-          findings.push(
-            `[${lang}] ${relPath}: lint skipped — linter not available`,
-          );
-        } else {
-          lintedCount++;
-          allFindings.push(...linterResult);
-          for (const f of linterResult) {
-            const sev = f.severity.toUpperCase();
-            findings.push(
-              `[${sev}] ${relPath}:${f.line || "*"} — ${f.message}`,
-            );
-          }
-        }
+  for (const file of (files ?? (await listSkillFiles(skillPath))).files) {
+    const entry = file.name;
+    const ext = entry.includes(".") ? "." + entry.split(".").pop() : "";
+    if (!SCRIPT_EXTENSIONS.has(ext)) continue;
+    const relPath = file.relPath;
+    const linterResult = await runLinter(file.fullPath, ext);
+    if (linterResult === null) {
+      skipped = true;
+      const lang = LINTER_CONFIG[ext]?.language || ext;
+      findings.push(
+        `[${lang}] ${relPath}: lint skipped — linter not available`,
+      );
+    } else {
+      lintedCount++;
+      allFindings.push(...linterResult);
+      for (const f of linterResult) {
+        const sev = f.severity.toUpperCase();
+        findings.push(`[${sev}] ${relPath}:${f.line || "*"} — ${f.message}`);
       }
     }
   }
-
-  await scanDir(resolved);
 
   if (lintedCount === 0 && !skipped) {
     findings.push("No bundled scripts found to lint.");

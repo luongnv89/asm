@@ -483,6 +483,22 @@ describe("parallel skill ingestion (issue #372)", () => {
     });
     expect(visited.sort()).toEqual([...inputOrder].sort());
   });
+
+  it("scores the license category from the cloned repo root LICENSE (#771)", async () => {
+    const cloneRoot = join(tempDir, "license-clone");
+    await writeIngestSkill(cloneRoot, join("skills", "skill-mit"), "skill-mit");
+    await mkdir(join(cloneRoot, ".git"), { recursive: true });
+    await writeFile(join(cloneRoot, "LICENSE"), "MIT License\n", "utf-8");
+    ingestMocks.cloneToTemp.mockResolvedValueOnce(cloneRoot);
+
+    const result = await ingestRepo(`github:issue-372-tests/${repoName}`);
+
+    expect(result.success).toBe(true);
+    const license = result.repoIndex!.skills[0].evalSummary!.categories.find(
+      (c) => c.id === "license",
+    )!;
+    expect(license.score).toBeGreaterThanOrEqual(8);
+  });
 });
 
 describe("ingestRepo excludeSkills", () => {
@@ -527,6 +543,20 @@ describe("ingestRepo excludeSkills", () => {
       b.skills.map((s) => s.name),
     );
     expect(bundled).not.toContain("beta");
+    expect(result.exclusions).toEqual({ excluded: ["beta"], unmatched: [] });
+  });
+
+  it("reports names that matched no discovered skill as unmatched", async () => {
+    const result = await ingestRepo(`github:exclude-tests/${repoName}`, {
+      excludeSkills: ["gamma", "betta", "alpha"],
+    });
+
+    expect(result.success).toBe(true);
+    expect(result.repoIndex!.skills.map((s) => s.name)).toEqual(["beta"]);
+    expect(result.exclusions).toEqual({
+      excluded: ["gamma", "alpha"],
+      unmatched: ["betta"],
+    });
   });
 
   it("keeps every skill when no exclusions are given", async () => {
@@ -538,6 +568,7 @@ describe("ingestRepo excludeSkills", () => {
       "beta",
       "gamma",
     ]);
+    expect(result).not.toHaveProperty("exclusions");
   });
 });
 

@@ -3,6 +3,7 @@ import type { InstallMethod } from "./utils/types";
 import { getVersionString } from "./utils/version";
 import { buildShadowingReport } from "./utils/path-shadowing";
 import { setVerbose } from "./logger";
+import { parseThresholdValue } from "./eval-threshold";
 import type { Scope, SortBy, TransportMode } from "./utils/types";
 
 // ─── Shared helpers (re-exported for backward compat) ─────────────────────────
@@ -46,6 +47,8 @@ export interface ParsedArgs {
     userInvocable: boolean;
     /** Repeatable/comma-separated tag filters for list and search. */
     tagFilters: string[];
+    /** `asm index ingest --exclude` — repeatable/comma-separated skill names (#837). */
+    exclude: string[];
     /**
      * `asm search --fuzzy` — fuzzy-ranked search of installed skills in every
      * tool's global skill dir (issue #735).
@@ -82,6 +85,16 @@ export interface ParsedArgs {
      * batch mode (issue #194). 0 = use the default (4).
      */
     concurrency: number;
+    /**
+     * `asm eval --min-score <N>` — inclusive 0–100 floor for a skill's
+     * overall score; any skill below it fails and the run exits 1 (issue #773).
+     */
+    minScore: number | null;
+    /**
+     * `asm eval --min-category <N>` — inclusive 0–10 floor for every category
+     * score; any category below it fails the skill (issue #773).
+     */
+    minCategory: number | null;
     /**
      * `asm eval --keep` — preserve the temp dir used for remote clones so
      * users can inspect what was fetched (issue #193).
@@ -149,6 +162,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
       modelInvocable: false,
       userInvocable: false,
       tagFilters: [],
+      exclude: [],
       fuzzy: false,
       root: null,
       dryRun: false,
@@ -161,6 +175,8 @@ export function parseArgs(argv: string[]): ParsedArgs {
       groupBy: null,
       limit: 0,
       concurrency: 0,
+      minScore: null,
+      minCategory: null,
       keep: false,
       tokens: false,
       add: null,
@@ -278,6 +294,23 @@ export function parseArgs(argv: string[]): ParsedArgs {
         process.exit(2);
       }
       result.flags.concurrency = n;
+    } else if (arg === "--min-score" || arg === "--min-category") {
+      const already =
+        arg === "--min-score"
+          ? result.flags.minScore !== null
+          : result.flags.minCategory !== null;
+      if (already) {
+        error(`${arg} was given more than once. Pass it a single time.`);
+        process.exit(2);
+      }
+      i++;
+      const parsed = parseThresholdValue(arg, args[i]);
+      if ("error" in parsed) {
+        error(parsed.error);
+        process.exit(2);
+      }
+      if (arg === "--min-score") result.flags.minScore = parsed.value;
+      else result.flags.minCategory = parsed.value;
     } else if (arg === "--keep") {
       result.flags.keep = true;
     } else if (arg === "--tokens") {
@@ -331,6 +364,19 @@ export function parseArgs(argv: string[]): ParsedArgs {
         process.exit(2);
       }
       result.flags.tagFilters.push(args[i]);
+    } else if (arg === "--exclude") {
+      i++;
+      // A value that is another long flag (`--exclude --json`) or splits to
+      // no names (`--exclude ,`) is a missing value, not a skill name.
+      const names = (args[i]?.startsWith("--") ? "" : (args[i] ?? ""))
+        .split(",")
+        .map((name) => name.trim())
+        .filter((name) => name.length > 0);
+      if (names.length === 0) {
+        error('Missing value for "--exclude".');
+        process.exit(2);
+      }
+      result.flags.exclude.push(...names);
     } else if (arg === "--fuzzy") {
       result.flags.fuzzy = true;
     } else if (arg === "--root") {
@@ -420,7 +466,7 @@ ${ansi.bold("Commands:")}
   search <query>         Search skills by name/description/tool
   search <query> --fuzzy Fuzzy-find installed skills; --root <dir> adds projects
   tag add|remove         Edit local tags for an installed skill
-  inspect <skill-name>   Show detailed info for a skill
+  inspect <name|path>    Show detailed info for a skill or skill folder
   get <skill>            Print a skill body, or borrow its directory with --path
   cleanup <path>         Remove an exact directory borrowed by get --path
   deps                   Manage caller-owned temporary dependency leases
@@ -432,7 +478,7 @@ ${ansi.bold("Commands:")}
   deactivate <skill>     Remove a library activation from a provider
   library                Manage centrally installed library skills
   audit                  Detect duplicate skills across tools
-  audit security <name>  Run security audit on a skill (or GitHub source)
+  audit security <name>  Run security audit on a skill, local folder, or GitHub source
   export                 Export skill inventory as JSON manifest
   import <file>          Import skills from a previously exported manifest
   init <name>            Scaffold a new skill with SKILL.md template
@@ -523,6 +569,18 @@ export async function runCLI(argv: string[]): Promise<void> {
   // Apply --verbose
   if (args.flags.verbose) {
     setVerbose(true);
+  }
+
+  // --exclude is parsed globally but only `index ingest` reads it; reject it
+  // elsewhere so e.g. `asm install … --exclude x` cannot ignore it (#837).
+  // Every accepted --exclude adds at least one name, so a non-empty list
+  // means the flag was given.
+  if (
+    args.flags.exclude.length > 0 &&
+    !(args.command === "index" && args.subcommand === "ingest")
+  ) {
+    error('--exclude applies only to "asm index ingest".');
+    process.exit(2);
   }
 
   // --version at top level

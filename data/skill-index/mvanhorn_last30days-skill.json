@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/mvanhorn/last30days-skill.git",
   "owner": "mvanhorn",
   "repo": "last30days-skill",
-  "updatedAt": "2026-10-30T20:12:40.228Z",
+  "updatedAt": "2026-11-06T01:01:27.746Z",
   "skillCount": 1,
   "skills": [
     {
@@ -10,7 +10,7 @@
       "description": "Research what people actually say about any topic in the last 30 days. Pulls posts and engagement from Reddit, X, YouTube, TikTok, Hacker News, Polymarket, GitHub, and the web. Includes a doctor health check to diagnose broken or missing sources.",
       "version": "3.31.0",
       "license": "MIT",
-      "creator": "",
+      "creator": "mvanhorn",
       "compatibility": "",
       "allowedTools": [
         "Bash",
@@ -26,10 +26,10 @@
       "installUrl": "github:mvanhorn/last30days-skill:skills/last30days",
       "relPath": "skills/last30days",
       "verified": true,
-      "tokenCount": 8899,
+      "tokenCount": 8915,
       "evalSummary": {
-        "overallScore": 76,
-        "grade": "C",
+        "overallScore": 81,
+        "grade": "B",
         "categories": [
           {
             "id": "structure",
@@ -70,7 +70,7 @@
           {
             "id": "license",
             "name": "License verification",
-            "score": 5,
+            "score": 10,
             "max": 10
           },
           {
@@ -92,7 +92,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:12:30.534Z",
+        "evaluatedAt": "2026-11-06T01:01:17.330Z",
         "evaluatedVersion": "3.31.0"
       },
       "evalSummaries": {
@@ -101,7 +101,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 65,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -143,7 +143,7 @@
             {
               "id": "license",
               "name": "License verification",
-              "score": 5,
+              "score": 10,
               "max": 10
             },
             {
@@ -155,7 +155,7 @@
             {
               "id": "pii",
               "name": "PII detection",
-              "score": 4,
+              "score": 6,
               "max": 10
             },
             {
@@ -165,7 +165,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:12:30.534Z",
+          "evaluatedAt": "2026-11-06T01:01:17.330Z",
           "evaluatedVersion": "3.31.0"
         },
         "skill-best-practice": {
@@ -183,7 +183,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:12:30.534Z",
+          "evaluatedAt": "2026-11-06T01:01:17.330Z",
           "evaluatedVersion": "3.31.0"
         }
       }

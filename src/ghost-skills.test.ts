@@ -94,6 +94,31 @@ describe("buildGhostSkills", () => {
     expect(ghosts[0].tokenCount).toBeGreaterThan(0);
   });
 
+  it("resolves creator from metadata.author, metadata.creator, or neither (#787)", async () => {
+    const cases: Array<[string, string, string]> = [
+      [
+        "author-only",
+        "metadata:\n  author: Luong NGUYEN <x@example.com>",
+        "Luong NGUYEN",
+      ],
+      ["both-keys", "metadata:\n  creator: c1\n  author: a1", "c1"],
+      ["neither", "effort: low", ""],
+    ];
+    const library: LibrarySkillInfo[] = [];
+    for (const [dir, meta] of cases) {
+      const lib = await makeLibrarySkill(dir);
+      await writeFile(
+        join(lib.libraryPath, "SKILL.md"),
+        `---\nname: ${dir}\ndescription: d\n${meta}\n---`,
+      );
+      library.push(lib);
+    }
+    const ghosts = await buildGhostSkills(library, [], "global");
+    for (const [dir, , expected] of cases) {
+      expect(ghosts.find((g) => g.dirName === dir)?.creator).toBe(expected);
+    }
+  });
+
   it("generates no ghosts in the both scope and none for an empty library", async () => {
     const library = [await makeLibrarySkill("alpha")];
     expect(await buildGhostSkills(library, [], "both")).toEqual([]);

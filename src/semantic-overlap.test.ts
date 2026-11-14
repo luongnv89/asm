@@ -219,6 +219,46 @@ describe("groupOverlaps", () => {
       expect(groups[i - 1].maxScore).toBeGreaterThanOrEqual(groups[i].maxScore);
     }
   });
+
+  it("groups precomputed pairs exactly as it groups recomputed ones", () => {
+    const skills = [
+      makeEntry("a", "Review code for bugs and security issues"),
+      makeEntry("b", "Review code for bugs and security problems"),
+      makeEntry("c", "Review code"),
+      makeEntry("d", "Deploy applications to cloud platforms"),
+      makeEntry("e", "Deploy applications to cloud"),
+    ];
+    const pairs = findOverlapPairs(skills, 0.3);
+    expect(pairs.length).toBeGreaterThan(0);
+    expect(groupOverlaps(skills, 0.3, pairs)).toEqual(
+      groupOverlaps(skills, 0.3),
+    );
+  });
+
+  it("groups only the pairs it is given", () => {
+    const skills = [
+      makeEntry("a", "Review code for bugs and security issues"),
+      makeEntry("b", "Review code for bugs and security issues"),
+    ];
+    expect(groupOverlaps(skills)).toHaveLength(1);
+    expect(groupOverlaps(skills, MIN_OVERLAP_SCORE, [])).toEqual([]);
+  });
+
+  it("maps a repeated (name, installUrl) entry onto its first occurrence", () => {
+    const desc = "Review code for bugs and security issues";
+    const skills = [
+      makeEntry("a", desc, "owner", "first"),
+      makeEntry("a", desc, "owner", "second"), // same name + installUrl
+      makeEntry("b", desc),
+    ];
+    const groups = groupOverlaps(skills);
+    expect(groups).toHaveLength(1);
+    expect(
+      groups[0].skills.map((s) => `${s.skill.name}@${s.repo.repo}`),
+    ).toEqual(["a@first", "b@repo"]);
+    // a↔a(dup), a↔b and a(dup)↔b all land on the same root.
+    expect(groups[0].pairCount).toBe(3);
+  });
 });
 
 // ─── checkCandidateOverlap ─────────────────────────────────────────────────
