@@ -711,6 +711,76 @@ describe("formatAuditReport", () => {
     const output = formatAuditReport(report);
     expect(output).toContain("asm audit -y");
   });
+
+  it("[keep] names the copy `asm audit --yes` keeps, even when stripping would reorder it (#830)", () => {
+    // ICU collation ignores ESC but sorts `?` before letters, so sorting the
+    // stripped paths would put "\x1bzz" first. The keep order must come from
+    // the original paths, like the removal in src/commands/audit.ts.
+    const skills = [
+      makeSkill({ name: "dup", dirName: "\x1bzz", path: "/s/\x1bzz" }),
+      makeSkill({ name: "dup", dirName: "b", path: "/s/b" }),
+    ];
+    expect("/s/\x1bzz".localeCompare("/s/b")).toBe(1);
+    expect("/s/?zz".localeCompare("/s/b")).toBe(-1);
+    const report = detectDuplicates(skills);
+    const kept = sortInstancesForKeep(report.duplicateGroups[0].instances)[0];
+    expect(kept.path).toBe("/s/b");
+
+    const lines = formatAuditReport(report).split("\n");
+    const keepRow = lines.find((l) => l.includes("[keep]"));
+    expect(keepRow?.trimEnd().endsWith("/s/b")).toBe(true);
+    expect(lines.some((l) => l.trimEnd().endsWith("/s/?zz"))).toBe(true);
+    // eslint-disable-next-line no-control-regex
+    expect(lines.join("\n")).not.toMatch(/[\x00-\x08\x0b-\x1f\x7f-\x9f]/);
+  });
+
+  it("strips the group key, variants and versions at render (#830)", () => {
+    const skills = [
+      makeSkill({
+        name: "Dup\x1b",
+        dirName: "dup\x1b",
+        path: "/claude/dup",
+        location: "global-claude",
+        version: "1.0\x07",
+      }),
+      makeSkill({
+        name: "dup\x1b",
+        dirName: "dup\x1b",
+        path: "/codex/dup",
+        location: "global-codex",
+        version: "2.0\x07",
+      }),
+    ];
+    const report = detectDuplicates(skills);
+    const output = formatAuditReport(report);
+    expect(output).toContain("v2.0?, v1.0?");
+    expect(output).toContain('"dup?"');
+    // eslint-disable-next-line no-control-regex
+    expect(output).not.toMatch(/[\x00-\x08\x0b-\x1f\x7f-\x9f]/);
+  });
+
+  it("strips each spelling on the variants line (#830)", () => {
+    const skills = [
+      makeSkill({
+        name: "Dup\x1b[31mX",
+        dirName: "Dup\x1b[31mX",
+        path: "/claude/a",
+        location: "global-claude",
+      }),
+      makeSkill({
+        name: "dup\x1b[31mx",
+        dirName: "dup\x1b[31mx",
+        path: "/codex/b",
+        location: "global-codex",
+      }),
+    ];
+    const report = detectDuplicates(skills);
+    expect(report.duplicateGroups[0].variants).toHaveLength(2);
+    const output = formatAuditReport(report);
+    expect(output).toContain('variants: "Dup?[31mX", "dup?[31mx"');
+    // eslint-disable-next-line no-control-regex
+    expect(output).not.toMatch(/[\x00-\x08\x0b-\x1f\x7f-\x9f]/);
+  });
 });
 
 // ─── formatAuditReportJSON ──────────────────────────────────────────────────

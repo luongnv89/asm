@@ -28,6 +28,7 @@ import type {
   ResidencySignal,
   SkillInfo,
 } from "./utils/types";
+import { stripControlBytesDeep } from "./utils/control-chars";
 
 /**
  * Providers whose skills ASM does not own. `asm disable` explicitly skips
@@ -282,6 +283,7 @@ export function formatResidencyReport(
   report: ResidencyReport,
   displayLimit: number = RESIDENCY_DISPLAY_LIMIT,
 ): string {
+  report = stripControlBytesDeep(report);
   const lines: string[] = [];
 
   lines.push("");

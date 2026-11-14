@@ -4,6 +4,7 @@
 // See: https://github.com/luongnv89/asm/issues/109
 
 import { VERSION } from "./version";
+import { stringifyForOutput } from "./control-chars";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -31,6 +32,14 @@ export interface MachineOutput<T = unknown> {
 
 export const ErrorCodes = {
   SKILL_NOT_FOUND: "SKILL_NOT_FOUND",
+  /** `asm eval`: SKILL.md is a link out of its folder, refused unread (#825). */
+  SKILL_MD_OUTSIDE_LINK: "SKILL_MD_OUTSIDE_LINK",
+  /** `asm inspect <path>`: the folder exists but cannot be read (#829). */
+  SKILL_DIR_UNREADABLE: "SKILL_DIR_UNREADABLE",
+  /** `asm inspect <path>`: the path exists but is not a folder (#829). */
+  SKILL_PATH_NOT_DIR: "SKILL_PATH_NOT_DIR",
+  /** `asm inspect <path>`: SKILL.md exists but cannot be read (#829). */
+  SKILL_MD_UNREADABLE: "SKILL_MD_UNREADABLE",
   AUDIT_FAILED: "AUDIT_FAILED",
   INSTALL_FAILED: "INSTALL_FAILED",
   PUBLISH_FAILED: "PUBLISH_FAILED",
@@ -92,7 +101,7 @@ export function formatMachineOutput<T>(
     meta: buildMeta(startTime),
   };
   const indent = process.stdout.isTTY ? 2 : 0;
-  return JSON.stringify(envelope, null, indent);
+  return stringifyForOutput(envelope, null, indent);
 }
 
 /**
@@ -115,5 +124,5 @@ export function formatMachineError(
     meta: buildMeta(startTime),
   };
   const indent = process.stdout.isTTY ? 2 : 0;
-  return JSON.stringify(envelope, null, indent);
+  return stringifyForOutput(envelope, null, indent);
 }

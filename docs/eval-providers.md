@@ -77,6 +77,80 @@ returns the highest registered version matching a range
 (`src/eval/registry.ts:200`) — so multiple versions of a provider can coexist
 and programmatic consumers can ask for a range.
 
+### License category (`quality` provider)
+
+The `license` category (`scoreLicense` in `src/evaluator-scorers-policy.ts`)
+scores the frontmatter `license:` declaration against a licence file.
+
+- **Licence file names** (`isLicenseFileName`, matched in any case):
+  `LICENSE`, `LICENSE.md`, `LICENSE.txt`, `COPYING`, `COPYING.md`,
+  `COPYING.txt`.
+- **Own file:** one of those names in the skill folder.
+- **Inherited file:** when the skill has no file of its own, the nearest one
+  in a parent directory up to the skill's git root (the clone root for
+  remote targets). The search never goes above the git root and is skipped
+  for skills outside a git repo. An inherited file must be a regular file
+  inside the git root. Symlinks are resolved, and the target must also stay
+  inside the git root. A `LICENSE` directory, a broken symlink, or a symlink
+  to a file outside the repo does not count.
+- **Private licence:** a `license:` value that is not an SPDX identifier but
+  marks the skill as private. The accepted forms, in any case, are: a value
+  starting with `Proprietary` (e.g. `Proprietary-1.0`), exactly `UNLICENSED`
+  (npm's convention), a value starting with `private`, `SEE LICENSE IN <file>`
+  (or `SEE LICENCE IN <file>`), and any value containing "All rights
+  reserved". The SPDX `Unlicense` (public domain) is not private.
+- **SPDX license expressions** (`parseSpdxExpression`, per
+  [SPDX 2.3 Annex D](https://spdx.github.io/spdx-spec/v2.3/SPDX-license-expressions/)):
+  `OR`, `AND`, `WITH <exception>`, parentheses, the `+` suffix (no space
+  before it), and `LicenseRef-…` / `DocumentRef-…:LicenseRef-…`, with
+  precedence `+`, `WITH`, `AND`, `OR`. Licence identifiers and exceptions
+  match in any case. The `LicenseRef-` and `DocumentRef-` prefixes are matched
+  case-sensitively, so `licenseref-acme` is not recognised. Annex D.2 says
+  operators should be matched case-sensitively, and asm requires upper-case
+  `AND`, `OR`, `WITH`: `MIT or Apache-2.0` is not recognised, and prose like
+  "Proprietary and confidential" is not read as an expression. Parentheses
+  nested more than 64 deep are not recognised either (score 2).
+  An expression scores as SPDX when every identifier is recognised. A
+  `LicenseRef-` also counts, but its text belongs in the licence file. An
+  unknown identifier (`MIT OR Foo-1.0`), an unknown exception, or invalid
+  syntax (`MIT OR`) scores 2, and the finding names the identifier or the
+  syntax error. Unknown ids and exceptions are reported as not in asm's list
+  of recognised SPDX identifiers or exceptions; asm ships a curated subset of
+  the SPDX lists.
+- **Recognised exceptions:** `LLVM-exception`, `Classpath-exception-2.0`,
+  `GCC-exception-3.1`, `Autoconf-exception-3.0`, `Bison-exception-2.2` (from
+  the SPDX License Exceptions List). Any other exception is not recognised.
+- **Deprecated ids:** `GPL-2.0`, `GPL-3.0`, `LGPL-2.1`, `LGPL-3.0` and
+  `AGPL-3.0` are still on the SPDX License List, so they are recognised and
+  `GPL-2.0+` is valid. A suggestion names the current form: `-or-later` for
+  `GPL-2.0+`, `-only` / `-or-later` for a bare `GPL-2.0`.
+- **SPDX mixed with private terms** (`Apache-2.0 OR Proprietary`): the SPDX
+  rule applies, 10 with a licence file and 5 without. The SPDX terms need the
+  licence text, and a private alternative must not raise the no-file score
+  above what the open licence earns alone. Strictly, `Proprietary` is neither
+  an SPDX id nor a `LicenseRef-`, so the expression is not valid SPDX as
+  written; the finding says so, points to `LicenseRef-Proprietary`, and says
+  `SPDX licence rule applied`. The private rule (#771) applies only when the value names no
+  SPDX identifier or `LicenseRef-`, or does not parse as an expression. So
+  "PROPRIETARY AND CONFIDENTIAL" and "All rights reserved" stay private.
+- **`asm eval --fix`:** it scores licences the same way as plain `asm eval`,
+  with the skill folder's entries and the inherited file, so `--fix
+--dry-run` and plain eval agree.
+
+| Score | Position                                                                                                                                                         |
+| ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 10    | SPDX (identifier or expression) or private licence declared, plus a licence file (own or inherited from the repo)                                                |
+| 8     | Private licence declared (`Proprietary`, `UNLICENSED`, `SEE LICENSE IN <file>`, `private`, "All rights reserved"), no licence file                               |
+| 5     | SPDX licence declared, no licence file anywhere                                                                                                                  |
+| 2     | A licence declared that is neither SPDX nor private, an expression with an unknown id or exception or invalid syntax, or a licence file with no `license:` field |
+| 0     | No licence declared (an inherited repo LICENSE alone does not count)                                                                                             |
+
+The findings name the case that applied: `LICENSE file present at skill root.`,
+`LICENSE inherited from the enclosing repository (…).`,
+`Private licence declared: …`, `… (valid SPDX license expression, every
+identifier recognised).`, or `… mixes SPDX terms with private terms (…), so it is not valid SPDX as
+written (use LicenseRef-… …) — SPDX licence rule applied: …`.
+
 ### Output modes
 
 | Mode       | Flag        | Use case                             |

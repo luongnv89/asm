@@ -2,12 +2,12 @@
   "repoUrl": "https://github.com/briiirussell/cybersecurity-skills.git",
   "owner": "briiirussell",
   "repo": "cybersecurity-skills",
-  "updatedAt": "2026-10-30T20:15:57.513Z",
+  "updatedAt": "2026-11-06T01:05:59.083Z",
   "skillCount": 42,
   "skills": [
     {
       "name": "agent-supply-chain-audit",
-      "description": "Audit the extensions AI coding agents load and trust (skills, plugins, marketplaces, hooks, settings, MCP servers, and instruction files like CLAUDE.md, AGENTS.md, GEMINI.md, .cursor/rules and copilot-instructions.md) across Claude Code, Cursor, Codex, Gemini CLI and GitHub Copilot. Read-only: inventories each item with its source and pin, greps for hidden instructions, exfiltration, credential reads, persistence, curl|bash and over-broad tool grants, reviews hooks and MCP pinning and tool poisoning, and gives each item a SAFE / CAUTION / DO-NOT-INSTALL verdict. Use when the user mentions 'audit my skills,' 'is this skill malicious,' 'is this skill safe,' 'is this MCP server safe,' 'review CLAUDE.md,' 'review AGENTS.md,' 'plugin security,' 'check my hooks,' 'audit my MCP servers,' 'agent supply chain,' 'SkillSpector,' 'tool poisoning,' 'rug pull,' or is about to install a skill, plugin, or MCP server.",
+      "description": "Audit the extensions AI coding agents load and trust (skills, plugins, marketplaces, hooks, settings, MCP servers, and instruction files like CLAUDE.md, AGENTS.md, GEMINI.md, .cursor/rules and copilot-instructions.md) across Claude Code, Cursor, Codex, Gemini CLI and GitHub Copilot. Read-only: inventories each item with its source and pin, greps for hidden instructions, exfiltration, credential reads, persistence, curl|bash and over-broad tool grants, reviews hooks and MCP pinning and tool poisoning, and gives each item a SAFE / CAUTION / DO-NOT-INSTALL verdict. Use when the user mentions 'audit my skills,' 'is this skill malicious,' 'is this skill safe,' 'is this MCP server safe,' 'review CLAUDE.md,' 'review AGENTS.md,' 'plugin security,' 'check my hooks,' 'audit my MCP servers,' 'agent supply chain,' 'SkillSpector,' 'tool poisoning,' 'rug pull,' 'audit my IDE extensions,' 'is this VS Code extension safe,' or is about to install a skill, plugin, MCP server, or IDE extension.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -27,9 +27,9 @@
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/agent-supply-chain-audit",
       "relPath": "skills/agent-supply-chain-audit",
       "verified": true,
-      "tokenCount": 6020,
+      "tokenCount": 7067,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 67,
         "grade": "C",
         "categories": [
           {
@@ -47,13 +47,13 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 9,
+            "score": 8,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 7,
+            "score": 6,
             "max": 10
           },
           {
@@ -93,7 +93,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.160Z",
+        "evaluatedAt": "2026-11-06T01:05:58.606Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -102,7 +102,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 67,
           "grade": "C",
           "categories": [
             {
@@ -120,13 +120,13 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 9,
+              "score": 8,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 7,
+              "score": 6,
               "max": 10
             },
             {
@@ -166,7 +166,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.161Z",
+          "evaluatedAt": "2026-11-06T01:05:58.611Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -184,7 +184,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.161Z",
+          "evaluatedAt": "2026-11-06T01:05:58.611Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -209,9 +209,9 @@
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/ai-risk-management",
       "relPath": "skills/ai-risk-management",
       "verified": true,
-      "tokenCount": 5136,
+      "tokenCount": 5288,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 66,
         "grade": "C",
         "categories": [
           {
@@ -241,13 +241,13 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 10,
+            "score": 7,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 7,
+            "score": 5,
             "max": 10
           },
           {
@@ -275,7 +275,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.160Z",
+        "evaluatedAt": "2026-11-06T01:05:58.599Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -284,7 +284,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 66,
           "grade": "C",
           "categories": [
             {
@@ -314,13 +314,13 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 10,
+              "score": 7,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 7,
+              "score": 5,
               "max": 10
             },
             {
@@ -348,7 +348,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.161Z",
+          "evaluatedAt": "2026-11-06T01:05:58.600Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -366,7 +366,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.161Z",
+          "evaluatedAt": "2026-11-06T01:05:58.600Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -456,7 +456,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.160Z",
+        "evaluatedAt": "2026-11-06T01:05:58.599Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -529,7 +529,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.161Z",
+          "evaluatedAt": "2026-11-06T01:05:58.600Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -547,14 +547,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.161Z",
+          "evaluatedAt": "2026-11-06T01:05:58.600Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "breach-patterns",
-      "description": "Learn from public breach disclosures — extract the audit question each one implies and check your own stack. Capital One IMDS abuse, LastPass vault exfiltration, Okta Lapsus$, Snowflake credential reuse, MOVEit, SolarWinds, Equifax, Target POS, Codecov, Uber, Twilio — what would you check now if your boss said 'could that happen to us?' Use when the user mentions 'breach analysis,' 'lessons learned,' 'security postmortem,' 'breach patterns,' 'breach lessons,' 'has this happened to us,' 'apply breach lessons,' 'preempt breaches,' 'security retrospective,' 'real-world security incidents,' or wants to harden against known attacker playbooks.",
+      "description": "Learn from public breach disclosures — extract the audit question each one implies and check your own stack. Capital One IMDS abuse, LastPass vault exfiltration, Okta Lapsus$, Snowflake credential reuse, MOVEit, SolarWinds, Equifax, Target POS, Codecov, Uber, Twilio, Polymarket's compromised DebugBear script — what would you check now if your boss said 'could that happen to us?' Use when the user mentions 'breach analysis,' 'lessons learned,' 'security postmortem,' 'breach patterns,' 'breach lessons,' 'has this happened to us,' 'apply breach lessons,' 'preempt breaches,' 'security retrospective,' 'real-world security incidents,' or wants to harden against known attacker playbooks.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -573,7 +573,7 @@
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/breach-patterns",
       "relPath": "skills/breach-patterns",
       "verified": true,
-      "tokenCount": 4201,
+      "tokenCount": 4782,
       "evalSummary": {
         "overallScore": 63,
         "grade": "D",
@@ -605,13 +605,13 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 7,
+            "score": 5,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 1,
+            "score": 3,
             "max": 10
           },
           {
@@ -639,7 +639,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.160Z",
+        "evaluatedAt": "2026-11-06T01:05:58.600Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -678,13 +678,13 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 7,
+              "score": 5,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 1,
+              "score": 3,
               "max": 10
             },
             {
@@ -712,7 +712,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.161Z",
+          "evaluatedAt": "2026-11-06T01:05:58.600Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -730,7 +730,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.161Z",
+          "evaluatedAt": "2026-11-06T01:05:58.600Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -754,7 +754,7 @@
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/business-logic-testing",
       "relPath": "skills/business-logic-testing",
       "verified": true,
-      "tokenCount": 4826,
+      "tokenCount": 4999,
       "evalSummary": {
         "overallScore": 73,
         "grade": "C",
@@ -820,7 +820,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.160Z",
+        "evaluatedAt": "2026-11-06T01:05:58.600Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -893,7 +893,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.161Z",
+          "evaluatedAt": "2026-11-06T01:05:58.600Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -911,7 +911,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.161Z",
+          "evaluatedAt": "2026-11-06T01:05:58.600Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1029,7 +1029,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.160Z",
+        "evaluatedAt": "2026-11-06T01:05:58.600Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1102,7 +1102,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.161Z",
+          "evaluatedAt": "2026-11-06T01:05:58.600Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1120,7 +1120,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.161Z",
+          "evaluatedAt": "2026-11-06T01:05:58.600Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1247,7 +1247,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.160Z",
+        "evaluatedAt": "2026-11-06T01:05:58.600Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1320,7 +1320,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.161Z",
+          "evaluatedAt": "2026-11-06T01:05:58.600Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1338,7 +1338,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.161Z",
+          "evaluatedAt": "2026-11-06T01:05:58.600Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1370,7 +1370,7 @@
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/container-audit",
       "relPath": "skills/container-audit",
       "verified": true,
-      "tokenCount": 5116,
+      "tokenCount": 5341,
       "evalSummary": {
         "overallScore": 73,
         "grade": "C",
@@ -1436,7 +1436,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.161Z",
+        "evaluatedAt": "2026-11-06T01:05:58.600Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1509,7 +1509,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.161Z",
+          "evaluatedAt": "2026-11-06T01:05:58.601Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1527,7 +1527,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.161Z",
+          "evaluatedAt": "2026-11-06T01:05:58.601Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1618,7 +1618,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.198Z",
+        "evaluatedAt": "2026-11-06T01:05:58.659Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1691,7 +1691,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.199Z",
+          "evaluatedAt": "2026-11-06T01:05:58.663Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1709,7 +1709,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.199Z",
+          "evaluatedAt": "2026-11-06T01:05:58.663Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1800,7 +1800,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.199Z",
+        "evaluatedAt": "2026-11-06T01:05:58.671Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1873,7 +1873,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.199Z",
+          "evaluatedAt": "2026-11-06T01:05:58.671Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1891,7 +1891,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.199Z",
+          "evaluatedAt": "2026-11-06T01:05:58.671Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1982,7 +1982,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.231Z",
+        "evaluatedAt": "2026-11-06T01:05:58.704Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2055,7 +2055,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.235Z",
+          "evaluatedAt": "2026-11-06T01:05:58.705Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2073,7 +2073,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.235Z",
+          "evaluatedAt": "2026-11-06T01:05:58.705Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2150,7 +2150,7 @@
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/dependency-audit",
       "relPath": "skills/dependency-audit",
       "verified": true,
-      "tokenCount": 7796,
+      "tokenCount": 7830,
       "evalSummary": {
         "overallScore": 73,
         "grade": "C",
@@ -2216,7 +2216,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.231Z",
+        "evaluatedAt": "2026-11-06T01:05:58.704Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2289,7 +2289,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.236Z",
+          "evaluatedAt": "2026-11-06T01:05:58.705Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2307,7 +2307,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.236Z",
+          "evaluatedAt": "2026-11-06T01:05:58.705Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2406,7 +2406,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.231Z",
+        "evaluatedAt": "2026-11-06T01:05:58.712Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2479,7 +2479,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.236Z",
+          "evaluatedAt": "2026-11-06T01:05:58.713Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2497,7 +2497,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.236Z",
+          "evaluatedAt": "2026-11-06T01:05:58.713Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2588,7 +2588,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.236Z",
+        "evaluatedAt": "2026-11-06T01:05:58.729Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2661,7 +2661,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.237Z",
+          "evaluatedAt": "2026-11-06T01:05:58.729Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2679,7 +2679,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.237Z",
+          "evaluatedAt": "2026-11-06T01:05:58.729Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2771,7 +2771,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.259Z",
+        "evaluatedAt": "2026-11-06T01:05:58.746Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2844,7 +2844,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.264Z",
+          "evaluatedAt": "2026-11-06T01:05:58.748Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2862,7 +2862,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.264Z",
+          "evaluatedAt": "2026-11-06T01:05:58.748Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2953,7 +2953,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.265Z",
+        "evaluatedAt": "2026-11-06T01:05:58.746Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3026,7 +3026,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.266Z",
+          "evaluatedAt": "2026-11-06T01:05:58.748Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3044,7 +3044,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.266Z",
+          "evaluatedAt": "2026-11-06T01:05:58.748Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3151,7 +3151,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.274Z",
+        "evaluatedAt": "2026-11-06T01:05:58.762Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3224,7 +3224,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.277Z",
+          "evaluatedAt": "2026-11-06T01:05:58.765Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3242,7 +3242,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.278Z",
+          "evaluatedAt": "2026-11-06T01:05:58.765Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3262,7 +3262,12 @@
         "Bash(ps:*)",
         "Bash(netstat:*)",
         "Bash(lsof:*)",
-        "Bash(who:*)"
+        "Bash(who:*)",
+        "Bash(launchctl",
+        "list:*)",
+        "Bash(shasum",
+        "-a",
+        "256:*)"
       ],
       "tags": [],
       "dependencies": [],
@@ -3271,7 +3276,7 @@
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/incident-triage",
       "relPath": "skills/incident-triage",
       "verified": true,
-      "tokenCount": 3565,
+      "tokenCount": 3686,
       "evalSummary": {
         "overallScore": 68,
         "grade": "C",
@@ -3337,7 +3342,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.274Z",
+        "evaluatedAt": "2026-11-06T01:05:58.766Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3410,7 +3415,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.278Z",
+          "evaluatedAt": "2026-11-06T01:05:58.772Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3428,7 +3433,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.278Z",
+          "evaluatedAt": "2026-11-06T01:05:58.772Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3519,7 +3524,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.278Z",
+        "evaluatedAt": "2026-11-06T01:05:58.779Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3592,7 +3597,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.283Z",
+          "evaluatedAt": "2026-11-06T01:05:58.781Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3610,7 +3615,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.283Z",
+          "evaluatedAt": "2026-11-06T01:05:58.781Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3718,7 +3723,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.305Z",
+        "evaluatedAt": "2026-11-06T01:05:58.786Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3727,7 +3732,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 65,
+          "overallScore": 67,
           "grade": "C",
           "categories": [
             {
@@ -3781,7 +3786,7 @@
             {
               "id": "pii",
               "name": "PII detection",
-              "score": 8,
+              "score": 10,
               "max": 10
             },
             {
@@ -3791,7 +3796,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.305Z",
+          "evaluatedAt": "2026-11-06T01:05:58.786Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3809,7 +3814,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.305Z",
+          "evaluatedAt": "2026-11-06T01:05:58.786Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3900,7 +3905,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.321Z",
+        "evaluatedAt": "2026-11-06T01:05:58.841Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3973,7 +3978,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.321Z",
+          "evaluatedAt": "2026-11-06T01:05:58.841Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3991,7 +3996,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.321Z",
+          "evaluatedAt": "2026-11-06T01:05:58.841Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4084,7 +4089,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.337Z",
+        "evaluatedAt": "2026-11-06T01:05:58.848Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4157,7 +4162,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.339Z",
+          "evaluatedAt": "2026-11-06T01:05:58.849Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4175,7 +4180,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.339Z",
+          "evaluatedAt": "2026-11-06T01:05:58.849Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4267,7 +4272,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.341Z",
+        "evaluatedAt": "2026-11-06T01:05:58.861Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4340,7 +4345,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.341Z",
+          "evaluatedAt": "2026-11-06T01:05:58.862Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4358,7 +4363,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.341Z",
+          "evaluatedAt": "2026-11-06T01:05:58.862Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4453,7 +4458,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.351Z",
+        "evaluatedAt": "2026-11-06T01:05:58.861Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4526,7 +4531,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.355Z",
+          "evaluatedAt": "2026-11-06T01:05:58.862Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4544,7 +4549,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.355Z",
+          "evaluatedAt": "2026-11-06T01:05:58.862Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4599,7 +4604,21 @@
         "Bash(heroku",
         "releases:info:*)",
         "Bash(heroku",
-        "pipelines:info:*)"
+        "pipelines:info:*)",
+        "Bash(aws",
+        "ec2",
+        "describe-instances:*)",
+        "Bash(doctl",
+        "compute",
+        "droplet",
+        "list:*)",
+        "Bash(hcloud",
+        "server",
+        "list:*)",
+        "Bash(gcloud",
+        "compute",
+        "instances",
+        "list:*)"
       ],
       "tags": [],
       "dependencies": [],
@@ -4608,7 +4627,7 @@
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/patch-sweep",
       "relPath": "skills/patch-sweep",
       "verified": true,
-      "tokenCount": 6293,
+      "tokenCount": 6749,
       "evalSummary": {
         "overallScore": 66,
         "grade": "C",
@@ -4674,7 +4693,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.364Z",
+        "evaluatedAt": "2026-11-06T01:05:58.867Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4747,7 +4766,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.371Z",
+          "evaluatedAt": "2026-11-06T01:05:58.870Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4765,7 +4784,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.371Z",
+          "evaluatedAt": "2026-11-06T01:05:58.870Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4856,7 +4875,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.377Z",
+        "evaluatedAt": "2026-11-06T01:05:58.874Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4929,7 +4948,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.380Z",
+          "evaluatedAt": "2026-11-06T01:05:58.880Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4947,7 +4966,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.380Z",
+          "evaluatedAt": "2026-11-06T01:05:58.880Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4987,7 +5006,11 @@
         "-status:*)",
         "Bash(lsblk:*)",
         "Bash(resolvectl",
-        "status:*)"
+        "status:*)",
+        "Bash(defaults",
+        "read:*)",
+        "Bash(pgrep",
+        "-fl:*)"
       ],
       "tags": [],
       "dependencies": [],
@@ -4996,9 +5019,9 @@
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/personal-opsec",
       "relPath": "skills/personal-opsec",
       "verified": true,
-      "tokenCount": 6364,
+      "tokenCount": 7295,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 71,
         "grade": "C",
         "categories": [
           {
@@ -5016,13 +5039,13 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 10,
+            "score": 9,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 8,
+            "score": 6,
             "max": 10
           },
           {
@@ -5062,7 +5085,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.381Z",
+        "evaluatedAt": "2026-11-06T01:05:58.883Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5071,7 +5094,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 71,
           "grade": "C",
           "categories": [
             {
@@ -5089,13 +5112,13 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 10,
+              "score": 9,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 8,
+              "score": 6,
               "max": 10
             },
             {
@@ -5135,7 +5158,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.382Z",
+          "evaluatedAt": "2026-11-06T01:05:58.884Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5153,7 +5176,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.382Z",
+          "evaluatedAt": "2026-11-06T01:05:58.885Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5244,7 +5267,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.392Z",
+        "evaluatedAt": "2026-11-06T01:05:58.884Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5317,7 +5340,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.396Z",
+          "evaluatedAt": "2026-11-06T01:05:58.886Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5335,7 +5358,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.396Z",
+          "evaluatedAt": "2026-11-06T01:05:58.886Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5426,7 +5449,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.396Z",
+        "evaluatedAt": "2026-11-06T01:05:58.932Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5499,7 +5522,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.397Z",
+          "evaluatedAt": "2026-11-06T01:05:58.933Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5517,7 +5540,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.397Z",
+          "evaluatedAt": "2026-11-06T01:05:58.933Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5609,7 +5632,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.414Z",
+        "evaluatedAt": "2026-11-06T01:05:58.956Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5682,7 +5705,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.415Z",
+          "evaluatedAt": "2026-11-06T01:05:58.957Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5700,7 +5723,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.415Z",
+          "evaluatedAt": "2026-11-06T01:05:58.957Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5791,7 +5814,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.422Z",
+        "evaluatedAt": "2026-11-06T01:05:58.957Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5864,7 +5887,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.423Z",
+          "evaluatedAt": "2026-11-06T01:05:58.957Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5882,14 +5905,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.423Z",
+          "evaluatedAt": "2026-11-06T01:05:58.957Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "scanner-pipeline",
-      "description": "Set up and run deterministic security scanners across a repo or a whole fleet of repos — gitleaks, trufflehog, semgrep, osv-scanner, trivy, checkov, Brakeman, govulncheck, Supabase advisors, and (guarded) nuclei/ZAP — then normalize their output to findings.json or SARIF, dedupe, suppress with expiry, schedule in CI, and hand findings to fix agents. Use when the user mentions 'run scanners,' 'security scanning pipeline,' 'set up gitleaks,' 'semgrep in CI,' 'osv-scanner,' 'trivy fs,' 'SARIF,' 'code scanning,' 'scan all my repos,' 'security-scan workflow,' 'weekly security scan,' 'Supabase RLS advisor,' 'dedupe scanner findings,' 'suppression file,' 'stop asking Claude to hack my app,' or wants tools, not an agent, to find the bugs.",
+      "description": "Set up and run deterministic security scanners across a repo or a whole fleet of repos — gitleaks, trufflehog, semgrep, osv-scanner, trivy, checkov, Brakeman, govulncheck, Supabase advisors, and (guarded) nuclei/ZAP — then normalize their output to findings.json or SARIF, dedupe, suppress with expiry, schedule in CI, and hand findings to fix agents. Use when the user mentions 'run scanners,' 'security scanning pipeline,' 'set up gitleaks,' 'betterleaks in CI,' 'semgrep in CI,' 'osv-scanner,' 'trivy fs,' 'SARIF,' 'code scanning,' 'scan all my repos,' 'security-scan workflow,' 'weekly security scan,' 'Supabase RLS advisor,' 'dedupe scanner findings,' 'suppression file,' 'stop asking Claude to hack my app,' or wants tools, not an agent, to find the bugs.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -5900,7 +5923,17 @@
         "Glob",
         "Write",
         "Bash(gitleaks:*)",
-        "Bash(trufflehog:*)",
+        "Bash(betterleaks",
+        "version)",
+        "Bash(betterleaks",
+        "git",
+        ".",
+        "--validate=false",
+        "--analyze=false",
+        "--redact",
+        "--silent",
+        "-o",
+        ".security/out/betterleaks.json)",
         "Bash(osv-scanner",
         "scan:*)",
         "Bash(trivy",
@@ -5925,9 +5958,9 @@
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/scanner-pipeline",
       "relPath": "skills/scanner-pipeline",
       "verified": true,
-      "tokenCount": 4764,
+      "tokenCount": 5590,
       "evalSummary": {
-        "overallScore": 72,
+        "overallScore": 73,
         "grade": "C",
         "categories": [
           {
@@ -5951,7 +5984,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 7,
+            "score": 8,
             "max": 10
           },
           {
@@ -5991,7 +6024,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.432Z",
+        "evaluatedAt": "2026-11-06T01:05:58.961Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6000,7 +6033,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 72,
+          "overallScore": 73,
           "grade": "C",
           "categories": [
             {
@@ -6024,7 +6057,7 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 7,
+              "score": 8,
               "max": 10
             },
             {
@@ -6064,7 +6097,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.432Z",
+          "evaluatedAt": "2026-11-06T01:05:58.962Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6082,14 +6115,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.432Z",
+          "evaluatedAt": "2026-11-06T01:05:58.962Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "secrets-audit",
-      "description": "Find leaked secrets in source code, Git history, build artifacts, and infrastructure — and audit the secrets-management posture preventing future leaks. Use when the user mentions 'secrets audit,' 'secret scanning,' 'leaked credentials,' 'API key in code,' 'gitleaks,' 'trufflehog,' 'git history scan,' 'secrets management,' 'vault audit,' 'rotation policy,' 'AWS Secrets Manager,' 'HashiCorp Vault,' 'Doppler,' '1Password Secrets Automation,' 'sealed-secrets,' 'External Secrets Operator,' 'secrets in MCP config,' 'API key in Claude transcript,' 'is this key public,' or needs to find or prevent credential exposure.",
+      "description": "Find leaked secrets in source code, Git history, build artifacts, and infrastructure — and audit the secrets-management posture preventing future leaks. Use when the user mentions 'secrets audit,' 'secret scanning,' 'leaked credentials,' 'API key in code,' 'gitleaks,' 'trufflehog,' 'betterleaks,' 'git history scan,' 'secrets management,' 'vault audit,' 'rotation policy,' 'AWS Secrets Manager,' 'HashiCorp Vault,' 'Doppler,' '1Password Secrets Automation,' 'sealed-secrets,' 'External Secrets Operator,' 'secrets in MCP config,' 'API key in Claude transcript,' 'is this key public,' or needs to find or prevent credential exposure.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -6099,8 +6132,27 @@
         "Grep",
         "Glob",
         "WebSearch",
-        "Bash(trufflehog",
-        "git:*)"
+        "Bash(betterleaks",
+        "version)",
+        "Bash(betterleaks",
+        "git",
+        ".",
+        "--validate=false",
+        "--analyze=false",
+        "--redact",
+        "--silent",
+        "-o",
+        ".security/out/betterleaks.json)",
+        "Bash(betterleaks",
+        "config",
+        "show",
+        "ids",
+        "--validation)",
+        "Bash(betterleaks",
+        "config",
+        "show",
+        "ids",
+        "--analysis)"
       ],
       "tags": [],
       "dependencies": [],
@@ -6109,7 +6161,7 @@
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/secrets-audit",
       "relPath": "skills/secrets-audit",
       "verified": true,
-      "tokenCount": 6371,
+      "tokenCount": 7034,
       "evalSummary": {
         "overallScore": 70,
         "grade": "C",
@@ -6175,7 +6227,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.438Z",
+        "evaluatedAt": "2026-11-06T01:05:58.983Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6248,7 +6300,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.439Z",
+          "evaluatedAt": "2026-11-06T01:05:58.987Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6266,7 +6318,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.439Z",
+          "evaluatedAt": "2026-11-06T01:05:58.987Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6355,7 +6407,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.447Z",
+        "evaluatedAt": "2026-11-06T01:05:58.990Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6428,7 +6480,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.450Z",
+          "evaluatedAt": "2026-11-06T01:05:58.991Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6446,7 +6498,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.450Z",
+          "evaluatedAt": "2026-11-06T01:05:58.991Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6536,7 +6588,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.453Z",
+        "evaluatedAt": "2026-11-06T01:05:58.990Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6609,7 +6661,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.456Z",
+          "evaluatedAt": "2026-11-06T01:05:58.991Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6627,7 +6679,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.456Z",
+          "evaluatedAt": "2026-11-06T01:05:58.991Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6719,7 +6771,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.456Z",
+        "evaluatedAt": "2026-11-06T01:05:59.009Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6792,7 +6844,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.457Z",
+          "evaluatedAt": "2026-11-06T01:05:59.012Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6810,7 +6862,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.457Z",
+          "evaluatedAt": "2026-11-06T01:05:59.012Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6901,7 +6953,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.463Z",
+        "evaluatedAt": "2026-11-06T01:05:59.012Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6974,7 +7026,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.465Z",
+          "evaluatedAt": "2026-11-06T01:05:59.013Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6992,7 +7044,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.465Z",
+          "evaluatedAt": "2026-11-06T01:05:59.013Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7017,7 +7069,7 @@
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/threat-hunting",
       "relPath": "skills/threat-hunting",
       "verified": true,
-      "tokenCount": 3344,
+      "tokenCount": 3603,
       "evalSummary": {
         "overallScore": 64,
         "grade": "D",
@@ -7083,7 +7135,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.466Z",
+        "evaluatedAt": "2026-11-06T01:05:59.021Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7156,7 +7208,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.468Z",
+          "evaluatedAt": "2026-11-06T01:05:59.023Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -7174,7 +7226,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.468Z",
+          "evaluatedAt": "2026-11-06T01:05:59.023Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7265,7 +7317,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.479Z",
+        "evaluatedAt": "2026-11-06T01:05:59.032Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7338,7 +7390,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.480Z",
+          "evaluatedAt": "2026-11-06T01:05:59.035Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -7356,7 +7408,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.480Z",
+          "evaluatedAt": "2026-11-06T01:05:59.035Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7468,7 +7520,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.484Z",
+        "evaluatedAt": "2026-11-06T01:05:59.037Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7541,7 +7593,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.486Z",
+          "evaluatedAt": "2026-11-06T01:05:59.038Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -7559,7 +7611,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.486Z",
+          "evaluatedAt": "2026-11-06T01:05:59.038Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7659,7 +7711,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.486Z",
+        "evaluatedAt": "2026-11-06T01:05:59.050Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7732,7 +7784,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.487Z",
+          "evaluatedAt": "2026-11-06T01:05:59.052Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -7750,7 +7802,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.487Z",
+          "evaluatedAt": "2026-11-06T01:05:59.052Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7842,7 +7894,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-30T20:15:57.493Z",
+        "evaluatedAt": "2026-11-06T01:05:59.053Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7915,7 +7967,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.493Z",
+          "evaluatedAt": "2026-11-06T01:05:59.055Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -7933,7 +7985,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-30T20:15:57.493Z",
+          "evaluatedAt": "2026-11-06T01:05:59.055Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7945,7 +7997,7 @@
       "name": "briiirussell-cybersecurity-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-10-30T20:15:57.513Z",
+      "createdAt": "2026-11-06T01:05:59.083Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -7959,7 +8011,7 @@
         {
           "name": "agent-supply-chain-audit",
           "installUrl": "github:briiirussell/cybersecurity-skills:skills/agent-supply-chain-audit",
-          "description": "Audit the extensions AI coding agents load and trust (skills, plugins, marketplaces, hooks, settings, MCP servers, and instruction files like CLAUDE.md, AGENTS.md, GEMINI.md, .cursor/rules and copilot-instructions.md) across Claude Code, Cursor, Codex, Gemini CLI and GitHub Copilot. Read-only: inventories each item with its source and pin, greps for hidden instructions, exfiltration, credential reads, persistence, curl|bash and over-broad tool grants, reviews hooks and MCP pinning and tool poisoning, and gives each item a SAFE / CAUTION / DO-NOT-INSTALL verdict. Use when the user mentions 'audit my skills,' 'is this skill malicious,' 'is this skill safe,' 'is this MCP server safe,' 'review CLAUDE.md,' 'review AGENTS.md,' 'plugin security,' 'check my hooks,' 'audit my MCP servers,' 'agent supply chain,' 'SkillSpector,' 'tool poisoning,' 'rug pull,' or is about to install a skill, plugin, or MCP server.",
+          "description": "Audit the extensions AI coding agents load and trust (skills, plugins, marketplaces, hooks, settings, MCP servers, and instruction files like CLAUDE.md, AGENTS.md, GEMINI.md, .cursor/rules and copilot-instructions.md) across Claude Code, Cursor, Codex, Gemini CLI and GitHub Copilot. Read-only: inventories each item with its source and pin, greps for hidden instructions, exfiltration, credential reads, persistence, curl|bash and over-broad tool grants, reviews hooks and MCP pinning and tool poisoning, and gives each item a SAFE / CAUTION / DO-NOT-INSTALL verdict. Use when the user mentions 'audit my skills,' 'is this skill malicious,' 'is this skill safe,' 'is this MCP server safe,' 'review CLAUDE.md,' 'review AGENTS.md,' 'plugin security,' 'check my hooks,' 'audit my MCP servers,' 'agent supply chain,' 'SkillSpector,' 'tool poisoning,' 'rug pull,' 'audit my IDE extensions,' 'is this VS Code extension safe,' or is about to install a skill, plugin, MCP server, or IDE extension.",
           "version": "0.0.0"
         },
         {
@@ -7977,7 +8029,7 @@
         {
           "name": "breach-patterns",
           "installUrl": "github:briiirussell/cybersecurity-skills:skills/breach-patterns",
-          "description": "Learn from public breach disclosures — extract the audit question each one implies and check your own stack. Capital One IMDS abuse, LastPass vault exfiltration, Okta Lapsus$, Snowflake credential reuse, MOVEit, SolarWinds, Equifax, Target POS, Codecov, Uber, Twilio — what would you check now if your boss said 'could that happen to us?' Use when the user mentions 'breach analysis,' 'lessons learned,' 'security postmortem,' 'breach patterns,' 'breach lessons,' 'has this happened to us,' 'apply breach lessons,' 'preempt breaches,' 'security retrospective,' 'real-world security incidents,' or wants to harden against known attacker playbooks.",
+          "description": "Learn from public breach disclosures — extract the audit question each one implies and check your own stack. Capital One IMDS abuse, LastPass vault exfiltration, Okta Lapsus$, Snowflake credential reuse, MOVEit, SolarWinds, Equifax, Target POS, Codecov, Uber, Twilio, Polymarket's compromised DebugBear script — what would you check now if your boss said 'could that happen to us?' Use when the user mentions 'breach analysis,' 'lessons learned,' 'security postmortem,' 'breach patterns,' 'breach lessons,' 'has this happened to us,' 'apply breach lessons,' 'preempt breaches,' 'security retrospective,' 'real-world security incidents,' or wants to harden against known attacker playbooks.",
           "version": "0.0.0"
         },
         {
@@ -8109,13 +8161,13 @@
         {
           "name": "scanner-pipeline",
           "installUrl": "github:briiirussell/cybersecurity-skills:skills/scanner-pipeline",
-          "description": "Set up and run deterministic security scanners across a repo or a whole fleet of repos — gitleaks, trufflehog, semgrep, osv-scanner, trivy, checkov, Brakeman, govulncheck, Supabase advisors, and (guarded) nuclei/ZAP — then normalize their output to findings.json or SARIF, dedupe, suppress with expiry, schedule in CI, and hand findings to fix agents. Use when the user mentions 'run scanners,' 'security scanning pipeline,' 'set up gitleaks,' 'semgrep in CI,' 'osv-scanner,' 'trivy fs,' 'SARIF,' 'code scanning,' 'scan all my repos,' 'security-scan workflow,' 'weekly security scan,' 'Supabase RLS advisor,' 'dedupe scanner findings,' 'suppression file,' 'stop asking Claude to hack my app,' or wants tools, not an agent, to find the bugs.",
+          "description": "Set up and run deterministic security scanners across a repo or a whole fleet of repos — gitleaks, trufflehog, semgrep, osv-scanner, trivy, checkov, Brakeman, govulncheck, Supabase advisors, and (guarded) nuclei/ZAP — then normalize their output to findings.json or SARIF, dedupe, suppress with expiry, schedule in CI, and hand findings to fix agents. Use when the user mentions 'run scanners,' 'security scanning pipeline,' 'set up gitleaks,' 'betterleaks in CI,' 'semgrep in CI,' 'osv-scanner,' 'trivy fs,' 'SARIF,' 'code scanning,' 'scan all my repos,' 'security-scan workflow,' 'weekly security scan,' 'Supabase RLS advisor,' 'dedupe scanner findings,' 'suppression file,' 'stop asking Claude to hack my app,' or wants tools, not an agent, to find the bugs.",
           "version": "0.0.0"
         },
         {
           "name": "secrets-audit",
           "installUrl": "github:briiirussell/cybersecurity-skills:skills/secrets-audit",
-          "description": "Find leaked secrets in source code, Git history, build artifacts, and infrastructure — and audit the secrets-management posture preventing future leaks. Use when the user mentions 'secrets audit,' 'secret scanning,' 'leaked credentials,' 'API key in code,' 'gitleaks,' 'trufflehog,' 'git history scan,' 'secrets management,' 'vault audit,' 'rotation policy,' 'AWS Secrets Manager,' 'HashiCorp Vault,' 'Doppler,' '1Password Secrets Automation,' 'sealed-secrets,' 'External Secrets Operator,' 'secrets in MCP config,' 'API key in Claude transcript,' 'is this key public,' or needs to find or prevent credential exposure.",
+          "description": "Find leaked secrets in source code, Git history, build artifacts, and infrastructure — and audit the secrets-management posture preventing future leaks. Use when the user mentions 'secrets audit,' 'secret scanning,' 'leaked credentials,' 'API key in code,' 'gitleaks,' 'trufflehog,' 'betterleaks,' 'git history scan,' 'secrets management,' 'vault audit,' 'rotation policy,' 'AWS Secrets Manager,' 'HashiCorp Vault,' 'Doppler,' '1Password Secrets Automation,' 'sealed-secrets,' 'External Secrets Operator,' 'secrets in MCP config,' 'API key in Claude transcript,' 'is this key public,' or needs to find or prevent credential exposure.",
           "version": "0.0.0"
         },
         {
@@ -8167,7 +8219,7 @@
       "name": "briiirussell-cybersecurity-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-10-30T20:15:57.513Z",
+      "createdAt": "2026-11-06T01:05:59.083Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8181,7 +8233,7 @@
         {
           "name": "agent-supply-chain-audit",
           "installUrl": "github:briiirussell/cybersecurity-skills:skills/agent-supply-chain-audit",
-          "description": "Audit the extensions AI coding agents load and trust (skills, plugins, marketplaces, hooks, settings, MCP servers, and instruction files like CLAUDE.md, AGENTS.md, GEMINI.md, .cursor/rules and copilot-instructions.md) across Claude Code, Cursor, Codex, Gemini CLI and GitHub Copilot. Read-only: inventories each item with its source and pin, greps for hidden instructions, exfiltration, credential reads, persistence, curl|bash and over-broad tool grants, reviews hooks and MCP pinning and tool poisoning, and gives each item a SAFE / CAUTION / DO-NOT-INSTALL verdict. Use when the user mentions 'audit my skills,' 'is this skill malicious,' 'is this skill safe,' 'is this MCP server safe,' 'review CLAUDE.md,' 'review AGENTS.md,' 'plugin security,' 'check my hooks,' 'audit my MCP servers,' 'agent supply chain,' 'SkillSpector,' 'tool poisoning,' 'rug pull,' or is about to install a skill, plugin, or MCP server.",
+          "description": "Audit the extensions AI coding agents load and trust (skills, plugins, marketplaces, hooks, settings, MCP servers, and instruction files like CLAUDE.md, AGENTS.md, GEMINI.md, .cursor/rules and copilot-instructions.md) across Claude Code, Cursor, Codex, Gemini CLI and GitHub Copilot. Read-only: inventories each item with its source and pin, greps for hidden instructions, exfiltration, credential reads, persistence, curl|bash and over-broad tool grants, reviews hooks and MCP pinning and tool poisoning, and gives each item a SAFE / CAUTION / DO-NOT-INSTALL verdict. Use when the user mentions 'audit my skills,' 'is this skill malicious,' 'is this skill safe,' 'is this MCP server safe,' 'review CLAUDE.md,' 'review AGENTS.md,' 'plugin security,' 'check my hooks,' 'audit my MCP servers,' 'agent supply chain,' 'SkillSpector,' 'tool poisoning,' 'rug pull,' 'audit my IDE extensions,' 'is this VS Code extension safe,' or is about to install a skill, plugin, MCP server, or IDE extension.",
           "version": "0.0.0"
         },
         {
@@ -8193,7 +8245,7 @@
         {
           "name": "breach-patterns",
           "installUrl": "github:briiirussell/cybersecurity-skills:skills/breach-patterns",
-          "description": "Learn from public breach disclosures — extract the audit question each one implies and check your own stack. Capital One IMDS abuse, LastPass vault exfiltration, Okta Lapsus$, Snowflake credential reuse, MOVEit, SolarWinds, Equifax, Target POS, Codecov, Uber, Twilio — what would you check now if your boss said 'could that happen to us?' Use when the user mentions 'breach analysis,' 'lessons learned,' 'security postmortem,' 'breach patterns,' 'breach lessons,' 'has this happened to us,' 'apply breach lessons,' 'preempt breaches,' 'security retrospective,' 'real-world security incidents,' or wants to harden against known attacker playbooks.",
+          "description": "Learn from public breach disclosures — extract the audit question each one implies and check your own stack. Capital One IMDS abuse, LastPass vault exfiltration, Okta Lapsus$, Snowflake credential reuse, MOVEit, SolarWinds, Equifax, Target POS, Codecov, Uber, Twilio, Polymarket's compromised DebugBear script — what would you check now if your boss said 'could that happen to us?' Use when the user mentions 'breach analysis,' 'lessons learned,' 'security postmortem,' 'breach patterns,' 'breach lessons,' 'has this happened to us,' 'apply breach lessons,' 'preempt breaches,' 'security retrospective,' 'real-world security incidents,' or wants to harden against known attacker playbooks.",
           "version": "0.0.0"
         },
         {
@@ -8319,13 +8371,13 @@
         {
           "name": "scanner-pipeline",
           "installUrl": "github:briiirussell/cybersecurity-skills:skills/scanner-pipeline",
-          "description": "Set up and run deterministic security scanners across a repo or a whole fleet of repos — gitleaks, trufflehog, semgrep, osv-scanner, trivy, checkov, Brakeman, govulncheck, Supabase advisors, and (guarded) nuclei/ZAP — then normalize their output to findings.json or SARIF, dedupe, suppress with expiry, schedule in CI, and hand findings to fix agents. Use when the user mentions 'run scanners,' 'security scanning pipeline,' 'set up gitleaks,' 'semgrep in CI,' 'osv-scanner,' 'trivy fs,' 'SARIF,' 'code scanning,' 'scan all my repos,' 'security-scan workflow,' 'weekly security scan,' 'Supabase RLS advisor,' 'dedupe scanner findings,' 'suppression file,' 'stop asking Claude to hack my app,' or wants tools, not an agent, to find the bugs.",
+          "description": "Set up and run deterministic security scanners across a repo or a whole fleet of repos — gitleaks, trufflehog, semgrep, osv-scanner, trivy, checkov, Brakeman, govulncheck, Supabase advisors, and (guarded) nuclei/ZAP — then normalize their output to findings.json or SARIF, dedupe, suppress with expiry, schedule in CI, and hand findings to fix agents. Use when the user mentions 'run scanners,' 'security scanning pipeline,' 'set up gitleaks,' 'betterleaks in CI,' 'semgrep in CI,' 'osv-scanner,' 'trivy fs,' 'SARIF,' 'code scanning,' 'scan all my repos,' 'security-scan workflow,' 'weekly security scan,' 'Supabase RLS advisor,' 'dedupe scanner findings,' 'suppression file,' 'stop asking Claude to hack my app,' or wants tools, not an agent, to find the bugs.",
           "version": "0.0.0"
         },
         {
           "name": "secrets-audit",
           "installUrl": "github:briiirussell/cybersecurity-skills:skills/secrets-audit",
-          "description": "Find leaked secrets in source code, Git history, build artifacts, and infrastructure — and audit the secrets-management posture preventing future leaks. Use when the user mentions 'secrets audit,' 'secret scanning,' 'leaked credentials,' 'API key in code,' 'gitleaks,' 'trufflehog,' 'git history scan,' 'secrets management,' 'vault audit,' 'rotation policy,' 'AWS Secrets Manager,' 'HashiCorp Vault,' 'Doppler,' '1Password Secrets Automation,' 'sealed-secrets,' 'External Secrets Operator,' 'secrets in MCP config,' 'API key in Claude transcript,' 'is this key public,' or needs to find or prevent credential exposure.",
+          "description": "Find leaked secrets in source code, Git history, build artifacts, and infrastructure — and audit the secrets-management posture preventing future leaks. Use when the user mentions 'secrets audit,' 'secret scanning,' 'leaked credentials,' 'API key in code,' 'gitleaks,' 'trufflehog,' 'betterleaks,' 'git history scan,' 'secrets management,' 'vault audit,' 'rotation policy,' 'AWS Secrets Manager,' 'HashiCorp Vault,' 'Doppler,' '1Password Secrets Automation,' 'sealed-secrets,' 'External Secrets Operator,' 'secrets in MCP config,' 'API key in Claude transcript,' 'is this key public,' or needs to find or prevent credential exposure.",
           "version": "0.0.0"
         },
         {
@@ -8383,7 +8435,7 @@
       "name": "briiirussell-cybersecurity-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-10-30T20:15:57.513Z",
+      "createdAt": "2026-11-06T01:05:59.083Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8397,7 +8449,7 @@
         {
           "name": "agent-supply-chain-audit",
           "installUrl": "github:briiirussell/cybersecurity-skills:skills/agent-supply-chain-audit",
-          "description": "Audit the extensions AI coding agents load and trust (skills, plugins, marketplaces, hooks, settings, MCP servers, and instruction files like CLAUDE.md, AGENTS.md, GEMINI.md, .cursor/rules and copilot-instructions.md) across Claude Code, Cursor, Codex, Gemini CLI and GitHub Copilot. Read-only: inventories each item with its source and pin, greps for hidden instructions, exfiltration, credential reads, persistence, curl|bash and over-broad tool grants, reviews hooks and MCP pinning and tool poisoning, and gives each item a SAFE / CAUTION / DO-NOT-INSTALL verdict. Use when the user mentions 'audit my skills,' 'is this skill malicious,' 'is this skill safe,' 'is this MCP server safe,' 'review CLAUDE.md,' 'review AGENTS.md,' 'plugin security,' 'check my hooks,' 'audit my MCP servers,' 'agent supply chain,' 'SkillSpector,' 'tool poisoning,' 'rug pull,' or is about to install a skill, plugin, or MCP server.",
+          "description": "Audit the extensions AI coding agents load and trust (skills, plugins, marketplaces, hooks, settings, MCP servers, and instruction files like CLAUDE.md, AGENTS.md, GEMINI.md, .cursor/rules and copilot-instructions.md) across Claude Code, Cursor, Codex, Gemini CLI and GitHub Copilot. Read-only: inventories each item with its source and pin, greps for hidden instructions, exfiltration, credential reads, persistence, curl|bash and over-broad tool grants, reviews hooks and MCP pinning and tool poisoning, and gives each item a SAFE / CAUTION / DO-NOT-INSTALL verdict. Use when the user mentions 'audit my skills,' 'is this skill malicious,' 'is this skill safe,' 'is this MCP server safe,' 'review CLAUDE.md,' 'review AGENTS.md,' 'plugin security,' 'check my hooks,' 'audit my MCP servers,' 'agent supply chain,' 'SkillSpector,' 'tool poisoning,' 'rug pull,' 'audit my IDE extensions,' 'is this VS Code extension safe,' or is about to install a skill, plugin, MCP server, or IDE extension.",
           "version": "0.0.0"
         },
         {
@@ -8409,7 +8461,7 @@
         {
           "name": "breach-patterns",
           "installUrl": "github:briiirussell/cybersecurity-skills:skills/breach-patterns",
-          "description": "Learn from public breach disclosures — extract the audit question each one implies and check your own stack. Capital One IMDS abuse, LastPass vault exfiltration, Okta Lapsus$, Snowflake credential reuse, MOVEit, SolarWinds, Equifax, Target POS, Codecov, Uber, Twilio — what would you check now if your boss said 'could that happen to us?' Use when the user mentions 'breach analysis,' 'lessons learned,' 'security postmortem,' 'breach patterns,' 'breach lessons,' 'has this happened to us,' 'apply breach lessons,' 'preempt breaches,' 'security retrospective,' 'real-world security incidents,' or wants to harden against known attacker playbooks.",
+          "description": "Learn from public breach disclosures — extract the audit question each one implies and check your own stack. Capital One IMDS abuse, LastPass vault exfiltration, Okta Lapsus$, Snowflake credential reuse, MOVEit, SolarWinds, Equifax, Target POS, Codecov, Uber, Twilio, Polymarket's compromised DebugBear script — what would you check now if your boss said 'could that happen to us?' Use when the user mentions 'breach analysis,' 'lessons learned,' 'security postmortem,' 'breach patterns,' 'breach lessons,' 'has this happened to us,' 'apply breach lessons,' 'preempt breaches,' 'security retrospective,' 'real-world security incidents,' or wants to harden against known attacker playbooks.",
           "version": "0.0.0"
         },
         {
@@ -8517,13 +8569,13 @@
         {
           "name": "scanner-pipeline",
           "installUrl": "github:briiirussell/cybersecurity-skills:skills/scanner-pipeline",
-          "description": "Set up and run deterministic security scanners across a repo or a whole fleet of repos — gitleaks, trufflehog, semgrep, osv-scanner, trivy, checkov, Brakeman, govulncheck, Supabase advisors, and (guarded) nuclei/ZAP — then normalize their output to findings.json or SARIF, dedupe, suppress with expiry, schedule in CI, and hand findings to fix agents. Use when the user mentions 'run scanners,' 'security scanning pipeline,' 'set up gitleaks,' 'semgrep in CI,' 'osv-scanner,' 'trivy fs,' 'SARIF,' 'code scanning,' 'scan all my repos,' 'security-scan workflow,' 'weekly security scan,' 'Supabase RLS advisor,' 'dedupe scanner findings,' 'suppression file,' 'stop asking Claude to hack my app,' or wants tools, not an agent, to find the bugs.",
+          "description": "Set up and run deterministic security scanners across a repo or a whole fleet of repos — gitleaks, trufflehog, semgrep, osv-scanner, trivy, checkov, Brakeman, govulncheck, Supabase advisors, and (guarded) nuclei/ZAP — then normalize their output to findings.json or SARIF, dedupe, suppress with expiry, schedule in CI, and hand findings to fix agents. Use when the user mentions 'run scanners,' 'security scanning pipeline,' 'set up gitleaks,' 'betterleaks in CI,' 'semgrep in CI,' 'osv-scanner,' 'trivy fs,' 'SARIF,' 'code scanning,' 'scan all my repos,' 'security-scan workflow,' 'weekly security scan,' 'Supabase RLS advisor,' 'dedupe scanner findings,' 'suppression file,' 'stop asking Claude to hack my app,' or wants tools, not an agent, to find the bugs.",
           "version": "0.0.0"
         },
         {
           "name": "secrets-audit",
           "installUrl": "github:briiirussell/cybersecurity-skills:skills/secrets-audit",
-          "description": "Find leaked secrets in source code, Git history, build artifacts, and infrastructure — and audit the secrets-management posture preventing future leaks. Use when the user mentions 'secrets audit,' 'secret scanning,' 'leaked credentials,' 'API key in code,' 'gitleaks,' 'trufflehog,' 'git history scan,' 'secrets management,' 'vault audit,' 'rotation policy,' 'AWS Secrets Manager,' 'HashiCorp Vault,' 'Doppler,' '1Password Secrets Automation,' 'sealed-secrets,' 'External Secrets Operator,' 'secrets in MCP config,' 'API key in Claude transcript,' 'is this key public,' or needs to find or prevent credential exposure.",
+          "description": "Find leaked secrets in source code, Git history, build artifacts, and infrastructure — and audit the secrets-management posture preventing future leaks. Use when the user mentions 'secrets audit,' 'secret scanning,' 'leaked credentials,' 'API key in code,' 'gitleaks,' 'trufflehog,' 'betterleaks,' 'git history scan,' 'secrets management,' 'vault audit,' 'rotation policy,' 'AWS Secrets Manager,' 'HashiCorp Vault,' 'Doppler,' '1Password Secrets Automation,' 'sealed-secrets,' 'External Secrets Operator,' 'secrets in MCP config,' 'API key in Claude transcript,' 'is this key public,' or needs to find or prevent credential exposure.",
           "version": "0.0.0"
         },
         {
@@ -8581,7 +8633,7 @@
       "name": "briiirussell-cybersecurity-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-10-30T20:15:57.513Z",
+      "createdAt": "2026-11-06T01:05:59.083Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8601,7 +8653,7 @@
         {
           "name": "breach-patterns",
           "installUrl": "github:briiirussell/cybersecurity-skills:skills/breach-patterns",
-          "description": "Learn from public breach disclosures — extract the audit question each one implies and check your own stack. Capital One IMDS abuse, LastPass vault exfiltration, Okta Lapsus$, Snowflake credential reuse, MOVEit, SolarWinds, Equifax, Target POS, Codecov, Uber, Twilio — what would you check now if your boss said 'could that happen to us?' Use when the user mentions 'breach analysis,' 'lessons learned,' 'security postmortem,' 'breach patterns,' 'breach lessons,' 'has this happened to us,' 'apply breach lessons,' 'preempt breaches,' 'security retrospective,' 'real-world security incidents,' or wants to harden against known attacker playbooks.",
+          "description": "Learn from public breach disclosures — extract the audit question each one implies and check your own stack. Capital One IMDS abuse, LastPass vault exfiltration, Okta Lapsus$, Snowflake credential reuse, MOVEit, SolarWinds, Equifax, Target POS, Codecov, Uber, Twilio, Polymarket's compromised DebugBear script — what would you check now if your boss said 'could that happen to us?' Use when the user mentions 'breach analysis,' 'lessons learned,' 'security postmortem,' 'breach patterns,' 'breach lessons,' 'has this happened to us,' 'apply breach lessons,' 'preempt breaches,' 'security retrospective,' 'real-world security incidents,' or wants to harden against known attacker playbooks.",
           "version": "0.0.0"
         },
         {
@@ -8673,7 +8725,7 @@
         {
           "name": "secrets-audit",
           "installUrl": "github:briiirussell/cybersecurity-skills:skills/secrets-audit",
-          "description": "Find leaked secrets in source code, Git history, build artifacts, and infrastructure — and audit the secrets-management posture preventing future leaks. Use when the user mentions 'secrets audit,' 'secret scanning,' 'leaked credentials,' 'API key in code,' 'gitleaks,' 'trufflehog,' 'git history scan,' 'secrets management,' 'vault audit,' 'rotation policy,' 'AWS Secrets Manager,' 'HashiCorp Vault,' 'Doppler,' '1Password Secrets Automation,' 'sealed-secrets,' 'External Secrets Operator,' 'secrets in MCP config,' 'API key in Claude transcript,' 'is this key public,' or needs to find or prevent credential exposure.",
+          "description": "Find leaked secrets in source code, Git history, build artifacts, and infrastructure — and audit the secrets-management posture preventing future leaks. Use when the user mentions 'secrets audit,' 'secret scanning,' 'leaked credentials,' 'API key in code,' 'gitleaks,' 'trufflehog,' 'betterleaks,' 'git history scan,' 'secrets management,' 'vault audit,' 'rotation policy,' 'AWS Secrets Manager,' 'HashiCorp Vault,' 'Doppler,' '1Password Secrets Automation,' 'sealed-secrets,' 'External Secrets Operator,' 'secrets in MCP config,' 'API key in Claude transcript,' 'is this key public,' or needs to find or prevent credential exposure.",
           "version": "0.0.0"
         },
         {
@@ -8719,7 +8771,7 @@
       "name": "briiirussell-cybersecurity-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-10-30T20:15:57.513Z",
+      "createdAt": "2026-11-06T01:05:59.083Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8733,7 +8785,7 @@
         {
           "name": "agent-supply-chain-audit",
           "installUrl": "github:briiirussell/cybersecurity-skills:skills/agent-supply-chain-audit",
-          "description": "Audit the extensions AI coding agents load and trust (skills, plugins, marketplaces, hooks, settings, MCP servers, and instruction files like CLAUDE.md, AGENTS.md, GEMINI.md, .cursor/rules and copilot-instructions.md) across Claude Code, Cursor, Codex, Gemini CLI and GitHub Copilot. Read-only: inventories each item with its source and pin, greps for hidden instructions, exfiltration, credential reads, persistence, curl|bash and over-broad tool grants, reviews hooks and MCP pinning and tool poisoning, and gives each item a SAFE / CAUTION / DO-NOT-INSTALL verdict. Use when the user mentions 'audit my skills,' 'is this skill malicious,' 'is this skill safe,' 'is this MCP server safe,' 'review CLAUDE.md,' 'review AGENTS.md,' 'plugin security,' 'check my hooks,' 'audit my MCP servers,' 'agent supply chain,' 'SkillSpector,' 'tool poisoning,' 'rug pull,' or is about to install a skill, plugin, or MCP server.",
+          "description": "Audit the extensions AI coding agents load and trust (skills, plugins, marketplaces, hooks, settings, MCP servers, and instruction files like CLAUDE.md, AGENTS.md, GEMINI.md, .cursor/rules and copilot-instructions.md) across Claude Code, Cursor, Codex, Gemini CLI and GitHub Copilot. Read-only: inventories each item with its source and pin, greps for hidden instructions, exfiltration, credential reads, persistence, curl|bash and over-broad tool grants, reviews hooks and MCP pinning and tool poisoning, and gives each item a SAFE / CAUTION / DO-NOT-INSTALL verdict. Use when the user mentions 'audit my skills,' 'is this skill malicious,' 'is this skill safe,' 'is this MCP server safe,' 'review CLAUDE.md,' 'review AGENTS.md,' 'plugin security,' 'check my hooks,' 'audit my MCP servers,' 'agent supply chain,' 'SkillSpector,' 'tool poisoning,' 'rug pull,' 'audit my IDE extensions,' 'is this VS Code extension safe,' or is about to install a skill, plugin, MCP server, or IDE extension.",
           "version": "0.0.0"
         },
         {
@@ -8775,7 +8827,7 @@
         {
           "name": "scanner-pipeline",
           "installUrl": "github:briiirussell/cybersecurity-skills:skills/scanner-pipeline",
-          "description": "Set up and run deterministic security scanners across a repo or a whole fleet of repos — gitleaks, trufflehog, semgrep, osv-scanner, trivy, checkov, Brakeman, govulncheck, Supabase advisors, and (guarded) nuclei/ZAP — then normalize their output to findings.json or SARIF, dedupe, suppress with expiry, schedule in CI, and hand findings to fix agents. Use when the user mentions 'run scanners,' 'security scanning pipeline,' 'set up gitleaks,' 'semgrep in CI,' 'osv-scanner,' 'trivy fs,' 'SARIF,' 'code scanning,' 'scan all my repos,' 'security-scan workflow,' 'weekly security scan,' 'Supabase RLS advisor,' 'dedupe scanner findings,' 'suppression file,' 'stop asking Claude to hack my app,' or wants tools, not an agent, to find the bugs.",
+          "description": "Set up and run deterministic security scanners across a repo or a whole fleet of repos — gitleaks, trufflehog, semgrep, osv-scanner, trivy, checkov, Brakeman, govulncheck, Supabase advisors, and (guarded) nuclei/ZAP — then normalize their output to findings.json or SARIF, dedupe, suppress with expiry, schedule in CI, and hand findings to fix agents. Use when the user mentions 'run scanners,' 'security scanning pipeline,' 'set up gitleaks,' 'betterleaks in CI,' 'semgrep in CI,' 'osv-scanner,' 'trivy fs,' 'SARIF,' 'code scanning,' 'scan all my repos,' 'security-scan workflow,' 'weekly security scan,' 'Supabase RLS advisor,' 'dedupe scanner findings,' 'suppression file,' 'stop asking Claude to hack my app,' or wants tools, not an agent, to find the bugs.",
           "version": "0.0.0"
         },
         {
@@ -8803,7 +8855,7 @@
       "name": "briiirussell-cybersecurity-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-10-30T20:15:57.513Z",
+      "createdAt": "2026-11-06T01:05:59.083Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8817,7 +8869,13 @@
         {
           "name": "agent-supply-chain-audit",
           "installUrl": "github:briiirussell/cybersecurity-skills:skills/agent-supply-chain-audit",
-          "description": "Audit the extensions AI coding agents load and trust (skills, plugins, marketplaces, hooks, settings, MCP servers, and instruction files like CLAUDE.md, AGENTS.md, GEMINI.md, .cursor/rules and copilot-instructions.md) across Claude Code, Cursor, Codex, Gemini CLI and GitHub Copilot. Read-only: inventories each item with its source and pin, greps for hidden instructions, exfiltration, credential reads, persistence, curl|bash and over-broad tool grants, reviews hooks and MCP pinning and tool poisoning, and gives each item a SAFE / CAUTION / DO-NOT-INSTALL verdict. Use when the user mentions 'audit my skills,' 'is this skill malicious,' 'is this skill safe,' 'is this MCP server safe,' 'review CLAUDE.md,' 'review AGENTS.md,' 'plugin security,' 'check my hooks,' 'audit my MCP servers,' 'agent supply chain,' 'SkillSpector,' 'tool poisoning,' 'rug pull,' or is about to install a skill, plugin, or MCP server.",
+          "description": "Audit the extensions AI coding agents load and trust (skills, plugins, marketplaces, hooks, settings, MCP servers, and instruction files like CLAUDE.md, AGENTS.md, GEMINI.md, .cursor/rules and copilot-instructions.md) across Claude Code, Cursor, Codex, Gemini CLI and GitHub Copilot. Read-only: inventories each item with its source and pin, greps for hidden instructions, exfiltration, credential reads, persistence, curl|bash and over-broad tool grants, reviews hooks and MCP pinning and tool poisoning, and gives each item a SAFE / CAUTION / DO-NOT-INSTALL verdict. Use when the user mentions 'audit my skills,' 'is this skill malicious,' 'is this skill safe,' 'is this MCP server safe,' 'review CLAUDE.md,' 'review AGENTS.md,' 'plugin security,' 'check my hooks,' 'audit my MCP servers,' 'agent supply chain,' 'SkillSpector,' 'tool poisoning,' 'rug pull,' 'audit my IDE extensions,' 'is this VS Code extension safe,' or is about to install a skill, plugin, MCP server, or IDE extension.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "breach-patterns",
+          "installUrl": "github:briiirussell/cybersecurity-skills:skills/breach-patterns",
+          "description": "Learn from public breach disclosures — extract the audit question each one implies and check your own stack. Capital One IMDS abuse, LastPass vault exfiltration, Okta Lapsus$, Snowflake credential reuse, MOVEit, SolarWinds, Equifax, Target POS, Codecov, Uber, Twilio, Polymarket's compromised DebugBear script — what would you check now if your boss said 'could that happen to us?' Use when the user mentions 'breach analysis,' 'lessons learned,' 'security postmortem,' 'breach patterns,' 'breach lessons,' 'has this happened to us,' 'apply breach lessons,' 'preempt breaches,' 'security retrospective,' 'real-world security incidents,' or wants to harden against known attacker playbooks.",
           "version": "0.0.0"
         },
         {
@@ -8893,7 +8951,7 @@
       "name": "briiirussell-cybersecurity-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-10-30T20:15:57.513Z",
+      "createdAt": "2026-11-06T01:05:59.083Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8907,7 +8965,7 @@
         {
           "name": "agent-supply-chain-audit",
           "installUrl": "github:briiirussell/cybersecurity-skills:skills/agent-supply-chain-audit",
-          "description": "Audit the extensions AI coding agents load and trust (skills, plugins, marketplaces, hooks, settings, MCP servers, and instruction files like CLAUDE.md, AGENTS.md, GEMINI.md, .cursor/rules and copilot-instructions.md) across Claude Code, Cursor, Codex, Gemini CLI and GitHub Copilot. Read-only: inventories each item with its source and pin, greps for hidden instructions, exfiltration, credential reads, persistence, curl|bash and over-broad tool grants, reviews hooks and MCP pinning and tool poisoning, and gives each item a SAFE / CAUTION / DO-NOT-INSTALL verdict. Use when the user mentions 'audit my skills,' 'is this skill malicious,' 'is this skill safe,' 'is this MCP server safe,' 'review CLAUDE.md,' 'review AGENTS.md,' 'plugin security,' 'check my hooks,' 'audit my MCP servers,' 'agent supply chain,' 'SkillSpector,' 'tool poisoning,' 'rug pull,' or is about to install a skill, plugin, or MCP server.",
+          "description": "Audit the extensions AI coding agents load and trust (skills, plugins, marketplaces, hooks, settings, MCP servers, and instruction files like CLAUDE.md, AGENTS.md, GEMINI.md, .cursor/rules and copilot-instructions.md) across Claude Code, Cursor, Codex, Gemini CLI and GitHub Copilot. Read-only: inventories each item with its source and pin, greps for hidden instructions, exfiltration, credential reads, persistence, curl|bash and over-broad tool grants, reviews hooks and MCP pinning and tool poisoning, and gives each item a SAFE / CAUTION / DO-NOT-INSTALL verdict. Use when the user mentions 'audit my skills,' 'is this skill malicious,' 'is this skill safe,' 'is this MCP server safe,' 'review CLAUDE.md,' 'review AGENTS.md,' 'plugin security,' 'check my hooks,' 'audit my MCP servers,' 'agent supply chain,' 'SkillSpector,' 'tool poisoning,' 'rug pull,' 'audit my IDE extensions,' 'is this VS Code extension safe,' or is about to install a skill, plugin, MCP server, or IDE extension.",
           "version": "0.0.0"
         },
         {
@@ -8919,7 +8977,7 @@
         {
           "name": "breach-patterns",
           "installUrl": "github:briiirussell/cybersecurity-skills:skills/breach-patterns",
-          "description": "Learn from public breach disclosures — extract the audit question each one implies and check your own stack. Capital One IMDS abuse, LastPass vault exfiltration, Okta Lapsus$, Snowflake credential reuse, MOVEit, SolarWinds, Equifax, Target POS, Codecov, Uber, Twilio — what would you check now if your boss said 'could that happen to us?' Use when the user mentions 'breach analysis,' 'lessons learned,' 'security postmortem,' 'breach patterns,' 'breach lessons,' 'has this happened to us,' 'apply breach lessons,' 'preempt breaches,' 'security retrospective,' 'real-world security incidents,' or wants to harden against known attacker playbooks.",
+          "description": "Learn from public breach disclosures — extract the audit question each one implies and check your own stack. Capital One IMDS abuse, LastPass vault exfiltration, Okta Lapsus$, Snowflake credential reuse, MOVEit, SolarWinds, Equifax, Target POS, Codecov, Uber, Twilio, Polymarket's compromised DebugBear script — what would you check now if your boss said 'could that happen to us?' Use when the user mentions 'breach analysis,' 'lessons learned,' 'security postmortem,' 'breach patterns,' 'breach lessons,' 'has this happened to us,' 'apply breach lessons,' 'preempt breaches,' 'security retrospective,' 'real-world security incidents,' or wants to harden against known attacker playbooks.",
           "version": "0.0.0"
         },
         {
@@ -9025,7 +9083,7 @@
       "name": "briiirussell-cybersecurity-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-10-30T20:15:57.513Z",
+      "createdAt": "2026-11-06T01:05:59.083Z",
       "tags": [
         "repo-derived",
         "inferred",

@@ -24,6 +24,7 @@ import {
   resolveVersion,
   resolveAllowedTools,
   resolveSkillDependencies,
+  resolveCreator,
   resolveModelInvocable,
   resolveUserInvocable,
   resolveTags,
@@ -32,6 +33,13 @@ import { estimateTokenCount } from "./utils/token-count";
 import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
 import { createDirSymlink, readFilesRecursive } from "./utils/fs";
+import {
+  CALL_CANDIDATE,
+  METHOD_CALL_CATEGORY,
+  isRealCall,
+  stripControlBytes,
+  type CallName,
+} from "./security-auditor-scan";
 
 import type {
   ParsedSource,
@@ -487,13 +495,42 @@ export async function cloneToTemp(
   }
 }
 
+/** The file that makes a folder a skill: every install reads `join(dir, SKILL_MD)`. */
+export const SKILL_MD = "SKILL.md";
+
+/** What `dir`'s SKILL.md is, without following a symlink (#814). */
+export type SkillMdState =
+  "file" | "missing" | "directory" | "symlink" | "other";
+
+/**
+ * Classify `dir`'s SKILL.md by the installer's rule — `join(dir, SKILL_MD)` as
+ * the filesystem resolves it, so its case handling is the filesystem's — but
+ * with `lstat`: only a regular file is a skill, and a symlink is never
+ * followed out of the folder. `dir` itself missing is `missing`. Any other
+ * error is rethrown, so a caller that cannot tell treats the folder as
+ * invalid rather than as a skill.
+ */
+export async function skillMdState(dir: string): Promise<SkillMdState> {
+  let stats: Awaited<ReturnType<typeof lstat>>;
+  try {
+    stats = await lstat(join(dir, SKILL_MD));
+  } catch (err) {
+    const code = (err as NodeJS.ErrnoException | undefined)?.code;
+    if (code === "ENOENT" || code === "ENOTDIR") return "missing";
+    throw err;
+  }
+  if (stats.isSymbolicLink()) return "symlink";
+  if (stats.isDirectory()) return "directory";
+  return stats.isFile() ? "file" : "other";
+}
+
 export async function validateSkill(tempDir: string): Promise<{
   name: string;
   version: string;
   description: string;
   effort?: string;
 }> {
-  const skillMdPath = join(tempDir, "SKILL.md");
+  const skillMdPath = join(tempDir, SKILL_MD);
 
   let content: string;
   try {
@@ -534,7 +571,7 @@ export async function discoverSkills(
       description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
       effort: fm.effort || fm["metadata.effort"] || undefined,
       license: (fm.license || "").trim(),
-      creator: (fm["metadata.creator"] || "").trim(),
+      creator: resolveCreator(fm),
       compatibility: (fm.compatibility || "").trim(),
       allowedTools: resolveAllowedTools(fm),
       tags: resolveTags(fm),
@@ -580,7 +617,7 @@ export async function discoverSkills(
           description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
           effort: fm.effort || fm["metadata.effort"] || undefined,
           license: (fm.license || "").trim(),
-          creator: (fm["metadata.creator"] || "").trim(),
+          creator: resolveCreator(fm),
           compatibility: (fm.compatibility || "").trim(),
           allowedTools: resolveAllowedTools(fm),
           tags: resolveTags(fm),
@@ -679,13 +716,29 @@ export interface SecurityWarning {
   match: string;
 }
 
-const WARNING_PATTERNS: Array<{ category: string; pattern: RegExp }> = [
+// `exec`, `eval` and `Function` use the audit's candidate + real-call rule
+// (#809), so `asm install` and `asm audit security` / `asm update` classify the
+// same lines: a real call is "Shell commands" / "Code execution" (high risk), a
+// method-shaped one such as `obj.eval(` is `METHOD_CALL_CATEGORY` (medium risk).
+const WARNING_PATTERNS: Array<{
+  category: string;
+  pattern: RegExp;
+  /** `pattern` is `CALL_CANDIDATE[call]`; see `isRealCall`. */
+  call?: CallName;
+}> = [
   { category: "Shell commands", pattern: /\b(bash|sh\s+-c)\b/ },
-  { category: "Shell commands", pattern: /\bexec\(/ },
+  { category: "Shell commands", pattern: CALL_CANDIDATE.exec, call: "exec" },
   { category: "Shell commands", pattern: /\bchild_process\b/ },
   { category: "Shell commands", pattern: /\bBun\.spawn\b/ },
-  { category: "Code execution", pattern: /\beval\(/ },
-  { category: "Code execution", pattern: /\bFunction\(/ },
+  // As in the audit: `shell.exec(cmd)` is method-shaped, so the import is
+  // what keeps a shelljs skill high risk (#809).
+  { category: "Shell commands", pattern: /\bshelljs\b/ },
+  { category: "Code execution", pattern: CALL_CANDIDATE.eval, call: "eval" },
+  {
+    category: "Code execution",
+    pattern: CALL_CANDIDATE.Function,
+    call: "Function",
+  },
   { category: "Code execution", pattern: /\bnew\s+Function\b/ },
   {
     category: "Credentials",
@@ -694,25 +747,48 @@ const WARNING_PATTERNS: Array<{ category: string; pattern: RegExp }> = [
   { category: "External URLs", pattern: /https?:\/\// },
 ];
 
+/** Preview category for a symlink the scan did not follow (#791). */
+export const OUTSIDE_SYMLINK_CATEGORY = "Symlinks not read";
+
+/**
+ * Pattern scan behind the `asm install` and `asm get` previews. Like every
+ * scan of a skill's files, it never opens, reads or walks anything outside
+ * the skill folder (#791): a symlink that leaves `root` (default: `dir`),
+ * dangles or loops becomes a high-risk warning and is never followed.
+ */
 export async function scanForWarnings(
-  tempDir: string,
+  dir: string,
+  options: { root?: string } = {},
 ): Promise<SecurityWarning[]> {
   const warnings: SecurityWarning[] = [];
-  const files = await readFilesRecursive(tempDir);
+  const files = await readFilesRecursive(dir, {
+    root: options.root,
+    onExternalSymlink: (link) =>
+      warnings.push({
+        category: OUTSIDE_SYMLINK_CATEGORY,
+        file: stripControlBytes(link.path),
+        line: 0,
+        match:
+          link.kind === "dangling" || link.kind === "loop"
+            ? `symlink ${link.kind === "loop" ? "loops" : "dangles"} -> ${stripControlBytes(link.target)} — not followed`
+            : `symlink leaves the skill folder -> ${stripControlBytes(link.target)} (${link.kind}) — not read`,
+      }),
+  });
 
   for (const { relPath, content } of files) {
     const lines = content.split("\n");
     for (let i = 0; i < lines.length; i++) {
-      for (const { category, pattern } of WARNING_PATTERNS) {
-        if (pattern.test(lines[i])) {
-          const match = lines[i].trim();
-          warnings.push({
-            category,
-            file: relPath,
-            line: i + 1,
-            match: match.length > 100 ? match.slice(0, 100) + "…" : match,
-          });
-        }
+      for (const { category, pattern, call } of WARNING_PATTERNS) {
+        if (!pattern.test(lines[i])) continue;
+        const method =
+          call !== undefined && !isRealCall(call, lines[i], relPath);
+        const match = stripControlBytes(lines[i].trim());
+        warnings.push({
+          category: method ? METHOD_CALL_CATEGORY : category,
+          file: stripControlBytes(relPath),
+          line: i + 1,
+          match: match.length > 100 ? match.slice(0, 100) + "…" : match,
+        });
       }
     }
   }
@@ -721,13 +797,14 @@ export async function scanForWarnings(
 }
 
 /** Warning categories that make an install a high-risk preview. */
-const HIGH_RISK_WARNING_CATEGORIES = [
+export const HIGH_RISK_WARNING_CATEGORIES = [
   "Shell commands",
   "Code execution",
   "Credentials",
+  OUTSIDE_SYMLINK_CATEGORY,
 ];
 /** Warning categories that make an install a medium-risk preview. */
-const MEDIUM_RISK_WARNING_CATEGORIES = ["External URLs"];
+const MEDIUM_RISK_WARNING_CATEGORIES = ["External URLs", METHOD_CALL_CATEGORY];
 
 /**
  * Collapse raw `scanForWarnings` output into the High / Medium / Safe label
@@ -783,7 +860,7 @@ export async function executeInstall(
   debug(`install: copied files to ${plan.targetDir}`);
 
   // Verify SKILL.md at target
-  const skillMd = join(plan.targetDir, "SKILL.md");
+  const skillMd = join(plan.targetDir, SKILL_MD);
   try {
     await access(skillMd);
   } catch {

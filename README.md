@@ -37,7 +37,7 @@
 
 |                     |                                                                                |
 | ------------------- | ------------------------------------------------------------------------------ |
-| **Catalog**         | 6,962 skills from 86 repos — [browse online](https://luongnv.com/asm/#/skills) |
+| **Catalog**         | 7,267 skills from 86 repos — [browse online](https://luongnv.com/asm/#/skills) |
 | **Providers**       | 21 providers (Agents, Claude Code, Pi, OpenCode, Codex, …)                     |
 | **Agent-ready CLI** | `--json`, `--yes`, `--machine` on list, search, install, audit, eval           |
 | **Security**        | Pre-install scan for shell exec, network access, credential exposure           |
@@ -428,6 +428,12 @@ asm audit security ./path/to/my-skill
 ```
 
 ```bash
+asm audit security ./skills/   # every skill in a collection folder
+```
+
+A local target starts with `./`, `../`, `/` or `~`, or is an existing path that contains `/`; a bare name always means an installed skill. Every scan of a skill's files (audit, `get --audit`, install and get previews, update, publish) stays inside the skill folder: a symlink out of it is a critical finding that is never read, and it makes the verdict at least WARNING. `asm eval` also never reads such a link, but it has no verdict: the link is reported and changes no score (see the eval section below). See [docs/security/symlink-rule.md](docs/security/symlink-rule.md).
+
+```bash
 asm audit security --all
 ```
 
@@ -438,6 +444,12 @@ asm inspect my-skill
 ```bash
 asm inspect my-skill --json
 ```
+
+```bash
+asm inspect ./drafts/my-skill   # a skill folder that is not installed
+```
+
+`asm inspect` takes its argument as a path when it contains `/` (`./x`, `../x`, `/abs/x`, `skills/x`) or is `.` or `..`. A name that starts with `.` (`.x`) is a path only when `./.x` is a folder (or a link to one) whose `SKILL.md` is a readable regular file inside it (a `SKILL.md` that is a link counts only when its final target is inside the folder; one that is a folder, a FIFO, unreadable or dangling does not count); otherwise it is looked up as the installed skill `.x`, as before, and only if no skill `.x` is installed but something exists at `./.x` does the path error show. Anything else is an installed skill name, even when a folder of that name exists in the current directory (write `./name` for the folder). The folder must hold a `SKILL.md`. It shows the same fields as an installed skill, read from the folder; the installation fields (tool, scope, location) show `not installed`, and in `--json` they are empty (`provider`, `providerLabel`, `location`) or `null` (`scope`). The folder is read under the [symlink rule](docs/security/symlink-rule.md): a path that is not a folder is `SKILL_PATH_NOT_DIR` with `--machine`, a `SKILL.md` that links outside it is refused unread (`SKILL_MD_OUTSIDE_LINK`), a `SKILL.md` that exists but cannot be read as a regular file (unreadable, a folder, a FIFO or socket) is `SKILL_MD_UNREADABLE`, a link inside it that leaves the folder adds nothing to the File Count, and a folder that is itself a link is followed and its real path shown as `Resolved:`. A hard-linked `SKILL.md` can't be told apart from a regular file, so it is read even when the same file is also linked from outside the folder.
 
 ### Test install flow
 
@@ -508,6 +520,14 @@ asm eval ./my-skill --machine
 
 ```bash
 asm eval ./my-skill --fix
+```
+
+Like every scan of a skill's files, `asm eval` stays inside the skill folder: a symlink out of it is listed under "Symlinks not read", never linted, PII-scanned or scored, and changes no score (a `LICENSE` link out of the folder earns no licence credit). A `SKILL.md` that links outside is not evaluated (`--machine` error code `SKILL_MD_OUTSIDE_LINK`). In a collection, a child that is a link to a folder holding a `SKILL.md` (the layout `asm activate`, cross-tool installs and `asm link` create) is evaluated as its own skill folder, exactly as `asm eval <child>` would, and the link is shown as an `info:` line (`link` in `--json`/`--machine`); links inside it that leave its real path are still not read. See [docs/security/symlink-rule.md](docs/security/symlink-rule.md).
+
+Gate skills in CI with inclusive floors: `--min-score N` (0–100) fails a skill whose overall score is below N, and `--min-category N` (0–10) fails a skill with any category below N. Each skill is marked PASS or FAIL (naming the failing categories), the batch summary adds passed/failed counts, and the command exits `1` when any skill fails (`0` when all pass). A gate never passes on missing evidence: a skill whose evaluation errors is marked ERROR and counts as failed. The skill standard's Gate 2 (overall > 85, every category >= 8) is:
+
+```bash
+asm eval ./skills/ --min-score 86 --min-category 8
 ```
 
 ```bash
@@ -637,7 +657,7 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm search <query>` | Search by name/description/provider |
 | `asm search <query> --fuzzy` | Fuzzy-find installed skills in global dirs; `--root <dir>` adds projects under `<dir>` |
 | `asm tag add\|remove` | Edit local tags on an installed skill |
-| `asm inspect <skill-name>` | Show detailed info for a skill |
+| `asm inspect <skill-name\|path>` | Show detailed info for an installed skill or a skill folder |
 | `asm get <skill>` | Print a skill's body, install nothing — `--path` borrows the full directory |
 | `asm cleanup <path>` | Remove a directory borrowed by `asm get --path` |
 | `asm deps discover\|acquire\|release\|cleanup` | Manage caller-owned temporary dependency leases |
@@ -647,7 +667,7 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm init <name>` | Scaffold a new skill |
 | `asm link <path> [<path2> ...]` | Symlink skills for live dev |
 | `asm audit` | Detect duplicate skills |
-| `asm audit security <name>` | Security audit |
+| `asm audit security <name\|path\|source>` | Security audit (installed, local folder, or GitHub) |
 | `asm audit residency` | Rank skills that do not earn residency |
 | `asm eval <skill>` | Score skill quality |
 | `asm eval-providers list` | List eval providers |
@@ -663,11 +683,11 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm library update --all` | Update all local library skills |
 | `asm export` | Export inventory as JSON |
 | `asm import <file>` | Import skills from exported manifest |
-| `asm outdated` | Show outdated skills |
-| `asm update [name...]` | Update outdated skills |
+| `asm outdated` | Show outdated skills, with `metadata.version` for GitHub sources; a commit outside the skill's folder does not count, and a skill whose SKILL.md is gone upstream is `removed-upstream` |
+| `asm update [name...]` | Update outdated skills; keeps the installed copy when the incoming folder has no SKILL.md (or is reached through a symlink) and reports it as failed: the table output exits 1, while `--json`/`--machine` report `"status": "failed"` and exit 0, as for every per-skill failure |
 | `asm disable <target>` | Disable skill(s) without uninstalling |
 | `asm enable <target>` | Re-enable disabled skill(s) |
-| `asm index ingest <repo>` | Index a skill repo |
+| `asm index ingest <repo>` | Index a skill repo; `--exclude <name>` (repeatable or comma-separated) leaves skills out and lists any name that matched no skill |
 | `asm index search <query>` | Search indexed skills |
 | `asm index list` | List indexed repos |
 | `asm index remove <owner/repo>` | Remove repo from index |
@@ -1098,16 +1118,17 @@ metadata:
 ---
 ```
 
-| Field              | Required | Description                    |
-| ------------------ | -------- | ------------------------------ |
-| `name`             | yes      | Unique identifier              |
-| `description`      | yes      | One-line summary               |
-| `license`          | no       | SPDX identifier                |
-| `compatibility`    | no       | Compatible agents              |
-| `allowed-tools`    | no       | Tools the skill uses           |
-| `effort`           | no       | `low`, `medium`, `high`, `max` |
-| `metadata.version` | no       | Semver (default `0.0.0`)       |
-| `metadata.creator` | no       | Author                         |
+| Field              | Required | Description                      |
+| ------------------ | -------- | -------------------------------- |
+| `name`             | yes      | Unique identifier                |
+| `description`      | yes      | One-line summary                 |
+| `license`          | no       | SPDX identifier or expression    |
+| `compatibility`    | no       | Compatible agents                |
+| `allowed-tools`    | no       | Tools the skill uses             |
+| `effort`           | no       | `low`, `medium`, `high`, `max`   |
+| `metadata.version` | no       | Semver (default `0.0.0`)         |
+| `metadata.creator` | no       | Author                           |
+| `metadata.author`  | no       | Author, if no `metadata.creator` |
 
 ```bash
 asm init my-skill

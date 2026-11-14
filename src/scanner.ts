@@ -6,6 +6,7 @@ import {
   readFile,
   realpath,
 } from "fs/promises";
+import type { Dirent } from "fs";
 import { join, resolve, basename } from "path";
 import { homedir } from "os";
 import {
@@ -13,11 +14,13 @@ import {
   resolveVersion,
   resolveAllowedTools,
   resolveSkillDependencies,
+  resolveCreator,
   resolveModelInvocable,
   resolveUserInvocable,
   resolveTags,
 } from "./utils/frontmatter";
 import { estimateTokenCount } from "./utils/token-count";
+import { isPathInside } from "./utils/fs";
 import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
 import type {
@@ -242,13 +245,123 @@ function buildScanLocations(config: AppConfig, scope: Scope): ScanLocation[] {
   return locations;
 }
 
-export async function countFiles(dir: string): Promise<number> {
+async function realDir(dir: string): Promise<string> {
   try {
-    const entries = await readdir(dir, { recursive: true });
-    return entries.length;
+    return await realpath(dir);
+  } catch {
+    return resolve(dir);
+  }
+}
+
+/**
+ * True when `projectDir` has the same real path as one of `globalDirs`.
+ * From `$HOME` (or through a symlink) `./.claude/skills` is the same directory
+ * as `~/.claude/skills`; that directory is a global install, not a project one
+ * (#806). Callers pass the same provider's global dir (or, for a custom project
+ * path, the global custom paths), so a project dir that links to another
+ * provider's global dir still counts as a project install.
+ */
+export async function isProjectAliasOfGlobal(
+  projectDir: string,
+  globalDirs: readonly string[],
+): Promise<boolean> {
+  if (globalDirs.length === 0) return false;
+  const [projectReal, ...globalReal] = await Promise.all(
+    [projectDir, ...globalDirs].map(realDir),
+  );
+  return globalReal.includes(projectReal);
+}
+
+/**
+ * Drop project locations that alias their own provider's global location
+ * (custom project paths: a global custom path), so that directory is scanned
+ * once, as global. Checked for every scope, so `-s project` agrees with
+ * `-s both`.
+ */
+async function dropProjectAliasesOfGlobal(
+  config: AppConfig,
+  locations: ScanLocation[],
+): Promise<ScanLocation[]> {
+  if (!locations.some((loc) => loc.scope === "project")) return locations;
+
+  const providerGlobal = new Map(
+    config.providers.map((p) => [p.name, resolveProviderPath(p.global)]),
+  );
+  const customGlobal = config.customPaths
+    .filter((custom) => custom.scope === "global")
+    .map((custom) => resolveProviderPath(custom.path));
+
+  const keep = await Promise.all(
+    locations.map(async (loc) => {
+      if (loc.scope !== "project") return true;
+      const own = providerGlobal.get(loc.providerName);
+      const globalDirs =
+        loc.location === "project-custom" ? customGlobal : own ? [own] : [];
+      if (!(await isProjectAliasOfGlobal(loc.dir, globalDirs))) return true;
+      debug(`scan: skipping ${loc.dir} (${loc.location}) — same as global`);
+      return false;
+    }),
+  );
+  return locations.filter((_, index) => keep[index]);
+}
+
+/**
+ * Number of regular files in a skill folder — the one definition behind every
+ * "File Count" (`asm inspect`, the TUI detail view, `SkillInfo.fileCount`)
+ * (#826). Folders, empty or not, add 0.
+ *
+ * Confined to the skill folder like every scan of a skill's files (#791): a
+ * symlink that resolves inside the folder counts as what it points to (a file
+ * adds 1, a folder is walked, each real folder once), while a link that leaves
+ * the folder, dangles or loops is never followed and adds 0. A skill folder
+ * that is itself a symlink is counted at its target. Unreadable paths add 0.
+ */
+export async function countFiles(dir: string): Promise<number> {
+  let root: string;
+  try {
+    root = await realpath(dir);
   } catch {
     return 0;
   }
+  const walked = new Set<string>([root]);
+
+  async function walk(current: string): Promise<number> {
+    let entries: Dirent[];
+    try {
+      entries = await readdir(current, { withFileTypes: true });
+    } catch {
+      return 0;
+    }
+    let count = 0;
+    for (const entry of entries) {
+      // `current` is always a real path, so a real child folder's path is real.
+      let target = join(current, entry.name);
+      let kind: "file" | "dir" | "other" = entry.isFile()
+        ? "file"
+        : entry.isDirectory()
+          ? "dir"
+          : "other";
+      if (entry.isSymbolicLink()) {
+        try {
+          target = await realpath(target);
+          if (!isPathInside(root, target)) continue;
+          const s = await stat(target);
+          kind = s.isFile() ? "file" : s.isDirectory() ? "dir" : "other";
+        } catch {
+          continue; // dangling or looping link
+        }
+      }
+      if (kind === "file") {
+        count++;
+      } else if (kind === "dir" && !walked.has(target)) {
+        walked.add(target);
+        count += await walk(target);
+      }
+    }
+    return count;
+  }
+
+  return walk(root);
 }
 
 /**
@@ -264,6 +377,47 @@ export function cacheSkillMdContent(skill: SkillInfo, content: string): void {
     writable: true,
     configurable: true,
   });
+}
+
+/**
+ * The `SkillInfo` fields a skill's `SKILL.md` frontmatter defines, in the key
+ * order `--json` prints them. Shared by the installed-skill scan and
+ * `asm inspect <path>` (#829) so both read a `SKILL.md` the same way.
+ * `fallbackName` is the folder name, used when the frontmatter has no name.
+ */
+export function skillFieldsFromSkillMd(
+  content: string,
+  fallbackName: string,
+): Pick<
+  SkillInfo,
+  | "name"
+  | "version"
+  | "description"
+  | "creator"
+  | "license"
+  | "compatibility"
+  | "allowedTools"
+  | "tags"
+  | "dependencies"
+  | "modelInvocable"
+  | "userInvocable"
+  | "effort"
+> {
+  const fm = parseFrontmatter(content);
+  return {
+    name: fm.name || fallbackName,
+    version: resolveVersion(fm),
+    description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
+    creator: resolveCreator(fm),
+    license: (fm.license || "").trim(),
+    compatibility: (fm.compatibility || "").trim(),
+    allowedTools: resolveAllowedTools(fm),
+    tags: resolveTags(fm),
+    dependencies: resolveSkillDependencies(fm),
+    modelInvocable: resolveModelInvocable(fm),
+    userInvocable: resolveUserInvocable(fm),
+    effort: fm.effort || fm["metadata.effort"] || undefined,
+  };
 }
 
 export async function scanDirectory(
@@ -304,8 +458,6 @@ export async function scanDirectory(
         return;
       }
 
-      const fm = parseFrontmatter(content);
-
       let isSymlink = false;
       let symlinkTarget: string | null = null;
       try {
@@ -327,18 +479,7 @@ export async function scanDirectory(
       }
 
       const skill: SkillInfo = {
-        name: fm.name || entry,
-        version: resolveVersion(fm),
-        description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
-        creator: fm["metadata.creator"] || "",
-        license: (fm.license || "").trim(),
-        compatibility: (fm.compatibility || "").trim(),
-        allowedTools: resolveAllowedTools(fm),
-        tags: resolveTags(fm),
-        dependencies: resolveSkillDependencies(fm),
-        modelInvocable: resolveModelInvocable(fm),
-        userInvocable: resolveUserInvocable(fm),
-        effort: fm.effort || fm["metadata.effort"] || undefined,
+        ...skillFieldsFromSkillMd(content, entry),
         dirName: entry,
         path: resolvedPath,
         originalPath: entryPath,
@@ -474,7 +615,7 @@ export async function scanPluginMarketplaces(
         name: fm.name || entry,
         version: resolveVersion(fm),
         description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
-        creator: fm["metadata.creator"] || "",
+        creator: resolveCreator(fm),
         license: (fm.license || "").trim(),
         compatibility: (fm.compatibility || "").trim(),
         allowedTools: resolveAllowedTools(fm),
@@ -783,7 +924,10 @@ export async function scanAllSkills(
   pluginBaseDir?: string,
   codexCacheDir?: string,
 ): Promise<SkillInfo[]> {
-  const locations = buildScanLocations(config, scope);
+  const locations = await dropProjectAliasesOfGlobal(
+    config,
+    buildScanLocations(config, scope),
+  );
   const isGlobal = scope === "global" || scope === "both";
   const scheduler = createScanEntryScheduler();
 

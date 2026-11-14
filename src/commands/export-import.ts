@@ -16,6 +16,7 @@ import type {
 import { error, readLine } from "./shared";
 import { errorMessage } from "../utils/errors";
 import type { ParsedArgs } from "../cli";
+import { stringifyForOutput, stripControlBytes } from "../utils/control-chars";
 
 function printExportHelp() {
   console.log(`${ansi.bold("Usage:")} asm export [options]
@@ -43,7 +44,7 @@ export async function cmdExport(args: ParsedArgs) {
   const config = await loadConfig();
   const allSkills = await scanAllSkills(config, args.flags.scope);
   const manifest = buildManifest(allSkills);
-  console.log(JSON.stringify(manifest, null, 2));
+  console.log(stringifyForOutput(manifest, null, 2));
 }
 
 // ─── Import ─────────────────────────────────────────────────────────────────
@@ -108,8 +109,9 @@ export async function promptForImportConflict(
         ? ""
         : ` ${ansi.dim("(older)")}`;
   writeLine("");
+  // Manifest fields: stripped at render (#830).
   writeLine(
-    `${ansi.bold("Conflict:")} ${conflict.skillName} (${conflict.provider}/${conflict.scope})`,
+    `${ansi.bold("Conflict:")} ${stripControlBytes(`${conflict.skillName} (${conflict.provider}/${conflict.scope})`)}`,
   );
   writeLine(`  local:    ${conflict.localModified}${mark("local")}`);
   writeLine(`  imported: ${conflict.importedModified}${mark("imported")}`);
@@ -150,7 +152,7 @@ export async function printImportConflictDiffs(
     if (!result.conflict) continue;
     const diff = await renderDiff(result.conflict);
     writeLine(
-      `\n${ansi.bold(`Conflict diff: ${result.skillName} (${result.provider}/${result.scope})`)} ${ansi.dim("local -> imported")}`,
+      `\n${ansi.bold(`Conflict diff: ${stripControlBytes(`${result.skillName} (${result.provider}/${result.scope})`)}`)} ${ansi.dim("local -> imported")}`,
     );
     writeLine(diff || "  (no textual differences found)");
   }
@@ -192,7 +194,7 @@ export async function cmdImport(args: ParsedArgs) {
   if (skillCount === 0) {
     if (args.flags.json) {
       console.log(
-        JSON.stringify(
+        stringifyForOutput(
           {
             total: 0,
             installed: 0,
@@ -259,7 +261,7 @@ export async function cmdImport(args: ParsedArgs) {
 
   // Output results
   if (args.flags.json) {
-    console.log(JSON.stringify(summary, null, 2));
+    console.log(stringifyForOutput(summary, null, 2));
     return;
   }
 
@@ -280,10 +282,15 @@ export async function cmdImport(args: ParsedArgs) {
           : result.status === "dry-run"
             ? ansi.cyan("~~~")
             : ansi.red("!!!");
-    const detail = result.reason ? ` ${ansi.dim(result.reason)}` : "";
-    const pathInfo = result.path ? ` ${ansi.dim(result.path)}` : "";
+    // Manifest fields: stripped at render (#830).
+    const detail = result.reason
+      ? ` ${ansi.dim(stripControlBytes(result.reason))}`
+      : "";
+    const pathInfo = result.path
+      ? ` ${ansi.dim(stripControlBytes(result.path))}`
+      : "";
     console.error(
-      `  ${icon} ${result.skillName} (${result.provider}/${result.scope})${detail}${pathInfo}`,
+      `  ${icon} ${stripControlBytes(`${result.skillName} (${result.provider}/${result.scope})`)}${detail}${pathInfo}`,
     );
   }
 

@@ -24,7 +24,7 @@ Trusted: the invoking user's CLI arguments other than the source/manifest values
 ## Components that matter most / least
 
 - Most: `src/installer-core.ts`, `src/installer-link.ts`, `src/installer.ts`, `src/commands/install-*.ts`, `src/importer.ts`, `src/uninstaller.ts`, `src/library-core.ts`, `src/updater-*.ts`, `src/registry.ts`, `src/bundler.ts`, `src/utils/fs.ts`, `src/utils/spawn.ts`, `src/utils/frontmatter.ts`.
-- Medium: `src/security-auditor-scan.ts`, `src/evaluator-*.ts` and `src/eval/` (they read skill content and run linters such as `shellcheck` / `python3 -m py_compile` on skill files), `src/linker.ts`, `src/exporter.ts`.
+- Medium: `src/security-auditor-scan.ts`, `src/evaluator-*.ts` and `src/eval/` (they read skill content and run linters such as `shellcheck` / an in-memory `python3` compile on skill files), `src/linker.ts`, `src/exporter.ts`.
 - Least: TUI rendering in `src/views/` and `src/index.tsx`, formatting (`src/formatter*.ts`).
 - Out of scope: `website-src/`, `website/`, `scripts/` (build/catalog/maintenance tooling), `security/`, `skills/` (first-party example skills, not shipped), `data/skill-index/` (generated static data), `tests/`, `*.test.ts(x)`, and test helpers (`src/test-setup.ts`, `src/cli-test-harness.ts`, `src/utils/test-spawn.ts`, `src/*-test-fixtures.ts`).
 

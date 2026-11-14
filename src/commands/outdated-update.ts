@@ -14,6 +14,7 @@ import {
 } from "../utils/machine";
 
 import { error } from "./shared";
+import { stripControlBytesDeep } from "../utils/control-chars";
 import { errorMessage } from "../utils/errors";
 import type { ParsedArgs } from "../cli";
 
@@ -21,6 +22,11 @@ function printOutdatedHelp() {
   console.log(`${ansi.bold("Usage:")} asm outdated [options]
 
 Show which installed skills have newer versions available.
+
+GitHub-sourced skills also show their metadata.version (installed → latest)
+and count as outdated only when a newer commit changes the skill's own folder.
+A skill whose folder has no SKILL.md at the latest commit is listed as
+removed-upstream: "asm update" keeps the installed copy of it.
 
 ${ansi.bold("Options:")}
   --json               Output as JSON
@@ -70,7 +76,7 @@ export async function cmdOutdated(args: ParsedArgs) {
     const useColor = !args.flags.noColor && process.stdout.isTTY !== false;
     console.log(formatOutdatedTable(summary, useColor));
 
-    if (summary.outdatedCount > 0) {
+    if (summary.outdatedCount > 0 || (summary.removedUpstreamCount ?? 0) > 0) {
       process.exitCode = 1;
     }
   } catch (err) {
@@ -131,7 +137,7 @@ export async function cmdUpdate(args: ParsedArgs) {
   names.push(...args.positional);
 
   try {
-    const summary = await updateSkills(
+    let summary = await updateSkills(
       names.length > 0 ? names : null,
       args.flags.yes,
     );
@@ -145,6 +151,7 @@ export async function cmdUpdate(args: ParsedArgs) {
         old_commit: r.oldCommit || null,
         new_commit: r.newCommit || null,
         security_verdict: r.securityVerdict || null,
+        security_reasons: r.securityReasons ?? null,
       }));
       console.log(formatMachineOutput("update", data, startTime));
       return;
@@ -155,7 +162,9 @@ export async function cmdUpdate(args: ParsedArgs) {
       return;
     }
 
-    // Human-readable output
+    // Human-readable output: author names and reasons, control bytes
+    // stripped (#830).
+    summary = stripControlBytesDeep(summary);
 
     // Warn that scope detection is not yet supported
     if (summary.results.length > 0) {
@@ -187,9 +196,12 @@ export async function cmdUpdate(args: ParsedArgs) {
             `${ansi.green("✓")} ${result.name} ${ansi.dim(result.oldCommit || "")} → ${result.newCommit || ""}`,
           );
           if (result.securityVerdict === "warning") {
+            const why = result.securityReasons?.length
+              ? ` (${result.securityReasons.join(", ")})`
+              : "";
             console.error(
               ansi.yellow(
-                `  ⚠ Security audit returned warning for ${result.name} — updated because --yes was supplied`,
+                `  ⚠ Security audit returned warning for ${result.name}${why} — updated because --yes was supplied`,
               ),
             );
           }

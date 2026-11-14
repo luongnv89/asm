@@ -29,7 +29,7 @@ const COMMANDS = [
   "asm update [name...]",
   "asm audit",
   "asm audit overlap",
-  "asm audit security <name|source>",
+  "asm audit security <name|path|source>",
   "asm audit residency",
   "asm publish [path]",
   "asm eval <skill-path>",

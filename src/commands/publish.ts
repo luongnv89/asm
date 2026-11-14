@@ -10,6 +10,7 @@ import {
 import { error } from "./shared";
 import { errorMessage } from "../utils/errors";
 import type { ParsedArgs } from "../cli";
+import { stringifyForOutput } from "../utils/control-chars";
 
 function printPublishHelp() {
   console.log(`${ansi.bold("Usage:")} asm publish [path] [options]
@@ -72,6 +73,9 @@ export async function cmdPublish(args: ParsedArgs) {
             {
               manifest: result.manifest,
               security_verdict: result.securityVerdict,
+              ...(result.securityReasons
+                ? { security_reasons: result.securityReasons }
+                : {}),
               fallback: result.fallback ?? false,
             },
           ),
@@ -95,13 +99,16 @@ export async function cmdPublish(args: ParsedArgs) {
     // JSON output
     if (args.flags.json) {
       console.log(
-        JSON.stringify(
+        stringifyForOutput(
           {
             success: result.success,
             manifest: result.manifest,
             pr_url: result.prUrl,
             error: result.error,
             security_verdict: result.securityVerdict,
+            ...(result.securityReasons
+              ? { security_reasons: result.securityReasons }
+              : {}),
           },
           null,
           2,
@@ -122,7 +129,7 @@ export async function cmdPublish(args: ParsedArgs) {
     // must remain machine-consumable even when gh is unavailable.
     if (args.flags.dryRun) {
       console.error(ansi.dim("Dry run — no PR created.\n"));
-      console.log(JSON.stringify(result.manifest, null, 2));
+      console.log(stringifyForOutput(result.manifest, null, 2));
       return;
     }
 
@@ -163,7 +170,7 @@ export async function cmdPublish(args: ParsedArgs) {
     }
     if (args.flags.json) {
       console.log(
-        JSON.stringify(
+        stringifyForOutput(
           {
             success: false,
             manifest: null,

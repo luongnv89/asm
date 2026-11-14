@@ -1,9 +1,14 @@
 import { describe, test, expect, beforeEach, afterEach } from "vitest";
-import { mkdtemp, writeFile, mkdir, rm } from "fs/promises";
+import { mkdtemp, writeFile, mkdir, rm, symlink } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
-import { calculateVerdict, auditSkillSecurity } from "./security-auditor";
+import {
+  calculateVerdict,
+  auditSkillSecurity,
+  applyExternalSymlinks,
+} from "./security-auditor";
 import { dirname } from "path";
+import { externalLink } from "./utils/fs";
 import { fileURLToPath } from "url";
 import { spawnCollect } from "./utils/test-spawn";
 
@@ -479,5 +484,95 @@ describe("CLI integration: audit security", () => {
   test("main --help includes audit security command", async () => {
     const { stdout } = await runCLI("--help");
     expect(stdout).toContain("audit security");
+  });
+});
+
+describe("applyExternalSymlinks (#779)", () => {
+  const out = externalLink("x.sh", "/elsewhere/x.sh", "file");
+  const gone = externalLink("y", "/nowhere", "dangling");
+  const fifo = externalLink("f", "/elsewhere/fifo", "special");
+
+  test("no links leaves the verdict alone", () => {
+    expect(applyExternalSymlinks("safe", "fine.", [])).toEqual({
+      verdict: "safe",
+      reason: "fine.",
+    });
+  });
+
+  test("safe and caution are raised to warning, naming the links", () => {
+    const safe = applyExternalSymlinks("safe", "fine.", [out, gone]);
+    expect(safe.verdict).toBe("warning");
+    expect(safe.reason).toContain(
+      "1 symlink points outside the skill folder (x.sh)",
+    );
+    expect(safe.reason).toContain("1 symlink dangles or loops");
+    expect(safe.reason).toContain("was NOT read and must be reviewed by hand");
+    expect(applyExternalSymlinks("safe", "", [fifo]).verdict).toBe("warning");
+    expect(out).toMatchObject({ severity: "critical" });
+    expect(out.note).toContain("NOT read");
+    const caution = applyExternalSymlinks("caution", "2 warnings found.", [
+      out,
+    ]);
+    expect(caution.verdict).toBe("warning");
+    expect(caution.reason).toContain("2 warnings found.");
+  });
+
+  test("warning and dangerous keep their verdict and gain the reason", () => {
+    const d = applyExternalSymlinks("dangerous", "Exfil risk.", [out]);
+    expect(d.verdict).toBe("dangerous");
+    expect(d.reason).toMatch(/^Exfil risk\. 1 symlink/);
+  });
+});
+
+describe("auditSkillSecurity boundary (#791)", () => {
+  let base: string;
+
+  beforeEach(async () => {
+    base = await mkdtemp(join(tmpdir(), "asm-test-boundary-"));
+    await mkdir(join(base, "repo", "skills", "x"), { recursive: true });
+    await mkdir(join(base, "repo", "shared"), { recursive: true });
+    await writeFile(join(base, "repo", "skills", "x", "SKILL.md"), "# x\n");
+    await writeFile(join(base, "repo", "shared", "net.sh"), "curl a\n");
+    await writeFile(join(base, "secret.env"), "API_KEY=MARKER_791\n");
+    await symlink("../../shared", join(base, "repo", "skills", "x", "shared"));
+    await symlink(
+      join(base, "secret.env"),
+      join(base, "repo", "skills", "x", "env.sh"),
+    );
+  });
+
+  afterEach(async () => {
+    await rm(base, { recursive: true, force: true });
+  });
+
+  test("reads inside the boundary and reports links that leave it", async () => {
+    const report = await auditSkillSecurity(
+      join(base, "repo", "skills", "x"),
+      "x",
+      undefined,
+      undefined,
+      { trackSymlinks: true, boundary: join(base, "repo") },
+    );
+    expect(JSON.stringify(report)).not.toContain("MARKER_791");
+    expect(report.codeScans.map((c) => c.category)).toContain(
+      "Network requests",
+    );
+    expect(report.externalSymlinks?.map((l) => l.path)).toEqual(["env.sh"]);
+    expect(report.verdict).toBe("warning");
+  });
+
+  test("without a boundary the skill folder itself is the limit", async () => {
+    const report = await auditSkillSecurity(
+      join(base, "repo", "skills", "x"),
+      "x",
+      undefined,
+      undefined,
+      { trackSymlinks: true },
+    );
+    expect(report.codeScans).toEqual([]);
+    expect(report.externalSymlinks?.map((l) => l.path).sort()).toEqual([
+      "env.sh",
+      "shared",
+    ]);
   });
 });

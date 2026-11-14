@@ -177,9 +177,12 @@ jobs:
 
       - name: Build catalog (required by build-verification tests)
         run: npm run build:website
-        # Same authenticated star fetch as deploy-website.yml (issue #598).
+        # Offline stars (issue #784): resolve every repo from the committed
+        # data/repo-stars.json instead of ~86 live api.github.com calls, so
+        # PR tests never depend on GitHub availability or the repo's hourly
+        # GITHUB_TOKEN budget. deploy-website.yml keeps the live fetch.
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ASM_STARS_OFFLINE: "1"
 
       - name: Run Node.js E2E tests
         # registry-e2e resolves via an injected ASM_REGISTRY_CACHE (no network

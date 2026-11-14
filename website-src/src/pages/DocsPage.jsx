@@ -140,8 +140,8 @@ export default function DocsPage() {
                 desc="Find installed skills that do the same job under different names"
               />
               <Row
-                cmd="asm audit security <name|source>"
-                desc="Run a security audit on an installed or remote skill"
+                cmd="asm audit security <name|path|source>"
+                desc="Run a security audit on an installed, local, or remote skill"
               />
               <Row
                 cmd="asm audit residency"
@@ -772,7 +772,7 @@ metadata:
               <FieldRow
                 name="license"
                 req="no"
-                desc="SPDX license identifier"
+                desc="SPDX license identifier or expression"
               />
               <FieldRow
                 name="compatibility"
@@ -1042,6 +1042,9 @@ asm eval ./my-skill --fix --dry-run
 asm eval ./my-skill --json
 asm eval ./my-skill --machine
 
+# Quality gate: exit 1 if any skill misses Gate 2 (overall > 85, categories >= 8)
+asm eval ./skills/ --min-score 86 --min-category 8
+
 # List registered eval providers
 asm eval-providers list`}</CodeBlock>
           <FlagTable
@@ -1056,6 +1059,14 @@ asm eval-providers list`}</CodeBlock>
               [
                 "--concurrency N",
                 "Cap parallel per-skill evals in batch mode (default: 4)",
+              ],
+              [
+                "--min-score N",
+                "Fail a skill whose overall score is below N (0-100); exit 1 if any fails",
+              ],
+              [
+                "--min-category N",
+                "Fail a skill with any category below N (0-10); exit 1 if any fails",
               ],
               ["--keep", "Preserve the temp dir used for remote clones"],
               [
@@ -1093,7 +1104,12 @@ asm eval-providers list`}</CodeBlock>
           <h3>
             <code>asm outdated</code>
           </h3>
-          <p>Show which installed skills have newer versions available.</p>
+          <p>
+            Show which installed skills have newer versions available. For
+            GitHub-sourced skills it also shows <code>metadata.version</code>{" "}
+            (installed → latest), and a newer commit that changes nothing in the
+            skill&apos;s own folder leaves the skill up to date.
+          </p>
           <FlagTable
             rows={[
               ["--json", "Output as JSON"],
@@ -1352,9 +1368,14 @@ asm bundle remove my-workflow       # Remove a saved bundle`}</CodeBlock>
                 "--threshold <n>",
                 "(overlap) Similarity cutoff between 0 and 1",
               ],
+              [
+                "--exclude <name>",
+                "(ingest) Leave the named skill out; repeat or comma-separate. Names that match no skill are listed",
+              ],
             ]}
           />
           <CodeBlock>{`asm index ingest github:obra/superpowers          # Index a repo
+asm index ingest github:o/r --exclude a,b          # Index without skills a and b
 asm index search code review                       # Search indexed skills
 asm index search marketing --has license           # Only with license
 asm index search "" --missing creator              # Skills missing creator
@@ -1391,8 +1412,8 @@ asm index remove obra/superpowers                 # Remove from index`}</CodeBlo
                 desc="Find installed skills that do the same job under different names"
               />
               <Row
-                cmd="audit security <name|source>"
-                desc="Run security audit on an installed skill or GitHub source"
+                cmd="audit security <name|path|source>"
+                desc="Run security audit on an installed skill, local folder, or GitHub source"
               />
               <Row
                 cmd="audit residency"
@@ -1429,6 +1450,7 @@ asm audit overlap                             # Same-job skills, different names
 asm audit residency                           # Rank demotion candidates
 asm audit residency --json
 asm audit security code-review                # Audit an installed skill
+asm audit security ./my-skill                 # Audit a local folder before install
 asm audit security github:user/repo           # Audit a remote skill before install
 asm audit security --all                      # Audit all installed skills`}</CodeBlock>
         </section>

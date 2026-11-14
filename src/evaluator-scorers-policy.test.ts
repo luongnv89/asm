@@ -3,6 +3,12 @@ import {
   scoreSafety,
   scoreTestability,
   scoreNaming,
+  scoreLicense,
+  isPrivateLicense,
+  parseSpdxExpression,
+  MAX_SPDX_NESTING,
+  MAX_QUOTED_VALUE,
+  quoteValue,
 } from "./evaluator-scorers-policy";
 import { SAFE_BODY, TESTABLE_BODY } from "./evaluator-test-fixtures";
 describe("scoreSafety", () => {
@@ -160,5 +166,354 @@ describe("scoreNaming", () => {
         s.includes("Add a kebab-case `name` (e.g. `my-skill`)"),
       ),
     ).toBe(true);
+  });
+});
+
+describe("scoreLicense (#771)", () => {
+  const lic = (license?: string): Record<string, string> =>
+    license ? { license } : {};
+  const NO_OWN_FILE = ["SKILL.md"];
+
+  it("scores 10 for a recognised SPDX licence with its own LICENSE file", () => {
+    const r = scoreLicense(lic("MIT"), "", ["SKILL.md", "LICENSE"]);
+    expect(r.score).toBe(10);
+    expect(r.findings).toContain("LICENSE file present at skill root.");
+  });
+
+  it("recognises COPYING as the skill's own licence file", () => {
+    const r = scoreLicense(lic("GPL-3.0-only"), "", ["SKILL.md", "COPYING"]);
+    expect(r.score).toBe(10);
+  });
+
+  it("scores 10 for a recognised SPDX licence inherited from the repo root", () => {
+    const r = scoreLicense(lic("MIT"), "", NO_OWN_FILE, "../../LICENSE");
+    expect(r.score).toBe(10);
+    expect(r.licenseStatus).toBe("recognised");
+    expect(r.findings).toContain(
+      "LICENSE inherited from the enclosing repository (`../../LICENSE`).",
+    );
+    expect(r.findings.join("\n")).not.toMatch(/No LICENSE file found/);
+    expect(r.suggestions).toEqual([]);
+  });
+
+  it("prefers the skill's own LICENSE file over an inherited one", () => {
+    const r = scoreLicense(
+      lic("MIT"),
+      "",
+      ["SKILL.md", "LICENSE.md"],
+      "../../LICENSE",
+    );
+    expect(r.score).toBe(10);
+    expect(r.findings).toContain("LICENSE file present at skill root.");
+    expect(r.findings.join("\n")).not.toMatch(/inherited/);
+  });
+
+  it("keeps 5 for a recognised SPDX licence with no licence file anywhere", () => {
+    const r = scoreLicense(lic("MIT"), "", NO_OWN_FILE);
+    expect(r.score).toBe(5);
+    expect(r.findings).toContain(
+      "No LICENSE file found — consider adding one for clarity.",
+    );
+  });
+
+  it.each([
+    "Proprietary",
+    "proprietary",
+    "Proprietary-1.0",
+    "UNLICENSED",
+    "SEE LICENSE IN LICENSE.md",
+    "See license in ./terms.txt",
+    "private",
+    "Private",
+    "All rights reserved",
+    "Copyright 2026 Acme Corp. All rights reserved.",
+  ])("scores a private licence `%s` >= 8 without a licence file", (id) => {
+    const r = scoreLicense(lic(id), "", NO_OWN_FILE);
+    expect(r.score).toBe(8);
+    expect(r.licenseStatus).toBe("private");
+    expect(r.findings).toContain(
+      `Private licence declared: \`${id}\` — no SPDX identifier or LICENSE file required.`,
+    );
+    expect(r.findings.join("\n")).not.toMatch(/SPDX list/);
+    expect(r.suggestions).toEqual([]);
+  });
+
+  it("scores a private licence 10 when a licence file backs it", () => {
+    expect(scoreLicense(lic("Proprietary"), "", ["LICENSE"]).score).toBe(10);
+    expect(
+      scoreLicense(lic("UNLICENSED"), "", NO_OWN_FILE, "../LICENSE.txt").score,
+    ).toBe(10);
+  });
+
+  it("keeps 2 for a declared licence that is neither SPDX nor private", () => {
+    const r = scoreLicense(lic("Foo-Public-1.0"), "", NO_OWN_FILE);
+    expect(r.score).toBe(2);
+    expect(r.licenseStatus).toBe("unrecognised");
+    expect(r.findings).toContain(
+      "License declared as `Foo-Public-1.0` but not in asm's list of recognised SPDX identifiers.",
+    );
+  });
+
+  it("keeps 0 when no licence is declared, even with an inherited LICENSE", () => {
+    const r = scoreLicense(lic(), "", NO_OWN_FILE, "../../LICENSE");
+    expect(r.score).toBe(0);
+    expect(r.licenseStatus).toBe("missing");
+    expect(r.findings).toContain("No license declared.");
+  });
+
+  it("isPrivateLicense does not treat the SPDX `Unlicense` as private", () => {
+    expect(isPrivateLicense("Unlicense")).toBe(false);
+    expect(isPrivateLicense("UNLICENSED")).toBe(true);
+    expect(isPrivateLicense("MIT")).toBe(false);
+  });
+});
+
+describe("parseSpdxExpression (#783)", () => {
+  it("parses OR, AND, WITH, parentheses and the `+` suffix", () => {
+    const r = parseSpdxExpression(
+      "(MIT AND BSD-2-Clause) OR Apache-2.0 WITH LLVM-exception OR GPL-2.0+",
+    );
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.leaves.map((l) => [l.id, l.kind])).toEqual([
+      ["MIT", "spdx"],
+      ["BSD-2-Clause", "spdx"],
+      ["Apache-2.0", "spdx"],
+      ["GPL-2.0", "spdx"],
+    ]);
+    expect(r.exceptions).toEqual([{ id: "LLVM-exception", known: true }]);
+    expect(r.deprecated).toEqual([{ id: "GPL-2.0", orLater: true }]);
+  });
+
+  it("accepts nesting up to MAX_SPDX_NESTING", () => {
+    const v = `${"(".repeat(MAX_SPDX_NESTING)}MIT${")".repeat(MAX_SPDX_NESTING)}`;
+    expect(parseSpdxExpression(v).ok).toBe(true);
+  });
+
+  it("matches identifiers and exceptions in any case (SPDX 2.3 D.2)", () => {
+    const r = parseSpdxExpression("mit OR apache-2.0 WITH llvm-EXCEPTION");
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.leaves.every((l) => l.kind === "spdx")).toBe(true);
+    expect(r.exceptions[0].known).toBe(true);
+  });
+
+  it("classifies LicenseRef, private and unknown leaves", () => {
+    const r = parseSpdxExpression(
+      "LicenseRef-Acme OR DocumentRef-spdx-1.2:LicenseRef-X OR Proprietary OR Foo-1.0",
+    );
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.leaves.map((l) => l.kind)).toEqual([
+      "ref",
+      "ref",
+      "private",
+      "unknown",
+    ]);
+  });
+
+  it.each([
+    ["", "empty"],
+    ["MIT OR", "expected a licence identifier after `OR`"],
+    ["OR MIT", "expected a licence identifier but found `OR`"],
+    ["(MIT", "expected `)`"],
+    ["MIT)", "unexpected `)`"],
+    ["MIT Apache-2.0", "unexpected `Apache-2.0`"],
+    ["MIT or Apache-2.0", "unexpected `or`"],
+    ["MIT +", "unexpected `+`"],
+    ["LicenseRef-Acme+", "`+` may follow only a licence identifier"],
+    ["(MIT OR ISC) WITH LLVM-exception", "WITH must follow a single"],
+    ["Apache-2.0 WITH", "expected a licence exception after `WITH`"],
+    ["MIT_2", "not a valid licence identifier"],
+    [
+      `${"(".repeat(65)}MIT${")".repeat(65)}`,
+      "parentheses nested more than 64 deep",
+    ],
+  ])("rejects invalid syntax `%s`", (input, error) => {
+    const r = parseSpdxExpression(input);
+    expect(r.ok).toBe(false);
+    if (r.ok) return;
+    expect(r.error).toContain(error);
+  });
+});
+
+describe("scoreLicense with SPDX expressions (#783)", () => {
+  const lic = (license: string): Record<string, string> => ({ license });
+  const NO_OWN_FILE = ["SKILL.md"];
+  const OWN_FILE = ["SKILL.md", "LICENSE"];
+  const INHERITED = "../../LICENSE";
+
+  it.each([
+    "MIT OR Apache-2.0",
+    "(MIT AND BSD-2-Clause)",
+    "Apache-2.0 WITH LLVM-exception",
+    "GPL-2.0+",
+    "mit",
+    "(GPL-2.0-or-later WITH Classpath-exception-2.0) OR MIT",
+    "LicenseRef-Acme-1.0",
+  ])("scores `%s` 10 with an own or inherited LICENSE, 5 without", (v) => {
+    const own = scoreLicense(lic(v), "", OWN_FILE);
+    expect(own.score).toBe(10);
+    expect(own.licenseStatus).toBe("recognised");
+    expect(scoreLicense(lic(v), "", NO_OWN_FILE, INHERITED).score).toBe(10);
+    expect(scoreLicense(lic(v), "", NO_OWN_FILE).score).toBe(5);
+  });
+
+  it("names a valid expression in the finding", () => {
+    const r = scoreLicense(lic("MIT OR Apache-2.0"), "", OWN_FILE);
+    expect(r.findings).toContain(
+      "License declared: `MIT OR Apache-2.0` (valid SPDX license expression, every identifier recognised).",
+    );
+    expect(r.suggestions).toEqual([]);
+  });
+
+  it("says a LicenseRef's text belongs in the licence file", () => {
+    const r = scoreLicense(lic("LicenseRef-Acme-1.0"), "", NO_OWN_FILE);
+    expect(r.findings.join("\n")).toMatch(
+      /custom reference `LicenseRef-Acme-1\.0`.*licence file/i,
+    );
+  });
+
+  it("suggests the current identifier for a deprecated one", () => {
+    const r = scoreLicense(lic("GPL-2.0+"), "", OWN_FILE);
+    expect(r.score).toBe(10);
+    expect(r.suggestions).toEqual([
+      "`GPL-2.0+` is deprecated on the SPDX License List — use `GPL-2.0-or-later`.",
+    ]);
+    expect(scoreLicense(lic("GPL-3.0"), "", OWN_FILE).suggestions).toEqual([
+      "`GPL-3.0` is deprecated on the SPDX License List — use `GPL-3.0-only` or `GPL-3.0-or-later`.",
+    ]);
+  });
+
+  it.each([
+    ["5000 nested parentheses", `${"(".repeat(5000)}MIT${")".repeat(5000)}`],
+    ["a 100 KB nested value", `${"(".repeat(50_000)}MIT${")".repeat(50_000)}`],
+  ])("scores %s 2 without throwing", (_label, v) => {
+    const r = scoreLicense(lic(v), "", OWN_FILE);
+    expect(r.score).toBe(2);
+    expect(r.licenseStatus).toBe("unrecognised");
+    expect(r.findings[0]).toMatch(
+      /not a valid SPDX license expression: parentheses nested more than 64 deep\.$/,
+    );
+  });
+
+  it("handles a 100 KB flat expression without throwing", () => {
+    const v = Array(15_000).fill("MIT").join(" OR ");
+    expect(v.length).toBeGreaterThan(100_000);
+    expect(scoreLicense(lic(v), "", OWN_FILE).score).toBe(10);
+  });
+
+  it("quoteValue keeps short values and clips long ones with their length", () => {
+    expect(quoteValue("MIT")).toBe("`MIT`");
+    const long = "x".repeat(100_000);
+    expect(quoteValue(long)).toBe(
+      `\`${"x".repeat(MAX_QUOTED_VALUE)}…\` (100000 chars)`,
+    );
+  });
+
+  it("quoteValue counts and clips by code point", () => {
+    const emoji = "\u{1F600}"; // one code point, two UTF-16 units
+    const q = quoteValue(emoji.repeat(300));
+    expect(q).toBe(`\`${emoji.repeat(MAX_QUOTED_VALUE)}…\` (300 chars)`);
+    expect(quoteValue(emoji.repeat(MAX_QUOTED_VALUE))).toBe(
+      `\`${emoji.repeat(MAX_QUOTED_VALUE)}\``,
+    );
+  });
+
+  const LONE_SURROGATE =
+    /[\ud800-\udbff](?![\udc00-\udfff])|(?<![\ud800-\udbff])[\udc00-\udfff]/;
+  it.each([
+    [
+      "an emoji straddling the 200-character value cap",
+      `MIT OR ${"x".repeat(MAX_QUOTED_VALUE - 8)}\u{1F600}${"x".repeat(100)}`,
+    ],
+    [
+      "an emoji straddling the 60-character token cap",
+      `MIT OR ${"a".repeat(59)}\u{1F600}${"a".repeat(10)}`,
+    ],
+  ])("never splits a surrogate pair: %s", (_label, v) => {
+    const r = scoreLicense(lic(v), "", OWN_FILE);
+    expect(r.score).toBe(2);
+    for (const f of r.findings) expect(f).not.toMatch(LONE_SURROGATE);
+    expect(r.findings[0]).toContain("\u{1F600}");
+    expect(JSON.parse(JSON.stringify(r))).toEqual(r);
+  });
+
+  const ors = (n: number, id: string) => Array(n).fill(id).join(" OR ");
+  it.each([
+    ["recognised", ors(15_000, "MIT"), 10],
+    ["mixed", `Apache-2.0 OR Proprietary OR ${ors(15_000, "MIT")}`, 10],
+    ["private", `Proprietary ${"x".repeat(100_000)}`, 10],
+    ["nested", `${"(".repeat(50_000)}MIT${")".repeat(50_000)}`, 2],
+    ["long unknown id", `MIT OR ${"A".repeat(100_000)}`, 2],
+    [
+      "many unknown ids",
+      `MIT OR ${Array.from({ length: 15_000 }, (_, i) => `Foo-${i}`).join(" OR ")}`,
+      2,
+    ],
+    ["invalid token", `MIT OR ${"_".repeat(100_000)}`, 2],
+  ])("clips a 100 KB %s value in every finding", (_label, v, score) => {
+    expect(v.length).toBeGreaterThanOrEqual(100_000);
+    const r = scoreLicense(lic(v), "", OWN_FILE);
+    expect(r.score).toBe(score);
+    for (const f of r.findings) {
+      // Bounded by the fixed text, not by the input: the longest (mixed)
+      // finding is ~330 chars of fixed text plus the clipped quote.
+      expect(f.length).toBeLessThan(600);
+      expect(f).not.toContain(v.slice(0, MAX_QUOTED_VALUE + 1));
+    }
+    expect(r.findings[0]).toContain(`…\` (${v.length} chars)`);
+  });
+
+  it.each([
+    [
+      "MIT OR Foo-1.0",
+      "but `Foo-1.0` is not in asm's list of recognised SPDX identifiers.",
+    ],
+    [
+      "Apache-2.0 WITH Foo-exception",
+      "but `Foo-exception` is not in asm's list of recognised SPDX exceptions.",
+    ],
+    [
+      "MIT OR",
+      "but it is not a valid SPDX license expression: expected a licence identifier after `OR`.",
+    ],
+    [
+      "MIT or Apache-2.0",
+      "but it is not a valid SPDX license expression: unexpected `or` (operators AND, OR, WITH are upper-case).",
+    ],
+  ])("scores `%s` 2 as not recognised", (v, reason) => {
+    const r = scoreLicense(lic(v), "", OWN_FILE, INHERITED);
+    expect(r.score).toBe(2);
+    expect(r.licenseStatus).toBe("unrecognised");
+    expect(r.findings).toContain(`License declared as \`${v}\` ${reason}`);
+  });
+
+  it("scores an SPDX + private mix under the SPDX licence rule and says so", () => {
+    const v = "Apache-2.0 OR Proprietary";
+    const noFile = scoreLicense(lic(v), "", NO_OWN_FILE);
+    expect(noFile.score).toBe(5);
+    expect(noFile.licenseStatus).toBe("recognised");
+    expect(noFile.findings[0]).toBe(
+      "License declared: `Apache-2.0 OR Proprietary` mixes SPDX terms with private terms (`Proprietary`), so it is not valid SPDX as written (use `LicenseRef-Proprietary` for the private terms) — SPDX licence rule applied: the SPDX terms need a licence file; the private-licence rule (#771) covers only declarations with no SPDX identifier.",
+    );
+    expect(scoreLicense(lic(v), "", OWN_FILE).score).toBe(10);
+    expect(scoreLicense(lic(v), "", NO_OWN_FILE, INHERITED).score).toBe(10);
+  });
+
+  it.each([
+    "PROPRIETARY AND CONFIDENTIAL",
+    "PRIVATE AND CONFIDENTIAL",
+    "Proprietary - see TERMS AND CONDITIONS",
+    "COPYRIGHT (C) 2026 FOO AND BAR. ALL RIGHTS RESERVED.",
+    "Copyright Acme, MIT licensed. All rights reserved.",
+    "Proprietary OR",
+    "Proprietary OR Foo-1.0",
+    "Proprietary — Fair use only",
+    "UNLICENSED",
+  ])("keeps the #771 private rule for `%s` (no SPDX identifier named)", (v) => {
+    const r = scoreLicense(lic(v), "", NO_OWN_FILE);
+    expect(r.score).toBe(8);
+    expect(r.licenseStatus).toBe("private");
   });
 });

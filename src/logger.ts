@@ -1,3 +1,5 @@
+import { stripControlBytes } from "./utils/control-chars";
+
 let _verbose = false;
 let _startTime = 0;
 
@@ -19,5 +21,12 @@ export function debug(msg: string): void {
   const prefix = noColor
     ? `[verbose] +${elapsed}ms`
     : `\x1b[2m[verbose] +${elapsed}ms\x1b[0m`;
-  console.error(`${prefix} ${msg}`);
+  // Messages carry author folder and file names (#830): one debug() call is
+  // one log line, so LF and CR show as visible `\n` / `\r` markers and every
+  // other control byte as `?`. A caller with several lines calls debug() once
+  // per line.
+  const clean = stripControlBytes(
+    msg.replace(/\n/g, "\\n").replace(/\r/g, "\\r"),
+  );
+  console.error(`${prefix} ${clean}`);
 }

@@ -12,6 +12,7 @@ import {
   validateSkill,
   scanForWarnings,
   classifyWarningRisk,
+  HIGH_RISK_WARNING_CATEGORIES,
   executeInstall,
   executeInstallAllProviders,
   buildInstallPlan,
@@ -141,7 +142,7 @@ export async function inspectSkillForInstall(
   scope: "global" | "project" = "global",
 ): Promise<SkillInspection> {
   const metadata = await validateSkill(skillDir);
-  const warnings = await scanForWarnings(skillDir);
+  const warnings = await scanForWarnings(skillDir, { root: tempDir });
 
   const dirName = skillDir === tempDir ? null : skillDir.split(/[/\\]/).pop();
   const rawName = skillNameOverride || dirName || source.repo;
@@ -291,11 +292,8 @@ export function displaySkillInspection(
         grouped.set(w.category, list);
       }
       for (const [category, items] of grouped) {
-        const isHighRiskCategory = [
-          "Shell commands",
-          "Code execution",
-          "Credentials",
-        ].includes(category);
+        const isHighRiskCategory =
+          HIGH_RISK_WARNING_CATEGORIES.includes(category);
         const categoryLabel = isHighRiskCategory
           ? ansi.red(`[${category}]`)
           : ansi.yellow(`[${category}]`);
@@ -303,9 +301,8 @@ export function displaySkillInspection(
           `\n    ${categoryLabel} ${ansi.dim(`(${items.length} match${items.length > 1 ? "es" : ""})`)}`,
         );
         for (const item of items.slice(0, 5)) {
-          console.info(
-            `      ${ansi.dim(`${item.file}:${item.line}`)} -- ${item.match}`,
-          );
+          const where = item.line > 0 ? `${item.file}:${item.line}` : item.file;
+          console.info(`      ${ansi.dim(where)} -- ${item.match}`);
         }
         if (items.length > 5) {
           console.info(ansi.dim(`      ... and ${items.length - 5} more`));

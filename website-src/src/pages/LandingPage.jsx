@@ -171,45 +171,50 @@ function FeaturedSkills({ skills }) {
   );
 }
 
-/* ─── What's New (v2.24.0) ─────────────────────────────────────────── */
+/* ─── What's New (v2.25.0) ─────────────────────────────────────────── */
 
 function WhatsNew() {
   const highlights = [
     {
       tag: "New",
-      head: "SEO and marketing skills",
-      body: "A new catalog source adds 10 skills for running SEO on a daily schedule, ranking a key page fast, rewriting page titles, refreshing blog posts, writing sales copy, understanding your customers, and transcribing videos.",
+      head: "Audit a skill folder before you install",
+      body: "Point asm audit security at a local skill, or a folder of skills, to check each one in place. Nothing is installed or run.",
+    },
+    {
+      tag: "New",
+      head: "Quality gates for CI",
+      body: "asm eval ./skills --min-score 86 --min-category 8 marks each skill PASS or FAIL and exits with an error when any skill falls short.",
     },
     {
       tag: "Growing",
-      head: "Nearly 7,000 skills from 86 repos",
-      body: "The catalog now lists 6,962 skills, with the latest updates from every indexed source.",
+      head: "7,200+ skills from 86 repos",
+      body: "The catalog now lists 7,267 skills, with the latest updates from every indexed source.",
     },
     {
       tag: "Fixed",
-      head: "Installs skip a skill's setup scripts",
-      body: "Installing a skill no longer runs the setup scripts that come with it, closing a way for an untrusted skill to run its own code the moment you install it. If a skill you trust needs a build step, run npm rebuild in its scripts folder.",
+      head: "Scans stay inside the skill folder",
+      body: "Security scans no longer follow a link out of a skill's folder, so a skill can no longer use one to make them read files such as ~/.env. A skill with such a link gets a warning: asm update needs --yes (implied by --machine) and asm publish needs --force.",
     },
   ];
   return (
     <Reveal
       as="section"
       className="flex flex-col gap-8"
-      aria-label="What's new in v2.24.0"
+      aria-label="What's new in v2.25.0"
     >
       <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div className="flex flex-col gap-3 max-w-[680px]">
           <span className="lp-kicker">
             <span className="dot" aria-hidden="true" />
-            what&apos;s new · v2.24.0
+            what&apos;s new · v2.25.0
           </span>
           <h2 className="lp-section-title">
-            SEO skills in the catalog. Safer skill installs.
+            Audit before you install. Quality gates for CI.
           </h2>
           <p className="lp-lede">
-            v2.24.0 adds 10 SEO and marketing skills from a new catalog source,
-            refreshes every indexed source, and stops installs from running the
-            setup scripts that come with a skill.
+            v2.25.0 audits a local skill folder before you install it, adds pass
+            or fail quality gates to asm eval, keeps every security scan inside
+            the skill folder, and grows the catalog to 7,267 skills.
           </p>
         </div>
         <Link

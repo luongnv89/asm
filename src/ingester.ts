@@ -20,7 +20,11 @@ import {
 } from "./repo-bundles";
 import { estimateTokenCount } from "./utils/token-count";
 import { errorMessage } from "./utils/errors";
-import { evaluateSkillContent, runWithConcurrency } from "./evaluator";
+import {
+  evaluateSkillContent,
+  findInheritedLicenseFile,
+  runWithConcurrency,
+} from "./evaluator";
 import { getEvalProviders } from "./eval/builtins";
 import { runProvider } from "./eval/runner";
 import { sortProviderReports, toSkillEvalSummary } from "./eval/summary";
@@ -35,6 +39,11 @@ export interface IngestResult {
   success: boolean;
   repoIndex: RepoIndex | null;
   error?: string;
+  /**
+   * Set only when `excludeSkills` was non-empty: which requested names matched
+   * a discovered skill and were left out, and which matched nothing (#837).
+   */
+  exclusions?: { excluded: string[]; unmatched: string[] };
 }
 
 const INGEST_SKILL_CONCURRENCY = 8;
@@ -119,6 +128,16 @@ export async function ingestRepo(
         `ingester: excluded ${kept.length - deduped.length} skill(s): ${[...excluded].join(", ")}`,
       );
     }
+    let exclusions: IngestResult["exclusions"];
+    if (excluded.size > 0) {
+      const keptNames = new Set(kept.map((skill) => skill.name));
+      exclusions = { excluded: [], unmatched: [] };
+      for (const name of excluded) {
+        (keptNames.has(name) ? exclusions.excluded : exclusions.unmatched).push(
+          name,
+        );
+      }
+    }
 
     const skillRoot = tempDir;
     const skills = await runWithConcurrency(
@@ -159,9 +178,10 @@ export async function ingestRepo(
         let evalSummary: SkillEvalSummary | undefined;
         let evalSummaries: IndexedSkill["evalSummaries"] | undefined;
         if (skillMdContent) {
+          const skillDir = join(skillRoot, skill.relPath);
           let rootEntries: string[] | undefined;
           try {
-            rootEntries = await readdir(join(skillRoot, skill.relPath));
+            rootEntries = await readdir(skillDir);
           } catch {
             rootEntries = undefined;
           }
@@ -172,6 +192,8 @@ export async function ingestRepo(
               skillPath: skill.relPath || skill.name,
               skillMdPath,
               rootEntries,
+              // A skill without its own LICENSE inherits the clone root's (#771).
+              inheritedLicenseFile: await findInheritedLicenseFile(skillDir),
             });
             evalSummary = {
               overallScore: report.overallScore,
@@ -268,7 +290,9 @@ export async function ingestRepo(
     );
     debug(`ingester: wrote index to ${outputFile}`);
 
-    return { success: true, repoIndex };
+    return exclusions
+      ? { success: true, repoIndex, exclusions }
+      : { success: true, repoIndex };
   } catch (err) {
     return { success: false, repoIndex: null, error: errorMessage(err) };
   } finally {

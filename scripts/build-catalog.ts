@@ -33,12 +33,16 @@ import {
 } from "../src/repo-bundles";
 import { normalizeTags } from "../src/utils/frontmatter";
 import {
+  catalogRepoKey,
   collectRepoStars,
   exceedsStarFailureThreshold,
+  listRepoIndexFiles,
   mergeStarBaseline,
   parseStarBaseline,
   resolveRepoStars,
   STAR_BASELINE_PATH,
+  STAR_OFFLINE_ENV,
+  starsOfflineFromEnv,
   starTokenFromEnv,
 } from "../src/repo-stars";
 
@@ -367,7 +371,9 @@ if (existsSync(resourcesPath)) {
 }
 
 // Read all index files
-const files = readdirSync(indexDir).filter((f) => f.endsWith(".json"));
+// Same file list and repo key as catalogRepoKeysFromIndexDir, which the
+// star-baseline coverage test uses (issue #784).
+const files = listRepoIndexFiles(indexDir);
 const repos: CatalogRepo[] = [];
 const repoDerivedBundles: Bundle[] = [];
 const skillMap = new Map<string, CatalogSkill>();
@@ -383,9 +389,8 @@ for (const file of files) {
     continue;
   }
 
-  if (!repoIndex.skills || repoIndex.skills.length === 0) continue;
-
-  const key = `${repoIndex.owner}/${repoIndex.repo}`;
+  const key = catalogRepoKey(repoIndex);
+  if (key === null) continue;
   const meta = resourcesMap.get(key);
 
   repos.push({
@@ -483,6 +488,9 @@ const categories = Array.from(categorySet).sort((a, b) => {
 // "Most popular" sort. Unauthenticated callers get 60 req/hour for ~73
 // repos — set GITHUB_TOKEN (5,000/hour) or the tail of the loop is
 // rate-limited; CI passes it via the workflow env (see deploy-website.yml).
+// ASM_STARS_OFFLINE=1 (CI test builds, issue #784) skips the fetch and
+// resolves every repo from the committed baseline; the same unknown-count
+// gate still applies. The production deploy never sets it.
 
 // Collect unique (owner, repo) pairs
 const uniqueRepos = new Map<string, { owner: string; repo: string }>();
@@ -512,25 +520,37 @@ if (existsSync(starBaselinePath)) {
   }
 }
 
-const starToken = starTokenFromEnv();
-console.log(
-  `  stars: fetching ${repoKeys.length} repos (${starToken ? "authenticated" : "unauthenticated — set GITHUB_TOKEN to avoid rate limits"})…`,
-);
-const { stars: fetchedStars, failures: starFailures } = await collectRepoStars(
-  repoKeys,
-  { token: starToken },
-);
+const starsOffline = starsOfflineFromEnv();
+let fetchedStars = new Map<string, number>();
+if (starsOffline) {
+  console.log(
+    `  stars: offline (${STAR_OFFLINE_ENV}) — resolving ${repoKeys.length} repos from ${STAR_BASELINE_PATH}, no network`,
+  );
+} else {
+  const starToken = starTokenFromEnv();
+  console.log(
+    `  stars: fetching ${repoKeys.length} repos (${starToken ? "authenticated" : "unauthenticated — set GITHUB_TOKEN to avoid rate limits"})…`,
+  );
+  const collected = await collectRepoStars(repoKeys, { token: starToken });
+  fetchedStars = collected.stars;
+  for (const key of collected.failures) {
+    const fallback = starBaseline[key];
+    console.warn(
+      `  stars: fetch failed for ${key} (${collected.reasons.get(key) ?? "unknown reason"}) — ${fallback !== undefined ? `using baseline (${fallback})` : "omitting from output"}`,
+    );
+  }
+}
 const { values: starsByRepo, unknown: unknownStars } = resolveRepoStars(
   repoKeys,
   fetchedStars,
   starBaseline,
 );
-
-for (const key of starFailures) {
-  const fallback = starBaseline[key];
-  console.warn(
-    `  stars: fetch failed for ${key} — ${fallback !== undefined ? `using baseline (${fallback})` : "omitting from output"}`,
-  );
+if (starsOffline) {
+  for (const key of unknownStars) {
+    console.warn(
+      `  stars: no baseline for ${key} in ${STAR_BASELINE_PATH} — omitting from output`,
+    );
+  }
 }
 
 // Refresh the baseline with fresh successes. Skipped when nothing succeeded

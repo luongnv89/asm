@@ -7,8 +7,16 @@
  * `evaluator-batch.ts`.
  */
 
-import { readFile, writeFile, stat, copyFile, readdir } from "fs/promises";
-import { join, resolve, basename, isAbsolute } from "path";
+import { writeFile, stat, copyFile, readdir, realpath } from "fs/promises";
+import {
+  join,
+  resolve,
+  basename,
+  isAbsolute,
+  dirname,
+  relative,
+  sep,
+} from "path";
 import type { ProviderEvalReport } from "./eval/summary";
 import { parseFrontmatter } from "./utils/frontmatter";
 import { runCommand } from "./utils/spawn";
@@ -33,6 +41,22 @@ import {
   scoreLicense,
 } from "./evaluator-core";
 import { scorePII, scoreScriptLint } from "./evaluator-pii-lint";
+import {
+  assertNoLinkOut,
+  formatUnreadLink,
+  listSkillFiles,
+  readSkillMd,
+  unreadLinkFinding,
+} from "./evaluator-files";
+import {
+  findLicenseFileName,
+  isLicenseFileName,
+} from "./evaluator-scorers-policy";
+import {
+  stringifyForOutput,
+  stripControlBytes,
+  stripControlBytesDeep,
+} from "./utils/control-chars";
 
 // ─── Report aggregator ─────────────────────────────────────────────────────
 
@@ -49,10 +73,33 @@ export async function evaluateSkillContent(args: {
    * When omitted (e.g., content-only callers) those checks are skipped.
    */
   rootEntries?: string[];
+  /**
+   * Licence file inherited from the enclosing repository, as a path relative
+   * to the skill dir (see `findInheritedLicenseFile`). Issue #771.
+   */
+  inheritedLicenseFile?: string;
 }): Promise<EvaluationReport> {
-  const { content, skillPath, skillMdPath, rootEntries } = args;
+  const { content, skillPath, skillMdPath, rootEntries, inheritedLicenseFile } =
+    args;
   const fm = parseFrontmatter(content);
   const { rawFrontmatter, body } = splitSkillMd(content);
+
+  // One confined walk for both file scorers (#825): nothing outside the
+  // skill folder is read, and each link that leaves it is reported once.
+  const files = await listSkillFiles(skillPath);
+
+  // A root entry that is such a link earns no licence credit by its name:
+  // an outside or dangling LICENSE link scores as no LICENSE at all (#825).
+  const unreadAtRoot = new Set(
+    files.externalSymlinks
+      .map((link) => link.path)
+      .filter((path) => !path.includes("/")),
+  );
+  const licenseEntries = rootEntries?.filter((e) => !unreadAtRoot.has(e));
+  const licenseInherited =
+    findLicenseFileName(rootEntries) && !findLicenseFileName(licenseEntries)
+      ? await findInheritedLicenseFile(skillPath)
+      : inheritedLicenseFile;
 
   // Synchronous scorers run immediately; async scorers run in parallel.
   const syncCategories: CategoryResult[] = [
@@ -62,14 +109,23 @@ export async function evaluateSkillContent(args: {
     scoreContextEfficiency(fm, body),
     scoreSafety(fm, body),
     scoreTestability(fm, body),
-    scoreLicense(fm, body, rootEntries),
+    scoreLicense(fm, body, licenseEntries, licenseInherited),
     scoreNaming(fm, body),
   ];
 
   const [piiResult, scriptLintResult] = await Promise.all([
-    scorePII(skillPath),
-    scoreScriptLint(skillPath),
+    scorePII(skillPath, files),
+    scoreScriptLint(skillPath, files),
   ]);
+  const unreadLinks = files.externalSymlinks;
+  if (unreadLinks.length > 0) {
+    // Reported, never scored: the score cannot depend on what is behind it.
+    const structure = syncCategories.find((c) => c.id === "structure")!;
+    for (const link of unreadLinks) {
+      structure.findings.push(unreadLinkFinding(link));
+    }
+    structure.suggestions.push(UNREAD_LINK_SUGGESTION);
+  }
 
   const categories: CategoryResult[] = [
     ...syncCategories,
@@ -124,8 +180,12 @@ export async function evaluateSkillContent(args: {
     grade,
     topSuggestions,
     frontmatter: fm,
+    ...(unreadLinks.length > 0 ? { externalSymlinks: unreadLinks } : {}),
   };
 }
+
+const UNREAD_LINK_SUGGESTION =
+  "Replace symlinks that leave the skill folder with the files themselves: asm eval does not read them, and they do not travel with the skill.";
 
 /**
  * Synchronous version of evaluateSkillContent for callers that only have
@@ -138,8 +198,10 @@ export function evaluateSkillContentSync(args: {
   skillPath: string;
   skillMdPath: string;
   rootEntries?: string[];
+  inheritedLicenseFile?: string;
 }): EvaluationReport {
-  const { content, skillPath, skillMdPath, rootEntries } = args;
+  const { content, skillPath, skillMdPath, rootEntries, inheritedLicenseFile } =
+    args;
   const fm = parseFrontmatter(content);
   const { rawFrontmatter, body } = splitSkillMd(content);
 
@@ -150,7 +212,7 @@ export function evaluateSkillContentSync(args: {
     scoreContextEfficiency(fm, body),
     scoreSafety(fm, body),
     scoreTestability(fm, body),
-    scoreLicense(fm, body, rootEntries),
+    scoreLicense(fm, body, rootEntries, inheritedLicenseFile),
     scoreNaming(fm, body),
     // Async-only scorers — placeholder when content-only is the only input.
     {
@@ -238,9 +300,11 @@ export async function evaluateSkill(
   let content: string;
 
   if (s.isFile()) {
-    // Accept a direct SKILL.md path
+    // Accept a direct SKILL.md path. Its folder is the skill folder (#825).
     skillMdPath = resolved;
-    content = await readFile(skillMdPath, "utf-8");
+    const md = await readSkillMd(skillMdPath);
+    if (md === null) throw new Error(`SKILL.md not found at ${skillMdPath}.`);
+    content = md;
     return evaluateSkillContent({
       content,
       skillPath:
@@ -254,27 +318,100 @@ export async function evaluateSkill(
   }
 
   skillMdPath = join(resolved, "SKILL.md");
-  try {
-    content = await readFile(skillMdPath, "utf-8");
-  } catch {
+  // Throws, without reading it, when SKILL.md links outside the folder.
+  const md = await readSkillMd(skillMdPath);
+  if (md === null) {
     throw new Error(
       `SKILL.md not found in ${resolved}. Run "asm init" to create one.`,
     );
   }
-
-  let rootEntries: string[] | undefined;
-  try {
-    rootEntries = await readdir(resolved);
-  } catch {
-    rootEntries = undefined;
-  }
+  content = md;
 
   return evaluateSkillContent({
     content,
     skillPath: resolved,
     skillMdPath,
-    rootEntries,
+    ...(await readSkillDirContext(resolved)),
   });
+}
+
+/**
+ * Filesystem context the scorers read for a skill directory: its root
+ * entries and, when it has no licence file of its own, the licence file it
+ * inherits from the enclosing repository. Shared by `evaluateSkill` and
+ * `applyFix` so plain eval and `--fix` score the same skill alike.
+ */
+async function readSkillDirContext(skillDir: string): Promise<{
+  rootEntries?: string[];
+  inheritedLicenseFile?: string;
+}> {
+  let rootEntries: string[] | undefined;
+  try {
+    rootEntries = await readdir(skillDir);
+  } catch {
+    rootEntries = undefined;
+  }
+  return {
+    rootEntries,
+    inheritedLicenseFile: findLicenseFileName(rootEntries)
+      ? undefined
+      : await findInheritedLicenseFile(skillDir),
+  };
+}
+
+/**
+ * Find a licence file the skill at `skillDir` inherits from its enclosing
+ * repository (issue #771). Walks from the skill's parent up to the git root
+ * — the nearest ancestor holding a `.git` dir or file (clones and worktrees
+ * included) — and returns the nearest licence file as a path relative to
+ * `skillDir`. Returns undefined when the skill is not inside a git repo, is
+ * itself the repo root, or no ancestor up to the root has a licence file, so
+ * the walk never picks up a LICENSE from outside the repository. A candidate
+ * must be a regular file (symlinks followed) whose real path is inside the
+ * git root.
+ */
+export async function findInheritedLicenseFile(
+  skillDir: string,
+): Promise<string | undefined> {
+  const start = resolve(skillDir);
+  const ancestors: { dir: string; entries: string[] }[] = [];
+  let dir = start;
+  for (;;) {
+    let entries: string[];
+    try {
+      entries = await readdir(dir);
+    } catch {
+      return undefined;
+    }
+    if (dir !== start) ancestors.push({ dir, entries });
+    if (entries.includes(".git")) break;
+    const parent = dirname(dir);
+    if (parent === dir) return undefined;
+    dir = parent;
+  }
+  // Only a regular file whose real path stays inside the repo counts: a
+  // LICENSE directory, a dangling symlink, or a symlink out of the repo does
+  // not.
+  let rootReal: string;
+  try {
+    rootReal = await realpath(dir);
+  } catch {
+    return undefined;
+  }
+  for (const { dir: ancestor, entries } of ancestors) {
+    for (const name of entries.filter(isLicenseFileName)) {
+      const candidate = join(ancestor, name);
+      try {
+        if (!(await stat(candidate)).isFile()) continue;
+        const real = await realpath(candidate);
+        if (!real.startsWith(rootReal + sep)) continue;
+      } catch {
+        continue;
+      }
+      return relative(start, candidate);
+    }
+  }
+  return undefined;
 }
 
 // ─── Auto-fix pipeline ─────────────────────────────────────────────────────
@@ -620,12 +757,10 @@ export async function applyFix(
     throw new Error(`Skill path is not a directory or file: ${resolved}`);
   }
 
-  let original: string;
-  try {
-    original = await readFile(skillMdPath, "utf-8");
-  } catch {
-    throw new Error(`SKILL.md not found at ${skillMdPath}.`);
-  }
+  // Throws, without reading or writing it, when SKILL.md links outside.
+  const md = await readSkillMd(skillMdPath);
+  if (md === null) throw new Error(`SKILL.md not found at ${skillMdPath}.`);
+  const original = md;
 
   const plan = buildFixPlan(original, { gitAuthor: options.gitAuthor });
   const diff = unifiedDiff(original, plan.newContent);
@@ -633,15 +768,18 @@ export async function applyFix(
   let backupPath: string | null = null;
   if (!options.dryRun && plan.newContent !== original) {
     backupPath = `${skillMdPath}.bak`;
+    await assertNoLinkOut(backupPath);
     await copyFile(skillMdPath, backupPath);
     await writeFile(skillMdPath, plan.newContent, "utf-8");
   }
 
-  // Re-evaluate using the (possibly modified) content.
+  // Re-evaluate using the (possibly modified) content, with the same
+  // filesystem context plain eval uses for a skill directory (#771).
   const report = await evaluateSkillContent({
     content: options.dryRun ? original : plan.newContent,
     skillPath: resolved,
     skillMdPath,
+    ...(s.isDirectory() ? await readSkillDirContext(resolved) : {}),
   });
 
   return {
@@ -696,6 +834,7 @@ function bar(score: number, max: number, width = 20): string {
 export function formatReport(
   report: EvaluationReport & { providers?: ProviderEvalReport[] },
 ): string {
+  report = stripControlBytesDeep(report);
   const lines: string[] = [];
   lines.push(`Skill evaluation: ${report.skillPath}`);
   lines.push(`SKILL.md:         ${report.skillMdPath}`);
@@ -729,6 +868,18 @@ export function formatReport(
     }
   } else {
     lines.push("No suggestions — skill looks great.");
+  }
+
+  const unreadLinks = report.externalSymlinks ?? [];
+  if (unreadLinks.length > 0) {
+    lines.push("");
+    lines.push(`Symlinks not read (${unreadLinks.length}):`);
+    for (const link of unreadLinks) {
+      lines.push(`  ${formatUnreadLink(link)}`);
+    }
+    lines.push(
+      "  Content outside the skill folder is never read or scored. Review these targets by hand.",
+    );
   }
 
   for (const provider of extraProviders) {
@@ -796,10 +947,16 @@ function extractProviderChecks(raw: unknown): ProviderCheck[] | null {
 }
 
 export function formatReportJSON(report: EvaluationReport): string {
-  return JSON.stringify(report, null, 2);
+  return stringifyForOutput(report, null, 2);
 }
 
 export function formatFixPreview(result: FixResult): string {
+  // Strip author control bytes (#830); the diff keeps its line structure.
+  const diff = result.diff
+    .split("\n")
+    .map((line) => stripControlBytes(line.replace(/\r$/, "")))
+    .join("\n");
+  result = { ...stripControlBytesDeep(result), diff };
   const lines: string[] = [];
   if (result.applied.length === 0 && result.skipped.length === 0) {
     lines.push("No fixes needed — SKILL.md is already clean.");
