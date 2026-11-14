@@ -39,6 +39,11 @@ export interface IngestResult {
   success: boolean;
   repoIndex: RepoIndex | null;
   error?: string;
+  /**
+   * Set only when `excludeSkills` was non-empty: which requested names matched
+   * a discovered skill and were left out, and which matched nothing (#837).
+   */
+  exclusions?: { excluded: string[]; unmatched: string[] };
 }
 
 const INGEST_SKILL_CONCURRENCY = 8;
@@ -122,6 +127,16 @@ export async function ingestRepo(
       debug(
         `ingester: excluded ${kept.length - deduped.length} skill(s): ${[...excluded].join(", ")}`,
       );
+    }
+    let exclusions: IngestResult["exclusions"];
+    if (excluded.size > 0) {
+      const keptNames = new Set(kept.map((skill) => skill.name));
+      exclusions = { excluded: [], unmatched: [] };
+      for (const name of excluded) {
+        (keptNames.has(name) ? exclusions.excluded : exclusions.unmatched).push(
+          name,
+        );
+      }
     }
 
     const skillRoot = tempDir;
@@ -275,7 +290,9 @@ export async function ingestRepo(
     );
     debug(`ingester: wrote index to ${outputFile}`);
 
-    return { success: true, repoIndex };
+    return exclusions
+      ? { success: true, repoIndex, exclusions }
+      : { success: true, repoIndex };
   } catch (err) {
     return { success: false, repoIndex: null, error: errorMessage(err) };
   } finally {

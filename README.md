@@ -681,7 +681,7 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm update [name...]` | Update outdated skills; keeps the installed copy when the incoming folder has no SKILL.md (or is reached through a symlink) and reports it as failed: the table output exits 1, while `--json`/`--machine` report `"status": "failed"` and exit 0, as for every per-skill failure |
 | `asm disable <target>` | Disable skill(s) without uninstalling |
 | `asm enable <target>` | Re-enable disabled skill(s) |
-| `asm index ingest <repo>` | Index a skill repo |
+| `asm index ingest <repo>` | Index a skill repo; `--exclude <name>` (repeatable or comma-separated) leaves skills out and lists any name that matched no skill |
 | `asm index search <query>` | Search indexed skills |
 | `asm index list` | List indexed repos |
 | `asm index remove <owner/repo>` | Remove repo from index |
