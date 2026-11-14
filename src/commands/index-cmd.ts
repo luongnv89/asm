@@ -1,4 +1,5 @@
 import { formatJSON, ansi, wordWrap } from "../formatter";
+import { stripControlBytesLine } from "../utils/control-chars";
 import { ingestRepo, listIndexedRepos, removeRepoIndex } from "../ingester";
 import {
   getTotalSkillCount,
@@ -35,12 +36,15 @@ ${ansi.bold("Options:")}
   --missing <field> Only show skills missing <field> (license, creator, version)
   --model-invocable Only skills the model can invoke
   --user-invocable  Only skills the user can invoke
+  --exclude <name>  ingest: leave out the named skill (repeat, or comma-separate)
+                    Names match exactly and case-sensitively
   -y, --yes        Skip confirmation prompts
   --no-color       Disable ANSI colors
   -V, --verbose    Show debug output
 
 ${ansi.bold("Examples:")}
   asm index ingest github:obra/superpowers          ${ansi.dim("Index superpowers repo")}
+  asm index ingest github:o/r --exclude a,b          ${ansi.dim("Index without skills a and b")}
   asm index search code review                       ${ansi.dim("Search for skills")}
   asm index search marketing --has license           ${ansi.dim("Only with license")}
   asm index search "" --missing creator              ${ansi.dim("Skills missing creator")}
@@ -73,8 +77,14 @@ export async function cmdIndex(args: ParsedArgs) {
         process.exit(2);
       }
 
-      console.error(ansi.blueBold(`Ingesting ${repo}...`));
-      const result = await ingestRepo(repo);
+      console.error(
+        ansi.blueBold(`Ingesting ${stripControlBytesLine(repo)}...`),
+      );
+      const excludeSkills = args.flags.exclude;
+      const result =
+        excludeSkills.length > 0
+          ? await ingestRepo(repo, { excludeSkills })
+          : await ingestRepo(repo);
 
       if (!result.success) {
         error(`Failed to ingest: ${result.error}`);
@@ -82,6 +92,7 @@ export async function cmdIndex(args: ParsedArgs) {
       }
 
       if (result.repoIndex) {
+        const exclusions = result.exclusions;
         if (args.flags.json) {
           console.log(
             formatJSON({
@@ -90,15 +101,32 @@ export async function cmdIndex(args: ParsedArgs) {
               repo: result.repoIndex.repo,
               skillCount: result.repoIndex.skillCount,
               updatedAt: result.repoIndex.updatedAt,
+              ...(exclusions && {
+                excluded: exclusions.excluded,
+                unmatchedExcludes: exclusions.unmatched,
+              }),
             }),
           );
         } else {
           console.error(
             ansi.green(
-              `Successfully indexed ${result.repoIndex.owner}/${result.repoIndex.repo}`,
+              `Successfully indexed ${stripControlBytesLine(`${result.repoIndex.owner}/${result.repoIndex.repo}`)}`,
             ),
           );
           console.error(`  Skills found: ${result.repoIndex.skillCount}`);
+          // Strip at render only: matching and --json keep the original names.
+          if (exclusions && exclusions.excluded.length > 0) {
+            console.error(
+              `  Excluded: ${exclusions.excluded.map(stripControlBytesLine).join(", ")}`,
+            );
+          }
+          if (exclusions && exclusions.unmatched.length > 0) {
+            console.error(
+              ansi.yellow(
+                `  ⚠ --exclude matched no skill: ${exclusions.unmatched.map(stripControlBytesLine).join(", ")}`,
+              ),
+            );
+          }
         }
       }
       break;
