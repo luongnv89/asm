@@ -9,7 +9,7 @@
       "description": "Built-in ASM skills (skill-creator, find-me-skills, and more published to the catalog)",
       "maintainer": "@luongnv89",
       "enabled": true,
-      "excludeSkills": ["hello-world"]
+      "excludeSkills": ["hello-world", "missing-frontmatter", "well-formed"]
     },
     {
       "source": "github:anthropics/skills",
