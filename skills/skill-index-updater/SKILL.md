@@ -6,7 +6,7 @@ compatibility: Claude Code
 allowed-tools: Bash Read Write Edit Grep Glob WebFetch Agent
 effort: high
 metadata:
-  version: 2.3.0
+  version: 2.4.0
   author: luongnv89
 ---
 
@@ -278,24 +278,7 @@ An agent's own review cannot confirm human understanding. A reviewer who receive
 
 ## Edge Cases & Error Handling
 
-Each row names a condition and the required response. When in doubt, surface the issue to the user rather than silently dropping a repo.
-
-| Condition                                                           | Response                                                                                            |
-| ------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| **Repo URL is a 404 / private repo**                                | Mark `INVALID` in Step 1 and skip; continue with valid URLs.                                        |
-| **Git clone fails**                                                 | The Step 2 worker returns `status: clone-failed`; skip that repo, report its `error`, continue.     |
-| **Repo has zero SKILL.md files**                                    | The Step 2 worker returns `status: no-skills`; ask whether to include anyway.                       |
-| **Repo has 50+ SKILL.md files**                                     | Continue, and warn that `asm eval` over many skills is slow.                                        |
-| **Repo already in index, unchanged**                                | Report `EXISTS, no diff` and skip Steps 6–7 for that repo.                                          |
-| **Repo already in index, breaking changes** (skill removed/renamed) | Show the Step 4 diff and require explicit confirmation before overwriting.                          |
-| **`index ingest` fails for a repo**                                 | Use `references/manual-index.md` for that repo; name it in the final output.                        |
-| **`npx tsx scripts/build-catalog.ts` fails**                        | Stop in Step 8.                                                                                     |
-| **Unrelated files in the diff**                                     | Stop in Step 9; do not commit a mixed change. Ask the user to revert them or run on a clean branch. |
-| **`gh` not authenticated**                                          | Prompt `gh auth login`; do not push without auth.                                                   |
-| **`gh pr create` fails** (auth, network, missing remote)            | Print the commit SHA so the user can push and open the PR manually.                                 |
-| **Non-GitHub URL** (GitLab, Bitbucket)                              | Reject in Step 1 — this skill only indexes github.com.                                              |
-| **URL to a single skill subdirectory** (`.../tree/main/skills/foo`) | Treat it as the parent repo URL; the Step 2 worker picks up every skill, including that one.        |
-| **Agent tool unavailable**                                          | Read both contract files yourself, run Steps 2 and 3 inline, and say so in the Step 9 summary.      |
+When a URL, clone, ingest, catalog build, auth, or PR step fails, or a repo is new, empty, huge, or already indexed, read `references/edge-cases.md` for the required response to each error. When in doubt, surface the issue to the user rather than silently dropping a repo; never overwrite an indexed repo with breaking changes without explicit confirmation.
 
 ## Cleanup
 
@@ -332,3 +315,4 @@ Optional and propose-only. After the run's result is delivered, run this check:
 - `references/audit-eval-contract.md` — the Step 3 worker's slice: lightweight audit + `asm eval`, returned as fixed JSON rows
 - `references/manual-index.md` — Step 7 fallback: hand-built index file for a repo whose ingest failed
 - `references/commit-and-pr.md` — Step 10 staging, commit message, and PR body template
+- `references/edge-cases.md` — the required response to each failure or unusual-repo condition (bad URL, clone/ingest/build failure, auth, already-indexed repo)
