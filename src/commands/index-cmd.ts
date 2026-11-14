@@ -1,4 +1,5 @@
 import { formatJSON, ansi, wordWrap } from "../formatter";
+import { stripControlBytesLine } from "../utils/control-chars";
 import { ingestRepo, listIndexedRepos, removeRepoIndex } from "../ingester";
 import {
   getTotalSkillCount,
@@ -36,7 +37,8 @@ ${ansi.bold("Options:")}
   --model-invocable Only skills the model can invoke
   --user-invocable  Only skills the user can invoke
   --exclude <name>  ingest: leave out the named skill (repeat, or comma-separate)
-  -y, --yes       Skip confirmation prompts
+                    Names match exactly and case-sensitively
+  -y, --yes        Skip confirmation prompts
   --no-color       Disable ANSI colors
   -V, --verbose    Show debug output
 
@@ -75,7 +77,9 @@ export async function cmdIndex(args: ParsedArgs) {
         process.exit(2);
       }
 
-      console.error(ansi.blueBold(`Ingesting ${repo}...`));
+      console.error(
+        ansi.blueBold(`Ingesting ${stripControlBytesLine(repo)}...`),
+      );
       const excludeSkills = args.flags.exclude;
       const result =
         excludeSkills.length > 0
@@ -106,17 +110,20 @@ export async function cmdIndex(args: ParsedArgs) {
         } else {
           console.error(
             ansi.green(
-              `Successfully indexed ${result.repoIndex.owner}/${result.repoIndex.repo}`,
+              `Successfully indexed ${stripControlBytesLine(`${result.repoIndex.owner}/${result.repoIndex.repo}`)}`,
             ),
           );
           console.error(`  Skills found: ${result.repoIndex.skillCount}`);
+          // Strip at render only: matching and --json keep the original names.
           if (exclusions && exclusions.excluded.length > 0) {
-            console.error(`  Excluded: ${exclusions.excluded.join(", ")}`);
+            console.error(
+              `  Excluded: ${exclusions.excluded.map(stripControlBytesLine).join(", ")}`,
+            );
           }
           if (exclusions && exclusions.unmatched.length > 0) {
             console.error(
               ansi.yellow(
-                `  ⚠ --exclude matched no skill: ${exclusions.unmatched.join(", ")}`,
+                `  ⚠ --exclude matched no skill: ${exclusions.unmatched.map(stripControlBytesLine).join(", ")}`,
               ),
             );
           }

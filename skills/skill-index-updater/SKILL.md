@@ -146,6 +146,8 @@ For each NEW repo, append to the `repos` array in `data/skill-index-resources.js
 }
 ```
 
+Add an optional `"excludeSkills": ["<skill-name>", …]` array when the repo holds skills that are not part of its published set: contributor-only skills (e.g. under `.agents/skills`), or a skill the Step 3 audit flagged. Each value is a skill `name` exactly as discovered (case-sensitive, no commas). Example: `"excludeSkills": ["release-checklist"]`. Step 7 and `npm run preindex` leave those skills out of the index.
+
 Set the top-level `updatedAt` to the current ISO date.
 
 ### Step 7: Generate Index Files (one repo at a time)
@@ -158,20 +160,28 @@ Create the scratch directory once and record its literal path (many hosts start 
 mktemp -d    # e.g. /var/folders/.../tmp.AbC123 — use this literal path as INGEST_HOME below
 ```
 
-Then, once per repo. When the repo's entry in `data/skill-index-resources.json` has `excludeSkills`, pass each name as its own `--exclude` flag, so the file matches what `npm run preindex` would write (no entry or no `excludeSkills`: no flags):
+Then, once per repo. When the repo's entry in `data/skill-index-resources.json` has `excludeSkills`, pass each name as its own `--exclude` flag, so the file matches what `npm run preindex` would write (no entry or no `excludeSkills`: no flags). Empty names are dropped. A name containing a comma stops this repo's ingest, because `asm` splits an `--exclude` value on commas and would exclude two names instead of one:
 
 ```bash
 ROOT="$(git rev-parse --show-toplevel)"
 INGEST_HOME="<literal path from mktemp>"
-EXCLUDE_ARGS=()
-while IFS= read -r name; do EXCLUDE_ARGS+=(--exclude "$name"); done < <(
-  jq -r --arg s "github:{owner}/{repo}" \
-    '.repos[] | select(.source == $s) | (.excludeSkills // [])[]' \
-    "$ROOT/data/skill-index-resources.json")
-ASM_CONFIG_DIR="$INGEST_HOME" npx tsx "$ROOT/bin/agent-skill-manager.ts" \
-  index ingest "github:{owner}/{repo}" "${EXCLUDE_ARGS[@]}" --json
-cp "$INGEST_HOME/skill-index/{owner}_{repo}.json" "$ROOT/data/skill-index/"
+if EXCLUDES="$(jq -r --arg s "github:{owner}/{repo}" '
+    [.repos[] | select(.source == $s) | (.excludeSkills // [])[] | select(length > 0)]
+    | if any(.[]; contains(",")) then error("excludeSkills value contains a comma; asm splits --exclude on commas, so it would exclude two names") else .[] end' \
+    "$ROOT/data/skill-index-resources.json")"; then
+  EXCLUDE_ARGS=()
+  while IFS= read -r name; do
+    [ -n "$name" ] && EXCLUDE_ARGS+=(--exclude "$name")
+  done <<< "$EXCLUDES"
+  ASM_CONFIG_DIR="$INGEST_HOME" npx tsx "$ROOT/bin/agent-skill-manager.ts" \
+    index ingest "github:{owner}/{repo}" "${EXCLUDE_ARGS[@]}" --json
+  cp "$INGEST_HOME/skill-index/{owner}_{repo}.json" "$ROOT/data/skill-index/"
+else
+  echo "Step 7 stopped for {owner}/{repo}: fix its excludeSkills entry (see the jq error above), then rerun" >&2
+fi
 ```
+
+If the block stops on a comma, do not fall back to the manual path: report the entry under Uncertainty and stop at Step 7 for that repo.
 
 With `--exclude`, the JSON output adds `excluded` (names left out) and `unmatchedExcludes` (names that matched no discovered skill). A non-empty `unmatchedExcludes` is not a failure, but it means an exclusion is misspelled or the skill was renamed or removed upstream: list it under Uncertainty in the final output.
 
@@ -243,7 +253,7 @@ End the run with a short report:
 
 1. **Result** — first line: `PR opened`, `nothing to add`, or `blocked at Step N` with the reason.
 2. **Evidence** — the Step 9 summary, the per-repo audit counts, and the PR URL.
-3. **Uncertainty** — the audit is lightweight and `asm eval` scores structure, not behavior: no indexed skill was run. Name any repo indexed by the manual fallback, and any repo skipped as INVALID or clone-failed.
+3. **Uncertainty** — the audit is lightweight and `asm eval` scores structure, not behavior: no indexed skill was run. Name any repo indexed by the manual fallback, any repo skipped as INVALID or clone-failed, and any non-empty `unmatchedExcludes` from Step 7 (with its repo).
 4. **Decision** — the user reviews and merges the PR. Name any WARN/FLAG skill they should look at first. If nothing needs their attention, say "No approval needed beyond the PR review."
 
 ## Acceptance Criteria

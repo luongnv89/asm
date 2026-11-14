@@ -151,8 +151,8 @@ describe("CLI integration: index ingest --exclude", () => {
   const SOURCE = "github:exclude-cli/fixture";
   let fixtureDir: string;
 
-  async function writeSkill(name: string): Promise<void> {
-    const dir = join(fixtureDir, "skills", name);
+  async function writeSkill(name: string, dirName = name): Promise<void> {
+    const dir = join(fixtureDir, "skills", dirName);
     await mkdir(dir, { recursive: true });
     await writeFile(
       join(dir, "SKILL.md"),
@@ -292,5 +292,90 @@ describe("CLI integration: index ingest --exclude", () => {
   test("index --help lists --exclude", async () => {
     const { stdout } = await runCLI("index", "--help");
     expect(stdout).toContain("--exclude <name>");
+    expect(stdout).toContain("case-sensitively");
+  });
+
+  test("control bytes in excluded/unmatched names are stripped from text output only", async () => {
+    const hostile = "ctl\x1b[31m\x9b2J\x7fname";
+    await writeSkill(hostile, "ctl");
+    // eslint-disable-next-line no-control-regex
+    const CTRL = /[\x00-\x08\x0b-\x1f\x7f-\x9f]/;
+
+    const text = await runCLI(
+      "index",
+      "ingest",
+      SOURCE,
+      "--exclude",
+      hostile,
+      "--exclude",
+      "zz\x1b[2J\x9b\x7f",
+    );
+    expect(text.exitCode).toBe(0);
+    expect(text.stderr).toContain("Excluded: ctl?[31m?2J?name");
+    expect(text.stderr).toContain("--exclude matched no skill: zz?[2J??");
+    expect(text.stderr).not.toMatch(CTRL);
+    expect(text.stdout).not.toMatch(CTRL);
+    // Matching used the original name: the skill is out of the file.
+    expect(await indexedNames()).toEqual(["alpha", "beta", "gamma"]);
+
+    // --json keeps the original strings (escaped by formatJSON).
+    const json = await runCLI(
+      "index",
+      "ingest",
+      SOURCE,
+      "--exclude",
+      hostile,
+      "--json",
+    );
+    expect(json.exitCode).toBe(0);
+    expect(JSON.parse(json.stdout).excluded).toEqual([hostile]);
+  });
+
+  test.each([
+    ["--json", "a following long flag"],
+    [",", "a value that splits to no names"],
+    [" , ", "a whitespace-and-comma value"],
+  ])("--exclude %j (%s) exits 2 with Missing value", async (value) => {
+    const { stdout, stderr, exitCode } = await runCLI(
+      "index",
+      "ingest",
+      SOURCE,
+      "--exclude",
+      value,
+      "--json",
+    );
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain('Missing value for "--exclude"');
+    expect(stdout).toBe("");
+    expect(ingestMocks.cloneToTemp).not.toHaveBeenCalled();
+  });
+
+  test("a single-dash --exclude value is a name, not a flag", async () => {
+    const { stdout, exitCode } = await runCLI(
+      "index",
+      "ingest",
+      SOURCE,
+      "--exclude",
+      "-dash",
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    expect(JSON.parse(stdout).unmatchedExcludes).toEqual(["-dash"]);
+  });
+
+  test.each([
+    [["install", SOURCE, "--all", "-p", "claude", "-y"]],
+    [["index", "search", "alpha"]],
+    [["index", "list"]],
+  ])("--exclude is rejected outside index ingest: %j", async (argv) => {
+    const { stdout, stderr, exitCode } = await runCLI(
+      ...argv,
+      "--exclude",
+      "beta",
+    );
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain('--exclude applies only to "asm index ingest".');
+    expect(stdout).toBe("");
+    expect(ingestMocks.cloneToTemp).not.toHaveBeenCalled();
   });
 });
