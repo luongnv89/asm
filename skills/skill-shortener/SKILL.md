@@ -8,7 +8,7 @@ effort: high
 dependencies:
   - skill-creator
 metadata:
-  version: 1.1.0
+  version: 1.1.1
   author: luongnv89
 ---
 
@@ -95,7 +95,7 @@ else
 fi
 ```
 
-If the tree is dirty, `git stash`, sync, `git stash pop`. If `origin` is missing or the pull conflicts, **stop and ask the user** — never skip or force the sync. In a git repo, suggest adding `.skill-shortener/` to `.gitignore`.
+If tracked files are modified (`git -C "$SKILL_PATH" status --porcelain --untracked-files=no` prints anything): `git -C "$SKILL_PATH" stash push` without `-u`, sync, then `git -C "$SKILL_PATH" stash pop`. Untracked files stay in place; other sessions may own them. If `origin` is missing or the pull conflicts, **stop and ask the user** — never skip or force the sync. In a git repo, suggest adding `.skill-shortener/` to `.gitignore`.
 
 ## The three dispositions
 

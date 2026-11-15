@@ -6,7 +6,7 @@ compatibility: "Claude Code"
 allowed-tools: Bash Read Write Edit Grep Glob
 effort: high
 metadata:
-  version: 1.4.1
+  version: 1.4.2
   author: luongnv89
 ---
 
@@ -114,7 +114,7 @@ Match each `{source}` log line to `data/skill-index/{owner}_{repo}.json` in `git
 Confirm the refreshed index is structurally valid. **`website/catalog.json` is gitignored — never stage it.**
 
 ```bash
-cd "$ROOT"
+ROOT="$(git rev-parse --show-toplevel)"; cd "$ROOT"
 npx tsx scripts/build-catalog.ts
 jq empty website/catalog.json
 git restore -- website/ data/repo-stars.json

@@ -13,7 +13,7 @@ Keep it under 72 chars. Lead with "Suggest" so the reader immediately sees this 
 ## Body
 
 ````markdown
-Hi! 👋 I came across **<skill-name>** while browsing skills and really appreciated <one specific thing you liked>. Wanted to share a few suggestions that surfaced when I ran the skill through [`asm eval`](https://github.com/luongnv89/agent-skill-manager) — totally happy to adjust or drop any of this if it doesn't fit your direction.
+Hi! 👋 I came across **<skill-name>** while browsing skills and really appreciated <one specific thing you liked>. Wanted to share a few suggestions that surfaced when I ran the skill through [`asm eval`](https://github.com/luongnv89/asm) — totally happy to adjust or drop any of this if it doesn't fit your direction.
 
 ## What I suggested
 
@@ -21,19 +21,13 @@ Hi! 👋 I came across **<skill-name>** while browsing skills and really appreci
 
 ## Before / after metrics (`asm eval`)
 
-| Metric              | Before  | After   | Δ           |
-| ------------------- | ------- | ------- | ----------- |
-| **Overall score**   | <X>/100 | <Y>/100 | **+<Y-X>**  |
-| **Grade**           | <old>   | <new>   | <old → new> |
-| Structure           | <a>/10  | <b>/10  | <b-a>       |
-| Description quality | <a>/10  | <b>/10  | <b-a>       |
-| Prompt engineering  | <a>/10  | <b>/10  | <b-a>       |
-| Context efficiency  | <a>/10  | <b>/10  | <b-a>       |
-| Safety              | <a>/10  | <b>/10  | <b-a>       |
-| Testability         | <a>/10  | <b>/10  | <b-a>       |
-| Naming conventions  | <a>/10  | <b>/10  | <b-a>       |
+| Metric            | Before  | After   | Δ           |
+| ----------------- | ------- | ------- | ----------- |
+| **Overall score** | <X>/100 | <Y>/100 | **+<Y-X>**  |
+| **Grade**         | <old>   | <new>   | <old → new> |
+| <category name>   | <a>/10  | <b>/10  | <b-a>       |
 
-<Note: delete category rows that didn't change, or keep the full table — maintainer's call. Bold the ones that moved.>
+<One row per entry in the eval JSON's `categories[]`, in JSON order, named by its `name` field.>
 
 ## Files touched
 

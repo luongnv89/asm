@@ -49,9 +49,11 @@ Field sources:
 - `installUrl` — `github:{owner}/{repo}:{relPath}`. A root-level skill has an
   empty `relPath`; its `installUrl` is `github:{owner}/{repo}` with no trailing `:`.
   A wrong `installUrl` breaks `asm install` for that skill.
-- `evalSummary` and `tokenCount` — run `asm eval <clonePath>/<relPath> --json`
-  (for a root skill, the path is just `clonePath`) and lift `overallScore`,
-  `grade`, `categories`, and `evaluatedAt` into the entry.
+- `evalSummary` — run `asm eval <clonePath>/<relPath> --json` (for a root skill,
+  the path is just `clonePath`) and lift `overallScore`, `grade`, `categories`
+  (`id`, `name`, `score`, `max` only), and `evaluatedAt` into the entry.
+- `tokenCount` — `asm eval` does not report it; take `tokenCount` from
+  `asm inspect <clonePath>/<relPath> --json` (same path rule).
 - `skillCount` — the length of `skills[]`.
 
 Verify with `jq empty data/skill-index/{owner}_{repo}.json` before continuing to Step 8.

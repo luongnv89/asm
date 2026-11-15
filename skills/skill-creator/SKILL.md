@@ -5,7 +5,7 @@ license: MIT
 compatibility: "Python 3 for scripts/quick_validate.py; `asm` on PATH for the Gate 2 score check"
 effort: max
 metadata:
-  version: 2.2.1
+  version: 2.2.2
   author: "Luong NGUYEN <luongnv89@gmail.com>"
 ---
 
@@ -167,7 +167,7 @@ After the adversarial review and evals, run `references/retrofit-loop.md` Phase 
 
 Read `references/eval-loop.md` for the full 5-step sequence: spawn with-skill and baseline runs, draft assertions, capture timing, grade/aggregate/view with `generate_review.py`, read `feedback.json`.
 
-Do NOT use `/skill-test` or any other testing skill — the flow in `references/eval-loop.md` is the one this skill expects.
+Run tests with the flow in `references/eval-loop.md`, not another testing skill: its grader, aggregator, and viewer read the run layout it writes.
 
 ## Improving an existing skill
 

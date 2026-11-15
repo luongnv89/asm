@@ -16,7 +16,7 @@ Claude.ai doesn't have subagents, so parts of the flow have to be done serially 
 
 **The iteration loop**: Same as before — improve the skill, rerun the test cases, ask for feedback — just without the browser reviewer in the middle. You can still organize results into iteration directories on the filesystem if you have one.
 
-**Description optimization**: This section requires the `claude` CLI tool (specifically `claude -p`) which is only available in Claude Code. Skip it if you're on Claude.ai.
+**Description optimization**: `run_loop.py` needs the `claude` CLI (`claude -p`, available only in Claude Code) for its trigger tests and the `anthropic` Python SDK with API credentials for its improvement step. Skip it if you're on Claude.ai.
 
 **Blind comparison**: Requires subagents. Skip it.
 
@@ -28,7 +28,7 @@ Cowork has subagents but no browser, so test execution works but result viewing 
 
 - You have subagents, so the main workflow (spawn test cases in parallel, run baselines, grade, etc.) all works. (However, if you run into severe problems with timeouts, it's OK to run the test prompts in series rather than parallel.)
 - You don't have a browser or display, so when generating the eval viewer, use `--static <output_path>` to write a standalone HTML file instead of starting a server. Then proffer a link that the user can click to open the HTML in their browser.
-- For whatever reason, the Cowork setup seems to disincline Claude from generating the eval viewer after running the tests, so just to reiterate: whether you're in Cowork or in Claude Code, after running tests, you should always generate the eval viewer for the human to look at examples before revising the skill yourself and trying to make corrections, using `generate_review.py` (not writing your own boutique html code). Sorry in advance but I'm gonna go all caps here: GENERATE THE EVAL VIEWER _BEFORE_ evaluating inputs yourself. You want to get them in front of the human ASAP!
+- After running tests, generate the eval viewer with `generate_review.py` (not custom HTML) before you evaluate the outputs or revise the skill yourself — in Cowork as in Claude Code — so the human sees the examples first.
 - Feedback works differently: since there's no running server, the viewer's "Submit All Reviews" button will download `feedback.json` as a file. You can then read it from there (you may have to request access first).
 - Packaging works — `package_skill.py` just needs Python and a filesystem.
-- Description optimization (`run_loop.py` / `run_eval.py`) should work in Cowork just fine since it uses `claude -p` via subprocess, not a browser, but please save it until you've fully finished making the skill and the user agrees it's in good shape.
+- Description optimization (`run_loop.py` / `run_eval.py`) needs no browser, so it runs in Cowork when `claude -p` and Anthropic API credentials are available — save it until you've fully finished making the skill and the user agrees it's in good shape.

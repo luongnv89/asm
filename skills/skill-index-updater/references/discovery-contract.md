@@ -30,13 +30,14 @@ TEMP_DIR=$(mktemp -d)
 git clone --depth 1 "https://github.com/<owner>/<repo>.git" "$TEMP_DIR/<repo>"
 ```
 
-2. Find every SKILL.md, at most 5 levels deep — an approximation of ASM's
-   `discoverSkills`, which also skips `.git` and `node_modules`, does not look for
-   skills nested inside a skill directory, and drops duplicate names. Step 7's
-   ingested `skillCount` is the authoritative count:
+2. Find every SKILL.md whose skill directory is at most 5 levels below the clone
+   root (`-maxdepth 6` counts the `SKILL.md` file itself) — an approximation of
+   ASM's `discoverSkills`, which also skips `.git` and `node_modules` and does not
+   look for skills nested inside a skill directory; `asm index ingest` then drops
+   duplicate names. Step 7's ingested `skillCount` is the authoritative count:
 
 ```bash
-find "$TEMP_DIR/<repo>" -maxdepth 5 -name "SKILL.md" -type f \
+find "$TEMP_DIR/<repo>" -maxdepth 6 -name "SKILL.md" -type f \
   -not -path "*/.git/*" -not -path "*/node_modules/*"
 ```
 

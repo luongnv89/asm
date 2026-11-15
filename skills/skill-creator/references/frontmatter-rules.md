@@ -29,7 +29,7 @@ This applies every time you write or edit a SKILL.md — whether creating from s
 
 ## YAML Frontmatter Safety
 
-YAML is surprisingly easy to break. An unquoted value containing a colon (`:`) causes many parsers to treat the rest of the line as a new mapping, silently producing wrong output or a hard parse error. This has bitten real skills — `cli-builder` and `code-review` both shipped with broken frontmatter for this reason.
+YAML is surprisingly easy to break. An unquoted value containing a colon (`:`) causes many parsers to treat the rest of the line as a new mapping, silently producing wrong output or a hard parse error.
 
 **Rule: quote every frontmatter string that contains any of these characters: `:`, `#`, `{`, `}`, `[`, `]`, `,`, `&`, `*`, `?`, `|`, `-`, `<`, `>`, `=`, `!`, `%`, `@`, `` ` ``.**
 

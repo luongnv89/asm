@@ -1,6 +1,6 @@
 # Running and Evaluating Test Cases
 
-This section is one continuous sequence — don't stop partway through. Do NOT use `/skill-test` or any other testing skill.
+Run Steps 1–5 as one sequence. Use this flow rather than `/skill-test` or another testing skill — it is the one this skill's scripts and viewer expect.
 
 Put results in `<skill-name>-workspace/` as a sibling to the skill directory. Within the workspace, organize results by iteration (`iteration-1/`, `iteration-2/`, etc.) and within that, each test case gets a directory (`eval-0/`, `eval-1/`, etc.). Don't create all of this upfront — just create directories as you go.
 

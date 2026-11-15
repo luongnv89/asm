@@ -21,18 +21,11 @@ You receive these parameters in your prompt:
 
 ### Step 1: Read Both Outputs
 
-1. Examine output A (file or directory)
-2. Examine output B (file or directory)
-3. Note the type, structure, and content of each
-4. If outputs are directories, examine all relevant files inside
+Examine output A and output B (every relevant file when an output is a directory) and note the type, structure, and content of each.
 
 ### Step 2: Understand the Task
 
-1. Read the eval_prompt carefully
-2. Identify what the task requires:
-   - What should be produced?
-   - What qualities matter (accuracy, completeness, format)?
-   - What would distinguish a good output from a poor one?
+From eval_prompt, work out what should be produced, which qualities matter (accuracy, completeness, format), and what would distinguish a good output from a poor one.
 
 ### Step 3: Generate Evaluation Rubric
 

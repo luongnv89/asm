@@ -33,7 +33,7 @@ Insert the new entry directly above the current top version entry. With no versi
 
 - Heading: `## [X.Y.Z] - YYYY-MM-DD`. The version is the bumped `metadata.version`. The date is the bump commit's date (`git -C <repo-root> log -1 --format=%cd --date=short <end>`), or today's local date (`date +%F`) for an uncommitted bump.
 - Section order, using only the ones that apply: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`. Never write an empty section.
-- At most 8 bullets per entry. Merge related edits into one bullet.
+- Merge related edits into one bullet, so the entry lists the changes a skill user would notice rather than every edit.
 
 ## Mapping a diff to sections
 

@@ -4,7 +4,7 @@ Per-category fix patterns for the asm-eval scoring used in **Gate 2 of the skill
 
 For Gate 1 (`quick_validate.py`, frontmatter audit, ≤500-line body, AI-skip README, etc.), see `skill-standard.md`. **Always clear Gate 1 before working on Gate 2** — a Gate 1 failure blocks publish regardless of asm-eval score.
 
-All scoring rules below mirror `src/evaluator.ts` in the ASM repo. Numbers change when the evaluator evolves — re-read that file if scores behave unexpectedly.
+All scoring rules below mirror the asm-eval scorers in the ASM repo: `src/evaluator-scorers.ts` (structure, description, prompt-engineering, context-efficiency) and `src/evaluator-scorers-policy.ts` (safety, testability, naming). Numbers change when the evaluator evolves — re-read those files if scores behave unexpectedly.
 
 ## 1. Structure & completeness (`structure`)
 
@@ -30,7 +30,7 @@ All scoring rules below mirror `src/evaluator.ts` in the ASM repo. Numbers chang
 **What it rewards (10 pts):**
 
 - Length between 8 and 40 words (4 pts)
-- Starts with an action verb (see `ACTION_VERBS` in evaluator.ts) (3 pts)
+- Starts with an action verb (see `ACTION_VERBS` in `src/evaluator-scorers.ts`) (3 pts)
 - Contains a trigger phrase: "use when", "when", "for", "before", "after", "during", "trigger" (3 pts)
 
 **Fix patterns:**
@@ -59,7 +59,7 @@ All scoring rules below mirror `src/evaluator.ts` in the ASM repo. Numbers chang
 **Fix patterns:**
 
 - Missing section structure: add `## When to Use` and `## Instructions` headings
-- No lists: convert prose paragraphs to bulleted or numbered steps
+- No lists: use numbered steps where order matters and lists or tables for reference data (checklists, options); keep judgment guidance in prose with its reason
 - No examples: add `## Example` section with a fenced code block (`bash ... ` or similar)
 - Passive voice: rewrite to imperative. "The user might want to run..." becomes "Run..."
 - Apply `human-review-audit.md` → _Write controlled instructions_ when rewriting: one action, stable terms, explicit conditions, and observable checks.
@@ -80,7 +80,7 @@ All scoring rules below mirror `src/evaluator.ts` in the ASM repo. Numbers chang
 - Body too long: move large sections (>80 lines) into `references/<topic>.md`, replace with `See references/<topic>.md for...`
 - No reference links: add phrases like `See references/examples.md` or `Run scripts/foo.sh`
 - Code block >60 lines: save to `scripts/<name>.sh` or `templates/<name>.md`, link from SKILL.md
-- Miss the token-bonus: add one sentence referencing "the agent's context budget" or similar
+- Miss the token-bonus: if the skill makes a real context-cost choice (what to load, what to delegate), state it in one sentence that names the context budget rather than adding a keyword-only sentence (see the anti-pattern note under Testability). A body over 1500 words needs this point to reach 8; moving detail into `references/` is the alternative
 
 ## 5. Safety & guardrails (`safety`)
 

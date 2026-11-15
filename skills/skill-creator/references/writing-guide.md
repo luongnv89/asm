@@ -30,7 +30,7 @@ The `agents/` directory is for skills that use the Agent tool to delegate work t
 
 Skills use a three-level loading system:
 
-1. **Metadata** (name + description) — Always in context (~100 words)
+1. **Metadata** (name + description) — Always in context (description ≤250 characters)
 2. **SKILL.md body** — In context whenever skill triggers (keep under 500 lines)
 3. **Bundled resources** — As needed (unlimited, scripts can execute without loading)
 
@@ -65,7 +65,7 @@ Prefer the imperative form in instructions.
 
 Use a practical, softened approach inspired by ASD-STE100 controlled language. Formal compliance is not required. These rules help the executing agent and the human reviewer interpret the same instruction:
 
-- Write one action per instruction. Put a dependent action in the next instruction.
+- Write one action per instruction in procedures, checks, and destructive or irreversible steps. Put a dependent action in the next instruction. Conventions and judgment guidance can stay in prose, with the reason beside each rule.
 - Choose one name for each concept. Reuse that name throughout the skill.
 - State the condition before a conditional action. State each exception and the action to take when it applies.
 - Replace vague adjectives with observable checks. Name the input, expected result, and failure response when a step validates an outcome.
@@ -90,7 +90,7 @@ Before choosing a template, apply `human-review.md`: define the result, evidence
 ```markdown
 ## Report structure
 
-ALWAYS use this exact template:
+Use this exact template:
 
 # [Title]
 
@@ -103,14 +103,20 @@ ALWAYS use this exact template:
 
 For flexible guidance, offer a sensible default and say adaptation is allowed ("Here is a sensible default format, but use your best judgment; adjust sections for the analysis type"). Choosing the wrong strictness cuts both ways: a pinned template on a judgment task produces rigid junk; a loose one on a data format produces parse failures.
 
-**Examples pattern** — where output quality depends on style, one or two input/output pairs teach more than paragraphs of description:
+**Examples pattern** — where output quality depends on style, a few deliberately varied input/output pairs, labeled illustrative, teach more than paragraphs of description. The model copies their length, tone, and structure, so vary them wherever the output should vary:
 
 ```markdown
 ## Commit message format
 
+Illustrative examples:
+
 **Example 1:**
 Input: Added user authentication with JWT tokens
 Output: feat(auth): implement JWT-based authentication
+
+**Example 2:**
+Input: Fixed crash when the config file is missing
+Output: fix(config): handle missing config file without crashing
 
 Follow this style: type(scope): brief description
 ```
@@ -229,7 +235,7 @@ Per-phase checks:
 
 ## Writing Style
 
-Explain to the model _why_ things are important in lieu of heavy-handed musty MUSTs. Use theory of mind and try to make the skill general and not super-narrow to specific examples. Start with a draft, then look at it with fresh eyes and improve it.
+Explain to the model _why_ things are important in lieu of heavy-handed musty MUSTs. Use theory of mind, and make the skill general rather than narrow to the examples you tested with. Start with a draft, then look at it with fresh eyes and improve it.
 
 ## Generate README.md
 
@@ -249,7 +255,7 @@ Two or three happy-path prompts alone verify only the demo path — they will no
 
 Save test cases to `evals/evals.json` with a `kind` per eval (`happy-path` | `edge` | `negative-trigger`). Don't write assertions yet — just the prompts. Draft assertions in the next step while runs are in progress; include at least one **process assertion** per happy-path eval (did the run follow the skill's mandated sequence, use its scripts, emit its report?) — output-only assertions let a run pass while ignoring the skill entirely.
 
-See `references/schemas.md` for the full schema (including the `assertions` field, added later).
+See `references/schemas.md` for the full schema; drafted assertions go in each eval's `expectations` list.
 
 Read `references/subagent-patterns.md` when the skill involves heavy exploration, parallel tasks, review loops, or large artifact generation.
 

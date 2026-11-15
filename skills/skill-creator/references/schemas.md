@@ -75,7 +75,7 @@ When improving a skill (Path B2), read this file **first** — each line is a re
 
 ## history.json
 
-Tracks version progression in Improve mode. Located at workspace root.
+Tracks version progression while improving an existing skill. Located at workspace root.
 
 ```json
 {
@@ -258,7 +258,7 @@ Wall clock timing for a run. Located at `<run-dir>/timing.json`.
 
 ## benchmark.json
 
-Output from Benchmark mode. Located at `benchmarks/<timestamp>/benchmark.json`.
+Output of `scripts/aggregate_benchmark.py` (eval loop Step 4). Located at `<workspace>/iteration-N/benchmark.json` (the script writes `<benchmark_dir>/benchmark.json`).
 
 ```json
 {

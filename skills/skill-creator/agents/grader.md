@@ -20,15 +20,11 @@ You receive these parameters in your prompt:
 
 ### Step 1: Read the Transcript
 
-1. Read the transcript file completely
-2. Note the eval prompt, execution steps, and final result
-3. Identify any issues or errors documented
+Read the transcript in full, noting the eval prompt, the execution steps, the final result, and any errors it documents.
 
 ### Step 2: Examine Output Files
 
-1. List files in outputs_dir
-2. Read/examine each file relevant to the expectations. If outputs aren't plain text, use the inspection tools provided in your prompt — don't rely solely on what the transcript says the executor produced.
-3. Note contents, structure, and quality
+Examine every file in outputs_dir that bears on an expectation. If outputs aren't plain text, use the inspection tools provided in your prompt — don't rely solely on what the transcript says the executor produced.
 
 ### Step 3: Evaluate Each Assertion
 
@@ -232,9 +228,6 @@ Write a JSON file with this structure:
 
 ## Guidelines
 
-- **Be objective**: Base verdicts on evidence, not assumptions
 - **Be specific**: Quote the exact text that supports your verdict
-- **Be thorough**: Check both transcript and output files
-- **Be consistent**: Apply the same standard to each expectation
 - **Explain failures**: Make it clear why evidence was insufficient
 - **No partial credit**: Each expectation is pass or fail, not partial

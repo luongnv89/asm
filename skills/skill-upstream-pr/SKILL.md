@@ -8,7 +8,7 @@ effort: high
 dependencies:
   - skill-creator
 metadata:
-  version: 1.2.0
+  version: 1.2.1
   author: luongnv89
 ---
 
@@ -26,7 +26,7 @@ git fetch origin
 git pull --rebase origin "$branch"
 ```
 
-If the working tree is dirty: stash, sync, pop. If `origin` is missing or conflicts occur: stop and ask the user. A stale fork that PRs yesterday's tree is worse than no PR.
+If tracked files are modified (`git status --porcelain --untracked-files=no` prints anything): `git stash push` without `-u`, sync, then `git stash pop`. Untracked files stay in place; other sessions may own them. If `origin` is missing or conflicts occur: stop and ask the user. A stale fork that PRs yesterday's tree is worse than no PR.
 
 ## When to Use
 
@@ -138,17 +138,17 @@ Read two files produced by the retrofit loop:
 Extract for both:
 
 - `overallScore`, `grade`
-- Every `categories[].score` (7 categories)
+- Every `categories[]` entry's `name` and `score`
 - `topSuggestions` summary (for context, not quoted verbatim)
 
-Compute deltas. If the overall score did not improve by at least 3 points **or** no category moved from below 8 to at least 8, stop and tell the user — the change isn't meaningful enough to justify a PR. Offer the retrofit report as feedback they can share informally instead.
+Compute deltas. If the overall score did not improve by at least 3 points **and** no category moved from below 8 to at least 8, stop and tell the user — the change isn't meaningful enough to justify a PR. Offer the retrofit report as feedback they can share informally instead.
 
 ### Phase 4 — Build the PR body
 
 Read `references/pr-template.md` and fill it in. The template enforces friendly, suggestion-style tone. Key sections:
 
 - **What changed** — one-sentence summary
-- **Before/after metrics** — table with overallScore, grade, and all 7 categories
+- **Before/after metrics** — table with overallScore, grade, and every entry in `categories[]`
 - **Files touched** — list every modified path under `$SKILL_PATH`
 - **Iterations taken** — N of 8 from the retrofit loop
 - **How to verify** — the `asm eval` command the maintainer can run locally
@@ -177,14 +177,11 @@ Ask the user to confirm. If they want edits, apply them and re-preview. Do not p
 After approval:
 
 ```bash
-# Commit the changes
+# Commit the changes — $COMMIT_SUBJECT names what the retrofit actually changed
+# (the same summary as the PR body's "What I suggested")
 git add -A
-git commit -m "$(cat <<'EOF'
-improve SKILL.md: clarify triggers, add acceptance criteria, fix frontmatter
-
-Suggested via skill-upstream-pr. See PR body for before/after metrics.
-EOF
-)"
+git commit -m "$COMMIT_SUBJECT" \
+  -m "Suggested via skill-upstream-pr. See PR body for before/after metrics."
 
 # Push to the fork
 git push -u origin "$(git rev-parse --abbrev-ref HEAD)"
@@ -219,7 +216,7 @@ Checks per phase:
 
 - **Phase 0** — `skill-creator acquired`, `Fork created`, `Clone succeeded`, `Branch created`, `Remotes correct`
 - **Phase 1** — `SKILL.md located`, `Path unambiguous`
-- **Phase 2** — `Baseline captured`, `Retrofit loop ran`, `Final score >= 85`, `All categories >= 8`
+- **Phase 2** — `Baseline captured`, `Retrofit loop ran`, `Final score > 85`, `All categories >= 8`
 - **Phase 3** — `Before/after delta >= 3 points OR category promoted`
 - **Phase 4** — `PR body rendered`, `Tone checks passed`
 - **Phase 5** — `User approved`

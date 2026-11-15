@@ -27,7 +27,7 @@ Before anything else, check `evals/misfires.jsonl` in the skill directory (schem
 
    Read `references/subagent-patterns.md` for the full catalog of patterns (Explorer+Executor, Parallel Workers, Review Loop, Research+Synthesis, Staged Pipeline) and guidance on writing subagent prompts and handling graceful degradation.
 
-This task is pretty important (we are trying to create billions a year in economic value here!) and your thinking time is not the blocker; take your time and really mull things over. I'd suggest writing a draft revision and then looking at it anew and making improvements. Really do your best to get into the head of the user and understand what they want and need.
+Write a draft revision, then reread it fresh and improve it before rerunning, keeping in view what the user actually wants and needs.
 
 ## The iteration loop
 

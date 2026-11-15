@@ -5,7 +5,7 @@ license: MIT
 compatibility: "Claude Code with the `asm` CLI on PATH"
 effort: medium
 metadata:
-  version: 1.5.0
+  version: 1.5.1
   author: "Luong NGUYEN <luongnv89@gmail.com>"
 ---
 
@@ -33,9 +33,9 @@ goal, confirm it, then map it onto real, installable skills from the live catalo
 Start at the step the user is already at. If they open with a rich goal ("I need
 SEO, a landing page, and launch copy for my SaaS"), confirm quickly and move to
 discovery. If they're vague ("help me market my app"), spend more time in steps
-1–2. Never skip step 2: confirming before searching keeps recommendations relevant.
+1–2. On a full loop run, never skip step 2: confirming before searching keeps recommendations relevant.
 
-If the user asks for one capability ("is there a skill that converts PDFs?"), skip the loop: run one `asm search "<term>" --available --json` and give the matching `asm install <installUrl>` line.
+If the user asks for one capability ("is there a skill that converts PDFs?"), skip the loop: run one `asm search "<term>" --available --json` and give the matching `installCommand` from the result.
 
 ## Prerequisite (check once, up front)
 
@@ -124,7 +124,7 @@ plan and ask for approval again.
 
 Only after the user approves the plan, write a **bundle file** in `asm`'s `BundleManifest` format with a goal-based name such as `marketing-starter.bundle.json`. Write it to the current directory unless the user names another path.
 
-See `references/bundle-format.md` for the required JSON template, validation rules, and the reason this skill uses `asm bundle install` instead of `asm install` or `asm import`. Copy each `installUrl` from Step 3 verbatim; never hand-construct it and never include already-installed skills.
+See `references/bundle-format.md` for the required JSON template, validation rules, and the reason this skill uses `asm bundle install` instead of `asm install` or `asm import`. Set each `installUrl` to that skill's Step 3 `installCommand` with the leading `asm install ` removed; never hand-construct it and never include already-installed skills.
 
 Check the file before handing it off:
 
@@ -171,7 +171,7 @@ landscape — leave them understanding what they're about to install and why.
 
 Verify all of these before calling the run complete:
 
-- The user explicitly confirmed the goal before any catalog search.
+- On a full loop run, the user explicitly confirmed the goal before any catalog search.
 - At least one `asm search "<term>" --available --json` query was run for each chosen search term.
 - Installed skills were checked with `asm search "<term>" --json` and excluded from the bundle.
 - The user approved the sequenced plan before any file was written.

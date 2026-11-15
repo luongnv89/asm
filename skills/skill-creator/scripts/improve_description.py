@@ -16,6 +16,19 @@ import anthropic
 from scripts.utils import parse_skill_md
 
 
+def _usage_dict(response) -> dict | None:
+    """Return the response's token usage as a plain dict, if the SDK provides it."""
+    usage = getattr(response, "usage", None)
+    if usage is None:
+        return None
+    if hasattr(usage, "model_dump"):
+        return usage.model_dump()
+    try:
+        return dict(usage)
+    except (TypeError, ValueError):
+        return {"raw": str(usage)}
+
+
 def improve_description(
     client: anthropic.Anthropic,
     skill_name: str,
@@ -132,19 +145,26 @@ Please respond with only the new description text in <new_description> tags, not
     match = re.search(r"<new_description>(.*?)</new_description>", text, re.DOTALL)
     description = match.group(1).strip().strip('"') if match else text.strip().strip('"')
 
+    if response.stop_reason in ("refusal", "max_tokens"):
+        print(f"Warning: improvement call stopped with stop_reason={response.stop_reason}; keeping the current description", file=sys.stderr)
+        description = current_description
+
     # Log the transcript
     transcript: dict = {
         "iteration": iteration,
         "prompt": prompt,
         "thinking": thinking_text,
         "response": text,
+        "stop_reason": response.stop_reason,
+        "usage": _usage_dict(response),
         "parsed_description": description,
         "char_count": len(description),
         "over_limit": len(description) > 1024,
     }
 
     # If over 1024 chars, ask the model to shorten it
-    if len(description) > 1024:
+    # The shorten call replays this turn, so skip it when the call above stopped early.
+    if len(description) > 1024 and response.stop_reason not in ("refusal", "max_tokens"):
         shorten_prompt = f"Your description is {len(description)} characters, which exceeds the hard 1024 character limit. Please rewrite it to be under 1024 characters while preserving the most important trigger words and intent coverage. Respond with only the new description in <new_description> tags."
         shorten_response = client.messages.create(
             model=model,
@@ -169,6 +189,12 @@ Please respond with only the new description text in <new_description> tags, not
         match = re.search(r"<new_description>(.*?)</new_description>", shorten_text, re.DOTALL)
         shortened = match.group(1).strip().strip('"') if match else shorten_text.strip().strip('"')
 
+        if shorten_response.stop_reason in ("refusal", "max_tokens"):
+            print(f"Warning: shorten call stopped with stop_reason={shorten_response.stop_reason}; keeping the current description", file=sys.stderr)
+            shortened = current_description
+
+        transcript["rewrite_stop_reason"] = shorten_response.stop_reason
+        transcript["rewrite_usage"] = _usage_dict(shorten_response)
         transcript["rewrite_prompt"] = shorten_prompt
         transcript["rewrite_thinking"] = shorten_thinking
         transcript["rewrite_response"] = shorten_text
