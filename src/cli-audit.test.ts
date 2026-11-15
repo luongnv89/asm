@@ -537,7 +537,17 @@ describe("CLI integration: audit security <local path> (#779)", () => {
     );
     expect(mLocal.status).toBe("ok");
     expect(mLocal.command).toBe("audit security");
-    expect(mLocal.data).toEqual(mInstalled.data);
+    // Same link caveat as resolvedPath above: --machine findings carry it as
+    // resolved_path.
+    const dropResolvedPath = (data: {
+      findings: Record<string, unknown>[];
+    }) => ({
+      ...data,
+      findings: data.findings.map(({ resolved_path: _, ...rest }) => rest),
+    });
+    expect(dropResolvedPath(mLocal.data)).toEqual(
+      dropResolvedPath(mInstalled.data),
+    );
   });
 
   test("an installed name wins over a same-named folder in cwd", async () => {
