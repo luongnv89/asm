@@ -6,7 +6,7 @@ compatibility: "git and Python 3 on PATH"
 allowed-tools: Bash Read Write Edit Grep Glob
 effort: medium
 metadata:
-  version: 1.0.0
+  version: 1.0.1
   author: luongnv89
 ---
 
@@ -36,7 +36,7 @@ In automatic mode, skip it: the calling run already synced and its bump must not
 (R="$(git -C "<skill-dir>" rev-parse --show-toplevel)" && branch="$(git -C "$R" rev-parse --abbrev-ref HEAD)" || exit 1
 if git -C "$R" ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
   dirty=0
-  if [ -n "$(git -C "$R" status --porcelain)" ]; then git -C "$R" stash push -u -m "pre-skill-changelog" && dirty=1; fi
+  if [ -n "$(git -C "$R" status --porcelain --untracked-files=no)" ]; then git -C "$R" stash push -m "pre-skill-changelog" && dirty=1; fi
   git -C "$R" pull --rebase origin "$branch" || { echo "Rebase failed: run git -C $R rebase --abort, then ask the user"; exit 1; }
   if [ "$dirty" -eq 1 ]; then git -C "$R" stash pop || { echo "Stash pop failed: see git -C $R stash list"; exit 1; }; fi
 else
