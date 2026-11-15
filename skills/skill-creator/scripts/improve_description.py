@@ -2,7 +2,7 @@
 """Improve a skill description based on eval results.
 
 Takes eval results (from run_eval.py) and generates an improved description
-using Claude with extended thinking.
+using Claude with adaptive thinking.
 """
 
 import argparse
@@ -99,7 +99,7 @@ Based on the failures, write a new and improved description that is more likely 
 1. Avoid overfitting
 2. The list might get loooong and it's injected into ALL queries and there might be a lot of skills, so we don't want to blow too much space on any given description.
 
-Concretely, your description should not be more than about 100-200 words, even if that comes at the cost of accuracy.
+Keep the description to about 250 characters: Claude Code's skill listing truncates longer descriptions from the end, which cuts off the "Don't use for ..." clause. 1024 characters is a hard limit.
 
 Here are some tips that we've found to work well in writing these descriptions:
 - The skill should be phrased in the imperative -- "Use this skill for" rather than "this skill does"
@@ -114,10 +114,8 @@ Please respond with only the new description text in <new_description> tags, not
     response = client.messages.create(
         model=model,
         max_tokens=16000,
-        thinking={
-            "type": "enabled",
-            "budget_tokens": 10000,
-        },
+        thinking={"type": "adaptive", "display": "summarized"},
+        output_config={"effort": "high"},
         messages=[{"role": "user", "content": prompt}],
     )
 
@@ -151,10 +149,8 @@ Please respond with only the new description text in <new_description> tags, not
         shorten_response = client.messages.create(
             model=model,
             max_tokens=16000,
-            thinking={
-                "type": "enabled",
-                "budget_tokens": 10000,
-            },
+            thinking={"type": "adaptive", "display": "summarized"},
+            output_config={"effort": "high"},
             messages=[
                 {"role": "user", "content": prompt},
                 {"role": "assistant", "content": text},

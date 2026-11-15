@@ -6,7 +6,7 @@ compatibility: "Claude Code"
 allowed-tools: Bash Read Write Edit Grep Glob
 effort: high
 metadata:
-  version: 1.4.0
+  version: 1.4.1
   author: luongnv89
 ---
 
@@ -30,8 +30,8 @@ Before re-ingesting anything, pull the latest remote branch:
 ```bash
 branch="$(git rev-parse --abbrev-ref HEAD)"
 dirty=0
-if [ -n "$(git status --porcelain)" ]; then
-  git stash push -u -m "pre-refresh-index: ${branch}"
+if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
+  git stash push -m "pre-refresh-index: ${branch}"
   dirty=1
 fi
 git fetch origin

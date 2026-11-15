@@ -5,7 +5,7 @@ license: MIT
 compatibility: "Python 3 for scripts/quick_validate.py; `asm` on PATH for the Gate 2 score check"
 effort: max
 metadata:
-  version: 2.2.0
+  version: 2.2.1
   author: "Luong NGUYEN <luongnv89@gmail.com>"
 ---
 
@@ -79,7 +79,7 @@ Users span a wide range of technical familiarity. Match jargon to context cues â
 When creating or updating any skill that changes files in a git repository (code, docs, config, commits, publishing), include this rule in that skill's SKILL.md:
 
 - Add a **"Repo Sync Before Edits (mandatory)"** section near the top requiring `branch="$(git rev-parse --abbrev-ref HEAD)"; git fetch origin && git pull --rebase origin "$branch"` before modifications.
-- If the working tree is dirty: stash, sync, then pop.
+- If tracked files are modified (`git status --porcelain --untracked-files=no`): `git stash push` without `-u`, sync, then pop. Untracked files stay in place; other sessions may own them.
 - If `origin` is missing or conflicts occur: stop and ask the user before continuing.
 
 Do not ship repo-mutating skills without this pre-sync guardrail.
