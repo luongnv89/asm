@@ -503,3 +503,96 @@ describe("scorePII reserved email domains (#772)", () => {
     expect(pii.findings).toContain("[email] SKILL.md:7 — found 1 match(es)");
   });
 });
+
+// Issue #841 — a versioned file name or package spec (`web@0.4.1.js`,
+// `lib@3.7.1.min.js`) has the `local@domain.tld` shape, so the email regex
+// matched it and a skill pinning a CDN file lost 2 pii points. Specs without
+// an alphabetic tail (`pkg@1.2.3`, `pkg@latest`, `/name@0/`) never matched
+// the regex; they are listed so both shapes stay covered.
+
+const VERSION_SPECS = [
+  "web@0.4.1.js",
+  "https://ui-sdk.dev/web@0.4.1.js",
+  "name@1.2.3.js",
+  "name@0.js",
+  "lib@3.7.1.min.js",
+  "pkg@1.2.3-beta.rc",
+  "styles@2.0.css",
+  "/name@0/",
+  "https://cdn.example.dev/npm/web@0/dist/web.js",
+  "pkg@1.2.3",
+  "@scope/pkg@1.2.3",
+  "pkg@^1.2",
+  "pkg@latest",
+  "react@19.0.0",
+];
+
+const REAL_EMAILS = [
+  "jane.doe@acme-corp.io",
+  "a+b@sub.example.co.uk",
+  "[Mail me](mailto:jane.doe@acme-corp.io)",
+  "<jane.doe@acme-corp.io>",
+  // Digit-led domains are real mail providers, not versions.
+  "user@163.com",
+  "user@126.net",
+  "ops@1and1.com",
+];
+
+describe("scorePII versioned file names and package specs (#841)", () => {
+  let dir: string;
+
+  beforeEach(async () => {
+    dir = await mkdtemp(join(tmpdir(), "pii-841-"));
+  });
+
+  afterEach(async () => {
+    await rm(dir, { recursive: true, force: true });
+  });
+
+  async function writeSkill(body: string) {
+    await writeFile(
+      join(dir, "SKILL.md"),
+      `---\nname: pii-841\ndescription: Test skill.\n---\n# Test\n\n${body}\n`,
+    );
+  }
+
+  it.each(VERSION_SPECS)("does not report %s as an email", async (spec) => {
+    await writeSkill(`Load \`${spec}\` before rendering.`);
+    const pii = await scorePII(dir);
+    expect(pii.score).toBe(10);
+    expect(pii.findings).toEqual(["No PII detected in skill files."]);
+  });
+
+  it("scores the issue's reproduction line as clean", async () => {
+    await writeSkill(
+      "Load `https://ui-sdk.dev/web@0.4.1.js` and pin `react@19.0.0`.",
+    );
+    const pii = await scorePII(dir);
+    expect(pii.score).toBe(10);
+    expect(pii.findings).toEqual(["No PII detected in skill files."]);
+  });
+
+  it.each(REAL_EMAILS)("still reports %s as an email", async (email) => {
+    await writeSkill(`Contact: ${email}`);
+    const pii = await scorePII(dir);
+    expect(pii.score).toBe(8);
+    expect(pii.findings).toContain("[email] SKILL.md:7 — found 1 match(es)");
+  });
+
+  it("counts only the real address on a line that mixes both", async () => {
+    await writeSkill(
+      "Pin `web@0.4.1.js` and `lib@3.7.1.min.js`, then mail jane.doe@acme-corp.io",
+    );
+    const pii = await scorePII(dir);
+    expect(pii.score).toBe(8);
+    expect(pii.findings).toContain("[email] SKILL.md:7 — found 1 match(es)");
+  });
+
+  it("leaves the other PII categories unchanged", async () => {
+    await writeSkill("Pin `web@0.4.1.js` or call 555-123-4567.");
+    const pii = await scorePII(dir);
+    expect(pii.score).toBe(8);
+    expect(pii.findings).toContain("[phone] SKILL.md:7 — found 1 match(es)");
+    expect(pii.findings.some((f) => f.startsWith("[email]"))).toBe(false);
+  });
+});
