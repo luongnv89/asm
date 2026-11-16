@@ -3,15 +3,17 @@ import {
   link,
   mkdtemp,
   mkdir,
+  readlink,
   realpath,
   rm,
   symlink,
   writeFile,
 } from "fs/promises";
-import { join, sep } from "path";
+import { isAbsolute, join, resolve, sep } from "path";
 import { tmpdir } from "os";
 import { spawnSync } from "child_process";
 import {
+  copySkillTree,
   isPathInside,
   readBoundedTextFile,
   readFilesRecursive,
@@ -416,5 +418,69 @@ describe("readFilesRecursive binary files (#809)", () => {
     expect(paths).toContain("scripts/old.pyo");
     expect(paths).toContain("scripts/polyglot.pyc");
     expect(paths).toContain("scripts/legacy.pyo");
+  });
+});
+
+describe.skipIf(process.platform === "win32")("copySkillTree (#819)", () => {
+  let base: string;
+  let src: string;
+  let dest: string;
+
+  beforeEach(async () => {
+    base = await mkdtemp(join(tmpdir(), "asm-fs-copy-"));
+    src = join(base, "src");
+    dest = join(base, "dest");
+    await mkdir(join(src, "a", "b"), { recursive: true });
+    await writeFile(join(src, "a", "file.md"), "a\n");
+  });
+
+  afterEach(async () => {
+    await rm(base, { recursive: true, force: true });
+  });
+
+  test("keeps relative links whose target stays inside the folder", async () => {
+    await symlink("../file.md", join(src, "a", "b", "up.md"));
+    await symlink("a/b", join(src, "dir-link"));
+    await symlink("./a/../a/file.md", join(src, "dotted.md"));
+    await copySkillTree(src, dest);
+    expect(await readlink(join(dest, "a", "b", "up.md"))).toBe("../file.md");
+    expect(await readlink(join(dest, "dir-link"))).toBe("a/b");
+    expect(await readlink(join(dest, "dotted.md"))).toBe("./a/../a/file.md");
+    expect(await realpath(join(dest, "dotted.md"))).toBe(
+      await realpath(join(dest, "a", "file.md")),
+    );
+  });
+
+  test("leaves links out of the folder, absolute, dangling or looping as fs.cp writes them", async () => {
+    await symlink("../outside", join(src, "escape"));
+    await symlink("a/../../outside", join(src, "dips-out"));
+    await symlink("/etc/hosts", join(src, "absolute"));
+    await symlink("missing.md", join(src, "dangling"));
+    await symlink("loop", join(src, "loop"));
+    await copySkillTree(src, dest);
+    expect(await readlink(join(dest, "escape"))).toBe(
+      resolve(src, "../outside"),
+    );
+    expect(await readlink(join(dest, "dips-out"))).toBe(
+      resolve(src, "a/../../outside"),
+    );
+    expect(await readlink(join(dest, "absolute"))).toBe("/etc/hosts");
+    expect(await readlink(join(dest, "dangling"))).toBe(
+      resolve(src, "missing.md"),
+    );
+    expect(isAbsolute(await readlink(join(dest, "loop")))).toBe(true);
+  });
+
+  test("keeps the fs.cp rewrite when the text stays inside but the real path leaves", async () => {
+    // `a/here -> .` is `a`, so `a/here/../..` reads as the root but is its parent.
+    await symlink(".", join(src, "a", "here"));
+    await symlink("here/..", join(src, "a", "to-root"));
+    await symlink("a/here/../..", join(src, "sneaky"));
+    await copySkillTree(src, dest);
+    expect(await readlink(join(dest, "a", "here"))).toBe(".");
+    expect(await readlink(join(dest, "a", "to-root"))).toBe("here/..");
+    expect(await readlink(join(dest, "sneaky"))).toBe(
+      resolve(src, "a/here/../.."),
+    );
   });
 });

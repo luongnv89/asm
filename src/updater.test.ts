@@ -7,11 +7,13 @@ import {
   rm,
   readFile,
   readdir,
+  readlink,
   realpath,
   symlink,
 } from "fs/promises";
 import { tmpdir } from "os";
-import { join } from "path";
+import { isAbsolute, join } from "path";
+import { isPathInside } from "./utils/fs";
 import {
   shortHash,
   resolveSourceType,
@@ -3237,3 +3239,118 @@ describe("removed-upstream in outdated output (#814)", () => {
     );
   });
 });
+
+// ─── updateSkill keeps a skill's internal symlinks (#819) ───────────────────
+
+describe.skipIf(process.platform === "win32")(
+  "updateSkill symlinks and temp dir (#819)",
+  () => {
+    let tempDir: string;
+
+    beforeEach(async () => {
+      tempDir = await mkdtemp(join(tmpdir(), "asm-update-links-"));
+    });
+
+    afterEach(async () => {
+      await rm(tempDir, { recursive: true, force: true });
+    });
+
+    /** A root-level skill holding `skills/s/shared -> ../../shared` and a link out of it. */
+    async function createRepoWithLinks(): Promise<string> {
+      const { execFile } = await import("child_process");
+      const { promisify } = await import("util");
+      const exec = promisify(execFile);
+      const workDir = join(tempDir, "linked-work");
+      const bareDir = join(tempDir, "linked.git");
+      await mkdir(join(workDir, "shared"), { recursive: true });
+      await mkdir(join(workDir, "skills", "s"), { recursive: true });
+      await exec("git", ["init", workDir], {
+        env: { ...process.env, GIT_DEFAULT_HASH: "sha1" },
+      });
+      await exec("git", ["-C", workDir, "config", "user.email", "t@t.com"]);
+      await exec("git", ["-C", workDir, "config", "user.name", "Test"]);
+      await writeFile(join(workDir, "SKILL.md"), "# Linked\n");
+      await writeFile(join(workDir, "shared", "notes.md"), "shared notes\n");
+      await symlink("../../shared", join(workDir, "skills", "s", "shared"));
+      await symlink("../outside", join(workDir, "escape"));
+      await exec("git", ["-C", workDir, "add", "."]);
+      await exec("git", ["-C", workDir, "commit", "-m", "init"]);
+      await exec("git", ["clone", "--bare", workDir, bareDir]);
+      return bareDir;
+    }
+
+    async function runUpdate(
+      skillsDir: string,
+      onAudit?: (boundary: string | undefined) => void,
+    ) {
+      const entry: LockEntry = {
+        source: `file://${await createRepoWithLinks()}`,
+        commitHash: "a".repeat(40),
+        ref: null,
+        installedAt: "2026-01-01T00:00:00.000Z",
+        provider: "claude",
+        sourceType: "github",
+      };
+      return updateSkill("linked", entry, false, {
+        auditFn: async (...args: any[]) => {
+          onAudit?.(args[4]?.boundary);
+          return { verdict: "safe" } as any;
+        },
+        loadConfigFn: async () =>
+          ({ providers: [{ name: "claude", global: skillsDir }] }) as any,
+        resolveProviderPathFn: (p: string) => p,
+        writeLockEntryFn: async () => {},
+      });
+    }
+
+    test.each([
+      ["replacing an installed copy", true],
+      ["into an empty target", false],
+    ])(
+      "an internal relative symlink stays relative and resolves (%s)",
+      async (_label, installed) => {
+        const skillsDir = join(tempDir, "skills-root");
+        const installedDir = join(skillsDir, "linked");
+        if (installed) {
+          await mkdir(installedDir, { recursive: true });
+          await writeFile(join(installedDir, "SKILL.md"), "# Old\n");
+        }
+
+        const result = await runUpdate(skillsDir);
+        expect(result.status).toBe("updated");
+
+        const link = join(installedDir, "skills", "s", "shared");
+        expect(await readlink(link)).toBe("../../shared");
+        expect(await readFile(join(link, "notes.md"), "utf-8")).toBe(
+          "shared notes\n",
+        );
+      },
+    );
+
+    test("a link that leaves the skill folder keeps the fs.cp rewrite", async () => {
+      const skillsDir = join(tempDir, "skills-root");
+      const result = await runUpdate(skillsDir);
+      expect(result.status).toBe("updated");
+      const target = await readlink(join(skillsDir, "linked", "escape"));
+      expect(isAbsolute(target)).toBe(true);
+      expect(target).not.toBe("../outside");
+    });
+
+    test("clones under getConfigDir(), so ASM_CONFIG_DIR covers the temp dir", async () => {
+      const previous = process.env.ASM_CONFIG_DIR;
+      const configDir = join(tempDir, "custom-config");
+      process.env.ASM_CONFIG_DIR = configDir;
+      let boundary: string | undefined;
+      try {
+        const result = await runUpdate(join(tempDir, "skills-root"), (b) => {
+          boundary = b;
+        });
+        expect(result.status).toBe("updated");
+      } finally {
+        process.env.ASM_CONFIG_DIR = previous;
+      }
+      expect(boundary).toBeDefined();
+      expect(isPathInside(join(configDir, ".tmp"), boundary!)).toBe(true);
+    });
+  },
+);

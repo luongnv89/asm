@@ -1,5 +1,6 @@
 import { constants as fsConstants, type Stats } from "fs";
 import {
+  cp,
   lstat,
   open,
   readdir,
@@ -7,6 +8,7 @@ import {
   realpath,
   stat,
   symlink,
+  unlink,
 } from "fs/promises";
 import type { ExternalSymlink } from "./types";
 import {
@@ -108,6 +110,64 @@ export function isPathInside(parent: string, child: string): boolean {
     rel === "" ||
     (rel !== ".." && !rel.startsWith(`..${sep}`) && !isAbsolute(rel))
   );
+}
+
+/**
+ * Copy a skill folder the way `fs.cp` does, but keep its internal relative
+ * symlinks relative (#819).
+ *
+ * `fs.cp` without `verbatimSymlinks` rewrites every relative link into an
+ * absolute path into `src` — a temp clone that is deleted after install or
+ * update, so the link dangles. This restores the link text for a relative
+ * link whose target stays inside `src`, both by its text (no `..` above the
+ * folder) and by its real path. Every other link — absolute, leaving the
+ * folder, dangling or looping — keeps the `fs.cp` result unchanged, so the
+ * outside-folder symlink policy does not change.
+ */
+export async function copySkillTree(src: string, dest: string): Promise<void> {
+  await cp(src, dest, { recursive: true });
+  if (!(await lstat(dest)).isDirectory()) return;
+  const srcReal = await realpath(src);
+  const walk = async (rel: string): Promise<void> => {
+    const entries = await readdir(join(dest, rel), { withFileTypes: true });
+    for (const entry of entries) {
+      const childRel = join(rel, entry.name);
+      if (entry.isDirectory()) {
+        await walk(childRel);
+      } else if (entry.isSymbolicLink()) {
+        const text = await readlink(join(src, childRel));
+        if (await isInternalLink(src, srcReal, childRel, text)) {
+          const linkPath = join(dest, childRel);
+          await unlink(linkPath);
+          await symlink(text, linkPath);
+        }
+      }
+    }
+  };
+  await walk("");
+}
+
+/** True when the relative link at `rel` under `root` never leaves it. */
+async function isInternalLink(
+  root: string,
+  rootReal: string,
+  rel: string,
+  text: string,
+): Promise<boolean> {
+  if (isAbsolute(text) || /^[\\/]/.test(text)) return false;
+  let depth = dirname(rel)
+    .split(/[\\/]/)
+    .filter((part) => part !== "" && part !== ".").length;
+  for (const part of text.split(/[\\/]/)) {
+    if (part === "" || part === ".") continue;
+    depth += part === ".." ? -1 : 1;
+    if (depth < 0) return false;
+  }
+  try {
+    return isPathInside(rootReal, await realpath(join(root, rel)));
+  } catch {
+    return false;
+  }
 }
 
 /**
