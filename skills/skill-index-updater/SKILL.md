@@ -6,7 +6,7 @@ compatibility: Claude Code
 allowed-tools: Bash Read Write Edit Grep Glob WebFetch Agent
 effort: high
 metadata:
-  version: 2.4.1
+  version: 2.4.2
   author: luongnv89
 ---
 
@@ -66,7 +66,7 @@ You are the **orchestrator**. Steps 2 and 3 are the heavy ones, and you delegate
 For each URL provided:
 
 1. Extract `owner` and `repo` from the URL.
-2. Request `https://api.github.com/repos/{owner}/{repo}`. A 200 response means the repo exists; any other status marks it `INVALID` with that status.
+2. Request `https://api.github.com/repos/{owner}/{repo}`. A 200 response means the repo exists; keep its `stargazers_count` for Step 8. Any other status marks it `INVALID` with that status.
 3. Replace `owner` and `repo` with the two halves of the response's `full_name`. The ingester names files and `installUrl`s with the case it is given, so `Anthropics/Skills` would otherwise create a duplicate entry.
 4. Look up `github:{owner}/{repo}` in `data/skill-index-resources.json`. If present, mark it `EXISTS` (re-index); otherwise mark it `NEW`.
 
@@ -188,7 +188,7 @@ If the block stops on a comma, do not fall back to the manual path: report the e
 
 With `--exclude`, the JSON output adds `excluded` (names left out) and `unmatchedExcludes` (names that matched no discovered skill). A non-empty `unmatchedExcludes` is not a failure, but it means an exclusion is misspelled or the skill was renamed or removed upstream: list it under Uncertainty in the final output.
 
-The ingested file's `skillCount` is authoritative. Use it in Step 9, the commit message, and the PR. If it differs from the Step 2 count, report both. The ingester populates `tokenCount` on every skill entry and, best-effort, `evalSummary` (`overallScore`, `grade`, `categories`, `evaluatedAt`, plus `evaluatedVersion`: the skill's `metadata.version` or `version`, or `"0.0.0"` when it declares neither); these power the catalog's "est. tokens" and "eval score" badges.
+The ingested file's `skillCount` is authoritative. Use it in Step 9, the commit message, and the PR. If it differs from the Step 2 count, report both. The ingester populates `tokenCount` on every skill entry and, best-effort, `evalSummary` (field shape: `references/manual-index.md`); these power the catalog's "est. tokens" and "eval score" badges.
 
 If the ingest exits non-zero for a repo, follow `references/manual-index.md` for that repo only, and record it as manually generated. That fallback takes `evalSummary` from `asm eval <clonePath>/<relPath> --json` and `tokenCount` from `asm inspect <clonePath>/<relPath> --json`, with `clonePath` and `relPath` taken from that repo's Step 2 worker result.
 
@@ -203,7 +203,9 @@ jq --arg p "github:{owner}/{repo}" \
 git restore -- website/ data/repo-stars.json
 ```
 
-Verification: `build-catalog` and `jq empty` exit 0, and the count for each repo equals its `skillCount`. If `build-catalog` fails, stop — a PR with a broken catalog must not land. `build-catalog` also rewrites tracked outputs (`website/*-stats.json`, `website/robots.txt`, and `data/repo-stars.json` on any networked run) with fresh values; `git restore -- website/ data/repo-stars.json` reverts them (safe because the prerequisites required a clean `website/` and `data/`). It leaves the gitignored `website/catalog.json` in place.
+Verification: `build-catalog` and `jq empty` exit 0, and the count for each repo equals its `skillCount`. If `build-catalog` fails, stop — a PR with a broken catalog must not land. `build-catalog` also rewrites tracked outputs (`website/*-stats.json`, `website/robots.txt`, and `data/repo-stars.json` on any networked run); `git restore -- website/ data/repo-stars.json` reverts them (safe only from the clean start the prerequisites require) and keeps the gitignored `website/catalog.json`.
+
+After the restore, add each NEW repo's star baseline per `references/star-baseline.md`.
 
 ### Step 9: Verify Everything
 
@@ -212,7 +214,8 @@ Check each item. If one fails, fix it before Step 10:
 1. `jq empty data/skill-index-resources.json` exits 0 and the file contains every NEW repo.
 2. Each added or updated `data/skill-index/{owner}_{repo}.json` passes `jq empty`.
 3. Every skill entry in those files has a numeric `tokenCount` and an `evalSummary` with `overallScore`, `grade`, and `categories`. Evaluation is best-effort in the ingester: list any skill missing `evalSummary` under Uncertainty instead of failing the run.
-4. `git status --porcelain --untracked-files=no | cut -c4-` and `git status --porcelain -- data/ | cut -c4-` together list only `data/skill-index-resources.json` and the index files of the repos in this run. Untracked files outside `data/` are not part of this check; other sessions may own them, and staging by name keeps them out of the commit.
+4. `git status --porcelain --untracked-files=no | cut -c4-` and `git status --porcelain -- data/ | cut -c4-` together list only `data/skill-index-resources.json`, `data/repo-stars.json` (NEW repos only), and the index files of the repos in this run. Untracked files outside `data/` are not part of this check; other sessions may own them, and staging by name keeps them out of the commit.
+5. The _Verify_ checks in `references/star-baseline.md` pass, including `CI=true npx vitest run src/repo-stars.test.ts` (exit 0).
 
 Print the pre-PR summary:
 
@@ -247,7 +250,7 @@ Checks per step:
 - **Steps 2–3** — `one result per repo`, `one audit row per discovered skill`
 - **Steps 4–6** — `EXISTS changes confirmed`, `branch created`, `resources entry added per NEW repo`
 - **Step 7** — `one index file per repo`, `manual fallbacks named (if any)`
-- **Steps 8–9** — `build-catalog exit 0`, `catalog count matches skillCount`, `diff scope contained`
+- **Steps 8–9** — `build-catalog exit 0`, `catalog count matches skillCount`, `star baseline per NEW repo`, `diff scope contained`
 - **Step 10** — `PR URL returned`
 
 ## Final output
@@ -264,7 +267,7 @@ End the run with a short report:
 The expected output of a successful run, each item checkable:
 
 - Every input URL appears in the Step 1 table with a status.
-- `git status --porcelain --untracked-files=no` plus `git status --porcelain -- data/` before commit list only the resources file and the index files of this run's repos.
+- `git status --porcelain --untracked-files=no` plus `git status --porcelain -- data/` before commit list only the resources file, `data/repo-stars.json` (NEW repos only), and the index files of this run's repos.
 - Each added skill appears in `website/catalog.json`, and `website/catalog.json` is not staged.
 - The PR audit summary matches the Step 3 OK / WARN / FLAG counts.
 - `gh pr view --json url` returns a URL, or the commit SHA is reported on failure.
@@ -317,4 +320,5 @@ Optional and propose-only. After the run's result is delivered, run this check:
 - `references/audit-eval-contract.md` — the Step 3 worker's slice: lightweight audit + `asm eval`, returned as fixed JSON rows
 - `references/manual-index.md` — Step 7 fallback: hand-built index file for a repo whose ingest failed
 - `references/commit-and-pr.md` — Step 10 staging, commit message, and PR body template
+- `references/star-baseline.md` — Steps 8–9 star baseline for NEW repos
 - `references/edge-cases.md` — the required response to each failure or unusual-repo condition (bad URL, clone/ingest/build failure, auth, already-indexed repo)

@@ -26,6 +26,7 @@
       "files": [],
       "expectations": [
         "Each repo has its own index file staged by name",
+        "data/repo-stars.json gained exactly one stars entry per NEW repo, with generatedAt and every other entry unchanged",
         "Each repo's catalog skill count equals its skillCount",
         "The first line of the final output states the completion status",
         "Untested behavior and assumptions are labeled separately from observed checks",
@@ -42,6 +43,7 @@
       "expectations": [
         "The run showed added, removed, and changed skills before asking to confirm",
         "No index file was overwritten before confirmation",
+        "No data/repo-stars.json entry was added or staged for the EXISTS repo",
         "The first line of the final output states the completion status",
         "Untested behavior and assumptions are labeled separately from observed checks",
         "Each material claim points to a command result, file, or URL that supports it",

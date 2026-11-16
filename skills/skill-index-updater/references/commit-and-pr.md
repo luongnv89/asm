@@ -6,7 +6,10 @@ merge. Never stage it — stage only the data files:
 ```bash
 git add data/skill-index-resources.json
 git add data/skill-index/{owner}_{repo}.json   # one per added or updated repo
+git add data/repo-stars.json   # only when the run adds a NEW repo (Step 8 star baseline)
 ```
+
+An EXISTS-only run stages no `data/repo-stars.json`: its diff must be empty.
 
 Stage each repo's index file by name. Never `git add data/skill-index/*.json`:
 a glob picks up unrelated index files if anything else touched them.
@@ -57,6 +60,7 @@ gh pr create --title "feat(index): add {description}" --body-file - <<'EOF'
 - [ ] `data/skill-index-resources.json` is valid JSON
 - [ ] Index files generated in `data/skill-index/`
 - [ ] `website/catalog.json` rebuilt successfully
+- [ ] `data/repo-stars.json` has one new entry per NEW repo; `CI=true npx vitest run src/repo-stars.test.ts` passes
 - [ ] CI passes
 EOF
 ```

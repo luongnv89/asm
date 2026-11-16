@@ -451,3 +451,54 @@ describe("self-improve section in every created or updated skill", () => {
     expect(creatorReport).toContain("Self-Improve section");
   });
 });
+
+describe("skill-index-updater star baseline (#839)", () => {
+  // Since #788, src/repo-stars.test.ts requires a data/repo-stars.json entry
+  // for every enabled repo. The skill added NEW repos without one, and Step 8's
+  // restore reverted any baseline build-catalog fetched, so its own Step 9 left
+  // the suite red and the pre-push hook blocked Step 10.
+  const baselineRefPath =
+    "skills/skill-index-updater/references/star-baseline.md";
+  const commitAndPr = readRepoFile(
+    "skills/skill-index-updater/references/commit-and-pr.md",
+  );
+
+  it("Step 1 keeps the star count from the GitHub API response", () => {
+    const step1 = section(indexUpdaterSkill, "### Step 1:", "### Step 2:");
+    expect(step1).toContain("stargazers_count");
+  });
+
+  it("Step 8 adds the baseline after its restore, so the restore cannot revert it", () => {
+    const step8 = section(indexUpdaterSkill, "### Step 8:", "### Step 9:");
+    expect(step8).toMatch(
+      /git restore -- website\/ data\/repo-stars\.json[\s\S]*references\/star-baseline\.md/,
+    );
+  });
+
+  it("the baseline reference appends one entry per NEW repo and nothing else", () => {
+    expect(existsSync(repoPath(baselineRefPath))).toBe(true);
+    const ref = readRepoFile(baselineRefPath);
+    expect(ref).toContain("stargazers_count");
+    // Appends to .stars only (jq keeps key order; new keys go last) and
+    // refuses a key that already has a baseline.
+    expect(ref).toMatch(/\.stars \+= \{\(\$k\): \$n\}/);
+    expect(ref).toMatch(/has\(\$k\)[\s\S]*error\(/);
+    expect(ref).toContain("generatedAt");
+    expect(ref).toMatch(/EXISTS[\s\S]{0,80}no star entry/);
+  });
+
+  it("Step 9 scopes the file in and runs the baseline test before Step 10", () => {
+    const step9 = section(indexUpdaterSkill, "### Step 9:", "### Step 10:");
+    expect(step9).toContain("data/repo-stars.json");
+    expect(step9).toContain("CI=true npx vitest run src/repo-stars.test.ts");
+  });
+
+  it("Step 10 stages data/repo-stars.json for NEW repos", () => {
+    expect(commitAndPr).toContain("git add data/repo-stars.json");
+  });
+
+  it("the SKILL.md body stays under 3000 words, so asm eval's context-efficiency holds", () => {
+    const body = bodyOf(indexUpdaterSkill);
+    expect(body.split(/\s+/).filter(Boolean).length).toBeLessThan(3000);
+  });
+});

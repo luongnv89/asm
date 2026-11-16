@@ -66,5 +66,6 @@ Without the Agent tool the skill degrades gracefully: the main agent reads both 
 
 - Updated `data/skill-index-resources.json` with new repo entries
 - Generated `data/skill-index/{owner}_{repo}.json` index files
+- One `data/repo-stars.json` star baseline per new repo, so `src/repo-stars.test.ts` stays green
 - Rebuilt `website/catalog.json` with new skills categorized
 - A feature branch with a PR ready for review
