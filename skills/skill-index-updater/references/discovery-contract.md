@@ -47,9 +47,10 @@ the Output section below pins that value.
    `description` (required), `license`, and `compatibility`, plus three fields
    resolved the way the ingester (`src/utils/frontmatter.ts`) resolves them:
    - `version` — `metadata.version`, else top-level `version`, else `"0.0.0"`.
-   - `creator` — the first non-empty of `metadata.creator`, `metadata.author`,
-     `creator`, `author`, as a display name only: drop every email address
-     (`Name <user@host>` → `Name`) and join list entries with `", "`.
+   - `creator` — a display name only: drop every email address
+     (`Name <user@host>` → `Name`) and join list entries with `", "`. Take the
+     first of `metadata.creator`, `metadata.author`, `creator`, `author` that
+     still has a name after that; a key left empty falls through to the next.
    - `allowedTools` — from `allowed-tools` only, split on spaces and commas;
      `[]` when absent.
 
