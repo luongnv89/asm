@@ -471,16 +471,22 @@ describe.skipIf(process.platform === "win32")("copySkillTree (#819)", () => {
     expect(isAbsolute(await readlink(join(dest, "loop")))).toBe(true);
   });
 
-  test("keeps the fs.cp rewrite when the text stays inside but the real path leaves", async () => {
+  test("keeps the fs.cp rewrite when a `..` follows a linked component", async () => {
     // `a/here -> .` is `a`, so `a/here/../..` reads as the root but is its parent.
     await symlink(".", join(src, "a", "here"));
-    await symlink("here/..", join(src, "a", "to-root"));
     await symlink("a/here/../..", join(src, "sneaky"));
+    // `r -> .`: `r/..` climbs out of the copy and `src` comes back into the
+    // source, but in the copy it would name a sibling of `dest`.
+    await symlink(".", join(src, "r"));
+    await symlink("r/../src/a/file.md", join(src, "leak"));
     await copySkillTree(src, dest);
     expect(await readlink(join(dest, "a", "here"))).toBe(".");
-    expect(await readlink(join(dest, "a", "to-root"))).toBe("here/..");
+    expect(await readlink(join(dest, "r"))).toBe(".");
     expect(await readlink(join(dest, "sneaky"))).toBe(
       resolve(src, "a/here/../.."),
+    );
+    expect(await readlink(join(dest, "leak"))).toBe(
+      resolve(src, "r/../src/a/file.md"),
     );
   });
 });
