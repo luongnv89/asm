@@ -6,6 +6,7 @@ import {
   evaluateSkill,
   evaluateSkillContent,
   evaluateSkillContentSync,
+  findInheritedLicenseFile,
   formatFixPreview,
   formatReport,
 } from "./evaluator-fix";
@@ -29,6 +30,12 @@ const fsCtl = vi.hoisted(() => ({
     path: string,
     options?: unknown,
   ) => Promise<unknown>,
+  /**
+   * When set, readdir/stat/realpath answer from this virtual tree (dir →
+   * entries; an entry named LICENSE is a regular file) instead of the disk,
+   * so a skill can sit at the filesystem root (#856).
+   */
+  virtualTree: null as Record<string, string[]> | null,
 }));
 
 vi.mock("./utils/spawn", () => ({
@@ -41,6 +48,14 @@ vi.mock("fs/promises", async (importOriginal) => {
   return {
     ...actual,
     readdir: (path: string, options?: unknown) => {
+      const tree = fsCtl.virtualTree;
+      if (tree) {
+        return tree[String(path)]
+          ? Promise.resolve(tree[String(path)])
+          : Promise.reject(
+              Object.assign(new Error("ENOENT"), { code: "ENOENT" }),
+            );
+      }
       if (fsCtl.readdirFailures.has(String(path))) {
         return Promise.reject(
           Object.assign(new Error("EACCES: permission denied"), {
@@ -50,6 +65,20 @@ vi.mock("fs/promises", async (importOriginal) => {
       }
       return fsCtl.realReaddir(path, options);
     },
+    stat: ((path: string, ...rest: unknown[]) =>
+      fsCtl.virtualTree
+        ? Promise.resolve({ isFile: () => String(path).endsWith("LICENSE") })
+        : (actual.stat as (...a: unknown[]) => Promise<unknown>)(
+            path,
+            ...rest,
+          )) as typeof actual.stat,
+    realpath: ((path: string, ...rest: unknown[]) =>
+      fsCtl.virtualTree
+        ? Promise.resolve(String(path))
+        : (actual.realpath as (...a: unknown[]) => Promise<unknown>)(
+            path,
+            ...rest,
+          )) as typeof actual.realpath,
   };
 });
 
@@ -61,6 +90,7 @@ beforeEach(async () => {
   // Default: any subprocess (e.g. a linter probe) exits cleanly.
   runCommandMock.mockResolvedValue({ exitCode: 0, stdout: "", stderr: "" });
   fsCtl.readdirFailures.clear();
+  fsCtl.virtualTree = null;
 });
 
 afterEach(async () => {
@@ -407,6 +437,80 @@ describe("evaluateSkill — filesystem error branches", () => {
     const structure = report.categories.find((c) => c.id === "structure")!;
     expect(structure.findings.some((f) => /skill root/i.test(f))).toBe(false);
     expect(report.topSuggestions).not.toContain(ROOT_README_SUGGESTION);
+  });
+});
+
+describe("findInheritedLicenseFile — unlistable ancestors and the root (#856)", () => {
+  const MIT =
+    "---\nname: s1\ndescription: Do a thing.\nlicense: MIT\n---\nbody\n";
+  const licenseOf = (r: EvaluationReport) =>
+    r.categories.find((c) => c.id === "license")!;
+
+  /** `<tempDir>/top/repo/skills/s1` with `repo/LICENSE`, no `.git`. */
+  async function makeExport(): Promise<{
+    top: string;
+    repo: string;
+    dir: string;
+  }> {
+    const top = join(tempDir, "top");
+    const repo = join(top, "repo");
+    const dir = join(repo, "skills", "s1");
+    await writeSkillMd(dir, MIT);
+    await writeFile(join(repo, "LICENSE"), "MIT License\n", "utf-8");
+    return { top, repo, dir };
+  }
+
+  it("credits the collection when an ancestor above the bound cannot be listed", async () => {
+    const { top, dir } = await makeExport();
+    fsCtl.readdirFailures.add(top);
+    expect(await findInheritedLicenseFile(dir)).toEqual({
+      path: join("..", "..", "LICENSE"),
+      source: "collection",
+      gitSearchIncomplete: true,
+    });
+    const lic = licenseOf(await evaluateSkill(dir));
+    expect(lic.score).toBe(10);
+    expect(lic.findings).toContain(
+      "LICENSE inherited from the skill collection folder (`../../LICENSE`; no git repository found).",
+    );
+  });
+
+  it("gives no credit when the bound itself cannot be listed", async () => {
+    const { repo, dir } = await makeExport();
+    fsCtl.readdirFailures.add(repo);
+    expect(await findInheritedLicenseFile(dir)).toBeUndefined();
+  });
+
+  it("gives no credit when the skills folder cannot be listed", async () => {
+    const { repo, dir } = await makeExport();
+    fsCtl.readdirFailures.add(join(repo, "skills"));
+    expect(await findInheritedLicenseFile(dir)).toBeUndefined();
+  });
+
+  it("gives no credit when the skill folder itself cannot be listed", async () => {
+    const { dir } = await makeExport();
+    fsCtl.readdirFailures.add(dir);
+    expect(await findInheritedLicenseFile(dir)).toBeUndefined();
+  });
+
+  it("credits /LICENSE for a skills folder at the filesystem root", async () => {
+    fsCtl.virtualTree = {
+      "/": ["skills", "LICENSE", "c"],
+      "/skills": ["s1"],
+      "/skills/s1": ["SKILL.md"],
+      "/c": ["skills", "LICENSE"],
+      "/c/skills": ["s1"],
+      "/c/skills/s1": ["SKILL.md"],
+    };
+    expect(await findInheritedLicenseFile("/skills/s1")).toEqual({
+      path: "../../LICENSE",
+      source: "collection",
+    });
+    // Control: one level down, the bound is /c and /c/LICENSE is nearest.
+    expect(await findInheritedLicenseFile("/c/skills/s1")).toEqual({
+      path: "../../LICENSE",
+      source: "collection",
+    });
   });
 });
 

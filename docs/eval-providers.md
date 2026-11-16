@@ -87,12 +87,28 @@ scores the frontmatter `license:` declaration against a licence file.
   `COPYING.txt`.
 - **Own file:** one of those names in the skill folder.
 - **Inherited file:** when the skill has no file of its own, the nearest one
-  in a parent directory up to the skill's git root (the clone root for
-  remote targets). The search never goes above the git root and is skipped
-  for skills outside a git repo. An inherited file must be a regular file
-  inside the git root. Symlinks are resolved, and the target must also stay
-  inside the git root. A `LICENSE` directory, a broken symlink, or a symlink
-  to a file outside the repo does not count.
+  in a parent directory up to a bound:
+  - Inside a git repo, the bound is the skill's git root (the clone root for
+    remote targets).
+  - With no `.git` anywhere above the skill (a ZIP download, a `git archive`
+    export, a vendored copy), the bound is the folder that holds the nearest
+    ancestor folder named `skills`. For `repo/skills/s1` or
+    `repo/skills/cat/s1` that is `repo/`. A skill with no `skills` ancestor
+    inherits nothing ([#856](https://github.com/luongnv89/asm/issues/856)).
+  - The folder name must be exactly `skills`, lowercase, as written in the
+    path you pass, so `repo/Skills/s1` or `repo/SKILLS/s1` gets no
+    collection credit.
+  - The bound follows the path as given, not where a symlink points: a skill
+    linked into `~/.agents/skills` is bounded by `~/.agents`.
+  - If a folder above the skill cannot be listed, the search for `.git`
+    stops there. The collection bound still applies when it lies below that
+    folder, and the finding then says `no git repository found`.
+
+  The search never goes above the bound. An inherited file must be a regular
+  file inside the bound. Symlinks are resolved, and the target must also stay
+  inside the bound. A `LICENSE` directory, a broken symlink, or a symlink to
+  a file outside the bound does not count.
+
 - **Private licence:** a `license:` value that is not an SPDX identifier but
   marks the skill as private. The accepted forms, in any case, are: a value
   starting with `Proprietary` (e.g. `Proprietary-1.0`), exactly `UNLICENSED`
@@ -147,6 +163,8 @@ scores the frontmatter `license:` declaration against a licence file.
 
 The findings name the case that applied: `LICENSE file present at skill root.`,
 `LICENSE inherited from the enclosing repository (…).`,
+`LICENSE inherited from the skill collection folder (…; no git repository).`
+(`…; no git repository found` when a folder above could not be listed),
 `Private licence declared: …`, `… (valid SPDX license expression, every
 identifier recognised).`, or `… mixes SPDX terms with private terms (…), so it is not valid SPDX as
 written (use LicenseRef-… …) — SPDX licence rule applied: …`.

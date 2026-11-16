@@ -564,8 +564,9 @@ function assessLicense(value: string): LicenseAssessment {
  *
  * A licence file is the skill's own LICENSE / LICENSE.md / LICENSE.txt /
  * COPYING at the skill root, or — when the skill has none — one inherited
- * from the enclosing repository (`inheritedLicenseFile`, a path relative to
- * the skill dir, resolved by the caller up to the git root).
+ * from above it (`inheritedLicenseFile`, resolved by the caller up to the git
+ * root, or without git up to the skill collection folder — see
+ * `InheritedLicense`).
  *
  * "Recognised SPDX" covers a listed id and a valid SPDX license expression
  * (#783, `parseSpdxExpression`) whose ids and exceptions are all recognised,
@@ -587,6 +588,22 @@ function assessLicense(value: string): LicenseAssessment {
  * The scorer also records a `licenseStatus` tag on the result so callers can
  * surface the position without parsing free-text findings.
  */
+/**
+ * A licence file a skill inherits from a folder above its own (#771, #856).
+ * `path` is relative to the skill dir. `source` names the bound of the walk
+ * that found it: the git root (`repository`) or, when there is no `.git`, the
+ * folder holding the nearest `skills` collection (`collection`).
+ */
+export interface InheritedLicense {
+  path: string;
+  source: "repository" | "collection";
+  /**
+   * `collection` only: the upward search for `.git` stopped at an ancestor
+   * that could not be listed, so "no git repository" is unproven.
+   */
+  gitSearchIncomplete?: boolean;
+}
+
 export interface CategoryResultWithLicense extends CategoryResult {
   /** Stable tag describing the licence position. */
   licenseStatus?: "recognised" | "private" | "unrecognised" | "missing";
@@ -596,7 +613,7 @@ export function scoreLicense(
   fm: Record<string, string>,
   body: string,
   rootEntries?: string[],
-  inheritedLicenseFile?: string,
+  inheritedLicenseFile?: InheritedLicense,
 ): CategoryResultWithLicense {
   const findings: string[] = [];
   const suggestions: string[] = [];
@@ -606,14 +623,16 @@ export function scoreLicense(
   const hasFmLicense = Boolean(fmLicense);
 
   // Check for a LICENSE file at the skill root, else one inherited from the
-  // enclosing repository.
+  // enclosing repository or, without git, the skill collection folder.
   const hasLicenseFile = Boolean(findLicenseFileName(rootEntries));
   const inherited = hasLicenseFile ? undefined : inheritedLicenseFile;
   const licenseFileFinding = hasLicenseFile
     ? "LICENSE file present at skill root."
-    : inherited
-      ? `LICENSE inherited from the enclosing repository (\`${inherited}\`).`
-      : undefined;
+    : inherited?.source === "repository"
+      ? `LICENSE inherited from the enclosing repository (\`${inherited.path}\`).`
+      : inherited
+        ? `LICENSE inherited from the skill collection folder (\`${inherited.path}\`; ${inherited.gitSearchIncomplete ? "no git repository found" : "no git repository"}).`
+        : undefined;
 
   // Classify
   let licenseStatus: "recognised" | "private" | "unrecognised" | "missing" =
