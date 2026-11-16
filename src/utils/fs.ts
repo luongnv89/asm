@@ -128,6 +128,7 @@ export async function copySkillTree(src: string, dest: string): Promise<void> {
   await cp(src, dest, { recursive: true });
   if (!(await lstat(dest)).isDirectory()) return;
   const srcReal = await realpath(src);
+  const destReal = await realpath(dest);
   const walk = async (rel: string): Promise<void> => {
     const entries = await readdir(join(dest, rel), { withFileTypes: true });
     for (const entry of entries) {
@@ -138,8 +139,21 @@ export async function copySkillTree(src: string, dest: string): Promise<void> {
         const text = await readlink(join(src, childRel));
         if (await isInternalLink(src, srcReal, childRel, text)) {
           const linkPath = join(dest, childRel);
+          const cpText = await readlink(linkPath);
           await unlink(linkPath);
           await symlink(text, linkPath);
+          // The restored link must reach the copy of what it reached in
+          // `src`; anything else resolves differently once copied, so put
+          // back the `fs.cp` text.
+          const expected = join(
+            destReal,
+            relative(srcReal, await realpath(join(src, childRel))),
+          );
+          const actual = await realpath(linkPath).catch(() => null);
+          if (actual !== expected) {
+            await unlink(linkPath);
+            await symlink(cpText, linkPath);
+          }
         }
       }
     }
@@ -160,9 +174,12 @@ async function isInternalLink(
   rel: string,
   text: string,
 ): Promise<boolean> {
-  if (isAbsolute(text) || /^[\\/]/.test(text)) return false;
+  // Only the platform's own separators split a path: on POSIX `\\` is an
+  // ordinary filename character, so `a\\b` is one part that must be checked.
+  const seps = process.platform === "win32" ? /[\\/]/ : /\//;
+  if (isAbsolute(text) || seps.test(text.charAt(0))) return false;
   let current = dirname(rel);
-  for (const part of text.split(/[\\/]/)) {
+  for (const part of text.split(seps)) {
     if (part === "" || part === ".") continue;
     if (part === "..") {
       if (current === ".") return false;
