@@ -1,11 +1,9 @@
 # Discovery worker contract (Step 2)
 
-The context slice for the Step 2 worker: clone **one** repository to a temp
-directory and report every skill in it. The main agent dispatches one worker per
-repo and keeps only the JSON below — it never opens this file.
-
-Spawn the worker with this contract as its prompt, substituting `<owner>` and
-`<repo>`.
+Your job: clone **one** repository to a temp directory and report every skill
+in it. You receive this file plus that repository's `owner` and `repo`; wherever
+`<owner>` and `<repo>` appear below, use those values. The main agent keeps only
+the JSON you return.
 
 ## Role
 
@@ -46,8 +44,14 @@ Record that directory, relative to the clone root, as the skill's `relPath` —
 the Output section below pins that value.
 
 3. Parse each file's YAML frontmatter and extract `name` (required),
-   `description` (required), `version` (defaults to `"0.0.0"`), `license`,
-   `creator`, `compatibility`, and `allowed-tools` / `allowedTools`.
+   `description` (required), `license`, and `compatibility`, plus three fields
+   resolved the way the ingester (`src/utils/frontmatter.ts`) resolves them:
+   - `version` — `metadata.version`, else top-level `version`, else `"0.0.0"`.
+   - `creator` — the first non-empty of `metadata.creator`, `metadata.author`,
+     `creator`, `author`, as a display name only: drop every email address
+     (`Name <user@host>` → `Name`) and join list entries with `", "`.
+   - `allowedTools` — from `allowed-tools` only, split on spaces and commas;
+     `[]` when absent.
 
 ## Input
 
@@ -105,9 +109,9 @@ name still prefixed — and Step 3 evaluates the wrong path, and a manually buil
 
 ## Constraints
 
-- Do NOT delete your temp directory — Step 3 still needs the clone.
-- Do NOT run `asm eval`, `asm index ingest`, `npm run preindex`, or any catalog
+- Do not delete your temp directory — Step 3 still needs the clone.
+- Do not run `asm eval`, `asm index ingest`, `npm run preindex`, or any catalog
   build; Steps 3 and 7 own the eval and the ingest.
-- Do NOT modify anything in the ASM repo.
-- Do NOT ask questions. A clone failure is a `status`, not a stop; a repo with no
+- Do not modify anything in the ASM repo.
+- Do not ask questions. A clone failure is a `status`, not a stop; a repo with no
   SKILL.md is `status: "no-skills"` with an empty `skills` array, not an error.
