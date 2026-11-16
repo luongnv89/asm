@@ -489,4 +489,24 @@ describe.skipIf(process.platform === "win32")("copySkillTree (#819)", () => {
       resolve(src, "r/../src/a/file.md"),
     );
   });
+
+  test("keeps the fs.cp rewrite for a link that walks through another link", async () => {
+    await mkdir(join(base, "elsewhere"));
+    await writeFile(join(base, "elsewhere", "secret.md"), "secret\n");
+    await symlink("../elsewhere", join(src, "out-dir"));
+    await symlink("out-dir/secret.md", join(src, "via-out"));
+    await symlink("a", join(src, "a-link"));
+    await symlink("a-link/file.md", join(src, "via-in"));
+    await symlink("a-link", join(src, "to-link"));
+    await copySkillTree(src, dest);
+    expect(await readlink(join(dest, "a-link"))).toBe("a");
+    for (const [name, text] of [
+      ["out-dir", "../elsewhere"],
+      ["via-out", "out-dir/secret.md"],
+      ["via-in", "a-link/file.md"],
+      ["to-link", "a-link"],
+    ]) {
+      expect(await readlink(join(dest, name))).toBe(resolve(src, text));
+    }
+  });
 });

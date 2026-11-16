@@ -120,7 +120,7 @@ export function isPathInside(parent: string, child: string): boolean {
  * absolute path into `src` — a temp clone that is deleted after install or
  * update, so the link dangles. This restores the link text for a relative
  * link whose target stays inside `src`, both by its text (no `..` above the
- * folder or after a linked component) and by its real path. Every other link — absolute, leaving the
+ * folder, no part that is itself a link) and by its real path. Every other link — absolute, leaving the
  * folder, dangling or looping — keeps the `fs.cp` result unchanged, so the
  * outside-folder symlink policy does not change.
  */
@@ -148,11 +148,11 @@ export async function copySkillTree(src: string, dest: string): Promise<void> {
 }
 
 /**
- * True when the relative link at `rel` under `root` never leaves it. Its text
- * may climb with `..` only through real folders: a `..` after a component
- * that is itself a link (say `r -> .`) climbs from that link's target in
- * `root` but from the link's own folder once copied, so `r/../<root name>/x`
- * would land beside the installed copy (#819).
+ * True when the relative link at `rel` under `root` never leaves it. Every
+ * part its text walks through must be a real file or folder inside `root`:
+ * a part that is itself a link resolves differently once copied — a `..`
+ * after `r -> .` climbs from the link's own folder, and a link `fs.cp`
+ * rewrote to an absolute path leads out of the copy (#819).
  */
 async function isInternalLink(
   root: string,
@@ -162,23 +162,18 @@ async function isInternalLink(
 ): Promise<boolean> {
   if (isAbsolute(text) || /^[\\/]/.test(text)) return false;
   let current = dirname(rel);
-  let throughLink = false;
   for (const part of text.split(/[\\/]/)) {
     if (part === "" || part === ".") continue;
     if (part === "..") {
-      if (throughLink) return false;
-      const parent = dirname(current);
-      if (current === "." || current === parent) return false;
-      current = parent;
+      if (current === ".") return false;
+      current = dirname(current);
       continue;
     }
     current = join(current, part);
-    if (!throughLink) {
-      try {
-        throughLink = (await lstat(join(root, current))).isSymbolicLink();
-      } catch {
-        return false;
-      }
+    try {
+      if ((await lstat(join(root, current))).isSymbolicLink()) return false;
+    } catch {
+      return false;
     }
   }
   try {

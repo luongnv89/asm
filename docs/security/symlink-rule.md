@@ -76,7 +76,8 @@ Review those targets by hand. In practice:
 
 When `asm install` and `asm update` copy a skill, a relative link whose
 target stays inside the copied folder (by its text and by its real path,
-with no `..` after a part that is itself a link) keeps its relative text, so it still resolves in the installed copy. Every
+through real files and folders only, never through another link) keeps its
+relative text, so it still resolves in the installed copy. Every
 other link is copied as before: a relative link that leaves the folder,
 dangles or loops is rewritten to an absolute path into the source
 (the temporary clone for a remote skill), and an absolute link is kept
