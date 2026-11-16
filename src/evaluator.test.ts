@@ -1446,6 +1446,17 @@ describe("license verification", () => {
     expect(lic.findings.join("\n")).not.toMatch(/inherited/);
   });
 
+  it("never credits a link above the collection folder, even into it (#856)", async () => {
+    const { symlink } = await import("fs/promises");
+    const root = join(tempDir, "x");
+    const dir = await mitSkillIn(root);
+    await writeFile(join(root, "terms.txt"), "MIT License\n", "utf-8");
+    await symlink(join(root, "terms.txt"), join(tempDir, "LICENSE"));
+    const lic = licenseOf(await evaluateSkill(dir));
+    expect(lic.score).toBe(5);
+    expect(lic.findings.join("\n")).not.toMatch(/inherited/);
+  });
+
   it("does not inherit a collection-root LICENSE directory without git (#856)", async () => {
     const { mkdir } = await import("fs/promises");
     const root = join(tempDir, "export");
