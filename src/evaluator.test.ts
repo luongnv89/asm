@@ -21,7 +21,7 @@ import {
   type EvalBatchItem,
   type EvalProvenance,
 } from "./evaluator";
-import { mkdtemp, rm, readFile, writeFile, access } from "fs/promises";
+import { mkdtemp, rm, readFile, writeFile, access, chmod } from "fs/promises";
 import { basename, join } from "path";
 import { tmpdir } from "os";
 
@@ -1496,6 +1496,89 @@ describe("license verification", () => {
     expect(plain.score).toBe(10);
     expect(fixed.score).toBe(plain.score);
     expect(fixed.findings).toEqual(plain.findings);
+  });
+
+  it("uses the nearest skills folder when there are two (#856)", async () => {
+    // a/skills/b/skills/s1: the bound is a/skills/b, never a/.
+    const a = join(tempDir, "a");
+    const dir = await mitSkillIn(join(a, "skills", "b"));
+    await writeFile(join(a, "LICENSE"), "MIT License\n", "utf-8");
+    await writeFile(join(a, "skills", "LICENSE"), "MIT License\n", "utf-8");
+    let lic = licenseOf(await evaluateSkill(dir));
+    expect(lic.score).toBe(5);
+    expect(lic.findings.join("\n")).not.toMatch(/inherited/);
+
+    await writeFile(
+      join(a, "skills", "b", "LICENSE"),
+      "MIT License\n",
+      "utf-8",
+    );
+    lic = licenseOf(await evaluateSkill(dir));
+    expect(lic.score).toBe(10);
+    expect(lic.findings).toContain(COLLECTION_FINDING);
+  });
+
+  it.skipIf(process.platform === "win32")(
+    "does not hang on or credit a FIFO named LICENSE (#856)",
+    async () => {
+      const { execFileSync } = await import("child_process");
+      const root = join(tempDir, "export");
+      const dir = await mitSkillIn(root);
+      execFileSync("mkfifo", [join(root, "LICENSE")]);
+      const lic = licenseOf(await evaluateSkill(dir));
+      expect(lic.score).toBe(5);
+      expect(lic.findings.join("\n")).not.toMatch(/inherited/);
+    },
+  );
+
+  describe.skipIf(process.platform === "win32" || process.getuid?.() === 0)(
+    "unlistable folders without git (#856)",
+    () => {
+      let locked: string | undefined;
+      afterEach(async () => {
+        if (locked) await chmod(locked, 0o755);
+        locked = undefined;
+      });
+
+      it("credits the collection when an ancestor above the bound is mode 111", async () => {
+        const top = join(tempDir, "top");
+        const root = await makeExport(join("top", "repo"));
+        await chmod(top, 0o111);
+        locked = top;
+        const lic = licenseOf(await evaluateSkill(join(root, "skills", "s1")));
+        expect(lic.score).toBe(10);
+        expect(lic.findings).toContain(
+          "LICENSE inherited from the skill collection folder (`../../LICENSE`; no git repository found).",
+        );
+      });
+
+      it("gives no credit and does not crash when the bound is mode 311", async () => {
+        const root = await makeExport();
+        await chmod(root, 0o311);
+        locked = root;
+        const lic = licenseOf(await evaluateSkill(join(root, "skills", "s1")));
+        expect(lic.score).toBe(5);
+        expect(lic.findings.join("\n")).not.toMatch(/inherited/);
+      });
+    },
+  );
+
+  it("credits the skill's own LICENSE linked to the collection LICENSE (#856)", async () => {
+    const { symlink } = await import("fs/promises");
+    const root = await makeExport();
+    const dir = join(root, "skills", "s1");
+    await symlink(join("..", "..", "LICENSE"), join(dir, "LICENSE"));
+    const lic = licenseOf(await evaluateSkill(dir));
+    expect(lic.score).toBe(10);
+  });
+
+  it("does not credit the skill's own LICENSE linked above the bound (#856)", async () => {
+    const { symlink } = await import("fs/promises");
+    await writeFile(join(tempDir, "LICENSE"), "MIT License\n", "utf-8");
+    const dir = await mitSkillIn(join(tempDir, "repo"));
+    await symlink(join("..", "..", "..", "LICENSE"), join(dir, "LICENSE"));
+    const lic = licenseOf(await evaluateSkill(dir));
+    expect(lic.score).toBe(5);
   });
 
   it("reports missing when no license field exists", () => {

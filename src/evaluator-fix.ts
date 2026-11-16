@@ -369,8 +369,13 @@ async function readSkillDirContext(skillDir: string): Promise<{
  *   worktrees included). `source: "repository"`.
  * - With no `.git` up to the filesystem root (issue #856 — a ZIP or
  *   `git archive` export): walks from the skill's parent up to the parent of
- *   the nearest ancestor folder named `skills`, the folder holding the
- *   collection. `source: "collection"`.
+ *   the nearest ancestor folder named `skills` (exact, case-sensitive name,
+ *   on the path as given), the folder holding the collection.
+ *   `source: "collection"`.
+ * - When an ancestor above the skill cannot be listed, the search for `.git`
+ *   stops there. If the collection bound lies strictly below that folder,
+ *   the collection rule applies (`gitSearchIncomplete: true`); otherwise
+ *   nothing is credited. A skill folder that cannot be listed gets nothing.
  *
  * Returns undefined when the skill is itself the repo root, has no `skills`
  * ancestor outside a git repo, or no folder within the bound has a licence
@@ -385,12 +390,17 @@ export async function findInheritedLicenseFile(
   const ancestors: { dir: string; entries: string[] }[] = [];
   let dir = start;
   let gitRoot: string | undefined;
+  // Set when an ancestor cannot be listed: the walk stops there, so whether a
+  // `.git` lies at or above that folder is unknown.
+  let unlistedAncestor = false;
   for (;;) {
     let entries: string[];
     try {
       entries = await readdir(dir);
     } catch {
-      return undefined;
+      if (dir === start) return undefined;
+      unlistedAncestor = true;
+      break;
     }
     if (dir !== start) ancestors.push({ dir, entries });
     if (entries.includes(".git")) {
@@ -410,6 +420,10 @@ export async function findInheritedLicenseFile(
     source = "repository";
   } else {
     // No git repo: the bound is the parent of the nearest `skills` folder.
+    // After an unlistable ancestor, `ancestors` holds only the folders below
+    // it, so a bound found here lies strictly below that folder; a git root,
+    // if any, is at or above it, and the git rule would credit the same
+    // nearest file.
     const boundIndex =
       ancestors.findIndex((a) => basename(a.dir) === "skills") + 1;
     if (boundIndex === 0 || boundIndex >= ancestors.length) return undefined;
@@ -427,17 +441,22 @@ export async function findInheritedLicenseFile(
   } catch {
     return undefined;
   }
+  // A bound at the filesystem root already ends with the separator.
+  const prefix = boundReal.endsWith(sep) ? boundReal : boundReal + sep;
   for (const { dir: ancestor, entries } of candidates) {
     for (const name of entries.filter(isLicenseFileName)) {
       const candidate = join(ancestor, name);
       try {
         if (!(await stat(candidate)).isFile()) continue;
         const real = await realpath(candidate);
-        if (!real.startsWith(boundReal + sep)) continue;
+        if (!real.startsWith(prefix)) continue;
       } catch {
         continue;
       }
-      return { path: relative(start, candidate), source };
+      const path = relative(start, candidate);
+      return unlistedAncestor && source === "collection"
+        ? { path, source, gitSearchIncomplete: true }
+        : { path, source };
     }
   }
   return undefined;

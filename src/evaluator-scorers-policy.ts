@@ -597,6 +597,11 @@ function assessLicense(value: string): LicenseAssessment {
 export interface InheritedLicense {
   path: string;
   source: "repository" | "collection";
+  /**
+   * `collection` only: the upward search for `.git` stopped at an ancestor
+   * that could not be listed, so "no git repository" is unproven.
+   */
+  gitSearchIncomplete?: boolean;
 }
 
 export interface CategoryResultWithLicense extends CategoryResult {
@@ -626,7 +631,7 @@ export function scoreLicense(
     : inherited?.source === "repository"
       ? `LICENSE inherited from the enclosing repository (\`${inherited.path}\`).`
       : inherited
-        ? `LICENSE inherited from the skill collection folder (\`${inherited.path}\`; no git repository).`
+        ? `LICENSE inherited from the skill collection folder (\`${inherited.path}\`; ${inherited.gitSearchIncomplete ? "no git repository found" : "no git repository"}).`
         : undefined;
 
   // Classify

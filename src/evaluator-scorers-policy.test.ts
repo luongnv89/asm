@@ -211,6 +211,18 @@ describe("scoreLicense (#771)", () => {
     );
   });
 
+  it("says no git repository was found when the git search stopped early (#856)", () => {
+    const r = scoreLicense(lic("MIT"), "", NO_OWN_FILE, {
+      path: "../../LICENSE",
+      source: "collection",
+      gitSearchIncomplete: true,
+    });
+    expect(r.score).toBe(10);
+    expect(r.findings).toContain(
+      "LICENSE inherited from the skill collection folder (`../../LICENSE`; no git repository found).",
+    );
+  });
+
   it("prefers the skill's own LICENSE file over an inherited one", () => {
     const r = scoreLicense(
       lic("MIT"),
