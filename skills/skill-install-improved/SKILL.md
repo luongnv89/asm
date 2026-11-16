@@ -100,7 +100,7 @@ Record for the report: the supplied identifier, the resolved install or clone UR
 
 This skill does not reimplement the improvement loop, and it reads that loop only now, so the loop's references stay out of the context budget until Phase 1. Acquire `skill-creator` (Dependency Preflight), then follow `$SKILL_CREATOR_DIR/references/retrofit-loop.md` (Subpath B1) with `$SKILL_PATH` as the target, through its Phase 7 report.
 
-Two adaptations, because the target is a throwaway copy:
+Three adaptations, because the target is a throwaway copy:
 
 - Skip its "Repo Sync Before Edits" step. Log `— repo sync skipped (throwaway copy)` and continue.
 - `.asm-improver/` is written **relative to the current working directory**. Run the loop with cwd inside `$SKILL_PATH`, or Phase 2 has nothing to harvest.
@@ -112,7 +112,7 @@ If the baseline already clears both gates, the retrofit loop stops without editi
 
 **Harvest before any cleanup.** Read the files under `$SKILL_PATH/.asm-improver/` that `references/install-and-report.md` lists, and extract its fields. An early-exit baseline writes no `iter-N.json`; then the baseline is also the final state.
 
-Then remove the two artifacts that must not ship (`asm install` copies the source recursively). The guard stops the block unless `$SKILL_PATH` is inside `$WORK`:
+Then remove the artifacts that must not ship (`asm install` copies the source recursively). The guard stops the block unless `$SKILL_PATH` is inside `$WORK`:
 
 ```bash
 : "${WORK:?}" "${SKILL_PATH:?}"
@@ -177,7 +177,7 @@ The expected output of a successful run, each item checkable:
 
 - Exactly one target resolved; `$SKILL_PATH` is a directory with a `SKILL.md`, under `$WORK`; the user's files are unmodified
 - Name resolution copied `installCommand` verbatim; repo resolution used plain `git clone` — no fork, no push
-- The retrofit loop ran from the acquired `skill-creator`; `baseline.json`, `iter-N.json`, and `report.md` were read before cleanup
+- The retrofit loop ran from the acquired `skill-creator`; `baseline.json`, the highest `iter-N.json` if any, and `report.md` were read before cleanup
 - The installed skill contains no `.asm-improver/` and no `SKILL.md.bak`
 - `asm install` targeted `$SKILL_PATH` with both `-p/--tool` and `--scope`, after a collision probe; any overwrite was confirmed first
 - The report states the installed path, provenance, and before → after numbers

@@ -35,7 +35,7 @@ SEO, a landing page, and launch copy for my SaaS"), confirm quickly and move to
 discovery. If they're vague ("help me market my app"), spend more time in steps
 1–2. On a full loop run, never skip step 2: confirming before searching keeps recommendations relevant.
 
-If the user asks for one capability ("is there a skill that converts PDFs?"), skip the loop: run one `asm search "<term>" --available --json` and give the matching `installCommand` from the result.
+If the user asks for one capability ("is there a skill that converts PDFs?"), skip the loop: run one `asm search "<term>" --json` (not `--available`, which does not exclude installed skills) and end there. Reply with the best match's `installCommand`, or say it is already installed if its `status` is `installed`.
 
 ## Prerequisite (check once, up front)
 
@@ -97,7 +97,7 @@ From the union of search hits, build the recommendation set:
 - **Drop weak fits.** Keep only skills you can justify in one sentence tied to
   the user's goal.
 - **Explain each in plain language** — one sentence on what it does _for this
-  user_, not a paraphrase of its description. "`landing-page-copywriter` writes
+  user_, not a paraphrase of its description. "`landing-page-generator` writes
   the words for your launch page so visitors understand and sign up."
 
 ## Step 5 — Sequence into a step-by-step path
@@ -110,7 +110,7 @@ step, state its **input** (what the user or the previous step provides) and its
 Step 1 — marketing-context
   in:  your product description, target customer
   out: a saved brand/positioning brief other skills read first
-Step 2 — landing-page-copywriter
+Step 2 — landing-page-generator
   in:  the brief from step 1
   out: landing-page copy ready to paste
 ```
@@ -155,7 +155,7 @@ Checks per step:
 
 ## Final output
 
-End every run with a short report the user can read without scrolling back:
+End every full loop run with a short report the user can read without scrolling back:
 
 1. **Result** — the first line states `complete`, `plan only` (nothing to bundle, or the user declined export), or `blocked` (with the reason).
 2. **The plan** — numbered steps, each with the skill, a one-line purpose, and in/out.
@@ -168,7 +168,7 @@ landscape — leave them understanding what they're about to install and why.
 
 ## Acceptance Criteria
 
-Verify all of these before calling the run complete:
+Verify all of these before calling a full loop run complete:
 
 - On a full loop run, the user explicitly confirmed the goal before any catalog search.
 - At least one `asm search "<term>" --available --json` query was run for each chosen search term.
