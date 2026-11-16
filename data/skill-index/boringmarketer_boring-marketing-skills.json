@@ -1,0 +1,3629 @@
+{
+  "repoUrl": "https://github.com/boringmarketer/boring-marketing-skills.git",
+  "owner": "boringmarketer",
+  "repo": "boring-marketing-skills",
+  "updatedAt": "2026-11-16T19:30:33.181Z",
+  "skillCount": 16,
+  "skills": [
+    {
+      "name": "audience-research",
+      "description": "Mine where your audience actually talks (reviews, Reddit, YouTube comments, communities) and produce two brand files, audience.md (segments, awareness, jobs-to-be-done, watering holes) and voc.md (verbatim pain/desire/objection language with sources). Use it before positioning or copy work, when launching into a new market, or when copy keeps missing because nobody knows how customers actually describe the problem.",
+      "version": "4.1.1",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:boringmarketer/boring-marketing-skills:skills/audience-research",
+      "relPath": "skills/audience-research",
+      "verified": true,
+      "tokenCount": 5489,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-11-16T19:30:31.574Z",
+        "evaluatedVersion": "4.1.1"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:31.612Z",
+          "evaluatedVersion": "4.1.1"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:31.615Z",
+          "evaluatedVersion": "4.1.1"
+        }
+      }
+    },
+    {
+      "name": "brand-voice",
+      "description": "Extracts or builds a falsifiable brand voice profile, backed by verbatim evidence from the brand's real content, that every other content skill reads, so output sounds like the brand instead of a model. Use when starting a project, when copy sounds generic or AI-written, when output must match a specific person or brand, or to check recently published content for voice drift.",
+      "version": "4.1.1",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:boringmarketer/boring-marketing-skills:skills/brand-voice",
+      "relPath": "skills/brand-voice",
+      "verified": true,
+      "tokenCount": 6309,
+      "evalSummary": {
+        "overallScore": 68,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-11-16T19:30:31.581Z",
+        "evaluatedVersion": "4.1.1"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 68,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:31.616Z",
+          "evaluatedVersion": "4.1.1"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:31.616Z",
+          "evaluatedVersion": "4.1.1"
+        }
+      }
+    },
+    {
+      "name": "content-atomizer",
+      "description": "Turns one piece of finished content (blog post, newsletter, podcast, video) into platform-native social assets for the 2-3 platforms the brand actually operates, with depth on a few platforms instead of rephrased spray across eight. Use when source content exists and needs distribution, when a post's comments need ranked reply drafts, or when a week of posts should be planned from one source.",
+      "version": "4.1.1",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:boringmarketer/boring-marketing-skills:skills/content-atomizer",
+      "relPath": "skills/content-atomizer",
+      "verified": true,
+      "tokenCount": 6035,
+      "evalSummary": {
+        "overallScore": 70,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-11-16T19:30:31.588Z",
+        "evaluatedVersion": "4.1.1"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 70,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:31.616Z",
+          "evaluatedVersion": "4.1.1"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:31.616Z",
+          "evaluatedVersion": "4.1.1"
+        }
+      }
+    },
+    {
+      "name": "creative",
+      "description": "AI creative production engine for product photos, product video, social graphics, talking heads, ad creative, and video ads cut from real or generated footage in code and rendered to MP4 for free, through one tiered pipeline with a vision-QA loop that looks at every asset before you see it. Ad creative is built from 336 live Meta ads we viewed (21 formats with real examples, a hook bank, a script that pulls competitors' live ads from the Meta Ad Library, a batch plan that mixes long-running stills with fresh UGC, and a visual check every ad must pass). Use whenever visual assets or ad creative need to be made, edited, planned, or batch-produced for a brand or campaign.",
+      "version": "4.1.1",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:boringmarketer/boring-marketing-skills:skills/creative",
+      "relPath": "skills/creative",
+      "verified": true,
+      "tokenCount": 5380,
+      "evalSummary": {
+        "overallScore": 70,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-11-16T19:30:31.591Z",
+        "evaluatedVersion": "4.1.1"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 67,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 9,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:31.616Z",
+          "evaluatedVersion": "4.1.1"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:31.616Z",
+          "evaluatedVersion": "4.1.1"
+        }
+      }
+    },
+    {
+      "name": "direct-response-copy",
+      "description": "Write copy that converts (landing pages, sales pages, emails, ads, headlines, CTAs) in the customer's own words, matched to the ad or email that sends the traffic. A claim gate keeps every shipped line to verified facts (stronger ideas go on a To make this true list), and a private score-and-rewrite loop lifts the draft. Includes local-service patterns for copy that makes the phone ring. Approved page copy hands off to /landing-page to build. Use when someone needs to sell in writing, wants copy scored, or has ads that get clicks but no sales or calls.",
+      "version": "4.1.1",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:boringmarketer/boring-marketing-skills:skills/direct-response-copy",
+      "relPath": "skills/direct-response-copy",
+      "verified": true,
+      "tokenCount": 6552,
+      "evalSummary": {
+        "overallScore": 65,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-11-16T19:30:31.603Z",
+        "evaluatedVersion": "4.1.1"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 65,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:31.617Z",
+          "evaluatedVersion": "4.1.1"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:31.617Z",
+          "evaluatedVersion": "4.1.1"
+        }
+      }
+    },
+    {
+      "name": "keyword-research",
+      "description": "Maps what people search for and ask about a business as a topic map rather than a 5,000-row keyword list, using free autocomplete and Search Console first, covering both Google searches and the questions people put to AI assistants, going deep only on the topics worth acting on, and ending in ready-to-write briefs. Use when planning content, choosing what to write about, finding content gaps, or building an SEO and AI-search plan, for an online business or a local one.",
+      "version": "4.1.1",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:boringmarketer/boring-marketing-skills:skills/keyword-research",
+      "relPath": "skills/keyword-research",
+      "verified": true,
+      "tokenCount": 9510,
+      "evalSummary": {
+        "overallScore": 67,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-11-16T19:30:31.598Z",
+        "evaluatedVersion": "4.1.1"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 67,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:31.616Z",
+          "evaluatedVersion": "4.1.1"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:31.617Z",
+          "evaluatedVersion": "4.1.1"
+        }
+      }
+    },
+    {
+      "name": "landing-page",
+      "description": "Turn an offer into a shipped landing page with section architecture chosen by offer type and awareness level, a first screen that repeats the ad's promise word for word, a deployable build (single-file HTML or Next.js) with A/B variant routes, and an optional deploy; includes a teardown mode that scores any live page section-by-section into a prioritized rewrite plan (the conversion-audit capability), and a local section for service businesses (call-first page vs quote form vs booking, plus a phone first-screen checklist). Use when the user wants a page built, has approved copy that needs to become a working page, has ads that get clicks but no sign-ups or calls, or has a live page that isn't converting.",
+      "version": "4.1.1",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:boringmarketer/boring-marketing-skills:skills/landing-page",
+      "relPath": "skills/landing-page",
+      "verified": true,
+      "tokenCount": 7665,
+      "evalSummary": {
+        "overallScore": 68,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-11-16T19:30:31.607Z",
+        "evaluatedVersion": "4.1.1"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 66,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:31.617Z",
+          "evaluatedVersion": "4.1.1"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:31.617Z",
+          "evaluatedVersion": "4.1.1"
+        }
+      }
+    },
+    {
+      "name": "lead-magnet",
+      "description": "Generate lead magnet concepts grounded in live competitor research, then BUILD the chosen one, including working interactive apps (quiz, calculator, instant quote, AI-graded audit) with a capture gate, as well as written guides and checklists. Covers info products, SaaS, agencies and local service businesses (price calculators, repair-or-replace checkers, seasonal checklists, financing estimates), plus an automated free-report Zap. Use when someone wants more leads or subscribers, needs top-of-funnel ideas, or asks what to give away for free.",
+      "version": "4.1.1",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:boringmarketer/boring-marketing-skills:skills/lead-magnet",
+      "relPath": "skills/lead-magnet",
+      "verified": true,
+      "tokenCount": 6272,
+      "evalSummary": {
+        "overallScore": 77,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-11-16T19:30:31.612Z",
+        "evaluatedVersion": "4.1.1"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:31.617Z",
+          "evaluatedVersion": "4.1.1"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:31.617Z",
+          "evaluatedVersion": "4.1.1"
+        }
+      }
+    },
+    {
+      "name": "long-form-article",
+      "description": "Plans, researches and drafts one long guide (3,000 to 5,000 words) for an X Article, a LinkedIn article, a blog or a newsletter, with a point a reader could repeat, named and dated sources, a proven structure from the size of the gap to \"start this week\", copyable prompts or steps, an honest \"what breaks\", and optional images. Use when you want a long-form piece, a playbook, a masterplan or a definitive guide that becomes the go-to resource on a topic.",
+      "version": "4.1.1",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:boringmarketer/boring-marketing-skills:skills/long-form-article",
+      "relPath": "skills/long-form-article",
+      "verified": true,
+      "tokenCount": 4511,
+      "evalSummary": {
+        "overallScore": 67,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-11-16T19:30:31.957Z",
+        "evaluatedVersion": "4.1.1"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 67,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:31.963Z",
+          "evaluatedVersion": "4.1.1"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:31.963Z",
+          "evaluatedVersion": "4.1.1"
+        }
+      }
+    },
+    {
+      "name": "newsletter",
+      "description": "Write publication-ready newsletter editions, roundup, deep-dive, personal essay, curated links, news briefing, or hybrid, in the brand's voice, sourced from live pages, and informed by the list's own click data when an ESP key exists. Use it to draft an edition, pick a format, or answer newsletter strategy questions (platform, growth, monetization).",
+      "version": "4.1.1",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:boringmarketer/boring-marketing-skills:skills/newsletter",
+      "relPath": "skills/newsletter",
+      "verified": true,
+      "tokenCount": 4410,
+      "evalSummary": {
+        "overallScore": 72,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-11-16T19:30:32.002Z",
+        "evaluatedVersion": "4.1.1"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 72,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:32.024Z",
+          "evaluatedVersion": "4.1.1"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:32.024Z",
+          "evaluatedVersion": "4.1.1"
+        }
+      }
+    },
+    {
+      "name": "positioning-angles",
+      "description": "Find the angle and the offer that make something sell. Researches what competitors say and pay to say, mines their bad reviews for the fears nobody answers, reads how jaded the market is, then writes 3-5 angles with one starred. Shipped lines use only verified facts, and a stronger idea the business can't back yet goes on a To make this true list with what it would take. Has a local-service mode (job types, map-pack competitors, trade guarantees). Use when launching a product or service, building an offer or lead magnet, before writing a page, or when marketing isn't converting.",
+      "version": "4.1.1",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:boringmarketer/boring-marketing-skills:skills/positioning-angles",
+      "relPath": "skills/positioning-angles",
+      "verified": true,
+      "tokenCount": 8422,
+      "evalSummary": {
+        "overallScore": 65,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-11-16T19:30:32.016Z",
+        "evaluatedVersion": "4.1.1"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 65,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:32.028Z",
+          "evaluatedVersion": "4.1.1"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:32.029Z",
+          "evaluatedVersion": "4.1.1"
+        }
+      }
+    },
+    {
+      "name": "programmatic-seo",
+      "description": "Validate, build, and ship a programmatic SEO library (one template × one dataset → 50-500 pages that each earn their existence with unique data). Use when a keyword pattern repeats across a modifier set (x for [industry], [city] x, x vs y, x alternatives, x integrations) and pages should be generated from data instead of written one at a time. A local service business that wants town or service-area pages uses /service-area-pages instead.",
+      "version": "4.1.1",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:boringmarketer/boring-marketing-skills:skills/programmatic-seo",
+      "relPath": "skills/programmatic-seo",
+      "verified": true,
+      "tokenCount": 5901,
+      "evalSummary": {
+        "overallScore": 76,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-11-16T19:30:32.081Z",
+        "evaluatedVersion": "4.1.1"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 76,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:32.105Z",
+          "evaluatedVersion": "4.1.1"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:32.108Z",
+          "evaluatedVersion": "4.1.1"
+        }
+      }
+    },
+    {
+      "name": "seo-content",
+      "description": "Write publication-ready articles that earn classic rankings AND AI-surface citations (AI Overviews, ChatGPT search, Perplexity) while reading like a human expert wrote them. Use when turning a keyword or content brief into an actual piece. It scrapes the live SERP with parallel agents, captures who the AI surfaces cite and why, drafts in your voice, humanizes, optimizes on two tracks (on-page + GEO), and ships valid 2026 schema. Refresh mode diffs both the SERP and the AI-citation set against your published article.",
+      "version": "4.1.1",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:boringmarketer/boring-marketing-skills:skills/seo-content",
+      "relPath": "skills/seo-content",
+      "verified": true,
+      "tokenCount": 7248,
+      "evalSummary": {
+        "overallScore": 75,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-11-16T19:30:32.190Z",
+        "evaluatedVersion": "4.1.1"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 75,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:32.193Z",
+          "evaluatedVersion": "4.1.1"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:32.193Z",
+          "evaluatedVersion": "4.1.1"
+        }
+      }
+    },
+    {
+      "name": "service-area-pages",
+      "description": "Writes town and service-area pages for a local business that each say something true and specific about that town, folds the towns that can't into one honest areas-we-serve page, and checks the set for duplicates before anything ships. Use when a plumber, roofer, HVAC company or other service-area business needs city pages, wants to fix town pages that are all the same, or has a local SEO plan that calls for them.",
+      "version": "4.1.1",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:boringmarketer/boring-marketing-skills:skills/service-area-pages",
+      "relPath": "skills/service-area-pages",
+      "verified": true,
+      "tokenCount": 5079,
+      "evalSummary": {
+        "overallScore": 70,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-11-16T19:30:32.202Z",
+        "evaluatedVersion": "4.1.1"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 70,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:32.205Z",
+          "evaluatedVersion": "4.1.1"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:32.205Z",
+          "evaluatedVersion": "4.1.1"
+        }
+      }
+    },
+    {
+      "name": "site-audit",
+      "description": "Crawls a website the way Google and the AI crawlers see it and returns a short, ranked fix list in plain words. It covers pages blocked from Google, noindex and canonical mistakes, AI crawlers blocked in robots.txt or at the CDN, sitemap health, broken links, duplicate and thin pages, Core Web Vitals from Google's free PageSpeed API, and the content signals that make a page worth citing. Use for a technical SEO audit, when pages aren't showing up on Google, to check whether AI crawlers can reach the site, or to re-check a site after fixes and see what changed.",
+      "version": "4.1.1",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:boringmarketer/boring-marketing-skills:skills/site-audit",
+      "relPath": "skills/site-audit",
+      "verified": true,
+      "tokenCount": 5706,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-11-16T19:30:32.452Z",
+        "evaluatedVersion": "4.1.1"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:32.460Z",
+          "evaluatedVersion": "4.1.1"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:32.460Z",
+          "evaluatedVersion": "4.1.1"
+        }
+      }
+    },
+    {
+      "name": "social-content",
+      "description": "Writes original X and LinkedIn posts from the user's own best posts and real numbers, not generic hooks. Builds a per-user pattern library (what wins in their niche plus their own canon), then writes every post finished from the facts in hand (at most one fact flagged to verify), scores it privately against a calibrated rubric, checks it for the tells that make posts sound written by AI, and runs quote-post, reply and weekly modes. When the user sells a service, adds a launch arc, a low-friction offer and a daily engagement-to-DM routine tied to the goal. Use for writing original social posts; to repurpose existing long-form content use /content-atomizer.",
+      "version": "4.1.1",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:boringmarketer/boring-marketing-skills:skills/social-content",
+      "relPath": "skills/social-content",
+      "verified": true,
+      "tokenCount": 8694,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-11-16T19:30:32.597Z",
+        "evaluatedVersion": "4.1.1"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:32.644Z",
+          "evaluatedVersion": "4.1.1"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-11-16T19:30:32.645Z",
+          "evaluatedVersion": "4.1.1"
+        }
+      }
+    }
+  ],
+  "bundles": [
+    {
+      "version": 1,
+      "name": "boringmarketer-boring-marketing-skills-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from boringmarketer/boring-marketing-skills.",
+      "author": "ASM (boringmarketer/boring-marketing-skills)",
+      "createdAt": "2026-11-16T19:30:33.181Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "data",
+        "ai",
+        "agents",
+        "boringmarketer",
+        "boring-marketing-skills"
+      ],
+      "skills": [
+        {
+          "name": "audience-research",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/audience-research",
+          "description": "Mine where your audience actually talks (reviews, Reddit, YouTube comments, communities) and produce two brand files, audience.md (segments, awareness, jobs-to-be-done, watering holes) and voc.md (verbatim pain/desire/objection language with sources). Use it before positioning or copy work, when launching into a new market, or when copy keeps missing because nobody knows how customers actually describe the problem.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "brand-voice",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/brand-voice",
+          "description": "Extracts or builds a falsifiable brand voice profile, backed by verbatim evidence from the brand's real content, that every other content skill reads, so output sounds like the brand instead of a model. Use when starting a project, when copy sounds generic or AI-written, when output must match a specific person or brand, or to check recently published content for voice drift.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "creative",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/creative",
+          "description": "AI creative production engine for product photos, product video, social graphics, talking heads, ad creative, and video ads cut from real or generated footage in code and rendered to MP4 for free, through one tiered pipeline with a vision-QA loop that looks at every asset before you see it. Ad creative is built from 336 live Meta ads we viewed (21 formats with real examples, a hook bank, a script that pulls competitors' live ads from the Meta Ad Library, a batch plan that mixes long-running stills with fresh UGC, and a visual check every ad must pass). Use whenever visual assets or ad creative need to be made, edited, planned, or batch-produced for a brand or campaign.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "direct-response-copy",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/direct-response-copy",
+          "description": "Write copy that converts (landing pages, sales pages, emails, ads, headlines, CTAs) in the customer's own words, matched to the ad or email that sends the traffic. A claim gate keeps every shipped line to verified facts (stronger ideas go on a To make this true list), and a private score-and-rewrite loop lifts the draft. Includes local-service patterns for copy that makes the phone ring. Approved page copy hands off to /landing-page to build. Use when someone needs to sell in writing, wants copy scored, or has ads that get clicks but no sales or calls.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "keyword-research",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/keyword-research",
+          "description": "Maps what people search for and ask about a business as a topic map rather than a 5,000-row keyword list, using free autocomplete and Search Console first, covering both Google searches and the questions people put to AI assistants, going deep only on the topics worth acting on, and ending in ready-to-write briefs. Use when planning content, choosing what to write about, finding content gaps, or building an SEO and AI-search plan, for an online business or a local one.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "lead-magnet",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/lead-magnet",
+          "description": "Generate lead magnet concepts grounded in live competitor research, then BUILD the chosen one, including working interactive apps (quiz, calculator, instant quote, AI-graded audit) with a capture gate, as well as written guides and checklists. Covers info products, SaaS, agencies and local service businesses (price calculators, repair-or-replace checkers, seasonal checklists, financing estimates), plus an automated free-report Zap. Use when someone wants more leads or subscribers, needs top-of-funnel ideas, or asks what to give away for free.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "long-form-article",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/long-form-article",
+          "description": "Plans, researches and drafts one long guide (3,000 to 5,000 words) for an X Article, a LinkedIn article, a blog or a newsletter, with a point a reader could repeat, named and dated sources, a proven structure from the size of the gap to \"start this week\", copyable prompts or steps, an honest \"what breaks\", and optional images. Use when you want a long-form piece, a playbook, a masterplan or a definitive guide that becomes the go-to resource on a topic.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "newsletter",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/newsletter",
+          "description": "Write publication-ready newsletter editions, roundup, deep-dive, personal essay, curated links, news briefing, or hybrid, in the brand's voice, sourced from live pages, and informed by the list's own click data when an ESP key exists. Use it to draft an edition, pick a format, or answer newsletter strategy questions (platform, growth, monetization).",
+          "version": "4.1.1"
+        },
+        {
+          "name": "programmatic-seo",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/programmatic-seo",
+          "description": "Validate, build, and ship a programmatic SEO library (one template × one dataset → 50-500 pages that each earn their existence with unique data). Use when a keyword pattern repeats across a modifier set (x for [industry], [city] x, x vs y, x alternatives, x integrations) and pages should be generated from data instead of written one at a time. A local service business that wants town or service-area pages uses /service-area-pages instead.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "seo-content",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/seo-content",
+          "description": "Write publication-ready articles that earn classic rankings AND AI-surface citations (AI Overviews, ChatGPT search, Perplexity) while reading like a human expert wrote them. Use when turning a keyword or content brief into an actual piece. It scrapes the live SERP with parallel agents, captures who the AI surfaces cite and why, drafts in your voice, humanizes, optimizes on two tracks (on-page + GEO), and ships valid 2026 schema. Refresh mode diffs both the SERP and the AI-citation set against your published article.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "site-audit",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/site-audit",
+          "description": "Crawls a website the way Google and the AI crawlers see it and returns a short, ranked fix list in plain words. It covers pages blocked from Google, noindex and canonical mistakes, AI crawlers blocked in robots.txt or at the CDN, sitemap health, broken links, duplicate and thin pages, Core Web Vitals from Google's free PageSpeed API, and the content signals that make a page worth citing. Use for a technical SEO audit, when pages aren't showing up on Google, to check whether AI crawlers can reach the site, or to re-check a site after fixes and see what changed.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "social-content",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/social-content",
+          "description": "Writes original X and LinkedIn posts from the user's own best posts and real numbers, not generic hooks. Builds a per-user pattern library (what wins in their niche plus their own canon), then writes every post finished from the facts in hand (at most one fact flagged to verify), scores it privately against a calibrated rubric, checks it for the tells that make posts sound written by AI, and runs quote-post, reply and weekly modes. When the user sells a service, adds a launch arc, a low-friction offer and a daily engagement-to-DM routine tied to the goal. Use for writing original social posts; to repurpose existing long-form content use /content-atomizer.",
+          "version": "4.1.1"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "boringmarketer",
+        "repo": "boring-marketing-skills",
+        "repoUrl": "https://github.com/boringmarketer/boring-marketing-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "boringmarketer-boring-marketing-skills-devops",
+      "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from boringmarketer/boring-marketing-skills.",
+      "author": "ASM (boringmarketer/boring-marketing-skills)",
+      "createdAt": "2026-11-16T19:30:33.181Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "devops",
+        "infra",
+        "automation",
+        "boringmarketer",
+        "boring-marketing-skills"
+      ],
+      "skills": [
+        {
+          "name": "brand-voice",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/brand-voice",
+          "description": "Extracts or builds a falsifiable brand voice profile, backed by verbatim evidence from the brand's real content, that every other content skill reads, so output sounds like the brand instead of a model. Use when starting a project, when copy sounds generic or AI-written, when output must match a specific person or brand, or to check recently published content for voice drift.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "content-atomizer",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/content-atomizer",
+          "description": "Turns one piece of finished content (blog post, newsletter, podcast, video) into platform-native social assets for the 2-3 platforms the brand actually operates, with depth on a few platforms instead of rephrased spray across eight. Use when source content exists and needs distribution, when a post's comments need ranked reply drafts, or when a week of posts should be planned from one source.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "creative",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/creative",
+          "description": "AI creative production engine for product photos, product video, social graphics, talking heads, ad creative, and video ads cut from real or generated footage in code and rendered to MP4 for free, through one tiered pipeline with a vision-QA loop that looks at every asset before you see it. Ad creative is built from 336 live Meta ads we viewed (21 formats with real examples, a hook bank, a script that pulls competitors' live ads from the Meta Ad Library, a batch plan that mixes long-running stills with fresh UGC, and a visual check every ad must pass). Use whenever visual assets or ad creative need to be made, edited, planned, or batch-produced for a brand or campaign.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "landing-page",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/landing-page",
+          "description": "Turn an offer into a shipped landing page with section architecture chosen by offer type and awareness level, a first screen that repeats the ad's promise word for word, a deployable build (single-file HTML or Next.js) with A/B variant routes, and an optional deploy; includes a teardown mode that scores any live page section-by-section into a prioritized rewrite plan (the conversion-audit capability), and a local section for service businesses (call-first page vs quote form vs booking, plus a phone first-screen checklist). Use when the user wants a page built, has approved copy that needs to become a working page, has ads that get clicks but no sign-ups or calls, or has a live page that isn't converting.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "lead-magnet",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/lead-magnet",
+          "description": "Generate lead magnet concepts grounded in live competitor research, then BUILD the chosen one, including working interactive apps (quiz, calculator, instant quote, AI-graded audit) with a capture gate, as well as written guides and checklists. Covers info products, SaaS, agencies and local service businesses (price calculators, repair-or-replace checkers, seasonal checklists, financing estimates), plus an automated free-report Zap. Use when someone wants more leads or subscribers, needs top-of-funnel ideas, or asks what to give away for free.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "programmatic-seo",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/programmatic-seo",
+          "description": "Validate, build, and ship a programmatic SEO library (one template × one dataset → 50-500 pages that each earn their existence with unique data). Use when a keyword pattern repeats across a modifier set (x for [industry], [city] x, x vs y, x alternatives, x integrations) and pages should be generated from data instead of written one at a time. A local service business that wants town or service-area pages uses /service-area-pages instead.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "seo-content",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/seo-content",
+          "description": "Write publication-ready articles that earn classic rankings AND AI-surface citations (AI Overviews, ChatGPT search, Perplexity) while reading like a human expert wrote them. Use when turning a keyword or content brief into an actual piece. It scrapes the live SERP with parallel agents, captures who the AI surfaces cite and why, drafts in your voice, humanizes, optimizes on two tracks (on-page + GEO), and ships valid 2026 schema. Refresh mode diffs both the SERP and the AI-citation set against your published article.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "service-area-pages",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/service-area-pages",
+          "description": "Writes town and service-area pages for a local business that each say something true and specific about that town, folds the towns that can't into one honest areas-we-serve page, and checks the set for duplicates before anything ships. Use when a plumber, roofer, HVAC company or other service-area business needs city pages, wants to fix town pages that are all the same, or has a local SEO plan that calls for them.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "site-audit",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/site-audit",
+          "description": "Crawls a website the way Google and the AI crawlers see it and returns a short, ranked fix list in plain words. It covers pages blocked from Google, noindex and canonical mistakes, AI crawlers blocked in robots.txt or at the CDN, sitemap health, broken links, duplicate and thin pages, Core Web Vitals from Google's free PageSpeed API, and the content signals that make a page worth citing. Use for a technical SEO audit, when pages aren't showing up on Google, to check whether AI crawlers can reach the site, or to re-check a site after fixes and see what changed.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "social-content",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/social-content",
+          "description": "Writes original X and LinkedIn posts from the user's own best posts and real numbers, not generic hooks. Builds a per-user pattern library (what wins in their niche plus their own canon), then writes every post finished from the facts in hand (at most one fact flagged to verify), scores it privately against a calibrated rubric, checks it for the tells that make posts sound written by AI, and runs quote-post, reply and weekly modes. When the user sells a service, adds a launch arc, a low-friction offer and a daily engagement-to-DM routine tied to the goal. Use for writing original social posts; to repurpose existing long-form content use /content-atomizer.",
+          "version": "4.1.1"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "boringmarketer",
+        "repo": "boring-marketing-skills",
+        "repoUrl": "https://github.com/boringmarketer/boring-marketing-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "boringmarketer-boring-marketing-skills-engineering",
+      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from boringmarketer/boring-marketing-skills.",
+      "author": "ASM (boringmarketer/boring-marketing-skills)",
+      "createdAt": "2026-11-16T19:30:33.181Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "engineering",
+        "coding",
+        "testing",
+        "boringmarketer",
+        "boring-marketing-skills"
+      ],
+      "skills": [
+        {
+          "name": "audience-research",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/audience-research",
+          "description": "Mine where your audience actually talks (reviews, Reddit, YouTube comments, communities) and produce two brand files, audience.md (segments, awareness, jobs-to-be-done, watering holes) and voc.md (verbatim pain/desire/objection language with sources). Use it before positioning or copy work, when launching into a new market, or when copy keeps missing because nobody knows how customers actually describe the problem.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "brand-voice",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/brand-voice",
+          "description": "Extracts or builds a falsifiable brand voice profile, backed by verbatim evidence from the brand's real content, that every other content skill reads, so output sounds like the brand instead of a model. Use when starting a project, when copy sounds generic or AI-written, when output must match a specific person or brand, or to check recently published content for voice drift.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "creative",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/creative",
+          "description": "AI creative production engine for product photos, product video, social graphics, talking heads, ad creative, and video ads cut from real or generated footage in code and rendered to MP4 for free, through one tiered pipeline with a vision-QA loop that looks at every asset before you see it. Ad creative is built from 336 live Meta ads we viewed (21 formats with real examples, a hook bank, a script that pulls competitors' live ads from the Meta Ad Library, a batch plan that mixes long-running stills with fresh UGC, and a visual check every ad must pass). Use whenever visual assets or ad creative need to be made, edited, planned, or batch-produced for a brand or campaign.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "direct-response-copy",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/direct-response-copy",
+          "description": "Write copy that converts (landing pages, sales pages, emails, ads, headlines, CTAs) in the customer's own words, matched to the ad or email that sends the traffic. A claim gate keeps every shipped line to verified facts (stronger ideas go on a To make this true list), and a private score-and-rewrite loop lifts the draft. Includes local-service patterns for copy that makes the phone ring. Approved page copy hands off to /landing-page to build. Use when someone needs to sell in writing, wants copy scored, or has ads that get clicks but no sales or calls.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "keyword-research",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/keyword-research",
+          "description": "Maps what people search for and ask about a business as a topic map rather than a 5,000-row keyword list, using free autocomplete and Search Console first, covering both Google searches and the questions people put to AI assistants, going deep only on the topics worth acting on, and ending in ready-to-write briefs. Use when planning content, choosing what to write about, finding content gaps, or building an SEO and AI-search plan, for an online business or a local one.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "landing-page",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/landing-page",
+          "description": "Turn an offer into a shipped landing page with section architecture chosen by offer type and awareness level, a first screen that repeats the ad's promise word for word, a deployable build (single-file HTML or Next.js) with A/B variant routes, and an optional deploy; includes a teardown mode that scores any live page section-by-section into a prioritized rewrite plan (the conversion-audit capability), and a local section for service businesses (call-first page vs quote form vs booking, plus a phone first-screen checklist). Use when the user wants a page built, has approved copy that needs to become a working page, has ads that get clicks but no sign-ups or calls, or has a live page that isn't converting.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "lead-magnet",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/lead-magnet",
+          "description": "Generate lead magnet concepts grounded in live competitor research, then BUILD the chosen one, including working interactive apps (quiz, calculator, instant quote, AI-graded audit) with a capture gate, as well as written guides and checklists. Covers info products, SaaS, agencies and local service businesses (price calculators, repair-or-replace checkers, seasonal checklists, financing estimates), plus an automated free-report Zap. Use when someone wants more leads or subscribers, needs top-of-funnel ideas, or asks what to give away for free.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "newsletter",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/newsletter",
+          "description": "Write publication-ready newsletter editions, roundup, deep-dive, personal essay, curated links, news briefing, or hybrid, in the brand's voice, sourced from live pages, and informed by the list's own click data when an ESP key exists. Use it to draft an edition, pick a format, or answer newsletter strategy questions (platform, growth, monetization).",
+          "version": "4.1.1"
+        },
+        {
+          "name": "positioning-angles",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/positioning-angles",
+          "description": "Find the angle and the offer that make something sell. Researches what competitors say and pay to say, mines their bad reviews for the fears nobody answers, reads how jaded the market is, then writes 3-5 angles with one starred. Shipped lines use only verified facts, and a stronger idea the business can't back yet goes on a To make this true list with what it would take. Has a local-service mode (job types, map-pack competitors, trade guarantees). Use when launching a product or service, building an offer or lead magnet, before writing a page, or when marketing isn't converting.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "programmatic-seo",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/programmatic-seo",
+          "description": "Validate, build, and ship a programmatic SEO library (one template × one dataset → 50-500 pages that each earn their existence with unique data). Use when a keyword pattern repeats across a modifier set (x for [industry], [city] x, x vs y, x alternatives, x integrations) and pages should be generated from data instead of written one at a time. A local service business that wants town or service-area pages uses /service-area-pages instead.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "site-audit",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/site-audit",
+          "description": "Crawls a website the way Google and the AI crawlers see it and returns a short, ranked fix list in plain words. It covers pages blocked from Google, noindex and canonical mistakes, AI crawlers blocked in robots.txt or at the CDN, sitemap health, broken links, duplicate and thin pages, Core Web Vitals from Google's free PageSpeed API, and the content signals that make a page worth citing. Use for a technical SEO audit, when pages aren't showing up on Google, to check whether AI crawlers can reach the site, or to re-check a site after fixes and see what changed.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "social-content",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/social-content",
+          "description": "Writes original X and LinkedIn posts from the user's own best posts and real numbers, not generic hooks. Builds a per-user pattern library (what wins in their niche plus their own canon), then writes every post finished from the facts in hand (at most one fact flagged to verify), scores it privately against a calibrated rubric, checks it for the tells that make posts sound written by AI, and runs quote-post, reply and weekly modes. When the user sells a service, adds a launch arc, a low-friction offer and a daily engagement-to-DM routine tied to the goal. Use for writing original social posts; to repurpose existing long-form content use /content-atomizer.",
+          "version": "4.1.1"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "boringmarketer",
+        "repo": "boring-marketing-skills",
+        "repoUrl": "https://github.com/boringmarketer/boring-marketing-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "boringmarketer-boring-marketing-skills-frontend-design",
+      "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from boringmarketer/boring-marketing-skills.",
+      "author": "ASM (boringmarketer/boring-marketing-skills)",
+      "createdAt": "2026-11-16T19:30:33.181Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "frontend",
+        "design",
+        "ui",
+        "boringmarketer",
+        "boring-marketing-skills"
+      ],
+      "skills": [
+        {
+          "name": "audience-research",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/audience-research",
+          "description": "Mine where your audience actually talks (reviews, Reddit, YouTube comments, communities) and produce two brand files, audience.md (segments, awareness, jobs-to-be-done, watering holes) and voc.md (verbatim pain/desire/objection language with sources). Use it before positioning or copy work, when launching into a new market, or when copy keeps missing because nobody knows how customers actually describe the problem.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "brand-voice",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/brand-voice",
+          "description": "Extracts or builds a falsifiable brand voice profile, backed by verbatim evidence from the brand's real content, that every other content skill reads, so output sounds like the brand instead of a model. Use when starting a project, when copy sounds generic or AI-written, when output must match a specific person or brand, or to check recently published content for voice drift.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "content-atomizer",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/content-atomizer",
+          "description": "Turns one piece of finished content (blog post, newsletter, podcast, video) into platform-native social assets for the 2-3 platforms the brand actually operates, with depth on a few platforms instead of rephrased spray across eight. Use when source content exists and needs distribution, when a post's comments need ranked reply drafts, or when a week of posts should be planned from one source.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "creative",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/creative",
+          "description": "AI creative production engine for product photos, product video, social graphics, talking heads, ad creative, and video ads cut from real or generated footage in code and rendered to MP4 for free, through one tiered pipeline with a vision-QA loop that looks at every asset before you see it. Ad creative is built from 336 live Meta ads we viewed (21 formats with real examples, a hook bank, a script that pulls competitors' live ads from the Meta Ad Library, a batch plan that mixes long-running stills with fresh UGC, and a visual check every ad must pass). Use whenever visual assets or ad creative need to be made, edited, planned, or batch-produced for a brand or campaign.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "direct-response-copy",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/direct-response-copy",
+          "description": "Write copy that converts (landing pages, sales pages, emails, ads, headlines, CTAs) in the customer's own words, matched to the ad or email that sends the traffic. A claim gate keeps every shipped line to verified facts (stronger ideas go on a To make this true list), and a private score-and-rewrite loop lifts the draft. Includes local-service patterns for copy that makes the phone ring. Approved page copy hands off to /landing-page to build. Use when someone needs to sell in writing, wants copy scored, or has ads that get clicks but no sales or calls.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "keyword-research",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/keyword-research",
+          "description": "Maps what people search for and ask about a business as a topic map rather than a 5,000-row keyword list, using free autocomplete and Search Console first, covering both Google searches and the questions people put to AI assistants, going deep only on the topics worth acting on, and ending in ready-to-write briefs. Use when planning content, choosing what to write about, finding content gaps, or building an SEO and AI-search plan, for an online business or a local one.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "landing-page",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/landing-page",
+          "description": "Turn an offer into a shipped landing page with section architecture chosen by offer type and awareness level, a first screen that repeats the ad's promise word for word, a deployable build (single-file HTML or Next.js) with A/B variant routes, and an optional deploy; includes a teardown mode that scores any live page section-by-section into a prioritized rewrite plan (the conversion-audit capability), and a local section for service businesses (call-first page vs quote form vs booking, plus a phone first-screen checklist). Use when the user wants a page built, has approved copy that needs to become a working page, has ads that get clicks but no sign-ups or calls, or has a live page that isn't converting.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "lead-magnet",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/lead-magnet",
+          "description": "Generate lead magnet concepts grounded in live competitor research, then BUILD the chosen one, including working interactive apps (quiz, calculator, instant quote, AI-graded audit) with a capture gate, as well as written guides and checklists. Covers info products, SaaS, agencies and local service businesses (price calculators, repair-or-replace checkers, seasonal checklists, financing estimates), plus an automated free-report Zap. Use when someone wants more leads or subscribers, needs top-of-funnel ideas, or asks what to give away for free.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "long-form-article",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/long-form-article",
+          "description": "Plans, researches and drafts one long guide (3,000 to 5,000 words) for an X Article, a LinkedIn article, a blog or a newsletter, with a point a reader could repeat, named and dated sources, a proven structure from the size of the gap to \"start this week\", copyable prompts or steps, an honest \"what breaks\", and optional images. Use when you want a long-form piece, a playbook, a masterplan or a definitive guide that becomes the go-to resource on a topic.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "newsletter",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/newsletter",
+          "description": "Write publication-ready newsletter editions, roundup, deep-dive, personal essay, curated links, news briefing, or hybrid, in the brand's voice, sourced from live pages, and informed by the list's own click data when an ESP key exists. Use it to draft an edition, pick a format, or answer newsletter strategy questions (platform, growth, monetization).",
+          "version": "4.1.1"
+        },
+        {
+          "name": "positioning-angles",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/positioning-angles",
+          "description": "Find the angle and the offer that make something sell. Researches what competitors say and pay to say, mines their bad reviews for the fears nobody answers, reads how jaded the market is, then writes 3-5 angles with one starred. Shipped lines use only verified facts, and a stronger idea the business can't back yet goes on a To make this true list with what it would take. Has a local-service mode (job types, map-pack competitors, trade guarantees). Use when launching a product or service, building an offer or lead magnet, before writing a page, or when marketing isn't converting.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "programmatic-seo",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/programmatic-seo",
+          "description": "Validate, build, and ship a programmatic SEO library (one template × one dataset → 50-500 pages that each earn their existence with unique data). Use when a keyword pattern repeats across a modifier set (x for [industry], [city] x, x vs y, x alternatives, x integrations) and pages should be generated from data instead of written one at a time. A local service business that wants town or service-area pages uses /service-area-pages instead.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "social-content",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/social-content",
+          "description": "Writes original X and LinkedIn posts from the user's own best posts and real numbers, not generic hooks. Builds a per-user pattern library (what wins in their niche plus their own canon), then writes every post finished from the facts in hand (at most one fact flagged to verify), scores it privately against a calibrated rubric, checks it for the tells that make posts sound written by AI, and runs quote-post, reply and weekly modes. When the user sells a service, adds a launch arc, a low-friction offer and a daily engagement-to-DM routine tied to the goal. Use for writing original social posts; to repurpose existing long-form content use /content-atomizer.",
+          "version": "4.1.1"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "boringmarketer",
+        "repo": "boring-marketing-skills",
+        "repoUrl": "https://github.com/boringmarketer/boring-marketing-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "boringmarketer-boring-marketing-skills-marketing",
+      "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from boringmarketer/boring-marketing-skills.",
+      "author": "ASM (boringmarketer/boring-marketing-skills)",
+      "createdAt": "2026-11-16T19:30:33.181Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "marketing",
+        "growth",
+        "seo",
+        "boringmarketer",
+        "boring-marketing-skills"
+      ],
+      "skills": [
+        {
+          "name": "audience-research",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/audience-research",
+          "description": "Mine where your audience actually talks (reviews, Reddit, YouTube comments, communities) and produce two brand files, audience.md (segments, awareness, jobs-to-be-done, watering holes) and voc.md (verbatim pain/desire/objection language with sources). Use it before positioning or copy work, when launching into a new market, or when copy keeps missing because nobody knows how customers actually describe the problem.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "brand-voice",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/brand-voice",
+          "description": "Extracts or builds a falsifiable brand voice profile, backed by verbatim evidence from the brand's real content, that every other content skill reads, so output sounds like the brand instead of a model. Use when starting a project, when copy sounds generic or AI-written, when output must match a specific person or brand, or to check recently published content for voice drift.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "content-atomizer",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/content-atomizer",
+          "description": "Turns one piece of finished content (blog post, newsletter, podcast, video) into platform-native social assets for the 2-3 platforms the brand actually operates, with depth on a few platforms instead of rephrased spray across eight. Use when source content exists and needs distribution, when a post's comments need ranked reply drafts, or when a week of posts should be planned from one source.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "creative",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/creative",
+          "description": "AI creative production engine for product photos, product video, social graphics, talking heads, ad creative, and video ads cut from real or generated footage in code and rendered to MP4 for free, through one tiered pipeline with a vision-QA loop that looks at every asset before you see it. Ad creative is built from 336 live Meta ads we viewed (21 formats with real examples, a hook bank, a script that pulls competitors' live ads from the Meta Ad Library, a batch plan that mixes long-running stills with fresh UGC, and a visual check every ad must pass). Use whenever visual assets or ad creative need to be made, edited, planned, or batch-produced for a brand or campaign.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "direct-response-copy",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/direct-response-copy",
+          "description": "Write copy that converts (landing pages, sales pages, emails, ads, headlines, CTAs) in the customer's own words, matched to the ad or email that sends the traffic. A claim gate keeps every shipped line to verified facts (stronger ideas go on a To make this true list), and a private score-and-rewrite loop lifts the draft. Includes local-service patterns for copy that makes the phone ring. Approved page copy hands off to /landing-page to build. Use when someone needs to sell in writing, wants copy scored, or has ads that get clicks but no sales or calls.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "keyword-research",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/keyword-research",
+          "description": "Maps what people search for and ask about a business as a topic map rather than a 5,000-row keyword list, using free autocomplete and Search Console first, covering both Google searches and the questions people put to AI assistants, going deep only on the topics worth acting on, and ending in ready-to-write briefs. Use when planning content, choosing what to write about, finding content gaps, or building an SEO and AI-search plan, for an online business or a local one.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "landing-page",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/landing-page",
+          "description": "Turn an offer into a shipped landing page with section architecture chosen by offer type and awareness level, a first screen that repeats the ad's promise word for word, a deployable build (single-file HTML or Next.js) with A/B variant routes, and an optional deploy; includes a teardown mode that scores any live page section-by-section into a prioritized rewrite plan (the conversion-audit capability), and a local section for service businesses (call-first page vs quote form vs booking, plus a phone first-screen checklist). Use when the user wants a page built, has approved copy that needs to become a working page, has ads that get clicks but no sign-ups or calls, or has a live page that isn't converting.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "lead-magnet",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/lead-magnet",
+          "description": "Generate lead magnet concepts grounded in live competitor research, then BUILD the chosen one, including working interactive apps (quiz, calculator, instant quote, AI-graded audit) with a capture gate, as well as written guides and checklists. Covers info products, SaaS, agencies and local service businesses (price calculators, repair-or-replace checkers, seasonal checklists, financing estimates), plus an automated free-report Zap. Use when someone wants more leads or subscribers, needs top-of-funnel ideas, or asks what to give away for free.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "long-form-article",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/long-form-article",
+          "description": "Plans, researches and drafts one long guide (3,000 to 5,000 words) for an X Article, a LinkedIn article, a blog or a newsletter, with a point a reader could repeat, named and dated sources, a proven structure from the size of the gap to \"start this week\", copyable prompts or steps, an honest \"what breaks\", and optional images. Use when you want a long-form piece, a playbook, a masterplan or a definitive guide that becomes the go-to resource on a topic.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "newsletter",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/newsletter",
+          "description": "Write publication-ready newsletter editions, roundup, deep-dive, personal essay, curated links, news briefing, or hybrid, in the brand's voice, sourced from live pages, and informed by the list's own click data when an ESP key exists. Use it to draft an edition, pick a format, or answer newsletter strategy questions (platform, growth, monetization).",
+          "version": "4.1.1"
+        },
+        {
+          "name": "positioning-angles",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/positioning-angles",
+          "description": "Find the angle and the offer that make something sell. Researches what competitors say and pay to say, mines their bad reviews for the fears nobody answers, reads how jaded the market is, then writes 3-5 angles with one starred. Shipped lines use only verified facts, and a stronger idea the business can't back yet goes on a To make this true list with what it would take. Has a local-service mode (job types, map-pack competitors, trade guarantees). Use when launching a product or service, building an offer or lead magnet, before writing a page, or when marketing isn't converting.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "programmatic-seo",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/programmatic-seo",
+          "description": "Validate, build, and ship a programmatic SEO library (one template × one dataset → 50-500 pages that each earn their existence with unique data). Use when a keyword pattern repeats across a modifier set (x for [industry], [city] x, x vs y, x alternatives, x integrations) and pages should be generated from data instead of written one at a time. A local service business that wants town or service-area pages uses /service-area-pages instead.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "seo-content",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/seo-content",
+          "description": "Write publication-ready articles that earn classic rankings AND AI-surface citations (AI Overviews, ChatGPT search, Perplexity) while reading like a human expert wrote them. Use when turning a keyword or content brief into an actual piece. It scrapes the live SERP with parallel agents, captures who the AI surfaces cite and why, drafts in your voice, humanizes, optimizes on two tracks (on-page + GEO), and ships valid 2026 schema. Refresh mode diffs both the SERP and the AI-citation set against your published article.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "service-area-pages",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/service-area-pages",
+          "description": "Writes town and service-area pages for a local business that each say something true and specific about that town, folds the towns that can't into one honest areas-we-serve page, and checks the set for duplicates before anything ships. Use when a plumber, roofer, HVAC company or other service-area business needs city pages, wants to fix town pages that are all the same, or has a local SEO plan that calls for them.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "site-audit",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/site-audit",
+          "description": "Crawls a website the way Google and the AI crawlers see it and returns a short, ranked fix list in plain words. It covers pages blocked from Google, noindex and canonical mistakes, AI crawlers blocked in robots.txt or at the CDN, sitemap health, broken links, duplicate and thin pages, Core Web Vitals from Google's free PageSpeed API, and the content signals that make a page worth citing. Use for a technical SEO audit, when pages aren't showing up on Google, to check whether AI crawlers can reach the site, or to re-check a site after fixes and see what changed.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "social-content",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/social-content",
+          "description": "Writes original X and LinkedIn posts from the user's own best posts and real numbers, not generic hooks. Builds a per-user pattern library (what wins in their niche plus their own canon), then writes every post finished from the facts in hand (at most one fact flagged to verify), scores it privately against a calibrated rubric, checks it for the tells that make posts sound written by AI, and runs quote-post, reply and weekly modes. When the user sells a service, adds a launch arc, a low-friction offer and a daily engagement-to-DM routine tied to the goal. Use for writing original social posts; to repurpose existing long-form content use /content-atomizer.",
+          "version": "4.1.1"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "boringmarketer",
+        "repo": "boring-marketing-skills",
+        "repoUrl": "https://github.com/boringmarketer/boring-marketing-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "boringmarketer-boring-marketing-skills-product-business",
+      "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from boringmarketer/boring-marketing-skills.",
+      "author": "ASM (boringmarketer/boring-marketing-skills)",
+      "createdAt": "2026-11-16T19:30:33.181Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "product",
+        "business",
+        "planning",
+        "boringmarketer",
+        "boring-marketing-skills"
+      ],
+      "skills": [
+        {
+          "name": "audience-research",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/audience-research",
+          "description": "Mine where your audience actually talks (reviews, Reddit, YouTube comments, communities) and produce two brand files, audience.md (segments, awareness, jobs-to-be-done, watering holes) and voc.md (verbatim pain/desire/objection language with sources). Use it before positioning or copy work, when launching into a new market, or when copy keeps missing because nobody knows how customers actually describe the problem.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "brand-voice",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/brand-voice",
+          "description": "Extracts or builds a falsifiable brand voice profile, backed by verbatim evidence from the brand's real content, that every other content skill reads, so output sounds like the brand instead of a model. Use when starting a project, when copy sounds generic or AI-written, when output must match a specific person or brand, or to check recently published content for voice drift.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "content-atomizer",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/content-atomizer",
+          "description": "Turns one piece of finished content (blog post, newsletter, podcast, video) into platform-native social assets for the 2-3 platforms the brand actually operates, with depth on a few platforms instead of rephrased spray across eight. Use when source content exists and needs distribution, when a post's comments need ranked reply drafts, or when a week of posts should be planned from one source.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "creative",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/creative",
+          "description": "AI creative production engine for product photos, product video, social graphics, talking heads, ad creative, and video ads cut from real or generated footage in code and rendered to MP4 for free, through one tiered pipeline with a vision-QA loop that looks at every asset before you see it. Ad creative is built from 336 live Meta ads we viewed (21 formats with real examples, a hook bank, a script that pulls competitors' live ads from the Meta Ad Library, a batch plan that mixes long-running stills with fresh UGC, and a visual check every ad must pass). Use whenever visual assets or ad creative need to be made, edited, planned, or batch-produced for a brand or campaign.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "direct-response-copy",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/direct-response-copy",
+          "description": "Write copy that converts (landing pages, sales pages, emails, ads, headlines, CTAs) in the customer's own words, matched to the ad or email that sends the traffic. A claim gate keeps every shipped line to verified facts (stronger ideas go on a To make this true list), and a private score-and-rewrite loop lifts the draft. Includes local-service patterns for copy that makes the phone ring. Approved page copy hands off to /landing-page to build. Use when someone needs to sell in writing, wants copy scored, or has ads that get clicks but no sales or calls.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "keyword-research",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/keyword-research",
+          "description": "Maps what people search for and ask about a business as a topic map rather than a 5,000-row keyword list, using free autocomplete and Search Console first, covering both Google searches and the questions people put to AI assistants, going deep only on the topics worth acting on, and ending in ready-to-write briefs. Use when planning content, choosing what to write about, finding content gaps, or building an SEO and AI-search plan, for an online business or a local one.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "landing-page",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/landing-page",
+          "description": "Turn an offer into a shipped landing page with section architecture chosen by offer type and awareness level, a first screen that repeats the ad's promise word for word, a deployable build (single-file HTML or Next.js) with A/B variant routes, and an optional deploy; includes a teardown mode that scores any live page section-by-section into a prioritized rewrite plan (the conversion-audit capability), and a local section for service businesses (call-first page vs quote form vs booking, plus a phone first-screen checklist). Use when the user wants a page built, has approved copy that needs to become a working page, has ads that get clicks but no sign-ups or calls, or has a live page that isn't converting.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "lead-magnet",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/lead-magnet",
+          "description": "Generate lead magnet concepts grounded in live competitor research, then BUILD the chosen one, including working interactive apps (quiz, calculator, instant quote, AI-graded audit) with a capture gate, as well as written guides and checklists. Covers info products, SaaS, agencies and local service businesses (price calculators, repair-or-replace checkers, seasonal checklists, financing estimates), plus an automated free-report Zap. Use when someone wants more leads or subscribers, needs top-of-funnel ideas, or asks what to give away for free.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "long-form-article",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/long-form-article",
+          "description": "Plans, researches and drafts one long guide (3,000 to 5,000 words) for an X Article, a LinkedIn article, a blog or a newsletter, with a point a reader could repeat, named and dated sources, a proven structure from the size of the gap to \"start this week\", copyable prompts or steps, an honest \"what breaks\", and optional images. Use when you want a long-form piece, a playbook, a masterplan or a definitive guide that becomes the go-to resource on a topic.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "newsletter",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/newsletter",
+          "description": "Write publication-ready newsletter editions, roundup, deep-dive, personal essay, curated links, news briefing, or hybrid, in the brand's voice, sourced from live pages, and informed by the list's own click data when an ESP key exists. Use it to draft an edition, pick a format, or answer newsletter strategy questions (platform, growth, monetization).",
+          "version": "4.1.1"
+        },
+        {
+          "name": "positioning-angles",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/positioning-angles",
+          "description": "Find the angle and the offer that make something sell. Researches what competitors say and pay to say, mines their bad reviews for the fears nobody answers, reads how jaded the market is, then writes 3-5 angles with one starred. Shipped lines use only verified facts, and a stronger idea the business can't back yet goes on a To make this true list with what it would take. Has a local-service mode (job types, map-pack competitors, trade guarantees). Use when launching a product or service, building an offer or lead magnet, before writing a page, or when marketing isn't converting.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "programmatic-seo",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/programmatic-seo",
+          "description": "Validate, build, and ship a programmatic SEO library (one template × one dataset → 50-500 pages that each earn their existence with unique data). Use when a keyword pattern repeats across a modifier set (x for [industry], [city] x, x vs y, x alternatives, x integrations) and pages should be generated from data instead of written one at a time. A local service business that wants town or service-area pages uses /service-area-pages instead.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "seo-content",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/seo-content",
+          "description": "Write publication-ready articles that earn classic rankings AND AI-surface citations (AI Overviews, ChatGPT search, Perplexity) while reading like a human expert wrote them. Use when turning a keyword or content brief into an actual piece. It scrapes the live SERP with parallel agents, captures who the AI surfaces cite and why, drafts in your voice, humanizes, optimizes on two tracks (on-page + GEO), and ships valid 2026 schema. Refresh mode diffs both the SERP and the AI-citation set against your published article.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "service-area-pages",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/service-area-pages",
+          "description": "Writes town and service-area pages for a local business that each say something true and specific about that town, folds the towns that can't into one honest areas-we-serve page, and checks the set for duplicates before anything ships. Use when a plumber, roofer, HVAC company or other service-area business needs city pages, wants to fix town pages that are all the same, or has a local SEO plan that calls for them.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "site-audit",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/site-audit",
+          "description": "Crawls a website the way Google and the AI crawlers see it and returns a short, ranked fix list in plain words. It covers pages blocked from Google, noindex and canonical mistakes, AI crawlers blocked in robots.txt or at the CDN, sitemap health, broken links, duplicate and thin pages, Core Web Vitals from Google's free PageSpeed API, and the content signals that make a page worth citing. Use for a technical SEO audit, when pages aren't showing up on Google, to check whether AI crawlers can reach the site, or to re-check a site after fixes and see what changed.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "social-content",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/social-content",
+          "description": "Writes original X and LinkedIn posts from the user's own best posts and real numbers, not generic hooks. Builds a per-user pattern library (what wins in their niche plus their own canon), then writes every post finished from the facts in hand (at most one fact flagged to verify), scores it privately against a calibrated rubric, checks it for the tells that make posts sound written by AI, and runs quote-post, reply and weekly modes. When the user sells a service, adds a launch arc, a low-friction offer and a daily engagement-to-DM routine tied to the goal. Use for writing original social posts; to repurpose existing long-form content use /content-atomizer.",
+          "version": "4.1.1"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "boringmarketer",
+        "repo": "boring-marketing-skills",
+        "repoUrl": "https://github.com/boringmarketer/boring-marketing-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "boringmarketer-boring-marketing-skills-research",
+      "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from boringmarketer/boring-marketing-skills.",
+      "author": "ASM (boringmarketer/boring-marketing-skills)",
+      "createdAt": "2026-11-16T19:30:33.181Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "research",
+        "academic",
+        "analysis",
+        "boringmarketer",
+        "boring-marketing-skills"
+      ],
+      "skills": [
+        {
+          "name": "audience-research",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/audience-research",
+          "description": "Mine where your audience actually talks (reviews, Reddit, YouTube comments, communities) and produce two brand files, audience.md (segments, awareness, jobs-to-be-done, watering holes) and voc.md (verbatim pain/desire/objection language with sources). Use it before positioning or copy work, when launching into a new market, or when copy keeps missing because nobody knows how customers actually describe the problem.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "keyword-research",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/keyword-research",
+          "description": "Maps what people search for and ask about a business as a topic map rather than a 5,000-row keyword list, using free autocomplete and Search Console first, covering both Google searches and the questions people put to AI assistants, going deep only on the topics worth acting on, and ending in ready-to-write briefs. Use when planning content, choosing what to write about, finding content gaps, or building an SEO and AI-search plan, for an online business or a local one.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "lead-magnet",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/lead-magnet",
+          "description": "Generate lead magnet concepts grounded in live competitor research, then BUILD the chosen one, including working interactive apps (quiz, calculator, instant quote, AI-graded audit) with a capture gate, as well as written guides and checklists. Covers info products, SaaS, agencies and local service businesses (price calculators, repair-or-replace checkers, seasonal checklists, financing estimates), plus an automated free-report Zap. Use when someone wants more leads or subscribers, needs top-of-funnel ideas, or asks what to give away for free.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "long-form-article",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/long-form-article",
+          "description": "Plans, researches and drafts one long guide (3,000 to 5,000 words) for an X Article, a LinkedIn article, a blog or a newsletter, with a point a reader could repeat, named and dated sources, a proven structure from the size of the gap to \"start this week\", copyable prompts or steps, an honest \"what breaks\", and optional images. Use when you want a long-form piece, a playbook, a masterplan or a definitive guide that becomes the go-to resource on a topic.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "positioning-angles",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/positioning-angles",
+          "description": "Find the angle and the offer that make something sell. Researches what competitors say and pay to say, mines their bad reviews for the fears nobody answers, reads how jaded the market is, then writes 3-5 angles with one starred. Shipped lines use only verified facts, and a stronger idea the business can't back yet goes on a To make this true list with what it would take. Has a local-service mode (job types, map-pack competitors, trade guarantees). Use when launching a product or service, building an offer or lead magnet, before writing a page, or when marketing isn't converting.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "seo-content",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/seo-content",
+          "description": "Write publication-ready articles that earn classic rankings AND AI-surface citations (AI Overviews, ChatGPT search, Perplexity) while reading like a human expert wrote them. Use when turning a keyword or content brief into an actual piece. It scrapes the live SERP with parallel agents, captures who the AI surfaces cite and why, drafts in your voice, humanizes, optimizes on two tracks (on-page + GEO), and ships valid 2026 schema. Refresh mode diffs both the SERP and the AI-citation set against your published article.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "social-content",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/social-content",
+          "description": "Writes original X and LinkedIn posts from the user's own best posts and real numbers, not generic hooks. Builds a per-user pattern library (what wins in their niche plus their own canon), then writes every post finished from the facts in hand (at most one fact flagged to verify), scores it privately against a calibrated rubric, checks it for the tells that make posts sound written by AI, and runs quote-post, reply and weekly modes. When the user sells a service, adds a launch arc, a low-friction offer and a daily engagement-to-DM routine tied to the goal. Use for writing original social posts; to repurpose existing long-form content use /content-atomizer.",
+          "version": "4.1.1"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "boringmarketer",
+        "repo": "boring-marketing-skills",
+        "repoUrl": "https://github.com/boringmarketer/boring-marketing-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "boringmarketer-boring-marketing-skills-writing",
+      "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from boringmarketer/boring-marketing-skills.",
+      "author": "ASM (boringmarketer/boring-marketing-skills)",
+      "createdAt": "2026-11-16T19:30:33.181Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "writing",
+        "content",
+        "docs",
+        "boringmarketer",
+        "boring-marketing-skills"
+      ],
+      "skills": [
+        {
+          "name": "audience-research",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/audience-research",
+          "description": "Mine where your audience actually talks (reviews, Reddit, YouTube comments, communities) and produce two brand files, audience.md (segments, awareness, jobs-to-be-done, watering holes) and voc.md (verbatim pain/desire/objection language with sources). Use it before positioning or copy work, when launching into a new market, or when copy keeps missing because nobody knows how customers actually describe the problem.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "brand-voice",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/brand-voice",
+          "description": "Extracts or builds a falsifiable brand voice profile, backed by verbatim evidence from the brand's real content, that every other content skill reads, so output sounds like the brand instead of a model. Use when starting a project, when copy sounds generic or AI-written, when output must match a specific person or brand, or to check recently published content for voice drift.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "content-atomizer",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/content-atomizer",
+          "description": "Turns one piece of finished content (blog post, newsletter, podcast, video) into platform-native social assets for the 2-3 platforms the brand actually operates, with depth on a few platforms instead of rephrased spray across eight. Use when source content exists and needs distribution, when a post's comments need ranked reply drafts, or when a week of posts should be planned from one source.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "direct-response-copy",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/direct-response-copy",
+          "description": "Write copy that converts (landing pages, sales pages, emails, ads, headlines, CTAs) in the customer's own words, matched to the ad or email that sends the traffic. A claim gate keeps every shipped line to verified facts (stronger ideas go on a To make this true list), and a private score-and-rewrite loop lifts the draft. Includes local-service patterns for copy that makes the phone ring. Approved page copy hands off to /landing-page to build. Use when someone needs to sell in writing, wants copy scored, or has ads that get clicks but no sales or calls.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "keyword-research",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/keyword-research",
+          "description": "Maps what people search for and ask about a business as a topic map rather than a 5,000-row keyword list, using free autocomplete and Search Console first, covering both Google searches and the questions people put to AI assistants, going deep only on the topics worth acting on, and ending in ready-to-write briefs. Use when planning content, choosing what to write about, finding content gaps, or building an SEO and AI-search plan, for an online business or a local one.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "landing-page",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/landing-page",
+          "description": "Turn an offer into a shipped landing page with section architecture chosen by offer type and awareness level, a first screen that repeats the ad's promise word for word, a deployable build (single-file HTML or Next.js) with A/B variant routes, and an optional deploy; includes a teardown mode that scores any live page section-by-section into a prioritized rewrite plan (the conversion-audit capability), and a local section for service businesses (call-first page vs quote form vs booking, plus a phone first-screen checklist). Use when the user wants a page built, has approved copy that needs to become a working page, has ads that get clicks but no sign-ups or calls, or has a live page that isn't converting.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "long-form-article",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/long-form-article",
+          "description": "Plans, researches and drafts one long guide (3,000 to 5,000 words) for an X Article, a LinkedIn article, a blog or a newsletter, with a point a reader could repeat, named and dated sources, a proven structure from the size of the gap to \"start this week\", copyable prompts or steps, an honest \"what breaks\", and optional images. Use when you want a long-form piece, a playbook, a masterplan or a definitive guide that becomes the go-to resource on a topic.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "newsletter",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/newsletter",
+          "description": "Write publication-ready newsletter editions, roundup, deep-dive, personal essay, curated links, news briefing, or hybrid, in the brand's voice, sourced from live pages, and informed by the list's own click data when an ESP key exists. Use it to draft an edition, pick a format, or answer newsletter strategy questions (platform, growth, monetization).",
+          "version": "4.1.1"
+        },
+        {
+          "name": "positioning-angles",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/positioning-angles",
+          "description": "Find the angle and the offer that make something sell. Researches what competitors say and pay to say, mines their bad reviews for the fears nobody answers, reads how jaded the market is, then writes 3-5 angles with one starred. Shipped lines use only verified facts, and a stronger idea the business can't back yet goes on a To make this true list with what it would take. Has a local-service mode (job types, map-pack competitors, trade guarantees). Use when launching a product or service, building an offer or lead magnet, before writing a page, or when marketing isn't converting.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "seo-content",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/seo-content",
+          "description": "Write publication-ready articles that earn classic rankings AND AI-surface citations (AI Overviews, ChatGPT search, Perplexity) while reading like a human expert wrote them. Use when turning a keyword or content brief into an actual piece. It scrapes the live SERP with parallel agents, captures who the AI surfaces cite and why, drafts in your voice, humanizes, optimizes on two tracks (on-page + GEO), and ships valid 2026 schema. Refresh mode diffs both the SERP and the AI-citation set against your published article.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "service-area-pages",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/service-area-pages",
+          "description": "Writes town and service-area pages for a local business that each say something true and specific about that town, folds the towns that can't into one honest areas-we-serve page, and checks the set for duplicates before anything ships. Use when a plumber, roofer, HVAC company or other service-area business needs city pages, wants to fix town pages that are all the same, or has a local SEO plan that calls for them.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "site-audit",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/site-audit",
+          "description": "Crawls a website the way Google and the AI crawlers see it and returns a short, ranked fix list in plain words. It covers pages blocked from Google, noindex and canonical mistakes, AI crawlers blocked in robots.txt or at the CDN, sitemap health, broken links, duplicate and thin pages, Core Web Vitals from Google's free PageSpeed API, and the content signals that make a page worth citing. Use for a technical SEO audit, when pages aren't showing up on Google, to check whether AI crawlers can reach the site, or to re-check a site after fixes and see what changed.",
+          "version": "4.1.1"
+        },
+        {
+          "name": "social-content",
+          "installUrl": "github:boringmarketer/boring-marketing-skills:skills/social-content",
+          "description": "Writes original X and LinkedIn posts from the user's own best posts and real numbers, not generic hooks. Builds a per-user pattern library (what wins in their niche plus their own canon), then writes every post finished from the facts in hand (at most one fact flagged to verify), scores it privately against a calibrated rubric, checks it for the tells that make posts sound written by AI, and runs quote-post, reply and weekly modes. When the user sells a service, adds a launch arc, a low-friction offer and a daily engagement-to-DM routine tied to the goal. Use for writing original social posts; to repurpose existing long-form content use /content-atomizer.",
+          "version": "4.1.1"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "boringmarketer",
+        "repo": "boring-marketing-skills",
+        "repoUrl": "https://github.com/boringmarketer/boring-marketing-skills.git"
+      },
+      "inferred": true
+    }
+  ]
+}
