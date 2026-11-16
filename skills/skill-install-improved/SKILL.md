@@ -82,7 +82,7 @@ Before Phase 0, record the directory the user invoked you from as `CALLER_DIR` (
 
 ## Workflow
 
-Execute phases in order. Do not skip or reorder.
+Execute phases in order. Do not skip or reorder. Each Bash call may start in a fresh shell, so restate `WORK`, `SKILL_PATH`, `SKILL_CREATOR_DIR`, `CALLER_DIR`, `TOOL`, and `SCOPE` at the top of every block that uses them, and read them as `${VAR:?}` so an unset one stops the command.
 
 ### Phase 0 — Resolve the target to one local directory
 
@@ -112,9 +112,11 @@ If the baseline already clears both gates, the retrofit loop stops without editi
 
 **Harvest before any cleanup.** Read the files under `$SKILL_PATH/.asm-improver/` that `references/install-and-report.md` lists, and extract its fields. An early-exit baseline writes no `iter-N.json`; then the baseline is also the final state.
 
-Then confirm `$SKILL_PATH` is still inside `$WORK`, and remove the two artifacts that must not ship (`asm install` copies the source recursively):
+Then remove the two artifacts that must not ship (`asm install` copies the source recursively). The guard stops the block unless `$SKILL_PATH` is inside `$WORK`:
 
 ```bash
+: "${WORK:?}" "${SKILL_PATH:?}"
+case "$SKILL_PATH" in "$WORK"/?*) ;; *) echo "SKILL_PATH is not inside WORK" >&2; exit 1 ;; esac
 rm -f "$SKILL_PATH/SKILL.md.bak"
 rm -rf "$SKILL_PATH/.asm-improver" "$SKILL_PATH/.git"
 ```
@@ -128,7 +130,7 @@ The retrofit loop never renames, so the improved variant keeps the original fron
 Run this phase from `CALLER_DIR`:
 
 ```bash
-cd "$CALLER_DIR"
+cd "${CALLER_DIR:?}"
 asm list --json    # is this skill's name or directory already installed for $TOOL / $SCOPE?
 ```
 

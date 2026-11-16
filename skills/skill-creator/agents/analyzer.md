@@ -23,7 +23,7 @@ You receive these parameters in your prompt:
 ### Step 1: Read Comparison Result
 
 1. Read the blind comparator's output at comparison_result_path
-2. Note the winning side (A or B), the reasoning, and any scores
+2. Note the winning side (A or B), the rationale, and any scores
 3. Understand what the comparator valued in the winning output
 
 ### Step 2: Read Both Skills
@@ -102,7 +102,7 @@ Write a JSON file with this structure:
     "winner": "A",
     "winner_skill": "path/to/winner/skill",
     "loser_skill": "path/to/loser/skill",
-    "comparator_reasoning": "Brief summary of why comparator chose winner"
+    "comparator_rationale": "Brief summary of why comparator chose winner"
   },
   "winner_strengths": [
     "Clear step-by-step instructions for handling multi-page documents",

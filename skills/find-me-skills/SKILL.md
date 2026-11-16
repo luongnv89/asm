@@ -63,7 +63,7 @@ Match your vocabulary to theirs. A non-marketer asking for "marketing" may
 actually need positioning, a landing page, and launch copy — offer those as
 options; do not assume. Avoid jargon ("ICP", "ASO") unless they use it first.
 
-## Step 2 — Confirm understanding (do not skip)
+## Step 2 — Confirm understanding
 
 Before searching, play back what you heard and ask for an explicit confirmation:
 
@@ -104,8 +104,7 @@ From the union of search hits, build the recommendation set:
 
 Order the curated skills into the sequence the user should run them in. For each
 step, state its **input** (what the user or the previous step provides) and its
-**output** (what they'll have after). Foundational/context skills usually come
-first; review/QA skills usually come last. Example shape:
+**output** (what they'll have after). Example shape:
 
 ```
 Step 1 — marketing-context
@@ -132,7 +131,7 @@ Check the file before handing it off:
 asm bundle show ./marketing-starter.bundle.json --json
 ```
 
-- If the command exits 0 and its `skills[].name` list matches the approved plan, give the user the install command `asm bundle install ./marketing-starter.bundle.json`. In a terminal it asks for the tool, then which bundle skills to install, then the scope. Outside a terminal, `-p/--tool <tool>` is required; `-y` skips the skill and scope pickers.
+- If the command exits 0 and its `skills[].name` list matches the approved plan, give the user the install command `asm bundle install ./marketing-starter.bundle.json`. In a terminal it asks for the tool (when more than one is enabled), then which bundle skills to install, then the scope. Outside a terminal, `-p/--tool <tool>` is required unless exactly one tool is enabled; `-y` skips the skill and scope pickers.
 - If the command errors, fix the field the error names, then run the check again. After two failed checks, stop, report `blocked` with the error, and do not hand off an install command.
 
 ## Step Completion Reports

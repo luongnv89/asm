@@ -91,7 +91,7 @@ Write a JSON file with this structure:
 ```json
 {
   "winner": "A",
-  "reasoning": "Output A provides a complete solution with proper formatting and all required fields. Output B is missing the date field and has formatting inconsistencies.",
+  "rationale": "Output A provides a complete solution with proper formatting and all required fields. Output B is missing the date field and has formatting inconsistencies.",
   "rubric": {
     "A": {
       "content": {
@@ -178,7 +178,7 @@ If no expectations were provided, omit the `expectation_results` field entirely.
 ## Field Descriptions
 
 - **winner**: "A", "B", or "TIE"
-- **reasoning**: Clear explanation of why the winner was chosen (or why it's a tie)
+- **rationale**: Clear explanation of why the winner was chosen (or why it's a tie)
 - **rubric**: Structured rubric evaluation for each output
   - **content**: Scores for content criteria (correctness, completeness, accuracy)
   - **structure**: Scores for structure criteria (organization, formatting, usability)
@@ -202,5 +202,5 @@ If no expectations were provided, omit the `expectation_results` field entirely.
 - **Be decisive**: Choose a winner unless outputs are genuinely equivalent.
 - **Output quality first**: Assertion scores are secondary to overall task completion.
 - **Be objective**: Don't favor outputs based on style preferences; focus on correctness and completeness.
-- **Explain your reasoning**: The reasoning field should make it clear why you chose the winner.
+- **Justify the verdict**: the rationale field says briefly why the winner won.
 - **Handle edge cases**: If both outputs fail, pick the one that fails less badly. If both are excellent, pick the one that's marginally better.

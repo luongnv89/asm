@@ -95,13 +95,14 @@ Re-ingest every enabled repo. Capture stdout and the exit code — `preindex` ex
 ROOT="$(git rev-parse --show-toplevel)"
 mkdir -p /tmp/refresh-index/asm-config
 LOG="/tmp/refresh-index/preindex.log"
+rm -f /tmp/refresh-index/preindex.exit
 cd "$ROOT"
 ASM_CONFIG_DIR=/tmp/refresh-index/asm-config npm run preindex > "$LOG" 2>&1
-PREINDEX_EXIT=$?
+echo $? > /tmp/refresh-index/preindex.exit
 cat "$LOG"
 ```
 
-`preindex` clones every enabled repo in sequence and can run for many minutes. If the host's command timeout is shorter, run the command in the background and wait until the log ends with the `Done: N succeeded, M failed` line; then read the exit code.
+`preindex` clones every enabled repo in sequence and can run for many minutes. If the host's command timeout is shorter, run the command in the background and wait until `/tmp/refresh-index/preindex.exit` exists; it holds the exit code. The `Done:` line prints only on a normal return, so don't wait for it.
 
 Verification: the log exists and contains one line per enabled repo: `  {source} ... {N} skills` or `  {source} ... FAILED: {error}`. If the log is empty or no line matches, stop — that is environmental, not a per-repo failure.
 
@@ -127,7 +128,7 @@ Verification: the first two commands exit 0. If either fails, stop — the data 
 Confirm the only files that changed are under `data/skill-index/` (and `data/skill-index-resources.json` only if the user explicitly bumped `updatedAt`):
 
 ```bash
-UNEXPECTED=$(git status --porcelain | cut -c4- \
+UNEXPECTED=$({ git status --porcelain --untracked-files=no; git status --porcelain -- data/; } | cut -c4- | sort -u \
   | grep -v -E '^data/skill-index/' \
   | grep -v -E '^data/skill-index-resources\.json$' \
   || true)
@@ -137,7 +138,7 @@ if [ -n "$UNEXPECTED" ]; then
 fi
 ```
 
-`npm run preindex` does **not** modify `data/skill-index-resources.json`. If unexpected files appear, stop. Do not commit a mixed change.
+`npm run preindex` does **not** modify `data/skill-index-resources.json`. Untracked files outside `data/` are not checked and are left alone; other sessions may own them. If unexpected files appear, stop. Do not commit a mixed change.
 
 ### Step 7: Print the four-bucket summary
 

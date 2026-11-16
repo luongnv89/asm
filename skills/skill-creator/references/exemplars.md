@@ -18,7 +18,7 @@ The archetype for skills that drive a **repeatable multi-step process** where or
 ```yaml
 ---
 name: release-cut
-description: "Cut a release: bump the version, update the changelog, tag, and push. Use when asked to release, ship a version, or tag a build. Don't use for deploying to environments, publishing to npm/PyPI, or hotfix backports."
+description: "Prepare a release: bump the version, update the changelog, tag, and push. Use when asked to release, ship a version, or tag a build. Don't use for deploying to environments, publishing to npm/PyPI, or hotfix backports."
 license: MIT
 effort: medium
 metadata:
@@ -100,7 +100,7 @@ The archetype for skills that encode **conventions and judgment**, not a process
 ```yaml
 ---
 name: postgres-migrations
-description: "Postgres schema-migration conventions: safe DDL, lock awareness, expand-contract rollouts. Use when writing or reviewing migration files. Don't use for query tuning, ORM model design, or ad-hoc data backfills."
+description: "Write and review Postgres schema migrations: safe DDL, lock awareness, expand-contract rollouts. Use when writing or reviewing migration files. Don't use for query tuning, ORM model design, or ad-hoc data backfills."
 license: MIT
 effort: low
 metadata:

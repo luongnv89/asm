@@ -145,13 +145,7 @@ Compute deltas. If the overall score did not improve by at least 3 points **and*
 
 ### Phase 4 — Build the PR body
 
-Read `references/pr-template.md` and fill it in. The template enforces friendly, suggestion-style tone. Key sections:
-
-- **What changed** — one-sentence summary
-- **Before/after metrics** — table with overallScore, grade, and every entry in `categories[]`
-- **Files touched** — list every modified path under `$SKILL_PATH`
-- **Iterations taken** — N of 8 from the retrofit loop
-- **How to verify** — the `asm eval` command the maintainer can run locally
+Read `references/pr-template.md` and fill it in; it defines the PR body's sections (What I suggested, the before/after table covering `overallScore`, `grade`, and every `categories[]` entry, Files touched — every modified path under `$SKILL_PATH`, How to verify locally) and enforces the friendly, suggestion-style tone. Report the iterations taken (N of 8 from the retrofit loop) under the metrics table.
 
 Tone rules (read `references/tone-guide.md`):
 
@@ -179,6 +173,7 @@ After approval:
 ```bash
 # Commit the changes — $COMMIT_SUBJECT names what the retrofit actually changed
 # (the same summary as the PR body's "What I suggested")
+: "${COMMIT_SUBJECT:?set it to the one-line summary of what the retrofit changed}"
 git add -A
 git commit -m "$COMMIT_SUBJECT" \
   -m "Suggested via skill-upstream-pr. See PR body for before/after metrics."

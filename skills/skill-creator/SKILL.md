@@ -124,7 +124,7 @@ Extract what the conversation already answers before asking the user anything; t
 
 Before drafting, skim `references/exemplars.md` and imitate the archetype closest to this skill — workflow, knowledge, or orchestrator. Then, based on the user interview, fill in:
 
-- **name**: 1-64 chars, lowercase letters/digits/hyphens, no consecutive hyphens, exactly matches parent directory. Enforced by `scripts/quick_validate.py`.
+- **name**: 1-64 chars, lowercase letters/digits/hyphens, no `--` (`scripts/quick_validate.py`); exactly matches parent directory (Frontmatter Audit only).
 - **description**: When to trigger and what it does. Primary triggering mechanism. Single line, no newlines. Claude tends to _undertrigger_ — make descriptions a little "pushy", with negative triggers.
 - **effort** (optional): `low | medium | high | xhigh | max`. Defaults to `high`.
 - **metadata.version**: Semver string (see frontmatter rules).

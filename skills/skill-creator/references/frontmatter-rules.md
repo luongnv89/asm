@@ -60,7 +60,7 @@ Whenever this skill is used to **review, evaluate, improve, or iterate on an exi
 **What to check on every review:**
 
 - **Required fields present**: `name` and `description` exist and are non-empty strings.
-- **`name` matches the parent directory** exactly (e.g., `skills/my-skill/SKILL.md` → `name: my-skill`). Mismatches fail `scripts/quick_validate.py`.
+- **`name` matches the parent directory** exactly (e.g., `skills/my-skill/SKILL.md` → `name: my-skill`). `scripts/quick_validate.py` does not compare the two, so check this by hand; `asm eval` awards its naming bonus point only on a match.
 - **`name` format**: 1–64 chars, lowercase letters/digits/hyphens only, no leading/trailing or consecutive hyphens.
 - **`description` is a single line** (no newlines), with no angle brackets. Target **≤250 characters** to stay within the runtime context budget; **1024 is a hard ceiling** but only the spec-level limit.
 - **Negative-trigger clause**: description names adjacent domains that should _not_ trigger the skill (e.g., "Don't use for …"). `quick_validate.py` emits a warning when it's missing — treat that as a review finding, not noise.

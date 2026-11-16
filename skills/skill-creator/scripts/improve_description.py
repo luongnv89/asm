@@ -115,12 +115,9 @@ Based on the failures, write a new and improved description that is more likely 
 Keep the description to about 250 characters: Claude Code's skill listing truncates longer descriptions from the end, which cuts off the "Don't use for ..." clause. 1024 characters is a hard limit.
 
 Here are some tips that we've found to work well in writing these descriptions:
-- The skill should be phrased in the imperative -- "Use this skill for" rather than "this skill does"
+- Start with an imperative action verb that names what the skill does (e.g. "Generate…", "Audit…", "Review…"), follow with a "Use when…" trigger, and end with a "Don't use for…" clause naming 2–3 adjacent domains.
 - The skill description should focus on the user's intent, what they are trying to achieve, vs. the implementation details of how the skill works.
 - The description competes with other skills for Claude's attention — make it distinctive and immediately recognizable.
-- If you're getting lots of failures after repeated attempts, change things up. Try different sentence structures or wordings.
-
-I'd encourage you to be creative and mix up the style in different iterations since you'll have multiple opportunities to try different approaches and we'll just grab the highest-scoring one at the end.
 
 Please respond with only the new description text in <new_description> tags, nothing else."""
 

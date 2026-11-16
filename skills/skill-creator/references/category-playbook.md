@@ -4,7 +4,7 @@ Per-category fix patterns for the asm-eval scoring used in **Gate 2 of the skill
 
 For Gate 1 (`quick_validate.py`, frontmatter audit, ≤500-line body, AI-skip README, etc.), see `skill-standard.md`. **Always clear Gate 1 before working on Gate 2** — a Gate 1 failure blocks publish regardless of asm-eval score.
 
-All scoring rules below mirror the asm-eval scorers in the ASM repo: `src/evaluator-scorers.ts` (structure, description, prompt-engineering, context-efficiency) and `src/evaluator-scorers-policy.ts` (safety, testability, naming). Numbers change when the evaluator evolves — re-read those files if scores behave unexpectedly.
+All scoring rules below mirror the asm-eval scorers in the ASM repo: `src/evaluator-scorers.ts` (structure, description, prompt-engineering, context-efficiency), `src/evaluator-scorers-policy.ts` (safety, testability, license, naming), and `src/evaluator-pii-lint.ts` (pii, script-lint). Gate 2's `min(categories) >= 8` applies to all ten. Numbers change when the evaluator evolves — re-read those files if scores behave unexpectedly.
 
 ## 1. Structure & completeness (`structure`)
 
@@ -133,6 +133,12 @@ All scoring rules below mirror the asm-eval scorers in the ASM repo: `src/evalua
 - `## Notes` → `## Edge Cases` or `## Prerequisites`
 - Strip TODO/FIXME comments from the description field
 
+## 8. License (`license`)
+
+**What it rewards (10 pts):** a frontmatter `license` that is a recognised SPDX identifier or expression scores 10 with a LICENSE file (at the skill root or inherited from the enclosing repo), 5 without. A private licence scores 10 with a LICENSE file, 8 without. An unrecognised value, or a LICENSE file with no frontmatter `license`, scores 2; nothing at all scores 0.
+
+**Fix pattern:** add `license: MIT` (or the repo's SPDX id) to frontmatter and keep a LICENSE file at the skill root or repo root.
+
 ## Tradeoff awareness
 
 Fixes in one category can regress another. The common collisions:
@@ -144,14 +150,14 @@ Fixes in one category can regress another. The common collisions:
 | Shorten description to fix length     | `description` regresses if trigger or verb lost       |
 | Split body into references            | `prompt-engineering` drops if word count <80          |
 
-When in doubt, prefer **linking to `references/*.md`** over inlining. The evaluator rewards references in two categories (context-efficiency, naming via action-oriented heading when the reference is named well) and doesn't penalize them anywhere.
+When in doubt, prefer **linking to `references/*.md`** over inlining. The evaluator rewards reference mentions in `context-efficiency`; the one cost is `prompt-engineering`, which drops if the body falls under 80 words (table above).
 
 ## Re-eval checklist
 
 After every edit, check **both gates**:
 
 1. Run `python "$QV" "$SKILL_PATH"` — must exit 0 with no warnings. Re-check the manual Gate 1 requirements, including the five target checks in `human-review-audit.md`; the script alone cannot clear Gate 1
-2. Run `asm eval "$SKILL_PATH" --json | jq '.overallScore, [.categories[].score] | add, [.categories[] | {id, score}]'` (or read the full JSON) — Gate 2 scoring
+2. Run `asm eval "$SKILL_PATH" --json | jq '{overallScore, minCategory: ([.categories[].score] | min), categories: [.categories[] | {id, score}]}'` (or read the full JSON) — Gate 2 scoring. For a pass/fail exit code, run `asm eval "$SKILL_PATH" --min-score 86 --min-category 8`
 3. Compare each category against the previous iteration
 4. If anything regressed in either gate, revert that specific edit and try a different pattern from this playbook
 5. If both Gate 1 is clean AND the 85/8 floor is cleared on Gate 2, stop — do not over-optimize

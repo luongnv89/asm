@@ -18,8 +18,8 @@ nothing, and write nothing outside your own temp directory.
 `discoverSkills` (used by `asm index ingest` and `npm run preindex`) indexes a
 **root** `SKILL.md` when present **and** keeps scanning subdirectories for more.
 A repo with both root and nested skills must list every one of them — not only
-the root. Replicate that behavior exactly; the index entry is built from what you
-return.
+the root. Match that behavior: Step 3 audits the skills you return, and if Step
+7's ingest fails, the manual fallback builds the index entry from them.
 
 ## Task
 
@@ -94,12 +94,14 @@ the paths reach the rest of the pipeline:
 `relPath` is pinned just as tightly. It is the skill's **directory** — the parent
 of the discovered `SKILL.md`, never the file itself — expressed **relative to
 `clonePath`**, which is the repo root. A root-level `SKILL.md` gives `""`. That
-one value is what the index entry's `relPath` field stores verbatim, what
-`installUrl` appends as `github:{owner}/{repo}:{relPath}` (a root skill omits the
-`:` and the path entirely), and what Step 3 joins with `clonePath` to reach the
-skill on disk. Base it anywhere else — at `tempRoot`, or with the clone directory
-name still prefixed — and `data/skill-index/{owner}_{repo}.json` ships a broken
-`installUrl` that fails `asm install` for every skill in the repo.
+one value is what Step 3 joins with `clonePath` to reach the skill on disk and,
+if Step 7's ingest fails, what the manual fallback stores verbatim as the index
+entry's `relPath` and appends to `installUrl` as
+`github:{owner}/{repo}:{relPath}` (a root skill omits the `:` and the path
+entirely). Base it anywhere else — at `tempRoot`, or with the clone directory
+name still prefixed — and Step 3 evaluates the wrong path, and a manually built
+`data/skill-index/{owner}_{repo}.json` ships an `installUrl` that fails
+`asm install` for every skill in the repo.
 
 ## Constraints
 

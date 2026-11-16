@@ -29,6 +29,8 @@ Hi! 👋 I came across **<skill-name>** while browsing skills and really appreci
 
 <One row per entry in the eval JSON's `categories[]`, in JSON order, named by its `name` field.>
 
+Iterations: <N> of 8 (retrofit loop).
+
 ## Files touched
 
 - `<path/to/SKILL.md>`
@@ -65,6 +67,6 @@ _Opened via [skill-upstream-pr](https://github.com/luongnv89/asm/tree/main/skill
 
 - Always render the full metrics table, even when only one or two categories changed — maintainers appreciate the complete picture
 - Bold the **Overall score** row; bold any category that moved more than 1 point
-- If `overallScore` dropped on any category, mention it up front in "What I suggested" so the maintainer isn't surprised — honesty beats tidy numbers
+- If any category's `score` dropped, mention it up front in "What I suggested" so the maintainer isn't surprised — honesty beats tidy numbers
 - Strip trailing whitespace and ensure one trailing newline in `pr-body.md` before passing it to `gh`
 ```

@@ -1,8 +1,8 @@
 # Manual index file (Step 7 fallback)
 
 Use this only for a repo whose Step 7 `index ingest` failed. A hand-built file
-bypasses the ingester, so name every manually generated repo in the Step 9
-summary under **Uncertainty**.
+bypasses the ingester, so name every manually generated repo under
+**Uncertainty** in the final output.
 
 Create `data/skill-index/{owner}_{repo}.json` with this structure, one `skills[]`
 entry per skill from that repo's Step 2 worker result, leaving out every name in

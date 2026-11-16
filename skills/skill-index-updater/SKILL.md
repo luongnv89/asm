@@ -188,7 +188,7 @@ If the block stops on a comma, do not fall back to the manual path: report the e
 
 With `--exclude`, the JSON output adds `excluded` (names left out) and `unmatchedExcludes` (names that matched no discovered skill). A non-empty `unmatchedExcludes` is not a failure, but it means an exclusion is misspelled or the skill was renamed or removed upstream: list it under Uncertainty in the final output.
 
-The ingested file's `skillCount` is authoritative. Use it in Step 9, the commit message, and the PR. If it differs from the Step 2 count, report both. The ingester populates `tokenCount` and `evalSummary` (`overallScore`, `grade`, `categories`, `evaluatedAt`, `evaluatedVersion`) on every skill entry; these power the catalog's "est. tokens" and "eval score" badges.
+The ingested file's `skillCount` is authoritative. Use it in Step 9, the commit message, and the PR. If it differs from the Step 2 count, report both. The ingester populates `tokenCount` on every skill entry and, best-effort, `evalSummary` (`overallScore`, `grade`, `categories`, `evaluatedAt`, plus `evaluatedVersion` when the skill declares a version); these power the catalog's "est. tokens" and "eval score" badges.
 
 If the ingest exits non-zero for a repo, follow `references/manual-index.md` for that repo only, and record it as manually generated. That fallback takes `evalSummary` from `asm eval <clonePath>/<relPath> --json` and `tokenCount` from `asm inspect <clonePath>/<relPath> --json`, with `clonePath` and `relPath` taken from that repo's Step 2 worker result.
 
