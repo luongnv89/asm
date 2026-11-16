@@ -33,7 +33,9 @@ import {
  *
  * Email addresses on domains reserved for documentation and testing
  * (RFC 2606 / RFC 6761) are placeholders, not personal data, and are ignored —
- * see isReservedEmailDomain (issue #772).
+ * see isReservedEmailDomain (issue #772). Versioned file names and package
+ * specs such as `web@0.4.1.js` share the `local@domain.tld` shape and are
+ * ignored too — see isVersionSpecMatch (issue #841).
  *
  * Severity: "warning" — a PII hit does NOT block indexing; it warns the
  * author so they can scrub examples, transcripts, or fixture data before
@@ -73,16 +75,69 @@ export function isPlaceholderEmail(email: string): boolean {
 }
 
 /**
- * True when an email match may be exempted as a placeholder. The email
- * pattern's `\b` and character classes are ASCII-only, so a non-ASCII letter,
- * combining mark (decomposed accents) or digit ends the match early:
- * `contact@team.testé.fr` matches as `contact@team.test`. A match followed
- * directly by one of those does not show the real domain, so it is not
- * exempted and stays flagged.
+ * File extensions that end a versioned file name such as `web@0.js`. Only
+ * consulted when the part after `@` is a single number, which on its own is
+ * also the shape of real mail domains like `163.com`.
+ */
+const VERSIONED_FILE_EXTENSIONS = new Set([
+  "js",
+  "mjs",
+  "cjs",
+  "jsx",
+  "ts",
+  "tsx",
+  "mts",
+  "cts",
+  "css",
+  "scss",
+  "less",
+  "map",
+  "json",
+  "wasm",
+  "html",
+  "htm",
+  "svg",
+  "md",
+  "txt",
+  "tgz",
+  "gz",
+  "zip",
+  "tar",
+  "whl",
+]);
+
+/**
+ * True when an email-shaped match is a versioned file name or package spec
+ * (issue #841): the part after the last `@` starts with a version number that
+ * ends at a `.`, `-`, `+` or the end of the match, and either
+ *   - the version has two or more numeric parts (`web@0.4.1.js`,
+ *     `lib@3.7.1.min.js`, `pkg@1.2.3-beta.rc`) — no mail domain starts with
+ *     two all-digit labels, or
+ *   - it is a single number and the last label is a file extension
+ *     (`name@0.js`, `styles@2.css`).
+ * Digit-led mail domains such as `user@163.com` or `ops@1and1.com` match
+ * neither arm and are still reported.
+ */
+function isVersionSpecMatch(match: string): boolean {
+  const domain = match.slice(match.lastIndexOf("@") + 1);
+  const version = /^\d+(?:\.\d+)*(?=$|[.+-])/.exec(domain);
+  if (!version) return false;
+  if (version[0].includes(".")) return true;
+  const ext = domain.slice(domain.lastIndexOf(".") + 1).toLowerCase();
+  return VERSIONED_FILE_EXTENSIONS.has(ext);
+}
+
+/**
+ * True when an email match may be exempted as a placeholder or a versioned
+ * file name / package spec. The email pattern's `\b` and character classes
+ * are ASCII-only, so a non-ASCII letter, combining mark (decomposed accents)
+ * or digit ends the match early: `contact@team.testé.fr` matches as
+ * `contact@team.test`. A match followed directly by one of those does not
+ * show the real domain, so it is not exempted and stays flagged.
  */
 function isIgnorableEmailMatch(match: string, nextChar: string): boolean {
   if (/[\p{L}\p{M}\p{N}]/u.test(nextChar)) return false;
-  return isPlaceholderEmail(match);
+  return isPlaceholderEmail(match) || isVersionSpecMatch(match);
 }
 
 /** The full code point at UTF-16 index `i` of `line` ("" past the end). */
