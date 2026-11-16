@@ -51,7 +51,9 @@ Field sources:
   A wrong `installUrl` breaks `asm install` for that skill.
 - `evalSummary` — run `asm eval <clonePath>/<relPath> --json` (for a root skill,
   the path is just `clonePath`) and lift `overallScore`, `grade`, `categories`
-  (`id`, `name`, `score`, `max` only), and `evaluatedAt` into the entry.
+  (`id`, `name`, `score`, `max` only), and `evaluatedAt` into the entry. Set
+  `evaluatedVersion` to the skill's `version` from the Step 2 worker JSON
+  (`metadata.version`, else `version`, else `"0.0.0"`).
 - `tokenCount` — `asm eval` does not report it; take `tokenCount` from
   `asm inspect <clonePath>/<relPath> --json` (same path rule).
 - `skillCount` — the length of `skills[]`.

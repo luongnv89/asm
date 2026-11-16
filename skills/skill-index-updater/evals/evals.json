@@ -10,8 +10,7 @@
       "expectations": [
         "Discovery and audit ran in workers given only their contract file",
         "Step 7 used index ingest for this repo with ASM_CONFIG_DIR set, not npm run preindex",
-        "git diff --name-only listed only the resources file, data/repo-stars.json, and this repo's index file",
-        "data/repo-stars.json gained exactly one stars entry, for this repo, with generatedAt unchanged",
+        "git diff --name-only listed only the resources file and this repo's index file",
         "The PR audit summary matches the Step 3 OK/WARN/FLAG counts",
         "The first line of the final output states the completion status",
         "Untested behavior and assumptions are labeled separately from observed checks",
@@ -27,6 +26,7 @@
       "files": [],
       "expectations": [
         "Each repo has its own index file staged by name",
+        "data/repo-stars.json gained exactly one stars entry per NEW repo, with generatedAt and every other entry unchanged",
         "Each repo's catalog skill count equals its skillCount",
         "The first line of the final output states the completion status",
         "Untested behavior and assumptions are labeled separately from observed checks",
