@@ -145,7 +145,7 @@ Compute deltas. If the overall score did not improve by at least 3 points **and*
 
 ### Phase 4 — Build the PR body
 
-Read `references/pr-template.md` and fill it in; it defines the PR body's sections (What I suggested, the before/after table covering `overallScore`, `grade`, and every `categories[]` entry, Files touched — every modified path under `$SKILL_PATH`, How to verify locally) and enforces the friendly, suggestion-style tone. Report the iterations taken (N of 8 from the retrofit loop) under the metrics table.
+Read `references/pr-template.md` and fill it in; it defines the PR body's sections (What I suggested, the before/after table covering `overallScore`, `grade`, and every `categories[]` entry, Files touched — every modified path under `$SKILL_PATH`, How to verify locally, Why these changes, Notes) and enforces the friendly, suggestion-style tone. Report the iterations taken (N of 8 from the retrofit loop) under the metrics table.
 
 Tone rules (read `references/tone-guide.md`):
 
@@ -161,7 +161,15 @@ Opening a PR on someone else's repo is public and hard to reverse. Before pushin
 
 1. The PR title
 2. The full PR body (rendered markdown)
-3. The exact diff (`git diff upstream/<default-branch>`)
+3. The exact change set. Stage it first, so the preview equals what Phase 6 commits:
+
+   ```bash
+   rm -f "${SKILL_PATH:?}/SKILL.md.bak"   # written by asm eval --fix; never ship it
+   git add -A
+   git status --short
+   git diff --cached upstream/<default-branch>
+   ```
+
 4. The commands you are about to run
 
 Ask the user to confirm. If they want edits, apply them and re-preview. Do not push until the user says "go" or equivalent.
@@ -174,6 +182,7 @@ After approval:
 # Commit the changes — $COMMIT_SUBJECT names what the retrofit actually changed
 # (the same summary as the PR body's "What I suggested")
 : "${COMMIT_SUBJECT:?set it to the one-line summary of what the retrofit changed}"
+rm -f "${SKILL_PATH:?}/SKILL.md.bak"
 git add -A
 git commit -m "$COMMIT_SUBJECT" \
   -m "Suggested via skill-upstream-pr. See PR body for before/after metrics."
@@ -221,7 +230,7 @@ Checks per phase:
 
 End every run with a short report the user can read without scrolling back:
 
-1. **Result** — first line: `PR opened` with its URL, `stopped at Phase N` (the skill already meets 85/8, the improvement is too small, or the user declined the preview), or `blocked at Phase N` with the reason.
+1. **Result** — first line: `PR opened` with its URL, `stopped at Phase N` (the skill already passes both gates (Gate 1 and 85/8), the improvement is too small, or the user declined the preview), or `blocked at Phase N` with the reason.
 2. **Evidence** — before → after `overallScore` and minimum category from `baseline.json` and the last `iter-N.json`, the files changed, and the fork branch.
 3. **Uncertainty** — `asm eval` scores structure, not behavior: the improved skill was not run, and the maintainer has not reviewed it.
 4. **Decision** — once the PR is open, no approval is needed; the Phase 5 confirmation covered the push. Name any action left for the user, such as answering maintainer comments.
@@ -255,7 +264,7 @@ An agent's own review cannot confirm human understanding. A reviewer who receive
 
 ## Edge Cases
 
-- **Skill already passes 85/8** — stop at Phase 2; do not open a PR for a skill that already meets the floor
+- **Skill already passes both gates (Gate 1 and 85/8)** — stop at Phase 2; do not open a PR for a skill that already meets the floor
 - **Improvement too small** (< 3 point overall delta AND no category promoted) — stop at Phase 3; offer the retrofit report as informal feedback instead
 - **Multiple SKILL.md files in the repo** — ask the user which one; never batch
 - **Fork already exists from a prior run** — `gh repo fork --clone --remote` reuses it; rebase on upstream's default branch before editing

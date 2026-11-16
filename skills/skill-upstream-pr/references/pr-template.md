@@ -44,7 +44,6 @@ Iterations: <N> of 8 (retrofit loop).
 asm eval <path-to-skill>          # human-readable score
 asm eval <path-to-skill> --json   # full JSON report
 ```
-````
 
 The full iteration log and before/after JSON snapshots are attached as commits on this branch under `.asm-improver/` — feel free to delete them before merging if you don't want them in the repo.
 
@@ -60,8 +59,7 @@ The full iteration log and before/after JSON snapshots are attached as commits o
 - Thanks for open-sourcing <skill-name>! It's a useful skill and hope this is helpful.
 
 _Opened via [skill-upstream-pr](https://github.com/luongnv89/asm/tree/main/skills/skill-upstream-pr). No obligation to merge._
-
-```
+````
 
 ## Rendering rules
 
@@ -69,4 +67,3 @@ _Opened via [skill-upstream-pr](https://github.com/luongnv89/asm/tree/main/skill
 - Bold the **Overall score** row; bold any category that moved more than 1 point
 - If any category's `score` dropped, mention it up front in "What I suggested" so the maintainer isn't surprised — honesty beats tidy numbers
 - Strip trailing whitespace and ensure one trailing newline in `pr-body.md` before passing it to `gh`
-```
