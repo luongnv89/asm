@@ -139,7 +139,8 @@ Read `references/install-and-report.md` → _Collision policy_ and take the path
 Only after the probe is read and any collision is confirmed:
 
 ```bash
-asm install "$SKILL_PATH" -p "$TOOL" --scope "$SCOPE" --json -y
+cd "${CALLER_DIR:?}"
+asm install "${SKILL_PATH:?}" -p "${TOOL:?}" --scope "${SCOPE:?}" --json -y
 ```
 
 Install `$SKILL_PATH`, never the original source. Take the installed path from the command's `--json` output (`.path`); never assume `~/.claude/skills/`.

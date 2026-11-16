@@ -135,7 +135,7 @@ All scoring rules below mirror the asm-eval scorers in the ASM repo: `src/evalua
 
 ## 8. License (`license`)
 
-**What it rewards (10 pts):** a frontmatter `license` that is a recognised SPDX identifier or expression scores 10 with a LICENSE file (at the skill root or inherited from the enclosing repo), 5 without. A private licence scores 10 with a LICENSE file, 8 without. An unrecognised value, or a LICENSE file with no frontmatter `license`, scores 2; nothing at all scores 0.
+**What it rewards (10 pts):** a frontmatter `license` that is a recognised SPDX identifier or expression scores 10 with a LICENSE file (at the skill root or inherited from the enclosing repo), 5 without. A private licence scores 10 with a LICENSE file, 8 without. An unrecognised value, or a LICENSE file at the skill root with no frontmatter `license`, scores 2. An inherited repo LICENSE with no frontmatter `license`, or nothing at all, scores 0.
 
 **Fix pattern:** add `license: MIT` (or the repo's SPDX id) to frontmatter and keep a LICENSE file at the skill root or repo root.
 
@@ -150,7 +150,7 @@ Fixes in one category can regress another. The common collisions:
 | Shorten description to fix length     | `description` regresses if trigger or verb lost       |
 | Split body into references            | `prompt-engineering` drops if word count <80          |
 
-When in doubt, prefer **linking to `references/*.md`** over inlining. The evaluator rewards reference mentions in `context-efficiency`; the one cost is `prompt-engineering`, which drops if the body falls under 80 words (table above).
+When in doubt, prefer **linking to `references/*.md`** over inlining. The evaluator rewards reference mentions in `context-efficiency`; the costs are `context-efficiency`, which drops from 4 to 2 points if the body falls under 120 words (0 under 60), and `prompt-engineering`, which loses 1 point under 80 words (table above).
 
 ## Re-eval checklist
 

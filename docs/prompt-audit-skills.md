@@ -190,8 +190,9 @@ checked the diff.
 
 It returned 43 findings:
 
-- **27 fixed** in a second fix cycle. These are findings the first
-  run missed, plus one code-review note.
+- **27 fixed** in a second fix cycle. These are mostly findings the
+  first run missed (`P2-skill-creator-18` re-raises
+  `skill-creator-C-13`), plus one code-review note.
 - **8 already recorded.** The same finding is in the ledger above as
   `left`, and its reason still holds.
 - **8 left** with a reason. Most are low-confidence flags, or

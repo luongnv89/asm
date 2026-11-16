@@ -98,11 +98,11 @@ LOG="/tmp/refresh-index/preindex.log"
 rm -f /tmp/refresh-index/preindex.exit
 cd "$ROOT"
 ASM_CONFIG_DIR=/tmp/refresh-index/asm-config npm run preindex > "$LOG" 2>&1
-echo $? > /tmp/refresh-index/preindex.exit
+echo $? > /tmp/refresh-index/preindex.exit.tmp && mv /tmp/refresh-index/preindex.exit.tmp /tmp/refresh-index/preindex.exit
 cat "$LOG"
 ```
 
-`preindex` clones every enabled repo in sequence and can run for many minutes. If the host's command timeout is shorter, run the command in the background and wait until `/tmp/refresh-index/preindex.exit` exists; it holds the exit code. The `Done:` line prints only on a normal return, so don't wait for it.
+`preindex` clones every enabled repo in sequence and can run for many minutes. If the host's command timeout is shorter, run the whole block in the background and wait until `/tmp/refresh-index/preindex.exit` exists; it holds the exit code. The `Done:` line prints only on a normal return, so don't wait for it.
 
 Verification: the log exists and contains one line per enabled repo: `  {source} ... {N} skills` or `  {source} ... FAILED: {error}`. If the log is empty or no line matches, stop — that is environmental, not a per-repo failure.
 
@@ -128,6 +128,7 @@ Verification: the first two commands exit 0. If either fails, stop — the data 
 Confirm the only files that changed are under `data/skill-index/` (and `data/skill-index-resources.json` only if the user explicitly bumped `updatedAt`):
 
 ```bash
+ROOT="$(git rev-parse --show-toplevel)"; cd "$ROOT"
 UNEXPECTED=$({ git status --porcelain --untracked-files=no; git status --porcelain -- data/; } | cut -c4- | sort -u \
   | grep -v -E '^data/skill-index/' \
   | grep -v -E '^data/skill-index-resources\.json$' \
