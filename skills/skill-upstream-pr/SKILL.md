@@ -164,8 +164,10 @@ Opening a PR on someone else's repo is public and hard to reverse. Before pushin
 3. The exact change set. Stage it first, so the preview equals what Phase 6 commits:
 
    ```bash
-   rm -f "${SKILL_PATH:?}/SKILL.md.bak"   # written by asm eval --fix; never ship it
    git add -A
+   # SKILL.md.bak (written by asm eval --fix) never ships; unstage it but keep it
+   # on disk so the user can still restore from it during review
+   git rm --cached -q --ignore-unmatch "${SKILL_PATH:?}/SKILL.md.bak"
    git status --short
    git diff --cached upstream/<default-branch>
    ```
@@ -182,7 +184,7 @@ After approval:
 # Commit the changes — $COMMIT_SUBJECT names what the retrofit actually changed
 # (the same summary as the PR body's "What I suggested")
 : "${COMMIT_SUBJECT:?set it to the one-line summary of what the retrofit changed}"
-rm -f "${SKILL_PATH:?}/SKILL.md.bak"
+rm -f "${SKILL_PATH:?}/SKILL.md.bak"   # approved; the restore copy is no longer needed
 git add -A
 git commit -m "$COMMIT_SUBJECT" \
   -m "Suggested via skill-upstream-pr. See PR body for before/after metrics."
@@ -269,7 +271,7 @@ An agent's own review cannot confirm human understanding. A reviewer who receive
 - **Multiple SKILL.md files in the repo** — ask the user which one; never batch
 - **Fork already exists from a prior run** — `gh repo fork --clone --remote` reuses it; rebase on upstream's default branch before editing
 - **Upstream force-pushed or rewrote history** — stop and ask the user; do not force-push the fork to "catch up"
-- **`asm eval --fix` writes changes you disagree with** — revert `SKILL.md.bak` and do targeted edits only; don't ship the auto-fix if it harms the skill
+- **`asm eval --fix` writes changes you disagree with** — restore `SKILL.md` from `SKILL.md.bak` (it stays on disk until Phase 6 deletes it after approval) and do targeted edits only; don't ship the auto-fix if it harms the skill
 - **Maintainer has a CONTRIBUTING.md or PR template** — read it before Phase 4 and align the PR body with their conventions; their template wins over ours
 - **`skill-creator` cannot be acquired** — stop before Phase 0 and report the `asm deps acquire` error; nothing has been forked yet
 
