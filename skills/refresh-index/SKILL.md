@@ -34,8 +34,8 @@ if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
   git stash push -m "pre-refresh-index: ${branch}"
   dirty=1
 fi
-git fetch origin
-git pull --rebase origin "$branch"
+git fetch origin || { echo "✗ No origin or fetch failed — ask the user (local edits, if any, are in git stash list)"; exit 1; }
+git pull --rebase origin "$branch" || { echo "✗ Rebase failed — run git rebase --abort, then ask the user (local edits, if any, are in git stash list)"; exit 1; }
 if [ "$dirty" -eq 1 ]; then
   git stash pop || {
     echo "✗ Stash pop failed — recover with: git stash list && git stash show -p stash@{0}"
@@ -44,7 +44,7 @@ if [ "$dirty" -eq 1 ]; then
 fi
 ```
 
-If `origin` is missing or rebase conflicts occur, **stop and ask the user** before continuing. Never silently overwrite local edits to `data/skill-index/` or `data/skill-index-resources.json`.
+If the block exits 1 (no `origin`, a failed fetch, a rebase conflict, or a failed stash pop), **stop and ask the user** before continuing; never resolve a conflict yourself. Never silently overwrite local edits to `data/skill-index/` or `data/skill-index-resources.json`.
 
 ## Prerequisites
 
@@ -54,6 +54,7 @@ Verify each before any ingest. Stop and tell the user if any fails.
 - `npm` on PATH (`command -v npm`) — required by `npm run preindex`; the ingester evaluates skills in-process, so no `asm` binary is needed
 - `gh` on PATH and authenticated (`gh auth status`) — required for PR creation
 - `git` on PATH and inside the ASM repo working tree (`git rev-parse --show-toplevel`)
+- `jq` on PATH (`command -v jq`) — Steps 1, 2, 4 and 5 and their references parse JSON with it
 - Network access to `github.com` (each ingest clones the upstream repo)
 
 ## Pipeline
