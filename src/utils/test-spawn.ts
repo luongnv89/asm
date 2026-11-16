@@ -169,6 +169,36 @@ export function spawnCollect(
 }
 
 /**
+ * `spawnCollect` with a hard deadline. The child is killed with SIGKILL once
+ * `timeoutMs` elapses, and the result says so (`timedOut`) along with how long
+ * it ran, so a setup step can report "X timed out after N s" instead of
+ * leaving a bare hook timeout to the test runner.
+ */
+export async function spawnCollectTimed(
+  argv: readonly string[],
+  opts: SpawnOptions & { stdin?: string; timeoutMs: number },
+): Promise<{
+  exitCode: number;
+  stdout: string;
+  stderr: string;
+  timedOut: boolean;
+  elapsedMs: number;
+}> {
+  const { timeoutMs, ...rest } = opts;
+  const started = Date.now();
+  const res = await spawnCollect(argv, {
+    ...rest,
+    timeout: timeoutMs,
+    killSignal: "SIGKILL",
+  });
+  const elapsedMs = Date.now() - started;
+  // A signal kill leaves no exit code (spawnCollect reports -1); only one that
+  // lands at or after the deadline is ours.
+  const timedOut = res.exitCode === -1 && elapsedMs >= timeoutMs;
+  return { ...res, timedOut, elapsedMs };
+}
+
+/**
  * Run an inline TS snippet under `tsx`.
  * Writes the snippet inside `opts.cwd` (or process.cwd()) so that relative
  * imports like `./src/registry` resolve against the project tree, then runs

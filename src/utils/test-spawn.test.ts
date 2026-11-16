@@ -1,5 +1,28 @@
 import { describe, expect, it } from "vitest";
-import { spawnCollect } from "./test-spawn";
+import { spawnCollect, spawnCollectTimed } from "./test-spawn";
+
+describe("spawnCollectTimed", () => {
+  it("kills a child that outlives its deadline and reports the elapsed time", async () => {
+    const res = await spawnCollectTimed(
+      [process.execPath, "-e", "setTimeout(() => {}, 30_000)"],
+      { timeoutMs: 300 },
+    );
+    expect(res.timedOut).toBe(true);
+    expect(res.exitCode).toBe(-1);
+    expect(res.elapsedMs).toBeGreaterThanOrEqual(300);
+    expect(res.elapsedMs).toBeLessThan(10_000);
+  });
+
+  it("does not flag a child that exits before its deadline", async () => {
+    const res = await spawnCollectTimed(
+      [process.execPath, "-e", "process.stdout.write('ok'); process.exit(3)"],
+      { timeoutMs: 10_000 },
+    );
+    expect(res.timedOut).toBe(false);
+    expect(res.exitCode).toBe(3);
+    expect(res.stdout).toBe("ok");
+  });
+});
 
 describe("spawnCollect env sandbox", () => {
   it("keeps inherited ASM_CONFIG_DIR when HOME is not redirected", async () => {
