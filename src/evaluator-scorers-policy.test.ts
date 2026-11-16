@@ -173,6 +173,7 @@ describe("scoreLicense (#771)", () => {
   const lic = (license?: string): Record<string, string> =>
     license ? { license } : {};
   const NO_OWN_FILE = ["SKILL.md"];
+  const FROM_REPO = { path: "../../LICENSE", source: "repository" } as const;
 
   it("scores 10 for a recognised SPDX licence with its own LICENSE file", () => {
     const r = scoreLicense(lic("MIT"), "", ["SKILL.md", "LICENSE"]);
@@ -186,7 +187,7 @@ describe("scoreLicense (#771)", () => {
   });
 
   it("scores 10 for a recognised SPDX licence inherited from the repo root", () => {
-    const r = scoreLicense(lic("MIT"), "", NO_OWN_FILE, "../../LICENSE");
+    const r = scoreLicense(lic("MIT"), "", NO_OWN_FILE, FROM_REPO);
     expect(r.score).toBe(10);
     expect(r.licenseStatus).toBe("recognised");
     expect(r.findings).toContain(
@@ -196,12 +197,26 @@ describe("scoreLicense (#771)", () => {
     expect(r.suggestions).toEqual([]);
   });
 
+  it("names the collection folder for a LICENSE inherited without git (#856)", () => {
+    const r = scoreLicense(lic("MIT"), "", NO_OWN_FILE, {
+      path: "../../LICENSE",
+      source: "collection",
+    });
+    expect(r.score).toBe(10);
+    expect(r.findings).toContain(
+      "LICENSE inherited from the skill collection folder (`../../LICENSE`; no git repository).",
+    );
+    expect(r.findings.join("\n")).not.toMatch(
+      /No LICENSE file found|enclosing repository/,
+    );
+  });
+
   it("prefers the skill's own LICENSE file over an inherited one", () => {
     const r = scoreLicense(
       lic("MIT"),
       "",
       ["SKILL.md", "LICENSE.md"],
-      "../../LICENSE",
+      FROM_REPO,
     );
     expect(r.score).toBe(10);
     expect(r.findings).toContain("LICENSE file present at skill root.");
@@ -241,7 +256,10 @@ describe("scoreLicense (#771)", () => {
   it("scores a private licence 10 when a licence file backs it", () => {
     expect(scoreLicense(lic("Proprietary"), "", ["LICENSE"]).score).toBe(10);
     expect(
-      scoreLicense(lic("UNLICENSED"), "", NO_OWN_FILE, "../LICENSE.txt").score,
+      scoreLicense(lic("UNLICENSED"), "", NO_OWN_FILE, {
+        path: "../LICENSE.txt",
+        source: "repository",
+      }).score,
     ).toBe(10);
   });
 
@@ -255,7 +273,7 @@ describe("scoreLicense (#771)", () => {
   });
 
   it("keeps 0 when no licence is declared, even with an inherited LICENSE", () => {
-    const r = scoreLicense(lic(), "", NO_OWN_FILE, "../../LICENSE");
+    const r = scoreLicense(lic(), "", NO_OWN_FILE, FROM_REPO);
     expect(r.score).toBe(0);
     expect(r.licenseStatus).toBe("missing");
     expect(r.findings).toContain("No license declared.");
@@ -341,7 +359,10 @@ describe("scoreLicense with SPDX expressions (#783)", () => {
   const lic = (license: string): Record<string, string> => ({ license });
   const NO_OWN_FILE = ["SKILL.md"];
   const OWN_FILE = ["SKILL.md", "LICENSE"];
-  const INHERITED = "../../LICENSE";
+  const INHERITED = {
+    path: "../../LICENSE",
+    source: "repository",
+  } as const;
 
   it.each([
     "MIT OR Apache-2.0",

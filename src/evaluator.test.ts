@@ -1374,6 +1374,119 @@ describe("license verification", () => {
     expect(fixed.findings).toEqual(plain.findings);
   });
 
+  // ─── Collections without .git (issue #856) ─────────────────────────────────
+
+  const COLLECTION_FINDING =
+    "LICENSE inherited from the skill collection folder (`../../LICENSE`; no git repository).";
+
+  /** The issue's repro: `<root>/LICENSE` + `<root>/skills/s1`, no `.git`. */
+  async function makeExport(name = "export"): Promise<string> {
+    const root = join(tempDir, name);
+    await mitSkillIn(root);
+    await writeFile(join(root, "LICENSE"), "MIT License\n", "utf-8");
+    return root;
+  }
+
+  it("inherits the collection-root LICENSE when there is no .git (#856)", async () => {
+    const root = await makeExport();
+    const lic = licenseOf(await evaluateSkill(join(root, "skills", "s1")));
+    expect(lic.score).toBe(10);
+    expect(lic.findings).toContain(COLLECTION_FINDING);
+    expect(lic.findings.join("\n")).not.toMatch(/No LICENSE file found/);
+  });
+
+  it("keeps the repository finding once the same layout is a git repo (#856)", async () => {
+    const { execFileSync } = await import("child_process");
+    const root = await makeExport();
+    execFileSync("git", ["init", "-q", root]);
+    const lic = licenseOf(await evaluateSkill(join(root, "skills", "s1")));
+    expect(lic.score).toBe(10);
+    expect(lic.findings).toContain(
+      "LICENSE inherited from the enclosing repository (`../../LICENSE`).",
+    );
+    expect(lic.findings.join("\n")).not.toMatch(/collection folder/);
+  });
+
+  it("inherits from the collection root for a nested skills/cat/s1 (#856)", async () => {
+    const root = join(tempDir, "export");
+    const dir = join(root, "skills", "cat", "s1");
+    await writeSkillMd(
+      dir,
+      "---\nname: s1\ndescription: Do a thing.\nlicense: MIT\n---\nbody\n",
+    );
+    await writeFile(join(root, "LICENSE"), "MIT License\n", "utf-8");
+    const lic = licenseOf(await evaluateSkill(dir));
+    expect(lic.score).toBe(10);
+    expect(lic.findings).toContain(
+      "LICENSE inherited from the skill collection folder (`../../../LICENSE`; no git repository).",
+    );
+  });
+
+  it("gives no credit without git when no ancestor is named skills (#856)", async () => {
+    const root = join(tempDir, "export");
+    const dir = join(root, "tools", "s1");
+    await writeSkillMd(
+      dir,
+      "---\nname: s1\ndescription: Do a thing.\nlicense: MIT\n---\nbody\n",
+    );
+    await writeFile(join(root, "LICENSE"), "MIT License\n", "utf-8");
+    const lic = licenseOf(await evaluateSkill(dir));
+    expect(lic.score).toBe(5);
+    expect(lic.findings).toContain(
+      "No LICENSE file found — consider adding one for clarity.",
+    );
+  });
+
+  it("never credits a LICENSE above the collection folder (#856)", async () => {
+    // Like $HOME/LICENSE with the collection at $HOME/x/skills/s1.
+    await writeFile(join(tempDir, "LICENSE"), "MIT License\n", "utf-8");
+    const dir = await mitSkillIn(join(tempDir, "x"));
+    const lic = licenseOf(await evaluateSkill(dir));
+    expect(lic.score).toBe(5);
+    expect(lic.findings.join("\n")).not.toMatch(/inherited/);
+  });
+
+  it("does not inherit a collection-root LICENSE directory without git (#856)", async () => {
+    const { mkdir } = await import("fs/promises");
+    const root = join(tempDir, "export");
+    const dir = await mitSkillIn(root);
+    await mkdir(join(root, "LICENSE"));
+    const lic = licenseOf(await evaluateSkill(dir));
+    expect(lic.score).toBe(5);
+    expect(lic.findings.join("\n")).not.toMatch(/inherited/);
+  });
+
+  it("does not inherit a dangling collection-root LICENSE link without git (#856)", async () => {
+    const { symlink } = await import("fs/promises");
+    const root = join(tempDir, "export");
+    const dir = await mitSkillIn(root);
+    await symlink(join(root, "missing-licence"), join(root, "LICENSE"));
+    const lic = licenseOf(await evaluateSkill(dir));
+    expect(lic.score).toBe(5);
+    expect(lic.findings.join("\n")).not.toMatch(/inherited/);
+  });
+
+  it("does not inherit a LICENSE link leaving the collection folder (#856)", async () => {
+    const { symlink } = await import("fs/promises");
+    const outside = join(tempDir, "outside-LICENSE");
+    await writeFile(outside, "MIT License\n", "utf-8");
+    const root = join(tempDir, "export");
+    const dir = await mitSkillIn(root);
+    await symlink(outside, join(root, "LICENSE"));
+    const lic = licenseOf(await evaluateSkill(dir));
+    expect(lic.score).toBe(5);
+    expect(lic.findings.join("\n")).not.toMatch(/inherited/);
+  });
+
+  it("applyFix --dry-run scores a no-git collection like plain eval (#856)", async () => {
+    const dir = join(await makeExport(), "skills", "s1");
+    const plain = licenseOf(await evaluateSkill(dir));
+    const fixed = licenseOf((await applyFix(dir, { dryRun: true })).report);
+    expect(plain.score).toBe(10);
+    expect(fixed.score).toBe(plain.score);
+    expect(fixed.findings).toEqual(plain.findings);
+  });
+
   it("reports missing when no license field exists", () => {
     const report = evaluateSkillContentSync({
       content: "---\nname: x\ndescription: Do a thing.\n---\nbody\n",

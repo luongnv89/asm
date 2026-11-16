@@ -51,6 +51,7 @@ import {
 import {
   findLicenseFileName,
   isLicenseFileName,
+  type InheritedLicense,
 } from "./evaluator-scorers-policy";
 import {
   stringifyForOutput,
@@ -74,10 +75,10 @@ export async function evaluateSkillContent(args: {
    */
   rootEntries?: string[];
   /**
-   * Licence file inherited from the enclosing repository, as a path relative
-   * to the skill dir (see `findInheritedLicenseFile`). Issue #771.
+   * Licence file inherited from above the skill dir (see
+   * `findInheritedLicenseFile`). Issues #771, #856.
    */
-  inheritedLicenseFile?: string;
+  inheritedLicenseFile?: InheritedLicense;
 }): Promise<EvaluationReport> {
   const { content, skillPath, skillMdPath, rootEntries, inheritedLicenseFile } =
     args;
@@ -198,7 +199,7 @@ export function evaluateSkillContentSync(args: {
   skillPath: string;
   skillMdPath: string;
   rootEntries?: string[];
-  inheritedLicenseFile?: string;
+  inheritedLicenseFile?: InheritedLicense;
 }): EvaluationReport {
   const { content, skillPath, skillMdPath, rootEntries, inheritedLicenseFile } =
     args;
@@ -338,12 +339,12 @@ export async function evaluateSkill(
 /**
  * Filesystem context the scorers read for a skill directory: its root
  * entries and, when it has no licence file of its own, the licence file it
- * inherits from the enclosing repository. Shared by `evaluateSkill` and
- * `applyFix` so plain eval and `--fix` score the same skill alike.
+ * inherits from above. Shared by `evaluateSkill` and `applyFix` so plain eval
+ * and `--fix` score the same skill alike.
  */
 async function readSkillDirContext(skillDir: string): Promise<{
   rootEntries?: string[];
-  inheritedLicenseFile?: string;
+  inheritedLicenseFile?: InheritedLicense;
 }> {
   let rootEntries: string[] | undefined;
   try {
@@ -360,22 +361,30 @@ async function readSkillDirContext(skillDir: string): Promise<{
 }
 
 /**
- * Find a licence file the skill at `skillDir` inherits from its enclosing
- * repository (issue #771). Walks from the skill's parent up to the git root
- * — the nearest ancestor holding a `.git` dir or file (clones and worktrees
- * included) — and returns the nearest licence file as a path relative to
- * `skillDir`. Returns undefined when the skill is not inside a git repo, is
- * itself the repo root, or no ancestor up to the root has a licence file, so
- * the walk never picks up a LICENSE from outside the repository. A candidate
- * must be a regular file (symlinks followed) whose real path is inside the
- * git root.
+ * Find a licence file the skill at `skillDir` inherits from a folder above
+ * its own, and return the nearest one with its path relative to `skillDir`.
+ *
+ * - Inside a git repo (issue #771): walks from the skill's parent up to the
+ *   git root — the nearest ancestor holding a `.git` dir or file (clones and
+ *   worktrees included). `source: "repository"`.
+ * - With no `.git` up to the filesystem root (issue #856 — a ZIP or
+ *   `git archive` export): walks from the skill's parent up to the parent of
+ *   the nearest ancestor folder named `skills`, the folder holding the
+ *   collection. `source: "collection"`.
+ *
+ * Returns undefined when the skill is itself the repo root, has no `skills`
+ * ancestor outside a git repo, or no folder within the bound has a licence
+ * file, so the walk never picks up a LICENSE from above the bound. A
+ * candidate must be a regular file (symlinks followed) whose real path is
+ * inside the bound folder's real path.
  */
 export async function findInheritedLicenseFile(
   skillDir: string,
-): Promise<string | undefined> {
+): Promise<InheritedLicense | undefined> {
   const start = resolve(skillDir);
   const ancestors: { dir: string; entries: string[] }[] = [];
   let dir = start;
+  let gitRoot: string | undefined;
   for (;;) {
     let entries: string[];
     try {
@@ -384,31 +393,51 @@ export async function findInheritedLicenseFile(
       return undefined;
     }
     if (dir !== start) ancestors.push({ dir, entries });
-    if (entries.includes(".git")) break;
+    if (entries.includes(".git")) {
+      gitRoot = dir;
+      break;
+    }
     const parent = dirname(dir);
-    if (parent === dir) return undefined;
+    if (parent === dir) break;
     dir = parent;
   }
-  // Only a regular file whose real path stays inside the repo counts: a
-  // LICENSE directory, a dangling symlink, or a symlink out of the repo does
+
+  let candidates = ancestors;
+  let bound: string;
+  let source: InheritedLicense["source"];
+  if (gitRoot !== undefined) {
+    bound = gitRoot;
+    source = "repository";
+  } else {
+    // No git repo: the bound is the parent of the nearest `skills` folder.
+    const boundIndex =
+      ancestors.findIndex((a) => basename(a.dir) === "skills") + 1;
+    if (boundIndex === 0 || boundIndex >= ancestors.length) return undefined;
+    candidates = ancestors.slice(0, boundIndex + 1);
+    bound = ancestors[boundIndex].dir;
+    source = "collection";
+  }
+
+  // Only a regular file whose real path stays inside the bound counts: a
+  // LICENSE directory, a dangling symlink, or a symlink out of the bound does
   // not.
-  let rootReal: string;
+  let boundReal: string;
   try {
-    rootReal = await realpath(dir);
+    boundReal = await realpath(bound);
   } catch {
     return undefined;
   }
-  for (const { dir: ancestor, entries } of ancestors) {
+  for (const { dir: ancestor, entries } of candidates) {
     for (const name of entries.filter(isLicenseFileName)) {
       const candidate = join(ancestor, name);
       try {
         if (!(await stat(candidate)).isFile()) continue;
         const real = await realpath(candidate);
-        if (!real.startsWith(rootReal + sep)) continue;
+        if (!real.startsWith(boundReal + sep)) continue;
       } catch {
         continue;
       }
-      return relative(start, candidate);
+      return { path: relative(start, candidate), source };
     }
   }
   return undefined;
