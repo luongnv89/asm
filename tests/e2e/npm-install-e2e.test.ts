@@ -4,10 +4,47 @@ import { join, resolve, dirname } from "path";
 import { mkdtemp, rm, readFile, access } from "fs/promises";
 import { existsSync, readdirSync } from "fs";
 import { tmpdir } from "os";
-import { spawnCollect } from "../../src/utils/test-spawn";
+import { spawnCollect, spawnCollectTimed } from "../../src/utils/test-spawn";
 
-// npm pack + install can take a while.
 vi.setConfig({ testTimeout: 120_000 });
+
+// Setup budget (#816). `testTimeout` above never covered `beforeAll`: the hook
+// ran under vitest's 30 s `hookTimeout`, and `npm install --global <tarball>`
+// resolves the package's dependencies from the live registry. A healthy run
+// installs in a few seconds, but npm's own retry schedule (fetch-retries=2,
+// fetch-retry-mintimeout=10 s, fetch-retry-maxtimeout=60 s) means one or two
+// slow registry responses alone push it past 30 s. Each step gets its own
+// deadline, and the hook timeout sits above their sum so a step deadline always
+// fires first and names itself instead of a bare "Hook timed out".
+const PACK_BUDGET_MS = 60_000;
+const INSTALL_BUDGET_MS = 180_000;
+const SETUP_HOOK_TIMEOUT_MS = PACK_BUDGET_MS + INSTALL_BUDGET_MS + 30_000;
+
+/** Run one setup command under its deadline; throw a message naming the step. */
+async function runSetupStep(
+  step: string,
+  argv: readonly string[],
+  opts: Parameters<typeof spawnCollect>[1],
+  budgetMs: number,
+): Promise<{ stdout: string; stderr: string }> {
+  const res = await spawnCollectTimed(argv, { ...opts, timeoutMs: budgetMs });
+  const secs = (res.elapsedMs / 1000).toFixed(1);
+  const tail = res.stderr.trim().split("\n").slice(-20).join("\n");
+  if (res.timedOut) {
+    throw new Error(
+      `Setup timed out after ${secs}s (budget ${budgetMs / 1000}s) while ${step}` +
+        (tail ? `\nnpm stderr (last lines):\n${tail}` : ""),
+    );
+  }
+  if (res.exitCode !== 0) {
+    throw new Error(
+      `Setup failed after ${secs}s while ${step} (exit ${res.exitCode})` +
+        (tail ? `:\n${tail}` : ""),
+    );
+  }
+  console.info(`[npm-install-e2e] ${step}: ${secs}s`);
+  return res;
+}
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..");
 
@@ -37,21 +74,34 @@ beforeAll(async () => {
       }
     } else {
       // Local: run npm pack to create it
-      const packRes = await spawnCollect(["npm", "pack"], { cwd: ROOT });
+      const packRes = await runSetupStep(
+        "packing the tarball (npm pack)",
+        ["npm", "pack"],
+        { cwd: ROOT },
+        PACK_BUDGET_MS,
+      );
       const packOut = packRes.stdout.trim();
       tarball = join(ROOT, packOut.split("\n").pop()!);
     }
 
-    // Install globally into the temp prefix
-    const installRes = await spawnCollect(
-      ["npm", "install", "--global", "--prefix", installDir, tarball],
+    // Install globally into the temp prefix. --no-audit drops the advisory
+    // request npm otherwise sends to the registry and awaits after resolving;
+    // it has no bearing on whether the package installs or runs.
+    await runSetupStep(
+      "installing the tarball and its dependencies from the registry (npm install --global)",
+      [
+        "npm",
+        "install",
+        "--global",
+        "--no-audit",
+        "--no-fund",
+        "--prefix",
+        installDir,
+        tarball,
+      ],
       { env: { ...process.env } },
+      INSTALL_BUDGET_MS,
     );
-
-    if (installRes.exitCode !== 0) {
-      setupError = `npm install failed (exit ${installRes.exitCode}): ${installRes.stderr}`;
-      return;
-    }
 
     // Resolve binary path
     asmBin = join(installDir, "bin", "asm");
@@ -70,9 +120,9 @@ beforeAll(async () => {
       }
     }
   } catch (err) {
-    setupError = `Setup failed: ${err}`;
+    setupError = err instanceof Error ? err.message : `Setup failed: ${err}`;
   }
-});
+}, SETUP_HOOK_TIMEOUT_MS);
 
 afterAll(async () => {
   if (installDir) {
