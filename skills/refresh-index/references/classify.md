@@ -27,4 +27,4 @@ For each `disabled[]` repo: **skipped** with reason `"disabled in skill-index-re
 
 Capture each repo's post-run `skillCount` by reading the (possibly updated) `data/skill-index/{owner}_{repo}.json`. For **failed** repos, post-count = pre-count (no change on disk).
 
-Unchanged repos still carry timestamp-only edits in the working tree. They are staged with the rest in Step 8 (existing behavior); the summary lists them under **Unchanged** so the reviewer knows their diff is timestamps only.
+Unchanged repos still carry timestamp-only edits in the working tree. They are staged with the rest in Step 8; the summary lists them under **Unchanged** so the reviewer knows their diff is timestamps only.

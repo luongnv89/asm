@@ -6,7 +6,7 @@ compatibility: "git and Python 3 on PATH"
 allowed-tools: Bash Read Write Edit Grep Glob
 effort: medium
 metadata:
-  version: 1.0.1
+  version: 1.0.2
   author: luongnv89
 ---
 

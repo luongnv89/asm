@@ -38,8 +38,4 @@ Use `asm bundle install <file>` for a recommended set of skills. `asm install <f
 
 ## Final check
 
-```bash
-asm bundle show ./marketing-starter.bundle.json
-```
-
-If the check fails, fix the named field and re-run it before handing the install command to the user.
+Run the `asm bundle show <file> --json` check in SKILL.md Step 6.

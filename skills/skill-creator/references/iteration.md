@@ -8,7 +8,7 @@ Before anything else, check `evals/misfires.jsonl` in the skill directory (schem
 
 ## How to think about improvements
 
-1. **Generalize from the feedback.** The big picture thing that's happening here is that we're trying to create skills that can be used a million times (maybe literally, maybe even more who knows) across many different prompts. Here you and the user are iterating on only a few examples over and over again because it helps move faster. The user knows these examples in and out and it's quick for them to assess new outputs. But if the skill you and the user are codeveloping works only for those examples, it's useless. Rather than put in fiddly overfitty changes, or oppressively constrictive MUSTs, if there's some stubborn issue, you might try branching out and using different metaphors, or recommending different patterns of working. It's relatively cheap to try and maybe you'll land on something great.
+1. **Generalize from the feedback.** A skill runs across many prompts it was never tested on, while this loop iterates on a few examples because the user can judge them quickly. A skill that works only for those examples is useless. So fix the cause behind a failure, not the example: avoid narrow, overfit changes and rigid MUSTs. If an issue persists, try a different explanation or a different working pattern rather than another constraint.
 
 2. **Keep the prompt lean.** Remove things that aren't pulling their weight. Make sure to read the transcripts, not just the final outputs — if it looks like the skill is making the model waste a bunch of time doing things that are unproductive, you can try getting rid of the parts of the skill that are making it do that and seeing what happens.
 
@@ -27,7 +27,7 @@ Before anything else, check `evals/misfires.jsonl` in the skill directory (schem
 
    Read `references/subagent-patterns.md` for the full catalog of patterns (Explorer+Executor, Parallel Workers, Review Loop, Research+Synthesis, Staged Pipeline) and guidance on writing subagent prompts and handling graceful degradation.
 
-This task is pretty important (we are trying to create billions a year in economic value here!) and your thinking time is not the blocker; take your time and really mull things over. I'd suggest writing a draft revision and then looking at it anew and making improvements. Really do your best to get into the head of the user and understand what they want and need.
+Write a draft revision, then reread it fresh and improve it before rerunning, keeping in view what the user actually wants and needs.
 
 ## The iteration loop
 

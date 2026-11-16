@@ -6,7 +6,7 @@ compatibility: "Claude Code"
 allowed-tools: Bash Read Write Edit Grep Glob
 effort: high
 metadata:
-  version: 1.4.1
+  version: 1.4.2
   author: luongnv89
 ---
 
@@ -34,8 +34,8 @@ if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
   git stash push -m "pre-refresh-index: ${branch}"
   dirty=1
 fi
-git fetch origin
-git pull --rebase origin "$branch"
+git fetch origin || { echo "✗ No origin or fetch failed — ask the user (local edits, if any, are in git stash list)"; exit 1; }
+git pull --rebase origin "$branch" || { echo "✗ Rebase failed — run git rebase --abort, then ask the user (local edits, if any, are in git stash list)"; exit 1; }
 if [ "$dirty" -eq 1 ]; then
   git stash pop || {
     echo "✗ Stash pop failed — recover with: git stash list && git stash show -p stash@{0}"
@@ -44,7 +44,7 @@ if [ "$dirty" -eq 1 ]; then
 fi
 ```
 
-If `origin` is missing or rebase conflicts occur, **stop and ask the user** before continuing. Never silently overwrite local edits to `data/skill-index/` or `data/skill-index-resources.json`.
+If the block exits 1 (no `origin`, a failed fetch, a rebase conflict, or a failed stash pop), **stop and ask the user** before continuing; never resolve a conflict yourself. Never silently overwrite local edits to `data/skill-index/` or `data/skill-index-resources.json`.
 
 ## Prerequisites
 
@@ -54,6 +54,7 @@ Verify each before any ingest. Stop and tell the user if any fails.
 - `npm` on PATH (`command -v npm`) — required by `npm run preindex`; the ingester evaluates skills in-process, so no `asm` binary is needed
 - `gh` on PATH and authenticated (`gh auth status`) — required for PR creation
 - `git` on PATH and inside the ASM repo working tree (`git rev-parse --show-toplevel`)
+- `jq` on PATH (`command -v jq`) — Steps 1, 2, 4 and 5 and their references parse JSON with it
 - Network access to `github.com` (each ingest clones the upstream repo)
 
 ## Pipeline
@@ -95,13 +96,14 @@ Re-ingest every enabled repo. Capture stdout and the exit code — `preindex` ex
 ROOT="$(git rev-parse --show-toplevel)"
 mkdir -p /tmp/refresh-index/asm-config
 LOG="/tmp/refresh-index/preindex.log"
+rm -f /tmp/refresh-index/preindex.exit
 cd "$ROOT"
 ASM_CONFIG_DIR=/tmp/refresh-index/asm-config npm run preindex > "$LOG" 2>&1
-PREINDEX_EXIT=$?
+echo $? > /tmp/refresh-index/preindex.exit.tmp && mv /tmp/refresh-index/preindex.exit.tmp /tmp/refresh-index/preindex.exit
 cat "$LOG"
 ```
 
-`preindex` clones every enabled repo in sequence and can run for many minutes. If the host's command timeout is shorter, run the command in the background and wait until the log ends with the `Done: N succeeded, M failed` line; then read the exit code.
+`preindex` clones every enabled repo in sequence and can run for many minutes. If the host's command timeout is shorter, run the whole block in the background and wait until `/tmp/refresh-index/preindex.exit` exists; it holds the exit code. The `Done:` line prints only on a normal return, so don't wait for it.
 
 Verification: the log exists and contains one line per enabled repo: `  {source} ... {N} skills` or `  {source} ... FAILED: {error}`. If the log is empty or no line matches, stop — that is environmental, not a per-repo failure.
 
@@ -114,7 +116,7 @@ Match each `{source}` log line to `data/skill-index/{owner}_{repo}.json` in `git
 Confirm the refreshed index is structurally valid. **`website/catalog.json` is gitignored — never stage it.**
 
 ```bash
-cd "$ROOT"
+ROOT="$(git rev-parse --show-toplevel)"; cd "$ROOT"
 npx tsx scripts/build-catalog.ts
 jq empty website/catalog.json
 git restore -- website/ data/repo-stars.json
@@ -127,7 +129,8 @@ Verification: the first two commands exit 0. If either fails, stop — the data 
 Confirm the only files that changed are under `data/skill-index/` (and `data/skill-index-resources.json` only if the user explicitly bumped `updatedAt`):
 
 ```bash
-UNEXPECTED=$(git status --porcelain | cut -c4- \
+ROOT="$(git rev-parse --show-toplevel)"; cd "$ROOT"
+UNEXPECTED=$({ git status --porcelain --untracked-files=no; git status --porcelain -- data/; } | cut -c4- | sort -u \
   | grep -v -E '^data/skill-index/' \
   | grep -v -E '^data/skill-index-resources\.json$' \
   || true)
@@ -137,7 +140,7 @@ if [ -n "$UNEXPECTED" ]; then
 fi
 ```
 
-`npm run preindex` does **not** modify `data/skill-index-resources.json`. If unexpected files appear, stop. Do not commit a mixed change.
+`npm run preindex` does **not** modify `data/skill-index-resources.json`. Untracked files outside `data/` are not checked and are left alone; other sessions may own them. If unexpected files appear, stop. Do not commit a mixed change.
 
 ### Step 7: Print the four-bucket summary
 

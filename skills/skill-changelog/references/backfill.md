@@ -8,7 +8,7 @@ Read this only after the user accepted backfill (SKILL.md Step 6) or asked for i
    1. Set `from` to the `commit` of the transition before it in the full list. The first version has no `from`.
    2. Read the commit subjects: `git -C <repo-root> log --format='%h %s' <from>..<commit> -- <path> <previous path>`. For the first version: `git -C <repo-root> log --format='%h %s' <commit> -- <path>`.
    3. Read `git -C <repo-root> diff -M --stat <from> <commit> -- <path> <previous path>` only when the subjects say nothing user-visible ("wip", "update").
-   4. Write the entry with the rules in `entry-format.md`, using the transition's `date` (committer date, the same as release-time entries). For the first version write `### Added` with `- Initial release.` plus up to 3 bullets for its main capabilities.
+   4. Write the entry with the rules in `entry-format.md`, using the transition's `date` (committer date, the same as release-time entries). For the first version write `### Added` with `- Initial release.` plus a bullet for each main capability.
    5. Insert it in version order, so the file stays newest first.
 4. Put this marker once, directly above the newest reconstructed heading: `<!-- Entries from here down were reconstructed from git history by skill-changelog, except those written at release time. -->`
 5. Run `python3 "$SV" check <skill-dir>` and fix every finding in the entries you wrote.

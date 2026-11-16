@@ -8,7 +8,7 @@ effort: high
 dependencies:
   - skill-creator
 metadata:
-  version: 1.1.0
+  version: 1.1.1
   author: luongnv89
 ---
 
@@ -38,7 +38,7 @@ Pick one before Phase 0; they diverge at Phase 2.
 Every snippet below uses these four. **Bash tool calls do not share shell state**, so re-declare them at the top of each call that needs them — an empty `$SKILL_PATH` turns `cp -R "$SKILL_PATH/."` into a copy of the filesystem root. Capture `RUN_EPOCH` once and reuse the _number_; never re-stamp it.
 
 ```bash
-SS="$HOME/.claude/skills/skill-shortener"                            # this skill
+SS="<this-skill-dir>"                                                # this skill: absolute path of the dir holding this SKILL.md
 SKILL_PATH="$HOME/.claude/skills/<target>"                           # the target: the dir holding SKILL.md
 QV="<SKILL_CREATOR_DIR>/scripts/quick_validate.py"                   # the Phase 4 gate: literal path from the acquire
 # RUN_EPOCH: reuse the number the preflight printed, e.g. RUN_EPOCH=1787948450
@@ -95,7 +95,7 @@ else
 fi
 ```
 
-If the tree is dirty, `git stash`, sync, `git stash pop`. If `origin` is missing or the pull conflicts, **stop and ask the user** — never skip or force the sync. In a git repo, suggest adding `.skill-shortener/` to `.gitignore`.
+If tracked files are modified (`git -C "$SKILL_PATH" status --porcelain --untracked-files=no` prints anything): `git -C "$SKILL_PATH" stash push` without `-u`, sync, then `git -C "$SKILL_PATH" stash pop`. Untracked files stay in place; other sessions may own them. If `origin` is missing or the pull conflicts, **stop and ask the user** — never skip or force the sync. In a git repo, suggest adding `.skill-shortener/` to `.gitignore`.
 
 ## The three dispositions
 

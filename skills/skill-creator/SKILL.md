@@ -5,7 +5,7 @@ license: MIT
 compatibility: "Python 3 for scripts/quick_validate.py; `asm` on PATH for the Gate 2 score check"
 effort: max
 metadata:
-  version: 2.2.1
+  version: 2.2.2
   author: "Luong NGUYEN <luongnv89@gmail.com>"
 ---
 
@@ -22,7 +22,7 @@ The core loop:
 5. Revise the skill based on feedback and benchmarks
 6. Repeat until satisfied; expand the test set and try again at scale
 
-Identify where the user is in this loop and jump in there. New skill from scratch → start at step 1. Existing draft → jump to step 3 or 4. User wants to vibe-iterate without formal evals → support that.
+Pick the entry path below first; Path A starts at step 1. User wants to vibe-iterate without formal evals → support that.
 
 ## Two entry paths
 
@@ -124,7 +124,7 @@ Extract what the conversation already answers before asking the user anything; t
 
 Before drafting, skim `references/exemplars.md` and imitate the archetype closest to this skill — workflow, knowledge, or orchestrator. Then, based on the user interview, fill in:
 
-- **name**: 1-64 chars, lowercase letters/digits/hyphens, no consecutive hyphens, exactly matches parent directory. Enforced by `scripts/quick_validate.py`.
+- **name**: 1-64 chars (≤40 to score full naming points), lowercase letters/digits/hyphens, no `--` (`scripts/quick_validate.py`); exactly matches parent directory (Frontmatter Audit only).
 - **description**: When to trigger and what it does. Primary triggering mechanism. Single line, no newlines. Claude tends to _undertrigger_ — make descriptions a little "pushy", with negative triggers.
 - **effort** (optional): `low | medium | high | xhigh | max`. Defaults to `high`.
 - **metadata.version**: Semver string (see frontmatter rules).
@@ -167,7 +167,7 @@ After the adversarial review and evals, run `references/retrofit-loop.md` Phase 
 
 Read `references/eval-loop.md` for the full 5-step sequence: spawn with-skill and baseline runs, draft assertions, capture timing, grade/aggregate/view with `generate_review.py`, read `feedback.json`.
 
-Do NOT use `/skill-test` or any other testing skill — the flow in `references/eval-loop.md` is the one this skill expects.
+Run tests with the flow in `references/eval-loop.md`, not another testing skill: its grader, aggregator, and viewer read the run layout it writes.
 
 ## Improving an existing skill
 

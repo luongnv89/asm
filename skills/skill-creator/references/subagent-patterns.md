@@ -270,7 +270,8 @@ For each issue found, return a JSON object:
 
 Save your full review to /path/to/output/review.json
 
-Do NOT make any code changes. Do NOT ask questions — use your best judgment.
+Make no code changes; this is a read-only review. You can't ask questions, so
+where something is ambiguous, decide and note the assumption in the review.
 If you find no issues, save an empty array.
 ```
 
@@ -315,7 +316,7 @@ The SKILL.md references these files: "Read `agents/explorer.md` for the full exp
 
 ## Task
 
-[Step-by-step instructions]
+[The outcome to produce, the constraints, and how to check the result; numbered steps only where order matters]
 
 ## Input
 

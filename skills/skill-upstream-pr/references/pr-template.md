@@ -13,7 +13,7 @@ Keep it under 72 chars. Lead with "Suggest" so the reader immediately sees this 
 ## Body
 
 ````markdown
-Hi! 👋 I came across **<skill-name>** while browsing skills and really appreciated <one specific thing you liked>. Wanted to share a few suggestions that surfaced when I ran the skill through [`asm eval`](https://github.com/luongnv89/agent-skill-manager) — totally happy to adjust or drop any of this if it doesn't fit your direction.
+Hi! 👋 I came across **<skill-name>** while browsing skills and really appreciated <one specific thing you liked>. Wanted to share a few suggestions that surfaced when I ran the skill through [`asm eval`](https://github.com/luongnv89/asm) — totally happy to adjust or drop any of this if it doesn't fit your direction.
 
 ## What I suggested
 
@@ -21,19 +21,15 @@ Hi! 👋 I came across **<skill-name>** while browsing skills and really appreci
 
 ## Before / after metrics (`asm eval`)
 
-| Metric              | Before  | After   | Δ           |
-| ------------------- | ------- | ------- | ----------- |
-| **Overall score**   | <X>/100 | <Y>/100 | **+<Y-X>**  |
-| **Grade**           | <old>   | <new>   | <old → new> |
-| Structure           | <a>/10  | <b>/10  | <b-a>       |
-| Description quality | <a>/10  | <b>/10  | <b-a>       |
-| Prompt engineering  | <a>/10  | <b>/10  | <b-a>       |
-| Context efficiency  | <a>/10  | <b>/10  | <b-a>       |
-| Safety              | <a>/10  | <b>/10  | <b-a>       |
-| Testability         | <a>/10  | <b>/10  | <b-a>       |
-| Naming conventions  | <a>/10  | <b>/10  | <b-a>       |
+| Metric            | Before  | After   | Δ           |
+| ----------------- | ------- | ------- | ----------- |
+| **Overall score** | <X>/100 | <Y>/100 | **+<Y-X>**  |
+| **Grade**         | <old>   | <new>   | <old → new> |
+| <category name>   | <a>/10  | <b>/10  | <b-a>       |
 
-<Note: delete category rows that didn't change, or keep the full table — maintainer's call. Bold the ones that moved.>
+<One row per entry in the eval JSON's `categories[]`, in JSON order, named by its `name` field.>
+
+Iterations: <N> of 8 (retrofit loop).
 
 ## Files touched
 
@@ -48,7 +44,6 @@ Hi! 👋 I came across **<skill-name>** while browsing skills and really appreci
 asm eval <path-to-skill>          # human-readable score
 asm eval <path-to-skill> --json   # full JSON report
 ```
-````
 
 The full iteration log and before/after JSON snapshots are attached as commits on this branch under `.asm-improver/` — feel free to delete them before merging if you don't want them in the repo.
 
@@ -64,13 +59,11 @@ The full iteration log and before/after JSON snapshots are attached as commits o
 - Thanks for open-sourcing <skill-name>! It's a useful skill and hope this is helpful.
 
 _Opened via [skill-upstream-pr](https://github.com/luongnv89/asm/tree/main/skills/skill-upstream-pr). No obligation to merge._
-
-```
+````
 
 ## Rendering rules
 
 - Always render the full metrics table, even when only one or two categories changed — maintainers appreciate the complete picture
 - Bold the **Overall score** row; bold any category that moved more than 1 point
-- If `overallScore` dropped on any category, mention it up front in "What I suggested" so the maintainer isn't surprised — honesty beats tidy numbers
+- If any category's `score` dropped, mention it up front in "What I suggested" so the maintainer isn't surprised — honesty beats tidy numbers
 - Strip trailing whitespace and ensure one trailing newline in `pr-body.md` before passing it to `gh`
-```

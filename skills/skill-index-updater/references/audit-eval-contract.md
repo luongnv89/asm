@@ -1,11 +1,8 @@
 # Audit + eval worker contract (Step 3)
 
-The context slice for the Step 3 worker: run the lightweight audit **and**
-`asm eval` over one batch of already-discovered skills. The main agent dispatches
-one worker per batch, merges the fixed JSON below into the Step 3 table, and never
-opens this file.
-
-Spawn the worker with this contract as its prompt.
+Your job: run the lightweight audit **and** `asm eval` over one batch of
+already-discovered skills. You receive this file, a `clonePath`, and your batch's
+`relPath` list. The main agent merges the JSON you return into its Step 3 table.
 
 ## Role
 
@@ -82,8 +79,8 @@ one; the main agent renders these rows directly into the Step 3 combined table
 
 ## Constraints
 
-- Do NOT modify anything inside the clone or in the ASM repo.
-- Do NOT run `npm run preindex` or any catalog build.
-- Do NOT delete the clone — Cleanup owns that.
-- Do NOT ask questions, and do NOT decide whether a repo should be indexed; the
+- Do not modify anything inside the clone or in the ASM repo.
+- Do not run `npm run preindex` or any catalog build.
+- Do not delete the clone — Cleanup owns that.
+- Do not ask questions, and do not decide whether a repo should be indexed; the
   policy is permissive and the reviewer decides.

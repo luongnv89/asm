@@ -17,7 +17,7 @@ from pathlib import Path
 
 SKILL_TEMPLATE = """---
 name: {skill_name}
-description: [TODO: Complete and informative explanation of what the skill does and when to use it. Include WHEN to use this skill - specific scenarios, file types, or tasks that trigger it.]
+description: "TODO: one line, <=250 chars - what it does. Use when <triggers>. Don't use for <2-3 adjacent domains>."
 effort: high
 metadata:
   version: 1.0.0
@@ -351,7 +351,8 @@ def main():
         print("\nSkill name requirements:")
         print("  - Hyphen-case identifier (e.g., 'data-analyzer')")
         print("  - Lowercase letters, digits, and hyphens only")
-        print("  - Max 40 characters")
+        print("  - Max 64 characters (validator limit); keep it <= 40 to earn the")
+        print("    asm eval naming points that Gate 2 (every category >= 8) requires")
         print("  - Must match directory name exactly")
         print("\nExamples:")
         print("  init_skill.py my-new-skill --path skills/public")

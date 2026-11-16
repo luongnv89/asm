@@ -8,7 +8,7 @@ effort: high
 dependencies:
   - skill-creator
 metadata:
-  version: 1.2.0
+  version: 1.2.1
   author: luongnv89
 ---
 
@@ -26,7 +26,7 @@ git fetch origin
 git pull --rebase origin "$branch"
 ```
 
-If the working tree is dirty: stash, sync, pop. If `origin` is missing or conflicts occur: stop and ask the user. A stale fork that PRs yesterday's tree is worse than no PR.
+If tracked files are modified (`git status --porcelain --untracked-files=no` prints anything): `git stash push` without `-u`, sync, then `git stash pop`. Untracked files stay in place; other sessions may own them. If `origin` is missing or conflicts occur: stop and ask the user. A stale fork that PRs yesterday's tree is worse than no PR.
 
 ## When to Use
 
@@ -138,20 +138,14 @@ Read two files produced by the retrofit loop:
 Extract for both:
 
 - `overallScore`, `grade`
-- Every `categories[].score` (7 categories)
+- Every `categories[]` entry's `name` and `score`
 - `topSuggestions` summary (for context, not quoted verbatim)
 
-Compute deltas. If the overall score did not improve by at least 3 points **or** no category moved from below 8 to at least 8, stop and tell the user — the change isn't meaningful enough to justify a PR. Offer the retrofit report as feedback they can share informally instead.
+Compute deltas. If the overall score did not improve by at least 3 points **and** no category moved from below 8 to at least 8, stop and tell the user — the change isn't meaningful enough to justify a PR. Offer the retrofit report as feedback they can share informally instead.
 
 ### Phase 4 — Build the PR body
 
-Read `references/pr-template.md` and fill it in. The template enforces friendly, suggestion-style tone. Key sections:
-
-- **What changed** — one-sentence summary
-- **Before/after metrics** — table with overallScore, grade, and all 7 categories
-- **Files touched** — list every modified path under `$SKILL_PATH`
-- **Iterations taken** — N of 8 from the retrofit loop
-- **How to verify** — the `asm eval` command the maintainer can run locally
+Read `references/pr-template.md` and fill it in; it defines the PR body's sections (What I suggested, the before/after table covering `overallScore`, `grade`, and every `categories[]` entry, Files touched — every modified path under `$SKILL_PATH`, How to verify locally, Why these changes, Notes) and enforces the friendly, suggestion-style tone. Report the iterations taken (N of 8 from the retrofit loop) under the metrics table.
 
 Tone rules (read `references/tone-guide.md`):
 
@@ -167,7 +161,17 @@ Opening a PR on someone else's repo is public and hard to reverse. Before pushin
 
 1. The PR title
 2. The full PR body (rendered markdown)
-3. The exact diff (`git diff upstream/<default-branch>`)
+3. The exact change set. Stage it first, so the preview equals what Phase 6 commits:
+
+   ```bash
+   git add -A
+   # SKILL.md.bak (written by asm eval --fix) never ships; unstage it but keep it
+   # on disk so the user can still restore from it during review
+   git rm --cached -q --ignore-unmatch "${SKILL_PATH:?}/SKILL.md.bak"
+   git status --short
+   git diff --cached upstream/<default-branch>
+   ```
+
 4. The commands you are about to run
 
 Ask the user to confirm. If they want edits, apply them and re-preview. Do not push until the user says "go" or equivalent.
@@ -177,14 +181,13 @@ Ask the user to confirm. If they want edits, apply them and re-preview. Do not p
 After approval:
 
 ```bash
-# Commit the changes
+# Commit the changes — $COMMIT_SUBJECT names what the retrofit actually changed
+# (the same summary as the PR body's "What I suggested")
+: "${COMMIT_SUBJECT:?set it to the one-line summary of what the retrofit changed}"
+rm -f "${SKILL_PATH:?}/SKILL.md.bak"   # approved; the restore copy is no longer needed
 git add -A
-git commit -m "$(cat <<'EOF'
-improve SKILL.md: clarify triggers, add acceptance criteria, fix frontmatter
-
-Suggested via skill-upstream-pr. See PR body for before/after metrics.
-EOF
-)"
+git commit -m "$COMMIT_SUBJECT" \
+  -m "Suggested via skill-upstream-pr. See PR body for before/after metrics."
 
 # Push to the fork
 git push -u origin "$(git rev-parse --abbrev-ref HEAD)"
@@ -219,7 +222,7 @@ Checks per phase:
 
 - **Phase 0** — `skill-creator acquired`, `Fork created`, `Clone succeeded`, `Branch created`, `Remotes correct`
 - **Phase 1** — `SKILL.md located`, `Path unambiguous`
-- **Phase 2** — `Baseline captured`, `Retrofit loop ran`, `Final score >= 85`, `All categories >= 8`
+- **Phase 2** — `Baseline captured`, `Retrofit loop ran`, `Final score > 85`, `All categories >= 8`
 - **Phase 3** — `Before/after delta >= 3 points OR category promoted`
 - **Phase 4** — `PR body rendered`, `Tone checks passed`
 - **Phase 5** — `User approved`
@@ -229,7 +232,7 @@ Checks per phase:
 
 End every run with a short report the user can read without scrolling back:
 
-1. **Result** — first line: `PR opened` with its URL, `stopped at Phase N` (the skill already meets 85/8, the improvement is too small, or the user declined the preview), or `blocked at Phase N` with the reason.
+1. **Result** — first line: `PR opened` with its URL, `stopped at Phase N` (the skill already passes both gates (Gate 1 and 85/8), the improvement is too small, or the user declined the preview), or `blocked at Phase N` with the reason.
 2. **Evidence** — before → after `overallScore` and minimum category from `baseline.json` and the last `iter-N.json`, the files changed, and the fork branch.
 3. **Uncertainty** — `asm eval` scores structure, not behavior: the improved skill was not run, and the maintainer has not reviewed it.
 4. **Decision** — once the PR is open, no approval is needed; the Phase 5 confirmation covered the push. Name any action left for the user, such as answering maintainer comments.
@@ -263,12 +266,12 @@ An agent's own review cannot confirm human understanding. A reviewer who receive
 
 ## Edge Cases
 
-- **Skill already passes 85/8** — stop at Phase 2; do not open a PR for a skill that already meets the floor
+- **Skill already passes both gates (Gate 1 and 85/8)** — stop at Phase 2; do not open a PR for a skill that already meets the floor
 - **Improvement too small** (< 3 point overall delta AND no category promoted) — stop at Phase 3; offer the retrofit report as informal feedback instead
 - **Multiple SKILL.md files in the repo** — ask the user which one; never batch
 - **Fork already exists from a prior run** — `gh repo fork --clone --remote` reuses it; rebase on upstream's default branch before editing
 - **Upstream force-pushed or rewrote history** — stop and ask the user; do not force-push the fork to "catch up"
-- **`asm eval --fix` writes changes you disagree with** — revert `SKILL.md.bak` and do targeted edits only; don't ship the auto-fix if it harms the skill
+- **`asm eval --fix` writes changes you disagree with** — restore `SKILL.md` from `SKILL.md.bak` (it stays on disk until Phase 6 deletes it after approval) and do targeted edits only; don't ship the auto-fix if it harms the skill
 - **Maintainer has a CONTRIBUTING.md or PR template** — read it before Phase 4 and align the PR body with their conventions; their template wins over ours
 - **`skill-creator` cannot be acquired** — stop before Phase 0 and report the `asm deps acquire` error; nothing has been forked yet
 

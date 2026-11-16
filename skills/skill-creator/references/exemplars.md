@@ -18,7 +18,7 @@ The archetype for skills that drive a **repeatable multi-step process** where or
 ```yaml
 ---
 name: release-cut
-description: "Cut a release: bump the version, update the changelog, tag, and push. Use when asked to release, ship a version, or tag a build. Don't use for deploying to environments, publishing to npm/PyPI, or hotfix backports."
+description: "Prepare a release: bump the version, update the changelog, tag, and push. Use when asked to release, ship a version, or tag a build. Don't use for deploying to environments, publishing to npm/PyPI, or hotfix backports."
 license: MIT
 effort: medium
 metadata:
@@ -39,8 +39,9 @@ failed gate and report — never tag a broken tree.
 
 branch="$(git rev-parse --abbrev-ref HEAD)"; git fetch origin && git pull --rebase origin "$branch"
 
-If the tree is dirty: stash, sync, pop. If origin is missing or the rebase
-conflicts, stop and ask the user.
+If tracked files are modified, `git stash push` without `-u`, sync, then pop;
+untracked files stay in place. If origin is missing or the rebase conflicts,
+stop and ask the user.
 ```
 
 > ✎ The opening line is the whole skill in one sentence — an agent that reads nothing else still knows the shape and the prime directive ("never tag a broken tree"). Repo-mutating skill → repo-sync section near the top, as the standard requires.
@@ -72,7 +73,7 @@ class wins. State your classification and the evidence before bumping.
 ## Step 3 — Execute
 
 1. Bump the version file; update CHANGELOG.md from the commit log (group by type)
-2. Commit: `release: v<X.Y.Z>` — this commit contains ONLY the bump + changelog
+2. Commit: `release: v<X.Y.Z>` — this commit contains only the bump + changelog
 3. Tag `v<X.Y.Z>` and push branch + tag. Push only after the user confirms,
    unless they asked for the full cut up front.
 
@@ -99,7 +100,7 @@ The archetype for skills that encode **conventions and judgment**, not a process
 ```yaml
 ---
 name: postgres-migrations
-description: "Postgres schema-migration conventions: safe DDL, lock awareness, expand-contract rollouts. Use when writing or reviewing migration files. Don't use for query tuning, ORM model design, or ad-hoc data backfills."
+description: "Write and review Postgres schema migrations: safe DDL, lock awareness, expand-contract rollouts. Use when writing or reviewing migration files. Don't use for query tuning, ORM model design, or ad-hoc data backfills."
 license: MIT
 effort: low
 metadata:
@@ -175,8 +176,8 @@ metadata:
 ```markdown
 # Dependency Audit
 
-You are the orchestrator. You inventory, delegate, merge, and report — you do
-NOT read package metadata files yourself, and you do NOT open the `references/`
+You are the orchestrator. You inventory, delegate, merge, and report — you
+don't read package metadata files yourself, and you don't open the `references/`
 or `agents/` files a phase needs. Each phase names the slice its worker gets;
 you hold the step list and the workers' returns, never the tree.
 
@@ -187,7 +188,7 @@ into one batch per ecosystem. This is cheap; do it inline.
 
 ## Phase 2 — Fan out (workers, parallel)
 
-Spawn one worker per ecosystem IN THE SAME TURN so they run concurrently.
+Spawn one worker per ecosystem in the same turn so they run concurrently.
 Each worker gets the contract in `agents/worker.md`:
 
 - Input (slice): `agents/worker.md` + `references/license-policy.md` — the only
@@ -197,7 +198,7 @@ Each worker gets the contract in `agents/worker.md`:
   never silently drops one.
 ```
 
-> ✎ Line one draws the boundary that keeps the orchestrator lean — "you do NOT read the files yourself." The worker contract pins **input and output shape** (and the no-silent-drop rule), so the merge step can be dumb and reliable. The full worker prompt lives in `agents/worker.md`, keeping SKILL.md orchestration-only.
+> ✎ Line one draws the boundary that keeps the orchestrator lean — "you don't read package metadata files yourself." The worker contract pins **input and output shape** (and the no-silent-drop rule), so the merge step can be dumb and reliable. The full worker prompt lives in `agents/worker.md`, keeping SKILL.md orchestration-only.
 
 ```markdown
 ## Phase 3 — Merge and flag (you)
@@ -206,7 +207,7 @@ Merge worker JSON, sort by risk, and draft the report table.
 
 ## Phase 4 — Fresh-context review (reviewer, mandatory)
 
-Spawn a NEW subagent — never one that produced findings — with
+Spawn a new subagent — never one that produced findings — with
 `agents/reviewer.md`, the merged table, and the raw worker outputs. It checks:
 coverage (every manifest dependency appears), consistency (risk labels match
 the stated criteria), and unsupported claims. Fix what it finds, then report.

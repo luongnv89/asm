@@ -1,6 +1,6 @@
 # Human review of skill outputs
 
-Use this reference when creating or improving a skill's output contract, selecting a format, or evaluating the user's understanding. The examples below are applications of these principles; do not attribute them to Karpathy or present them as examples from his post.
+Use this reference when creating or improving a skill's output contract, selecting a format, or evaluating the user's understanding. The examples below are applications of these principles.
 
 ## Define an output contract
 

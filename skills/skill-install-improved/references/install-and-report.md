@@ -20,14 +20,7 @@ Derived fields:
 - `iterations` — N of 8
 - `versionBefore` → `versionAfter` — the target's frontmatter `metadata.version`
 
-Then clean the checkout, so nothing extraneous ships:
-
-```bash
-rm -f "$SKILL_PATH/SKILL.md.bak"     # left behind by `asm eval --fix`
-rm -rf "$SKILL_PATH/.asm-improver"   # iteration artifacts
-```
-
-`asm install` copies the source directory recursively; anything still in `$SKILL_PATH` lands in the installed skill.
+Then run the cleanup in SKILL.md → Phase 2, which confirms `$SKILL_PATH` is still inside `$WORK` before deleting `SKILL.md.bak` (left behind by `asm eval --fix`) and `.asm-improver/` (iteration artifacts). `asm install` copies the source directory recursively; anything still in `$SKILL_PATH` lands in the installed skill.
 
 ## Install flags
 

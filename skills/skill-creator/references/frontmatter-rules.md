@@ -29,7 +29,7 @@ This applies every time you write or edit a SKILL.md — whether creating from s
 
 ## YAML Frontmatter Safety
 
-YAML is surprisingly easy to break. An unquoted value containing a colon (`:`) causes many parsers to treat the rest of the line as a new mapping, silently producing wrong output or a hard parse error. This has bitten real skills — `cli-builder` and `code-review` both shipped with broken frontmatter for this reason.
+YAML is surprisingly easy to break. An unquoted value containing a colon (`:`) causes many parsers to treat the rest of the line as a new mapping, silently producing wrong output or a hard parse error.
 
 **Rule: quote every frontmatter string that contains any of these characters: `:`, `#`, `{`, `}`, `[`, `]`, `,`, `&`, `*`, `?`, `|`, `-`, `<`, `>`, `=`, `!`, `%`, `@`, `` ` ``.**
 
@@ -60,8 +60,8 @@ Whenever this skill is used to **review, evaluate, improve, or iterate on an exi
 **What to check on every review:**
 
 - **Required fields present**: `name` and `description` exist and are non-empty strings.
-- **`name` matches the parent directory** exactly (e.g., `skills/my-skill/SKILL.md` → `name: my-skill`). Mismatches fail `scripts/quick_validate.py`.
-- **`name` format**: 1–64 chars, lowercase letters/digits/hyphens only, no leading/trailing or consecutive hyphens.
+- **`name` matches the parent directory** exactly (e.g., `skills/my-skill/SKILL.md` → `name: my-skill`). `scripts/quick_validate.py` does not compare the two, so check this by hand; `asm eval` awards its naming bonus point only on a match.
+- **`name` format**: 1–64 chars, lowercase letters/digits/hyphens only, no leading/trailing or consecutive hyphens. 64 is the validator maximum, but keep `name` **≤40 chars**: `asm eval` awards its 4 kebab-case naming points only at ≤40, so a 41–64 char name caps `naming` at 6 and cannot meet Gate 2's `min(categories) >= 8`.
 - **`description` is a single line** (no newlines), with no angle brackets. Target **≤250 characters** to stay within the runtime context budget; **1024 is a hard ceiling** but only the spec-level limit.
 - **Negative-trigger clause**: description names adjacent domains that should _not_ trigger the skill (e.g., "Don't use for …"). `quick_validate.py` emits a warning when it's missing — treat that as a review finding, not noise.
 - **Only allowed top-level keys** appear: `name`, `description`, `license`, `allowed-tools`, `metadata`, `compatibility`, `effort`, `dependencies`. Anything else is a typo or stale field.
@@ -84,7 +84,7 @@ This audit is cheap and catches real regressions, so run it on every review pass
 
 ## Normalizing `asm eval --fix` output
 
-`asm eval --fix` (retrofit-loop Phase 1) only writes top-level keys when authorship or version is missing entirely:
+`asm eval --fix` (retrofit-loop Phase 1) writes top-level keys only when one is missing. It appends a top-level `effort:` (inferred from body size) when `effort` is absent; `effort` is an allowed key, so it needs no migration. The two keys below do:
 
 - **No authorship anywhere** (no `author`, `metadata.author`, `creator`, or `metadata.creator`) → `--fix` appends top-level `author: <git user.name>`.
 - **No version anywhere** (no `metadata.version` or top-level `version`) → `--fix` appends top-level `version: 0.1.0`.

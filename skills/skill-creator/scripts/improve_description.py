@@ -16,6 +16,19 @@ import anthropic
 from scripts.utils import parse_skill_md
 
 
+def _usage_dict(response) -> dict | None:
+    """Return the response's token usage as a plain dict, if the SDK provides it."""
+    usage = getattr(response, "usage", None)
+    if usage is None:
+        return None
+    if hasattr(usage, "model_dump"):
+        return usage.model_dump()
+    try:
+        return dict(usage)
+    except (TypeError, ValueError):
+        return {"raw": str(usage)}
+
+
 def improve_description(
     client: anthropic.Anthropic,
     skill_name: str,
@@ -71,7 +84,7 @@ Current scores ({scores_summary}):
         prompt += "\n"
 
     if history:
-        prompt += "PREVIOUS ATTEMPTS (do NOT repeat these — try something structurally different):\n\n"
+        prompt += "PREVIOUS ATTEMPTS (do not repeat these — try something structurally different):\n\n"
         for h in history:
             train_s = f"{h.get('train_passed', h.get('passed', 0))}/{h.get('train_total', h.get('total', 0))}"
             test_s = f"{h.get('test_passed', '?')}/{h.get('test_total', '?')}" if h.get('test_passed') is not None else None
@@ -94,20 +107,18 @@ Skill content (for context on what the skill does):
 {skill_content}
 </skill_content>
 
-Based on the failures, write a new and improved description that is more likely to trigger correctly. When I say "based on the failures", it's a bit of a tricky line to walk because we don't want to overfit to the specific cases you're seeing. So what I DON'T want you to do is produce an ever-expanding list of specific queries that this skill should or shouldn't trigger for. Instead, try to generalize from the failures to broader categories of user intent and situations where this skill would be useful or not useful. The reason for this is twofold:
+Based on the failures, write a new and improved description that is more likely to trigger correctly. When I say "based on the failures", it's a bit of a tricky line to walk because we don't want to overfit to the specific cases you're seeing. So what I don't want you to do is produce an ever-expanding list of specific queries that this skill should or shouldn't trigger for. Instead, try to generalize from the failures to broader categories of user intent and situations where this skill would be useful or not useful. The reason for this is twofold:
 
 1. Avoid overfitting
-2. The list might get loooong and it's injected into ALL queries and there might be a lot of skills, so we don't want to blow too much space on any given description.
+2. The list might get long and it's injected into all queries and there might be a lot of skills, so we don't want to blow too much space on any given description.
 
 Keep the description to about 250 characters: Claude Code's skill listing truncates longer descriptions from the end, which cuts off the "Don't use for ..." clause. 1024 characters is a hard limit.
 
+Required shape: start with an imperative action verb that names what the skill does (e.g. "Generate…", "Audit…", "Review…"), follow with a "Use when…" trigger, and end with a "Don't use for…" clause naming 2–3 adjacent domains.
+
 Here are some tips that we've found to work well in writing these descriptions:
-- The skill should be phrased in the imperative -- "Use this skill for" rather than "this skill does"
 - The skill description should focus on the user's intent, what they are trying to achieve, vs. the implementation details of how the skill works.
 - The description competes with other skills for Claude's attention — make it distinctive and immediately recognizable.
-- If you're getting lots of failures after repeated attempts, change things up. Try different sentence structures or wordings.
-
-I'd encourage you to be creative and mix up the style in different iterations since you'll have multiple opportunities to try different approaches and we'll just grab the highest-scoring one at the end.
 
 Please respond with only the new description text in <new_description> tags, nothing else."""
 
@@ -132,19 +143,26 @@ Please respond with only the new description text in <new_description> tags, not
     match = re.search(r"<new_description>(.*?)</new_description>", text, re.DOTALL)
     description = match.group(1).strip().strip('"') if match else text.strip().strip('"')
 
+    if response.stop_reason in ("refusal", "max_tokens"):
+        print(f"Warning: improvement call stopped with stop_reason={response.stop_reason}; keeping the current description", file=sys.stderr)
+        description = current_description
+
     # Log the transcript
     transcript: dict = {
         "iteration": iteration,
         "prompt": prompt,
         "thinking": thinking_text,
         "response": text,
+        "stop_reason": response.stop_reason,
+        "usage": _usage_dict(response),
         "parsed_description": description,
         "char_count": len(description),
         "over_limit": len(description) > 1024,
     }
 
     # If over 1024 chars, ask the model to shorten it
-    if len(description) > 1024:
+    # The shorten call replays this turn, so skip it when the call above stopped early.
+    if len(description) > 1024 and response.stop_reason not in ("refusal", "max_tokens"):
         shorten_prompt = f"Your description is {len(description)} characters, which exceeds the hard 1024 character limit. Please rewrite it to be under 1024 characters while preserving the most important trigger words and intent coverage. Respond with only the new description in <new_description> tags."
         shorten_response = client.messages.create(
             model=model,
@@ -169,6 +187,12 @@ Please respond with only the new description text in <new_description> tags, not
         match = re.search(r"<new_description>(.*?)</new_description>", shorten_text, re.DOTALL)
         shortened = match.group(1).strip().strip('"') if match else shorten_text.strip().strip('"')
 
+        if shorten_response.stop_reason in ("refusal", "max_tokens"):
+            print(f"Warning: shorten call stopped with stop_reason={shorten_response.stop_reason}; keeping the current description", file=sys.stderr)
+            shortened = current_description
+
+        transcript["rewrite_stop_reason"] = shorten_response.stop_reason
+        transcript["rewrite_usage"] = _usage_dict(shorten_response)
         transcript["rewrite_prompt"] = shorten_prompt
         transcript["rewrite_thinking"] = shorten_thinking
         transcript["rewrite_response"] = shorten_text

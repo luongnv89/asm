@@ -25,7 +25,7 @@ Uncertainty: Target behavior was not executed. Human understanding is unconfirme
 Decision: No approval needed.
 Gate 1 (skill standard): √ pass
 Target requirements: 4 pass, interactive-report check not applicable (quick operation)
-Gate 2 (asm-eval): overallScore 91, min category 8
+Gate 2 (asm-eval): overallScore 94, min category 8
 Predictability audit: 6/7 pass, 1 advisory (non-blocking)
 Iterations: 3 of 8
 Target version: 0.2.0 → 1.0.0
@@ -56,8 +56,11 @@ Target version: 0.2.0 → 1.0.0
 | context-efficiency  | 6        | 9     | +3      |
 | safety              | 5        | 8     | +3      |
 | testability         | 2        | 8     | +6      |
+| license             | 10       | 10    | 0       |
 | naming              | 10       | 10    | 0       |
-| **Overall**         | **57**   | **91**| **+34** |
+| pii                 | 10       | 10    | 0       |
+| script-lint         | 10       | 10    | 0       |
+| **Overall**         | **70**   | **94**| **+24** |
 
 ## Predictability findings (advisory — not gates)
 

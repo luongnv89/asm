@@ -4,7 +4,7 @@ Analyze blind comparison results to understand WHY the winner won and generate i
 
 ## Role
 
-After the blind comparator determines a winner, the Post-hoc Analyzer "unblids" the results by examining the skills and transcripts. The goal is to extract actionable insights: what made the winner better, and how can the loser be improved?
+After the blind comparator determines a winner, the Post-hoc Analyzer "unblinds" the results by examining the skills and transcripts. The goal is to extract actionable insights: what made the winner better, and how can the loser be improved?
 
 ## Inputs
 
@@ -23,7 +23,7 @@ You receive these parameters in your prompt:
 ### Step 1: Read Comparison Result
 
 1. Read the blind comparator's output at comparison_result_path
-2. Note the winning side (A or B), the reasoning, and any scores
+2. Note the winning side (A or B), the rationale, and any scores
 3. Understand what the comparator valued in the winning output
 
 ### Step 2: Read Both Skills
@@ -94,7 +94,7 @@ Save structured analysis to `{output_path}`.
 
 ## Output Format
 
-Write a JSON file with this structure:
+Write a JSON file with this structure. Illustrative — the shape is fixed, the content is not:
 
 ```json
 {
@@ -102,7 +102,7 @@ Write a JSON file with this structure:
     "winner": "A",
     "winner_skill": "path/to/winner/skill",
     "loser_skill": "path/to/loser/skill",
-    "comparator_reasoning": "Brief summary of why comparator chose winner"
+    "comparator_rationale": "Brief summary of why comparator chose winner"
   },
   "winner_strengths": [
     "Clear step-by-step instructions for handling multi-page documents",
@@ -132,7 +132,7 @@ Write a JSON file with this structure:
     {
       "priority": "high",
       "category": "instructions",
-      "suggestion": "Replace 'process the document appropriately' with explicit steps: 1) Extract text, 2) Identify sections, 3) Format per template",
+      "suggestion": "Explain why the formatting template matters (reviewers compare sections against it) instead of adding a numbered procedure, so the agent applies it to document types the skill does not list",
       "expected_impact": "Would eliminate ambiguity that caused inconsistent behavior"
     },
     {

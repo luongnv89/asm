@@ -5,7 +5,7 @@ license: MIT
 compatibility: "Claude Code with the `asm` CLI on PATH"
 effort: medium
 metadata:
-  version: 1.5.0
+  version: 1.5.1
   author: "Luong NGUYEN <luongnv89@gmail.com>"
 ---
 
@@ -33,9 +33,9 @@ goal, confirm it, then map it onto real, installable skills from the live catalo
 Start at the step the user is already at. If they open with a rich goal ("I need
 SEO, a landing page, and launch copy for my SaaS"), confirm quickly and move to
 discovery. If they're vague ("help me market my app"), spend more time in steps
-1–2. Never skip step 2: confirming before searching keeps recommendations relevant.
+1–2. On a full loop run, never skip step 2: confirming before searching keeps recommendations relevant.
 
-If the user asks for one capability ("is there a skill that converts PDFs?"), skip the loop: run one `asm search "<term>" --available --json` and give the matching `asm install <installUrl>` line.
+If the user asks for one capability ("is there a skill that converts PDFs?"), skip the loop: run one `asm search "<term>" --json` (not `--available`, which does not exclude installed skills) and end there. Reply with the best match's `installCommand`, or say it is already installed if its `status` is `installed`.
 
 ## Prerequisite (check once, up front)
 
@@ -63,7 +63,7 @@ Match your vocabulary to theirs. A non-marketer asking for "marketing" may
 actually need positioning, a landing page, and launch copy — offer those as
 options; do not assume. Avoid jargon ("ICP", "ASO") unless they use it first.
 
-## Step 2 — Confirm understanding (do not skip)
+## Step 2 — Confirm understanding
 
 Before searching, play back what you heard and ask for an explicit confirmation:
 
@@ -97,21 +97,20 @@ From the union of search hits, build the recommendation set:
 - **Drop weak fits.** Keep only skills you can justify in one sentence tied to
   the user's goal.
 - **Explain each in plain language** — one sentence on what it does _for this
-  user_, not a paraphrase of its description. "`landing-page-copywriter` writes
+  user_, not a paraphrase of its description. "`landing-page-generator` writes
   the words for your launch page so visitors understand and sign up."
 
 ## Step 5 — Sequence into a step-by-step path
 
 Order the curated skills into the sequence the user should run them in. For each
 step, state its **input** (what the user or the previous step provides) and its
-**output** (what they'll have after). Foundational/context skills usually come
-first; review/QA skills usually come last. Example shape:
+**output** (what they'll have after). Example shape:
 
 ```
 Step 1 — marketing-context
   in:  your product description, target customer
   out: a saved brand/positioning brief other skills read first
-Step 2 — landing-page-copywriter
+Step 2 — landing-page-generator
   in:  the brief from step 1
   out: landing-page copy ready to paste
 ```
@@ -124,7 +123,7 @@ plan and ask for approval again.
 
 Only after the user approves the plan, write a **bundle file** in `asm`'s `BundleManifest` format with a goal-based name such as `marketing-starter.bundle.json`. Write it to the current directory unless the user names another path.
 
-See `references/bundle-format.md` for the required JSON template, validation rules, and the reason this skill uses `asm bundle install` instead of `asm install` or `asm import`. Copy each `installUrl` from Step 3 verbatim; never hand-construct it and never include already-installed skills.
+See `references/bundle-format.md` for the required JSON template, validation rules, and the reason this skill uses `asm bundle install` instead of `asm install` or `asm import`. Set each `installUrl` to that skill's Step 3 `installCommand` with the leading `asm install ` removed; never hand-construct it and never include already-installed skills.
 
 Check the file before handing it off:
 
@@ -132,7 +131,7 @@ Check the file before handing it off:
 asm bundle show ./marketing-starter.bundle.json --json
 ```
 
-- If the command exits 0 and its `skills[].name` list matches the approved plan, give the user the install command `asm bundle install ./marketing-starter.bundle.json`. In a terminal it asks for the tool, then which bundle skills to install, then the scope. Outside a terminal, `-p/--tool <tool>` is required; `-y` skips the skill and scope pickers.
+- If the command exits 0 and its `skills[].name` list matches the approved plan, give the user the install command `asm bundle install ./marketing-starter.bundle.json`. In a terminal it asks for the tool (when more than one is enabled), then which bundle skills to install, then the scope. Outside a terminal, `-p/--tool <tool>` is required unless exactly one tool is enabled; `-y` skips the skill and scope pickers.
 - If the command errors, fix the field the error names, then run the check again. After two failed checks, stop, report `blocked` with the error, and do not hand off an install command.
 
 ## Step Completion Reports
@@ -156,7 +155,7 @@ Checks per step:
 
 ## Final output
 
-End every run with a short report the user can read without scrolling back:
+End every full loop run with a short report the user can read without scrolling back:
 
 1. **Result** — the first line states `complete`, `plan only` (nothing to bundle, or the user declined export), or `blocked` (with the reason).
 2. **The plan** — numbered steps, each with the skill, a one-line purpose, and in/out.
@@ -169,9 +168,9 @@ landscape — leave them understanding what they're about to install and why.
 
 ## Acceptance Criteria
 
-Verify all of these before calling the run complete:
+Verify all of these before calling a full loop run complete:
 
-- The user explicitly confirmed the goal before any catalog search.
+- On a full loop run, the user explicitly confirmed the goal before any catalog search.
 - At least one `asm search "<term>" --available --json` query was run for each chosen search term.
 - Installed skills were checked with `asm search "<term>" --json` and excluded from the bundle.
 - The user approved the sequenced plan before any file was written.

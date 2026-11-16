@@ -55,7 +55,7 @@ git fetch origin
 git pull --rebase origin "$branch"
 ```
 
-If the tree is dirty, `git stash`, sync, `git stash pop`. If `origin` is missing or the pull conflicts, **stop and ask the user** — never skip or force the sync.
+If tracked files are modified (`git status --porcelain --untracked-files=no` prints anything), `git stash push` without `-u`, sync, then `git stash pop`. Untracked files stay in place. If `origin` is missing or the pull conflicts, **stop and ask the user** — never skip or force the sync.
 
 **One exception — a caller's throwaway copy.** When a calling skill hands over a temporary (`mktemp -d`) copy or clone and declares the sync inapplicable, log the skip and continue — never fetch or pull there. `skill-install-improved` does this for every input form, including `git clone --depth 1` checkouts that do have `origin` and may sit on a detached `--ref`, where a pull could move the target off the requested ref. The exception is keyed on the caller, not on the remote: the user's own checkout never qualifies, and one that lacks `origin` or conflicts still stops and asks.
 

@@ -6,7 +6,7 @@ compatibility: Claude Code
 allowed-tools: Bash Read Write Edit Grep Glob WebFetch Agent
 effort: high
 metadata:
-  version: 2.4.0
+  version: 2.4.1
   author: luongnv89
 ---
 
@@ -16,14 +16,16 @@ You are adding new skill repository sources to the ASM (Agent Skill Manager) cur
 
 ## Example
 
+Illustrative only — repo names and counts vary per run; the formats under Step Completion Reports and Final output are the real output shapes.
+
 ```
 User: add github.com/anthropics/skills to the index
-Skill output:
-  Step 1: Parsed 1 URL → anthropics/skills (NEW)
-  Step 2: Discovered 14 SKILL.md files
-  Step 3: Audit 13 OK / 1 WARN, eval scores 71–94
-  Step 6–8: data/skill-index-resources.json + data/skill-index/anthropics_skills.json updated, catalog rebuilt
-  Step 10: PR #312 opened — feat(index): add anthropics/skills (14 skills)
+
+Result: PR opened
+Evidence: Added 1 new repo(s), updated 0 existing repo(s) · Total new skills indexed: 14
+  Audit: 13 OK · 1 WARN · 0 FLAG · PR: <PR URL>
+Uncertainty: the audit is lightweight and asm eval scores structure, not behavior; no repo used the manual fallback.
+Decision: review and merge the PR; look first at the WARN skill <skill-name>.
 ```
 
 ## Repo Sync Before Edits (mandatory)
@@ -36,7 +38,7 @@ git fetch origin
 git pull --rebase origin "$branch"
 ```
 
-If the working tree is dirty: stash, sync, then pop. If `origin` is missing or conflicts occur: stop and ask the user before continuing.
+If tracked files are modified (`git status --porcelain --untracked-files=no` prints anything): `git stash push` without `-u`, sync, then `git stash pop`. Untracked files stay in place; other sessions may own them. If `origin` is missing or conflicts occur: stop and ask the user before continuing.
 
 ## Prerequisites
 
@@ -186,9 +188,9 @@ If the block stops on a comma, do not fall back to the manual path: report the e
 
 With `--exclude`, the JSON output adds `excluded` (names left out) and `unmatchedExcludes` (names that matched no discovered skill). A non-empty `unmatchedExcludes` is not a failure, but it means an exclusion is misspelled or the skill was renamed or removed upstream: list it under Uncertainty in the final output.
 
-The ingested file's `skillCount` is authoritative. Use it in Step 9, the commit message, and the PR. If it differs from the Step 2 count, report both. The ingester populates `tokenCount` and `evalSummary` (`overallScore`, `grade`, `categories`, `evaluatedAt`, `evaluatedVersion`) on every skill entry; these power the catalog's "est. tokens" and "eval score" badges.
+The ingested file's `skillCount` is authoritative. Use it in Step 9, the commit message, and the PR. If it differs from the Step 2 count, report both. The ingester populates `tokenCount` on every skill entry and, best-effort, `evalSummary` (`overallScore`, `grade`, `categories`, `evaluatedAt`, plus `evaluatedVersion`: the skill's `metadata.version` or `version`, or `"0.0.0"` when it declares neither); these power the catalog's "est. tokens" and "eval score" badges.
 
-If the ingest exits non-zero for a repo, follow `references/manual-index.md` for that repo only, and record it as manually generated. That fallback populates `tokenCount` and `evalSummary` with `asm eval <clonePath>/<relPath> --json`, both values taken from that repo's Step 2 worker result.
+If the ingest exits non-zero for a repo, follow `references/manual-index.md` for that repo only, and record it as manually generated. That fallback takes `evalSummary` from `asm eval <clonePath>/<relPath> --json` and `tokenCount` from `asm inspect <clonePath>/<relPath> --json`, with `clonePath` and `relPath` taken from that repo's Step 2 worker result.
 
 ### Step 8: Rebuild Website Catalog
 
@@ -210,7 +212,7 @@ Check each item. If one fails, fix it before Step 10:
 1. `jq empty data/skill-index-resources.json` exits 0 and the file contains every NEW repo.
 2. Each added or updated `data/skill-index/{owner}_{repo}.json` passes `jq empty`.
 3. Every skill entry in those files has a numeric `tokenCount` and an `evalSummary` with `overallScore`, `grade`, and `categories`. Evaluation is best-effort in the ingester: list any skill missing `evalSummary` under Uncertainty instead of failing the run.
-4. `git status --porcelain | cut -c4-` lists only `data/skill-index-resources.json` and the index files of the repos in this run.
+4. `git status --porcelain --untracked-files=no | cut -c4-` and `git status --porcelain -- data/ | cut -c4-` together list only `data/skill-index-resources.json` and the index files of the repos in this run. Untracked files outside `data/` are not part of this check; other sessions may own them, and staging by name keeps them out of the commit.
 
 Print the pre-PR summary:
 
@@ -262,7 +264,7 @@ End the run with a short report:
 The expected output of a successful run, each item checkable:
 
 - Every input URL appears in the Step 1 table with a status.
-- `git status --porcelain` before commit lists only the resources file and the index files of this run's repos.
+- `git status --porcelain --untracked-files=no` plus `git status --porcelain -- data/` before commit list only the resources file and the index files of this run's repos.
 - Each added skill appears in `website/catalog.json`, and `website/catalog.json` is not staged.
 - The PR audit summary matches the Step 3 OK / WARN / FLAG counts.
 - `gh pr view --json url` returns a URL, or the commit SHA is reported on failure.

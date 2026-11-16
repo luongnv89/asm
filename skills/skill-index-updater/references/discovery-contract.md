@@ -1,11 +1,9 @@
 # Discovery worker contract (Step 2)
 
-The context slice for the Step 2 worker: clone **one** repository to a temp
-directory and report every skill in it. The main agent dispatches one worker per
-repo and keeps only the JSON below — it never opens this file.
-
-Spawn the worker with this contract as its prompt, substituting `<owner>` and
-`<repo>`.
+Your job: clone **one** repository to a temp directory and report every skill
+in it. You receive this file plus that repository's `owner` and `repo`; wherever
+`<owner>` and `<repo>` appear below, use those values. The main agent keeps only
+the JSON you return.
 
 ## Role
 
@@ -18,8 +16,8 @@ nothing, and write nothing outside your own temp directory.
 `discoverSkills` (used by `asm index ingest` and `npm run preindex`) indexes a
 **root** `SKILL.md` when present **and** keeps scanning subdirectories for more.
 A repo with both root and nested skills must list every one of them — not only
-the root. Replicate that behavior exactly; the index entry is built from what you
-return.
+the root. Match that behavior: Step 3 audits the skills you return, and if Step
+7's ingest fails, the manual fallback builds the index entry from them.
 
 ## Task
 
@@ -30,13 +28,14 @@ TEMP_DIR=$(mktemp -d)
 git clone --depth 1 "https://github.com/<owner>/<repo>.git" "$TEMP_DIR/<repo>"
 ```
 
-2. Find every SKILL.md, at most 5 levels deep — an approximation of ASM's
-   `discoverSkills`, which also skips `.git` and `node_modules`, does not look for
-   skills nested inside a skill directory, and drops duplicate names. Step 7's
-   ingested `skillCount` is the authoritative count:
+2. Find every SKILL.md whose skill directory is at most 5 levels below the clone
+   root (`-maxdepth 6` counts the `SKILL.md` file itself) — an approximation of
+   ASM's `discoverSkills`, which also skips `.git` and `node_modules` and does not
+   look for skills nested inside a skill directory; `asm index ingest` then drops
+   duplicate names. Step 7's ingested `skillCount` is the authoritative count:
 
 ```bash
-find "$TEMP_DIR/<repo>" -maxdepth 5 -name "SKILL.md" -type f \
+find "$TEMP_DIR/<repo>" -maxdepth 6 -name "SKILL.md" -type f \
   -not -path "*/.git/*" -not -path "*/node_modules/*"
 ```
 
@@ -45,8 +44,15 @@ Record that directory, relative to the clone root, as the skill's `relPath` —
 the Output section below pins that value.
 
 3. Parse each file's YAML frontmatter and extract `name` (required),
-   `description` (required), `version` (defaults to `"0.0.0"`), `license`,
-   `creator`, `compatibility`, and `allowed-tools` / `allowedTools`.
+   `description` (required), `license`, and `compatibility`, plus three fields
+   resolved the way the ingester (`src/utils/frontmatter.ts`) resolves them:
+   - `version` — `metadata.version`, else top-level `version`, else `"0.0.0"`.
+   - `creator` — a display name only: drop every email address
+     (`Name <user@host>` → `Name`) and join list entries with `", "`. Take the
+     first of `metadata.creator`, `metadata.author`, `creator`, `author` that
+     still has a name after that; a key left empty falls through to the next.
+   - `allowedTools` — from `allowed-tools` only, split on spaces and commas;
+     `[]` when absent.
 
 ## Input
 
@@ -93,18 +99,20 @@ the paths reach the rest of the pipeline:
 `relPath` is pinned just as tightly. It is the skill's **directory** — the parent
 of the discovered `SKILL.md`, never the file itself — expressed **relative to
 `clonePath`**, which is the repo root. A root-level `SKILL.md` gives `""`. That
-one value is what the index entry's `relPath` field stores verbatim, what
-`installUrl` appends as `github:{owner}/{repo}:{relPath}` (a root skill omits the
-`:` and the path entirely), and what Step 3 joins with `clonePath` to reach the
-skill on disk. Base it anywhere else — at `tempRoot`, or with the clone directory
-name still prefixed — and `data/skill-index/{owner}_{repo}.json` ships a broken
-`installUrl` that fails `asm install` for every skill in the repo.
+one value is what Step 3 joins with `clonePath` to reach the skill on disk and,
+if Step 7's ingest fails, what the manual fallback stores verbatim as the index
+entry's `relPath` and appends to `installUrl` as
+`github:{owner}/{repo}:{relPath}` (a root skill omits the `:` and the path
+entirely). Base it anywhere else — at `tempRoot`, or with the clone directory
+name still prefixed — and Step 3 evaluates the wrong path, and a manually built
+`data/skill-index/{owner}_{repo}.json` ships an `installUrl` that fails
+`asm install` for every skill in the repo.
 
 ## Constraints
 
-- Do NOT delete your temp directory — Step 3 still needs the clone.
-- Do NOT run `asm eval`, `asm index ingest`, `npm run preindex`, or any catalog
+- Do not delete your temp directory — Step 3 still needs the clone.
+- Do not run `asm eval`, `asm index ingest`, `npm run preindex`, or any catalog
   build; Steps 3 and 7 own the eval and the ingest.
-- Do NOT modify anything in the ASM repo.
-- Do NOT ask questions. A clone failure is a `status`, not a stop; a repo with no
+- Do not modify anything in the ASM repo.
+- Do not ask questions. A clone failure is a `status`, not a stop; a repo with no
   SKILL.md is `status: "no-skills"` with an empty `skills` array, not an error.
