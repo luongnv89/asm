@@ -1,10 +1,10 @@
 # Blind Comparator Agent
 
-Compare two outputs WITHOUT knowing which skill produced them.
+Compare two outputs without knowing which skill produced them.
 
 ## Role
 
-The Blind Comparator judges which output better accomplishes the eval task. You receive two outputs labeled A and B, but you do NOT know which skill produced which. This prevents bias toward a particular skill or approach.
+The Blind Comparator judges which output better accomplishes the eval task. You receive two outputs labeled A and B, but you do not know which skill produced which. This prevents bias toward a particular skill or approach.
 
 Your judgment is based purely on output quality and task completion.
 
@@ -197,7 +197,7 @@ If no expectations were provided, omit the `expectation_results` field entirely.
 
 ## Guidelines
 
-- **Stay blind**: DO NOT try to infer which skill produced which output. Judge purely on output quality.
+- **Stay blind**: Do not try to infer which skill produced which output. Judge purely on output quality.
 - **Be specific**: Cite specific examples when explaining strengths and weaknesses.
 - **Be decisive**: Choose a winner unless outputs are genuinely equivalent.
 - **Output quality first**: Assertion scores are secondary to overall task completion.

@@ -84,7 +84,7 @@ Current scores ({scores_summary}):
         prompt += "\n"
 
     if history:
-        prompt += "PREVIOUS ATTEMPTS (do NOT repeat these — try something structurally different):\n\n"
+        prompt += "PREVIOUS ATTEMPTS (do not repeat these — try something structurally different):\n\n"
         for h in history:
             train_s = f"{h.get('train_passed', h.get('passed', 0))}/{h.get('train_total', h.get('total', 0))}"
             test_s = f"{h.get('test_passed', '?')}/{h.get('test_total', '?')}" if h.get('test_passed') is not None else None
@@ -107,15 +107,16 @@ Skill content (for context on what the skill does):
 {skill_content}
 </skill_content>
 
-Based on the failures, write a new and improved description that is more likely to trigger correctly. When I say "based on the failures", it's a bit of a tricky line to walk because we don't want to overfit to the specific cases you're seeing. So what I DON'T want you to do is produce an ever-expanding list of specific queries that this skill should or shouldn't trigger for. Instead, try to generalize from the failures to broader categories of user intent and situations where this skill would be useful or not useful. The reason for this is twofold:
+Based on the failures, write a new and improved description that is more likely to trigger correctly. When I say "based on the failures", it's a bit of a tricky line to walk because we don't want to overfit to the specific cases you're seeing. So what I don't want you to do is produce an ever-expanding list of specific queries that this skill should or shouldn't trigger for. Instead, try to generalize from the failures to broader categories of user intent and situations where this skill would be useful or not useful. The reason for this is twofold:
 
 1. Avoid overfitting
-2. The list might get loooong and it's injected into ALL queries and there might be a lot of skills, so we don't want to blow too much space on any given description.
+2. The list might get long and it's injected into all queries and there might be a lot of skills, so we don't want to blow too much space on any given description.
 
 Keep the description to about 250 characters: Claude Code's skill listing truncates longer descriptions from the end, which cuts off the "Don't use for ..." clause. 1024 characters is a hard limit.
 
+Required shape: start with an imperative action verb that names what the skill does (e.g. "Generate…", "Audit…", "Review…"), follow with a "Use when…" trigger, and end with a "Don't use for…" clause naming 2–3 adjacent domains.
+
 Here are some tips that we've found to work well in writing these descriptions:
-- Start with an imperative action verb that names what the skill does (e.g. "Generate…", "Audit…", "Review…"), follow with a "Use when…" trigger, and end with a "Don't use for…" clause naming 2–3 adjacent domains.
 - The skill description should focus on the user's intent, what they are trying to achieve, vs. the implementation details of how the skill works.
 - The description competes with other skills for Claude's attention — make it distinctive and immediately recognizable.
 

@@ -84,7 +84,7 @@ This audit is cheap and catches real regressions, so run it on every review pass
 
 ## Normalizing `asm eval --fix` output
 
-`asm eval --fix` (retrofit-loop Phase 1) only writes top-level keys when authorship or version is missing entirely:
+`asm eval --fix` (retrofit-loop Phase 1) writes top-level keys only when one is missing. It appends a top-level `effort:` (inferred from body size) when `effort` is absent; `effort` is an allowed key, so it needs no migration. The two keys below do:
 
 - **No authorship anywhere** (no `author`, `metadata.author`, `creator`, or `metadata.creator`) → `--fix` appends top-level `author: <git user.name>`.
 - **No version anywhere** (no `metadata.version` or top-level `version`) → `--fix` appends top-level `version: 0.1.0`.

@@ -4,7 +4,7 @@ Analyze blind comparison results to understand WHY the winner won and generate i
 
 ## Role
 
-After the blind comparator determines a winner, the Post-hoc Analyzer "unblids" the results by examining the skills and transcripts. The goal is to extract actionable insights: what made the winner better, and how can the loser be improved?
+After the blind comparator determines a winner, the Post-hoc Analyzer "unblinds" the results by examining the skills and transcripts. The goal is to extract actionable insights: what made the winner better, and how can the loser be improved?
 
 ## Inputs
 
@@ -94,7 +94,7 @@ Save structured analysis to `{output_path}`.
 
 ## Output Format
 
-Write a JSON file with this structure:
+Write a JSON file with this structure. Illustrative — the shape is fixed, the content is not:
 
 ```json
 {
@@ -132,7 +132,7 @@ Write a JSON file with this structure:
     {
       "priority": "high",
       "category": "instructions",
-      "suggestion": "Replace 'process the document appropriately' with explicit steps: 1) Extract text, 2) Identify sections, 3) Format per template",
+      "suggestion": "Explain why the formatting template matters (reviewers compare sections against it) instead of adding a numbered procedure, so the agent applies it to document types the skill does not list",
       "expected_impact": "Would eliminate ambiguity that caused inconsistent behavior"
     },
     {

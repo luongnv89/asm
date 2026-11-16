@@ -89,7 +89,12 @@ Suggestions worth raising:
 
 Keep the bar high. The goal is to flag things the eval author would say "good catch" about, not to nitpick every assertion.
 
-### Step 7: Write Grading Results
+### Step 7: Read Executor Metrics and Timing
+
+1. If `{outputs_dir}/metrics.json` exists, read it and include in grading output
+2. If `{outputs_dir}/../timing.json` exists, read it and include timing data
+
+### Step 8: Write Grading Results
 
 Save results to `{outputs_dir}/../grading.json` (sibling to outputs_dir).
 
@@ -110,11 +115,6 @@ Save results to `{outputs_dir}/../grading.json` (sibling to outputs_dir).
 - The output appears to meet the assertion by coincidence rather than by actually doing the work
 
 **When uncertain**: The burden of proof to pass is on the expectation.
-
-### Step 8: Read Executor Metrics and Timing
-
-1. If `{outputs_dir}/metrics.json` exists, read it and include in grading output
-2. If `{outputs_dir}/../timing.json` exists, read it and include timing data
 
 ## Output Format
 

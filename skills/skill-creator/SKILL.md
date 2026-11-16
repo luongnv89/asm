@@ -22,7 +22,7 @@ The core loop:
 5. Revise the skill based on feedback and benchmarks
 6. Repeat until satisfied; expand the test set and try again at scale
 
-Identify where the user is in this loop and jump in there. New skill from scratch → start at step 1. Existing draft → jump to step 3 or 4. User wants to vibe-iterate without formal evals → support that.
+Pick the entry path below first; Path A starts at step 1. User wants to vibe-iterate without formal evals → support that.
 
 ## Two entry paths
 
