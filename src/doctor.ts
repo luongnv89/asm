@@ -90,11 +90,22 @@ export async function checkGitVersion(
     }
     const major = parseInt(match[1], 10);
     const minor = parseInt(match[2], 10);
-    if (major > 2 || (major === 2 && minor >= 20)) {
+    if (major > 2 || (major === 2 && minor >= 28)) {
       return {
         name: "Git version",
         status: "pass",
-        message: `${major}.${minor} (>= 2.20)`,
+        message: `${major}.${minor} (>= 2.28)`,
+      };
+    }
+    if (major === 2 && minor >= 20) {
+      // `asm outdated`'s folder-level check runs
+      // `git fetch --filter=blob:none --end-of-options`, which a fresh repo
+      // rejects before git 2.28; older git falls back to commit comparison.
+      return {
+        name: "Git version",
+        status: "warn",
+        message: `${major}.${minor} — folder-level outdated checks need git >= 2.28; older git falls back to commit comparison`,
+        fix: "Upgrade git to 2.28 or newer: https://git-scm.com/downloads",
       };
     }
     return {

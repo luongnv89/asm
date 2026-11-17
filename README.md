@@ -114,7 +114,7 @@ asm search "code review" --json
 
 Alternative install: `curl -sSL https://raw.githubusercontent.com/luongnv89/asm/main/install.sh | bash`
 
-Node.js 22+ required. Optional TUI: run `asm` with no arguments.
+Node.js 22+ required. git 2.20+ required; git 2.28+ for folder-level `asm outdated` checks (older git falls back to commit comparison, and `asm doctor` warns). Optional TUI: run `asm` with no arguments.
 
 ## Common tasks
 
