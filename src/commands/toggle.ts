@@ -21,6 +21,7 @@ import {
   disableSkillInstance,
   enableSkillInstance,
   disabledFilePath,
+  isDisabled,
   recordedProjectDirs,
 } from "../skill-state";
 import { readFile as fsReadFile, realpath as fsRealpath } from "fs/promises";
@@ -537,10 +538,17 @@ export async function cmdEnable(args: ParsedArgs) {
         // projects keep theirs (#813).
         const projectDir = projectDirOf.get(s.provider);
         if (s.scope === "project") {
-          // A project row is never aliased, so the project-less entry it was
-          // read from (if any) names this instance too.
-          clearDisabled(state, s.dirName, s.provider, "project", projectDir);
-          clearDisabled(state, s.dirName, s.provider, "project");
+          // A project row is never aliased. It came from this project's entry
+          // when one is recorded; only otherwise was it read from the
+          // project-less entry, which may also name other projects.
+          if (
+            projectDir !== undefined &&
+            isDisabled(state, s.dirName, s.provider, "project", projectDir)
+          ) {
+            clearDisabled(state, s.dirName, s.provider, "project", projectDir);
+          } else {
+            clearDisabled(state, s.dirName, s.provider, "project");
+          }
         } else {
           clearDisabled(state, s.dirName, s.provider, "global");
           // A project entry for this cwd's project dir, which is the global

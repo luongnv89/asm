@@ -427,6 +427,29 @@ describe("enable/disable state keyed by project (#813)", () => {
     );
   });
 
+  it("keeps an old project-less entry when another project enables its own copy", async () => {
+    const proj13 = join(home, "proj13");
+    const proj14 = join(home, "proj14");
+    const p13 = await installSkill(join(proj13, ".claude", "skills"));
+    const p14 = await installSkill(join(proj14, ".claude", "skills"));
+    await rename(join(p13, "SKILL.md"), join(p13, "SKILL.md.disabled"));
+    await mkdir(join(statePath(), ".."), { recursive: true });
+    await writeFile(
+      statePath(),
+      JSON.stringify({
+        version: 1,
+        disabled: { s1: { claude: { project: true } } },
+      }),
+    );
+
+    expect((await asm(proj14, "disable", "s1", "--yes")).exitCode).toBe(0);
+    expect((await asm(proj14, "enable", "s1", "--yes")).exitCode).toBe(0);
+
+    expect(isDisabledOnDisk(p14)).toBe(false);
+    expect(isDisabledOnDisk(p13)).toBe(true);
+    expect(await listed(proj13)).toEqual([["project", true]]);
+  });
+
   it("reads an old project-less entry as an unknown project", async () => {
     const global = await installSkill(join(home, ".claude", "skills"));
     const proj13 = join(home, "proj13");
