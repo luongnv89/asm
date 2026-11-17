@@ -21,7 +21,11 @@ import {
 import { join, dirname } from "node:path";
 import { getSkillStatePath } from "./config";
 import { debug } from "./logger";
-import type { SkillInfo, SkillStateFile } from "./utils/types";
+import type {
+  SkillInfo,
+  SkillStateFile,
+  SkillStateScopes,
+} from "./utils/types";
 
 export type Scope = "global" | "project";
 
@@ -86,40 +90,86 @@ export async function saveSkillState(
   await writeFile(statePath, JSON.stringify(state, null, 2) + "\n", "utf-8");
 }
 
-/** Reports whether a given (dirName, provider, scope) is recorded as disabled. */
+/**
+ * Real paths of the project skill dirs a state entry records (#813). Ignores
+ * anything that is not a string, so a hand-edited file never throws.
+ */
+export function recordedProjectDirs(
+  byScope: SkillStateScopes | undefined,
+): string[] {
+  const dirs = byScope?.projectDirs;
+  return Array.isArray(dirs)
+    ? dirs.filter((d): d is string => typeof d === "string")
+    : [];
+}
+
+/**
+ * Reports whether a given (dirName, provider, scope) is recorded as disabled.
+ *
+ * For `project`, pass `projectDir` (the real path of the provider's project
+ * skills dir) to ask about that project; without it this asks about the
+ * project-less entry older versions wrote.
+ */
 export function isDisabled(
   state: SkillStateFile,
   dirName: string,
   provider: string,
   scope: Scope,
+  projectDir?: string,
 ): boolean {
-  return state.disabled[dirName]?.[provider]?.[scope] === true;
+  const byScope = state.disabled[dirName]?.[provider];
+  if (scope === "project" && projectDir !== undefined) {
+    return recordedProjectDirs(byScope).includes(projectDir);
+  }
+  return byScope?.[scope] === true;
 }
 
-/** Records a (dirName, provider, scope) as disabled (mutates `state`). */
+/**
+ * Records a (dirName, provider, scope) as disabled (mutates `state`). A
+ * project entry records `projectDir` when given; without it, a project-less
+ * entry (unknown project).
+ */
 export function setDisabled(
   state: SkillStateFile,
   dirName: string,
   provider: string,
   scope: Scope,
+  projectDir?: string,
 ): void {
   const byProvider = (state.disabled[dirName] ??= {});
   const byScope = (byProvider[provider] ??= {});
+  if (scope === "project" && projectDir !== undefined) {
+    const dirs = recordedProjectDirs(byScope);
+    if (!dirs.includes(projectDir)) dirs.push(projectDir);
+    byScope.projectDirs = dirs;
+    return;
+  }
   byScope[scope] = true;
 }
 
-/** Clears the disabled record for a (dirName, provider, scope) (mutates). */
+/**
+ * Clears the disabled record for a (dirName, provider, scope) (mutates). A
+ * project clear with `projectDir` removes that project only; without it, the
+ * project-less entry only.
+ */
 export function clearDisabled(
   state: SkillStateFile,
   dirName: string,
   provider: string,
   scope: Scope,
+  projectDir?: string,
 ): void {
   const byProvider = state.disabled[dirName];
   if (!byProvider) return;
   const byScope = byProvider[provider];
   if (!byScope) return;
-  delete byScope[scope];
+  if (scope === "project" && projectDir !== undefined) {
+    const dirs = recordedProjectDirs(byScope).filter((d) => d !== projectDir);
+    if (dirs.length > 0) byScope.projectDirs = dirs;
+    else delete byScope.projectDirs;
+  } else {
+    delete byScope[scope];
+  }
   if (Object.keys(byScope).length === 0) delete byProvider[provider];
   if (Object.keys(byProvider).length === 0) delete state.disabled[dirName];
 }

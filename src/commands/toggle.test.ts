@@ -1,6 +1,15 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { existsSync } from "fs";
-import { mkdtemp, mkdir, readFile, rm, symlink, writeFile } from "fs/promises";
+import {
+  mkdtemp,
+  mkdir,
+  readFile,
+  realpath,
+  rename,
+  rm,
+  symlink,
+  writeFile,
+} from "fs/promises";
 import { homedir, tmpdir } from "os";
 import { join } from "path";
 import { reconstructDisabledSkills } from "./toggle";
@@ -232,7 +241,7 @@ describe("reconstructDisabledSkills project dir that is the global dir (#806)", 
 });
 
 describe("asm enable with cwd = HOME (#806)", () => {
-  it("clears the old project entry folded into the global row", async () => {
+  it("enables the global row and keeps the project-less entry folded into it", async () => {
     // A fresh home inside the src/test-setup.ts sandbox, never the real home.
     const home = await mkdtemp(join(homedir(), "home-806-enable-"));
     try {
@@ -263,11 +272,189 @@ describe("asm enable with cwd = HOME (#806)", () => {
       });
       expect(res.exitCode).toBe(0);
       expect(existsSync(join(skillDir, "SKILL.md"))).toBe(true);
-      expect(JSON.parse(await readFile(statePath, "utf-8")).disabled).toEqual(
-        {},
+      // The old project entry names no project, so it may be another
+      // project's: it stays (#813). It is inert here — rows need a marker.
+      expect(JSON.parse(await readFile(statePath, "utf-8")).disabled).toEqual({
+        s1: { claude: { project: true } },
+      });
+      const list = await runCliInProcess(
+        ["list", "--json", "--tool", "claude"],
+        { env: { HOME: home }, cwd: home },
       );
+      expect(
+        (JSON.parse(list.stdout) as Array<{ name: string; disabled?: boolean }>)
+          .filter((s) => s.name === "s1")
+          .map((s) => s.disabled === true),
+      ).toEqual([false]);
     } finally {
       await rm(home, { recursive: true, force: true });
     }
+  });
+});
+
+describe("enable/disable state keyed by project (#813)", () => {
+  // Every home is a fresh dir inside the src/test-setup.ts sandbox, never the
+  // real home; the HOME override keeps state under <home>/.config.
+  let home: string;
+  beforeEach(async () => {
+    home = await mkdtemp(join(homedir(), "home-813-"));
+  });
+  afterEach(async () => {
+    await rm(home, { recursive: true, force: true });
+  });
+
+  async function installSkill(skillsDir: string): Promise<string> {
+    const skillDir = join(skillsDir, "s1");
+    await mkdir(skillDir, { recursive: true });
+    await writeFile(
+      join(skillDir, "SKILL.md"),
+      "---\nname: s1\ndescription: d\n---\n",
+    );
+    return skillDir;
+  }
+
+  const statePath = () =>
+    join(home, ".config", "agent-skill-manager", "skill-state.json");
+
+  const asm = (cwd: string, ...argv: string[]) =>
+    runCliInProcess(argv, { env: { HOME: home }, cwd });
+
+  async function listed(cwd: string): Promise<Array<[string, boolean]>> {
+    const res = await asm(cwd, "list", "--json", "--tool", "claude");
+    expect(res.exitCode).toBe(0);
+    return (
+      JSON.parse(res.stdout) as Array<{
+        name: string;
+        scope: string;
+        disabled?: boolean;
+      }>
+    )
+      .filter((s) => s.name === "s1")
+      .map((s): [string, boolean] => [s.scope, s.disabled === true])
+      .sort((a, b) => a[0].localeCompare(b[0]));
+  }
+
+  const isDisabledOnDisk = (skillDir: string) =>
+    existsSync(join(skillDir, "SKILL.md.disabled")) &&
+    !existsSync(join(skillDir, "SKILL.md"));
+
+  async function setup() {
+    const global = await installSkill(join(home, ".claude", "skills"));
+    const proj13 = join(home, "proj13");
+    const proj14 = join(home, "proj14");
+    const p13 = await installSkill(join(proj13, ".claude", "skills"));
+    const p14 = await installSkill(join(proj14, ".claude", "skills"));
+    for (const cwd of [home, proj13, proj14]) {
+      expect((await asm(cwd, "disable", "s1", "--yes")).exitCode).toBe(0);
+    }
+    expect([global, p13, p14].every(isDisabledOnDisk)).toBe(true);
+    return { global, proj13, proj14, p13, p14 };
+  }
+
+  it("enable from $HOME leaves every project's disabled entry and file alone", async () => {
+    const { global, proj13, proj14, p13, p14 } = await setup();
+
+    expect((await asm(home, "enable", "s1", "--yes")).exitCode).toBe(0);
+
+    expect(isDisabledOnDisk(global)).toBe(false);
+    expect(isDisabledOnDisk(p13)).toBe(true);
+    expect(isDisabledOnDisk(p14)).toBe(true);
+    expect(await listed(home)).toEqual([["global", false]]);
+    expect(await listed(proj13)).toEqual(
+      expect.arrayContaining([["project", true]]),
+    );
+    expect(await listed(proj14)).toEqual(
+      expect.arrayContaining([["project", true]]),
+    );
+  });
+
+  it("enable --scope project from one project enables that project's copy only", async () => {
+    const { global, proj13, proj14, p13, p14 } = await setup();
+
+    expect(
+      (await asm(proj13, "enable", "s1", "--scope", "project", "--yes"))
+        .exitCode,
+    ).toBe(0);
+
+    expect(isDisabledOnDisk(p13)).toBe(false);
+    expect(isDisabledOnDisk(p14)).toBe(true);
+    expect(isDisabledOnDisk(global)).toBe(true);
+    expect(await listed(proj13)).toEqual(
+      expect.arrayContaining([
+        ["project", false],
+        ["global", true],
+      ]),
+    );
+    expect(await listed(proj14)).toEqual(
+      expect.arrayContaining([
+        ["project", true],
+        ["global", true],
+      ]),
+    );
+  });
+
+  it("enable from a project after the global copy is enabled touches that project only", async () => {
+    const { global, proj13, p13, p14 } = await setup();
+    expect((await asm(home, "enable", "s1", "--yes")).exitCode).toBe(0);
+
+    expect((await asm(proj13, "enable", "s1", "--yes")).exitCode).toBe(0);
+
+    expect(isDisabledOnDisk(global)).toBe(false);
+    expect(isDisabledOnDisk(p13)).toBe(false);
+    expect(isDisabledOnDisk(p14)).toBe(true);
+  });
+
+  it("records each project by the real path of its skills dir", async () => {
+    const { proj13, proj14 } = await setup();
+    const state = JSON.parse(await readFile(statePath(), "utf-8"));
+    expect(state.disabled.s1.claude.global).toBe(true);
+    expect(state.disabled.s1.claude.project).toBeUndefined();
+    expect([...state.disabled.s1.claude.projectDirs].sort()).toEqual(
+      [
+        await realpath(join(proj13, ".claude", "skills")),
+        await realpath(join(proj14, ".claude", "skills")),
+      ].sort(),
+    );
+  });
+
+  it("enabling every copy returns the state to empty", async () => {
+    const { proj13, proj14 } = await setup();
+    for (const cwd of [home, proj13, proj14]) {
+      expect((await asm(cwd, "enable", "s1", "--yes")).exitCode).toBe(0);
+    }
+    expect(JSON.parse(await readFile(statePath(), "utf-8")).disabled).toEqual(
+      {},
+    );
+  });
+
+  it("reads an old project-less entry as an unknown project", async () => {
+    const global = await installSkill(join(home, ".claude", "skills"));
+    const proj13 = join(home, "proj13");
+    const p13 = await installSkill(join(proj13, ".claude", "skills"));
+    for (const dir of [global, p13]) {
+      await rename(join(dir, "SKILL.md"), join(dir, "SKILL.md.disabled"));
+    }
+    await mkdir(join(statePath(), ".."), { recursive: true });
+    await writeFile(
+      statePath(),
+      JSON.stringify({
+        version: 1,
+        disabled: { s1: { claude: { global: true, project: true } } },
+      }),
+    );
+
+    expect((await asm(home, "enable", "s1", "--yes")).exitCode).toBe(0);
+    expect(isDisabledOnDisk(global)).toBe(false);
+    expect(isDisabledOnDisk(p13)).toBe(true);
+    expect(await listed(proj13)).toEqual([
+      ["global", false],
+      ["project", true],
+    ]);
+
+    expect((await asm(proj13, "enable", "s1", "--yes")).exitCode).toBe(0);
+    expect(isDisabledOnDisk(p13)).toBe(false);
+    expect(JSON.parse(await readFile(statePath(), "utf-8")).disabled).toEqual(
+      {},
+    );
   });
 });

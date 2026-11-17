@@ -21,12 +21,13 @@ import {
   disableSkillInstance,
   enableSkillInstance,
   disabledFilePath,
+  recordedProjectDirs,
 } from "../skill-state";
 import { readFile as fsReadFile, realpath as fsRealpath } from "fs/promises";
 import { existsSync } from "fs";
 import { ansi } from "../formatter";
 import type { SkillInfo } from "../utils/types";
-import { join as joinPath } from "path";
+import { join as joinPath, resolve as resolvePath } from "path";
 import type { Scope, AppConfig, SkillStateFile } from "../utils/types";
 
 import { error, readLine, groupBySource } from "./shared";
@@ -113,6 +114,10 @@ ${ansi.bold("Examples:")}
  * A project entry whose directory is the same provider's global directory
  * (cwd is `$HOME`, or a symlink) is the global instance: it folds into the
  * global row and is never listed as project (#806).
+ *
+ * A project entry counts only for the project the cwd resolves to: its
+ * recorded `projectDirs` must hold that project's skills dir (#813). A
+ * project-less entry from an older version counts in any project, as before.
  */
 
 export async function reconstructDisabledSkills(
@@ -133,6 +138,7 @@ export async function reconstructDisabledSkills(
 ): Promise<SkillInfo[]> {
   const providersByName = new Map(config.providers.map((p) => [p.name, p]));
   const aliased = aliasedProviders ?? (await providersWithProjectAlias(config));
+  const projectDirOf = await projectSkillDirs(config);
   const results: SkillInfo[] = [];
 
   for (const [dirName, byProvider] of Object.entries(state.disabled)) {
@@ -142,11 +148,16 @@ export async function reconstructDisabledSkills(
       if (!provider) continue;
 
       const projectIsGlobal = aliased.has(providerName);
+      const projectDir = projectDirOf.get(providerName);
+      const projectRecorded =
+        byScope.project === true ||
+        (projectDir !== undefined &&
+          recordedProjectDirs(byScope).includes(projectDir));
       for (const scope of ["global", "project"] as const) {
         const recorded =
           scope === "global"
-            ? byScope.global || (projectIsGlobal && byScope.project)
-            : byScope.project && !projectIsGlobal;
+            ? byScope.global || (projectIsGlobal && projectRecorded)
+            : projectRecorded && !projectIsGlobal;
         if (!recorded) continue;
         if (scopeFilter === "global" && scope !== "global") continue;
         if (scopeFilter === "project" && scope !== "project") continue;
@@ -235,6 +246,32 @@ async function providersWithProjectAlias(
     ),
   );
   return new Set(names.filter((n): n is string => n !== null));
+}
+
+async function realDir(dir: string): Promise<string> {
+  try {
+    return await fsRealpath(dir);
+  } catch {
+    return resolvePath(dir);
+  }
+}
+
+/**
+ * Each provider's project skills dir, resolved from the cwd, by real path.
+ * This is the project identity a project-scope state entry records (#813).
+ */
+async function projectSkillDirs(
+  config: AppConfig,
+): Promise<Map<string, string>> {
+  const entries = await Promise.all(
+    config.providers
+      .filter((p) => p.project)
+      .map(
+        async (p) =>
+          [p.name, await realDir(resolveProviderPath(p.project))] as const,
+      ),
+  );
+  return new Map(entries);
 }
 
 interface ToggleResult {
@@ -365,13 +402,21 @@ export async function cmdDisable(args: ParsedArgs) {
   }
 
   const state = await loadSkillState();
+  const projectDirOf = await projectSkillDirs(config);
   const done: ToggleResult[] = [];
   try {
     for (const g of groups) {
       // One rename on the shared canonical source disables every sibling.
       await disableSkillInstance(g.representative.path);
       for (const s of g.siblings) {
-        setDisabled(state, s.dirName, s.provider, s.scope);
+        // A project entry records which project it belongs to (#813).
+        setDisabled(
+          state,
+          s.dirName,
+          s.provider,
+          s.scope,
+          s.scope === "project" ? projectDirOf.get(s.provider) : undefined,
+        );
         done.push({
           name: s.name,
           provider: s.provider,
@@ -482,15 +527,28 @@ export async function cmdEnable(args: ParsedArgs) {
     }
   }
 
+  const projectDirOf = await projectSkillDirs(config);
   const done: ToggleResult[] = [];
   try {
     for (const g of groups) {
       await enableSkillInstance(g.representative.path);
       for (const s of g.siblings) {
-        clearDisabled(state, s.dirName, s.provider, s.scope);
-        // A project entry folded into this global row names the same dir.
-        if (s.scope === "global" && aliased.has(s.provider)) {
+        // Clear only the entries for the instance this cwd resolves to; other
+        // projects keep theirs (#813).
+        const projectDir = projectDirOf.get(s.provider);
+        if (s.scope === "project") {
+          // A project row is never aliased, so the project-less entry it was
+          // read from (if any) names this instance too.
+          clearDisabled(state, s.dirName, s.provider, "project", projectDir);
           clearDisabled(state, s.dirName, s.provider, "project");
+        } else {
+          clearDisabled(state, s.dirName, s.provider, "global");
+          // A project entry for this cwd's project dir, which is the global
+          // dir here, names the same instance (#806). A project-less entry may
+          // belong to any project, so it stays (#813).
+          if (aliased.has(s.provider) && projectDir !== undefined) {
+            clearDisabled(state, s.dirName, s.provider, "project", projectDir);
+          }
         }
         done.push({
           name: s.name,
