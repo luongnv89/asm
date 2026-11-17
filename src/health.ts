@@ -5,6 +5,7 @@ import type { SkillInfo, SkillWarning } from "./utils/types";
 import { errorMessage } from "./utils/errors";
 import { skillMdOutside } from "./evaluator-files";
 import { skillMdOutsideWarning } from "./scanner";
+import { disabledFilePath } from "./skill-state";
 
 const HIGH_FILE_COUNT_THRESHOLD = 500;
 
@@ -59,8 +60,13 @@ function validateYamlFrontmatter(content: string): string | null {
 export async function checkHealth(skill: SkillInfo): Promise<SkillWarning[]> {
   // A SKILL.md that leaves the skill folder is never read (#795): report it
   // alone, since every other check would describe content asm refused.
+  // A disabled skill's marker is the renamed SKILL.md.disabled (#869).
   if (skill._skillMdContent === undefined) {
-    const outside = await skillMdOutside(join(skill.path, "SKILL.md"));
+    const outside =
+      (await skillMdOutside(join(skill.path, "SKILL.md"))) ??
+      (skill.disabled
+        ? await skillMdOutside(disabledFilePath(skill.path))
+        : null);
     if (outside) return [skillMdOutsideWarning(outside)];
   }
 

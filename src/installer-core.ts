@@ -7,15 +7,15 @@ import { promisify } from "util";
 import {
   mkdtemp,
   readdir,
-  readFile,
   rm,
   access,
   stat,
   lstat,
   mkdir,
+  realpath,
 } from "fs/promises";
 
-import { join, resolve, relative, basename, sep } from "path";
+import { join, resolve, relative, basename, dirname, sep } from "path";
 import { homedir } from "os";
 import { tmpdir } from "os";
 import {
@@ -43,8 +43,15 @@ import {
   stripControlBytes,
   type CallName,
 } from "./security-auditor-scan";
+import {
+  readSkillMd,
+  skillMdOutside,
+  SkillMdOutsideLinkError,
+} from "./evaluator-files";
+import { skillMdOutsideWarning } from "./scanner";
 
 import type {
+  ExternalSymlink,
   ParsedSource,
   InstallPlan,
   InstallResult,
@@ -527,18 +534,58 @@ export async function skillMdState(dir: string): Promise<SkillMdState> {
   return stats.isFile() ? "file" : "other";
 }
 
+/**
+ * A source whose SKILL.md links out of the skill folder (#869): refused
+ * before it is read or copied. The message names the link and its target,
+ * never anything from the file.
+ */
+export class SkillMdOutsideFolderError extends Error {
+  readonly link: ExternalSymlink;
+  constructor(link: ExternalSymlink) {
+    super(skillMdOutsideWarning(link).message);
+    this.name = "SkillMdOutsideFolderError";
+    this.link = link;
+  }
+}
+
+/**
+ * Read a source SKILL.md bound to its folder (#869). A link out of the folder
+ * is refused unread with `SkillMdOutsideFolderError`. The read goes through
+ * a descriptor checked to be inside the folder's real path, so a file swapped
+ * for an outside link after the check is never read: it is refused by name
+ * when the re-check sees the link, and otherwise read as missing. Null when
+ * the file is missing or cannot be read.
+ */
+export async function readSourceSkillMd(
+  skillMdPath: string,
+): Promise<string | null> {
+  const abs = resolve(skillMdPath);
+  let root: string;
+  try {
+    root = await realpath(dirname(abs));
+  } catch {
+    return null;
+  }
+  try {
+    return await readSkillMd(abs, { root, shownAs: abs });
+  } catch (err) {
+    if (err instanceof SkillMdOutsideLinkError) {
+      throw new SkillMdOutsideFolderError(err.link);
+    }
+    const outside = await skillMdOutside(abs);
+    if (outside) throw new SkillMdOutsideFolderError(outside);
+    return null;
+  }
+}
+
 export async function validateSkill(tempDir: string): Promise<{
   name: string;
   version: string;
   description: string;
   effort?: string;
 }> {
-  const skillMdPath = join(tempDir, SKILL_MD);
-
-  let content: string;
-  try {
-    content = await readFile(skillMdPath, "utf-8");
-  } catch {
+  const content = await readSourceSkillMd(join(tempDir, SKILL_MD));
+  if (content === null) {
     throw new Error("Not a valid skill: SKILL.md not found in repository root");
   }
 
@@ -556,35 +603,51 @@ export async function validateSkill(tempDir: string): Promise<{
   };
 }
 
+/**
+ * Discover the skills in `tempDir`: its own SKILL.md, then nested skill
+ * folders. A SKILL.md that links out of its folder is skipped unread and not
+ * recursed into; `onRefused` gets its relPath ("" for the root) and the link
+ * (#869).
+ */
 export async function discoverSkills(
   tempDir: string,
   maxDepth: number = 5,
+  onRefused?: (relPath: string, link: ExternalSymlink) => void,
 ): Promise<DiscoveredSkill[]> {
   const skills: DiscoveredSkill[] = [];
 
   // Index root SKILL.md when present, then discover nested skills in
   // subdirectories (same walk rules as repos without a root skill).
+  let rootContent: string | null = null;
   try {
-    const content = await readFile(join(tempDir, "SKILL.md"), "utf-8");
-    const fm = parseFrontmatter(content);
-    skills.push({
-      relPath: "",
-      name: fm.name || basename(tempDir),
-      version: resolveVersion(fm),
-      description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
-      effort: fm.effort || fm["metadata.effort"] || undefined,
-      license: (fm.license || "").trim(),
-      creator: resolveCreator(fm),
-      compatibility: (fm.compatibility || "").trim(),
-      allowedTools: resolveAllowedTools(fm),
-      tags: resolveTags(fm),
-      dependencies: resolveSkillDependencies(fm),
-      modelInvocable: resolveModelInvocable(fm),
-      userInvocable: resolveUserInvocable(fm),
-      tokenCount: estimateTokenCount(content),
-    });
-  } catch {
-    // No root skill; subdirectory discovery still runs below.
+    rootContent = await readSourceSkillMd(join(tempDir, SKILL_MD));
+  } catch (err) {
+    if (!(err instanceof SkillMdOutsideFolderError)) throw err;
+    onRefused?.("", err.link);
+  }
+  if (rootContent !== null) {
+    try {
+      const content = rootContent;
+      const fm = parseFrontmatter(content);
+      skills.push({
+        relPath: "",
+        name: fm.name || basename(tempDir),
+        version: resolveVersion(fm),
+        description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
+        effort: fm.effort || fm["metadata.effort"] || undefined,
+        license: (fm.license || "").trim(),
+        creator: resolveCreator(fm),
+        compatibility: (fm.compatibility || "").trim(),
+        allowedTools: resolveAllowedTools(fm),
+        tags: resolveTags(fm),
+        dependencies: resolveSkillDependencies(fm),
+        modelInvocable: resolveModelInvocable(fm),
+        userInvocable: resolveUserInvocable(fm),
+        tokenCount: estimateTokenCount(content),
+      });
+    } catch {
+      // No root skill; subdirectory discovery still runs below.
+    }
   }
 
   async function walk(dir: string, relPrefix: string, depth: number) {
@@ -609,9 +672,17 @@ export async function discoverSkills(
       const relPath = relPrefix ? `${relPrefix}/${entry}` : entry;
       const childDepth = depth + 1;
 
-      const skillMdPath = join(fullPath, "SKILL.md");
+      const skillMdPath = join(fullPath, SKILL_MD);
+      let content: string | null;
       try {
-        const content = await readFile(skillMdPath, "utf-8");
+        content = await readSourceSkillMd(skillMdPath);
+      } catch (err) {
+        if (!(err instanceof SkillMdOutsideFolderError)) throw err;
+        onRefused?.(relPath, err.link);
+        continue;
+      }
+      try {
+        if (content === null) throw new Error("no SKILL.md");
         const fm = parseFrontmatter(content);
         skills.push({
           relPath,
@@ -827,6 +898,11 @@ export function classifyWarningRisk(
 export async function executeInstall(
   plan: InstallPlan,
 ): Promise<InstallResult> {
+  // Refuse a SKILL.md that links out of the source folder before anything
+  // is removed or copied (#869).
+  const outside = await skillMdOutside(join(plan.sourceDir, SKILL_MD));
+  if (outside) throw new SkillMdOutsideFolderError(outside);
+
   const sourceStr = plan.source.isLocal
     ? `local:${plan.source.localPath}`
     : `github:${plan.source.owner}/${plan.source.repo}${plan.source.ref ? `#${plan.source.ref}` : ""}${plan.source.subpath ? `:${plan.source.subpath}` : ""}`;
@@ -862,20 +938,23 @@ export async function executeInstall(
 
   debug(`install: copied files to ${plan.targetDir}`);
 
-  // Verify SKILL.md at target
-  const skillMd = join(plan.targetDir, SKILL_MD);
+  // Verify SKILL.md at target, read bound to the copy: a source swapped for
+  // an outside link after the check above copies as that link, and is
+  // refused here and removed before anything runs in it (#869).
+  let content: string | null;
   try {
-    await access(skillMd);
-  } catch {
+    content = await readSourceSkillMd(join(plan.targetDir, SKILL_MD));
+  } catch (err) {
+    await rm(plan.targetDir, { recursive: true, force: true });
+    throw err;
+  }
+  if (content === null) {
     throw new Error(
       "Installation verification failed: SKILL.md not found at target",
     );
   }
 
   await installScriptDependencies(plan.targetDir);
-
-  // Read metadata for result
-  const content = await readFile(skillMd, "utf-8");
   const fm = parseFrontmatter(content);
 
   return {

@@ -11,6 +11,9 @@ import {
   readlink,
   realpath,
   chmod,
+  symlink,
+  readdir,
+  access,
 } from "fs/promises";
 import { tmpdir } from "os";
 import { runInlineTs } from "./utils/test-spawn";
@@ -1215,6 +1218,162 @@ describe("CLI integration: install --path/--all subpath discovery", () => {
       exitCode: res.exitCode,
     };
   }
+
+  // #869: a SKILL.md that links out of the source folder is never read.
+  async function writeOutsideSkillMd(tmpDir: string): Promise<string> {
+    const outsideMd = join(tmpDir, "outside", "SKILL.md");
+    await mkdir(dirname(outsideMd), { recursive: true });
+    await writeFile(
+      outsideMd,
+      "---\nname: OUTSIDE-SECRET-869\ndescription: LEAKED-869\n---\n# Secret\n",
+    );
+    return outsideMd;
+  }
+
+  test.skipIf(process.platform === "win32")(
+    "refuses a local skill whose SKILL.md links outside its folder (#869)",
+    async () => {
+      const tmpDir = await mkdtemp(join(tmpdir(), "asm-install-869-"));
+      try {
+        const outsideMd = await writeOutsideSkillMd(tmpDir);
+        const src = join(tmpDir, "linked-869");
+        await mkdir(src);
+        await symlink(outsideMd, join(src, "SKILL.md"));
+
+        const { stdout, stderr, exitCode } = await runCLIWithHome(
+          tmpDir,
+          "install",
+          src,
+          "-y",
+          "-p",
+          "claude",
+          "--scope",
+          "global",
+        );
+        const all = stdout + "\n" + stderr;
+        expect(exitCode).not.toBe(0);
+        expect(all).toContain(`SKILL.md -> ${await realpath(outsideMd)}`);
+        expect(all).toContain("asm reads nothing outside the skill folder");
+        // Refused as such, not mistaken for a folder with no skill.
+        expect(all).not.toContain("No skills found");
+        expect(all).not.toContain("OUTSIDE-SECRET-869");
+        expect(all).not.toContain("LEAKED-869");
+        expect(
+          await readdir(join(tmpDir, ".claude", "skills")).catch(() => []),
+        ).toEqual([]);
+      } finally {
+        await rm(tmpDir, { recursive: true, force: true });
+      }
+    },
+  );
+
+  test.skipIf(process.platform === "win32")(
+    "--path names the refused link, not a missing SKILL.md (#869)",
+    async () => {
+      const tmpDir = await mkdtemp(join(tmpdir(), "asm-install-869-path-"));
+      try {
+        const outsideMd = await writeOutsideSkillMd(tmpDir);
+        const src = join(tmpDir, "src");
+        await mkdir(join(src, "skills", "bad"), { recursive: true });
+        await symlink(outsideMd, join(src, "skills", "bad", "SKILL.md"));
+
+        const { stdout, stderr, exitCode } = await runCLIWithHome(
+          tmpDir,
+          "install",
+          src,
+          "--path",
+          "skills/bad",
+          "-y",
+          "-p",
+          "claude",
+          "--scope",
+          "global",
+        );
+        const all = stdout + "\n" + stderr;
+        expect(exitCode).not.toBe(0);
+        expect(all).toContain("asm reads nothing outside the skill folder");
+        expect(all).not.toContain("No SKILL.md found");
+        expect(all).not.toContain("OUTSIDE-SECRET-869");
+      } finally {
+        await rm(tmpDir, { recursive: true, force: true });
+      }
+    },
+  );
+
+  test.skipIf(process.platform === "win32")(
+    "--all skips a child whose SKILL.md links outside and installs the rest (#869)",
+    async () => {
+      const tmpDir = await mkdtemp(join(tmpdir(), "asm-install-869-all-"));
+      try {
+        const outsideMd = await writeOutsideSkillMd(tmpDir);
+        const src = join(tmpDir, "src");
+        await mkdir(join(src, "skills", "bad"), { recursive: true });
+        await mkdir(join(src, "skills", "good"), { recursive: true });
+        await symlink(outsideMd, join(src, "skills", "bad", "SKILL.md"));
+        await writeFile(
+          join(src, "skills", "good", "SKILL.md"),
+          "---\nname: good\nversion: 1.0.0\ndescription: Good\n---\n# Good\n",
+        );
+
+        const { stdout, stderr, exitCode } = await runCLIWithHome(
+          tmpDir,
+          "install",
+          src,
+          "--all",
+          "-y",
+          "-p",
+          "claude",
+          "--scope",
+          "global",
+        );
+        const all = stdout + "\n" + stderr;
+        expect(exitCode).toBe(0);
+        expect(all).toContain("Skipped skills/bad");
+        expect(all).toContain("NOT read");
+        expect(all).not.toContain("OUTSIDE-SECRET-869");
+        expect(all).not.toContain("LEAKED-869");
+        await access(join(tmpDir, ".claude", "skills", "good", "SKILL.md"));
+      } finally {
+        await rm(tmpDir, { recursive: true, force: true });
+      }
+    },
+  );
+
+  test.skipIf(process.platform === "win32")(
+    "--method vercel refuses an outside-linked SKILL.md before handing a local source over (#869)",
+    async () => {
+      const tmpDir = await mkdtemp(join(tmpdir(), "asm-install-869-vercel-"));
+      try {
+        const outsideMd = await writeOutsideSkillMd(tmpDir);
+        const src = join(tmpDir, "src");
+        await mkdir(join(src, "skills", "bad"), { recursive: true });
+        await symlink(outsideMd, join(src, "skills", "bad", "SKILL.md"));
+
+        const { stdout, stderr, exitCode } = await runCLIWithHome(
+          tmpDir,
+          "install",
+          src,
+          "--method",
+          "vercel",
+          "-y",
+          "-p",
+          "claude",
+          "--scope",
+          "global",
+        );
+        const all = stdout + "\n" + stderr;
+        expect(exitCode).not.toBe(0);
+        expect(all).toContain(`SKILL.md -> ${await realpath(outsideMd)}`);
+        expect(all).toContain("asm reads nothing outside the skill folder");
+        // Refused before the Vercel CLI was ever invoked.
+        expect(all).not.toContain("Installing via Vercel skills CLI");
+        expect(all).not.toContain("npx skills add");
+        expect(all).not.toContain("OUTSIDE-SECRET-869");
+      } finally {
+        await rm(tmpDir, { recursive: true, force: true });
+      }
+    },
+  );
 
   test("--all on subpath collection (no SKILL.md at subpath, but skills in subdirs) discovers them (issue #251)", async () => {
     const tmpDir = await mkdtemp(join(tmpdir(), "asm-install-251-"));

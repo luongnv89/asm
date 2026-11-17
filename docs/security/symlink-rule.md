@@ -164,14 +164,20 @@ full.
 
 ## Known limits
 
-- `asm install` still reads a source's `SKILL.md` for its preview, and
-  `asm get ./path` reads the named folder's `SKILL.md`, even when it links
-  outside the skill folder (follow-up to
-  [#795](https://github.com/luongnv89/asm/issues/795)).
+- Discovery (`asm install` of a collection, the index) follows a sub-folder
+  that is itself a link, as a linked skill folder is followed by design (see
+  "Linked folders"), so a `SKILL.md` inside such a folder is read (tracked in
+  [#753](https://github.com/luongnv89/asm/issues/753)).
 - `asm eval` gives a skill with no licence file credit for the repository's
   (#771): it lists the names in the folders above the skill, up to the git
   root, and `stat`s a `LICENSE` candidate there. It never opens a file
   outside the skill folder.
 - The walk resolves each entry, checks it, and then opens it by path. A link
   swapped in during that window could be followed (TOCTOU). It needs a writer
-  racing the scan inside the folder.
+  racing the scan inside the folder. A `SKILL.md` read by `asm install` or
+  `asm get` is the exception: it is read through a descriptor checked to be
+  inside its folder, so a swap after the check reads nothing.
+- `asm install --method vercel` hands the source to the Vercel skills CLI. A
+  local source is checked first and refused when any `SKILL.md` in it links
+  outside its folder; a remote source is cloned by that CLI, out of asm's
+  reach, and only asm's own install that follows is checked.
