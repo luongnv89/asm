@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { existsSync } from "fs";
-import { mkdtemp, mkdir, readFile, rm, writeFile } from "fs/promises";
+import { mkdtemp, mkdir, readFile, rm, symlink, writeFile } from "fs/promises";
 import { homedir, tmpdir } from "os";
 import { join } from "path";
 import { reconstructDisabledSkills } from "./toggle";
@@ -55,6 +55,69 @@ describe("reconstructDisabledSkills creator (#787)", () => {
     for (const [dir, , expected] of cases) {
       expect(rows.find((r) => r.dirName === dir)?.creator).toBe(expected);
     }
+  });
+});
+
+describe("reconstructDisabledSkills SKILL.md.disabled outside the folder (#795)", () => {
+  it("never reads a disabled marker that links out of the skill folder", async () => {
+    const skillsDir = join(root, "skills");
+    const config: AppConfig = {
+      ...getDefaultConfig(),
+      providers: [
+        {
+          name: "test",
+          label: "Test",
+          global: skillsDir,
+          project: join(root, "nonexistent-project"),
+          enabled: true,
+        },
+      ],
+      customPaths: [],
+    };
+    const outsideFile = join(root, "outside-secret.md");
+    await writeFile(
+      outsideFile,
+      "---\nname: outside-name\ndescription: outside-description\nversion: 9.9.9\nmetadata:\n  creator: outside-creator\n---\n",
+    );
+    const evilDir = join(skillsDir, "evil");
+    await mkdir(evilDir, { recursive: true });
+    await symlink(outsideFile, disabledFilePath(evilDir));
+
+    const goodDir = join(skillsDir, "good");
+    await mkdir(goodDir, { recursive: true });
+    await writeFile(
+      disabledFilePath(goodDir),
+      "---\nname: good-name\ndescription: good-description\n---\n",
+    );
+
+    const state = emptyState();
+    setDisabled(state, "evil", "test", "global");
+    setDisabled(state, "good", "test", "global");
+
+    const rows = await reconstructDisabledSkills(config, state, "global");
+    const evil = rows.find((r) => r.dirName === "evil");
+    expect(evil).toBeDefined();
+    expect(evil!.name).toBe("evil");
+    expect(evil!.version).toBe("0.0.0");
+    expect(evil!.description).toBe("");
+    expect(evil!.creator).toBe("");
+    const json = JSON.stringify(evil);
+    for (const leaked of [
+      "outside-name",
+      "outside-description",
+      "9.9.9",
+      "outside-creator",
+    ]) {
+      expect(json).not.toContain(leaked);
+    }
+    expect(evil!.warnings?.map((w) => w.category)).toEqual([
+      "skill-md-outside-folder",
+    ]);
+
+    const good = rows.find((r) => r.dirName === "good");
+    expect(good!.name).toBe("good-name");
+    expect(good!.description).toBe("good-description");
+    expect(good!.warnings).toBeUndefined();
   });
 });
 
