@@ -742,6 +742,22 @@ describe("author control bytes in the surfaces #833 left out (#834)", () => {
     expect(human.stdout).not.toContain("process.exit");
   }, 60_000);
 
+  test("install --json with no source: stdout is the JSON error, exit 2", async () => {
+    const root = await emptyHome();
+    const out = await runIn(root, "install", "--json");
+    expect(out.exitCode).toBe(2);
+    const parsed = JSON.parse(out.stdout) as { success: boolean };
+    expect(parsed.success).toBe(false);
+    expect(out.stderr).toContain("Missing required argument: <source>");
+  }, 60_000);
+
+  test("get: the not-found error and its hint are stripped", async () => {
+    const root = await emptyHome();
+    const out = await runIn(root, "get", `./x${H}`);
+    expect(out.exitCode).not.toBe(0);
+    expectStripped(out, "x?[31m");
+  }, 60_000);
+
   test.each([
     ["unknown command", () => [`x${H}`]],
     ["unknown option", () => ["list", `--x${H}`]],

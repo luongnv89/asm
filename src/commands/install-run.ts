@@ -103,6 +103,17 @@ export async function cmdInstall(args: ParsedArgs) {
   const explicitForce = args.flags.force;
   let sourceStr = args.subcommand;
   if (!sourceStr) {
+    restoreConsole?.();
+    if (args.flags.json) {
+      // `--json` keeps one JSON document on stdout, even for a usage error.
+      console.log(
+        stringifyForOutput(
+          { success: false, error: "Missing required argument: <source>" },
+          null,
+          2,
+        ),
+      );
+    }
     error("Missing required argument: <source>");
     console.error(`Run "asm install --help" for usage.`);
     process.exit(2);
@@ -1004,8 +1015,8 @@ export async function cmdInstall(args: ParsedArgs) {
       console.log(stringifyForOutput(payload, null, 2));
     } else {
       error(message);
-      if (err instanceof InstallStop && err.hint) console.error(err.hint);
     }
+    if (err instanceof InstallStop && err.hint) console.error(err.hint);
     process.exit(err instanceof InstallStop ? err.exitCode : 1);
   } finally {
     if (tempDir) {

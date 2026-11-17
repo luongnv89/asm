@@ -79,7 +79,7 @@ async function confirmOverwriteIfNeeded(
   }
 
   process.stderr.write(
-    `${ansi.yellow(`Target already exists: ${targetPath}`)}\n${ansi.bold("Overwrite?")} [y/N] `,
+    `${ansi.yellow(`Target already exists: ${stripControlBytes(targetPath)}`)}\n${ansi.bold("Overwrite?")} [y/N] `,
   );
   const answer = await readLine();
   if (answer.toLowerCase() !== "y" && answer.toLowerCase() !== "yes") {
