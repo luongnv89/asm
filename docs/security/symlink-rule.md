@@ -47,7 +47,7 @@ folder, so an `asm link` folder and an in-folder `SKILL.md -> real.md` link
 keep working. A `SKILL.md` that leaves the folder is never opened: the skill
 is listed under its folder name with no frontmatter fields and a
 `skill-md-outside-folder` warning, `SKILL.md -> target (file, NOT read)`, and
-`asm get <name>` refuses it
+`asm get <name>` refuses it, for an installed or a library skill
 ([#795](https://github.com/luongnv89/asm/issues/795)).
 
 ## What a link becomes
@@ -151,8 +151,9 @@ full.
 
 ## Known limits
 
-- `asm install` still reads a source's `SKILL.md` for its preview, even
-  when it links outside the skill folder (tracked in
+- `asm install` still reads a source's `SKILL.md` for its preview, and
+  `asm get ./path` reads the named folder's `SKILL.md`, even when it links
+  outside the skill folder (follow-up to
   [#795](https://github.com/luongnv89/asm/issues/795)).
 - `asm eval` gives a skill with no licence file credit for the repository's
   (#771): it lists the names in the folders above the skill, up to the git
