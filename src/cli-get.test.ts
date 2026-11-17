@@ -12,6 +12,7 @@ import {
   lstat,
   realpath,
   chmod,
+  symlink,
 } from "fs/promises";
 import { tmpdir } from "os";
 import { spawnCollect } from "./utils/test-spawn";
@@ -78,6 +79,28 @@ One line of body text.
     expect(stdout).not.toContain("residency");
     expect(stdout).not.toContain("source:");
   });
+
+  test.skipIf(process.platform === "win32")(
+    "refuses a local folder whose SKILL.md links outside it (#869)",
+    async () => {
+      const outsideMd = join(dirname(skillDir), "outside.md");
+      await writeFile(
+        outsideMd,
+        "---\nname: OUTSIDE-SECRET-869\ndescription: LEAKED-869\n---\n",
+      );
+      await rm(join(skillDir, "SKILL.md"));
+      await symlink(outsideMd, join(skillDir, "SKILL.md"));
+
+      const { stdout, stderr, exitCode } = await runGet(skillDir);
+
+      expect(exitCode).toBe(1);
+      expect(stdout).toBe("");
+      expect(stderr).toContain(`SKILL.md -> ${await realpath(outsideMd)}`);
+      expect(stderr).toContain("asm reads nothing outside the skill folder");
+      expect(stderr).not.toContain("OUTSIDE-SECRET-869");
+      expect(stderr).not.toContain("LEAKED-869");
+    },
+  );
 
   test("resolves an installed skill by name and reports the installed tier", async () => {
     const installed = join(home, ".claude", "skills", "get-fixture");

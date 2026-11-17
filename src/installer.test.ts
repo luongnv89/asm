@@ -10,6 +10,8 @@ import {
   lstat,
   chmod,
   symlink,
+  readFile,
+  realpath,
 } from "fs/promises";
 import { existsSync } from "fs";
 import { execFileSync } from "child_process";
@@ -44,6 +46,7 @@ import {
   installScriptDependencies,
   checkCrossToolLink,
   linkExistingSkill,
+  SkillMdOutsideFolderError,
 } from "./installer";
 import { METHOD_CALL_CATEGORY } from "./security-auditor-scan";
 import type { AppConfig, ProviderConfig } from "./utils/types";
@@ -601,6 +604,120 @@ name: minimal-skill
     await expect(validateSkill(tempDir)).rejects.toThrow("SKILL.md not found");
   });
 });
+
+// ─── SKILL.md linked outside the skill folder (#869) ───────────────────────
+
+describe.skipIf(process.platform === "win32")(
+  "a SKILL.md that links outside the skill folder (#869)",
+  () => {
+    const SECRET = "OUTSIDE-SECRET-869";
+    const LEAK = "LEAKED-869";
+    let tempDir: string;
+    let outsideMd: string;
+
+    beforeEach(async () => {
+      tempDir = await mkdtemp(join(tmpdir(), "asm-test-outside-md-"));
+      await mkdir(join(tempDir, "outside"));
+      outsideMd = join(tempDir, "outside", "SKILL.md");
+      await writeFile(
+        outsideMd,
+        `---\nname: ${SECRET}\ndescription: ${LEAK}\n---\n# Secret\n`,
+      );
+    });
+
+    afterEach(async () => {
+      await rm(tempDir, { recursive: true, force: true });
+    });
+
+    /** A skill folder whose SKILL.md is a link to the outside file. */
+    async function linkedSkill(dir: string) {
+      await mkdir(dir, { recursive: true });
+      await symlink(outsideMd, join(dir, "SKILL.md"));
+    }
+
+    test("validateSkill refuses it, naming the link, without reading it", async () => {
+      const skillDir = join(tempDir, "skill");
+      await linkedSkill(skillDir);
+
+      const outcome = await validateSkill(skillDir).then(
+        (result) => result,
+        (err: unknown) => err,
+      );
+
+      expect(outcome).toBeInstanceOf(SkillMdOutsideFolderError);
+      const message = (outcome as Error).message;
+      expect(message).toContain(`SKILL.md -> ${await realpath(outsideMd)}`);
+      expect(message).toContain("NOT read");
+      expect(message).not.toContain(SECRET);
+      expect(message).not.toContain(LEAK);
+    });
+
+    test("validateSkill still reads a SKILL.md linked inside its folder", async () => {
+      const skillDir = join(tempDir, "skill");
+      await mkdir(skillDir);
+      await writeFile(join(skillDir, "real.md"), "---\nname: in-folder\n---\n");
+      await symlink("./real.md", join(skillDir, "SKILL.md"));
+
+      expect((await validateSkill(skillDir)).name).toBe("in-folder");
+    });
+
+    test("discoverSkills skips a linked root and child unread and reports them", async () => {
+      const repo = join(tempDir, "repo");
+      await linkedSkill(repo);
+      await linkedSkill(join(repo, "skills", "bad"));
+      await mkdir(join(repo, "skills", "good"), { recursive: true });
+      await writeFile(
+        join(repo, "skills", "good", "SKILL.md"),
+        "---\nname: good\n---\n",
+      );
+      const refused: string[] = [];
+
+      const discovered = await discoverSkills(repo, 5, (relPath, link) =>
+        refused.push(`${relPath}|${link.path}`),
+      );
+
+      expect(discovered.map((s) => s.relPath)).toEqual(["skills/good"]);
+      expect(refused.sort()).toEqual(["skills/bad|SKILL.md", "|SKILL.md"]);
+      const shown = JSON.stringify(discovered);
+      expect(shown).not.toContain(SECRET);
+      expect(shown).not.toContain(LEAK);
+    });
+
+    test("executeInstall refuses it before replacing an existing install", async () => {
+      const sourceDir = join(tempDir, "source");
+      const targetDir = join(tempDir, "target", "skill");
+      await linkedSkill(sourceDir);
+      await mkdir(targetDir, { recursive: true });
+      await writeFile(join(targetDir, "SKILL.md"), "---\nname: kept\n---\n");
+
+      await expect(
+        executeInstall({
+          source: {
+            owner: "local",
+            repo: "skill",
+            ref: null,
+            subpath: null,
+            cloneUrl: "",
+            sshCloneUrl: "",
+            isLocal: true,
+            localPath: sourceDir,
+          },
+          tempDir: sourceDir,
+          sourceDir,
+          targetDir,
+          skillName: "skill",
+          force: true,
+          providerName: "agents",
+          providerLabel: "Agents",
+          scope: "global",
+        }),
+      ).rejects.toBeInstanceOf(SkillMdOutsideFolderError);
+      expect(await readFile(join(targetDir, "SKILL.md"), "utf-8")).toBe(
+        "---\nname: kept\n---\n",
+      );
+    });
+  },
+);
 
 // ─── discoverSkills tests ──────────────────────────────────────────────────
 

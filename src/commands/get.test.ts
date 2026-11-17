@@ -214,6 +214,33 @@ describe("get path resolution and remote lifecycle", () => {
     ).rejects.toMatchObject({ code: "ENOENT" });
   });
 
+  it("refuses a clone root whose SKILL.md links outside, not hinting nested skills (#869)", async () => {
+    const outsideMd = join(tempDir, "outside.md");
+    await writeFile(
+      outsideMd,
+      "---\nname: OUTSIDE-SECRET-869\ndescription: LEAKED-869\n---\n",
+    );
+    await symlink(outsideMd, join(cloneDir, "SKILL.md"));
+    vi.mocked(remote.fetchRemoteSkillDir).mockResolvedValue({
+      rootDir: cloneDir,
+      tempDir: cloneDir,
+      sourceRef: "github:acme/skills",
+      commitSha: sha,
+      cleanup: vi.fn(async () => {}),
+    });
+    vi.spyOn(console, "error").mockImplementation((...parts) => {
+      stderr += parts.join(" ") + "\n";
+    });
+
+    await run("github:acme/skills");
+
+    expect(process.exitCode).toBe(1);
+    expect(stderr).toContain("asm reads nothing outside the skill folder");
+    expect(stderr).not.toContain("holds");
+    expect(stdout + stderr).not.toContain("OUTSIDE-SECRET-869");
+    expect(stdout + stderr).not.toContain("LEAKED-869");
+  });
+
   it("does not borrow or fetch when the indexed selection is ambiguous", async () => {
     vi.mocked(index.resolveIndexedSkillByName).mockResolvedValue({
       status: "ambiguous",

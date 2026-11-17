@@ -1103,21 +1103,30 @@ describe("ingester eval reads the skill folder like asm eval (#842)", () => {
     expect(scores(indexed.evalSummary!)).toEqual(scores(cli));
   });
 
-  it("records no eval for a SKILL.md that links outside the skill folder", async () => {
-    const { evaluateSkill } = await import("./evaluator");
+  it("does not index a SKILL.md that links outside the skill folder (#869)", async () => {
     const cloneRoot = join(tempDir, "clone");
-    await writeIngestSkill(join(tempDir, "elsewhere"), "real", "linked-842");
+    const outsideMd = join(tempDir, "elsewhere", "SKILL.md");
+    await mkdir(join(tempDir, "elsewhere"), { recursive: true });
+    await writeFile(
+      outsideMd,
+      "---\nname: OUTSIDE-SECRET-869\ndescription: LEAKED-869\n---\n",
+      "utf-8",
+    );
     const skillDir = join(cloneRoot, "skills", "linked-842");
     await mkdir(skillDir, { recursive: true });
-    await symlink(
-      join(tempDir, "elsewhere", "real", "SKILL.md"),
-      join(skillDir, "SKILL.md"),
-    );
+    await symlink(outsideMd, join(skillDir, "SKILL.md"));
+    await writeIngestSkill(cloneRoot, join("skills", "kept-869"), "kept-869");
 
-    const indexed = await ingestOne(cloneRoot, "linked-842");
+    ingestMocks.cloneToTemp.mockResolvedValueOnce(cloneRoot);
+    const result = await ingestRepo(`github:issue-842-tests/${repoName}`);
 
-    await expect(evaluateSkill(skillDir)).rejects.toThrow();
-    expect(indexed.evalSummary).toBeUndefined();
+    // Discovery refuses the link unread: no entry, nothing from the file.
+    expect(result.success).toBe(true);
+    const skills = result.repoIndex!.skills;
+    expect(skills.map((s) => s.name)).toContain("kept-869");
+    expect(skills.some((s) => s.relPath === "skills/linked-842")).toBe(false);
+    expect(JSON.stringify(result)).not.toContain("OUTSIDE-SECRET-869");
+    expect(JSON.stringify(result)).not.toContain("LEAKED-869");
   });
 
   it("keeps every score for SKILL.md-only skills, nested and root-level", async () => {

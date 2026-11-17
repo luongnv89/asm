@@ -1002,6 +1002,8 @@ describe("CLI integration: audit security <local path> (#779)", () => {
     expect(stdout).toContain("security <name|path|source>");
     expect(stdout).toContain("asm audit security ./my-skill");
     expect(stdout).toContain("Security target resolution");
+    // Discovery refuses a SKILL.md that links outside its folder (#869).
+    expect(stdout).not.toContain("even through a link");
   });
 });
 

@@ -296,4 +296,29 @@ name: test-skill
       },
     ]);
   });
+
+  it("reports a disabled skill's SKILL.md.disabled linked outside the folder (#869)", async () => {
+    const skillDir = join(tempDir, "skill");
+    await mkdir(skillDir);
+    const secret = join(tempDir, "secret.md");
+    await writeFile(secret, "---\nname: [OUTSIDE-SECRET-869\n---\n");
+    await symlink(secret, join(skillDir, "SKILL.md.disabled"));
+    const warnings = await checkHealth(
+      makeSkill({
+        path: skillDir,
+        description: "",
+        version: "0.0.0",
+        disabled: true,
+      }),
+    );
+    expect(JSON.stringify(warnings)).not.toContain("OUTSIDE-SECRET-869");
+    expect(warnings).toEqual([
+      {
+        category: "skill-md-outside-folder",
+        message: expect.stringContaining(
+          `SKILL.md.disabled -> ${await realpath(secret)} (file, NOT read)`,
+        ),
+      },
+    ]);
+  });
 });

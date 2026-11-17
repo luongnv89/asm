@@ -1,5 +1,5 @@
 import { describe, test, expect } from "vitest";
-import { mkdtemp, mkdir, writeFile, rm } from "fs/promises";
+import { mkdtemp, mkdir, writeFile, rm, symlink } from "fs/promises";
 import { homedir } from "os";
 import { join } from "path";
 import { compareSemver } from "./scanner";
@@ -205,4 +205,51 @@ describe("CLI integration: list disabled skills with cwd = HOME (#806)", () => {
       await rm(home, { recursive: true, force: true });
     }
   });
+
+  test.skipIf(process.platform === "win32")(
+    "a disabled skill whose SKILL.md.disabled links outside carries the warning (#869)",
+    async () => {
+      // A fresh home inside the src/test-setup.ts sandbox, never the real home.
+      const home = await mkdtemp(join(homedir(), "home-869-disabled-"));
+      try {
+        const skillDir = join(home, ".claude", "skills", "s1");
+        await mkdir(skillDir, { recursive: true });
+        const outsideMd = join(home, "outside.md");
+        await writeFile(
+          outsideMd,
+          "---\nname: OUTSIDE-SECRET-869\ndescription: LEAKED-869\n---\n",
+        );
+        await symlink(outsideMd, join(skillDir, "SKILL.md.disabled"));
+        const configDir = join(home, ".config", "agent-skill-manager");
+        await mkdir(configDir, { recursive: true });
+        await writeFile(
+          join(configDir, "skill-state.json"),
+          JSON.stringify({
+            version: 1,
+            disabled: { s1: { claude: { global: true } } },
+          }),
+        );
+        const opts = { env: { HOME: home }, cwd: home };
+
+        const json = await runCliInProcess(["list", "--json"], opts);
+        expect(json.exitCode).toBe(0);
+        expect(json.stdout).not.toContain("OUTSIDE-SECRET-869");
+        expect(json.stdout).not.toContain("LEAKED-869");
+        const rows = JSON.parse(json.stdout) as {
+          name: string;
+          disabled?: boolean;
+          warnings?: { category: string }[];
+        }[];
+        expect(
+          rows.map((s) => [
+            s.name,
+            s.disabled,
+            s.warnings?.map((w) => w.category),
+          ]),
+        ).toEqual([["s1", true, ["skill-md-outside-folder"]]]);
+      } finally {
+        await rm(home, { recursive: true, force: true });
+      }
+    },
+  );
 });
