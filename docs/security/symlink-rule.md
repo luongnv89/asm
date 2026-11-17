@@ -22,6 +22,7 @@ symlink that leaves the folder is a finding and is never followed
 | `asm eval <collection>`                                    | each child skill's folder; a child that is a link is its own real folder        |
 | `asm eval github:…`                                        | each skill's folder, and the skill must sit inside the temporary clone          |
 | `asm inspect <path>`                                       | the folder you name                                                             |
+| Finding skills: `asm list`, `inspect`, `search`, the TUI   | each skill's `SKILL.md` must resolve inside the skill's real folder             |
 
 The boundary of a remote source is the whole checkout for `audit`, `get`,
 `install` and `update`, so a skill may link to a sibling folder in the same
@@ -38,6 +39,16 @@ link that leaves the folder, dangles or loops adds 0
 [#829](https://github.com/luongnv89/asm/issues/829)) reads only that folder's
 `SKILL.md`, and refuses one that links outside the folder as `asm eval` does
 (`SKILL_MD_OUTSIDE_LINK` with `--machine`).
+
+Finding skills (the scanner behind `asm list`, `asm inspect <name>`,
+`asm search`, `asm get <name>`, `--json` and the TUI, including library rows)
+reads a skill's `SKILL.md` only when it resolves inside the skill's real
+folder, so an `asm link` folder and an in-folder `SKILL.md -> real.md` link
+keep working. A `SKILL.md` that leaves the folder is never opened: the skill
+is listed under its folder name with no frontmatter fields and a
+`skill-md-outside-folder` warning, `SKILL.md -> target (file, NOT read)`, and
+`asm get <name>` refuses it, for an installed or a library skill
+([#795](https://github.com/luongnv89/asm/issues/795)).
 
 ## What a link becomes
 
@@ -140,10 +151,10 @@ full.
 
 ## Known limits
 
-- Finding installed skills (the scanner behind `asm list`) still reads each
-  `SKILL.md`'s frontmatter, even through a link. An audit never prints a
-  name taken from a `SKILL.md` outside the folder, but `asm list` and the
-  body that `asm get` prints can show it.
+- `asm install` still reads a source's `SKILL.md` for its preview, and
+  `asm get ./path` reads the named folder's `SKILL.md`, even when it links
+  outside the skill folder (follow-up to
+  [#795](https://github.com/luongnv89/asm/issues/795)).
 - `asm eval` gives a skill with no licence file credit for the repository's
   (#771): it lists the names in the folders above the skill, up to the git
   root, and `stat`s a `LICENSE` candidate there. It never opens a file

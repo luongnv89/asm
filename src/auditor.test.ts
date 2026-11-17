@@ -1,5 +1,5 @@
 import { describe, expect, it, beforeEach, afterEach } from "vitest";
-import { mkdtemp, writeFile, rm } from "fs/promises";
+import { mkdir, mkdtemp, writeFile, rm, symlink } from "fs/promises";
 import { tmpdir } from "os";
 import { join } from "path";
 import {
@@ -1413,5 +1413,20 @@ describe("detectDuplicates same-content rule (#562)", () => {
     );
     expect(parsed.duplicateGroups[0].reason).toBe("same-content");
     expect(parsed.duplicateGroups[0].contentClass).toBe("identical");
+  });
+
+  it("never fills the cache from a SKILL.md linked outside the folder (#795)", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "asm-audit-md-out-"));
+    try {
+      await mkdir(join(dir, "skill"));
+      await writeFile(join(dir, "secret.md"), `---\nname: x\n---\n${BODY_A}\n`);
+      await symlink(join(dir, "secret.md"), join(dir, "skill", "SKILL.md"));
+      const skill = makeSkill({ path: join(dir, "skill") });
+      await ensureSkillMdContent(skill);
+      expect(skill._skillMdContent).toBeUndefined();
+      expect(skillContentFingerprint(skill)).toBeNull();
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
   });
 });

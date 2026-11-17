@@ -3,6 +3,7 @@ import { readFile } from "fs/promises";
 import { join } from "path";
 import { ansi, colorProvider, shortenPath } from "./formatter";
 import { cacheSkillMdContent } from "./scanner";
+import { skillMdOutside } from "./evaluator-files";
 import type { SkillInfo, DuplicateGroup, AuditReport } from "./utils/types";
 import {
   stringifyForOutput,
@@ -104,7 +105,10 @@ export function skillContentFingerprint(skill: SkillInfo): string | null {
 export async function ensureSkillMdContent(skill: SkillInfo): Promise<void> {
   if (skill._skillMdContent !== undefined) return;
   try {
-    const content = await readFile(join(skill.path, "SKILL.md"), "utf-8");
+    const skillMdPath = join(skill.path, "SKILL.md");
+    // Never read a SKILL.md that leaves the skill folder (#795).
+    if (await skillMdOutside(skillMdPath)) return;
+    const content = await readFile(skillMdPath, "utf-8");
     cacheSkillMdContent(skill, content);
   } catch {
     // unreadable — leave uncached; fingerprint stays unavailable

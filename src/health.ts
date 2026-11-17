@@ -3,6 +3,8 @@ import { join } from "path";
 import { parse as parseYaml } from "yaml";
 import type { SkillInfo, SkillWarning } from "./utils/types";
 import { errorMessage } from "./utils/errors";
+import { skillMdOutside } from "./evaluator-files";
+import { skillMdOutsideWarning } from "./scanner";
 
 const HIGH_FILE_COUNT_THRESHOLD = 500;
 
@@ -55,6 +57,13 @@ function validateYamlFrontmatter(content: string): string | null {
 }
 
 export async function checkHealth(skill: SkillInfo): Promise<SkillWarning[]> {
+  // A SKILL.md that leaves the skill folder is never read (#795): report it
+  // alone, since every other check would describe content asm refused.
+  if (skill._skillMdContent === undefined) {
+    const outside = await skillMdOutside(join(skill.path, "SKILL.md"));
+    if (outside) return [skillMdOutsideWarning(outside)];
+  }
+
   const warnings: SkillWarning[] = [];
 
   if (!skill.description || skill.description.trim() === "") {

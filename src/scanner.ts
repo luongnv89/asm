@@ -21,14 +21,17 @@ import {
 } from "./utils/frontmatter";
 import { estimateTokenCount } from "./utils/token-count";
 import { isPathInside } from "./utils/fs";
+import { skillMdOutside, unreadLinkFinding } from "./evaluator-files";
 import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
 import type {
   SkillInfo,
+  SkillWarning,
   Scope,
   SortBy,
   AppConfig,
   CodexPluginManifest,
+  ExternalSymlink,
 } from "./utils/types";
 
 const PLUGIN_MARKETPLACES_DIR = join(
@@ -420,6 +423,39 @@ export function skillFieldsFromSkillMd(
   };
 }
 
+/** Warning category of a skill whose SKILL.md resolves outside its folder (#795). */
+export const SKILL_MD_OUTSIDE_CATEGORY = "skill-md-outside-folder";
+
+/**
+ * The warning a skill row carries when its SKILL.md is a link that leaves the
+ * skill folder: the link and its target, never anything read from it (#795).
+ */
+export function skillMdOutsideWarning(link: ExternalSymlink): SkillWarning {
+  return {
+    category: SKILL_MD_OUTSIDE_CATEGORY,
+    message: `${unreadLinkFinding(link)}. asm reads nothing outside the skill folder.`,
+  };
+}
+
+/**
+ * Read `dir`'s SKILL.md only when it resolves inside the folder's real path,
+ * so a linked skill folder (`asm link`) and an in-folder link keep working.
+ * Returns the refused link, without opening it, when it leaves the folder
+ * (#795), and null when there is no readable SKILL.md.
+ */
+async function readSkillMdInFolder(
+  dir: string,
+): Promise<{ content: string } | { outside: ExternalSymlink } | null> {
+  const skillMdPath = join(dir, "SKILL.md");
+  const outside = await skillMdOutside(skillMdPath);
+  if (outside) return { outside };
+  try {
+    return { content: await readFile(skillMdPath, "utf-8") };
+  } catch {
+    return null;
+  }
+}
+
 export async function scanDirectory(
   loc: ScanLocation,
   scheduler: ScanEntryScheduler,
@@ -449,14 +485,15 @@ export async function scanDirectory(
         return;
       }
 
-      const skillMdPath = join(entryPath, "SKILL.md");
-      let content: string;
-      try {
-        content = await readFile(skillMdPath, "utf-8");
-      } catch {
+      const read = await readSkillMdInFolder(entryPath);
+      if (!read) {
         debug(`  skip: "${entry}" — no SKILL.md`);
         return;
       }
+      if ("outside" in read) {
+        debug(`  refuse: "${entry}" — SKILL.md leaves the skill folder`);
+      }
+      const content = "content" in read ? read.content : "";
 
       let isSymlink = false;
       let symlinkTarget: string | null = null;
@@ -490,9 +527,14 @@ export async function scanDirectory(
         isSymlink,
         symlinkTarget,
         realPath: resolvedRealPath,
-        tokenCount: estimateTokenCount(content),
       };
-      cacheSkillMdContent(skill, content);
+      if ("outside" in read) {
+        // Listed with its folder name and the reason, never with content.
+        skill.warnings = [skillMdOutsideWarning(read.outside)];
+      } else {
+        skill.tokenCount = estimateTokenCount(content);
+        cacheSkillMdContent(skill, content);
+      }
       return skill;
     } catch {
       debug(`  skip: "${entry}" — scan failed`);
@@ -590,13 +632,9 @@ export async function scanPluginMarketplaces(
     const skillDirs = await findSkillDirs(marketplacePath);
 
     for (const skillDir of skillDirs) {
-      const skillMdPath = join(skillDir, "SKILL.md");
-      let content: string;
-      try {
-        content = await readFile(skillMdPath, "utf-8");
-      } catch {
-        continue;
-      }
+      const read = await readSkillMdInFolder(skillDir);
+      if (!read) continue;
+      const content = "content" in read ? read.content : "";
 
       const fm = parseFrontmatter(content);
       const entry = basename(skillDir);
@@ -635,9 +673,13 @@ export async function scanPluginMarketplaces(
         symlinkTarget: null,
         realPath: resolvedRealPath,
         marketplace,
-        tokenCount: estimateTokenCount(content),
       };
-      cacheSkillMdContent(skill, content);
+      if ("outside" in read) {
+        skill.warnings = [skillMdOutsideWarning(read.outside)];
+      } else {
+        skill.tokenCount = estimateTokenCount(content);
+        cacheSkillMdContent(skill, content);
+      }
       skills.push(skill);
     }
   }

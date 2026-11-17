@@ -9,6 +9,8 @@ import {
   resolveUserInvocable,
 } from "./utils/frontmatter";
 import { estimateTokenCount } from "./utils/token-count";
+import { skillMdOutside } from "./evaluator-files";
+import { skillMdOutsideWarning } from "./scanner";
 import type { Scope, SkillInfo } from "./utils/types";
 
 /**
@@ -39,11 +41,16 @@ export async function buildGhostSkills(
     async (lib): Promise<SkillInfo> => {
       let frontmatter: Record<string, string> = {};
       let content = "";
-      try {
-        content = await readFile(join(lib.libraryPath, "SKILL.md"), "utf-8");
-        frontmatter = parseFrontmatter(content);
-      } catch {
-        // Unreadable SKILL.md — keep lock metadata, blank display fields.
+      const skillMdPath = join(lib.libraryPath, "SKILL.md");
+      // A SKILL.md that leaves the library folder is never read (#795).
+      const outside = await skillMdOutside(skillMdPath);
+      if (!outside) {
+        try {
+          content = await readFile(skillMdPath, "utf-8");
+          frontmatter = parseFrontmatter(content);
+        } catch {
+          // Unreadable SKILL.md — keep lock metadata, blank display fields.
+        }
       }
 
       return {
@@ -73,6 +80,7 @@ export async function buildGhostSkills(
         realPath: lib.libraryPath,
         tokenCount: content ? estimateTokenCount(content) : undefined,
         isGhost: true,
+        ...(outside ? { warnings: [skillMdOutsideWarning(outside)] } : {}),
       };
     },
   );

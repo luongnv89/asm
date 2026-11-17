@@ -1,5 +1,10 @@
 import { loadConfig, resolveProviderPath } from "../config";
-import { scanAllSkills, isProjectAliasOfGlobal } from "../scanner";
+import {
+  scanAllSkills,
+  isProjectAliasOfGlobal,
+  skillMdOutsideWarning,
+} from "../scanner";
+import { skillMdOutside } from "../evaluator-files";
 import {
   parseFrontmatter,
   resolveCreator,
@@ -158,11 +163,17 @@ export async function reconstructDisabledSkills(
         const marker = disabledFilePath(skillDir);
         if (!existsSync(marker)) continue;
 
+        // `asm disable` renames the SKILL.md link itself, so a marker that
+        // links out of the skill folder is never read: the row falls back to
+        // dirName and carries a warning instead (#795).
+        const outside = await skillMdOutside(marker);
         let fm: Record<string, string> = {};
-        try {
-          fm = parseFrontmatter(await fsReadFile(marker, "utf-8"));
-        } catch {
-          // Best effort — fall back to dirName below.
+        if (!outside) {
+          try {
+            fm = parseFrontmatter(await fsReadFile(marker, "utf-8"));
+          } catch {
+            // Best effort — fall back to dirName below.
+          }
         }
         // Resolve the canonical source so symlinked siblings (which share one
         // disabled SKILL.md.disabled) collapse onto the same realPath — enabling
@@ -195,6 +206,7 @@ export async function reconstructDisabledSkills(
           symlinkTarget: null,
           realPath,
           disabled: true,
+          ...(outside ? { warnings: [skillMdOutsideWarning(outside)] } : {}),
         });
       }
     }
