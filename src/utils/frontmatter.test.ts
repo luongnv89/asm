@@ -742,6 +742,43 @@ describe("resolveSkillDependencies", () => {
     ).toEqual(["a"]);
   });
 
+  it("parses metadata.dependencies leniently without throwing", () => {
+    const fm = parseFrontmatter(
+      '---\nname: x\nmetadata:\n  dependencies: "Python 3.11, uv"\n---\nbody',
+    );
+    expect(resolveSkillDependencies(fm)).toEqual(["Python 3.11", "uv"]);
+    expect(
+      resolveSkillDependencies({
+        "metadata.dependencies": "./path with spaces, skill-a,, skill-a",
+      }),
+    ).toEqual(["./path with spaces", "skill-a"]);
+    const numeric = resolveSkillDependencies({
+      "metadata.dependencies": "123, true",
+    });
+    expect(numeric).toEqual(["123", "true"]);
+    expect(numeric.every((entry) => typeof entry === "string")).toBe(true);
+    expect(() =>
+      resolveSkillDependencies({
+        "metadata.dependencies": '[skill, { nested: value }], "unterminated',
+      }),
+    ).not.toThrow();
+  });
+
+  it("keeps top-level dependencies strict and preferred over metadata", () => {
+    expect(
+      resolveSkillDependencies({
+        dependencies: "a b",
+        "metadata.dependencies": "Python 3.11, uv",
+      }),
+    ).toEqual(["a", "b"]);
+    expect(() =>
+      resolveSkillDependencies({
+        dependencies: "[skill, { nested: value }]",
+        "metadata.dependencies": "ok",
+      }),
+    ).toThrow("only non-empty strings");
+  });
+
   it("normalizes block and inline list forms and removes duplicates", () => {
     expect(
       resolveSkillDependencies({
