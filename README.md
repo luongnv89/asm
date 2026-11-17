@@ -683,8 +683,8 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm library update --all` | Update all local library skills |
 | `asm export` | Export inventory as JSON |
 | `asm import <file>` | Import skills from exported manifest |
-| `asm outdated` | Show outdated skills, with `metadata.version` for GitHub sources; a commit outside the skill's folder does not count, and a skill whose SKILL.md is gone upstream is `removed-upstream` |
-| `asm update [name...]` | Update outdated skills; keeps the installed copy when the incoming folder has no SKILL.md (or is reached through a symlink) and reports it as failed: the table output exits 1, while `--json`/`--machine` report `"status": "failed"` and exit 0, as for every per-skill failure |
+| `asm outdated` | Show outdated skills, with `metadata.version` for GitHub sources; a commit outside the skill's folder does not count, and a skill whose SKILL.md is gone upstream is `removed-upstream`. The table output exits 1 when any skill is outdated, removed upstream, or could not be checked (`error`, e.g. an unreachable source) |
+| `asm update [name...]` | Update outdated skills; keeps the installed copy when the incoming folder has no SKILL.md (or is reached through a symlink) and reports it as failed. A skill whose source cannot be checked (e.g. unreachable) is reported as failed with the error. Any failed skill makes every output mode (table, `--json`, `--machine`) exit 1 |
 | `asm disable <target>` | Disable skill(s) without uninstalling |
 | `asm enable <target>` | Re-enable disabled skill(s) |
 | `asm index ingest <repo>` | Index a skill repo; `--exclude <name>` (repeatable or comma-separated) leaves skills out and lists any name that matched no skill |

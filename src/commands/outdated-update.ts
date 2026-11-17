@@ -76,7 +76,11 @@ export async function cmdOutdated(args: ParsedArgs) {
     const useColor = !args.flags.noColor && process.stdout.isTTY !== false;
     console.log(formatOutdatedTable(summary, useColor));
 
-    if (summary.outdatedCount > 0 || (summary.removedUpstreamCount ?? 0) > 0) {
+    if (
+      summary.outdatedCount > 0 ||
+      (summary.removedUpstreamCount ?? 0) > 0 ||
+      summary.errorCount > 0
+    ) {
       process.exitCode = 1;
     }
   } catch (err) {
@@ -154,11 +158,13 @@ export async function cmdUpdate(args: ParsedArgs) {
         security_reasons: r.securityReasons ?? null,
       }));
       console.log(formatMachineOutput("update", data, startTime));
+      if (summary.failedCount > 0) process.exitCode = 1;
       return;
     }
 
     if (args.flags.json) {
       console.log(formatUpdateJSON(summary));
+      if (summary.failedCount > 0) process.exitCode = 1;
       return;
     }
 

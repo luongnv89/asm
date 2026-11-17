@@ -15,6 +15,7 @@ import {
   readFile,
   readdir,
   readlink,
+  rename,
   rm,
   symlink,
   writeFile,
@@ -232,15 +233,21 @@ describe("asm update refuses a skill whose SKILL.md is gone upstream (#814)", ()
       );
     }
 
-    // --json reports the refusal as "failed" and exits 0, as for every
-    // per-skill failure (README); only the table output exits 1.
+    // --json and --machine report the refusal as "failed" and exit 1, like
+    // the table output (#822).
     const jsonRun = await asm("update", "c9", "--json");
-    expect(jsonRun.exitCode).toBe(0);
+    expect(jsonRun.exitCode).toBe(1);
     const json = JSON.parse(jsonRun.stdout);
     expect(json.results).toEqual([
       { name: "c9", status: "failed", reason: reason.slice("✗ c9 ".length) },
     ]);
     expect(json.summary).toEqual({ updated: 0, skipped: 0, failed: 1 });
+
+    const machineRun = await asm("update", "c9", "--machine");
+    expect(machineRun.exitCode).toBe(1);
+    expect(JSON.parse(machineRun.stdout).data).toMatchObject([
+      { name: "c9", status: "failed" },
+    ]);
 
     const machine = JSON.parse((await asm("outdated", "--machine")).stdout);
     expect(
@@ -315,5 +322,94 @@ describe("asm update refuses a skill whose SKILL.md is gone upstream (#814)", ()
     expect(await readFile(join(skillsDir(), "c9", "body.md"), "utf-8")).toBe(
       "c9 v2\n",
     );
+  });
+  test("source unreachable: outdated and update report the fetch error and exit 1 (#822)", async () => {
+    await writeFile(join(work, "skills", "c9", "body.md"), "c9 v2\n");
+    publish("v2: c9 body only");
+    await rename(join(cwd, "skills.git"), join(cwd, "moved.git"));
+    const lockSum = await sha256(lockPath());
+
+    const table = await asm("outdated");
+    expect(table.exitCode).toBe(1);
+    expect(table.stdout).toMatch(/^c9 .*Failed to fetch remote commit$/m);
+    expect(table.stdout).toContain("2 error");
+
+    for (const args of [["update"], ["update", "--yes"], ["update", "c9"]]) {
+      const r = await asm(...args);
+      const label = args.join(" ");
+      expect(r.exitCode, label).toBe(1);
+      expect(r.stdout, label).not.toContain("All skills are up to date.");
+      expect(r.stdout, label).toContain("✗ c9 Failed to fetch remote commit\n");
+      if (args.length === 1 || args[1] === "--yes") {
+        expect(r.stdout, label).toContain(
+          "✗ ok Failed to fetch remote commit\n",
+        );
+        expect(r.stdout, label).toContain("2 failed");
+      } else {
+        expect(r.stdout, label).not.toContain("✗ ok");
+        expect(r.stdout, label).toContain("1 failed");
+      }
+      expect(await sha256(lockPath()), label).toBe(lockSum);
+    }
+
+    const jsonRun = await asm("update", "--yes", "--json");
+    expect(jsonRun.exitCode).toBe(1);
+    const json = JSON.parse(jsonRun.stdout);
+    expect(
+      [...json.results].sort((a: { name: string }, b: { name: string }) =>
+        a.name.localeCompare(b.name),
+      ),
+    ).toEqual([
+      { name: "c9", status: "failed", reason: "Failed to fetch remote commit" },
+      { name: "ok", status: "failed", reason: "Failed to fetch remote commit" },
+    ]);
+    expect(json.summary).toEqual({ updated: 0, skipped: 0, failed: 2 });
+
+    const machineRun = await asm("update", "c9", "--machine");
+    expect(machineRun.exitCode).toBe(1);
+    expect(JSON.parse(machineRun.stdout).data).toMatchObject([
+      { name: "c9", status: "failed", reason: "Failed to fetch remote commit" },
+    ]);
+  });
+
+  test("a lock key with control bytes prints none of them in outdated and update (#822)", async () => {
+    const rawControls = (text: string) =>
+      // eslint-disable-next-line no-control-regex
+      text.match(/[\x00-\x08\x0b-\x1f\x7f-\x9f]/g) ?? [];
+    const hostile =
+      "evil\x1b[31m\x1b]8;;https://x.example\x07link\x1b]8;;\x07\x9b2J";
+    const lock = await readLock();
+    lock.skills[hostile] = { ...lock.skills.c9 };
+    await writeFile(lockPath(), JSON.stringify(lock, null, 2));
+    await rename(join(cwd, "skills.git"), join(cwd, "moved.git"));
+
+    const table = await asm("outdated");
+    expect(table.exitCode).toBe(1);
+    expect(table.stdout).toContain("evil?[31m");
+    expect(rawControls(table.stdout + table.stderr)).toEqual([]);
+
+    const update = await asm("update", "--yes");
+    expect(update.exitCode).toBe(1);
+    expect(update.stdout).toContain("✗ evil?[31m");
+    expect(rawControls(update.stdout + update.stderr)).toEqual([]);
+  });
+
+  test("successful update exits 0 in --json and --machine (#822)", async () => {
+    await writeFile(join(work, "skills", "c9", "body.md"), "c9 v2\n");
+    publish("v2: c9 body only");
+
+    const jsonRun = await asm("update", "--yes", "--json");
+    expect(jsonRun.exitCode).toBe(0);
+    expect(JSON.parse(jsonRun.stdout).summary).toEqual({
+      updated: 1,
+      skipped: 0,
+      failed: 0,
+    });
+
+    const outdated = await asm("outdated");
+    expect(outdated.exitCode).toBe(0);
+    const machineRun = await asm("update", "--machine");
+    expect(machineRun.exitCode).toBe(0);
+    expect(JSON.parse(machineRun.stdout).data).toEqual([]);
   });
 });
