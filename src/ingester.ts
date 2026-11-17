@@ -25,6 +25,7 @@ import {
   findInheritedLicenseFile,
   runWithConcurrency,
 } from "./evaluator";
+import { readSkillMd } from "./evaluator-files";
 import { getEvalProviders } from "./eval/builtins";
 import { runProvider } from "./eval/runner";
 import { sortProviderReports, toSkillEvalSummary } from "./eval/summary";
@@ -187,9 +188,16 @@ export async function ingestRepo(
           }
 
           try {
+            // Read SKILL.md the way `asm eval` does: a SKILL.md that links
+            // outside the skill folder throws here and gets no eval (#842).
+            const evalContent = await readSkillMd(skillMdPath);
+            if (evalContent === null) throw new Error("SKILL.md unreadable");
             const report = await evaluateSkillContent({
-              content: skillMdContent,
+              content: evalContent,
+              // A label for the naming check; the files are read from
+              // skillDir, never relative to the process cwd (#842).
               skillPath: skill.relPath || skill.name,
+              skillDir,
               skillMdPath,
               rootEntries,
               // A skill without its own LICENSE inherits the clone root's (#771).

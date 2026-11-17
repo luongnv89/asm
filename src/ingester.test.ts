@@ -1,5 +1,13 @@
 import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
-import { mkdtemp, writeFile, mkdir, rm, readFile, readdir } from "fs/promises";
+import {
+  mkdtemp,
+  writeFile,
+  mkdir,
+  rm,
+  readFile,
+  readdir,
+  symlink,
+} from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
 import {
@@ -1002,5 +1010,140 @@ example
     expect(summary.overallScore).toBe(100);
     expect(summary.grade).toBe("A");
     expect(summary.categories).toHaveLength(1);
+  });
+});
+
+describe("ingester eval reads the skill folder like asm eval (#842)", () => {
+  let tempDir: string;
+  let repoName: string;
+
+  beforeEach(async () => {
+    sandboxIndexDir = await mkdtemp(join(tmpdir(), "asm-index-sandbox-"));
+    tempDir = await mkdtemp(join(tmpdir(), "asm-ingest-842-"));
+    repoName = `eval-scope-${tempDir.split("-").at(-1)!.toLowerCase()}`;
+    ingestMocks.checkGitAvailable.mockReset();
+    ingestMocks.checkGitAvailable.mockResolvedValue(undefined);
+    ingestMocks.cloneToTemp.mockReset();
+    ingestMocks.cleanupTemp.mockReset();
+    ingestMocks.cleanupTemp.mockResolvedValue(undefined);
+    ingestMocks.getEvalProviders.mockReset();
+    ingestMocks.getEvalProviders.mockReturnValue([]);
+  });
+
+  afterEach(async () => {
+    await removeRepoIndex("issue-842-tests", repoName);
+    await rm(tempDir, { recursive: true, force: true });
+    if (sandboxIndexDir) {
+      await rm(sandboxIndexDir, { recursive: true, force: true });
+      sandboxIndexDir = null;
+    }
+  });
+
+  function scores(report: {
+    overallScore: number;
+    categories: { id: string; score: number }[];
+  }) {
+    return {
+      overallScore: report.overallScore,
+      categories: Object.fromEntries(
+        report.categories.map((c) => [c.id, c.score]),
+      ),
+    };
+  }
+
+  async function ingestOne(cloneRoot: string, name: string) {
+    ingestMocks.cloneToTemp.mockResolvedValueOnce(cloneRoot);
+    const result = await ingestRepo(`github:issue-842-tests/${repoName}`);
+    expect(result.success).toBe(true);
+    const skill = result.repoIndex!.skills.find((s) => s.name === name);
+    expect(skill).toBeDefined();
+    return skill!;
+  }
+
+  // A nested path that cannot exist under the test's cwd, so a relative
+  // walk resolved against process.cwd() finds nothing.
+  const nestedRel = join("packages", "core-842", "skills", "ui-sdk-842");
+
+  it("scores a finding in references/ the same as asm eval", async () => {
+    const { evaluateSkill } = await import("./evaluator");
+    const cloneRoot = join(tempDir, "clone");
+    await writeIngestSkill(cloneRoot, nestedRel, "ui-sdk-842");
+    const skillDir = join(cloneRoot, nestedRel);
+    await mkdir(join(skillDir, "references"), { recursive: true });
+    await writeFile(
+      join(skillDir, "references", "web-components.md"),
+      "# Web components\n\nAsk jane.doe@acme-widgets.io for access.\n",
+      "utf-8",
+    );
+
+    const indexed = await ingestOne(cloneRoot, "ui-sdk-842");
+    const cli = await evaluateSkill(skillDir);
+
+    // The fixture really carries a finding asm eval reports.
+    expect(cli.categories.find((c) => c.id === "pii")!.score).toBeLessThan(10);
+    expect(scores(indexed.evalSummary!)).toEqual(scores(cli));
+  });
+
+  it("does not read a references/ link that leaves the skill folder", async () => {
+    const { evaluateSkill } = await import("./evaluator");
+    const cloneRoot = join(tempDir, "clone");
+    await writeIngestSkill(cloneRoot, nestedRel, "ui-sdk-842");
+    const skillDir = join(cloneRoot, nestedRel);
+    const outside = join(tempDir, "outside.md");
+    await writeFile(outside, "Mail jane.doe@acme-widgets.io\n", "utf-8");
+    await mkdir(join(skillDir, "references"), { recursive: true });
+    await symlink(outside, join(skillDir, "references", "outside.md"));
+
+    const indexed = await ingestOne(cloneRoot, "ui-sdk-842");
+    const cli = await evaluateSkill(skillDir);
+
+    expect(
+      indexed.evalSummary!.categories.find((c) => c.id === "pii")!.score,
+    ).toBe(10);
+    expect(scores(indexed.evalSummary!)).toEqual(scores(cli));
+  });
+
+  it("records no eval for a SKILL.md that links outside the skill folder", async () => {
+    const { evaluateSkill } = await import("./evaluator");
+    const cloneRoot = join(tempDir, "clone");
+    await writeIngestSkill(join(tempDir, "elsewhere"), "real", "linked-842");
+    const skillDir = join(cloneRoot, "skills", "linked-842");
+    await mkdir(skillDir, { recursive: true });
+    await symlink(
+      join(tempDir, "elsewhere", "real", "SKILL.md"),
+      join(skillDir, "SKILL.md"),
+    );
+
+    const indexed = await ingestOne(cloneRoot, "linked-842");
+
+    await expect(evaluateSkill(skillDir)).rejects.toThrow();
+    expect(indexed.evalSummary).toBeUndefined();
+  });
+
+  it("keeps every score for SKILL.md-only skills, nested and root-level", async () => {
+    const { evaluateSkillContentSync, findInheritedLicenseFile } =
+      await import("./evaluator");
+    const cloneRoot = join(tempDir, "clone");
+    await writeIngestSkill(cloneRoot, "", "root-842");
+    await writeIngestSkill(cloneRoot, nestedRel, "ui-sdk-842");
+
+    for (const [relPath, name] of [
+      ["", "root-842"],
+      [nestedRel, "ui-sdk-842"],
+    ] as const) {
+      const indexed = await ingestOne(cloneRoot, name);
+      // What the index scored before #842: no file walk, so pii and
+      // script-lint at full marks, and the relative skillPath for naming.
+      const skillDir = join(cloneRoot, relPath);
+      const skillMdPath = join(skillDir, "SKILL.md");
+      const before = evaluateSkillContentSync({
+        content: await readFile(skillMdPath, "utf-8"),
+        skillPath: relPath || name,
+        skillMdPath,
+        rootEntries: await readdir(skillDir),
+        inheritedLicenseFile: await findInheritedLicenseFile(skillDir),
+      });
+      expect(scores(indexed.evalSummary!)).toEqual(scores(before));
+    }
   });
 });
