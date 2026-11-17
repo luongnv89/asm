@@ -23,6 +23,7 @@ import {
   enableSkillInstance,
   skillFilePath,
   disabledFilePath,
+  recordedProjectDirs,
 } from "./skill-state";
 import { groupBySource } from "./cli";
 import type { SkillInfo } from "./utils/types";
@@ -175,6 +176,47 @@ describe("state mutators", () => {
     const st = emptyState();
     expect(() => clearDisabled(st, "x", "claude", "global")).not.toThrow();
     expect(st.disabled).toEqual({});
+  });
+
+  it("keys project records by project dir, beside a project-less one (#813)", () => {
+    const st = emptyState();
+    setDisabled(st, "s1", "claude", "project", "/p13/.claude/skills");
+    setDisabled(st, "s1", "claude", "project", "/p14/.claude/skills");
+    setDisabled(st, "s1", "claude", "project", "/p13/.claude/skills");
+    setDisabled(st, "s1", "claude", "project");
+    expect(st.disabled.s1.claude).toEqual({
+      project: true,
+      projectDirs: ["/p13/.claude/skills", "/p14/.claude/skills"],
+    });
+    expect(
+      isDisabled(st, "s1", "claude", "project", "/p13/.claude/skills"),
+    ).toBe(true);
+    expect(
+      isDisabled(st, "s1", "claude", "project", "/p15/.claude/skills"),
+    ).toBe(false);
+
+    clearDisabled(st, "s1", "claude", "project", "/p13/.claude/skills");
+    expect(st.disabled.s1.claude).toEqual({
+      project: true,
+      projectDirs: ["/p14/.claude/skills"],
+    });
+    clearDisabled(st, "s1", "claude", "project");
+    expect(st.disabled.s1.claude).toEqual({
+      projectDirs: ["/p14/.claude/skills"],
+    });
+    clearDisabled(st, "s1", "claude", "project", "/p14/.claude/skills");
+    expect(st.disabled).toEqual({});
+  });
+
+  it("ignores a malformed projectDirs value", () => {
+    const st = emptyState();
+    st.disabled.s1 = {
+      claude: { projectDirs: "nope" as unknown as string[] },
+    };
+    expect(recordedProjectDirs(st.disabled.s1.claude)).toEqual([]);
+    expect(isDisabled(st, "s1", "claude", "project", "nope")).toBe(false);
+    setDisabled(st, "s1", "claude", "project", "/p/.claude/skills");
+    expect(st.disabled.s1.claude.projectDirs).toEqual(["/p/.claude/skills"]);
   });
 });
 

@@ -84,15 +84,32 @@ export interface SkillInfo {
  * mechanism; this file is the source of truth for what asm itself disabled and
  * lets `asm list` re-surface entries the scanner can no longer see.
  *
- * Structure is keyed by skill dirName → provider → scope → `true`, designed to
- * be shared with future sandbox-mode work (issue #92).
+ * Structure is keyed by skill dirName → provider → {@link SkillStateScopes},
+ * designed to be shared with future sandbox-mode work (issue #92).
  */
 export interface SkillStateFile {
   version: 1;
-  disabled: Record<
-    string,
-    Record<string, Partial<Record<"global" | "project", true>>>
-  >;
+  disabled: Record<string, Record<string, SkillStateScopes>>;
+}
+
+/**
+ * Where one (skill dirName, provider) is disabled.
+ *
+ * A project install lives in the provider's project dir resolved from the cwd,
+ * so a project entry names that dir by its real path (`projectDirs`, #813):
+ * enabling from one directory never clears another project's entry.
+ * `project: true` is the older form with no project identity; it still reads
+ * as "disabled in an unknown project" and is matched in whichever project
+ * holds a `SKILL.md.disabled` for the skill. A `projectDirs` dir that no
+ * longer holds that marker (the project moved) reads the same way, and enable
+ * keeps it, as it keeps `project: true`.
+ */
+export interface SkillStateScopes {
+  global?: true;
+  /** Project entry from before #813: the project is unknown. */
+  project?: true;
+  /** Real paths of the project skill dirs this skill is disabled in. */
+  projectDirs?: string[];
 }
 
 /** Local tag edits keyed by the skill's canonical on-disk directory. */
