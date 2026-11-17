@@ -78,15 +78,22 @@ export async function evaluateSkillContent(args: {
    * to the skill dir (see `findInheritedLicenseFile`). Issue #771.
    */
   inheritedLicenseFile?: string;
+  /**
+   * The skill folder on disk, when `skillPath` is only a label (the
+   * ingester passes the clone-relative path, #842). The file scorers walk
+   * this folder; defaults to `skillPath`.
+   */
+  skillDir?: string;
 }): Promise<EvaluationReport> {
   const { content, skillPath, skillMdPath, rootEntries, inheritedLicenseFile } =
     args;
+  const skillDir = args.skillDir ?? skillPath;
   const fm = parseFrontmatter(content);
   const { rawFrontmatter, body } = splitSkillMd(content);
 
   // One confined walk for both file scorers (#825): nothing outside the
   // skill folder is read, and each link that leaves it is reported once.
-  const files = await listSkillFiles(skillPath);
+  const files = await listSkillFiles(skillDir);
 
   // A root entry that is such a link earns no licence credit by its name:
   // an outside or dangling LICENSE link scores as no LICENSE at all (#825).
@@ -98,7 +105,7 @@ export async function evaluateSkillContent(args: {
   const licenseEntries = rootEntries?.filter((e) => !unreadAtRoot.has(e));
   const licenseInherited =
     findLicenseFileName(rootEntries) && !findLicenseFileName(licenseEntries)
-      ? await findInheritedLicenseFile(skillPath)
+      ? await findInheritedLicenseFile(skillDir)
       : inheritedLicenseFile;
 
   // Synchronous scorers run immediately; async scorers run in parallel.
@@ -114,8 +121,8 @@ export async function evaluateSkillContent(args: {
   ];
 
   const [piiResult, scriptLintResult] = await Promise.all([
-    scorePII(skillPath, files),
-    scoreScriptLint(skillPath, files),
+    scorePII(skillDir, files),
+    scoreScriptLint(skillDir, files),
   ]);
   const unreadLinks = files.externalSymlinks;
   if (unreadLinks.length > 0) {
