@@ -231,9 +231,15 @@ async function runSingleEval(target: EvalTarget): Promise<{
   ensureEvalBuiltins();
   try {
     // A skill folder that links out of its collection or clone is never
-    // read (#825): it is reported as the link it is.
+    // read (#825): it is reported as the link it is. Its real path was
+    // resolved once (#831); that path is checked here and is the only one
+    // read, so a child swapped after resolution is never read elsewhere.
     const outside = target.boundary
-      ? await skillDirOutside(target.skillPath, target.boundary)
+      ? await skillDirOutside(
+          target.skillPath,
+          target.boundary,
+          target.realPath,
+        )
       : null;
     if (outside) {
       return {
@@ -243,11 +249,16 @@ async function runSingleEval(target: EvalTarget): Promise<{
     }
     // A SKILL.md that links out of its folder is refused before any
     // provider runs, so the refusal keeps its type (and machine code).
-    const mdOutside = await skillMdOutside(target.skillMdPath);
+    const mdOutside = await skillMdOutside(
+      target.realPath
+        ? joinPath(target.realPath, "SKILL.md")
+        : target.skillMdPath,
+    );
     if (mdOutside) throw new SkillMdOutsideLinkError(mdOutside);
     const ctx = {
       skillPath: target.skillPath,
       skillMdPath: target.skillMdPath,
+      ...(target.realPath ? { skillDir: target.realPath } : {}),
     };
     const results = (
       await Promise.all(

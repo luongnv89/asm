@@ -20,6 +20,7 @@ import {
 import type { ProviderEvalReport } from "./eval/summary";
 import { parseFrontmatter } from "./utils/frontmatter";
 import { runCommand } from "./utils/spawn";
+import { readdirInPlace } from "./utils/fs";
 import type {
   CategoryResult,
   EvaluationReport,
@@ -46,6 +47,7 @@ import {
   formatUnreadLink,
   listSkillFiles,
   readSkillMd,
+  SkillFolderMovedError,
   unreadLinkFinding,
 } from "./evaluator-files";
 import {
@@ -84,6 +86,17 @@ export async function evaluateSkillContent(args: {
    * this folder; defaults to `skillPath`.
    */
   skillDir?: string;
+  /**
+   * `skillDir` is the real path checked when the target was resolved
+   * (#831): the walk never resolves it again.
+   */
+  anchored?: boolean;
+  /**
+   * The path the report shows for an anchored `skillDir` (#831): dangling
+   * links are reported against it and the inherited-licence search climbs
+   * from it, as before the folder was read by its real path.
+   */
+  shownAs?: string;
 }): Promise<EvaluationReport> {
   const { content, skillPath, skillMdPath, rootEntries, inheritedLicenseFile } =
     args;
@@ -93,7 +106,10 @@ export async function evaluateSkillContent(args: {
 
   // One confined walk for both file scorers (#825): nothing outside the
   // skill folder is read, and each link that leaves it is reported once.
-  const files = await listSkillFiles(skillDir);
+  const files = await listSkillFiles(skillDir, {
+    anchored: args.anchored,
+    shownAs: args.shownAs,
+  });
 
   // A root entry that is such a link earns no licence credit by its name:
   // an outside or dangling LICENSE link scores as no LICENSE at all (#825).
@@ -105,7 +121,7 @@ export async function evaluateSkillContent(args: {
   const licenseEntries = rootEntries?.filter((e) => !unreadAtRoot.has(e));
   const licenseInherited =
     findLicenseFileName(rootEntries) && !findLicenseFileName(licenseEntries)
-      ? await findInheritedLicenseFile(skillDir)
+      ? await findInheritedLicenseFile(args.shownAs ?? skillDir, rootEntries)
       : inheritedLicenseFile;
 
   // Synchronous scorers run immediately; async scorers run in parallel.
@@ -290,15 +306,22 @@ export function evaluateSkillContentSync(args: {
 /**
  * Read SKILL.md from a skill directory and evaluate it.
  * Throws if the path does not exist or SKILL.md is missing.
+ *
+ * `skillDir` is the real path `asm eval` checked when it resolved a
+ * collection child or clone (#831): everything in the skill is read from
+ * there, never again through `skillPath`, which is only what the report
+ * shows. Unset, `skillPath` is read as given.
  */
 export async function evaluateSkill(
   skillPath: string,
+  options: { skillDir?: string } = {},
 ): Promise<EvaluationReport> {
   const resolved = isAbsolute(skillPath) ? skillPath : resolve(skillPath);
+  const { skillDir } = options;
 
   let s;
   try {
-    s = await stat(resolved);
+    s = await stat(skillDir ?? resolved);
   } catch {
     throw new Error(`Skill path does not exist: ${resolved}`);
   }
@@ -326,7 +349,10 @@ export async function evaluateSkill(
 
   skillMdPath = join(resolved, "SKILL.md");
   // Throws, without reading it, when SKILL.md links outside the folder.
-  const md = await readSkillMd(skillMdPath);
+  const md = await readSkillMd(
+    skillDir ? join(skillDir, "SKILL.md") : skillMdPath,
+    skillDir ? { root: skillDir, shownAs: skillMdPath } : undefined,
+  );
   if (md === null) {
     throw new Error(
       `SKILL.md not found in ${resolved}. Run "asm init" to create one.`,
@@ -334,11 +360,22 @@ export async function evaluateSkill(
   }
   content = md;
 
+  if (!skillDir) {
+    return evaluateSkillContent({
+      content,
+      skillPath: resolved,
+      skillMdPath,
+      ...(await readSkillDirContext(resolved)),
+    });
+  }
   return evaluateSkillContent({
     content,
     skillPath: resolved,
     skillMdPath,
-    ...(await readSkillDirContext(resolved)),
+    ...(await readSkillDirContext(skillDir, resolved)),
+    skillDir,
+    anchored: true,
+    shownAs: resolved,
   });
 }
 
@@ -348,21 +385,37 @@ export async function evaluateSkill(
  * inherits from the enclosing repository. Shared by `evaluateSkill` and
  * `applyFix` so plain eval and `--fix` score the same skill alike.
  */
-async function readSkillDirContext(skillDir: string): Promise<{
+/**
+ * Root entries of `skillDir` and the licence it inherits. With `licenseFrom`
+ * (#831), `skillDir` is a real path checked earlier: it is listed only while
+ * it still resolves to itself, and the licence search climbs from
+ * `licenseFrom`, the path the report shows.
+ */
+async function readSkillDirContext(
+  skillDir: string,
+  licenseFrom?: string,
+): Promise<{
   rootEntries?: string[];
   inheritedLicenseFile?: string;
 }> {
   let rootEntries: string[] | undefined;
-  try {
-    rootEntries = await readdir(skillDir);
-  } catch {
-    rootEntries = undefined;
+  if (licenseFrom) {
+    rootEntries = (await readdirInPlace(skillDir)) ?? undefined;
+    const now = await realpath(skillDir).catch(() => "");
+    // Swapped for a link since it was checked: nothing more is read.
+    if (now !== skillDir) throw new SkillFolderMovedError(skillDir, now);
+  } else {
+    try {
+      rootEntries = await readdir(skillDir);
+    } catch {
+      rootEntries = undefined;
+    }
   }
   return {
     rootEntries,
     inheritedLicenseFile: findLicenseFileName(rootEntries)
       ? undefined
-      : await findInheritedLicenseFile(skillDir),
+      : await findInheritedLicenseFile(licenseFrom ?? skillDir, rootEntries),
   };
 }
 
@@ -376,9 +429,13 @@ async function readSkillDirContext(skillDir: string): Promise<{
  * the walk never picks up a LICENSE from outside the repository. A candidate
  * must be a regular file (symlinks followed) whose real path is inside the
  * git root.
+ *
+ * `startEntries`, when given, are the skill folder's own entries as the
+ * caller already listed them, so the folder is not listed again (#831).
  */
 export async function findInheritedLicenseFile(
   skillDir: string,
+  startEntries?: string[],
 ): Promise<string | undefined> {
   const start = resolve(skillDir);
   const ancestors: { dir: string; entries: string[] }[] = [];
@@ -386,7 +443,8 @@ export async function findInheritedLicenseFile(
   for (;;) {
     let entries: string[];
     try {
-      entries = await readdir(dir);
+      entries =
+        dir === start && startEntries ? startEntries : await readdir(dir);
     } catch {
       return undefined;
     }

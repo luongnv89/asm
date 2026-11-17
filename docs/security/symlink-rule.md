@@ -132,6 +132,19 @@ included), is not a skill and is not listed: only the target and its
 `SKILL.md` are `stat`ed, nothing is walked. A collection folder that is itself a link is
 followed (see "Linked folders").
 
+Each child's real path is resolved once, when the collection is read, and
+that path is both the one checked and the only one read: `SKILL.md`, the
+root listing, the walk, every file read and the linters' copies of the
+scripts all go through it, never through the child's name again. A child
+re-pointed or swapped for a link during the run is therefore never read
+where it now leads: a linked child is still evaluated at the target its
+`link` names, and a folder that no longer resolves to the path checked is
+reported (`Symlink not read: . -> new target`, or an error saying it
+changed after it was checked) and nothing more is read from it. Every file
+read is checked after it is opened: the open file must be the one its path
+names inside the checked folder. `asm audit security <collection>` walks
+each child's checked real path the same way.
+
 A `github:` source is untrusted content, so there a skill folder or subpath
 that links outside the clone is not evaluated: its result is an error
 `Symlink not read: name -> target (directory, NOT read)`.

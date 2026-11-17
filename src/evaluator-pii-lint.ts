@@ -7,9 +7,15 @@
  */
 
 import type { CategoryResult } from "./evaluator-core";
+import { access, chmod, mkdir, mkdtemp, rm, writeFile } from "fs/promises";
+import { constants as fsConstants } from "fs";
+import { tmpdir } from "os";
+import { join } from "path";
 import {
   listSkillFiles,
   readSkillFile,
+  readSkillFileBytes,
+  type SkillFile,
   type SkillFiles,
 } from "./evaluator-files";
 
@@ -474,6 +480,38 @@ export async function runLinter(
   }
 }
 
+let lintCopies = 0;
+
+/**
+ * Copy `file`'s bytes, read where the walk found it, into its own folder
+ * under `dir` with the same name (linters read the name's extension and
+ * shebang only). Returns the copy's path, or null when it was not read.
+ * A script the user cannot read becomes an empty copy nobody can read, so
+ * the linter reports it as it always did.
+ */
+async function lintCopy(file: SkillFile, dir: string): Promise<string | null> {
+  const bytes = await readSkillFileBytes(file);
+  const unreadable = bytes === null && (await isUnreadable(file.fullPath));
+  if (bytes === null && !unreadable) return null;
+  const folder = join(dir, String(lintCopies++));
+  await mkdir(folder);
+  const copy = join(folder, file.name);
+  await writeFile(copy, bytes ?? "");
+  if (unreadable) await chmod(copy, 0o000);
+  return copy;
+}
+
+/** True when `path` exists but this process may not read it. */
+async function isUnreadable(path: string): Promise<boolean> {
+  try {
+    await access(path, fsConstants.R_OK);
+    return false;
+  } catch (err) {
+    const code = (err as NodeJS.ErrnoException).code;
+    return code === "EACCES" || code === "EPERM";
+  }
+}
+
 /**
  * Lint executable scripts bundled with a skill.
  *
@@ -481,6 +519,10 @@ export async function runLinter(
  * and an in-memory Python compile (no __pycache__) for Python scripts. When a linter is
  * unavailable the check is marked as "skipped". Only scripts inside the
  * skill folder are linted (#825); `files` is as for `scorePII`.
+ *
+ * The linter never opens the script by its path (#831): it lints a private
+ * copy of the bytes read from the folder the walk was confined to, so a
+ * folder swapped for a link after the walk is never read through.
  */
 export async function scoreScriptLint(
   skillPath: string,
@@ -492,27 +534,36 @@ export async function scoreScriptLint(
   let lintedCount = 0;
   let skipped = false;
   const allFindings: LintFinding[] = [];
+  let copies: string | null = null;
 
-  for (const file of (files ?? (await listSkillFiles(skillPath))).files) {
-    const entry = file.name;
-    const ext = entry.includes(".") ? "." + entry.split(".").pop() : "";
-    if (!SCRIPT_EXTENSIONS.has(ext)) continue;
-    const relPath = file.relPath;
-    const linterResult = await runLinter(file.fullPath, ext);
-    if (linterResult === null) {
-      skipped = true;
-      const lang = LINTER_CONFIG[ext]?.language || ext;
-      findings.push(
-        `[${lang}] ${relPath}: lint skipped — linter not available`,
-      );
-    } else {
-      lintedCount++;
-      allFindings.push(...linterResult);
-      for (const f of linterResult) {
-        const sev = f.severity.toUpperCase();
-        findings.push(`[${sev}] ${relPath}:${f.line || "*"} — ${f.message}`);
+  try {
+    for (const file of (files ?? (await listSkillFiles(skillPath))).files) {
+      const entry = file.name;
+      const ext = entry.includes(".") ? "." + entry.split(".").pop() : "";
+      if (!SCRIPT_EXTENSIONS.has(ext)) continue;
+      const relPath = file.relPath;
+      copies ??= await mkdtemp(join(tmpdir(), "asm-lint-"));
+      const copy = await lintCopy(file, copies);
+      // Not read (it changed, or is not a regular file): nothing to lint.
+      if (copy === null) continue;
+      const linterResult = await runLinter(copy, ext);
+      if (linterResult === null) {
+        skipped = true;
+        const lang = LINTER_CONFIG[ext]?.language || ext;
+        findings.push(
+          `[${lang}] ${relPath}: lint skipped — linter not available`,
+        );
+      } else {
+        lintedCount++;
+        allFindings.push(...linterResult);
+        for (const f of linterResult) {
+          const sev = f.severity.toUpperCase();
+          findings.push(`[${sev}] ${relPath}:${f.line || "*"} — ${f.message}`);
+        }
       }
     }
+  } finally {
+    if (copies) await rm(copies, { recursive: true, force: true });
   }
 
   if (lintedCount === 0 && !skipped) {

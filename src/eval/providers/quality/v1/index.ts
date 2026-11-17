@@ -21,6 +21,7 @@
  */
 
 import { stat } from "fs/promises";
+import { join } from "path";
 import { evaluateSkill, type EvaluationReport } from "../../../../evaluator";
 import type {
   ApplicableResult,
@@ -97,7 +98,9 @@ export const qualityProviderV1: EvalProvider = {
 
   async applicable(ctx: SkillContext): Promise<ApplicableResult> {
     try {
-      const s = await stat(ctx.skillMdPath);
+      const s = await stat(
+        ctx.skillDir ? join(ctx.skillDir, "SKILL.md") : ctx.skillMdPath,
+      );
       if (!s.isFile()) {
         return {
           ok: false,
@@ -114,7 +117,9 @@ export const qualityProviderV1: EvalProvider = {
   },
 
   async run(ctx: SkillContext, _opts: EvalOpts): Promise<EvalResult> {
-    const report = await evaluateSkill(ctx.skillPath);
+    const report = await evaluateSkill(ctx.skillPath, {
+      skillDir: ctx.skillDir,
+    });
     return {
       providerId: PROVIDER_ID,
       providerVersion: PROVIDER_VERSION,

@@ -1,5 +1,5 @@
 import { stat } from "fs/promises";
-import { basename } from "path";
+import { basename, join } from "path";
 import { parse as parseYaml } from "yaml";
 import type {
   ApplicableResult,
@@ -110,8 +110,12 @@ async function validate(ctx: SkillContext): Promise<{
   findings: Finding[];
   raw: ValidationPayload;
 }> {
-  // Never reads a SKILL.md that links outside the skill folder (#825).
-  const content = await readSkillMd(ctx.skillMdPath);
+  // Never reads a SKILL.md that links outside the skill folder (#825), nor
+  // one outside the folder `asm eval` checked (#831).
+  const content = await readSkillMd(
+    ctx.skillDir ? join(ctx.skillDir, "SKILL.md") : ctx.skillMdPath,
+    ctx.skillDir ? { root: ctx.skillDir, shownAs: ctx.skillMdPath } : undefined,
+  );
   if (content === null) {
     throw new Error(`SKILL.md not found at ${ctx.skillMdPath}`);
   }
@@ -453,7 +457,9 @@ export const skillBestPracticeProviderV1: EvalProvider = {
 
   async applicable(ctx: SkillContext): Promise<ApplicableResult> {
     try {
-      const file = await stat(ctx.skillMdPath);
+      const file = await stat(
+        ctx.skillDir ? join(ctx.skillDir, "SKILL.md") : ctx.skillMdPath,
+      );
       if (!file.isFile()) {
         return {
           ok: false,

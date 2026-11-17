@@ -207,11 +207,27 @@ async function isInternalLink(
  * regular file, and read at most `maxBytes + 1` bytes. Returns null when the
  * file is not regular, unreadable, or larger than `maxBytes` — including
  * procfs/sysfs files that report a size of 0 but stream far more.
+ *
+ * With `root` (a real path), the file opened must be the one `path` names
+ * inside `root` once it is open (#831): its real path is inside `root` and
+ * is the same file as the descriptor. A folder on the way swapped for a
+ * link after it was checked fails that test, and nothing is read.
  */
 export async function readBoundedTextFile(
   path: string,
   maxBytes: number = MAX_FILE_SIZE,
+  root?: string,
 ): Promise<string | null> {
+  const buf = await readBoundedFile(path, maxBytes, root);
+  return buf === null ? null : buf.toString("utf-8");
+}
+
+/** `readBoundedTextFile`, returning the bytes. */
+export async function readBoundedFile(
+  path: string,
+  maxBytes: number = MAX_FILE_SIZE,
+  root?: string,
+): Promise<Buffer | null> {
   let handle;
   try {
     handle = await open(
@@ -222,7 +238,11 @@ export async function readBoundedTextFile(
     return null;
   }
   try {
-    if (!(await handle.stat()).isFile()) return null;
+    const opened = await handle.stat();
+    if (!opened.isFile()) return null;
+    if (root !== undefined && !(await isOpenedInside(opened, path, root))) {
+      return null;
+    }
     const buf = Buffer.alloc(maxBytes + 1);
     let total = 0;
     while (total < buf.length) {
@@ -236,11 +256,30 @@ export async function readBoundedTextFile(
       total += bytesRead;
     }
     if (total > maxBytes) return null;
-    return buf.subarray(0, total).toString("utf-8");
+    return buf.subarray(0, total);
   } catch {
     return null;
   } finally {
     await handle.close().catch(() => {});
+  }
+}
+
+/**
+ * True when `path` resolves inside `root` now and names the file whose
+ * descriptor `stat` gave `opened`: the open did not follow a swapped link.
+ */
+async function isOpenedInside(
+  opened: Stats,
+  path: string,
+  root: string,
+): Promise<boolean> {
+  try {
+    const real = await realpath(path);
+    if (!isPathInside(root, real)) return false;
+    const now = await stat(real);
+    return now.dev === opened.dev && now.ino === opened.ino;
+  } catch {
+    return false;
   }
 }
 
@@ -280,6 +319,23 @@ export async function outsideLinkKind(
   }
 }
 
+/**
+ * List `real`, a real path checked earlier, only while it still resolves to
+ * itself before and after the listing (#831). Returns null when it no
+ * longer does (it was swapped for a link) or cannot be read.
+ */
+export async function readdirInPlace(real: string): Promise<string[] | null> {
+  const where = () => realpath(real).catch(() => "");
+  if ((await where()) !== real) return null;
+  let entries: string[];
+  try {
+    entries = await readdir(real);
+  } catch {
+    return null;
+  }
+  return (await where()) === real ? entries : null;
+}
+
 /** A regular file found by `walkFiles`. */
 export interface WalkedFile {
   fullPath: string;
@@ -289,6 +345,11 @@ export interface WalkedFile {
   name: string;
   /** `stat` of the entry (links followed). */
   stats: Stats;
+  /**
+   * Confined mode: the real folder the walk may not leave. Pass it to
+   * `readBoundedTextFile` so the read stays where the walk was (#831).
+   */
+  root?: string;
 }
 
 export interface WalkFilesOptions {
@@ -310,6 +371,18 @@ export interface WalkFilesOptions {
    * other. A link back to a folder being walked is reported as a loop.
    */
   maxFolderVisits?: number;
+  /**
+   * Confined mode only: `dir` is a real path the caller checked earlier
+   * (#831). It is walked as given, never resolved again, so a folder
+   * swapped for a link since the check is reported, not walked.
+   */
+  anchored?: boolean;
+  /**
+   * The path the user sees for `dir`, when `dir` is a real path resolved
+   * from it (#831). A dangling link's target is reported against it, as
+   * when the walk went through that path.
+   */
+  shownAs?: string;
 }
 
 const DEFAULT_SKIP = (name: string) =>
@@ -320,6 +393,9 @@ const DEFAULT_SKIP = (name: string) =>
  * regular file. With `onExternalSymlink` set the walk is confined (#779):
  * a symlink that resolves outside the boundary, dangles or loops is reported
  * once, by its real location, and is never opened, read or descended into.
+ * A confined walk lists each folder by its real path, and only while that
+ * path still resolves to itself: a folder swapped for a link during the
+ * walk is reported by where it now leads and is not listed (#831).
  * An error on one entry, including one thrown by `visit`, skips that entry.
  */
 export async function walkFiles(
@@ -334,13 +410,14 @@ export async function walkFiles(
   let dirReal = dir;
   if (report) {
     try {
-      dirReal = await realpath(dir);
+      dirReal = options.anchored ? dir : await realpath(dir);
       rootReal = options.root ? await realpath(options.root) : dirReal;
     } catch {
       return;
     }
     if (!isPathInside(rootReal, dirReal)) {
-      report(externalLink(basename(dir) || dir, dirReal, "directory"));
+      const shown = options.shownAs ?? dir;
+      report(externalLink(basename(shown) || shown, dirReal, "directory"));
       return;
     }
   }
@@ -359,15 +436,44 @@ export async function walkFiles(
     ancestors: ReadonlySet<string>,
     currentReal: string,
   ) {
+    // Confined: is `currentReal` still the folder it was? A folder swapped
+    // for a link mid-walk is reported by where it now leads and the rest of
+    // it is not read (#831).
+    const where = () => realpath(currentReal).catch(() => "");
+    const moved = async (): Promise<boolean> => {
+      const now = await where();
+      if (now === currentReal) return false;
+      reportOnce(
+        externalLink(
+          prefix || ".",
+          now,
+          now === "" ? "dangling" : await outsideLinkKind(currentReal),
+        ),
+        currentReal,
+      );
+      return true;
+    };
+
     let entries: string[];
     try {
-      entries = await readdir(currentDir);
+      if (report) {
+        // List the real folder, and only while it is still that folder.
+        if (await moved()) return;
+        entries = await readdir(currentReal);
+        if (await moved()) return;
+      } else {
+        entries = await readdir(currentDir);
+      }
     } catch {
       return;
     }
 
+    // A confined walk reads entries under the real path it just listed;
+    // `currentDir` is the path shown, as before (#831).
+    const listed = report ? currentReal : currentDir;
     for (const entry of entries) {
-      const fullPath = join(currentDir, entry);
+      const fullPath = join(listed, entry);
+      const shownPath = join(currentDir, entry);
       const relPath = prefix ? `${prefix}/${entry}` : entry;
       // Where the entry really is, whichever path led here.
       const at = join(currentReal, entry);
@@ -379,10 +485,11 @@ export async function walkFiles(
             linkTarget = await realpath(fullPath);
           } catch (err) {
             const raw = await readlink(fullPath).catch(() => "");
+            if (await moved()) return;
             reportOnce(
               externalLink(
                 relPath,
-                raw ? resolve(dirname(fullPath), raw) : "",
+                raw ? resolve(dirname(shownPath), raw) : "",
                 (err as NodeJS.ErrnoException).code === "ELOOP"
                   ? "loop"
                   : "dangling",
@@ -392,15 +499,10 @@ export async function walkFiles(
             continue;
           }
           if (!isPathInside(rootReal, linkTarget)) {
+            const kind = await outsideLinkKind(fullPath);
+            if (await moved()) return;
             // Metadata only: the target is never opened, read or walked.
-            reportOnce(
-              externalLink(
-                relPath,
-                linkTarget,
-                await outsideLinkKind(fullPath),
-              ),
-              at,
-            );
+            reportOnce(externalLink(relPath, linkTarget, kind), at);
             continue;
           }
         }
@@ -408,6 +510,7 @@ export async function walkFiles(
         if (skip(entry, s.isDirectory())) continue;
         if (linkTarget !== null && report) {
           if (s.isDirectory() && ancestors.has(linkTarget)) {
+            if (await moved()) return;
             reportOnce(externalLink(relPath, linkTarget, "loop"), at);
             continue;
           }
@@ -415,18 +518,31 @@ export async function walkFiles(
         if (s.isDirectory()) {
           if (report) {
             const real = linkTarget ?? (await realpath(fullPath));
+            if (await moved()) return;
+            if (!isPathInside(rootReal, real)) {
+              // A folder on the way was swapped for a link (#831).
+              reportOnce(externalLink(relPath, real, "directory"), at);
+              continue;
+            }
             // Each real folder is read a bounded number of times (#791):
             // sibling folders linking to each other would otherwise make
             // the walk explode.
             const visits = walked.get(real) ?? 0;
             if (visits >= maxVisits) continue;
             walked.set(real, visits + 1);
-            await walk(fullPath, relPath, new Set([...ancestors, real]), real);
+            await walk(shownPath, relPath, new Set([...ancestors, real]), real);
           } else {
             await walk(fullPath, relPath, ancestors, currentReal);
           }
         } else if (s.isFile()) {
-          await visit({ fullPath, relPath, name: entry, stats: s });
+          if (report && (await moved())) return;
+          await visit({
+            fullPath,
+            relPath,
+            name: entry,
+            stats: s,
+            ...(report ? { root: rootReal } : {}),
+          });
         }
       } catch {
         continue;
@@ -435,7 +551,7 @@ export async function walkFiles(
   }
 
   const walked = new Map<string, number>([[dirReal, 1]]);
-  await walk(dir, "", new Set([dirReal]), dirReal);
+  await walk(options.shownAs ?? dir, "", new Set([dirReal]), dirReal);
 }
 
 export interface ReadFilesRecursiveOptions {
@@ -460,6 +576,8 @@ export interface ReadFilesRecursiveOptions {
    * outside `root`, nothing is read and `dir` is reported as a directory link.
    */
   root?: string;
+  /** See `WalkFilesOptions.anchored`. */
+  anchored?: boolean;
 }
 
 export async function readFilesRecursive(
@@ -470,7 +588,7 @@ export async function readFilesRecursive(
   const confined = options.onExternalSymlink !== undefined;
   await walkFiles(
     dir,
-    async ({ fullPath, relPath, name, stats }) => {
+    async ({ fullPath, relPath, name, stats, root }) => {
       const ext = name.includes(".")
         ? `.${name.split(".").pop()!.toLowerCase()}`
         : "";
@@ -480,7 +598,7 @@ export async function readFilesRecursive(
         options.onHardLink?.(relPath, stats.nlink);
       }
 
-      const content = await readBoundedTextFile(fullPath);
+      const content = await readBoundedTextFile(fullPath, MAX_FILE_SIZE, root);
       if (content === null) return;
       results.push({
         relPath,
@@ -488,7 +606,11 @@ export async function readFilesRecursive(
         lineCount: content.split("\n").length,
       });
     },
-    { onExternalSymlink: options.onExternalSymlink, root: options.root },
+    {
+      onExternalSymlink: options.onExternalSymlink,
+      root: options.root,
+      anchored: options.anchored,
+    },
   );
   return results;
 }

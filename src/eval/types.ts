@@ -106,6 +106,12 @@ export interface SkillContext {
   skillPath: string;
   /** Absolute path to the skill's `SKILL.md`. */
   skillMdPath: string;
+  /**
+   * The real path `asm eval` checked for a collection child or clone
+   * (#831). When set, providers read the skill from here, never through
+   * `skillPath`/`skillMdPath`, which are only what reports show.
+   */
+  skillDir?: string;
   /** Optional skill name (falls back to directory basename). */
   skillName?: string;
 }

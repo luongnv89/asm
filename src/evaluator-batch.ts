@@ -16,7 +16,7 @@
  * cleanup, remote inputs get an `rm -rf` of the temp clone directory.
  */
 
-import { stat, readdir } from "fs/promises";
+import { stat, readdir, realpath } from "fs/promises";
 import { join, resolve, basename, isAbsolute, relative } from "path";
 import {
   linkedSkillFolder,
@@ -62,6 +62,13 @@ export interface EvalTarget {
    * `asm eval <child>` would, and the link is reported as information.
    */
   link?: LinkedSkillFolder;
+  /**
+   * The skill folder's real path, resolved once here for a collection child
+   * or a clone (#831). Its location is checked and it is read at this path
+   * only: a child swapped for another link or folder later is never read.
+   * `skillPath` stays what the report shows.
+   */
+  realPath?: string;
 }
 
 export interface EvalProvenance {
@@ -186,6 +193,20 @@ export function looksLikeGithubInput(input: string): boolean {
   return false;
 }
 
+/**
+ * Resolve a collection child's or clone target's real path once (#831): a
+ * linked child's is the link's target, already resolved.
+ */
+async function withRealPath(target: EvalTarget): Promise<EvalTarget> {
+  if (target.link) return { ...target, realPath: target.link.target };
+  if (!target.boundary) return target;
+  try {
+    return { ...target, realPath: await realpath(target.skillPath) };
+  } catch {
+    return target;
+  }
+}
+
 function buildTargetFromSkillDir(
   skillDir: string,
   boundary?: string,
@@ -275,8 +296,10 @@ export async function resolveEvalInput(
       );
     }
     return {
-      targets: classification.skillDirs.map((dir) =>
-        buildTargetFromSkillDir(dir, boundary),
+      targets: await Promise.all(
+        classification.skillDirs.map((dir) =>
+          withRealPath(buildTargetFromSkillDir(dir, boundary)),
+        ),
       ),
       isCollection: classification.kind === "collection",
       cleanup: remote.cleanup,
@@ -330,9 +353,11 @@ export async function resolveEvalInput(
     classification.skillDirs.map(async (dir): Promise<EvalTarget> => {
       if (!collection) return buildTargetFromSkillDir(dir);
       const link = await linkedSkillFolder(dir);
-      return link
-        ? { ...buildTargetFromSkillDir(dir), link }
-        : buildTargetFromSkillDir(dir, abs);
+      return withRealPath(
+        link
+          ? { ...buildTargetFromSkillDir(dir), link }
+          : buildTargetFromSkillDir(dir, abs),
+      );
     }),
   );
   return {
