@@ -59,9 +59,9 @@ describe("checkGitAvailable", () => {
 });
 
 describe("checkGitVersion", () => {
-  test("returns pass for git >= 2.20", async () => {
+  test("returns pass or warn for the local git (>= 2.20)", async () => {
     const result = await checkGitVersion();
-    expect(result.status).toBe("pass");
+    expect(["pass", "warn"]).toContain(result.status);
     expect(result.name).toBe("Git version");
   });
 });
@@ -460,12 +460,52 @@ describe("checkGitVersion — mocked paths", () => {
     expect(result.message).toContain("Could not parse");
   });
 
-  test("returns pass for git >= 2.20", async () => {
+  test("returns pass for git >= 2.28", async () => {
     const result = await checkGitVersion({
       execFn: mockExec("git version 2.40.1\n"),
     });
     expect(result.status).toBe("pass");
     expect(result.message).toContain("2.40");
+  });
+
+  test("returns pass at exactly git 2.28", async () => {
+    const result = await checkGitVersion({
+      execFn: mockExec("git version 2.28.0\n"),
+    });
+    expect(result.status).toBe("pass");
+    expect(result.fix).toBeUndefined();
+  });
+
+  test("returns pass for git 3.x", async () => {
+    const result = await checkGitVersion({
+      execFn: mockExec("git version 3.0.0\n"),
+    });
+    expect(result.status).toBe("pass");
+  });
+
+  test.each(["2.20.1", "2.25.1", "2.27.0"])(
+    "warns (not fails) for git %s with the folder-check reason",
+    async (version) => {
+      const result = await checkGitVersion({
+        execFn: mockExec(`git version ${version}\n`),
+      });
+      expect(result.status).toBe("warn");
+      expect(result.message).toContain(
+        version.split(".").slice(0, 2).join("."),
+      );
+      expect(result.message).toContain("2.28");
+      expect(result.message).toContain("folder-level outdated checks");
+      expect(result.message).toContain("commit comparison");
+      expect(result.fix).toContain("2.28");
+    },
+  );
+
+  test("still fails just below the 2.20 hard minimum", async () => {
+    const result = await checkGitVersion({
+      execFn: mockExec("git version 2.19.6\n"),
+    });
+    expect(result.status).toBe("fail");
+    expect(result.message).toContain("requires >= 2.20");
   });
 });
 
