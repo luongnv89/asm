@@ -323,6 +323,12 @@ export async function evaluateSkill(
   try {
     s = await stat(skillDir ?? resolved);
   } catch {
+    if (skillDir) {
+      // Swapped for a link while it was looked at (#831): say where it
+      // leads now, not that it does not exist.
+      const now = await realpath(skillDir).catch(() => "");
+      if (now !== skillDir) throw new SkillFolderMovedError(skillDir, now);
+    }
     throw new Error(`Skill path does not exist: ${resolved}`);
   }
 

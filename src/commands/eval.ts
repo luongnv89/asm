@@ -276,6 +276,12 @@ async function runSingleEval(target: EvalTarget): Promise<{
 
     const quality = results.find((result) => result.providerId === "quality");
     if (!quality) {
+      // Its SKILL.md was not found because the child was swapped since it
+      // was checked (#831): report that, and where it now leads.
+      if (realPath) {
+        const now = await realpath(realPath).catch(() => "");
+        if (now !== realPath) throw new SkillFolderMovedError(realPath, now);
+      }
       throw new Error("quality provider did not produce a result");
     }
     unwrapRunnerErrorOrThrow(quality);

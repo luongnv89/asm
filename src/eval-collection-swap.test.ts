@@ -5,7 +5,7 @@ import { describe, test, expect, vi, afterEach } from "vitest";
 // run: the first call of the armed function runs the swap, then the real
 // function. Without the fix the reads followed the child's path to whatever
 // it named at that moment; with it, only the real path checked is read.
-type Seam = "walk" | "skillMd" | "auditWalk";
+type Seam = "walk" | "skillMd" | "auditWalk" | "mdOutside";
 const hook = vi.hoisted(() => ({
   seam: null as null | string,
   swap: null as null | (() => void),
@@ -13,6 +13,12 @@ const hook = vi.hoisted(() => ({
   /** Make `realpath` of this path fail once (the child briefly absent). */
   failRealpath: null as null | string,
   failed: 0,
+  /**
+   * Make `stat` of this path fail once, running `during` first: the swap
+   * lands while the stat is in flight, as from a concurrent provider.
+   */
+  failStat: null as null | { path: string; during: () => void },
+  statFailed: 0,
 }));
 function fire(seam: string) {
   if (hook.seam !== seam || !hook.swap) return;
@@ -33,6 +39,10 @@ vi.mock("./evaluator-files", async (importOriginal) => {
       fire("skillMd");
       return actual.readSkillMd(...args);
     },
+    skillMdOutside: (...args: Parameters<typeof actual.skillMdOutside>) => {
+      fire("mdOutside");
+      return actual.skillMdOutside(...args);
+    },
   };
 });
 vi.mock("fs/promises", async (importOriginal) => {
@@ -45,7 +55,22 @@ vi.mock("fs/promises", async (importOriginal) => {
     }
     return actual.realpath(...args);
   }) as typeof actual.realpath;
-  return { ...actual, default: { ...actual, realpath }, realpath };
+  const stat = (async (...args: Parameters<typeof actual.stat>) => {
+    const fail = hook.failStat;
+    if (fail !== null && args[0] === fail.path) {
+      hook.failStat = null;
+      hook.statFailed++;
+      fail.during();
+      throw Object.assign(new Error("ENOENT (test)"), { code: "ENOENT" });
+    }
+    return actual.stat(...args);
+  }) as typeof actual.stat;
+  return {
+    ...actual,
+    default: { ...actual, realpath, stat },
+    realpath,
+    stat,
+  };
 });
 vi.mock("./utils/fs", async (importOriginal) => {
   const actual = await importOriginal<typeof import("./utils/fs")>();
@@ -65,6 +90,8 @@ import { mkdtemp, rm, writeFile, mkdir, realpath } from "fs/promises";
 import { renameSync, symlinkSync, unlinkSync } from "fs";
 import { tmpdir } from "os";
 import { runCLI } from "./cli-test-harness";
+import { evaluateSkill } from "./evaluator-fix";
+import { readSkillMd, SkillFolderMovedError } from "./evaluator-files";
 
 const MARKER = "SWAPPED-IN-831";
 
@@ -115,13 +142,17 @@ async function fixture(kind: "linked" | "plain"): Promise<Fixture> {
   return { base, coll, target, swappedIn };
 }
 
-/** Swap the child for a link to the swapped-in folder. */
-function swapper(f: Fixture, kind: "linked" | "plain"): () => void {
+/** Swap the child for a link to the swapped-in folder (or to `to`). */
+function swapper(
+  f: Fixture,
+  kind: "linked" | "plain",
+  to = f.swappedIn,
+): () => void {
   const child = join(f.coll, "child");
   return () => {
     if (kind === "linked") unlinkSync(child);
     else renameSync(child, join(f.base, "child-moved"));
-    symlinkSync(f.swappedIn, child);
+    symlinkSync(to, child);
   };
 }
 
@@ -154,6 +185,8 @@ describe.skipIf(process.platform === "win32")(
       hook.fired = 0;
       hook.failRealpath = null;
       hook.failed = 0;
+      hook.failStat = null;
+      hook.statFailed = 0;
       if (f) await rm(f.base, { recursive: true, force: true });
       f = null;
     });
@@ -212,6 +245,46 @@ describe.skipIf(process.platform === "win32")(
       const reported = JSON.stringify(child);
       expect(reported).toContain(f.swappedIn);
       expect(reported).toMatch(/NOT read/);
+    });
+
+    // The same swap landing between the location check and the providers,
+    // or while one of their reads is in flight: reported by where the
+    // child now leads, never as a missing skill.
+    test("asm eval: a non-link child swapped before the providers run, for a folder without SKILL.md, is reported", async () => {
+      f = await fixture("plain");
+      const bare = join(f.base, "bare");
+      await mkdir(bare);
+      await writeFile(join(bare, "README.md"), `# ${MARKER}\n`);
+      arm("mdOutside", swapper(f, "plain", bare));
+      const { raw, child } = await evalChild(f.coll);
+      expect(hook.fired).toBe(1);
+      expect(raw).not.toContain(MARKER);
+      expect(child.error).toContain(
+        `${join(f.coll, "child")} changed after it was checked and now leads to ${bare}; asm eval read nothing from it.`,
+      );
+    });
+
+    test("evaluateSkill: an anchored folder swapped while it is stat'ed is reported by where it now leads", async () => {
+      f = await fixture("plain");
+      const skillDir = join(f.coll, "child");
+      hook.failStat = { path: skillDir, during: swapper(f, "plain") };
+      const err = await evaluateSkill(skillDir, { skillDir }).catch((e) => e);
+      expect(hook.statFailed).toBe(1);
+      expect(err).toBeInstanceOf(SkillFolderMovedError);
+      expect(err.message).toContain(`now leads to ${f.swappedIn}`);
+    });
+
+    test("readSkillMd: an anchored SKILL.md gone because its folder was swapped is reported, not called missing", async () => {
+      f = await fixture("plain");
+      const skillDir = join(f.coll, "child");
+      const md = join(skillDir, "SKILL.md");
+      hook.failStat = { path: md, during: swapper(f, "plain") };
+      const err = await readSkillMd(md, { root: skillDir, shownAs: md }).catch(
+        (e) => e,
+      );
+      expect(hook.statFailed).toBe(1);
+      expect(err).toBeInstanceOf(SkillFolderMovedError);
+      expect(err.message).toContain(`now leads to ${f.swappedIn}`);
     });
 
     test("asm audit security: a non-link child swapped for a link at the walk is reported, not read", async () => {

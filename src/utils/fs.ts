@@ -545,9 +545,14 @@ export async function walkFiles(
           });
         }
       } catch {
+        // The entry may have failed because its folder was swapped (it is
+        // missing from the swapped-in one): report the swap (#831).
+        if (report && (await moved())) return;
         continue;
       }
     }
+    // A swap after the last entry, or one no remaining entry noticed.
+    if (report) await moved();
   }
 
   const walked = new Map<string, number>([[dirReal, 1]]);

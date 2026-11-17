@@ -238,16 +238,20 @@ export async function readSkillMd(
   await assertInPlace();
   const outside = await skillMdOutside(abs);
   if (outside) throw new SkillMdOutsideLinkError(outside);
+  // Not found because the folder was swapped since it was checked is
+  // reported as that, not as a missing SKILL.md (#831).
   let mdReal: string;
   try {
     mdReal = await realpath(abs);
   } catch {
+    await assertInPlace();
     return null;
   }
   let size: number;
   try {
     size = (await stat(mdReal)).size;
   } catch {
+    await assertInPlace();
     return null;
   }
   const content = await readBoundedTextFile(
