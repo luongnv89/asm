@@ -1,11 +1,9 @@
 import { loadConfig } from "../config";
-import { scanAllSkills, skillMdOutsideWarning } from "../scanner";
-import { skillMdOutside } from "../evaluator-files";
+import { scanAllSkills } from "../scanner";
 import {
   parseFrontmatter,
   resolveSkillDependencies,
 } from "../utils/frontmatter";
-import { readFile as fsReadFile } from "fs/promises";
 import {
   formatJSON,
   ansi,
@@ -23,6 +21,7 @@ import {
   scanForWarnings,
   classifyWarningRisk,
   SkillMdOutsideFolderError,
+  readSourceSkillMd,
 } from "../installer";
 import { isBareOrScopedName, resolveFromRegistry } from "../registry";
 import { formatSecurityReport } from "../security-auditor";
@@ -160,10 +159,12 @@ async function fetchGetFromRemote(
       remote.rootDir,
       hintBase,
     );
-    const content = await fsReadFile(
+    const content = await readSourceSkillMd(
       joinPath(remote.rootDir, "SKILL.md"),
-      "utf-8",
     );
+    if (content === null) {
+      throw new Error(`No SKILL.md found in "${hintBase}".`);
+    }
     const dependencies = resolveSkillDependencies(parseFrontmatter(content));
 
     // Confined to the clone (#791): links out of it are warnings, not read.
@@ -249,14 +250,10 @@ export async function resolveGetTarget(
     const localPath = parseSource(
       isLocalPath(target) ? target : `./${target}`,
     ).localPath!;
-    // Refuse a SKILL.md that links out of the folder, like rungs 1 and 2
-    // (#869).
-    const outside = await skillMdOutside(joinPath(localPath, "SKILL.md"));
-    if (outside) throw new Error(skillMdOutsideWarning(outside).message);
-    let content: string;
-    try {
-      content = await fsReadFile(joinPath(localPath, "SKILL.md"), "utf-8");
-    } catch {
+    // Refuse a SKILL.md that links out of the folder, like rungs 1 and 2,
+    // and read it bound to the folder (#869).
+    const content = await readSourceSkillMd(joinPath(localPath, "SKILL.md"));
+    if (content === null) {
       throw new Error(`No SKILL.md found in "${localPath}".`);
     }
     return {
@@ -275,16 +272,14 @@ export async function resolveGetTarget(
     installed.find((s) => s.name === target);
   if (match) {
     // The scanner refuses a SKILL.md that leaves the skill folder (#795); so
-    // does get, rather than reading it here instead.
-    const outside =
-      match._skillMdContent === undefined
-        ? await skillMdOutside(joinPath(match.path, "SKILL.md"))
-        : null;
-    if (outside) throw new Error(skillMdOutsideWarning(outside).message);
+    // does get, rather than reading it here instead, bound to the folder.
     const content =
       match._skillMdContent !== undefined
         ? match._skillMdContent
-        : await fsReadFile(joinPath(match.path, "SKILL.md"), "utf-8");
+        : await readSourceSkillMd(joinPath(match.path, "SKILL.md"));
+    if (content === null) {
+      throw new Error(`No SKILL.md found in "${match.path}".`);
+    }
     return {
       result: localGetResult(content, "installed", match.path, {
         name: match.name,
@@ -302,9 +297,10 @@ export async function resolveGetTarget(
   const libMatch = findLibrarySkill(await listLibrarySkills(), target);
   if (libMatch && !libMatch.missing) {
     const libSkillMd = joinPath(libMatch.libraryPath, "SKILL.md");
-    const libOutside = await skillMdOutside(libSkillMd);
-    if (libOutside) throw new Error(skillMdOutsideWarning(libOutside).message);
-    const content = await fsReadFile(libSkillMd, "utf-8");
+    const content = await readSourceSkillMd(libSkillMd);
+    if (content === null) {
+      throw new Error(`No SKILL.md found in "${libMatch.libraryPath}".`);
+    }
     return {
       result: localGetResult(content, "library", libMatch.libraryPath, {
         name: libMatch.name,

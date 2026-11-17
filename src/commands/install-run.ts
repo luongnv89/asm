@@ -297,6 +297,16 @@ export async function cmdInstall(args: ParsedArgs) {
     // Vercel method: delegate to npx skills add and then continue with
     // standard asm install to register in asm's local inventory
     if (args.flags.method === "vercel") {
+      // The Vercel CLI reads a local source itself: refuse a SKILL.md that
+      // links out of its folder anywhere in it before handing it over
+      // (#869). A remote source is cloned by that CLI, out of asm's reach.
+      if (source.isLocal) {
+        let refused: SkillMdOutsideFolderError | undefined;
+        await discoverSkills(source.localPath!, 5, (_rel, link) => {
+          refused ??= new SkillMdOutsideFolderError(link);
+        });
+        if (refused) throw refused;
+      }
       console.info(stepHeader("Installing via Vercel skills CLI"));
       await checkNpxAvailable();
 

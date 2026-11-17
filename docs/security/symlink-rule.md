@@ -174,4 +174,10 @@ full.
   outside the skill folder.
 - The walk resolves each entry, checks it, and then opens it by path. A link
   swapped in during that window could be followed (TOCTOU). It needs a writer
-  racing the scan inside the folder.
+  racing the scan inside the folder. A `SKILL.md` read by `asm install` or
+  `asm get` is the exception: it is read through a descriptor checked to be
+  inside its folder, so a swap after the check reads nothing.
+- `asm install --method vercel` hands the source to the Vercel skills CLI. A
+  local source is checked first and refused when any `SKILL.md` in it links
+  outside its folder; a remote source is cloned by that CLI, out of asm's
+  reach, and only asm's own install that follows is checked.

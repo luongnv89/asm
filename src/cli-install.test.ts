@@ -1339,6 +1339,42 @@ describe("CLI integration: install --path/--all subpath discovery", () => {
     },
   );
 
+  test.skipIf(process.platform === "win32")(
+    "--method vercel refuses an outside-linked SKILL.md before handing a local source over (#869)",
+    async () => {
+      const tmpDir = await mkdtemp(join(tmpdir(), "asm-install-869-vercel-"));
+      try {
+        const outsideMd = await writeOutsideSkillMd(tmpDir);
+        const src = join(tmpDir, "src");
+        await mkdir(join(src, "skills", "bad"), { recursive: true });
+        await symlink(outsideMd, join(src, "skills", "bad", "SKILL.md"));
+
+        const { stdout, stderr, exitCode } = await runCLIWithHome(
+          tmpDir,
+          "install",
+          src,
+          "--method",
+          "vercel",
+          "-y",
+          "-p",
+          "claude",
+          "--scope",
+          "global",
+        );
+        const all = stdout + "\n" + stderr;
+        expect(exitCode).not.toBe(0);
+        expect(all).toContain(`SKILL.md -> ${await realpath(outsideMd)}`);
+        expect(all).toContain("asm reads nothing outside the skill folder");
+        // Refused before the Vercel CLI was ever invoked.
+        expect(all).not.toContain("Installing via Vercel skills CLI");
+        expect(all).not.toContain("npx skills add");
+        expect(all).not.toContain("OUTSIDE-SECRET-869");
+      } finally {
+        await rm(tmpDir, { recursive: true, force: true });
+      }
+    },
+  );
+
   test("--all on subpath collection (no SKILL.md at subpath, but skills in subdirs) discovers them (issue #251)", async () => {
     const tmpDir = await mkdtemp(join(tmpdir(), "asm-install-251-"));
     try {

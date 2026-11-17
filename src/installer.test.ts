@@ -29,6 +29,7 @@ import {
   checkGitAvailable,
   validateSkill,
   discoverSkills,
+  readSourceSkillMd,
   scanForWarnings,
   classifyWarningRisk,
   OUTSIDE_SYMLINK_CATEGORY,
@@ -3376,6 +3377,66 @@ describe.skipIf(process.platform === "win32")(
       expect(await readlink(join(targetDir, "escape"))).toBe(
         resolve(sourceDir, "../outside"),
       );
+    });
+  },
+);
+
+// ─── Bound SKILL.md read for install and get (#869) ────────────────────────
+
+describe.skipIf(process.platform === "win32")(
+  "readSourceSkillMd reads a SKILL.md only inside its folder (#869)",
+  () => {
+    const SECRET = "OUTSIDE-SECRET-869-READ";
+    let tempDir: string;
+    let outsideMd: string;
+
+    beforeEach(async () => {
+      tempDir = await mkdtemp(join(tmpdir(), "asm-test-bound-md-"));
+      await mkdir(join(tempDir, "outside"));
+      outsideMd = join(tempDir, "outside", "SKILL.md");
+      await writeFile(outsideMd, `---\nname: ${SECRET}\n---\n`);
+      await mkdir(join(tempDir, "skill"));
+    });
+
+    afterEach(async () => {
+      await rm(tempDir, { recursive: true, force: true });
+    });
+
+    test("refuses a link out of the folder without reading it", async () => {
+      await symlink(outsideMd, join(tempDir, "skill", "SKILL.md"));
+      const outcome = await readSourceSkillMd(
+        join(tempDir, "skill", "SKILL.md"),
+      ).then(
+        (r) => r,
+        (err: unknown) => err,
+      );
+      expect(outcome).toBeInstanceOf(SkillMdOutsideFolderError);
+      expect((outcome as Error).message).not.toContain(SECRET);
+    });
+
+    test("reads a regular file and a link inside the folder", async () => {
+      const md = "---\nname: inside\n---\n";
+      await writeFile(join(tempDir, "skill", "body.md"), md);
+      await symlink("body.md", join(tempDir, "skill", "SKILL.md"));
+      expect(await readSourceSkillMd(join(tempDir, "skill", "SKILL.md"))).toBe(
+        md,
+      );
+      expect(await readSourceSkillMd(join(tempDir, "skill", "body.md"))).toBe(
+        md,
+      );
+    });
+
+    test("returns null for a missing SKILL.md or a folder named SKILL.md", async () => {
+      expect(
+        await readSourceSkillMd(join(tempDir, "skill", "SKILL.md")),
+      ).toBeNull();
+      await mkdir(join(tempDir, "skill", "SKILL.md"));
+      expect(
+        await readSourceSkillMd(join(tempDir, "skill", "SKILL.md")),
+      ).toBeNull();
+      expect(
+        await readSourceSkillMd(join(tempDir, "missing", "SKILL.md")),
+      ).toBeNull();
     });
   },
 );
