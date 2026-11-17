@@ -244,7 +244,9 @@ export async function cmdSearch(args: ParsedArgs) {
   }
 
   if (hasInstalled) {
-    console.error(ansi.bold(`Installed skills matching "${query}":\n`));
+    console.error(
+      ansi.bold(`Installed skills matching "${stripControlBytes(query)}":\n`),
+    );
     if (args.flags.flat) {
       console.log(formatSkillTable(installedResults));
     } else {
@@ -412,7 +414,7 @@ async function runFuzzySearch(
 
   console.error(
     ansi.bold(
-      `Installed skills matching "${query}" in ${where}, best match first:\n`,
+      `Installed skills matching "${stripControlBytes(query)}" in ${stripControlBytes(where)}, best match first:\n`,
     ),
   );
   console.log(formatLocatedSearchResults(results));

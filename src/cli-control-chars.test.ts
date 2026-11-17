@@ -647,6 +647,45 @@ describe("author control bytes in the surfaces #833 left out (#834)", () => {
     expect(out.stderr).toContain("s?[31m");
   }, 60_000);
 
+  test("search: a hostile query is stripped in every results header", async () => {
+    const root = await emptyHome();
+    await writeSkillAt(
+      join(root, ".claude", "skills", "code-review"),
+      "code-review",
+    );
+    await writeHostileSource(join(root, ".claude", "skills", "evilskill"));
+    await writeHostileIndex(root);
+    const projects = join(root, `p${H}`);
+    await mkdir(projects, { recursive: true });
+
+    const fuzzy = await runIn(root, "search", `review${H}`, "--fuzzy");
+    expect(fuzzy.exitCode).toBe(0);
+    expect(fuzzy.stderr).toContain("best match first");
+    expectStripped(fuzzy, `matching "review?[31m`);
+
+    const rooted = await runIn(
+      root,
+      "search",
+      `review${H}`,
+      "--root",
+      projects,
+    );
+    expect(rooted.exitCode).toBe(0);
+    expect(rooted.stderr).toContain("best match first");
+    expectStripped(rooted, "p?[31m");
+
+    const installed = await runIn(root, "search", NAME, "--installed");
+    expect(installed.exitCode).toBe(0);
+    expectStripped(installed, `Installed skills matching "evil?[31m`);
+    expect(installed.stdout + installed.stderr).toContain(
+      `result (1 unique) matching "evil?[31m`,
+    );
+
+    const available = await runIn(root, "search", NAME, "--available");
+    expect(available.exitCode).toBe(0);
+    expectStripped(available, `available skill matching "evil?[31m`);
+  }, 60_000);
+
   test("link: the found, linked and done lines are stripped", async () => {
     const root = await emptyHome();
     const src = join(root, "src");

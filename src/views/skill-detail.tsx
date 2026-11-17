@@ -122,7 +122,9 @@ export function SkillDetailView({ skill: original }: SkillDetailProps) {
         <Row
           label="Effort"
           value={skill.effort}
-          valueColor={EFFORT_COLORS[skill.effort.toLowerCase()] || theme.fg}
+          valueColor={
+            EFFORT_COLORS[(original.effort ?? "").toLowerCase()] || theme.fg
+          }
         />
       )}
       <Row
@@ -212,14 +214,15 @@ export function SkillDetailView({ skill: original }: SkillDetailProps) {
           </Box>
           <Box flexDirection="row">
             <Text>{"  "}</Text>
-            {skill.allowedTools.map((t, i) => {
+            {/* Risk lookup reads the original name; render the stripped one. */}
+            {(original.allowedTools ?? []).map((t, i, tools) => {
               let color: string = theme.green;
               if (HIGH_RISK_TOOLS.has(t)) color = theme.red;
               else if (MEDIUM_RISK_TOOLS.has(t)) color = theme.yellow;
-              const sep = i < skill.allowedTools.length - 1 ? "  " : "";
+              const sep = i < tools.length - 1 ? "  " : "";
               return (
                 <Text key={`tool-${i}`} color={color}>
-                  {t}
+                  {stripControlBytes(t)}
                   {sep}
                 </Text>
               );

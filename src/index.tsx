@@ -41,6 +41,7 @@ import { ConfigView } from "./views/config";
 import { DuplicatesView } from "./views/duplicates";
 import { parseEditorCommand } from "./utils/editor";
 import { theme } from "./utils/colors";
+import { stripControlBytes } from "./utils/control-chars";
 
 const EMPTY_AUDIT: AuditReport = {
   scannedAt: "",
@@ -490,7 +491,11 @@ export function App({ initialConfig }: AppProps) {
               paddingX={1}
             >
               <Text color={theme.red} bold>
-                {bannerError.title}: {bannerError.message}
+                {stripControlBytes(bannerError.title)}:{" "}
+                {bannerError.message
+                  .split("\n")
+                  .map(stripControlBytes)
+                  .join("\n")}
               </Text>
             </Box>
           )}
