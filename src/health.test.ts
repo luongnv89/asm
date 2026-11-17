@@ -1,7 +1,7 @@
 import { describe, expect, it, beforeEach, afterEach } from "vitest";
 import { checkHealth } from "./health";
 import type { SkillInfo } from "./utils/types";
-import { mkdtemp, writeFile, rm } from "fs/promises";
+import { mkdir, mkdtemp, realpath, rm, symlink, writeFile } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
 
@@ -274,5 +274,26 @@ name: test-skill
       expect(w.category.length).toBeGreaterThan(0);
       expect(w.message.length).toBeGreaterThan(0);
     }
+  });
+
+  it("reports a SKILL.md linked outside the folder without reading it (#795)", async () => {
+    const skillDir = join(tempDir, "skill");
+    await mkdir(skillDir);
+    const secret = join(tempDir, "secret.md");
+    // Invalid YAML: reading it would quote HOST-SECRET in the warning.
+    await writeFile(secret, "---\nname: [HOST-SECRET\n---\n");
+    await symlink(secret, join(skillDir, "SKILL.md"));
+    const warnings = await checkHealth(
+      makeSkill({ path: skillDir, description: "", version: "0.0.0" }),
+    );
+    expect(JSON.stringify(warnings)).not.toContain("HOST-SECRET");
+    expect(warnings).toEqual([
+      {
+        category: "skill-md-outside-folder",
+        message: expect.stringContaining(
+          `SKILL.md -> ${await realpath(secret)} (file, NOT read)`,
+        ),
+      },
+    ]);
   });
 });

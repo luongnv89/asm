@@ -1,5 +1,6 @@
 import { loadConfig } from "../config";
-import { scanAllSkills } from "../scanner";
+import { scanAllSkills, skillMdOutsideWarning } from "../scanner";
+import { skillMdOutside } from "../evaluator-files";
 import {
   parseFrontmatter,
   resolveSkillDependencies,
@@ -262,6 +263,13 @@ export async function resolveGetTarget(
     installed.find((s) => s.dirName === target) ??
     installed.find((s) => s.name === target);
   if (match) {
+    // The scanner refuses a SKILL.md that leaves the skill folder (#795); so
+    // does get, rather than reading it here instead.
+    const outside =
+      match._skillMdContent === undefined
+        ? await skillMdOutside(joinPath(match.path, "SKILL.md"))
+        : null;
+    if (outside) throw new Error(skillMdOutsideWarning(outside).message);
     const content =
       match._skillMdContent !== undefined
         ? match._skillMdContent

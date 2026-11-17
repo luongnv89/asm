@@ -246,4 +246,43 @@ describe("get path resolution and remote lifecycle", () => {
       code: "ENOENT",
     });
   });
+
+  it("refuses an installed skill whose SKILL.md links outside its folder (#795)", async () => {
+    const installedDir = join(tempDir, "installed", "leaky");
+    await mkdir(installedDir, { recursive: true });
+    const secret = join(tempDir, "secret.md");
+    await writeFile(
+      secret,
+      "---\nname: hostfile\ndescription: HOST-SECRET-CONTENT\n---\nHOST-SECRET-BODY\n",
+    );
+    await symlink(secret, join(installedDir, "SKILL.md"));
+    vi.mocked(scanner.scanAllSkills).mockResolvedValue([
+      {
+        name: "leaky",
+        version: "0.0.0",
+        description: "",
+        creator: "",
+        license: "",
+        compatibility: "",
+        allowedTools: [],
+        dirName: "leaky",
+        path: installedDir,
+        originalPath: installedDir,
+        location: "global-claude",
+        scope: "global",
+        provider: "claude",
+        providerLabel: "Claude Code",
+        isSymlink: false,
+        symlinkTarget: null,
+        realPath: installedDir,
+      },
+    ]);
+    await run("leaky", "--machine");
+    expect(process.exitCode).toBe(1);
+    expect(stdout + stderr).not.toContain("HOST-SECRET");
+    expect(JSON.parse(stdout)).toMatchObject({
+      status: "error",
+      error: { message: expect.stringContaining("NOT read") },
+    });
+  });
 });

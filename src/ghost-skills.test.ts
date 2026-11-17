@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { mkdtemp, mkdir, rm, writeFile } from "fs/promises";
+import { mkdtemp, mkdir, realpath, rm, symlink, writeFile } from "fs/promises";
 import { tmpdir } from "os";
 import { join } from "path";
 import { buildGhostSkills } from "./ghost-skills";
@@ -146,5 +146,32 @@ describe("buildGhostSkills", () => {
     expect(ghosts.map((g) => g.dirName)).toEqual(["alpha"]);
     expect(ghosts[0].description).toBe("");
     expect(ghosts[0].tokenCount).toBeUndefined();
+  });
+
+  it("never reads a library SKILL.md that links outside its folder (#795)", async () => {
+    const entry = await makeLibrarySkill("alpha");
+    const secret = join(libraryDir, "secret.md");
+    await writeFile(
+      secret,
+      "---\nname: hostfile\ndescription: HOST-SECRET-CONTENT\neffort: high\nmetadata:\n  creator: host-creator\n---\nHOST-SECRET-BODY\n",
+    );
+    await rm(join(entry.libraryPath, "SKILL.md"));
+    await symlink(secret, join(entry.libraryPath, "SKILL.md"));
+
+    const [ghost] = await buildGhostSkills([entry], [], "global");
+    expect(ghost.dirName).toBe("alpha");
+    expect(ghost.description).toBe("");
+    expect(ghost.creator).toBe("");
+    expect(ghost.effort).toBeUndefined();
+    expect(ghost.tokenCount).toBeUndefined();
+    expect(JSON.stringify(ghost)).not.toMatch(/HOST-SECRET|host-creator/);
+    expect(ghost.warnings).toEqual([
+      {
+        category: "skill-md-outside-folder",
+        message: expect.stringContaining(
+          `SKILL.md -> ${await realpath(secret)} (file, NOT read)`,
+        ),
+      },
+    ]);
   });
 });

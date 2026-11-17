@@ -96,6 +96,7 @@ import {
   skillFieldsFromSkillMd,
 } from "./scanner";
 import { setVerbose } from "./logger";
+import { checkHealth } from "./health";
 import { getDefaultConfig } from "./config";
 import type { AppConfig, SkillInfo } from "./utils/types";
 
@@ -2154,5 +2155,115 @@ describe("skillFieldsFromSkillMd (#829)", () => {
     expect(skillFieldsFromSkillMd("no frontmatter", "folder").name).toBe(
       "folder",
     );
+  });
+});
+
+// ─── SKILL.md linked outside the skill folder (#795) ────────────────────────
+
+describe("SKILL.md that resolves outside the skill folder (#795)", () => {
+  const SECRET_MD =
+    "---\nname: hostfile\nversion: 9.9.9\ndescription: HOST-SECRET-CONTENT\nmetadata:\n  creator: host-creator\n---\nHOST-SECRET-BODY\n";
+  let tempDir: string;
+  let secretFile: string;
+
+  beforeEach(async () => {
+    resetScanFsControl();
+    tempDir = await mkdtemp(join(tmpdir(), "scanner-outside-md-"));
+    await mkdir(join(tempDir, "outside"));
+    secretFile = join(tempDir, "outside", "secret.md");
+    await writeFile(secretFile, SECRET_MD);
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  /** A skill folder whose SKILL.md is a link to the outside file. */
+  async function makeLeakySkill(root: string, name: string): Promise<void> {
+    await mkdir(join(root, name), { recursive: true });
+    await symlink(secretFile, join(root, name, "SKILL.md"));
+  }
+
+  async function expectRefused(skill: SkillInfo | undefined, name: string) {
+    expect(skill).toBeDefined();
+    expect(skill!.name).toBe(name);
+    expect(skill!.description).toBe("");
+    expect(skill!.version).toBe("0.0.0");
+    expect(skill!.creator).toBe("");
+    expect(skill!._skillMdContent).toBeUndefined();
+    expect(skill!.tokenCount).toBeUndefined();
+    const json = JSON.stringify(skill);
+    for (const secret of ["hostfile", "HOST-SECRET", "host-creator", "9.9.9"])
+      expect(json).not.toContain(secret);
+    const target = await realpath(secretFile);
+    expect(skill!.warnings).toEqual([
+      {
+        category: "skill-md-outside-folder",
+        message: expect.stringContaining(
+          `SKILL.md -> ${target} (file, NOT read)`,
+        ),
+      },
+    ]);
+    // `asm list` / `inspect` run the health check over the scanned rows: it
+    // keeps the reason and reads nothing from the outside file either.
+    const health = await checkHealth(skill!);
+    expect(health).toEqual(skill!.warnings);
+    expect(JSON.stringify(health)).not.toContain("HOST-SECRET");
+  }
+
+  it.each(["global", "project"] as const)(
+    "lists a %s skill by folder name with a warning, never reading the link",
+    async (scope) => {
+      const root = join(tempDir, `${scope}-skills`);
+      await makeLeakySkill(root, "leaky");
+      const skills = await scanAllSkills(makeScanConfig([root], scope), scope);
+      expect(skills).toHaveLength(1);
+      await expectRefused(skills[0], "leaky");
+      expect(skills[0].scope).toBe(scope);
+    },
+  );
+
+  it("refuses the link in a plugin marketplace skill too", async () => {
+    const marketplaces = join(tempDir, "marketplaces");
+    await makeLeakySkill(join(marketplaces, "mkt", "skills"), "leaky");
+    const skills = await scanPluginMarketplaces(marketplaces);
+    expect(skills).toHaveLength(1);
+    await expectRefused(skills[0], "leaky");
+  });
+
+  it("keeps a linked skill folder (asm link) and an in-folder SKILL.md link", async () => {
+    const root = join(tempDir, "skills");
+    await mkdir(root);
+    // `asm link`: the whole folder is a link to a dev checkout elsewhere.
+    const devCheckout = join(tempDir, "dev", "linked");
+    await mkdir(devCheckout, { recursive: true });
+    await writeFile(
+      join(devCheckout, "SKILL.md"),
+      "---\nname: linked-skill\nversion: 1.0.0\ndescription: Dev checkout\n---\nBody\n",
+    );
+    await symlink(devCheckout, join(root, "linked"), "dir");
+    // A SKILL.md that links to a file inside its own folder.
+    await mkdir(join(root, "aliased"));
+    await writeFile(
+      join(root, "aliased", "real.md"),
+      "---\nname: aliased-skill\nversion: 1.0.0\ndescription: In-folder link\n---\nBody\n",
+    );
+    await symlink("real.md", join(root, "aliased", "SKILL.md"));
+
+    const skills = await scanAllSkills(makeScanConfig([root]), "project");
+    const byDir = new Map(skills.map((s) => [s.dirName, s]));
+    expect(byDir.get("linked")).toMatchObject({
+      name: "linked-skill",
+      description: "Dev checkout",
+      isSymlink: true,
+    });
+    expect(byDir.get("aliased")).toMatchObject({
+      name: "aliased-skill",
+      description: "In-folder link",
+    });
+    for (const skill of skills) {
+      expect(skill.warnings).toBeUndefined();
+      expect(await checkHealth(skill)).toEqual([]);
+    }
   });
 });
