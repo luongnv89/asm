@@ -22,6 +22,7 @@ import {
   discoverSkills,
   scanForWarnings,
   classifyWarningRisk,
+  SkillMdOutsideFolderError,
 } from "../installer";
 import { isBareOrScopedName, resolveFromRegistry } from "../registry";
 import { formatSecurityReport } from "../security-auditor";
@@ -108,6 +109,9 @@ async function validateSkillForGet(
     const { name, description } = await validateSkill(rootDir);
     return { name, description };
   } catch (err) {
+    // A root SKILL.md that links out of the folder is refused as such, not
+    // turned into a "pick a nested skill" hint (#869).
+    if (err instanceof SkillMdOutsideFolderError) throw err;
     const nested = (await discoverSkills(rootDir)).filter((s) => s.relPath);
     if (nested.length > 0) {
       const shown = nested.slice(0, 5);
@@ -245,6 +249,10 @@ export async function resolveGetTarget(
     const localPath = parseSource(
       isLocalPath(target) ? target : `./${target}`,
     ).localPath!;
+    // Refuse a SKILL.md that links out of the folder, like rungs 1 and 2
+    // (#869).
+    const outside = await skillMdOutside(joinPath(localPath, "SKILL.md"));
+    if (outside) throw new Error(skillMdOutsideWarning(outside).message);
     let content: string;
     try {
       content = await fsReadFile(joinPath(localPath, "SKILL.md"), "utf-8");

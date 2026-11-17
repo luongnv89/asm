@@ -15,7 +15,7 @@
  */
 
 import { loadConfig, getLibrarySkillsDir } from "../config";
-import { scanAllSkills } from "../scanner";
+import { scanAllSkills, skillMdOutsideWarning } from "../scanner";
 import { ansi } from "../formatter";
 import {
   parseSource,
@@ -38,6 +38,7 @@ import {
   executeNpxSkillsAdd,
   buildRepoUrl,
   linkExistingSkill,
+  SkillMdOutsideFolderError,
 } from "../installer";
 import type { InstallResult, ProviderConfig } from "../utils/types";
 import { checkboxPicker } from "../utils/checkbox-picker";
@@ -425,7 +426,10 @@ export async function cmdInstall(args: ParsedArgs) {
       try {
         await validateSkill(skillDir);
         foundSkill = true;
-      } catch {
+      } catch (err) {
+        // A SKILL.md that links out of the folder is refused, never treated
+        // as "no SKILL.md here" (#869).
+        if (err instanceof SkillMdOutsideFolderError) throw err;
         // No SKILL.md at the resolved path. With --all, treat the path as a
         // collection of skills (mirror whole-repo --all behavior, scoped to
         // this subpath). Without --all, surface the original error so the
@@ -433,6 +437,7 @@ export async function cmdInstall(args: ParsedArgs) {
         if (!args.flags.all) {
           throw new Error(
             `No SKILL.md found at path "${effectivePath}" in the repository.`,
+            { cause: err },
           );
         }
         // Confirm the directory exists before falling back to discovery so we
@@ -443,6 +448,7 @@ export async function cmdInstall(args: ParsedArgs) {
           if (!s.isDirectory()) {
             throw new Error(
               `No SKILL.md found at path "${effectivePath}" in the repository.`,
+              { cause: err },
             );
           }
         } catch (statErr) {
@@ -468,7 +474,10 @@ export async function cmdInstall(args: ParsedArgs) {
       try {
         await validateSkill(scanBaseDir);
         isRootSkill = true;
-      } catch {
+      } catch (err) {
+        // A root SKILL.md that links out of the folder aborts the install,
+        // even with --all: fail closed (#869).
+        if (err instanceof SkillMdOutsideFolderError) throw err;
         // Not a root-level skill
       }
 
@@ -502,7 +511,17 @@ export async function cmdInstall(args: ParsedArgs) {
       } else {
         console.info(`  No SKILL.md at root. Scanning subdirectories...`);
       }
-      const rawDiscovered = await discoverSkills(discoveryRoot);
+      const rawDiscovered = await discoverSkills(
+        discoveryRoot,
+        undefined,
+        (relPath, link) => {
+          const shown =
+            [discoveryPrefix, relPath].filter(Boolean).join("/") || ".";
+          console.error(
+            `  ${ansi.yellow("⚠")} Skipped ${stripControlBytes(shown)}: ${stripControlBytes(skillMdOutsideWarning(link).message)}`,
+          );
+        },
+      );
       // Rebase relPaths so they remain relative to scanBaseDir (the join
       // site below assumes that). Use forward slashes literally to match
       // discoverSkills' separator convention; joinPath would inject "\" on

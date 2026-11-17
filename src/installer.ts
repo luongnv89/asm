@@ -27,6 +27,7 @@ export {
   isAuthError,
   cloneToTemp,
   validateSkill,
+  SkillMdOutsideFolderError,
   discoverSkills,
   installScriptDependencies,
   type SecurityWarning,
