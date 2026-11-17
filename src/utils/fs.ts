@@ -1,5 +1,6 @@
 import { constants as fsConstants, type Stats } from "fs";
 import {
+  cp,
   lstat,
   open,
   readdir,
@@ -7,6 +8,7 @@ import {
   realpath,
   stat,
   symlink,
+  unlink,
 } from "fs/promises";
 import type { ExternalSymlink } from "./types";
 import {
@@ -108,6 +110,94 @@ export function isPathInside(parent: string, child: string): boolean {
     rel === "" ||
     (rel !== ".." && !rel.startsWith(`..${sep}`) && !isAbsolute(rel))
   );
+}
+
+/**
+ * Copy a skill folder the way `fs.cp` does, but keep its internal relative
+ * symlinks relative (#819).
+ *
+ * `fs.cp` without `verbatimSymlinks` rewrites every relative link into an
+ * absolute path into `src` — a temp clone that is deleted after install or
+ * update, so the link dangles. This restores the link text for a relative
+ * link whose target stays inside `src`, both by its text (no `..` above the
+ * folder, no part that is itself a link) and by its real path. Every other link — absolute, leaving the
+ * folder, dangling or looping — keeps the `fs.cp` result unchanged, so the
+ * outside-folder symlink policy does not change.
+ */
+export async function copySkillTree(src: string, dest: string): Promise<void> {
+  await cp(src, dest, { recursive: true });
+  if (!(await lstat(dest)).isDirectory()) return;
+  const srcReal = await realpath(src);
+  const destReal = await realpath(dest);
+  const walk = async (rel: string): Promise<void> => {
+    const entries = await readdir(join(dest, rel), { withFileTypes: true });
+    for (const entry of entries) {
+      const childRel = join(rel, entry.name);
+      if (entry.isDirectory()) {
+        await walk(childRel);
+      } else if (entry.isSymbolicLink()) {
+        const text = await readlink(join(src, childRel));
+        if (await isInternalLink(src, srcReal, childRel, text)) {
+          const linkPath = join(dest, childRel);
+          const cpText = await readlink(linkPath);
+          await unlink(linkPath);
+          await symlink(text, linkPath);
+          // The restored link must reach the copy of what it reached in
+          // `src`; anything else resolves differently once copied, so put
+          // back the `fs.cp` text.
+          const expected = join(
+            destReal,
+            relative(srcReal, await realpath(join(src, childRel))),
+          );
+          const actual = await realpath(linkPath).catch(() => null);
+          if (actual !== expected) {
+            await unlink(linkPath);
+            await symlink(cpText, linkPath);
+          }
+        }
+      }
+    }
+  };
+  await walk("");
+}
+
+/**
+ * True when the relative link at `rel` under `root` never leaves it. Every
+ * part its text walks through must be a real file or folder inside `root`:
+ * a part that is itself a link resolves differently once copied — a `..`
+ * after `r -> .` climbs from the link's own folder, and a link `fs.cp`
+ * rewrote to an absolute path leads out of the copy (#819).
+ */
+async function isInternalLink(
+  root: string,
+  rootReal: string,
+  rel: string,
+  text: string,
+): Promise<boolean> {
+  // Only the platform's own separators split a path: on POSIX `\\` is an
+  // ordinary filename character, so `a\\b` is one part that must be checked.
+  const seps = process.platform === "win32" ? /[\\/]/ : /\//;
+  if (isAbsolute(text) || seps.test(text.charAt(0))) return false;
+  let current = dirname(rel);
+  for (const part of text.split(seps)) {
+    if (part === "" || part === ".") continue;
+    if (part === "..") {
+      if (current === ".") return false;
+      current = dirname(current);
+      continue;
+    }
+    current = join(current, part);
+    try {
+      if ((await lstat(join(root, current))).isSymbolicLink()) return false;
+    } catch {
+      return false;
+    }
+  }
+  try {
+    return isPathInside(rootReal, await realpath(join(root, rel)));
+  } catch {
+    return false;
+  }
 }
 
 /**

@@ -74,6 +74,15 @@ Review those targets by hand. In practice:
   `asm install` then copies such a link is tracked in
   [#753](https://github.com/luongnv89/asm/issues/753).
 
+When `asm install` and `asm update` copy a skill, a relative link whose
+target stays inside the copied folder (by its text and by its real path,
+through real files and folders only, never through another link) keeps its
+relative text, so it still resolves in the installed copy. Every
+other link is copied as before: a relative link that leaves the folder,
+dangles or loops is rewritten to an absolute path into the source
+(the temporary clone for a remote skill), and an absolute link is kept
+([#819](https://github.com/luongnv89/asm/issues/819)).
+
 ## In `asm eval`
 
 A link that leaves the skill folder, dangles or loops is never linted,

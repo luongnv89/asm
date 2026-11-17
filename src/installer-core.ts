@@ -9,7 +9,6 @@ import {
   readdir,
   readFile,
   rm,
-  cp,
   access,
   stat,
   lstat,
@@ -32,7 +31,11 @@ import {
 import { estimateTokenCount } from "./utils/token-count";
 import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
-import { createDirSymlink, readFilesRecursive } from "./utils/fs";
+import {
+  copySkillTree,
+  createDirSymlink,
+  readFilesRecursive,
+} from "./utils/fs";
 import {
   CALL_CANDIDATE,
   METHOD_CALL_CATEGORY,
@@ -843,7 +846,7 @@ export async function executeInstall(
 
   // Copy source to target (always copy since sourceDir may be a subdirectory)
   try {
-    await cp(installSource, plan.targetDir, { recursive: true });
+    await copySkillTree(installSource, plan.targetDir);
   } catch (cpErr: unknown) {
     const msg = cpErr instanceof Error ? cpErr.message : String(cpErr);
     throw new Error(`Failed to install: ${msg}`, { cause: cpErr });

@@ -4,8 +4,9 @@
  */
 import { execFile } from "child_process";
 import { promisify } from "util";
-import { loadConfig } from "./config";
+import { getConfigDir, loadConfig } from "./config";
 import { resolveProviderPath } from "./config";
+import { copySkillTree } from "./utils/fs";
 import { writeLockEntry } from "./utils/lock";
 import type {
   LockEntry,
@@ -43,8 +44,7 @@ import type {
   UpdateSummary,
 } from "./updater-core";
 import { isAbsolute, join, relative, sep } from "path";
-import { homedir } from "os";
-import { mkdir, rm, rename, cp, access, lstat, readdir } from "fs/promises";
+import { mkdir, rm, rename, access, lstat, readdir } from "fs/promises";
 import { debug } from "./logger";
 import { ansi } from "./formatter";
 import {
@@ -289,22 +289,12 @@ export async function updateSkill(
     return { name, status: "failed", reason: "Cannot determine remote URL" };
   }
 
-  const tempDir = join(
-    homedir(),
-    ".config",
-    "agent-skill-manager",
-    ".tmp",
-    `${name}-${Date.now()}`,
-  );
+  // Under getConfigDir(), so ASM_CONFIG_DIR covers it (#819).
+  const tempParent = join(getConfigDir(), ".tmp");
+  const tempDir = join(tempParent, `${name}-${Date.now()}`);
 
   try {
     // Ensure the parent temp directory exists
-    const tempParent = join(
-      homedir(),
-      ".config",
-      "agent-skill-manager",
-      ".tmp",
-    );
     await mkdir(tempParent, { recursive: true });
 
     // Step 1: Fetch the exact commit already resolved by checkOutdated. Direct
@@ -529,7 +519,7 @@ export async function updateSkill(
     if (!targetExists) {
       try {
         await mkdir(installedPath, { recursive: true });
-        await cp(updateSourceDir, targetDir, { recursive: true });
+        await copySkillTree(updateSourceDir, targetDir);
       } catch (copyErr: unknown) {
         await rm(targetDir, { recursive: true, force: true });
         const msg =
@@ -584,7 +574,7 @@ export async function updateSkill(
     try {
       await rename(targetDir, backupDir);
       backupCreated = true;
-      await cp(updateSourceDir, targetDir, { recursive: true });
+      await copySkillTree(updateSourceDir, targetDir);
     } catch (swapErr: unknown) {
       if (backupCreated) {
         try {

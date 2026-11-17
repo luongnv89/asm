@@ -3207,3 +3207,58 @@ describe("classifyWarningRisk", () => {
     expect(classifyWarningRisk([w("Something else")])).toBe("safe");
   });
 });
+
+// ─── executeInstall keeps a skill's internal symlinks (#819) ────────────────
+
+describe.skipIf(process.platform === "win32")(
+  "executeInstall symlinks (#819)",
+  () => {
+    let tempDir: string;
+
+    beforeEach(async () => {
+      tempDir = await mkdtemp(join(tmpdir(), "asm-install-links-"));
+    });
+
+    afterEach(async () => {
+      await rm(tempDir, { recursive: true, force: true });
+    });
+
+    test("keeps an internal relative link and the fs.cp rewrite of a link out of the folder", async () => {
+      const sourceDir = join(tempDir, "source");
+      const targetDir = join(tempDir, "target", "linked");
+      await mkdir(join(sourceDir, "shared"), { recursive: true });
+      await mkdir(join(sourceDir, "skills", "s"), { recursive: true });
+      await writeFile(join(sourceDir, "SKILL.md"), "---\nname: linked\n---\n");
+      await writeFile(join(sourceDir, "shared", "notes.md"), "notes\n");
+      await symlink("../../shared", join(sourceDir, "skills", "s", "shared"));
+      await symlink("../outside", join(sourceDir, "escape"));
+
+      const result = await executeInstall({
+        source: {
+          owner: "user",
+          repo: "linked",
+          ref: null,
+          subpath: null,
+          cloneUrl: "https://github.com/user/linked.git",
+          sshCloneUrl: "git@github.com:user/linked.git",
+        },
+        tempDir: sourceDir,
+        sourceDir,
+        targetDir,
+        skillName: "linked",
+        force: false,
+        providerName: "agents",
+        providerLabel: "Agents",
+        scope: "global",
+      });
+
+      expect(result.success).toBe(true);
+      const link = join(targetDir, "skills", "s", "shared");
+      expect(await readlink(link)).toBe("../../shared");
+      await access(join(link, "notes.md"));
+      expect(await readlink(join(targetDir, "escape"))).toBe(
+        resolve(sourceDir, "../outside"),
+      );
+    });
+  },
+);

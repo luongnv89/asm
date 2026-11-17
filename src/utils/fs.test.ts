@@ -3,15 +3,17 @@ import {
   link,
   mkdtemp,
   mkdir,
+  readlink,
   realpath,
   rm,
   symlink,
   writeFile,
 } from "fs/promises";
-import { join, sep } from "path";
+import { isAbsolute, join, resolve, sep } from "path";
 import { tmpdir } from "os";
 import { spawnSync } from "child_process";
 import {
+  copySkillTree,
   isPathInside,
   readBoundedTextFile,
   readFilesRecursive,
@@ -416,5 +418,120 @@ describe("readFilesRecursive binary files (#809)", () => {
     expect(paths).toContain("scripts/old.pyo");
     expect(paths).toContain("scripts/polyglot.pyc");
     expect(paths).toContain("scripts/legacy.pyo");
+  });
+});
+
+describe.skipIf(process.platform === "win32")("copySkillTree (#819)", () => {
+  let base: string;
+  let src: string;
+  let dest: string;
+
+  beforeEach(async () => {
+    base = await mkdtemp(join(tmpdir(), "asm-fs-copy-"));
+    src = join(base, "src");
+    dest = join(base, "dest");
+    await mkdir(join(src, "a", "b"), { recursive: true });
+    await writeFile(join(src, "a", "file.md"), "a\n");
+  });
+
+  afterEach(async () => {
+    await rm(base, { recursive: true, force: true });
+  });
+
+  /**
+   * The link at `rel` kept fs.cp's absolute rewrite of `text`, not the
+   * relative text. fs.cp's exact bytes differ by platform (a trailing `/` on
+   * Linux), so compare the normalized path.
+   */
+  const expectCpRewrite = async (rel: string, text: string) => {
+    const written = await readlink(join(dest, rel));
+    expect(isAbsolute(written)).toBe(true);
+    expect(resolve(written)).toBe(resolve(src, text));
+  };
+
+  test("keeps relative links whose target stays inside the folder", async () => {
+    await symlink("../file.md", join(src, "a", "b", "up.md"));
+    await symlink("a/b", join(src, "dir-link"));
+    await symlink("./a/../a/file.md", join(src, "dotted.md"));
+    await copySkillTree(src, dest);
+    expect(await readlink(join(dest, "a", "b", "up.md"))).toBe("../file.md");
+    expect(await readlink(join(dest, "dir-link"))).toBe("a/b");
+    expect(await readlink(join(dest, "dotted.md"))).toBe("./a/../a/file.md");
+    expect(await realpath(join(dest, "dotted.md"))).toBe(
+      await realpath(join(dest, "a", "file.md")),
+    );
+  });
+
+  test("leaves links out of the folder, absolute, dangling or looping as fs.cp writes them", async () => {
+    await symlink("../outside", join(src, "escape"));
+    await symlink("a/../../outside", join(src, "dips-out"));
+    await symlink("/etc/hosts", join(src, "absolute"));
+    await symlink("missing.md", join(src, "dangling"));
+    await symlink("loop", join(src, "loop"));
+    await copySkillTree(src, dest);
+    await expectCpRewrite("escape", "../outside");
+    await expectCpRewrite("dips-out", "a/../../outside");
+    expect(await readlink(join(dest, "absolute"))).toBe("/etc/hosts");
+    await expectCpRewrite("dangling", "missing.md");
+    expect(isAbsolute(await readlink(join(dest, "loop")))).toBe(true);
+  });
+
+  test("keeps the fs.cp rewrite when a `..` follows a linked component", async () => {
+    // `a/here -> .` is `a`, so `a/here/../..` reads as the root but is its parent.
+    await symlink(".", join(src, "a", "here"));
+    await symlink("a/here/../..", join(src, "sneaky"));
+    // `r -> .`: `r/..` climbs out of the copy and `src` comes back into the
+    // source, but in the copy it would name a sibling of `dest`.
+    await symlink(".", join(src, "r"));
+    await symlink("r/../src/a/file.md", join(src, "leak"));
+    await copySkillTree(src, dest);
+    expect(await readlink(join(dest, "a", "here"))).toBe(".");
+    expect(await readlink(join(dest, "r"))).toBe(".");
+    await expectCpRewrite("sneaky", "a/here/../..");
+    await expectCpRewrite("leak", "r/../src/a/file.md");
+  });
+
+  test("keeps the fs.cp rewrite for a link that walks through another link", async () => {
+    await mkdir(join(base, "elsewhere"));
+    await writeFile(join(base, "elsewhere", "secret.md"), "secret\n");
+    await symlink("../elsewhere", join(src, "out-dir"));
+    await symlink("out-dir/secret.md", join(src, "via-out"));
+    await symlink("a", join(src, "a-link"));
+    await symlink("a-link/file.md", join(src, "via-in"));
+    await symlink("a-link", join(src, "to-link"));
+    await copySkillTree(src, dest);
+    expect(await readlink(join(dest, "a-link"))).toBe("a");
+    for (const [name, text] of [
+      ["out-dir", "../elsewhere"],
+      ["via-out", "out-dir/secret.md"],
+      ["via-in", "a-link/file.md"],
+      ["to-link", "a-link"],
+    ]) {
+      await expectCpRewrite(name, text);
+    }
+  });
+
+  test("treats a backslash as a filename character, not a separator", async () => {
+    // `a\b` is one link. In `src` it climbs from `d1/d2` back to `src`, but
+    // fs.cp rewrites it lexically to `base`. Decoys under `a/b` and `etc`
+    // made a walk that split on `\\` approve `L`, which then landed on
+    // `base/etc/hosts` in the copy — outside both `src` and `dest`.
+    await mkdir(join(src, "d1", "d2"), { recursive: true });
+    await symlink("d1/d2", join(src, "s"));
+    await symlink("s/../..", join(src, "a\\b"));
+    for (const dir of [join(src, "a", "b"), src, base]) {
+      await mkdir(join(dir, "etc"), { recursive: true });
+      await writeFile(join(dir, "etc", "hosts"), `${dir}\n`);
+    }
+    await symlink("a\\b/etc/hosts", join(src, "L"));
+    expect(await realpath(join(src, "L"))).toBe(
+      await realpath(join(src, "etc", "hosts")),
+    );
+    await copySkillTree(src, dest);
+    expect(await readlink(join(dest, "s"))).toBe("d1/d2");
+    await expectCpRewrite("L", "a\\b/etc/hosts");
+    expect(await realpath(join(dest, "L"))).not.toBe(
+      await realpath(join(base, "etc", "hosts")),
+    );
   });
 });
