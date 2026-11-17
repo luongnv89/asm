@@ -690,8 +690,13 @@ export async function updateSkills(
 
   // Outdated skills, plus those removed upstream: updateSkill checks the
   // incoming folder itself and reports why it keeps the installed copy (#814).
-  let toUpdate = outdated.entries.filter(
-    (e) => e.status === "outdated" || e.status === "removed-upstream",
+  // Entries whose check errored (e.g. an unreachable source) are reported as
+  // failed, never dropped as if they were up to date (#822).
+  let candidates = outdated.entries.filter(
+    (e) =>
+      e.status === "outdated" ||
+      e.status === "removed-upstream" ||
+      e.status === "error",
   );
 
   // Track warnings for skills requested by name but not found in lock file
@@ -700,12 +705,14 @@ export async function updateSkills(
   // If specific names given, filter further
   if (names && names.length > 0) {
     const nameSet = new Set(names.map((n) => n.toLowerCase()));
-    toUpdate = toUpdate.filter((e) => nameSet.has(e.name.toLowerCase()));
+    candidates = candidates.filter((e) => nameSet.has(e.name.toLowerCase()));
 
     // Check for names that don't exist or aren't outdated, and collect
     // not-found warnings so the caller can surface them to the user.
     for (const name of names) {
-      if (!toUpdate.find((e) => e.name.toLowerCase() === name.toLowerCase())) {
+      if (
+        !candidates.find((e) => e.name.toLowerCase() === name.toLowerCase())
+      ) {
         const exists = outdated.entries.find(
           (e) => e.name.toLowerCase() === name.toLowerCase(),
         );
@@ -719,7 +726,16 @@ export async function updateSkills(
     }
   }
 
-  if (toUpdate.length === 0) {
+  const toUpdate = candidates.filter((e) => e.status !== "error");
+  const checkFailures: UpdateResult[] = candidates
+    .filter((e) => e.status === "error")
+    .map((e) => ({
+      name: e.name,
+      status: "failed",
+      reason: e.error || "Failed to check for updates",
+    }));
+
+  if (toUpdate.length === 0 && checkFailures.length === 0) {
     return {
       results: [],
       updatedCount: 0,
@@ -764,11 +780,11 @@ export async function updateSkills(
     updateGroups.set(identity, group);
   });
 
-  const results: UpdateResult[] = new Array(updateEntries.length);
+  const updateResults: UpdateResult[] = new Array(updateEntries.length);
   await poolAll([...updateGroups.values()], 4, async (group) => {
     for (const entry of group) {
       try {
-        results[entry.index] = await updateSkillFn(
+        updateResults[entry.index] = await updateSkillFn(
           entry.name,
           entry.lockEntry,
           skipConfirm,
@@ -777,7 +793,7 @@ export async function updateSkills(
         );
       } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
-        results[entry.index] = {
+        updateResults[entry.index] = {
           name: entry.name,
           status: "failed",
           reason: `Unexpected update failure: ${message}`,
@@ -785,6 +801,8 @@ export async function updateSkills(
       }
     }
   });
+
+  const results = [...updateResults, ...checkFailures];
 
   return {
     results,

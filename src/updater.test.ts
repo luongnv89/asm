@@ -2275,6 +2275,91 @@ describe("updateSkills orchestrator", () => {
     expect(summary.results[0].name).toBe("skill-a");
   });
 
+  test("reports entries whose check errored as failed, never drops them (#822)", async () => {
+    const lockEntry = (name: string): LockEntry => ({
+      source: `github:user/${name}`,
+      commitHash: "aaa",
+      ref: "main",
+      installedAt: "2026-01-01T00:00:00.000Z",
+      provider: "claude",
+      sourceType: "github",
+    });
+    const overrides = {
+      readLockFn: async () => ({
+        version: 1 as const,
+        skills: {
+          "skill-a": lockEntry("skill-a"),
+          "skill-b": lockEntry("skill-b"),
+        },
+      }),
+      checkOutdatedFn: async () => ({
+        entries: [
+          {
+            name: "skill-a",
+            installedCommit: "aaa",
+            latestCommit: "unknown",
+            source: "github:user/skill-a",
+            sourceType: "github" as const,
+            status: "error" as const,
+            error: "Failed to fetch remote commit",
+          },
+          {
+            name: "skill-b",
+            installedCommit: "aaa",
+            latestCommit: "aaa2",
+            source: "github:user/skill-b",
+            sourceType: "github" as const,
+            status: "outdated" as const,
+          },
+        ],
+        outdatedCount: 1,
+        upToDateCount: 0,
+        untrackedCount: 0,
+        errorCount: 1,
+      }),
+      updateSkillFn: async (name: string) => ({
+        name,
+        status: "updated" as const,
+        oldCommit: "aaa",
+        newCommit: "aaa2",
+      }),
+    };
+
+    const all = await updateSkills(null, false, overrides);
+    expect(all).toEqual({
+      results: [
+        {
+          name: "skill-b",
+          status: "updated",
+          oldCommit: "aaa",
+          newCommit: "aaa2",
+        },
+        {
+          name: "skill-a",
+          status: "failed",
+          reason: "Failed to fetch remote commit",
+        },
+      ],
+      updatedCount: 1,
+      skippedCount: 0,
+      failedCount: 1,
+    });
+
+    const named = await updateSkills(["SKILL-A"], false, overrides);
+    expect(named).toEqual({
+      results: [
+        {
+          name: "skill-a",
+          status: "failed",
+          reason: "Failed to fetch remote commit",
+        },
+      ],
+      updatedCount: 0,
+      skippedCount: 0,
+      failedCount: 1,
+    });
+  });
+
   test("warns about missing skill names", async () => {
     const summary = await updateSkills(["nonexistent-skill"], false, {
       readLockFn: async () => ({
