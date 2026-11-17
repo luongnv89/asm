@@ -95,8 +95,14 @@ jobs:
         timeout-minutes: 3
         run: npx tsx scripts/ci-npm-audit.ts --omit=dev
 
+      # Dev-included high audit. Allowlist is exactly GHSA-fc5q-39xc-vjpf
+      # (picomatch ReDoS; dev-only via vite / vitest, no patched release).
+      # Expires 2026-12-18 — #878. The production audit above stays strict.
       - name: Audit all dependencies
         timeout-minutes: 3
+        env:
+          ASM_AUDIT_ALLOWLIST: GHSA-fc5q-39xc-vjpf
+          ASM_AUDIT_ALLOWLIST_EXPIRES: "2026-12-18"
         run: npx tsx scripts/ci-npm-audit.ts
 
   build:
