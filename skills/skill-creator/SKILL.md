@@ -2,11 +2,11 @@
 name: "skill-creator"
 description: "Create a skill or bring an existing one up to the same standard (validate + asm eval fix loop); run evals, tune triggering. Use when authoring, fixing, or retrofitting a skill. Don't use for invoking skills, writing prose, or Python scaffolds."
 license: MIT
-compatibility: "Python 3 for scripts/quick_validate.py; `asm` on PATH for the Gate 2 score check"
-effort: max
 metadata:
-  version: 2.2.2
+  version: 2.3.0
   author: "Luong NGUYEN <luongnv89@gmail.com>"
+  effort: "max"
+  compatibility: "Python 3 for scripts/quick_validate.py; `asm` on PATH for the Gate 2 score check"
 ---
 
 # Skill Creator
@@ -126,9 +126,9 @@ Before drafting, skim `references/exemplars.md` and imitate the archetype closes
 
 - **name**: 1-64 chars (≤40 to score full naming points), lowercase letters/digits/hyphens, no `--` (`scripts/quick_validate.py`); exactly matches parent directory (Frontmatter Audit only).
 - **description**: When to trigger and what it does. Primary triggering mechanism. Single line, no newlines. Claude tends to _undertrigger_ — make descriptions a little "pushy", with negative triggers.
-- **effort** (optional): `low | medium | high | xhigh | max`. Defaults to `high`.
+- **metadata.effort** (optional): `low | medium | high | xhigh | max`. Defaults to `high`.
 - **metadata.version**: Semver string (see frontmatter rules).
-- **compatibility**: Required tools or dependencies (rare).
+- **metadata.compatibility**: Required tools (rare). Nothing else goes at the top level; see "Plugin-directory compatibility" in `references/frontmatter-rules.md`.
 
 #### Writing a good description
 

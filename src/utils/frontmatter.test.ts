@@ -726,6 +726,22 @@ describe("resolveAllowedTools", () => {
 });
 
 describe("resolveSkillDependencies", () => {
+  it("reads metadata.dependencies when there is no top-level key", () => {
+    const fm = parseFrontmatter(
+      '---\nname: x\ndescription: d\nmetadata:\n  dependencies: "drawio-generator, excalidraw-generator"\n---\n',
+    );
+    expect(resolveSkillDependencies(fm)).toEqual([
+      "drawio-generator",
+      "excalidraw-generator",
+    ]);
+    expect(
+      resolveSkillDependencies({
+        dependencies: "a",
+        "metadata.dependencies": "b",
+      }),
+    ).toEqual(["a"]);
+  });
+
   it("normalizes block and inline list forms and removes duplicates", () => {
     expect(
       resolveSkillDependencies({

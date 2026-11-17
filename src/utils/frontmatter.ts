@@ -323,7 +323,9 @@ export function resolveAllowedTools(fm: Record<string, string>): string[] {
  * sources accepted by `asm get` and `asm deps acquire`.
  */
 export function resolveSkillDependencies(fm: Record<string, string>): string[] {
-  const raw = (fm.dependencies || "").trim();
+  // `metadata.dependencies` (a comma-separated string) is the form the Claude plugin
+  // directory accepts from community plugins; the top-level key wins when both exist.
+  const raw = (fm.dependencies || fm["metadata.dependencies"] || "").trim();
   if (!raw) return [];
 
   let entries: string[];

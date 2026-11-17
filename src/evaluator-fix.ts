@@ -686,8 +686,9 @@ export function buildFixPlan(
     }
   }
 
-  // 3) Infer `effort` from body line count.
-  if (!fm.effort) {
+  // 3) Infer `effort` from body line count. `metadata.effort` counts as set:
+  //    the Claude plugin directory refuses a top-level `effort` from community plugins.
+  if (!fm.effort && !fm["metadata.effort"]) {
     const inferred = inferEffortFromLines(lineCount(body));
     fmStr = appendFrontmatterKey(fmStr, "effort", inferred);
     applied.push({

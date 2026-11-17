@@ -28,13 +28,15 @@ another skill in prose (`/skill-name`), reads a path under `~/.claude/skills/`,
 
 ## What a generated preflight must contain
 
-Declare every optional dependency as a top-level YAML list. Declaration is
-discovery metadata only: installing the parent never installs this list.
+Declare every optional dependency as one comma-separated string under
+`metadata`. Declaration is discovery metadata only: installing the parent never
+installs this list. `asm` reads `metadata.dependencies` the same way as the
+older top-level `dependencies:` list. Keep it under `metadata` so the skill stays
+within the Claude plugin directory's frontmatter rules for community plugins.
 
 ```yaml
-dependencies:
-  - skill-creator
-  - github:owner/repo:skills/helper
+metadata:
+  dependencies: "skill-creator, github:owner/repo:skills/helper"
 ```
 
 The workflow then names four lifecycle elements:
