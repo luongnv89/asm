@@ -164,10 +164,10 @@ full.
 
 ## Known limits
 
-- `asm install` still reads a source's `SKILL.md` for its preview, and
-  `asm get ./path` reads the named folder's `SKILL.md`, even when it links
-  outside the skill folder (follow-up to
-  [#795](https://github.com/luongnv89/asm/issues/795)).
+- Discovery (`asm install` of a collection, the index) follows a sub-folder
+  that is itself a link, as a linked skill folder is followed by design (see
+  "Linked folders"), so a `SKILL.md` inside such a folder is read (tracked in
+  [#753](https://github.com/luongnv89/asm/issues/753)).
 - `asm eval` gives a skill with no licence file credit for the repository's
   (#771): it lists the names in the folders above the skill, up to the git
   root, and `stat`s a `LICENSE` candidate there. It never opens a file
