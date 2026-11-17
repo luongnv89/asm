@@ -7,6 +7,7 @@ import { setVerbose } from "./logger";
 import { _resetMemo } from "./skill-index";
 import { format } from "node:util";
 import { runCLI as dispatchCLI } from "./cli";
+import { fatalErrorForDisplay } from "./utils/errors";
 
 // Helper: path to the CLI entry point — kept for tests that still spawn the
 // real binary (see the readLine describe; runInlineTs needs a real child
@@ -171,7 +172,9 @@ export async function runCliInProcess(
   } catch (err) {
     if (!(err instanceof CliExit)) {
       // Mirror bin/agent-skill-manager.ts's catch-all.
-      stderrChunks.push(`${format("Fatal error:", err)}\n`);
+      stderrChunks.push(
+        `${format("Fatal error:", fatalErrorForDisplay(err))}\n`,
+      );
       if (exitCode === 0) exitCode = 1;
     }
   } finally {

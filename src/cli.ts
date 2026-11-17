@@ -1,4 +1,5 @@
 import { ansi } from "./formatter";
+import { stripControlBytes } from "./utils/control-chars";
 import type { InstallMethod } from "./utils/types";
 import { getVersionString } from "./utils/version";
 import { buildShadowingReport } from "./utils/path-shadowing";
@@ -446,8 +447,10 @@ export function parseArgs(argv: string[]): ParsedArgs {
 
 // ─── Output helpers ─────────────────────────────────────────────────────────
 
+/** Same as `error()` in commands/shared.ts: argv echoes are stripped (#834). */
 function error(msg: string) {
-  console.error(ansi.red(`Error: ${msg}`));
+  const shown = msg.split("\n").map(stripControlBytes).join("\n");
+  console.error(ansi.red(`Error: ${shown}`));
 }
 
 // ─── Help text ──────────────────────────────────────────────────────────────

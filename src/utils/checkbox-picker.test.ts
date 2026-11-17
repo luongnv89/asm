@@ -474,3 +474,17 @@ function stripAnsi(str: string): string {
   // eslint-disable-next-line no-control-regex
   return str.replace(/\x1b\[[0-9;]*m/g, "");
 }
+
+describe("renderCheckboxLines strips author control bytes (#834)", () => {
+  test("labels and hints show `?`, filtering keeps the originals", () => {
+    const H = "\x1b]8;;x\x07\u009b\x7f";
+    const items = [{ label: `name${H}`, hint: `hint${H}`, checked: false }];
+    const state = new CheckboxState(items, 10);
+    const lines = renderCheckboxLines(state, items, 120).join("\n");
+    expect(lines).toContain("name?]8;;x???");
+    expect(lines).toContain("hint?]8;;x???");
+    // eslint-disable-next-line no-control-regex
+    expect(lines).not.toMatch(/[\x07\x7f-\x9f]|\x1b\]/);
+    expect(items[0].label).toBe(`name${H}`);
+  });
+});

@@ -4,6 +4,7 @@ import { formatSkillInspect, formatJSON, ansi } from "../formatter";
 import { applySkillTagState, loadSkillTagState } from "../skill-tags";
 import type { GetResult } from "../utils/types";
 
+import { stripControlBytes } from "../utils/control-chars";
 import { error, enrichWithHealth } from "./shared";
 import type { ParsedArgs } from "../cli";
 import {
@@ -75,7 +76,7 @@ export async function cmdInspect(args: ParsedArgs) {
     error(`Skill "${skillName}" not found.`);
     console.error(
       ansi.dim(
-        `Try ${ansi.bold("asm list")} to see all skills or ${ansi.bold(`asm search "${skillName}"`)} to search.`,
+        `Try ${ansi.bold("asm list")} to see all skills or ${ansi.bold(`asm search "${stripControlBytes(skillName)}"`)} to search.`,
       ),
     );
     process.exit(1);

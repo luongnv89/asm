@@ -4,6 +4,7 @@ import { Select } from "@inkjs/ui";
 import { theme } from "../utils/colors";
 import { resolveProviderPath } from "../config";
 import type { ProviderConfig } from "../utils/types";
+import { stripControlBytes } from "../utils/control-chars";
 
 export interface LinkTargetOption {
   provider: ProviderConfig;
@@ -51,7 +52,8 @@ export function LinkModal({
       <Box justifyContent="center">
         <Text color={theme.accent}>
           {" "}
-          Link to {scope === "project" ? "Project" : "Global"}: {skillName}{" "}
+          Link to {scope === "project" ? "Project" : "Global"}:{" "}
+          {stripControlBytes(skillName)}{" "}
         </Text>
       </Box>
       <Select

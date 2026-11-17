@@ -1,4 +1,5 @@
 import { ansi } from "../formatter";
+import { stripControlBytes } from "./control-chars";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -182,7 +183,13 @@ export function renderCheckboxLines(
       lines.push(`${pointer} ${marker} ${ansi.bold(label)}`);
     } else {
       const origIdx = state.filteredMap[row - 1];
-      const item = items[origIdx];
+      // Labels and hints are author strings: strip them for display only;
+      // filtering and selection keep the originals (#834).
+      const raw = items[origIdx];
+      const item = {
+        label: stripControlBytes(raw.label),
+        hint: raw.hint === undefined ? undefined : stripControlBytes(raw.hint),
+      };
       const checked = state.selected[origIdx];
       const marker = checked ? ansi.green("[*]") : "[ ]";
 

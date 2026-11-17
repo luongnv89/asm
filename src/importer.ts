@@ -26,7 +26,7 @@ import type {
   AppConfig,
   SkillInfo,
 } from "./utils/types";
-import { stringifyForOutput } from "./utils/control-chars";
+import { stringifyForOutput, stripControlBytes } from "./utils/control-chars";
 
 // ─── Manifest Validation ────────────────────────────────────────────────────
 
@@ -354,7 +354,15 @@ export async function renderConflictDiff(
       sections.push(`differs (unreadable): ${rel}`);
     }
   }
-  return sections.join("\n");
+  // The diff shows file contents, which an author controls: each line has its
+  // control bytes replaced with `?` (a CRLF line ending is dropped first, as
+  // the `eval --fix` diff does), so a file cannot drive the terminal (#834;
+  // docs/security/control-bytes.md).
+  return sections
+    .join("\n")
+    .split("\n")
+    .map((line) => stripControlBytes(line.replace(/\r$/, "")))
+    .join("\n");
 }
 
 /**

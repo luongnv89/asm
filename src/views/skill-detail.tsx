@@ -6,6 +6,10 @@ import { countFiles } from "../scanner";
 import { wordWrap, HIGH_RISK_TOOLS, MEDIUM_RISK_TOOLS } from "../formatter";
 import { formatTokenCount } from "../utils/token-count";
 import { formatInvocability } from "../utils/frontmatter";
+import {
+  stripControlBytes,
+  stripControlBytesDeep,
+} from "../utils/control-chars";
 
 const EFFORT_COLORS: Record<string, string> = {
   low: theme.green,
@@ -55,26 +59,29 @@ export interface SkillDetailProps {
   skill: SkillInfo;
 }
 
-export function SkillDetailView({ skill }: SkillDetailProps) {
+export function SkillDetailView({ skill: original }: SkillDetailProps) {
   const [fileCount, setFileCount] = useState<number | undefined>(
-    skill.fileCount,
+    original.fileCount,
   );
 
   useEffect(() => {
-    if (skill.fileCount === undefined) {
-      countFiles(skill.path)
+    if (original.fileCount === undefined) {
+      countFiles(original.path)
         .then((count) => setFileCount(count))
         .catch(() => {});
     }
-  }, [skill.path, skill.fileCount]);
+  }, [original.path, original.fileCount]);
 
+  // Author strings, stripped for display only (#834): the file count, the
+  // eval order and the risk check read the original.
+  const skill = stripControlBytesDeep(original);
   const descMaxWidth = 56;
-  const desc = skill.description || "(no description)";
-  const wrappedDescLines = wordWrap(desc, descMaxWidth);
-  const evalSummaries = getEvalSummaries(skill);
+  const desc = original.description || "(no description)";
+  const wrappedDescLines = wordWrap(desc, descMaxWidth).map(stripControlBytes);
+  const evalSummaries = stripControlBytesDeep(getEvalSummaries(original));
   const multipleProviders = evalSummaries.length > 1;
   const highRisk =
-    skill.allowedTools?.filter((t) => HIGH_RISK_TOOLS.has(t)) ?? [];
+    original.allowedTools?.filter((t) => HIGH_RISK_TOOLS.has(t)) ?? [];
   const actions: string[] = [];
   if (highRisk.includes("Bash")) actions.push("execute shell commands");
   if (highRisk.some((t) => ["Write", "Edit", "NotebookEdit"].includes(t))) {

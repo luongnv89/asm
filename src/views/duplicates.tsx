@@ -3,6 +3,7 @@ import { Box, Text, useInput } from "ink";
 import { theme } from "../utils/colors";
 import { sortInstancesForKeep, reasonLabel } from "../auditor";
 import type { AuditReport, DuplicateGroup, SkillInfo } from "../utils/types";
+import { stripControlBytes } from "../utils/control-chars";
 
 export interface DuplicatesProps {
   report: AuditReport;
@@ -169,7 +170,7 @@ function GroupsPhase({
             inverse={isSelected}
           >
             {isSelected ? "❯ " : "  "}
-            {label}
+            {stripControlBytes(label)}
           </Text>
         );
       })}
@@ -197,8 +198,8 @@ function InstancesPhase({
   return (
     <>
       <Text color={theme.yellow}>
-        Group: &quot;{group.key}&quot; ({reasonLabel(group.reason)}) - Toggle
-        instances to remove:
+        Group: &quot;{stripControlBytes(group.key)}&quot; (
+        {reasonLabel(group.reason)}) - Toggle instances to remove:
       </Text>
       {sorted.map((s, i) => {
         const checked = marked.has(s.path) ? "[x]" : "[ ]";
@@ -211,7 +212,7 @@ function InstancesPhase({
             inverse={isSelected}
           >
             {isSelected ? "❯ " : "  "}
-            {checked} {s.providerLabel}/{s.scope} - {s.path}
+            {checked} {s.providerLabel}/{s.scope} - {stripControlBytes(s.path)}
             {keepHint}
           </Text>
         );
