@@ -10,6 +10,9 @@ const hook = vi.hoisted(() => ({
   seam: null as null | string,
   swap: null as null | (() => void),
   fired: 0,
+  /** Make `realpath` of this path fail once (the child briefly absent). */
+  failRealpath: null as null | string,
+  failed: 0,
 }));
 function fire(seam: string) {
   if (hook.seam !== seam || !hook.swap) return;
@@ -31,6 +34,18 @@ vi.mock("./evaluator-files", async (importOriginal) => {
       return actual.readSkillMd(...args);
     },
   };
+});
+vi.mock("fs/promises", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("fs/promises")>();
+  const realpath = (async (...args: Parameters<typeof actual.realpath>) => {
+    if (hook.failRealpath !== null && args[0] === hook.failRealpath) {
+      hook.failRealpath = null;
+      hook.failed++;
+      throw Object.assign(new Error("ENOENT (test)"), { code: "ENOENT" });
+    }
+    return actual.realpath(...args);
+  }) as typeof actual.realpath;
+  return { ...actual, default: { ...actual, realpath }, realpath };
 });
 vi.mock("./utils/fs", async (importOriginal) => {
   const actual = await importOriginal<typeof import("./utils/fs")>();
@@ -137,6 +152,8 @@ describe.skipIf(process.platform === "win32")(
       hook.seam = null;
       hook.swap = null;
       hook.fired = 0;
+      hook.failRealpath = null;
+      hook.failed = 0;
       if (f) await rm(f.base, { recursive: true, force: true });
       f = null;
     });
@@ -183,6 +200,19 @@ describe.skipIf(process.platform === "win32")(
         expect(reported).toMatch(/NOT read|read nothing/);
       },
     );
+
+    test("asm eval: a child whose real path could not be resolved when listed is still never read unanchored", async () => {
+      f = await fixture("plain");
+      hook.failRealpath = join(f.coll, "child");
+      arm("walk", swapper(f, "plain"));
+      const { raw, child } = await evalChild(f.coll);
+      expect(hook.failed).toBe(1);
+      expect(hook.fired).toBe(1);
+      expect(raw).not.toContain(MARKER);
+      const reported = JSON.stringify(child);
+      expect(reported).toContain(f.swappedIn);
+      expect(reported).toMatch(/NOT read/);
+    });
 
     test("asm audit security: a non-link child swapped for a link at the walk is reported, not read", async () => {
       f = await fixture("plain");

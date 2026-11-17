@@ -56,6 +56,7 @@ import {
   type ThresholdVerdict,
 } from "../eval-threshold";
 import { join as joinPath } from "path";
+import { realpath } from "fs/promises";
 import type { TransportMode } from "../utils/types";
 
 import { error } from "./shared";
@@ -64,6 +65,7 @@ import {
   skillDirOutside,
   skillMdOutside,
   SkillMdOutsideLinkError,
+  SkillFolderMovedError,
   unreadLinkFinding,
 } from "../evaluator-files";
 import type { ParsedArgs } from "../cli";
@@ -234,12 +236,16 @@ async function runSingleEval(target: EvalTarget): Promise<{
     // read (#825): it is reported as the link it is. Its real path was
     // resolved once (#831); that path is checked here and is the only one
     // read, so a child swapped after resolution is never read elsewhere.
+    // A bounded target is never read unanchored: one whose real path could
+    // not be resolved then is resolved now, or reports that it changed.
+    let realPath = target.realPath;
+    if (target.boundary && !realPath) {
+      const now = await realpath(target.skillPath).catch(() => null);
+      if (now === null) throw new SkillFolderMovedError(target.skillPath, "");
+      realPath = now;
+    }
     const outside = target.boundary
-      ? await skillDirOutside(
-          target.skillPath,
-          target.boundary,
-          target.realPath,
-        )
+      ? await skillDirOutside(target.skillPath, target.boundary, realPath)
       : null;
     if (outside) {
       return {
@@ -250,15 +256,13 @@ async function runSingleEval(target: EvalTarget): Promise<{
     // A SKILL.md that links out of its folder is refused before any
     // provider runs, so the refusal keeps its type (and machine code).
     const mdOutside = await skillMdOutside(
-      target.realPath
-        ? joinPath(target.realPath, "SKILL.md")
-        : target.skillMdPath,
+      realPath ? joinPath(realPath, "SKILL.md") : target.skillMdPath,
     );
     if (mdOutside) throw new SkillMdOutsideLinkError(mdOutside);
     const ctx = {
       skillPath: target.skillPath,
       skillMdPath: target.skillMdPath,
-      ...(target.realPath ? { skillDir: target.realPath } : {}),
+      ...(realPath ? { skillDir: realPath } : {}),
     };
     const results = (
       await Promise.all(
