@@ -512,4 +512,82 @@ describe("enable/disable state keyed by project (#813)", () => {
     expect((await asm(proj13, "enable", "s1", "--yes")).exitCode).toBe(0);
     expect(isDisabledOnDisk(p13)).toBe(false);
   });
+
+  // A recorded project dir that no longer holds the skill's marker (the
+  // project moved) reads as an unknown project, like an old entry.
+  it("lists and enables a skill disabled in a project that was then moved", async () => {
+    const projA = join(home, "projA");
+    const projB = join(home, "projB");
+    await installSkill(join(projA, ".claude", "skills"));
+    expect((await asm(projA, "disable", "s1", "--yes")).exitCode).toBe(0);
+    await rename(projA, projB);
+    const moved = join(projB, ".claude", "skills", "s1");
+    expect(isDisabledOnDisk(moved)).toBe(true);
+
+    expect(await listed(projB)).toEqual([["project", true]]);
+    expect((await asm(projB, "enable", "s1", "--yes")).exitCode).toBe(0);
+    expect(isDisabledOnDisk(moved)).toBe(false);
+    expect(existsSync(join(moved, "SKILL.md"))).toBe(true);
+  });
+
+  it("keeps a second moved project enable-able after the first one enables", async () => {
+    const [a, b, a2, b2] = ["projA", "projB", "projA2", "projB2"].map((d) =>
+      join(home, d),
+    );
+    for (const proj of [a, b]) {
+      await installSkill(join(proj, ".claude", "skills"));
+      expect((await asm(proj, "disable", "s1", "--yes")).exitCode).toBe(0);
+    }
+    await rename(a, a2);
+    await rename(b, b2);
+    const skillA = join(a2, ".claude", "skills", "s1");
+    const skillB = join(b2, ".claude", "skills", "s1");
+
+    expect((await asm(a2, "enable", "s1", "--yes")).exitCode).toBe(0);
+    expect(isDisabledOnDisk(skillA)).toBe(false);
+    expect(isDisabledOnDisk(skillB)).toBe(true);
+
+    expect(await listed(b2)).toEqual([["project", true]]);
+    expect((await asm(b2, "enable", "s1", "--yes")).exitCode).toBe(0);
+    expect(isDisabledOnDisk(skillB)).toBe(false);
+  });
+
+  it("keeps a project that did not move when a moved one enables", async () => {
+    const a = join(home, "projA");
+    const a2 = join(home, "projA2");
+    const b = join(home, "projB");
+    await installSkill(join(a, ".claude", "skills"));
+    const skillB = await installSkill(join(b, ".claude", "skills"));
+    for (const proj of [a, b]) {
+      expect((await asm(proj, "disable", "s1", "--yes")).exitCode).toBe(0);
+    }
+    await rename(a, a2);
+    const skillA = join(a2, ".claude", "skills", "s1");
+
+    expect((await asm(a2, "enable", "s1", "--yes")).exitCode).toBe(0);
+    expect(isDisabledOnDisk(skillA)).toBe(false);
+    expect(isDisabledOnDisk(skillB)).toBe(true);
+    const state = JSON.parse(await readFile(statePath(), "utf-8"));
+    expect(state.disabled.s1.claude.projectDirs).toContain(
+      await realpath(join(b, ".claude", "skills")),
+    );
+
+    expect(await listed(b)).toEqual([["project", true]]);
+    expect((await asm(b, "enable", "s1", "--yes")).exitCode).toBe(0);
+    expect(isDisabledOnDisk(skillB)).toBe(false);
+  });
+
+  it("never matches a project's live entry from another project", async () => {
+    const a = join(home, "projA");
+    const c = join(home, "projC");
+    const skillA = await installSkill(join(a, ".claude", "skills"));
+    const skillC = await installSkill(join(c, ".claude", "skills"));
+    expect((await asm(a, "disable", "s1", "--yes")).exitCode).toBe(0);
+    await rename(join(skillC, "SKILL.md"), join(skillC, "SKILL.md.disabled"));
+
+    expect(await listed(c)).toEqual([]);
+    expect((await asm(c, "enable", "s1", "--yes")).exitCode).toBe(0);
+    expect(isDisabledOnDisk(skillC)).toBe(true);
+    expect(isDisabledOnDisk(skillA)).toBe(true);
+  });
 });

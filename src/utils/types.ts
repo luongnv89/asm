@@ -100,7 +100,9 @@ export interface SkillStateFile {
  * enabling from one directory never clears another project's entry.
  * `project: true` is the older form with no project identity; it still reads
  * as "disabled in an unknown project" and is matched in whichever project
- * holds a `SKILL.md.disabled` for the skill.
+ * holds a `SKILL.md.disabled` for the skill. A `projectDirs` dir that no
+ * longer holds that marker (the project moved) reads the same way, and enable
+ * keeps it, as it keeps `project: true`.
  */
 export interface SkillStateScopes {
   global?: true;

@@ -118,6 +118,9 @@ ${ansi.bold("Examples:")}
  * A project entry counts only for the project the cwd resolves to: its
  * recorded `projectDirs` must hold that project's skills dir (#813). A
  * project-less entry from an older version counts in any project, as before.
+ * So does an orphaned entry: a recorded dir that no longer holds this skill's
+ * marker (the project was moved or renamed), so its project is unknown. A
+ * recorded dir that still holds its marker belongs to that project only.
  */
 
 export async function reconstructDisabledSkills(
@@ -149,10 +152,13 @@ export async function reconstructDisabledSkills(
 
       const projectIsGlobal = aliased.has(providerName);
       const projectDir = projectDirOf.get(providerName);
+      const recordedDirs = recordedProjectDirs(byScope);
       const projectRecorded =
         byScope.project === true ||
-        (projectDir !== undefined &&
-          recordedProjectDirs(byScope).includes(projectDir));
+        (projectDir !== undefined && recordedDirs.includes(projectDir)) ||
+        recordedDirs.some(
+          (d) => !existsSync(disabledFilePath(joinPath(d, dirName))),
+        );
       for (const scope of ["global", "project"] as const) {
         const recorded =
           scope === "global"
@@ -539,6 +545,8 @@ export async function cmdEnable(args: ParsedArgs) {
         if (s.scope === "project") {
           // A project-less entry from an older version may also name other
           // projects, so it stays; here it is inert once the marker is gone.
+          // An orphaned dir (a moved project) stays for the same reason: it
+          // cannot be told apart from another moved project's (#813).
           if (projectDir !== undefined) {
             clearDisabled(state, s.dirName, s.provider, "project", projectDir);
           }
