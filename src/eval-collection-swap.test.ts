@@ -87,7 +87,7 @@ vi.mock("./utils/fs", async (importOriginal) => {
 
 import { join } from "path";
 import { mkdtemp, rm, writeFile, mkdir, realpath } from "fs/promises";
-import { renameSync, symlinkSync, unlinkSync } from "fs";
+import { renameSync, rmSync, symlinkSync, unlinkSync } from "fs";
 import { tmpdir } from "os";
 import { runCLI } from "./cli-test-harness";
 import { evaluateSkill } from "./evaluator-fix";
@@ -297,6 +297,64 @@ describe.skipIf(process.platform === "win32")(
       expect(report.externalSymlinks).toEqual([
         expect.objectContaining({ target: f.swappedIn, kind: "directory" }),
       ]);
+    });
+
+    // A child removed after the collection was listed but before its own
+    // scan (#873): reported unread, as a folder that vanishes mid-walk is,
+    // and the run goes on with no uncaught error.
+    test("asm audit security: a child removed before it is scanned is reported, not a crash (#873)", async () => {
+      f = await fixture("plain");
+      // Sorted before `child`, so its walk is the first: the removal lands
+      // after the collection was listed and before `child` is resolved.
+      await mkdir(join(f.coll, "a"));
+      await writeFile(join(f.coll, "a", "SKILL.md"), skillMd("a"));
+      arm("auditWalk", () =>
+        rmSync(join(f!.coll, "child"), { recursive: true }),
+      );
+      const { stdout, stderr, exitCode } = await runCLI(
+        "audit",
+        "security",
+        f.coll,
+        "--json",
+      );
+      expect(hook.fired).toBe(1);
+      expect(stderr).not.toContain("Fatal error");
+      expect(exitCode).toBe(0);
+      const reports = JSON.parse(stdout);
+      expect(reports.map((r: { skillName: string }) => r.skillName)).toEqual([
+        "a",
+        "child",
+      ]);
+      const child = reports[1];
+      expect(child.skillPath).toBe(join(f.coll, "child"));
+      expect(child.totalFiles).toBe(0);
+      expect(child.verdict).toBe("warning");
+      expect(child.externalSymlinks).toEqual([
+        expect.objectContaining({ path: ".", target: "", kind: "dangling" }),
+      ]);
+    });
+
+    test("asm eval: a child moved away and back while it is checked reports the folder-moved message (#873)", async () => {
+      f = await fixture("plain");
+      const child = join(f.coll, "child");
+      const moved = join(f.base, "child-moved");
+      // The quality provider's SKILL.md check runs while the child is
+      // away; by the re-check it is back, resolving to itself again.
+      arm("mdOutside", () => {
+        hook.failStat = {
+          path: join(child, "SKILL.md"),
+          during: () => {
+            renameSync(child, moved);
+            renameSync(moved, child);
+          },
+        };
+      });
+      const { child: result } = await evalChild(f.coll);
+      expect(hook.fired).toBe(1);
+      expect(hook.statFailed).toBe(1);
+      expect(result.error).toBe(
+        `${child} changed after it was checked; asm eval read nothing from it.`,
+      );
     });
   },
 );
