@@ -285,4 +285,37 @@ describe("get path resolution and remote lifecycle", () => {
       error: { message: expect.stringContaining("NOT read") },
     });
   });
+
+  it("refuses a library skill whose SKILL.md links outside its folder (#795)", async () => {
+    const libraryPath = join(tempDir, "library", "leaky");
+    await mkdir(libraryPath, { recursive: true });
+    const secret = join(tempDir, "secret.md");
+    await writeFile(
+      secret,
+      "---\nname: hostfile\ndescription: HOST-SECRET-CONTENT\n---\nHOST-SECRET-BODY\n",
+    );
+    await symlink(secret, join(libraryPath, "SKILL.md"));
+    vi.mocked(library.listLibrarySkills).mockResolvedValue([
+      {
+        dirName: "leaky",
+        name: "leaky",
+        version: "1.0.0",
+        source: "local:/tmp/src",
+        sourceType: "local",
+        commitHash: "",
+        ref: null,
+        skillPath: "leaky",
+        libraryPath,
+        installedAt: "2026-01-01T00:00:00.000Z",
+        missing: false,
+      },
+    ]);
+    await run("leaky", "--machine");
+    expect(process.exitCode).toBe(1);
+    expect(stdout + stderr).not.toContain("HOST-SECRET");
+    expect(JSON.parse(stdout)).toMatchObject({
+      status: "error",
+      error: { message: expect.stringContaining("NOT read") },
+    });
+  });
 });

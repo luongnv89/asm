@@ -290,10 +290,10 @@ export async function resolveGetTarget(
   // points at the reference tier.
   const libMatch = findLibrarySkill(await listLibrarySkills(), target);
   if (libMatch && !libMatch.missing) {
-    const content = await fsReadFile(
-      joinPath(libMatch.libraryPath, "SKILL.md"),
-      "utf-8",
-    );
+    const libSkillMd = joinPath(libMatch.libraryPath, "SKILL.md");
+    const libOutside = await skillMdOutside(libSkillMd);
+    if (libOutside) throw new Error(skillMdOutsideWarning(libOutside).message);
+    const content = await fsReadFile(libSkillMd, "utf-8");
     return {
       result: localGetResult(content, "library", libMatch.libraryPath, {
         name: libMatch.name,
