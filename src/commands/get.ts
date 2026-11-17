@@ -36,6 +36,7 @@ import {
 import { resolveIndexedSkillByName } from "../skill-index";
 import { estimateTokenCount } from "../utils/token-count";
 import { findLibrarySkill, listLibrarySkills } from "../library";
+import { stripControlBytes } from "../utils/control-chars";
 import { join as joinPath } from "path";
 import type { GetResult, GetSecurityVerdict, GetTier } from "../utils/types";
 import { errorMessage } from "../utils/errors";
@@ -136,7 +137,9 @@ async function fetchGetFromRemote(
   // no network round-trip and stdout/stderr stay clean.
   assertNoParentSegments(parseSource(sourceInput), sourceInput);
 
-  process.stderr.write(ansi.dim(`Fetching ${sourceInput}…\n`));
+  process.stderr.write(
+    ansi.dim(`Fetching ${stripControlBytes(sourceInput)}…\n`),
+  );
   const remote = await fetchRemoteSkillDir(
     sourceInput,
     args.flags.transport,
@@ -391,7 +394,7 @@ export async function cmdGet(args: ParsedArgs) {
       });
       if (report.resolvedPath) {
         process.stderr.write(
-          `Auditing ${resolution.dir} -> ${report.resolvedPath}\n`,
+          `Auditing ${stripControlBytes(resolution.dir)} -> ${stripControlBytes(report.resolvedPath)}\n`,
         );
       }
       process.stderr.write(formatSecurityReport(report) + "\n");
@@ -432,12 +435,14 @@ export async function cmdGet(args: ParsedArgs) {
       error(message);
       if (candidates) {
         for (const c of candidates) {
-          process.stderr.write(`    ${ansi.cyan("•")} ${c}\n`);
+          process.stderr.write(
+            `    ${ansi.cyan("•")} ${stripControlBytes(c)}\n`,
+          );
         }
       } else {
         process.stderr.write(
           ansi.dim(
-            `Try ${ansi.bold("asm list")} or ${ansi.bold(`asm search "${target}"`)}.\n`,
+            `Try ${ansi.bold("asm list")} or ${ansi.bold(`asm search "${stripControlBytes(target)}"`)}.\n`,
           ),
         );
       }

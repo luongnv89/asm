@@ -2,6 +2,7 @@ import type { SkillInfo } from "./utils/types";
 import { useColor, ansi, colorEffort, providerBadge } from "./formatter-colors";
 import { groupSkills, shortenPath } from "./formatter-table";
 import {
+  stripControlBytes,
   stripControlBytesDeep,
   stripControlBytesLine,
 } from "./utils/control-chars";
@@ -24,7 +25,7 @@ export function formatSearchResults(
   query: string,
 ): string {
   if (skills.length === 0) {
-    return `No skills matching "${query}". Try ${ansi.bold("asm list")} to see all skills.`;
+    return `No skills matching "${stripControlBytes(query)}". Try ${ansi.bold("asm list")} to see all skills.`;
   }
 
   // Group on the original strings, then strip each display row (#830).
@@ -37,7 +38,7 @@ export function formatSearchResults(
   // Summary header
   lines.push(
     ansi.dim(
-      `Found ${skills.length} result${skills.length === 1 ? "" : "s"} (${grouped.length} unique) matching "${query}"`,
+      `Found ${skills.length} result${skills.length === 1 ? "" : "s"} (${grouped.length} unique) matching "${stripControlBytes(query)}"`,
     ) + "\n",
   );
 
@@ -177,7 +178,7 @@ export function formatAvailableSearchResults(
   // Summary header with total count
   lines.push(
     ansi.dim(
-      `Found ${results.length} available skill${results.length === 1 ? "" : "s"} matching "${query}"`,
+      `Found ${results.length} available skill${results.length === 1 ? "" : "s"} matching "${stripControlBytes(query)}"`,
     ) + "\n",
   );
 

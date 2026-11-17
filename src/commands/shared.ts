@@ -1,4 +1,5 @@
 import { ansi } from "../formatter";
+import { stripControlBytes } from "../utils/control-chars";
 import type { SkillInfo } from "../utils/types";
 import { checkHealth } from "../health";
 import type { SecurityAuditReport } from "../utils/types";
@@ -46,8 +47,14 @@ export function formatAuditMachineData(reports: SecurityAuditReport[]) {
     ),
   };
 }
+/**
+ * Print `Error: <msg>` on stderr. `msg` often echoes a typed argument, a path
+ * or an author string, so its control bytes are replaced with `?` line by line
+ * (#834); the line breaks stay. Callers keep the original for `--json`.
+ */
 export function error(msg: string) {
-  console.error(ansi.red(`Error: ${msg}`));
+  const shown = msg.split("\n").map(stripControlBytes).join("\n");
+  console.error(ansi.red(`Error: ${shown}`));
 }
 
 // ─── Help text ──────────────────────────────────────────────────────────────

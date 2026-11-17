@@ -8,6 +8,7 @@ import {
   discoverLinkableSkills,
 } from "../linker";
 
+import { stripControlBytes } from "../utils/control-chars";
 import { error, readLine } from "./shared";
 import type { ParsedArgs } from "../cli";
 
@@ -78,7 +79,7 @@ async function confirmOverwriteIfNeeded(
   }
 
   process.stderr.write(
-    `${ansi.yellow(`Target already exists: ${targetPath}`)}\n${ansi.bold("Overwrite?")} [y/N] `,
+    `${ansi.yellow(`Target already exists: ${stripControlBytes(targetPath)}`)}\n${ansi.bold("Overwrite?")} [y/N] `,
   );
   const answer = await readLine();
   if (answer.toLowerCase() !== "y" && answer.toLowerCase() !== "yes") {
@@ -182,7 +183,9 @@ export async function cmdLink(args: ParsedArgs) {
         allFailures.push({ name: sourcePath, error: validateErr });
         if (!args.flags.json) {
           console.error(
-            ansi.red(`  Failed to process "${sourcePath}": ${validateErr}`),
+            ansi.red(
+              `  Failed to process "${stripControlBytes(sourcePath)}": ${stripControlBytes(validateErr)}`,
+            ),
           );
         }
         continue;
@@ -200,14 +203,20 @@ export async function cmdLink(args: ParsedArgs) {
           allResults.push(result);
           if (!args.flags.json) {
             console.error(
-              ansi.green(`  Linked "${result.name}" -> ${result.targetPath}`),
+              ansi.green(
+                `  Linked "${stripControlBytes(result.name)}" -> ${stripControlBytes(result.targetPath)}`,
+              ),
             );
           }
         } catch (err: unknown) {
           const msg = err instanceof Error ? err.message : String(err);
           allFailures.push({ name: linkName, error: msg });
           if (!args.flags.json) {
-            console.error(ansi.red(`  Failed to link "${linkName}": ${msg}`));
+            console.error(
+              ansi.red(
+                `  Failed to link "${stripControlBytes(linkName)}": ${stripControlBytes(msg)}`,
+              ),
+            );
           }
         }
       } else {
@@ -227,7 +236,9 @@ export async function cmdLink(args: ParsedArgs) {
           allFailures.push({ name: sourcePath, error: display });
           if (!args.flags.json) {
             console.error(
-              ansi.red(`  Failed to process "${sourcePath}": ${display}`),
+              ansi.red(
+                `  Failed to process "${stripControlBytes(sourcePath)}": ${stripControlBytes(display)}`,
+              ),
             );
           }
           continue;
@@ -237,7 +248,7 @@ export async function cmdLink(args: ParsedArgs) {
           const msg = `No SKILL.md found in ${absSourcePath} or its immediate subdirectories.`;
           allFailures.push({ name: sourcePath, error: msg });
           if (!args.flags.json) {
-            console.error(ansi.red(`  ${msg}`));
+            console.error(ansi.red(`  ${stripControlBytes(msg)}`));
           }
           continue;
         }
@@ -253,7 +264,9 @@ export async function cmdLink(args: ParsedArgs) {
             allResults.push(result);
             if (!args.flags.json) {
               console.error(
-                ansi.green(`  Linked "${result.name}" -> ${result.targetPath}`),
+                ansi.green(
+                  `  Linked "${stripControlBytes(result.name)}" -> ${stripControlBytes(result.targetPath)}`,
+                ),
               );
             }
           } catch (err: unknown) {
@@ -261,7 +274,9 @@ export async function cmdLink(args: ParsedArgs) {
             allFailures.push({ name: skill.name, error: msg });
             if (!args.flags.json) {
               console.error(
-                ansi.red(`  Failed to link "${skill.name}": ${msg}`),
+                ansi.red(
+                  `  Failed to link "${stripControlBytes(skill.name)}": ${stripControlBytes(msg)}`,
+                ),
               );
             }
           }
@@ -340,13 +355,13 @@ export async function cmdLink(args: ParsedArgs) {
         error(`No such skill or path: ${sourcePath}`);
         if (isBareOrScopedName(sourcePath)) {
           console.error(
-            `  "${sourcePath}" looks like a registry name, not a local path.`,
+            `  "${stripControlBytes(sourcePath)}" looks like a registry name, not a local path.`,
           );
           console.error(
-            `  Install it first:  ${ansi.bold(`asm install ${sourcePath}`)}`,
+            `  Install it first:  ${ansi.bold(`asm install ${stripControlBytes(sourcePath)}`)}`,
           );
           console.error(
-            `  Or pass a local path: ${ansi.bold(`asm link ./path/to/${sourcePath}`)}`,
+            `  Or pass a local path: ${ansi.bold(`asm link ./path/to/${stripControlBytes(sourcePath)}`)}`,
           );
         } else {
           console.error(
@@ -417,12 +432,14 @@ export async function cmdLink(args: ParsedArgs) {
       console.log(formatJSON({ success: true, ...result }));
     } else {
       console.error(
-        ansi.green(`Done! Linked "${result.name}" -> ${result.targetPath}`),
+        ansi.green(
+          `Done! Linked "${stripControlBytes(result.name)}" -> ${stripControlBytes(result.targetPath)}`,
+        ),
       );
-      console.error(`  Symlink: ${result.symlinkPath}`);
+      console.error(`  Symlink: ${stripControlBytes(result.symlinkPath)}`);
       console.error(
         ansi.dim(
-          `  If you move or delete the source, run "asm uninstall ${result.name}" to clean up.`,
+          `  If you move or delete the source, run "asm uninstall ${stripControlBytes(result.name)}" to clean up.`,
         ),
       );
     }
@@ -433,11 +450,11 @@ export async function cmdLink(args: ParsedArgs) {
 
   // Display discovered skills
   console.error(
-    `Found ${ansi.bold(String(discovered.length))} skill(s) in ${absSourcePath}:`,
+    `Found ${ansi.bold(String(discovered.length))} skill(s) in ${stripControlBytes(absSourcePath)}:`,
   );
   for (const skill of discovered) {
     console.error(
-      `  ${ansi.bold(skill.name)} ${ansi.dim(`v${skill.version}`)} ${ansi.dim(`(${skill.dirName}/)`)}`,
+      `  ${ansi.bold(stripControlBytes(skill.name))} ${ansi.dim(`v${stripControlBytes(skill.version)}`)} ${ansi.dim(`(${stripControlBytes(skill.dirName)}/)`)}`,
     );
   }
 
@@ -477,14 +494,20 @@ export async function cmdLink(args: ParsedArgs) {
       results.push(result);
       if (!args.flags.json) {
         console.error(
-          ansi.green(`  Linked "${result.name}" -> ${result.targetPath}`),
+          ansi.green(
+            `  Linked "${stripControlBytes(result.name)}" -> ${stripControlBytes(result.targetPath)}`,
+          ),
         );
       }
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       failures.push({ name: skill.name, error: msg });
       if (!args.flags.json) {
-        console.error(ansi.red(`  Failed to link "${skill.name}": ${msg}`));
+        console.error(
+          ansi.red(
+            `  Failed to link "${stripControlBytes(skill.name)}": ${stripControlBytes(msg)}`,
+          ),
+        );
       }
     }
   }

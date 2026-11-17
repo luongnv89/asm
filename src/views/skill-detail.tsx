@@ -6,6 +6,10 @@ import { countFiles } from "../scanner";
 import { wordWrap, HIGH_RISK_TOOLS, MEDIUM_RISK_TOOLS } from "../formatter";
 import { formatTokenCount } from "../utils/token-count";
 import { formatInvocability } from "../utils/frontmatter";
+import {
+  stripControlBytes,
+  stripControlBytesDeep,
+} from "../utils/control-chars";
 
 const EFFORT_COLORS: Record<string, string> = {
   low: theme.green,
@@ -55,26 +59,29 @@ export interface SkillDetailProps {
   skill: SkillInfo;
 }
 
-export function SkillDetailView({ skill }: SkillDetailProps) {
+export function SkillDetailView({ skill: original }: SkillDetailProps) {
   const [fileCount, setFileCount] = useState<number | undefined>(
-    skill.fileCount,
+    original.fileCount,
   );
 
   useEffect(() => {
-    if (skill.fileCount === undefined) {
-      countFiles(skill.path)
+    if (original.fileCount === undefined) {
+      countFiles(original.path)
         .then((count) => setFileCount(count))
         .catch(() => {});
     }
-  }, [skill.path, skill.fileCount]);
+  }, [original.path, original.fileCount]);
 
+  // Author strings, stripped for display only (#834): the file count, the
+  // eval order and the risk check read the original.
+  const skill = stripControlBytesDeep(original);
   const descMaxWidth = 56;
-  const desc = skill.description || "(no description)";
-  const wrappedDescLines = wordWrap(desc, descMaxWidth);
-  const evalSummaries = getEvalSummaries(skill);
+  const desc = original.description || "(no description)";
+  const wrappedDescLines = wordWrap(desc, descMaxWidth).map(stripControlBytes);
+  const evalSummaries = stripControlBytesDeep(getEvalSummaries(original));
   const multipleProviders = evalSummaries.length > 1;
   const highRisk =
-    skill.allowedTools?.filter((t) => HIGH_RISK_TOOLS.has(t)) ?? [];
+    original.allowedTools?.filter((t) => HIGH_RISK_TOOLS.has(t)) ?? [];
   const actions: string[] = [];
   if (highRisk.includes("Bash")) actions.push("execute shell commands");
   if (highRisk.some((t) => ["Write", "Edit", "NotebookEdit"].includes(t))) {
@@ -115,7 +122,9 @@ export function SkillDetailView({ skill }: SkillDetailProps) {
         <Row
           label="Effort"
           value={skill.effort}
-          valueColor={EFFORT_COLORS[skill.effort.toLowerCase()] || theme.fg}
+          valueColor={
+            EFFORT_COLORS[(original.effort ?? "").toLowerCase()] || theme.fg
+          }
         />
       )}
       <Row
@@ -205,14 +214,15 @@ export function SkillDetailView({ skill }: SkillDetailProps) {
           </Box>
           <Box flexDirection="row">
             <Text>{"  "}</Text>
-            {skill.allowedTools.map((t, i) => {
+            {/* Risk lookup reads the original name; render the stripped one. */}
+            {(original.allowedTools ?? []).map((t, i, tools) => {
               let color: string = theme.green;
               if (HIGH_RISK_TOOLS.has(t)) color = theme.red;
               else if (MEDIUM_RISK_TOOLS.has(t)) color = theme.yellow;
-              const sep = i < skill.allowedTools.length - 1 ? "  " : "";
+              const sep = i < tools.length - 1 ? "  " : "";
               return (
                 <Text key={`tool-${i}`} color={color}>
-                  {t}
+                  {stripControlBytes(t)}
                   {sep}
                 </Text>
               );

@@ -3,6 +3,7 @@ import { Box, Text } from "ink";
 import { Select } from "@inkjs/ui";
 import { theme } from "../utils/colors";
 import type { SkillInfo } from "../utils/types";
+import { stripControlBytes } from "../utils/control-chars";
 
 export interface ConfirmProps {
   skill: SkillInfo;
@@ -20,7 +21,10 @@ export function ConfirmView({ skill, targets, onResult }: ConfirmProps) {
       width={60}
     >
       <Box justifyContent="center">
-        <Text color={theme.red}> Uninstall: {skill.name} </Text>
+        <Text color={theme.red}>
+          {" "}
+          Uninstall: {stripControlBytes(skill.name)}{" "}
+        </Text>
       </Box>
       <Text color={theme.yellow}>The following will be removed:</Text>
       <Box flexDirection="column" paddingLeft={1}>
@@ -29,7 +33,7 @@ export function ConfirmView({ skill, targets, onResult }: ConfirmProps) {
         ) : (
           targets.map((t, i) => (
             <Text key={`target-${i}`} color={theme.red}>
-              ✗ {t}
+              ✗ {stripControlBytes(t)}
             </Text>
           ))
         )}

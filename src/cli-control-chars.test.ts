@@ -1,8 +1,19 @@
 import { describe, test, expect, beforeAll, afterAll } from "vitest";
-import { mkdtemp, mkdir, writeFile, symlink, rm, cp, lstat } from "fs/promises";
+import {
+  mkdtemp,
+  mkdir,
+  writeFile,
+  readFile,
+  readdir,
+  symlink,
+  rm,
+  cp,
+  lstat,
+} from "fs/promises";
 import { tmpdir } from "os";
 import { join } from "path";
 import { runCliInProcess } from "./cli-test-harness";
+import { getBundledIndexDir } from "./config";
 
 // Issue #830: no output asm prints carries a raw C0, C1 or DEL character that
 // came from an author-controlled string. `--json` / `--machine` escape them
@@ -526,4 +537,585 @@ describe("author control bytes in more human output (#830 fix round)", () => {
     expect(stdout).toContain("Missing: u?[31m");
     expect(rawControls(stdout + stderr)).toEqual([]);
   }, 120_000);
+});
+
+// ─── Issue #834: the human surfaces #833 left out ──────────────────────────
+
+/** A hostile index for `index` and `stats repo|author` (two alike skills). */
+async function writeHostileIndex(root: string) {
+  const dir = join(root, "cfg", "skill-index");
+  await mkdir(dir, { recursive: true });
+  const skill = {
+    name: NAME,
+    description: DESC,
+    version: `1${H}`,
+    license: "",
+    creator: "",
+    compatibility: "",
+    allowedTools: [],
+    tags: [],
+    dependencies: [],
+    modelInvocable: true,
+    userInvocable: true,
+    installUrl: `github:o/r:${H}`,
+    relPath: "s",
+    verified: false,
+    tokenCount: 10,
+  };
+  await writeFile(
+    join(dir, `o${H}_r${H}.json`),
+    JSON.stringify({
+      repoUrl: "https://github.com/o/r",
+      owner: `o${H}`,
+      repo: `r${H}`,
+      updatedAt: "2026-01-01T00:00:00.000Z",
+      skillCount: 1,
+      skills: [skill],
+    }),
+  );
+}
+
+/** A clean skill folder whose frontmatter and file text are hostile. */
+async function writeHostileSource(dir: string) {
+  await mkdir(dir, { recursive: true });
+  await writeFile(
+    join(dir, "SKILL.md"),
+    `---\nname: ${NAME}\ndescription: ${DESC}\nmetadata:\n  version: 1.0.0\n---\n\n# Body\n`,
+  );
+}
+
+/** stdout + stderr carry the stripped form and no raw control byte. */
+function expectStripped(
+  out: { stdout: string; stderr: string },
+  shown: string,
+) {
+  expect(out.stdout + out.stderr).toContain(shown);
+  expect(rawControls(out.stdout)).toEqual([]);
+  expect(rawControls(out.stderr)).toEqual([]);
+}
+
+describe("author control bytes in the surfaces #833 left out (#834)", () => {
+  test("stats and stats --tokens: skill names are stripped", async () => {
+    const tokens = await run("stats", "--tokens");
+    expect(tokens.exitCode).toBe(0);
+    expectStripped(tokens, "evil?[31m");
+    const plain = await run("stats");
+    expect(plain.exitCode).toBe(0);
+    expect(rawControls(plain.stdout + plain.stderr)).toEqual([]);
+  }, 60_000);
+
+  test("index search/list/remove and stats repo/author: index strings are stripped", async () => {
+    const root = await emptyHome();
+    await writeHostileIndex(root);
+    const owner = `o${H}`;
+    const repo = `r${H}`;
+    for (const argv of [
+      ["index", "search", "evil"],
+      ["index", "list"],
+      ["stats", "repo", `${owner}/${repo}`],
+      ["stats", "author", owner],
+    ]) {
+      const out = await runIn(root, ...argv);
+      expect(out.exitCode).toBe(0);
+      expectStripped(out, "?[31m");
+    }
+    const removed = await runIn(
+      root,
+      "index",
+      "remove",
+      `${owner}/${repo}`,
+      "--yes",
+    );
+    expect(removed.exitCode).toBe(0);
+    expectStripped(removed, "Removed o?[31m");
+  }, 60_000);
+
+  test("bundle show: the bundle's names and descriptions are stripped", async () => {
+    const root = await emptyHome();
+    const file = join(root, "b.json");
+    await writeFile(
+      file,
+      JSON.stringify({
+        version: 1,
+        name: `b${H}`,
+        description: `bundle${H}desc`,
+        author: `me${H}`,
+        createdAt: "2026-01-01T00:00:00.000Z",
+        tags: [`t${H}`],
+        skills: [
+          {
+            name: `s${H}`,
+            installUrl: `/nonexistent/${H}src`,
+            description: `d${H}`,
+            version: `1${H}`,
+          },
+        ],
+      }),
+    );
+    const out = await runIn(root, "bundle", "show", file);
+    expect(out.exitCode).toBe(0);
+    expectStripped(out, "bundle?[31m");
+    expect(out.stderr).toContain("s?[31m");
+  }, 60_000);
+
+  test("search: a hostile query is stripped in every results header", async () => {
+    const root = await emptyHome();
+    await writeSkillAt(
+      join(root, ".claude", "skills", "code-review"),
+      "code-review",
+    );
+    await writeHostileSource(join(root, ".claude", "skills", "evilskill"));
+    await writeHostileIndex(root);
+    const projects = join(root, `p${H}`);
+    await mkdir(projects, { recursive: true });
+
+    const fuzzy = await runIn(root, "search", `review${H}`, "--fuzzy");
+    expect(fuzzy.exitCode).toBe(0);
+    expect(fuzzy.stderr).toContain("best match first");
+    expectStripped(fuzzy, `matching "review?[31m`);
+
+    const rooted = await runIn(
+      root,
+      "search",
+      `review${H}`,
+      "--root",
+      projects,
+    );
+    expect(rooted.exitCode).toBe(0);
+    expect(rooted.stderr).toContain("best match first");
+    expectStripped(rooted, "p?[31m");
+
+    const installed = await runIn(root, "search", NAME, "--installed");
+    expect(installed.exitCode).toBe(0);
+    expectStripped(installed, `Installed skills matching "evil?[31m`);
+    expect(installed.stdout + installed.stderr).toContain(
+      `result (1 unique) matching "evil?[31m`,
+    );
+
+    const available = await runIn(root, "search", NAME, "--available");
+    expect(available.exitCode).toBe(0);
+    expectStripped(available, `available skill matching "evil?[31m`);
+  }, 60_000);
+
+  test("link: the found, linked and done lines are stripped", async () => {
+    const root = await emptyHome();
+    const src = join(root, "src");
+    await writeHostileSource(join(src, "one"));
+    await writeHostileSource(join(src, "two"));
+    const out = await runIn(root, "link", src, "--yes", "--tool", "claude");
+    expect(out.exitCode).toBe(0);
+    expectStripped(out, "evil?[31m");
+  }, 60_000);
+
+  test("install: the step previews are stripped", async () => {
+    const root = await emptyHome();
+    const src = join(root, "okskill");
+    await writeHostileSource(src);
+    const out = await runIn(root, "install", src, "--yes", "--tool", "claude");
+    expect(out.exitCode).toBe(0);
+    expectStripped(out, "evil?[31m");
+  }, 60_000);
+
+  test("install --json: stdout is one JSON document, previews go to stderr", async () => {
+    const root = await emptyHome();
+    const src = join(root, "okskill");
+    await writeHostileSource(src);
+    const out = await runIn(
+      root,
+      "install",
+      src,
+      "--yes",
+      "--tool",
+      "claude",
+      "--json",
+    );
+    expect(out.exitCode).toBe(0);
+    expect(() => JSON.parse(out.stdout)).not.toThrow();
+    expect(rawControls(out.stdout)).toEqual([]);
+    expect(out.stderr).toContain("[Step 1/8]");
+    expect(rawControls(out.stderr)).toEqual([]);
+    // The JSON keeps the original name, escaped.
+    expect(strings(JSON.parse(out.stdout))).toContain(NAME);
+  }, 60_000);
+
+  test("install --json failure: stdout is still one JSON document", async () => {
+    const root = await emptyHome();
+    const out = await runIn(
+      root,
+      "install",
+      join(root, `missing${H}`),
+      "--yes",
+      "--json",
+    );
+    expect(out.exitCode).toBe(1);
+    const parsed = JSON.parse(out.stdout) as {
+      success: boolean;
+      error: string;
+    };
+    expect(parsed.success).toBe(false);
+    expect(parsed.error).toContain(`missing${H}`);
+    expect(rawControls(out.stdout + out.stderr)).toEqual([]);
+  }, 60_000);
+
+  test("install --json with no way to pick: stdout is the JSON error, exit 2", async () => {
+    const root = await emptyHome();
+    const src = join(root, "multi");
+    await writeHostileSource(join(src, "one"));
+    await writeHostileSource(join(src, "two"));
+    const out = await runIn(
+      root,
+      "install",
+      src,
+      "--yes",
+      "--tool",
+      "claude",
+      "--json",
+    );
+    expect(out.exitCode).toBe(2);
+    const parsed = JSON.parse(out.stdout) as {
+      success: boolean;
+      error: string;
+    };
+    expect(parsed.success).toBe(false);
+    expect(parsed.error).toContain("Repository contains 2 skills");
+    expect(rawControls(out.stdout + out.stderr)).toEqual([]);
+    const human = await runIn(
+      root,
+      "install",
+      src,
+      "--yes",
+      "--tool",
+      "claude",
+    );
+    expect(human.exitCode).toBe(2);
+    expect(human.stderr).toContain("Error: Repository contains 2 skills");
+    expect(human.stdout).not.toContain("process.exit");
+  }, 60_000);
+
+  test("install --json with no source: stdout is the JSON error, exit 2", async () => {
+    const root = await emptyHome();
+    const out = await runIn(root, "install", "--json");
+    expect(out.exitCode).toBe(2);
+    const parsed = JSON.parse(out.stdout) as { success: boolean };
+    expect(parsed.success).toBe(false);
+    expect(out.stderr).toContain("Missing required argument: <source>");
+  }, 60_000);
+
+  test("get: the not-found error and its hint are stripped", async () => {
+    const root = await emptyHome();
+    const out = await runIn(root, "get", `./x${H}`);
+    expect(out.exitCode).not.toBe(0);
+    expectStripped(out, "x?[31m");
+  }, 60_000);
+
+  test.each([
+    ["unknown command", () => [`x${H}`]],
+    ["unknown option", () => ["list", `--x${H}`]],
+    ["inspect", () => ["inspect", `x${H}`]],
+    ["uninstall", () => ["uninstall", `x${H}`, "--yes"]],
+    ["activate", () => ["activate", `x${H}`]],
+    ["search", () => ["search", `x${H}`]],
+    ["bundle remove", () => ["bundle", "remove", `x${H}`, "--yes"]],
+    ["index remove", () => ["index", "remove", `x${H}/y`, "--yes"]],
+    ["install <path>", () => ["install", `./x${H}`, "--yes"]],
+  ])(
+    "%s: the echoed argument is stripped in the error",
+    async (_label, argv) => {
+      const root = await emptyHome();
+      const out = await runIn(root, ...argv());
+      expectStripped(out, "x?[31m");
+    },
+    60_000,
+  );
+
+  test("import --diff: the shown file contents are stripped line by line", async () => {
+    // The imported copy is the installed global skill; the conflict is the
+    // project copy of the same name.
+    const root = await emptyHome();
+    const project = join(root, "proj");
+    const sourceDir = join(root, ".claude", "skills", "diff-skill");
+    const targetDir = join(project, ".claude", "skills", "diff-skill");
+    await mkdir(sourceDir, { recursive: true });
+    await mkdir(targetDir, { recursive: true });
+    await writeFile(
+      join(sourceDir, "SKILL.md"),
+      `---\nname: diff-skill\ndescription: imported\n---\n# Imported ${H}\n`,
+    );
+    await writeFile(
+      join(targetDir, "SKILL.md"),
+      "---\nname: diff-skill\ndescription: local\n---\n# Local\n",
+    );
+    await writeFile(
+      join(root, "m.json"),
+      JSON.stringify({
+        version: 1,
+        exportedAt: "2026-01-01T00:00:00.000Z",
+        skills: [
+          {
+            name: "diff-skill",
+            version: "1.0.0",
+            dirName: "diff-skill",
+            provider: "claude",
+            scope: "project",
+            path: sourceDir,
+            isSymlink: false,
+            symlinkTarget: null,
+          },
+        ],
+      }),
+    );
+    const out = await runCliInProcess(
+      ["import", join(root, "m.json"), "--yes", "--diff"],
+      { env: { HOME: root, ASM_CONFIG_DIR: join(root, "cfg") }, cwd: project },
+    );
+    expect(out.exitCode).toBe(0);
+    expect(out.stderr).toContain("-# Local");
+    expectStripped(out, "+# Imported ?[31m");
+  }, 60_000);
+
+  test("install --machine with no way to pick: stdout is one INSTALL_FAILED envelope, exit 2", async () => {
+    const root = await emptyHome();
+    const src = join(root, "multi");
+    await writeHostileSource(join(src, "one"));
+    await writeHostileSource(join(src, "two"));
+    const out = await runIn(
+      root,
+      "install",
+      src,
+      "--yes",
+      "--tool",
+      "claude",
+      "--machine",
+    );
+    expect(out.exitCode).toBe(2);
+    const parsed = JSON.parse(out.stdout) as {
+      status: string;
+      error: { code: string; message: string };
+    };
+    expect(parsed.status).toBe("error");
+    expect(parsed.error.code).toBe("INSTALL_FAILED");
+    expect(parsed.error.message).toContain("Repository contains 2 skills");
+    // The discovery preview went to stderr, stripped.
+    expect(out.stderr).toContain("evil?[31m");
+    expect(rawControls(out.stdout + out.stderr)).toEqual([]);
+  }, 60_000);
+
+  test("index overlap: the overlapping names and descriptions are stripped", async () => {
+    // The bundled index is merged in and only the first 500 skills are
+    // compared, so the hostile pair replaces the first bundled repo (a user
+    // index overrides the bundled one in place for the same owner/repo).
+    const bundledDir = getBundledIndexDir();
+    const first = (await readdir(bundledDir)).find((f) => f.endsWith(".json"));
+    expect(first).toBeDefined();
+    const { owner, repo } = JSON.parse(
+      await readFile(join(bundledDir, first!), "utf-8"),
+    ) as { owner: string; repo: string };
+    const root = await emptyHome();
+    const dir = join(root, "cfg", "skill-index");
+    await mkdir(dir, { recursive: true });
+    const skill = (name: string, relPath: string) => ({
+      name,
+      description: DESC,
+      version: "1.0.0",
+      license: "",
+      creator: "",
+      compatibility: "",
+      allowedTools: [],
+      tags: [],
+      dependencies: [],
+      modelInvocable: true,
+      userInvocable: true,
+      installUrl: `github:${owner}/${repo}:${relPath}`,
+      relPath,
+      verified: false,
+      tokenCount: 10,
+    });
+    await writeFile(
+      join(dir, first!),
+      JSON.stringify({
+        repoUrl: `https://github.com/${owner}/${repo}`,
+        owner,
+        repo,
+        updatedAt: "2026-01-01T00:00:00.000Z",
+        skillCount: 2,
+        skills: [skill(NAME, "a"), skill(`other${H}name`, "b")],
+      }),
+    );
+    const out = await runIn(root, "index", "overlap");
+    expect(out.exitCode).toBe(0);
+    expect(out.stderr).toContain("overlapping pair(s)");
+    // The group section lists every group (the pair list is capped at 20),
+    // so both names are checked there, whatever the bundled pairs rank.
+    expect(out.stderr).toContain("group(s):");
+    expect(out.stderr).toMatch(/^ {4}evil\?\[31m.*name \[/m);
+    expect(out.stderr).toMatch(/^ {4}other\?\[31m.*name \[/m);
+    expectStripped(out, "desc?[31m");
+  }, 120_000);
+
+  test("bundle create: the typed bundle name is stripped in the created line", async () => {
+    const root = await emptyHome();
+    await writeHostileSource(join(root, ".claude", "skills", "evilskill"));
+    const out = await runIn(root, "bundle", "create", `b${H}`, "--yes");
+    expect(out.exitCode).toBe(0);
+    expect(out.stderr).toContain("created with 1 skill(s)");
+    expectStripped(out, 'Bundle "b?[31m');
+  }, 60_000);
+
+  test("bundle modify: the --add and --remove echoes are stripped", async () => {
+    const root = await emptyHome();
+    const bundles = join(root, "cfg", "bundles");
+    await mkdir(bundles, { recursive: true });
+    await writeFile(
+      join(bundles, "b1.json"),
+      JSON.stringify({
+        version: 1,
+        name: "b1",
+        description: "bundle desc",
+        author: "me",
+        createdAt: "2026-01-01T00:00:00.000Z",
+        tags: [],
+        skills: [{ name: `s${H}`, installUrl: "/nonexistent/src" }],
+      }),
+    );
+    const changed = await runIn(
+      root,
+      "bundle",
+      "modify",
+      "b1",
+      "--add",
+      `/nonexistent/x${H}/y`,
+      "--remove",
+      `s${H}`,
+      "--yes",
+    );
+    expect(changed.exitCode).toBe(0);
+    expectStripped(changed, "Added skill from /nonexistent/x?[31m");
+    expect(changed.stderr).toContain('Removed skill "s?[31m');
+
+    const missing = await runIn(
+      root,
+      "bundle",
+      "modify",
+      "b1",
+      "--remove",
+      `nope${H}`,
+      "--yes",
+    );
+    expect(missing.exitCode).toBe(0);
+    expectStripped(missing, 'Skill "nope?[31m');
+    expect(missing.stderr).toContain("not found in bundle");
+  }, 60_000);
+});
+
+// ─── #834: the install stops that resolve through the registry ─────────────
+
+const COMMIT = "a".repeat(40);
+
+/** A fresh registry cache in the sandboxed config dir: no network fetch. */
+async function writeRegistryCache(root: string) {
+  const manifest = (author: string) => ({
+    name: "dup-skill",
+    author,
+    description: `desc${H}text`,
+    repository: `https://github.com/${author}/r`,
+    commit: COMMIT,
+    published_at: "2026-01-01T00:00:00Z",
+    security_verdict: "pass",
+  });
+  const cache = join(root, "cfg", "registry-cache.json");
+  await mkdir(join(root, "cfg"), { recursive: true });
+  await writeFile(
+    cache,
+    JSON.stringify({
+      fetched_at: new Date().toISOString(),
+      ttl_seconds: 3600,
+      data: {
+        generated_at: "2026-01-01T00:00:00Z",
+        manifests: [manifest("alice"), manifest("bob")],
+      },
+    }),
+  );
+  return cache;
+}
+
+/** Run with stdin pinned to non-TTY, so the stops cannot prompt. */
+async function runNonTty(root: string, cache: string | null, args: string[]) {
+  const origIsTTY = process.stdin.isTTY;
+  Object.defineProperty(process.stdin, "isTTY", {
+    value: false,
+    configurable: true,
+  });
+  try {
+    return await runCliInProcess(args, {
+      env: {
+        HOME: root,
+        ASM_CONFIG_DIR: join(root, "cfg"),
+        ...(cache ? { ASM_REGISTRY_CACHE: cache } : {}),
+      },
+      cwd: root,
+    });
+  } finally {
+    Object.defineProperty(process.stdin, "isTTY", {
+      value: origIsTTY,
+      configurable: true,
+    });
+  }
+}
+
+describe("install stops reported in the active output mode (#834)", () => {
+  test("ambiguous registry name: exit 2, the preview is stripped, --json stdout is JSON", async () => {
+    const root = await emptyHome();
+    const cache = await writeRegistryCache(root);
+
+    const human = await runNonTty(root, cache, ["install", "dup-skill"]);
+    expect(human.exitCode).toBe(2);
+    expect(human.stderr).toContain('Ambiguous skill name "dup-skill"');
+    expectStripped(human, "alice/dup-skill — desc?[31m");
+
+    const json = await runNonTty(root, cache, [
+      "install",
+      "dup-skill",
+      "--json",
+    ]);
+    expect(json.exitCode).toBe(2);
+    const parsed = JSON.parse(json.stdout) as {
+      success: boolean;
+      error: string;
+    };
+    expect(parsed.success).toBe(false);
+    expect(parsed.error).toContain("Ambiguous skill name");
+    expectStripped(json, "bob/dup-skill — desc?[31m");
+  }, 60_000);
+
+  test("scoped name not in the registry: exit 1 with the Did you mean hint on stderr", async () => {
+    // Registry names and authors are pattern-checked, so no control byte can
+    // reach this hint; the test pins the exit code and the hint's stream.
+    const root = await emptyHome();
+    const cache = await writeRegistryCache(root);
+    const out = await runNonTty(root, cache, ["install", "alice/dup-skil"]);
+    expect(out.exitCode).toBe(1);
+    expect(out.stderr).toContain(
+      'Error: Skill "alice/dup-skil" not found in the registry.',
+    );
+    expect(out.stderr).toContain("Did you mean: dup-skill");
+    expect(out.stdout).not.toContain("Did you mean");
+    expect(rawControls(out.stdout + out.stderr)).toEqual([]);
+  }, 60_000);
+
+  test("no --yes without a TTY: the confirmation stop exits 2, stripped", async () => {
+    const root = await emptyHome();
+    const src = join(root, "okskill");
+    await writeHostileSource(src);
+    const out = await runNonTty(root, null, [
+      "install",
+      src,
+      "--tool",
+      "claude",
+    ]);
+    expect(out.exitCode).toBe(2);
+    expect(out.stderr).toContain(
+      "Error: Cannot prompt for confirmation in non-interactive mode",
+    );
+    expectStripped(out, "evil?[31m");
+  }, 60_000);
 });

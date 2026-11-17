@@ -1,4 +1,5 @@
 import { ansi } from "./formatter";
+import { stripControlBytesLine } from "./utils/control-chars";
 import { formatTokenCount } from "./utils/token-count";
 import type {
   RepoIndex,
@@ -178,7 +179,11 @@ export function formatRepoStatsReport(report: RepoStatsReport): string {
   const lines: string[] = [];
 
   lines.push("");
-  lines.push(ansi.blueBold(`  Repo: ${report.owner}/${report.repo}`));
+  lines.push(
+    ansi.blueBold(
+      `  Repo: ${stripControlBytesLine(`${report.owner}/${report.repo}`)}`,
+    ),
+  );
   lines.push(ansi.dim("  " + "-".repeat(40)));
   lines.push("");
 
@@ -225,7 +230,7 @@ export function formatAuthorStatsReport(report: AuthorStatsReport): string {
   const lines: string[] = [];
 
   lines.push("");
-  lines.push(ansi.blueBold(`  Author: ${report.owner}`));
+  lines.push(ansi.blueBold(`  Author: ${stripControlBytesLine(report.owner)}`));
   lines.push(ansi.dim("  " + "-".repeat(40)));
   lines.push("");
 
@@ -265,7 +270,7 @@ export function formatAuthorStatsReport(report: AuthorStatsReport): string {
     for (let i = 0; i < report.topSkills.length; i++) {
       const s = report.topSkills[i];
       lines.push(
-        `    ${ansi.dim(`${i + 1}.`)} ${ansi.cyan(s.name)} ${ansi.dim(`(${s.repo})`)}`,
+        `    ${ansi.dim(`${i + 1}.`)} ${ansi.cyan(stripControlBytesLine(s.name))} ${ansi.dim(`(${stripControlBytesLine(s.repo)})`)}`,
       );
     }
     lines.push("");

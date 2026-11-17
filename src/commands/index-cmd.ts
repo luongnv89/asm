@@ -1,5 +1,8 @@
 import { formatJSON, ansi, wordWrap } from "../formatter";
-import { stripControlBytesLine } from "../utils/control-chars";
+import {
+  stripControlBytes,
+  stripControlBytesLine,
+} from "../utils/control-chars";
 import { ingestRepo, listIndexedRepos, removeRepoIndex } from "../ingester";
 import {
   getTotalSkillCount,
@@ -202,10 +205,10 @@ export async function cmdIndex(args: ParsedArgs) {
             ? ansi.blue(" [verified]")
             : "";
           console.error(
-            `${ansi.cyan(result.skill.name)} ${ansi.dim(`v${result.skill.version}`)}${verifiedTag} ${ansi.dim(`[${result.repo.owner}/${result.repo.repo}]`)}`,
+            `${ansi.cyan(stripControlBytesLine(result.skill.name))} ${ansi.dim(`v${stripControlBytesLine(result.skill.version)}`)}${verifiedTag} ${ansi.dim(`[${stripControlBytesLine(`${result.repo.owner}/${result.repo.repo}`)}]`)}`,
           );
           for (const dl of wordWrap(result.skill.description, 80)) {
-            console.error(`  ${dl}`);
+            console.error(`  ${stripControlBytes(dl)}`);
           }
           const missingFields = getMissingMetadataFields(result.skill);
           if (missingFields.length > 0) {
@@ -214,7 +217,7 @@ export async function cmdIndex(args: ParsedArgs) {
             );
           }
           console.error(
-            `  ${ansi.green(`asm install ${result.skill.installUrl}`)}\n`,
+            `  ${ansi.green(`asm install ${stripControlBytesLine(result.skill.installUrl)}`)}\n`,
           );
         }
       }
@@ -244,7 +247,7 @@ export async function cmdIndex(args: ParsedArgs) {
         );
         for (const repo of repos) {
           console.error(
-            `${ansi.cyan(`${repo.owner}/${repo.repo}`)} - ${repo.skillCount} skills ${ansi.dim(`(${new Date(repo.updatedAt).toLocaleDateString()})`)}`,
+            `${ansi.cyan(stripControlBytesLine(`${repo.owner}/${repo.repo}`))} - ${repo.skillCount} skills ${ansi.dim(`(${new Date(repo.updatedAt).toLocaleDateString()})`)}`,
           );
         }
       }
@@ -267,7 +270,7 @@ export async function cmdIndex(args: ParsedArgs) {
 
       if (!args.flags.yes && process.stdin.isTTY) {
         process.stderr.write(
-          `${ansi.bold("Remove")} ${ansi.cyan(`${owner}/${repo}`)} ${ansi.bold("from index?")} [y/N] `,
+          `${ansi.bold("Remove")} ${ansi.cyan(stripControlBytesLine(`${owner}/${repo}`))} ${ansi.bold("from index?")} [y/N] `,
         );
         const answer = await readLine();
         if (answer.toLowerCase() !== "y" && answer.toLowerCase() !== "yes") {
@@ -279,7 +282,11 @@ export async function cmdIndex(args: ParsedArgs) {
       const removed = await removeRepoIndex(owner, repo);
 
       if (removed) {
-        console.error(ansi.green(`Removed ${owner}/${repo} from index`));
+        console.error(
+          ansi.green(
+            `Removed ${stripControlBytesLine(`${owner}/${repo}`)} from index`,
+          ),
+        );
       } else {
         error(`Repository not found in index: ${owner}/${repo}`);
         process.exit(1);
@@ -381,10 +388,10 @@ export async function cmdIndex(args: ParsedArgs) {
                   ? ansi.yellow(" [high overlap]")
                   : "";
               console.error(
-                `    ${ansi.cyan(s.skill.name)} ${ansi.dim(`[${s.repo.owner}/${s.repo.repo}]`)}${highConf}\n`,
+                `    ${ansi.cyan(stripControlBytesLine(s.skill.name))} ${ansi.dim(`[${stripControlBytesLine(`${s.repo.owner}/${s.repo.repo}`)}]`)}${highConf}\n`,
               );
               for (const dl of wordWrap(s.skill.description, 72)) {
-                console.error(`      ${dl}`);
+                console.error(`      ${stripControlBytes(dl)}`);
               }
             }
             console.error("");
@@ -400,13 +407,13 @@ export async function cmdIndex(args: ParsedArgs) {
                 ? ansi.yellow("MED")
                 : ansi.dim("LOW");
           console.error(
-            `  ${confidence} ${pair.score.toFixed(3)}  ${ansi.cyan(pair.skillA.name)} ↔ ${ansi.cyan(pair.skillB.name)}\n`,
+            `  ${confidence} ${pair.score.toFixed(3)}  ${ansi.cyan(stripControlBytesLine(pair.skillA.name))} ↔ ${ansi.cyan(stripControlBytesLine(pair.skillB.name))}\n`,
           );
           console.error(
-            `        ${pair.repoA.owner}/${pair.repoA.repo}  ↔  ${pair.repoB.owner}/${pair.repoB.repo}\n`,
+            `        ${stripControlBytesLine(`${pair.repoA.owner}/${pair.repoA.repo}`)}  ↔  ${stripControlBytesLine(`${pair.repoB.owner}/${pair.repoB.repo}`)}\n`,
           );
           for (const dl of wordWrap(pair.reason, 72)) {
-            console.error(`        ${dl}`);
+            console.error(`        ${stripControlBytes(dl)}`);
           }
           console.error("");
         }

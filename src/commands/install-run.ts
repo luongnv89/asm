@@ -68,7 +68,23 @@ import {
   executeSkillInstall,
   installSelectedLibrarySkill,
 } from "./install-inspect";
-import { stringifyForOutput } from "../utils/control-chars";
+import { stringifyForOutput, stripControlBytes } from "../utils/control-chars";
+
+/**
+ * A non-interactive stop inside the install pipeline. It is thrown, not
+ * exited on the spot, so the catch below reports it in the active output mode
+ * (`--json` and `--machine` keep one JSON document on stdout, #834) and exits
+ * with `exitCode`. `hint` prints after the human `Error:` line.
+ */
+class InstallStop extends Error {
+  constructor(
+    message: string,
+    readonly exitCode: number,
+    readonly hint?: string,
+  ) {
+    super(message);
+  }
+}
 
 export async function cmdInstall(args: ParsedArgs) {
   if (args.flags.help) {
@@ -76,14 +92,28 @@ export async function cmdInstall(args: ParsedArgs) {
     return;
   }
 
-  const restoreConsole = args.flags.machine
-    ? redirectConsoleToStderr()
-    : undefined;
+  // `--machine` and `--json` keep stdout for the one JSON document: the step
+  // headers and previews go to stderr (#834).
+  const restoreConsole =
+    args.flags.machine || args.flags.json
+      ? redirectConsoleToStderr()
+      : undefined;
 
   const startTime = performance.now();
   const explicitForce = args.flags.force;
   let sourceStr = args.subcommand;
   if (!sourceStr) {
+    restoreConsole?.();
+    if (args.flags.json) {
+      // `--json` keeps one JSON document on stdout, even for a usage error.
+      console.log(
+        stringifyForOutput(
+          { success: false, error: "Missing required argument: <source>" },
+          null,
+          2,
+        ),
+      );
+    }
     error("Missing required argument: <source>");
     console.error(`Run "asm install --help" for usage.`);
     process.exit(2);
@@ -120,7 +150,7 @@ export async function cmdInstall(args: ParsedArgs) {
     // Step 0: Registry resolution for bare/scoped names
     if (isBareOrScopedName(sourceStr)) {
       console.info(
-        `\n${ansi.cyan("●")} Resolving "${ansi.bold(sourceStr)}" from registry...`,
+        `\n${ansi.cyan("●")} Resolving "${ansi.bold(stripControlBytes(sourceStr))}" from registry...`,
       );
 
       const { resolved, multipleMatches, suggestions } =
@@ -137,27 +167,27 @@ export async function cmdInstall(args: ParsedArgs) {
           ? `github:${repoPath}#${m.commit}:${m.skill_path}`
           : `github:${repoPath}#${m.commit}`;
         console.info(
-          `  ${ansi.green("✓")} Resolved: ${ansi.bold(`${m.author}/${m.name}`)} @ ${m.commit.slice(0, 7)}`,
+          `  ${ansi.green("✓")} Resolved: ${ansi.bold(stripControlBytes(`${m.author}/${m.name}`))} @ ${stripControlBytes(m.commit.slice(0, 7))}`,
         );
       } else if (multipleMatches.length > 0) {
         // Multiple authors publish this name — disambiguate
         console.info(
-          `\n  ${ansi.yellow("⚠")} Multiple skills found for "${ansi.bold(sourceStr)}":`,
+          `\n  ${ansi.yellow("⚠")} Multiple skills found for "${ansi.bold(stripControlBytes(sourceStr))}":`,
         );
 
         const top = multipleMatches.slice(0, 5);
         for (let idx = 0; idx < top.length; idx++) {
           const m = top[idx];
           console.info(
-            `    ${ansi.cyan(`${idx + 1}.`)} ${ansi.bold(`${m.author}/${m.name}`)} — ${m.description}`,
+            `    ${ansi.cyan(`${idx + 1}.`)} ${ansi.bold(stripControlBytes(`${m.author}/${m.name}`))} — ${stripControlBytes(m.description)}`,
           );
         }
 
         if (!process.stdin.isTTY) {
-          error(
+          throw new InstallStop(
             `Ambiguous skill name "${sourceStr}". Use a scoped name: asm install author/name`,
+            2,
           );
-          process.exit(2);
         }
 
         const prompt = `\n  Select a skill [1-${top.length}]: `;
@@ -201,17 +231,17 @@ export async function cmdInstall(args: ParsedArgs) {
           ? `github:${selectedRepoPath}#${selected.commit}:${selected.skill_path}`
           : `github:${selectedRepoPath}#${selected.commit}`;
         console.info(
-          `  ${ansi.green("✓")} Selected: ${ansi.bold(`${selected.author}/${selected.name}`)} @ ${selected.commit.slice(0, 7)}`,
+          `  ${ansi.green("✓")} Selected: ${ansi.bold(stripControlBytes(`${selected.author}/${selected.name}`))} @ ${stripControlBytes(selected.commit.slice(0, 7))}`,
         );
       } else if (isScopedName(sourceStr)) {
         // Scoped name not found in registry — error (no fallback)
-        error(`Skill "${sourceStr}" not found in the registry.`);
-        if (suggestions.length > 0) {
-          console.error(
-            `\n  Did you mean: ${suggestions.map((s) => ansi.cyan(s)).join(", ")}?`,
-          );
-        }
-        process.exit(1);
+        throw new InstallStop(
+          `Skill "${sourceStr}" not found in the registry.`,
+          1,
+          suggestions.length > 0
+            ? `\n  Did you mean: ${suggestions.map((s) => ansi.cyan(stripControlBytes(s))).join(", ")}?`
+            : undefined,
+        );
       } else {
         // Bare name not in registry — fall back to existing behavior
         console.info(
@@ -237,7 +267,7 @@ export async function cmdInstall(args: ParsedArgs) {
     if (isLocal) {
       // Local path — validate it exists and is a directory
       const localPath = source.localPath!;
-      console.info(`  ${ansi.dim(`local: ${localPath}`)}`);
+      console.info(`  ${ansi.dim(`local: ${stripControlBytes(localPath)}`)}`);
       const { stat: fsStat } = await import("fs/promises");
       try {
         const stats = await fsStat(localPath);
@@ -254,7 +284,7 @@ export async function cmdInstall(args: ParsedArgs) {
       // Remote — resolve subpath via git ls-remote
       await checkGitAvailable();
       source = await resolveSubpath(source);
-      console.info(`  ${ansi.dim(sourceStr)}`);
+      console.info(`  ${ansi.dim(stripControlBytes(sourceStr))}`);
     }
 
     if (args.flags.library && args.flags.method === "vercel") {
@@ -272,7 +302,7 @@ export async function cmdInstall(args: ParsedArgs) {
       const repoUrl = buildRepoUrl(source);
       const skillName = args.flags.path || null;
       console.info(
-        `  ${ansi.dim(`npx skills add ${repoUrl}${skillName ? ` --skill ${skillName}` : ""}`)}`,
+        `  ${ansi.dim(`npx skills add ${stripControlBytes(repoUrl)}${skillName ? ` --skill ${stripControlBytes(skillName)}` : ""}`)}`,
       );
 
       const { stdout, stderr } = await executeNpxSkillsAdd(repoUrl, skillName);
@@ -333,7 +363,7 @@ export async function cmdInstall(args: ParsedArgs) {
     // Step 4: Clone repository (or read local source)
     if (isLocal) {
       console.info(stepHeader("Reading local source"));
-      console.info(`  ${ansi.dim(source.localPath!)}`);
+      console.info(`  ${ansi.dim(stripControlBytes(source.localPath!))}`);
       // For local sources, use the local path directly — no temp dir needed
       tempDir = null;
     } else {
@@ -341,12 +371,12 @@ export async function cmdInstall(args: ParsedArgs) {
       const transport = args.flags.transport;
       const displayUrl =
         transport === "ssh"
-          ? source.sshCloneUrl
+          ? stripControlBytes(source.sshCloneUrl)
           : transport === "https"
-            ? source.cloneUrl
-            : `${source.cloneUrl} ${ansi.dim("(auto)")}`;
+            ? stripControlBytes(source.cloneUrl)
+            : `${stripControlBytes(source.cloneUrl)} ${ansi.dim("(auto)")}`;
       console.info(
-        `  ${displayUrl}${source.ref ? ` ${ansi.dim(`(ref: ${source.ref})`)}` : ""}${source.subpath ? ` ${ansi.dim(`(path: ${source.subpath})`)}` : ""}`,
+        `  ${displayUrl}${source.ref ? ` ${ansi.dim(`(ref: ${stripControlBytes(source.ref)})`)}` : ""}${source.subpath ? ` ${ansi.dim(`(path: ${stripControlBytes(source.subpath)})`)}` : ""}`,
       );
       tempDir = await cloneToTemp(source, transport);
     }
@@ -429,7 +459,9 @@ export async function cmdInstall(args: ParsedArgs) {
         discoveryPrefix = effectivePath;
       }
       if (foundSkill) {
-        console.info(`  Found skill at ${ansi.bold(effectivePath)}`);
+        console.info(
+          `  Found skill at ${ansi.bold(stripControlBytes(effectivePath))}`,
+        );
         selectedDirs = [{ skillDir, nameOverride: args.flags.name }];
       }
     } else {
@@ -444,7 +476,7 @@ export async function cmdInstall(args: ParsedArgs) {
         // Case 2: SKILL.md at root — default single-skill install
         const metadata = await validateSkill(scanBaseDir);
         console.info(
-          `  Found: ${ansi.bold(metadata.name)} v${metadata.version}`,
+          `  Found: ${ansi.bold(stripControlBytes(metadata.name))} v${stripControlBytes(metadata.version)}`,
         );
         selectedDirs = [
           { skillDir: scanBaseDir, nameOverride: args.flags.name },
@@ -461,7 +493,7 @@ export async function cmdInstall(args: ParsedArgs) {
     if (needsDiscovery) {
       if (discoveryPrefix) {
         console.info(
-          `  No SKILL.md at ${ansi.bold(discoveryPrefix)}. Scanning subdirectories...`,
+          `  No SKILL.md at ${ansi.bold(stripControlBytes(discoveryPrefix))}. Scanning subdirectories...`,
         );
       } else if (isRootSkill) {
         console.info(
@@ -498,10 +530,12 @@ export async function cmdInstall(args: ParsedArgs) {
           `  ${String(i + 1).padStart(String(discovered.length).length)})`,
         );
         console.info(
-          `${num} ${ansi.bold(discovered[i].name)} ${ansi.dim(`v${discovered[i].version}`)} ${ansi.dim(`(${discovered[i].relPath})`)}`,
+          `${num} ${ansi.bold(stripControlBytes(discovered[i].name))} ${ansi.dim(`v${stripControlBytes(discovered[i].version)}`)} ${ansi.dim(`(${stripControlBytes(discovered[i].relPath)})`)}`,
         );
         if (discovered[i].description) {
-          console.info(`     ${ansi.dim(discovered[i].description)}`);
+          console.info(
+            `     ${ansi.dim(stripControlBytes(discovered[i].description))}`,
+          );
         }
       }
 
@@ -523,7 +557,7 @@ export async function cmdInstall(args: ParsedArgs) {
           // Single skill: auto-select without showing picker
           selectedPaths = [discovered[0].relPath];
           console.info(
-            `  Auto-selected: ${ansi.bold(discovered[0].name)} ${ansi.dim(`v${discovered[0].version}`)}`,
+            `  Auto-selected: ${ansi.bold(stripControlBytes(discovered[0].name))} ${ansi.dim(`v${stripControlBytes(discovered[0].version)}`)}`,
           );
         } else {
           const pickerItems = discovered.map((s) => ({
@@ -547,12 +581,11 @@ export async function cmdInstall(args: ParsedArgs) {
           );
         }
       } else {
-        error(
+        throw new InstallStop(
           `Repository contains ${discovered.length} skills. Use --path <subdir> to pick one or --all to install all.\n` +
             `Available skills:\n${discovered.map((s) => `  --path ${s.relPath}`).join("\n")}`,
+          2,
         );
-        process.exit(2);
-        return; // unreachable but helps TypeScript
       }
 
       // Duplicate detection must key on the *install target directory* name,
@@ -630,7 +663,9 @@ export async function cmdInstall(args: ParsedArgs) {
     if (isBatch) {
       console.info("");
       console.info(`  ${ansi.bold("Install settings:")}`);
-      console.info(`    ${ansi.bold("Source:")}      ${sourceStr}`);
+      console.info(
+        `    ${ansi.bold("Source:")}      ${stripControlBytes(sourceStr)}`,
+      );
       if (allProviders) {
         console.info(
           `    ${ansi.bold("Tool:")}    All (${allProviders.map((p) => p.label).join(", ")})`,
@@ -692,9 +727,11 @@ export async function cmdInstall(args: ParsedArgs) {
 
           const ct = inspection.crossToolLink!;
           console.info(
-            `\n  ${ansi.yellow("⚠")} ${ansi.bold(inspection.metadata.name)} is already installed in ${ct.existingProviderLabel}.`,
+            `\n  ${ansi.yellow("⚠")} ${ansi.bold(stripControlBytes(inspection.metadata.name))} is already installed in ${ct.existingProviderLabel}.`,
           );
-          console.info(`    Existing: ${ansi.dim(ct.existingPath)}`);
+          console.info(
+            `    Existing: ${ansi.dim(stripControlBytes(ct.existingPath))}`,
+          );
           console.info(
             `\n  ${ansi.cyan("Option 1")} — ${ansi.bold("Reinstall")}: Download fresh from index (gets latest version)`,
           );
@@ -729,15 +766,15 @@ export async function cmdInstall(args: ParsedArgs) {
         const hasHighRisk = inspections.some((i) => i.riskLevel === "high");
 
         if (!process.stdin.isTTY) {
-          error(
+          throw new InstallStop(
             "Cannot prompt for confirmation in non-interactive mode. Use --yes to skip.",
+            2,
           );
-          process.exit(2);
         }
 
         const countLabel = isBatch
           ? `${inspections.length} skills`
-          : `"${inspections[0].metadata.name}"`;
+          : `"${stripControlBytes(inspections[0].metadata.name)}"`;
         const promptText = hasHighRisk
           ? `\n  ${ansi.red("[!]")} ${ansi.bold(`Install ${countLabel}? Some have high-risk patterns.`)} [y/N] `
           : `\n  ${ansi.bold(`Install ${countLabel}?`)} [Y/n] `;
@@ -773,7 +810,7 @@ export async function cmdInstall(args: ParsedArgs) {
         const ct = inspection.crossToolLink!;
         try {
           console.info(
-            `${progress}Linking ${ansi.bold(inspection.metadata.name)} from ${ct.existingProviderLabel}...`,
+            `${progress}Linking ${ansi.bold(stripControlBytes(inspection.metadata.name))} from ${ct.existingProviderLabel}...`,
           );
           const targetPath = await linkExistingSkill(
             inspection.skillName,
@@ -792,7 +829,7 @@ export async function cmdInstall(args: ParsedArgs) {
             source: `link:${ct.existingPath}`,
           });
           console.info(
-            `${progress}${ansi.green("✓")} ${inspection.metadata.name} linked to ${ansi.dim(targetPath)}`,
+            `${progress}${ansi.green("✓")} ${stripControlBytes(inspection.metadata.name)} linked to ${ansi.dim(stripControlBytes(targetPath))}`,
           );
 
           // Write lock entry for tracking
@@ -815,7 +852,7 @@ export async function cmdInstall(args: ParsedArgs) {
             error: linkMessage,
           });
           console.error(
-            `${progress}${ansi.red("✗")} ${ansi.bold(inspection.metadata.name)} — ${ansi.red(linkMessage)}`,
+            `${progress}${ansi.red("✗")} ${ansi.bold(stripControlBytes(inspection.metadata.name))} — ${ansi.red(stripControlBytes(linkMessage))}`,
           );
         }
         continue;
@@ -823,7 +860,7 @@ export async function cmdInstall(args: ParsedArgs) {
 
       try {
         console.info(
-          `${progress}Installing ${ansi.bold(inspection.metadata.name)}...`,
+          `${progress}Installing ${ansi.bold(stripControlBytes(inspection.metadata.name))}...`,
         );
         const result = args.flags.library
           ? await installSelectedLibrarySkill({
@@ -838,7 +875,7 @@ export async function cmdInstall(args: ParsedArgs) {
           : await executeSkillInstall(inspection.plan, allProviders);
         results.push(result);
         console.info(
-          `${progress}${ansi.green("✓")} ${inspection.metadata.name} installed to ${ansi.dim(result.path)}`,
+          `${progress}${ansi.green("✓")} ${stripControlBytes(inspection.metadata.name)} installed to ${ansi.dim(stripControlBytes(result.path))}`,
         );
 
         // Write lock entry for tracking
@@ -882,7 +919,7 @@ export async function cmdInstall(args: ParsedArgs) {
           error: installMessage,
         });
         console.error(
-          `${progress}${ansi.red("✗")} ${ansi.bold(inspection.metadata.name)} — ${ansi.red(installMessage)}`,
+          `${progress}${ansi.red("✗")} ${ansi.bold(stripControlBytes(inspection.metadata.name))} — ${ansi.red(stripControlBytes(installMessage))}`,
         );
       }
     }
@@ -897,7 +934,9 @@ export async function cmdInstall(args: ParsedArgs) {
         `\n${ansi.yellow(`${failures.length} skill(s) failed to install:`)}`,
       );
       for (const f of failures) {
-        console.error(`  ${ansi.red("✗")} ${f.name}: ${f.error}`);
+        console.error(
+          `  ${ansi.red("✗")} ${stripControlBytes(f.name)}: ${stripControlBytes(f.error)}`,
+        );
       }
       if (args.flags.library) {
         process.exitCode = 1;
@@ -922,6 +961,7 @@ export async function cmdInstall(args: ParsedArgs) {
         ),
       );
     } else if (args.flags.json) {
+      restoreConsole?.();
       const enriched = results.map((r) => ({
         ...r,
         resolutionSource: resolutionSource,
@@ -936,7 +976,7 @@ export async function cmdInstall(args: ParsedArgs) {
     } else if (results.length === 1) {
       console.error(
         ansi.green(
-          `\nDone! Installed "${results[0].name}" to ${results[0].path}`,
+          `\nDone! Installed "${stripControlBytes(results[0].name)}" to ${stripControlBytes(results[0].path)}`,
         ),
       );
     } else if (results.length > 0) {
@@ -964,6 +1004,7 @@ export async function cmdInstall(args: ParsedArgs) {
         ),
       );
     } else if (args.flags.json) {
+      restoreConsole?.();
       const payload: Record<string, unknown> = {
         success: false,
         error: message,
@@ -975,7 +1016,8 @@ export async function cmdInstall(args: ParsedArgs) {
     } else {
       error(message);
     }
-    process.exit(1);
+    if (err instanceof InstallStop && err.hint) console.error(err.hint);
+    process.exit(err instanceof InstallStop ? err.exitCode : 1);
   } finally {
     if (tempDir) {
       await cleanupTemp(tempDir);

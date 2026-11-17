@@ -24,6 +24,10 @@ import type { ResolutionSource } from "../registry";
 import { installLibrarySkill } from "../library";
 import { relative as relativePath } from "path";
 import { toPortableRelativePath } from "../utils/fs";
+import {
+  stripControlBytes,
+  stripControlBytesDeep,
+} from "../utils/control-chars";
 
 import type { ParsedArgs } from "../cli";
 
@@ -216,15 +220,19 @@ export function displaySkillInspection(
   isBatch: boolean,
   batchContext?: { index: number; total: number },
 ) {
-  const { metadata, warnings, installStatus, riskLabel, plan, crossToolLink } =
+  const { warnings, installStatus, riskLabel, plan, crossToolLink } =
     inspection;
+  // Author strings, stripped for display only (#834). Warning files and
+  // matches are already stripped by the install scan.
+  const metadata = stripControlBytesDeep(inspection.metadata);
+  sourceStr = stripControlBytes(sourceStr);
 
   if (isBatch && batchContext) {
     const progress = ansi.dim(`[${batchContext.index}/${batchContext.total}]`);
     const statusColor =
       installStatus === "NEW"
         ? ansi.green(`[${installStatus}]`)
-        : ansi.yellow(`[${installStatus}]`);
+        : ansi.yellow(`[${stripControlBytes(installStatus)}]`);
     console.info(
       `${progress} ${ansi.bold(metadata.name)} v${metadata.version} ${statusColor} ${riskLabel}`,
     );
@@ -232,7 +240,7 @@ export function displaySkillInspection(
     const statusColor =
       installStatus === "NEW"
         ? ansi.green(`[${installStatus}]`)
-        : ansi.yellow(`[${installStatus}]`);
+        : ansi.yellow(`[${stripControlBytes(installStatus)}]`);
     console.info(
       `  ${ansi.bold(metadata.name)} v${metadata.version} ${statusColor}`,
     );
@@ -279,7 +287,9 @@ export function displaySkillInspection(
     console.info(
       `    ${ansi.bold("Scope:")}       ${plan.scope === "project" ? "Project" : "Global"}`,
     );
-    console.info(`    ${ansi.bold("Target:")}      ${plan.targetDir}`);
+    console.info(
+      `    ${ansi.bold("Target:")}      ${stripControlBytes(plan.targetDir)}`,
+    );
     console.info(`    ${ansi.bold("Status:")}      ${statusColor}`);
     console.info(`    ${ansi.bold("Risk:")}        ${riskLabel}`);
 

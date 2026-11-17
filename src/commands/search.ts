@@ -34,6 +34,7 @@ import {
   parseTagInputs,
 } from "../skill-tags";
 
+import { stripControlBytes } from "../utils/control-chars";
 import { error } from "./shared";
 import type { ParsedArgs } from "../cli";
 
@@ -235,7 +236,7 @@ export async function cmdSearch(args: ParsedArgs) {
   const hasAvailable = indexResults.length > 0;
 
   if (!hasInstalled && !hasAvailable) {
-    console.error(`No skills matching "${query}".`);
+    console.error(`No skills matching "${stripControlBytes(query)}".`);
     console.error(
       ansi.dim("Try ingesting more repos with: asm index ingest <repo>"),
     );
@@ -243,7 +244,9 @@ export async function cmdSearch(args: ParsedArgs) {
   }
 
   if (hasInstalled) {
-    console.error(ansi.bold(`Installed skills matching "${query}":\n`));
+    console.error(
+      ansi.bold(`Installed skills matching "${stripControlBytes(query)}":\n`),
+    );
     if (args.flags.flat) {
       console.log(formatSkillTable(installedResults));
     } else {
@@ -398,7 +401,9 @@ async function runFuzzySearch(
     ? `global skill dirs and projects under ${root}`
     : "global skill dirs";
   if (results.length === 0) {
-    console.error(`No installed skills matching "${query}" in ${where}.`);
+    console.error(
+      `No installed skills matching "${stripControlBytes(query)}" in ${stripControlBytes(where)}.`,
+    );
     if (!root) {
       console.error(
         ansi.dim("Add --root <dir> to also search projects under <dir>."),
@@ -409,7 +414,7 @@ async function runFuzzySearch(
 
   console.error(
     ansi.bold(
-      `Installed skills matching "${query}" in ${where}, best match first:\n`,
+      `Installed skills matching "${stripControlBytes(query)}" in ${stripControlBytes(where)}, best match first:\n`,
     ),
   );
   console.log(formatLocatedSearchResults(results));

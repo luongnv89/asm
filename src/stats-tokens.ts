@@ -1,4 +1,5 @@
 import { ansi, colorProvider } from "./formatter";
+import { stripControlBytesLine } from "./utils/control-chars";
 import {
   bodyTokens,
   formatTokenCount,
@@ -228,7 +229,7 @@ export function formatTokenBudgetReport(report: TokenBudgetReport): string {
     for (const skill of report.heaviestResident) {
       lines.push(
         "    " +
-          skill.name.padEnd(nameWidth) +
+          stripControlBytesLine(skill.name).padEnd(nameWidth) +
           "  " +
           ansi.cyan(
             formatTokenCount(skill.residentTokens).padStart(heaviestWidth),

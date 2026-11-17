@@ -145,7 +145,11 @@ export async function cmdBundle(args: ParsedArgs) {
           checked: true,
         }));
 
-        console.error(ansi.bold(`Select skills for bundle "${bundleName}":\n`));
+        console.error(
+          ansi.bold(
+            `Select skills for bundle "${stripControlBytes(bundleName)}":\n`,
+          ),
+        );
         const indices = await checkboxPicker({ items });
 
         if (indices.length === 0) {
@@ -208,10 +212,10 @@ export async function cmdBundle(args: ParsedArgs) {
       } else {
         console.error(
           ansi.green(
-            `Bundle "${bundleName}" created with ${skillRefs.length} skill(s).`,
+            `Bundle "${stripControlBytes(bundleName)}" created with ${skillRefs.length} skill(s).`,
           ),
         );
-        console.error(`  Saved to: ${ansi.dim(savedPath)}`);
+        console.error(`  Saved to: ${ansi.dim(stripControlBytes(savedPath))}`);
       }
       break;
     }
@@ -563,21 +567,22 @@ export async function cmdBundle(args: ParsedArgs) {
       if (args.flags.json) {
         console.log(stringifyForOutput(bundle, null, 2));
       } else {
-        console.error(ansi.bold(`Bundle: ${bundle.name}`));
-        if (bundle.description) {
-          console.error(`  ${bundle.description}`);
+        const shown = stripControlBytesDeep(bundle); // render only (#834)
+        console.error(ansi.bold(`Bundle: ${shown.name}`));
+        if (shown.description) {
+          console.error(`  ${shown.description}`);
         }
-        if (bundle.author) {
-          console.error(`  ${ansi.dim(`Author: ${bundle.author}`)}`);
+        if (shown.author) {
+          console.error(`  ${ansi.dim(`Author: ${shown.author}`)}`);
         }
         console.error(
           `  ${ansi.dim(`Created: ${new Date(bundle.createdAt).toLocaleString()}`)}`,
         );
-        if (bundle.tags && bundle.tags.length > 0) {
-          console.error(`  ${ansi.dim(`Tags: ${bundle.tags.join(", ")}`)}`);
+        if (shown.tags && shown.tags.length > 0) {
+          console.error(`  ${ansi.dim(`Tags: ${shown.tags.join(", ")}`)}`);
         }
-        console.error(`\n  ${ansi.bold(`Skills (${bundle.skills.length})`)}:`);
-        for (const skill of bundle.skills) {
+        console.error(`\n  ${ansi.bold(`Skills (${shown.skills.length})`)}:`);
+        for (const skill of shown.skills) {
           const versionTag = skill.version ? ` v${skill.version}` : "";
           console.error(`    ${ansi.cyan(skill.name)}${ansi.dim(versionTag)}`);
           if (skill.description) {
@@ -599,7 +604,7 @@ export async function cmdBundle(args: ParsedArgs) {
 
       if (!args.flags.yes && process.stdin.isTTY) {
         process.stderr.write(
-          `${ansi.bold("Remove bundle")} ${ansi.cyan(bundleName)}${ansi.bold("?")} [y/N] `,
+          `${ansi.bold("Remove bundle")} ${ansi.cyan(stripControlBytes(bundleName))}${ansi.bold("?")} [y/N] `,
         );
         const answer = await readLine();
         if (answer.toLowerCase() !== "y" && answer.toLowerCase() !== "yes") {
@@ -617,7 +622,9 @@ export async function cmdBundle(args: ParsedArgs) {
       }
 
       if (removed) {
-        console.error(ansi.green(`Bundle "${bundleName}" removed.`));
+        console.error(
+          ansi.green(`Bundle "${stripControlBytes(bundleName)}" removed.`),
+        );
       } else {
         error(`Bundle "${bundleName}" not found.`);
         process.exit(1);
@@ -658,7 +665,9 @@ export async function cmdBundle(args: ParsedArgs) {
         };
         bundle.skills.push(newSkillRef);
         modified = true;
-        console.error(ansi.green(`Added skill from ${addUrl}`));
+        console.error(
+          ansi.green(`Added skill from ${stripControlBytes(addUrl)}`),
+        );
       }
 
       // --remove <skillName>
@@ -670,10 +679,14 @@ export async function cmdBundle(args: ParsedArgs) {
         );
         if (bundle.skills.length < before) {
           modified = true;
-          console.error(ansi.green(`Removed skill "${removeSkill}"`));
+          console.error(
+            ansi.green(`Removed skill "${stripControlBytes(removeSkill)}"`),
+          );
         } else {
           console.error(
-            ansi.dim(`Skill "${removeSkill}" not found in bundle (no change)`),
+            ansi.dim(
+              `Skill "${stripControlBytes(removeSkill)}" not found in bundle (no change)`,
+            ),
           );
         }
       }
@@ -775,7 +788,7 @@ export async function cmdBundle(args: ParsedArgs) {
             `Bundle "${stripControlBytes(bundle.name)}" updated (${bundle.skills.length} skill(s)).`,
           ),
         );
-        console.error(`  Saved to: ${ansi.dim(savedPath)}`);
+        console.error(`  Saved to: ${ansi.dim(stripControlBytes(savedPath))}`);
       }
       break;
     }
@@ -847,7 +860,9 @@ export async function cmdBundle(args: ParsedArgs) {
           ),
         );
       } else {
-        console.error(ansi.green(`Exported to ${absOutputPath}`));
+        console.error(
+          ansi.green(`Exported to ${stripControlBytes(absOutputPath)}`),
+        );
       }
       break;
     }

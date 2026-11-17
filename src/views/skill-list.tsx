@@ -4,6 +4,7 @@ import { theme } from "../utils/colors";
 import type { SkillInfo } from "../utils/types";
 import { formatTokenCount } from "../utils/token-count";
 import { formatInvocability } from "../utils/frontmatter";
+import { stripControlBytes } from "../utils/control-chars";
 
 function compactTokens(tokenCount: number | undefined): string {
   if (typeof tokenCount !== "number") return "—";
@@ -53,7 +54,10 @@ function formatSkillRow(
   const type = skill.isSymlink ? "→link" : " dir ";
   const desc =
     descWidth > 0 ? " " + (skill.description || "").slice(0, descWidth) : "";
-  return `${idx} ${name.padEnd(24)} ${ver.padEnd(8)} ${creator.padEnd(11)} ${effort.padEnd(7)} ${invoke.padEnd(6)} ${tokens.padEnd(6)} ${prov.padEnd(12)} ${scope.padEnd(7)} ${type.padEnd(5)}${desc}`;
+  // Author strings, stripped for display only (#834).
+  return stripControlBytes(
+    `${idx} ${name.padEnd(24)} ${ver.padEnd(8)} ${creator.padEnd(11)} ${effort.padEnd(7)} ${invoke.padEnd(6)} ${tokens.padEnd(6)} ${prov.padEnd(12)} ${scope.padEnd(7)} ${type.padEnd(5)}${desc}`,
+  );
 }
 
 export interface SkillListProps {
@@ -106,7 +110,7 @@ export function SkillListView({
         <Text color={theme.fgDim}>
           {" "}
           {searchQuery
-            ? `no matches for "${searchQuery}"`
+            ? `no matches for "${stripControlBytes(searchQuery)}"`
             : "(no skills found)"}
         </Text>
       )}

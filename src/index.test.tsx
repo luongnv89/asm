@@ -417,6 +417,28 @@ describe("App container", () => {
     unmount();
   });
 
+  it("strips control bytes from the error banner message, line by line (#834)", async () => {
+    // Ink adds its own SGR codes, so check only the bytes Ink never emits:
+    // BEL, OSC, C1 CSI and DEL.
+    const H = "\x1b]8;;x\x07\u009b\x7f";
+    mocks.scanAllSkills.mockImplementation(() =>
+      Promise.reject(new Error(`bad${H}path\nnext${H}line`)),
+    );
+    const { lastFrame, unmount } = render(<App initialConfig={CONFIG} />);
+    await act(async () => {
+      await tick();
+      await tick();
+      await tick();
+    });
+    const frame = lastFrame() ?? "";
+    expect(frame).toContain("Scan failed");
+    expect(frame).toContain("bad?]8;;x???path");
+    expect(frame).toContain("next?]8;;x???line");
+    // eslint-disable-next-line no-control-regex
+    expect(frame).not.toMatch(/[\x07\x7f-\x9f]|\x1b\]/);
+    unmount();
+  });
+
   it("shows 'Updated!' feedback after pressing r", async () => {
     mocks.scanAllSkills.mockResolvedValue(mocks.SKILLS);
     const { stdin, lastFrame, unmount } = render(
