@@ -1,8 +1,19 @@
 import { describe, test, expect, beforeAll, afterAll } from "vitest";
-import { mkdtemp, mkdir, writeFile, symlink, rm, cp, lstat } from "fs/promises";
+import {
+  mkdtemp,
+  mkdir,
+  writeFile,
+  readFile,
+  readdir,
+  symlink,
+  rm,
+  cp,
+  lstat,
+} from "fs/promises";
 import { tmpdir } from "os";
 import { join } from "path";
 import { runCliInProcess } from "./cli-test-harness";
+import { getBundledIndexDir } from "./config";
 
 // Issue #830: no output asm prints carries a raw C0, C1 or DEL character that
 // came from an author-controlled string. `--json` / `--machine` escape them
@@ -860,5 +871,251 @@ describe("author control bytes in the surfaces #833 left out (#834)", () => {
     expect(out.exitCode).toBe(0);
     expect(out.stderr).toContain("-# Local");
     expectStripped(out, "+# Imported ?[31m");
+  }, 60_000);
+
+  test("install --machine with no way to pick: stdout is one INSTALL_FAILED envelope, exit 2", async () => {
+    const root = await emptyHome();
+    const src = join(root, "multi");
+    await writeHostileSource(join(src, "one"));
+    await writeHostileSource(join(src, "two"));
+    const out = await runIn(
+      root,
+      "install",
+      src,
+      "--yes",
+      "--tool",
+      "claude",
+      "--machine",
+    );
+    expect(out.exitCode).toBe(2);
+    const parsed = JSON.parse(out.stdout) as {
+      status: string;
+      error: { code: string; message: string };
+    };
+    expect(parsed.status).toBe("error");
+    expect(parsed.error.code).toBe("INSTALL_FAILED");
+    expect(parsed.error.message).toContain("Repository contains 2 skills");
+    // The discovery preview went to stderr, stripped.
+    expect(out.stderr).toContain("evil?[31m");
+    expect(rawControls(out.stdout + out.stderr)).toEqual([]);
+  }, 60_000);
+
+  test("index overlap: the overlapping names and descriptions are stripped", async () => {
+    // The bundled index is merged in and only the first 500 skills are
+    // compared, so the hostile pair replaces the first bundled repo (a user
+    // index overrides the bundled one in place for the same owner/repo).
+    const bundledDir = getBundledIndexDir();
+    const first = (await readdir(bundledDir)).find((f) => f.endsWith(".json"));
+    expect(first).toBeDefined();
+    const { owner, repo } = JSON.parse(
+      await readFile(join(bundledDir, first!), "utf-8"),
+    ) as { owner: string; repo: string };
+    const root = await emptyHome();
+    const dir = join(root, "cfg", "skill-index");
+    await mkdir(dir, { recursive: true });
+    const skill = (name: string, relPath: string) => ({
+      name,
+      description: DESC,
+      version: "1.0.0",
+      license: "",
+      creator: "",
+      compatibility: "",
+      allowedTools: [],
+      tags: [],
+      dependencies: [],
+      modelInvocable: true,
+      userInvocable: true,
+      installUrl: `github:${owner}/${repo}:${relPath}`,
+      relPath,
+      verified: false,
+      tokenCount: 10,
+    });
+    await writeFile(
+      join(dir, first!),
+      JSON.stringify({
+        repoUrl: `https://github.com/${owner}/${repo}`,
+        owner,
+        repo,
+        updatedAt: "2026-01-01T00:00:00.000Z",
+        skillCount: 2,
+        skills: [skill(NAME, "a"), skill(`other${H}name`, "b")],
+      }),
+    );
+    const out = await runIn(root, "index", "overlap");
+    expect(out.exitCode).toBe(0);
+    expect(out.stderr).toContain("overlapping pair(s)");
+    // The group section lists every group (the pair list is capped at 20),
+    // so both names are checked there, whatever the bundled pairs rank.
+    expect(out.stderr).toContain("group(s):");
+    expect(out.stderr).toMatch(/^ {4}evil\?\[31m.*name \[/m);
+    expect(out.stderr).toMatch(/^ {4}other\?\[31m.*name \[/m);
+    expectStripped(out, "desc?[31m");
+  }, 120_000);
+
+  test("bundle create: the typed bundle name is stripped in the created line", async () => {
+    const root = await emptyHome();
+    await writeHostileSource(join(root, ".claude", "skills", "evilskill"));
+    const out = await runIn(root, "bundle", "create", `b${H}`, "--yes");
+    expect(out.exitCode).toBe(0);
+    expect(out.stderr).toContain("created with 1 skill(s)");
+    expectStripped(out, 'Bundle "b?[31m');
+  }, 60_000);
+
+  test("bundle modify: the --add and --remove echoes are stripped", async () => {
+    const root = await emptyHome();
+    const bundles = join(root, "cfg", "bundles");
+    await mkdir(bundles, { recursive: true });
+    await writeFile(
+      join(bundles, "b1.json"),
+      JSON.stringify({
+        version: 1,
+        name: "b1",
+        description: "bundle desc",
+        author: "me",
+        createdAt: "2026-01-01T00:00:00.000Z",
+        tags: [],
+        skills: [{ name: `s${H}`, installUrl: "/nonexistent/src" }],
+      }),
+    );
+    const changed = await runIn(
+      root,
+      "bundle",
+      "modify",
+      "b1",
+      "--add",
+      `/nonexistent/x${H}/y`,
+      "--remove",
+      `s${H}`,
+      "--yes",
+    );
+    expect(changed.exitCode).toBe(0);
+    expectStripped(changed, "Added skill from /nonexistent/x?[31m");
+    expect(changed.stderr).toContain('Removed skill "s?[31m');
+
+    const missing = await runIn(
+      root,
+      "bundle",
+      "modify",
+      "b1",
+      "--remove",
+      `nope${H}`,
+      "--yes",
+    );
+    expect(missing.exitCode).toBe(0);
+    expectStripped(missing, 'Skill "nope?[31m');
+    expect(missing.stderr).toContain("not found in bundle");
+  }, 60_000);
+});
+
+// ─── #834: the install stops that resolve through the registry ─────────────
+
+const COMMIT = "a".repeat(40);
+
+/** A fresh registry cache in the sandboxed config dir: no network fetch. */
+async function writeRegistryCache(root: string) {
+  const manifest = (author: string) => ({
+    name: "dup-skill",
+    author,
+    description: `desc${H}text`,
+    repository: `https://github.com/${author}/r`,
+    commit: COMMIT,
+    published_at: "2026-01-01T00:00:00Z",
+    security_verdict: "pass",
+  });
+  const cache = join(root, "cfg", "registry-cache.json");
+  await mkdir(join(root, "cfg"), { recursive: true });
+  await writeFile(
+    cache,
+    JSON.stringify({
+      fetched_at: new Date().toISOString(),
+      ttl_seconds: 3600,
+      data: {
+        generated_at: "2026-01-01T00:00:00Z",
+        manifests: [manifest("alice"), manifest("bob")],
+      },
+    }),
+  );
+  return cache;
+}
+
+/** Run with stdin pinned to non-TTY, so the stops cannot prompt. */
+async function runNonTty(root: string, cache: string | null, args: string[]) {
+  const origIsTTY = process.stdin.isTTY;
+  Object.defineProperty(process.stdin, "isTTY", {
+    value: false,
+    configurable: true,
+  });
+  try {
+    return await runCliInProcess(args, {
+      env: {
+        HOME: root,
+        ASM_CONFIG_DIR: join(root, "cfg"),
+        ...(cache ? { ASM_REGISTRY_CACHE: cache } : {}),
+      },
+      cwd: root,
+    });
+  } finally {
+    Object.defineProperty(process.stdin, "isTTY", {
+      value: origIsTTY,
+      configurable: true,
+    });
+  }
+}
+
+describe("install stops reported in the active output mode (#834)", () => {
+  test("ambiguous registry name: exit 2, the preview is stripped, --json stdout is JSON", async () => {
+    const root = await emptyHome();
+    const cache = await writeRegistryCache(root);
+
+    const human = await runNonTty(root, cache, ["install", "dup-skill"]);
+    expect(human.exitCode).toBe(2);
+    expect(human.stderr).toContain('Ambiguous skill name "dup-skill"');
+    expectStripped(human, "alice/dup-skill — desc?[31m");
+
+    const json = await runNonTty(root, cache, [
+      "install",
+      "dup-skill",
+      "--json",
+    ]);
+    expect(json.exitCode).toBe(2);
+    const parsed = JSON.parse(json.stdout) as {
+      success: boolean;
+      error: string;
+    };
+    expect(parsed.success).toBe(false);
+    expect(parsed.error).toContain("Ambiguous skill name");
+    expectStripped(json, "bob/dup-skill — desc?[31m");
+  }, 60_000);
+
+  test("scoped name not in the registry: exit 1 with the Did you mean hint on stderr", async () => {
+    // Registry names and authors are pattern-checked, so no control byte can
+    // reach this hint; the test pins the exit code and the hint's stream.
+    const root = await emptyHome();
+    const cache = await writeRegistryCache(root);
+    const out = await runNonTty(root, cache, ["install", "alice/dup-skil"]);
+    expect(out.exitCode).toBe(1);
+    expect(out.stderr).toContain(
+      'Error: Skill "alice/dup-skil" not found in the registry.',
+    );
+    expect(out.stderr).toContain("Did you mean: dup-skill");
+    expect(out.stdout).not.toContain("Did you mean");
+    expect(rawControls(out.stdout + out.stderr)).toEqual([]);
+  }, 60_000);
+
+  test("no --yes without a TTY: the confirmation stop exits 2, stripped", async () => {
+    const root = await emptyHome();
+    const src = join(root, "okskill");
+    await writeHostileSource(src);
+    const out = await runNonTty(root, null, [
+      "install",
+      src,
+      "--tool",
+      "claude",
+    ]);
+    expect(out.exitCode).toBe(2);
+    expect(out.stderr).toContain(
+      "Error: Cannot prompt for confirmation in non-interactive mode",
+    );
+    expectStripped(out, "evil?[31m");
   }, 60_000);
 });
