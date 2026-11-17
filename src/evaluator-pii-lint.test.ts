@@ -10,7 +10,7 @@ import {
   writeFile,
 } from "fs/promises";
 import { tmpdir } from "os";
-import { join, relative } from "path";
+import { basename, dirname, join, relative } from "path";
 import {
   isPlaceholderEmail,
   isReservedEmailDomain,
@@ -312,6 +312,9 @@ describe.skipIf(!HAS_PYTHON)(
       // `-E` keeps the shell's PYTHON* vars (PYTHONWARNINGS, PYTHONPATH, …)
       // out of it, as `-I` does for the current command, so the comparison
       // does not depend on the developer's environment.
+      // The linter is handed a private copy of each script (#831), named as
+      // the script; map it back to the script it copies.
+      const asScript = (file: string) => join("scripts", basename(file));
       const legacyRuns: Record<string, unknown> = {};
       runCommandMock.mockImplementation(async (argv: string[]) => {
         const file = argv[argv.length - 1];
@@ -322,9 +325,9 @@ describe.skipIf(!HAS_PYTHON)(
           "py_compile",
           file,
         ]);
-        legacyRuns[relative(legacyDir, file)] = {
+        legacyRuns[asScript(file)] = {
           exitCode: result.exitCode,
-          stderr: result.stderr.split(legacyDir).join("<skill>"),
+          stderr: result.stderr.split(dirname(file)).join("<skill>/scripts"),
         };
         return result;
       });
@@ -334,9 +337,9 @@ describe.skipIf(!HAS_PYTHON)(
       runCommandMock.mockImplementation(async (argv: string[]) => {
         const file = argv[argv.length - 1];
         const result = await realRunCommand(argv);
-        currentRuns[relative(currentDir, file)] = {
+        currentRuns[asScript(file)] = {
           exitCode: result.exitCode,
-          stderr: result.stderr.split(currentDir).join("<skill>"),
+          stderr: result.stderr.split(dirname(file)).join("<skill>/scripts"),
         };
         return result;
       });

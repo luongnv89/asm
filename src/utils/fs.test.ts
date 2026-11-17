@@ -16,6 +16,7 @@ import {
   copySkillTree,
   isPathInside,
   readBoundedTextFile,
+  readdirInPlace,
   readFilesRecursive,
   walkFiles,
 } from "./fs";
@@ -535,3 +536,155 @@ describe.skipIf(process.platform === "win32")("copySkillTree (#819)", () => {
     );
   });
 });
+
+describe.skipIf(process.platform === "win32")(
+  "reads anchored to a checked real path (#831)",
+  () => {
+    let base: string;
+    beforeEach(async () => {
+      base = await realpath(await mkdtemp(join(tmpdir(), "anchor-831-")));
+      await mkdir(join(base, "skill", "a"), { recursive: true });
+      await writeFile(join(base, "skill", "top.txt"), "top\n");
+      await writeFile(join(base, "skill", "a", "x.txt"), "x\n");
+      await writeFile(join(base, "skill", "a", "y.txt"), "y\n");
+      await mkdir(join(base, "outside"));
+      await writeFile(join(base, "outside", "top.txt"), "SECRET\n");
+      await writeFile(join(base, "outside", "y.txt"), "SECRET\n");
+    });
+    afterEach(async () => {
+      await rm(base, { recursive: true, force: true });
+    });
+
+    /** Swap `dir` for a link to the outside folder (or to `to`). */
+    async function swap(dir: string, to = join(base, "outside")) {
+      const { rename } = await import("fs/promises");
+      await rename(dir, `${dir}-moved`);
+      await symlink(to, dir);
+    }
+
+    /**
+     * Walk `skill`, swapping `sub` for a link to `to` while the first file
+     * of `sub` is visited. Returns what was seen and reported.
+     */
+    async function walkSwapping(sub: string, to: string) {
+      const skill = join(base, "skill");
+      const prefix = `${sub}/`;
+      const seen: string[] = [];
+      const links: { path: string; target: string }[] = [];
+      let swapped = false;
+      await walkFiles(
+        skill,
+        async (f) => {
+          seen.push(f.relPath);
+          if (f.relPath.startsWith(prefix) && !swapped) {
+            swapped = true;
+            await swap(join(skill, sub), to);
+          }
+        },
+        { onExternalSymlink: (l) => links.push(l) },
+      );
+      expect(swapped).toBe(true);
+      return { seen: seen.filter((p) => p.startsWith(prefix)), links };
+    }
+
+    test("readBoundedTextFile with root reads a file inside it, and nothing once the folder is swapped", async () => {
+      const skill = join(base, "skill");
+      expect(
+        await readBoundedTextFile(join(skill, "top.txt"), undefined, skill),
+      ).toBe("top\n");
+      await swap(skill);
+      // Without the root the swapped-in file would be read.
+      expect(await readBoundedTextFile(join(skill, "top.txt"))).toBe(
+        "SECRET\n",
+      );
+      expect(
+        await readBoundedTextFile(join(skill, "top.txt"), undefined, skill),
+      ).toBeNull();
+    });
+
+    test("readdirInPlace lists a real folder, and returns null once it is swapped", async () => {
+      const skill = join(base, "skill");
+      expect((await readdirInPlace(skill))?.sort()).toEqual(["a", "top.txt"]);
+      await swap(skill);
+      expect(await readdirInPlace(skill)).toBeNull();
+    });
+
+    test("an anchored walk of a swapped folder reports where it leads and reads nothing", async () => {
+      const skill = join(base, "skill");
+      await swap(skill);
+      const seen: string[] = [];
+      const links: { path: string; target: string; kind: string }[] = [];
+      await walkFiles(skill, (f) => void seen.push(f.relPath), {
+        anchored: true,
+        onExternalSymlink: (l) => links.push(l),
+      });
+      expect(seen).toEqual([]);
+      expect(links).toEqual([
+        expect.objectContaining({
+          path: ".",
+          target: join(base, "outside"),
+          kind: "directory",
+        }),
+      ]);
+    });
+
+    test("a subfolder swapped mid-walk is reported, and the rest of it is not read", async () => {
+      const skill = join(base, "skill");
+      const sub = join(skill, "a");
+      const seen: string[] = [];
+      const links: { path: string; target: string }[] = [];
+      let swapped = false;
+      await walkFiles(
+        skill,
+        async (f) => {
+          seen.push(f.relPath);
+          if (f.relPath.startsWith("a/") && !swapped) {
+            swapped = true;
+            await swap(sub);
+          }
+        },
+        { onExternalSymlink: (l) => links.push(l) },
+      );
+      expect(swapped).toBe(true);
+      // One file of `a` was seen before the swap; its sibling never is.
+      expect(seen.filter((p) => p.startsWith("a/"))).toHaveLength(1);
+      expect(links).toEqual([
+        expect.objectContaining({ path: "a", target: join(base, "outside") }),
+      ]);
+    });
+
+    // Whatever order readdir lists `a` in, the swap is reported.
+    test("a subfolder swapped mid-walk for a folder holding none of its entries is reported", async () => {
+      const empty = join(base, "empty");
+      await mkdir(empty);
+      const { seen, links } = await walkSwapping("a", empty);
+      expect(seen).toHaveLength(1);
+      expect(links).toEqual([
+        expect.objectContaining({ path: "a", target: empty }),
+      ]);
+    });
+
+    test("a subfolder swapped mid-walk for a folder holding all of its entries is reported, not read", async () => {
+      const twin = join(base, "twin");
+      await mkdir(twin);
+      await writeFile(join(twin, "x.txt"), "SECRET\n");
+      await writeFile(join(twin, "y.txt"), "SECRET\n");
+      const { seen, links } = await walkSwapping("a", twin);
+      expect(seen).toHaveLength(1);
+      expect(links).toEqual([
+        expect.objectContaining({ path: "a", target: twin }),
+      ]);
+    });
+
+    test("a subfolder swapped while its last file is visited is reported", async () => {
+      const skill = join(base, "skill");
+      await mkdir(join(skill, "b"));
+      await writeFile(join(skill, "b", "only.txt"), "only\n");
+      const { seen, links } = await walkSwapping("b", join(base, "outside"));
+      expect(seen).toEqual(["b/only.txt"]);
+      expect(links).toEqual([
+        expect.objectContaining({ path: "b", target: join(base, "outside") }),
+      ]);
+    });
+  },
+);

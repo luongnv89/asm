@@ -198,6 +198,12 @@ export interface AuditSkillSecurityOptions {
    * Defaults to `skillPath`.
    */
   boundary?: string;
+  /**
+   * Confined mode only: `skillPath` is a real path the caller resolved and
+   * checked (#831). It is walked as given, never resolved again, so a folder
+   * swapped for a link since is reported, not read.
+   */
+  anchored?: boolean;
   /** Symlinks already found by the caller (e.g. a collection child link). */
   externalSymlinks?: ExternalSymlink[];
   /**
@@ -233,6 +239,7 @@ export async function auditSkillSecurity(
           options.trackSymlinks
             ? {
                 root: options.boundary,
+                anchored: options.anchored,
                 onExternalSymlink: (link) => links.push(link),
                 onHardLink: (path, count) =>
                   hardLinks.push({

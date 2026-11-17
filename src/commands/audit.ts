@@ -466,7 +466,7 @@ async function localSkillName(
   try {
     const mdReal = await fsRealpath(join(skillDir, "SKILL.md"));
     if (isPathInside(rootReal, mdReal)) {
-      const content = await readBoundedTextFile(mdReal);
+      const content = await readBoundedTextFile(mdReal, undefined, rootReal);
       const name = content === null ? "" : parseFrontmatter(content).name;
       if (name) return name;
     }
@@ -562,6 +562,9 @@ export async function cmdAuditSecurityLocal(
             }
           : {
               trackSymlinks: true,
+              // `real` was checked just above: walk it, never re-resolve
+              // it, so a child swapped since is not read (#831).
+              anchored: true,
               ...(linkedTarget ? { resolvedPath: real } : {}),
             },
       ),

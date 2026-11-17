@@ -16,6 +16,7 @@ import {
   isPathInside,
   MAX_FILE_SIZE,
   outsideLinkKind,
+  readBoundedFile,
   readBoundedTextFile,
   walkFiles,
 } from "./utils/fs";
@@ -30,6 +31,8 @@ export interface SkillFile {
   name: string;
   /** Size seen by the walk; bounds the later read. */
   size: number;
+  /** The real folder the walk was confined to; the read stays in it (#831). */
+  root?: string;
 }
 
 /** What eval may read in a skill folder, and the links it did not follow. */
@@ -50,17 +53,30 @@ export const EVAL_MAX_FOLDER_VISITS = 8;
  * scorers so each link is reported once. The folder itself may be a link
  * (an `asm link` install) and is followed; its real path is the boundary.
  * Hidden folders and `node_modules` are skipped, as eval always did.
+ * With `anchored`, `skillPath` is the real path checked when the target was
+ * resolved (#831): it is walked as given, never resolved again.
  */
-export async function listSkillFiles(skillPath: string): Promise<SkillFiles> {
+export async function listSkillFiles(
+  skillPath: string,
+  options: { anchored?: boolean; shownAs?: string } = {},
+): Promise<SkillFiles> {
   const dir = isAbsolute(skillPath) ? skillPath : resolve(skillPath);
   const files: SkillFile[] = [];
   const externalSymlinks: ExternalSymlink[] = [];
   await walkFiles(
     dir,
-    ({ fullPath, relPath, name, stats }) => {
-      files.push({ fullPath, relPath, name, size: stats.size });
+    ({ fullPath, relPath, name, stats, root }) => {
+      files.push({
+        fullPath,
+        relPath,
+        name,
+        size: stats.size,
+        ...(root ? { root } : {}),
+      });
     },
     {
+      anchored: options.anchored,
+      shownAs: options.shownAs,
       onExternalSymlink: (link) => externalSymlinks.push(link),
       skip: (name, isDirectory) =>
         isDirectory && (name.startsWith(".") || name === "node_modules"),
@@ -76,7 +92,20 @@ export async function listSkillFiles(skillPath: string): Promise<SkillFiles> {
  * while a file swapped for a FIFO or device is refused.
  */
 export function readSkillFile(file: SkillFile): Promise<string | null> {
-  return readBoundedTextFile(file.fullPath, Math.max(MAX_FILE_SIZE, file.size));
+  return readBoundedTextFile(
+    file.fullPath,
+    Math.max(MAX_FILE_SIZE, file.size),
+    file.root,
+  );
+}
+
+/** `readSkillFile`, returning the bytes. */
+export function readSkillFileBytes(file: SkillFile): Promise<Buffer | null> {
+  return readBoundedFile(
+    file.fullPath,
+    Math.max(MAX_FILE_SIZE, file.size),
+    file.root,
+  );
 }
 
 /**
@@ -138,6 +167,20 @@ export async function linkedSkillFolder(
   }
 }
 
+/**
+ * A skill folder checked when the target was resolved that no longer
+ * resolves to itself: it was swapped for a link since (#831). Nothing in
+ * it is read.
+ */
+export class SkillFolderMovedError extends Error {
+  constructor(folder: string, now: string) {
+    super(
+      `${stripControlBytes(folder)} changed after it was checked${now ? ` and now leads to ${stripControlBytes(now)}` : ""}; asm eval read nothing from it.`,
+    );
+    this.name = "SkillFolderMovedError";
+  }
+}
+
 /** A `SKILL.md` that links out of its folder: refused, never opened. */
 export class SkillMdOutsideLinkError extends Error {
   readonly link: ExternalSymlink;
@@ -175,29 +218,52 @@ export async function skillMdOutside(
  * parent's real path). Returns null when it does not exist. Throws, without
  * opening it, a `SkillMdOutsideLinkError` when it is a link that leaves the
  * folder, and an error when it is not a regular file.
+ *
+ * With `anchor`, `anchor.root` is the folder's real path, checked when the
+ * target was resolved (#831): when it no longer resolves to itself (it was
+ * swapped for a link since), nothing is read and an error says so. Errors
+ * name `anchor.shownAs`, the SKILL.md path the user sees.
  */
-export async function readSkillMd(skillMdPath: string): Promise<string | null> {
+export async function readSkillMd(
+  skillMdPath: string,
+  anchor?: { root: string; shownAs: string },
+): Promise<string | null> {
   const abs = resolve(skillMdPath);
+  const root = anchor?.root;
+  const assertInPlace = async () => {
+    if (root === undefined) return;
+    const now = await realpath(root).catch(() => "");
+    if (now !== root) throw new SkillFolderMovedError(root, now);
+  };
+  await assertInPlace();
   const outside = await skillMdOutside(abs);
   if (outside) throw new SkillMdOutsideLinkError(outside);
+  // Not found because the folder was swapped since it was checked is
+  // reported as that, not as a missing SKILL.md (#831).
   let mdReal: string;
   try {
     mdReal = await realpath(abs);
   } catch {
+    await assertInPlace();
     return null;
   }
   let size: number;
   try {
     size = (await stat(mdReal)).size;
   } catch {
+    await assertInPlace();
     return null;
   }
   const content = await readBoundedTextFile(
     mdReal,
     Math.max(MAX_FILE_SIZE, size),
+    root,
   );
   if (content === null) {
-    throw new Error(`${abs} is not a regular file or could not be read.`);
+    await assertInPlace();
+    throw new Error(
+      `${anchor ? resolve(anchor.shownAs) : abs} is not a regular file or could not be read.`,
+    );
   }
   return content;
 }
@@ -205,16 +271,19 @@ export async function readSkillMd(skillMdPath: string): Promise<string | null> {
 /**
  * The link a skill folder is when it resolves outside `boundary` (the
  * collection or clone it came from), else null. Nothing in it is read.
+ * `resolved`, when given, is the folder's real path as resolved once
+ * earlier (#831); it is checked as given, never resolved again.
  */
 export async function skillDirOutside(
   skillDir: string,
   boundary: string,
+  resolved?: string,
 ): Promise<ExternalSymlink | null> {
   let boundaryReal: string;
   let real: string;
   try {
     boundaryReal = await realpath(boundary);
-    real = await realpath(skillDir);
+    real = resolved ?? (await realpath(skillDir));
   } catch {
     return null;
   }
