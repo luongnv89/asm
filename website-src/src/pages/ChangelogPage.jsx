@@ -27,6 +27,77 @@ function issue(n) {
 
 const ENTRIES = [
   {
+    version: "2.26.0",
+    date: "2026-11-16",
+    sections: [
+      {
+        tag: "added",
+        items: [
+          <>
+            <code>asm outdated</code> shows each skill&apos;s version, and a
+            skill counts as outdated only when its own folder changed upstream,
+            so <code>asm update</code> no longer reinstalls skills that did not
+            change.
+          </>,
+          <>
+            Point <code>asm inspect</code> at a local skill folder to see its
+            details, as for an installed skill, without installing it.
+          </>,
+          <>
+            <code>asm index ingest --exclude</code> leaves named skills out of a
+            single-repo ingest.
+          </>,
+          <>
+            Two new catalog sources: the UI SDK skill from{" "}
+            <code>vercel-labs/ui</code> and 32 marketing skills from{" "}
+            <code>boringmarketer/boring-marketing-skills</code>.
+          </>,
+        ],
+      },
+      {
+        tag: "changed",
+        items: [
+          <>The skill catalog now lists 7,298 skills from 88 repositories.</>,
+          <>
+            <code>asm audit security</code> rates a method named{" "}
+            <code>eval</code> or <code>exec</code> (such as{" "}
+            <code>browser.eval(…)</code>) as a warning instead of dangerous, and
+            a blocked <code>asm update</code> now lists its findings and the
+            command to install it anyway.
+          </>,
+          <>
+            asm&apos;s own skills now include a Self-Improve section, and all of
+            them were reviewed and tightened.
+          </>,
+        ],
+      },
+      {
+        tag: "fixed",
+        items: [
+          <>
+            <code>asm eval</code> no longer reads files that a skill links to
+            outside its own folder, so scores can change for such skills, and it
+            no longer writes <code>__pycache__</code> into the skill it scores.
+          </>,
+          <>
+            Text from a skill can no longer send terminal control codes through
+            asm&apos;s output: they show as <code>?</code>, and as escapes in{" "}
+            <code>--json</code>.
+          </>,
+          <>
+            <code>asm update</code> keeps a skill whose <code>SKILL.md</code>{" "}
+            was removed upstream instead of replacing it.
+          </>,
+          <>
+            <code>asm inspect</code> File Count counts only files, and run from
+            your home folder, <code>asm list</code> no longer shows each global
+            skill twice.
+          </>,
+        ],
+      },
+    ],
+  },
+  {
     version: "2.25.0",
     date: "2026-11-06",
     sections: [

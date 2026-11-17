@@ -171,50 +171,50 @@ function FeaturedSkills({ skills }) {
   );
 }
 
-/* ─── What's New (v2.25.0) ─────────────────────────────────────────── */
+/* ─── What's New (v2.26.0) ─────────────────────────────────────────── */
 
 function WhatsNew() {
   const highlights = [
     {
       tag: "New",
-      head: "Audit a skill folder before you install",
-      body: "Point asm audit security at a local skill, or a folder of skills, to check each one in place. Nothing is installed or run.",
+      head: "Versions in asm outdated",
+      body: "asm outdated shows each skill's version, and a skill counts as outdated only when its own folder changed upstream. asm update skips the rest.",
     },
     {
       tag: "New",
-      head: "Quality gates for CI",
-      body: "asm eval ./skills --min-score 86 --min-category 8 marks each skill PASS or FAIL and exits with an error when any skill falls short.",
+      head: "Inspect a skill folder",
+      body: "asm inspect ./my-skill shows a local skill folder's details, as for an installed skill, without installing it.",
     },
     {
       tag: "Growing",
-      head: "7,200+ skills from 86 repos",
-      body: "The catalog now lists 7,267 skills, with the latest updates from every indexed source.",
+      head: "7,298 skills from 88 repos",
+      body: "Two new catalog sources add the UI SDK skill and 32 marketing skills.",
     },
     {
       tag: "Fixed",
-      head: "Scans stay inside the skill folder",
-      body: "Security scans no longer follow a link out of a skill's folder, so a skill can no longer use one to make them read files such as ~/.env. A skill with such a link gets a warning: asm update needs --yes (implied by --machine) and asm publish needs --force.",
+      head: "Safer eval and output",
+      body: "asm eval no longer reads files that a skill links to outside its folder, and text from a skill can no longer send terminal control codes through asm's output.",
     },
   ];
   return (
     <Reveal
       as="section"
       className="flex flex-col gap-8"
-      aria-label="What's new in v2.25.0"
+      aria-label="What's new in v2.26.0"
     >
       <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div className="flex flex-col gap-3 max-w-[680px]">
           <span className="lp-kicker">
             <span className="dot" aria-hidden="true" />
-            what&apos;s new · v2.25.0
+            what&apos;s new · v2.26.0
           </span>
           <h2 className="lp-section-title">
-            Audit before you install. Quality gates for CI.
+            Versions in outdated. Inspect a local folder.
           </h2>
           <p className="lp-lede">
-            v2.25.0 audits a local skill folder before you install it, adds pass
-            or fail quality gates to asm eval, keeps every security scan inside
-            the skill folder, and grows the catalog to 7,267 skills.
+            v2.26.0 shows skill versions in asm outdated, inspects a local skill
+            folder, keeps asm eval inside the skill folder, and grows the
+            catalog to 7,298 skills from 88 repos.
           </p>
         </div>
         <Link
