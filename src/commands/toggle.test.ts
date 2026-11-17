@@ -476,8 +476,40 @@ describe("enable/disable state keyed by project (#813)", () => {
 
     expect((await asm(proj13, "enable", "s1", "--yes")).exitCode).toBe(0);
     expect(isDisabledOnDisk(p13)).toBe(false);
-    expect(JSON.parse(await readFile(statePath(), "utf-8")).disabled).toEqual(
-      {},
+    // The old entry may name other projects too, so it stays; it is inert
+    // here because no marker is left.
+    expect(JSON.parse(await readFile(statePath(), "utf-8")).disabled).toEqual({
+      s1: { claude: { project: true } },
+    });
+    expect(await listed(proj13)).toEqual([
+      ["global", false],
+      ["project", false],
+    ]);
+  });
+
+  it("keeps an old entry shared by two projects when one of them enables", async () => {
+    const proj13 = join(home, "proj13");
+    const proj14 = join(home, "proj14");
+    const p13 = await installSkill(join(proj13, ".claude", "skills"));
+    const p14 = await installSkill(join(proj14, ".claude", "skills"));
+    for (const dir of [p13, p14]) {
+      await rename(join(dir, "SKILL.md"), join(dir, "SKILL.md.disabled"));
+    }
+    await mkdir(join(statePath(), ".."), { recursive: true });
+    await writeFile(
+      statePath(),
+      JSON.stringify({
+        version: 1,
+        disabled: { s1: { claude: { project: true } } },
+      }),
     );
+
+    expect((await asm(proj14, "enable", "s1", "--yes")).exitCode).toBe(0);
+
+    expect(isDisabledOnDisk(p14)).toBe(false);
+    expect(isDisabledOnDisk(p13)).toBe(true);
+    expect(await listed(proj13)).toEqual([["project", true]]);
+    expect((await asm(proj13, "enable", "s1", "--yes")).exitCode).toBe(0);
+    expect(isDisabledOnDisk(p13)).toBe(false);
   });
 });
