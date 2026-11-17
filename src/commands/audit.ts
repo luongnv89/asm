@@ -537,7 +537,26 @@ export async function cmdAuditSecurityLocal(
 
   const reports: SecurityAuditReport[] = [];
   for (const dir of skillDirs) {
-    const real = await fsRealpath(dir);
+    let real: string;
+    try {
+      real = await fsRealpath(dir);
+    } catch {
+      // Gone since the collection was listed (#873): reported unread, as a
+      // folder that vanishes mid-walk is, and the scan goes on.
+      const name = basename(dir);
+      console.error(
+        isCollection
+          ? `  Scanning ${ansi.bold(stripControlBytes(name))}...`
+          : `Auditing local skill: ${ansi.bold(stripControlBytes(name))}...\n`,
+      );
+      reports.push(
+        await auditSkillSecurity(dir, name, undefined, undefined, {
+          readFiles: false,
+          externalSymlinks: [externalLink(".", "", "dangling")],
+        }),
+      );
+      continue;
+    }
     // A collection child that is a symlink out of the collection is never
     // read: it is reported under its link name with the link as a finding.
     const outside = !isPathInside(rootReal, real);
