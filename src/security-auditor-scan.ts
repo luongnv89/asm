@@ -122,7 +122,7 @@ function realCall(
   const bare = String.raw`(?<![\w$])(?<![\w$]${H}*\??\.)${definition}`;
   // An alias may start with `$`, where `\b` cannot anchor it.
   const alias = aliases.length
-    ? String.raw`|(?<![\w$])(?:${aliases.join("|")})`
+    ? String.raw`|(?<![\w$.])(?:${aliases.join("|")})`
     : "";
   const via = String.raw`(?:\b(?:${receivers.join("|")})${alias})\s*\??\.\s*`;
   return new RegExp(String.raw`(?:${bare}|${via})${name}${CALL_OPEN}`);
@@ -291,8 +291,13 @@ export function matchLineRule(
       ? "real"
       : "method";
   }
-  if (!rule.pattern.test(line)) return null;
-  if (rule.unless?.test(line)) return null;
+  // The interpreted text too, so `(0, \u0065val)(x)` is still indirect eval.
+  const texts =
+    context.language === null
+      ? [line]
+      : [line, interpretedText(line, context.language)];
+  if (!texts.some((t) => rule.pattern.test(t))) return null;
+  if (texts.some((t) => rule.unless?.test(t))) return null;
   return "real";
 }
 
@@ -348,7 +353,9 @@ const GLOBAL_RECEIVER = String.raw`\b(?:globalThis|window|global|self|top|parent
 /** A quoted `eval` or `Function` key: `["eval"]`, `['Function']`. */
 const QUOTED_EVAL = String.raw`\[\s*(['"\`])(?:eval|Function)\1\s*\]`;
 /** `(0, eval)(x)`, `(eval as any)(x)`, `(<any>eval)(x)`: eval called indirectly. */
-const INDIRECT_EVAL = /\beval\s*(?:!\s*|\bas\s+[^()\n]*?)?\)\s*\(/;
+// The `as` type is bounded so a long line cannot backtrack quadratically.
+const INDIRECT_EVAL =
+  /\beval\s*(?:!\s*|\bas\s+[^()\n]{0,80}?)?\)\s*(?:\?\.\s*)?\(/;
 const GLOBAL_BRACKET_EVAL = new RegExp(GLOBAL_RECEIVER + QUOTED_EVAL);
 const PY_BUILTINS_GETATTR = new RegExp(
   String.raw`\bgetattr\s*\(\s*(?:${PY_BUILTINS.join("|")})\s*,\s*['"](?:eval|exec)['"]`,
@@ -368,12 +375,12 @@ export const DYNAMIC_EXEC_RULES: readonly DynamicExecRule[] = [
   {
     kind: "shell",
     pattern:
-      /\b(?:curl|wget)(?:\s+[^\s|\\]+)+\s*\|\s*(?:sudo\s+(?:-\S+\s+)*)?(?:env\s+(?:\w+=\S*\s+)*)?(?:ba|z|da|k|fi)?sh\b|\b(?:ba|z)?sh\s+<\(\s*(?:curl|wget)\b/,
+      /\b(?:curl|wget)(?:\s+[^\s|\\]+)+\s*\|\s*(?:sudo\s+(?:-\S+\s+)*)?(?:env\s+(?:\w+=\S*\s+)*)?(?:\/\S*\/)?(?:ba|z|da|k|fi)?sh\b|\b(?:ba|z)?sh\s+<\(\s*(?:curl|wget)\b/,
   },
   // Python 2's `exec` statement: `exec "code"`, `exec code in ns`.
   {
     kind: "code",
-    pattern: /^\s*exec\s+(?![=(])\S/,
+    pattern: /^\s*exec\s+(?:[rbuRBU]{0,2}['"]|[\w.]+\s*(?:$|#|\bin\b))/,
     languages: ["python"],
   },
   { kind: "code", pattern: INDIRECT_EVAL },
@@ -408,7 +415,7 @@ export const DYNAMIC_EXEC_RULES: readonly DynamicExecRule[] = [
   {
     kind: "possible",
     pattern:
-      /(?:(?<![=!<>])=(?!=)|=>|[?:]|\|\||&&|\b(?:return|yield|else|or|and)\b)\s*eval\s*(?:$|[;,)\]}]|:(?!\w)|\b(?:if|else|or|and)\b|\|\||&&|\?\?)/,
+      /(?:(?<![=!<>])=(?!=)|=>|[?:]|\|\||&&|\b(?:return|yield|else|or|and)\b)\s*eval\s*(?:$|[;)\]}]|:(?!\w)|\b(?:if|else|or|and)\b|\|\||&&|\?\?)/,
     unless: INDIRECT_EVAL,
     languages: ["python", "js"],
   },
