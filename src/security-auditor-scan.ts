@@ -433,6 +433,17 @@ const SCAN_PATTERNS: ScanPattern[] = [
     pattern: /\\x[0-9a-fA-F]{2}(?:\\x[0-9a-fA-F]{2}){5,}/,
     severity: "warning",
   },
+
+  // Hidden Unicode (#835): bidi embeddings, overrides and isolates make code
+  // read differently from how it runs. LRM/RLM/ALM are left out: they occur
+  // in ordinary right-to-left text.
+  {
+    category: "Hidden Unicode (Trojan Source)",
+    description:
+      "Unicode bidi control characters that can make code display differently from how it runs",
+    pattern: /[\u202a-\u202e\u2066-\u2069]/,
+    severity: "warning",
+  },
 ];
 
 // ─── Source Analysis ─────────────────────────────────────────────────────────

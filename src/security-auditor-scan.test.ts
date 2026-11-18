@@ -704,6 +704,50 @@ describe("invariant: every line main flags is still reported (#809)", () => {
   });
 });
 
+describe("bidi controls in scripts (#835)", () => {
+  const RLO = "\u202e";
+
+  test.each([
+    ["U+202E (RLO)", "\u202e"],
+    ["U+202A (LRE)", "\u202a"],
+    ["U+2066 (LRI)", "\u2066"],
+    ["U+2069 (PDI)", "\u2069"],
+  ])("reports %s as a Trojan Source warning", (_name, ch) => {
+    const content = `const ok = "safe";\nconst access = "user${ch}admin";`;
+    const results = scanCode([{ relPath: "check.js", content, lineCount: 2 }]);
+    const cat = results.find(
+      (r) => r.category === "Hidden Unicode (Trojan Source)",
+    );
+    expect(cat).toBeDefined();
+    expect(cat!.matches).toHaveLength(1);
+    const [m] = cat!.matches;
+    expect(m.line).toBe(2);
+    expect(m.severity).toBe("warning");
+    // The shown excerpt is stripped like any other control character.
+    expect(m.match).toBe('const access = "user?admin";');
+  });
+
+  test("a bidi control in a .sh script is reported", () => {
+    const content = `#!/bin/sh\necho "evil${RLO}hs.sh"`;
+    const results = scanCode([{ relPath: "run.sh", content, lineCount: 2 }]);
+    expect(
+      results.some((r) => r.category === "Hidden Unicode (Trojan Source)"),
+    ).toBe(true);
+  });
+
+  test("right-to-left text, LRM/RLM and ALM are not findings", () => {
+    const content = [
+      'const greeting = "مرحبا بالعالم";',
+      'const hebrew = "שלום עולם";',
+      'const marked = "abc\u200e\u200f\u061cdef";',
+    ].join("\n");
+    const results = scanCode([{ relPath: "i18n.js", content, lineCount: 3 }]);
+    expect(
+      results.find((r) => r.category === "Hidden Unicode (Trojan Source)"),
+    ).toBeUndefined();
+  });
+});
+
 describe("control bytes in findings (#809)", () => {
   test("a finding never carries NUL, escape or other control bytes", () => {
     const content = "abc\0\0eval(\x01\x1b[31mX\x7f\x9b";

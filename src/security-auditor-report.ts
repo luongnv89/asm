@@ -27,6 +27,7 @@ const CATEGORY_TO_PERM: Record<string, string> = {
   "Environment variable access": "environment",
   "Embedded credentials": "credentials",
   "Obfuscation patterns": "obfuscation",
+  "Hidden Unicode (Trojan Source)": "obfuscation",
 };
 
 const SEVERITY_ORDER: Record<string, number> = {

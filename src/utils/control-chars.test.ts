@@ -31,6 +31,57 @@ describe("stripControlBytes", () => {
   });
 });
 
+/** Every bidi control the helpers neutralise (#835). */
+const BIDI_CODE_POINTS = [
+  0x061c, 0x200e, 0x200f, 0x202a, 0x202b, 0x202c, 0x202d, 0x202e, 0x2066,
+  0x2067, 0x2068, 0x2069,
+];
+const BIDI_ALL = String.fromCharCode(...BIDI_CODE_POINTS);
+
+/** Right-to-left scripts and joiners that must pass through unchanged. */
+const RTL_SAMPLES = [
+  "مرحبا بالعالم", // Arabic
+  "שלום עולם", // Hebrew
+  "می\u200cخواهم", // Persian with ZWNJ
+  "\u{1f468}\u200d\u{1f469}\u200d\u{1f467}", // ZWJ emoji sequence
+  "skill: سلام — ok",
+];
+
+describe("bidi controls (#835)", () => {
+  test("stripControlBytes and stripControlBytesLine replace each with ?", () => {
+    for (const cp of BIDI_CODE_POINTS) {
+      const ch = String.fromCharCode(cp);
+      expect(stripControlBytes(`a${ch}b`)).toBe("a?b");
+      expect(stripControlBytesLine(`a${ch}b`)).toBe("a?b");
+    }
+    // The Trojan Source example: an RLO that makes `evil.sh` read reversed.
+    expect(stripControlBytes("evil\u202ehs.sh")).toBe("evil?hs.sh");
+    expect(stripControlBytesDeep({ ["k\u2066"]: ["v\u202e"] })).toEqual({
+      "k?": ["v?"],
+    });
+  });
+
+  test("leaves right-to-left text and joiners unchanged", () => {
+    for (const text of RTL_SAMPLES) {
+      expect(stripControlBytes(text)).toBe(text);
+      expect(stripControlBytesLine(text)).toBe(text);
+      expect(stringifyForOutput(text)).toBe(JSON.stringify(text));
+    }
+  });
+
+  test("stringifyForOutput escapes each as \\uXXXX and round-trips", () => {
+    const value = { name: `x${BIDI_ALL}y`, [`k${BIDI_ALL}`]: [BIDI_ALL] };
+    for (const space of [0, 2]) {
+      const json = stringifyForOutput(value, null, space);
+      for (const cp of BIDI_CODE_POINTS) {
+        expect(json).not.toContain(String.fromCharCode(cp));
+        expect(json).toContain(`\\u${cp.toString(16).padStart(4, "0")}`);
+      }
+      expect(JSON.parse(json)).toEqual(value);
+    }
+  });
+});
+
 describe("stripControlBytesLine", () => {
   test("also replaces TAB, for single-line display fields", () => {
     expect(stripControlBytesLine("a\tb\0c\nd\x7fe\u0080f\u009fg")).toBe(

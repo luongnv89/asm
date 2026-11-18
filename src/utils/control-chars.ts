@@ -4,8 +4,10 @@
  * (issue #830).
  *
  * - Human output: {@link stripControlBytes} / {@link stripControlBytesDeep}
- *   replace every C0 (except TAB), DEL and C1 character with `?`, so nothing
- *   an author wrote can act as a terminal control sequence.
+ *   replace every C0 (except TAB), DEL and C1 character, and every Unicode
+ *   bidi control (issue #835), with `?`, so nothing an author wrote can act
+ *   as a terminal control sequence or reorder the text a reader sees
+ *   ("Trojan Source").
  *   {@link stripControlBytesLine} also replaces TAB, for single-line display
  *   fields such as table cells and list names.
  * - Strip only at render: sorting, grouping, dedupe keys, comparisons and
@@ -13,25 +15,38 @@
  *   different strings can strip to the same text, so a stripped copy is for
  *   printing only.
  * - `--json` / `--machine` output: {@link stringifyForOutput} is
- *   `JSON.stringify` plus `\uXXXX` escapes for DEL and C1. `JSON.stringify`
- *   already escapes C0, so the JSON stays valid and decodes to the original
- *   characters, while no raw control byte reaches stdout.
+ *   `JSON.stringify` plus `\uXXXX` escapes for DEL, C1 and the bidi
+ *   controls. `JSON.stringify` already escapes C0, so the JSON stays valid
+ *   and decodes to the original characters, while no raw control character
+ *   reaches stdout.
  */
 
-/** C0 except TAB, plus DEL (U+007F) and C1 (U+0080–U+009F). */
-// eslint-disable-next-line no-control-regex
-const CONTROL_BYTES = /[\x00-\x08\x0a-\x1f\x7f-\x9f]/g;
+/*
+ * The bidi controls (issue #835) in each class below: ALM (U+061C), LRM and
+ * RLM (U+200E, U+200F), the embeddings and overrides LRE/RLE/PDF/LRO/RLO
+ * (U+202A–U+202E) and the isolates LRI/RLI/FSI/PDI (U+2066–U+2069).
+ * Right-to-left letters (Arabic, Hebrew) and the joiners ZWNJ/ZWJ (U+200C,
+ * U+200D) are not in them.
+ */
+
+/** C0 except TAB, plus DEL (U+007F), C1 (U+0080–U+009F) and bidi controls. */
+const CONTROL_BYTES =
+  // eslint-disable-next-line no-control-regex
+  /[\x00-\x08\x0a-\x1f\x7f-\x9f\u061c\u200e\u200f\u202a-\u202e\u2066-\u2069]/g;
 
 /** {@link CONTROL_BYTES} plus TAB, for single-line display fields. */
-// eslint-disable-next-line no-control-regex
-const CONTROL_BYTES_AND_TAB = /[\x00-\x1f\x7f-\x9f]/g;
+const CONTROL_BYTES_AND_TAB =
+  // eslint-disable-next-line no-control-regex
+  /[\x00-\x1f\x7f-\x9f\u061c\u200e\u200f\u202a-\u202e\u2066-\u2069]/g;
 
-/** DEL and C1: the control characters `JSON.stringify` leaves raw. */
-const JSON_RAW_CONTROLS = /[\u007f-\u009f]/g;
+/** DEL, C1 and bidi controls: the characters `JSON.stringify` leaves raw. */
+const JSON_RAW_CONTROLS =
+  /[\u007f-\u009f\u061c\u200e\u200f\u202a-\u202e\u2066-\u2069]/g;
 
 /**
- * Replace every control byte in `text` with `?` (TAB is kept). Use it on an
- * author-controlled string before it reaches human output.
+ * Replace every control byte and bidi control in `text` with `?` (TAB is
+ * kept). Use it on an author-controlled string before it reaches human
+ * output.
  */
 export function stripControlBytes(text: string): string {
   return text.replace(CONTROL_BYTES, "?");
@@ -92,8 +107,9 @@ export function stripControlBytesDeep<T>(
 
 /**
  * `JSON.stringify` for anything asm prints to stdout or stderr (`--json`,
- * `--machine`). Same arguments (no replacer) and same output, except that DEL and C1
- * characters appear as `\u007f`…`\u009f` escapes instead of raw bytes. A JSON
+ * `--machine`). Same arguments (no replacer) and same output, except that DEL,
+ * C1 and bidi control characters appear as `\uXXXX` escapes (`\u007f`,
+ * `\u202e`, …) instead of raw characters. A JSON
  * text holds those characters only inside strings, so the escapes keep the
  * shape and decode to the same values; output without them is byte for byte
  * what `JSON.stringify` returns.
