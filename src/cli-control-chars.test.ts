@@ -6,6 +6,7 @@ import {
   readFile,
   readdir,
   symlink,
+  link,
   rm,
   cp,
   lstat,
@@ -170,6 +171,38 @@ describe("author control bytes in --json / --machine output (#830)", () => {
     // Finding `file` / `match` are replaced with `?` at scan time since #809
     // (defence in depth for every renderer), so the JSON carries that form.
     expect(audit).toContain("scripts/f?[31m?]8;;mailto:e@x?L?]8;;????.sh");
+  }, 60_000);
+
+  test("audit security --json: link paths, targets and hard links carry no raw C0/C1 (#820)", async () => {
+    const { root, dir } = await freshHome();
+    const outside = join(root, "outside.txt");
+    await writeFile(outside, "x\n");
+    const HARD = `hard${H}.txt`;
+    await link(outside, join(dir, HARD));
+    const { stdout, exitCode } = await runIn(
+      root,
+      "audit",
+      "security",
+      dir,
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    // The raw stdout, before any decoding: no C0 (but JSON whitespace),
+    // DEL or C1 character.
+    expect(rawControls(stdout)).toEqual([]);
+    const report = JSON.parse(stdout);
+    const reports = Array.isArray(report) ? report : [report];
+    const symlinks = reports.flatMap((r) => r.externalSymlinks ?? []);
+    const hardLinks = reports.flatMap((r) => r.hardLinks ?? []);
+    expect(symlinks.some((l: { path: string }) => l.path.includes(LINK))).toBe(
+      true,
+    );
+    expect(
+      symlinks.some((l: { target: string }) => l.target.includes(TARGET)),
+    ).toBe(true);
+    expect(hardLinks.some((h: { path: string }) => h.path.includes(HARD))).toBe(
+      true,
+    );
   }, 60_000);
 });
 

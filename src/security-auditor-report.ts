@@ -21,6 +21,7 @@ const BOX_WIDTH = 56;
 const CATEGORY_TO_PERM: Record<string, string> = {
   "Shell execution": "shell",
   "Dynamic code execution": "code-execution",
+  "Possible dynamic code execution": "code-execution",
   "Network requests": "network",
   "External URLs": "network",
   "File system access": "filesystem",

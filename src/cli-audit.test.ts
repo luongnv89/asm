@@ -621,7 +621,9 @@ describe("CLI integration: audit security <local path> (#779)", () => {
     expect(text.exitCode).toBe(0);
     expect(text.stderr).toContain("Auditing 2 local skills");
     expect(text.stdout).toContain("Summary:");
-    expect(text.stdout).toContain("1 warning");
+    // `curl … | bash` is shell execution too since #815: with the network
+    // finding, alpha is dangerous.
+    expect(text.stdout).toContain("1 dangerous");
     expect(text.stdout).toContain("1 safe");
 
     const json = await runAudit("audit", "security", "./skills", "--json");
@@ -634,7 +636,7 @@ describe("CLI integration: audit security <local path> (#779)", () => {
     const machine = JSON.parse(
       (await runAudit("audit", "security", "./skills", "--machine")).stdout,
     );
-    expect(machine.data.verdict).toBe("warning");
+    expect(machine.data.verdict).toBe("dangerous");
     expect(machine.data.findings).toHaveLength(2);
   });
 
