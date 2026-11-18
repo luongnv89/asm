@@ -1741,6 +1741,60 @@ describe("table formatters strip at render, after grouping (#830)", () => {
   });
 });
 
+describe("bidi controls in rendered output (#835)", () => {
+  beforeEach(() => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+  });
+  afterEach(() => {
+    delete (globalThis as any).__CLI_NO_COLOR;
+  });
+  const bidi = /[\u061c\u200e\u200f\u202a-\u202e\u2066-\u2069]/;
+
+  test("list and search tables show ? and never the raw character", () => {
+    const skills = [
+      makeSkill({
+        name: "evil\u202ehs.sh",
+        dirName: "evil",
+        description: "looks \u2066fine\u2069",
+      }),
+    ];
+    for (const out of [
+      formatGroupedTable(skills),
+      formatCompactTable(skills),
+      formatSkillTable(skills),
+      formatSearchResults(skills, "evil"),
+    ]) {
+      expect(out).toContain("evil?hs.sh");
+      expect(out).not.toMatch(bidi);
+    }
+  });
+
+  test("inspect detail shows ? and never the raw character", async () => {
+    const out = await formatSkillDetail(
+      makeSkill({ name: "n\u202en", description: "d\u200fd" }),
+    );
+    expect(out).toContain("n?n");
+    expect(out).not.toMatch(bidi);
+  });
+
+  test("--json keeps the characters as \\uXXXX escapes", () => {
+    const skill = makeSkill({ name: "evil\u202ehs.sh" });
+    const json = formatJSON([skill]);
+    expect(json).toContain("evil\\u202ehs.sh");
+    expect(json).not.toMatch(bidi);
+    expect(JSON.parse(json)[0].name).toBe("evil\u202ehs.sh");
+  });
+
+  test("Arabic and Hebrew names render unchanged", () => {
+    const out = formatSkillTable([
+      makeSkill({ name: "مهارة", dirName: "a" }),
+      makeSkill({ name: "כישור", dirName: "b" }),
+    ]);
+    expect(out).toContain("مهارة");
+    expect(out).toContain("כישור");
+  });
+});
+
 describe("tag, deps and get formatters strip author strings (#830)", () => {
   const H = "\x1b[31m\x07\u009b\x7f";
   // eslint-disable-next-line no-control-regex
