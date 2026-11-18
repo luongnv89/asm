@@ -24,6 +24,10 @@ interface ScanPattern {
    * `METHOD_CALL_CATEGORY` warning otherwise (#809).
    */
   call?: CallName;
+  /** Only in these files (`"other"`: neither Python nor JS/TS). */
+  languages?: FileLanguage[];
+  /** A line this also matches is left to the rule that owns it. */
+  unless?: RegExp;
 }
 
 // ─── Real-call matchers (#809) ──────────────────────────────────────────────
@@ -49,12 +53,18 @@ interface ScanPattern {
 /** The builtins a method can share a name with. */
 export type CallName = "eval" | "exec" | "spawn" | "Function";
 
-/** The rules before #809: every line they match is reported. */
+/**
+ * The opening of a call after the name: `(`, or TypeScript's `<T>(`, `!(`
+ * and the optional call `?.(` (#820): `eval<any>(x)`, `eval!(x)`.
+ */
+const CALL_OPEN = String.raw`\s*(?:<[^<>()\n]*>\s*)?(?:!\s*)?(?:\?\.\s*)?\(`;
+
+/** The rules before #809, plus TS call syntax: every line they match is reported. */
 export const CALL_CANDIDATE: Readonly<Record<CallName, RegExp>> = {
-  eval: /\beval\s*\(/,
-  exec: /\bexec\s*\(/,
-  spawn: /\bspawn\s*\(/,
-  Function: /\bFunction\s*\(/,
+  eval: new RegExp(String.raw`\beval${CALL_OPEN}`),
+  exec: new RegExp(String.raw`\bexec${CALL_OPEN}`),
+  spawn: new RegExp(String.raw`\bspawn${CALL_OPEN}`),
+  Function: new RegExp(String.raw`\bFunction${CALL_OPEN}`),
 };
 
 /** Rule for a candidate that `isRealCall` rejects: a warning (#809). */
@@ -64,6 +74,8 @@ const METHOD_CALL_DESCRIPTION =
 
 /** The only files whose method shapes the real-call matchers model (#809). */
 type CallLanguage = "python" | "js";
+/** A file's language for rules gated by `languages`. */
+export type FileLanguage = CallLanguage | "other";
 const PYTHON_FILE = /\.py$/i;
 /** JavaScript and TypeScript source. */
 const JS_FILE = /\.(?:[mc]?js|tsx?|[mc]ts)$/i;
@@ -93,7 +105,12 @@ const NOT_A_DEFINITION = String.raw`(?<!\bdef${H}+)`;
  * `receivers`. Calls on any other object do not match, nor, with `python`,
  * a `def`.
  */
-function realCall(name: string, receivers: string[], python: boolean): RegExp {
+function realCall(
+  name: string,
+  receivers: string[],
+  python: boolean,
+  aliases: string[] = [],
+): RegExp {
   // Not after an identifier, and not after `.` when an identifier receiver
   // precedes it on this line. Any other receiver may be the global object:
   // `(globalThis).eval(`, `globalThis/**/.eval(`, `f().exec(`. A spread
@@ -103,12 +120,23 @@ function realCall(name: string, receivers: string[], python: boolean): RegExp {
   // is `browser\r  .eval(`.
   const definition = python ? NOT_A_DEFINITION : "";
   const bare = String.raw`(?<![\w$])(?<![\w$]${H}*\??\.)${definition}`;
-  const via = String.raw`\b(?:${receivers.join("|")})\s*\??\.\s*`;
-  return new RegExp(String.raw`(?:${bare}|${via})${name}\s*\(`);
+  // An alias may start with `$`, where `\b` cannot anchor it.
+  const alias = aliases.length
+    ? String.raw`|(?<![\w$.])(?:${aliases.join("|")})`
+    : "";
+  const via = String.raw`(?:\b(?:${receivers.join("|")})${alias})\s*\??\.\s*`;
+  return new RegExp(String.raw`(?:${bare}|${via})${name}${CALL_OPEN}`);
 }
 
 /** Objects whose `eval` / `Function` is the global one. */
 const GLOBAL_OBJECTS = ["window", "globalThis", "global"];
+/**
+ * Browser aliases of the global object, JS/TS only (#820): `top.eval(x)`,
+ * `window.parent.eval(x)`, `frames.eval(x)`, `document.defaultView.eval(x)`.
+ * `this` is not one: in a class it is the instance, so `this.eval(x)` stays
+ * a method-shaped warning.
+ */
+const JS_GLOBAL_ALIASES = ["self", "top", "parent", "frames", "defaultView"];
 /** Python modules whose `eval` / `exec` is the builtin. */
 const PY_BUILTINS = [
   "builtins",
@@ -125,20 +153,79 @@ const EXEC_RECEIVERS = ["child_process", "childProcess", "cp", ...PY_BUILTINS];
  * Python. `spawn(` is a process spawn on any receiver, so only a Python
  * `def spawn(` is exempt; in JS/TS every `spawn(` is real.
  */
-const REAL_CALL: Record<CallLanguage, Record<CallName, RegExp>> = {
-  python: {
-    eval: realCall("eval", EVAL_RECEIVERS, true),
-    exec: realCall("exec", EXEC_RECEIVERS, true),
-    spawn: new RegExp(String.raw`${NOT_A_DEFINITION}\bspawn\s*\(`),
-    Function: realCall("Function", GLOBAL_OBJECTS, true),
-  },
-  js: {
-    eval: realCall("eval", [...EVAL_RECEIVERS, "self"], false),
+function realCalls(
+  language: CallLanguage,
+  aliases: string[] = [],
+): Record<CallName, RegExp> {
+  if (language === "python") {
+    return {
+      eval: realCall("eval", EVAL_RECEIVERS, true, aliases),
+      exec: realCall("exec", EXEC_RECEIVERS, true, aliases),
+      spawn: new RegExp(String.raw`${NOT_A_DEFINITION}\bspawn${CALL_OPEN}`),
+      Function: realCall("Function", GLOBAL_OBJECTS, true),
+    };
+  }
+  const globals = [...GLOBAL_OBJECTS, ...JS_GLOBAL_ALIASES];
+  return {
+    eval: realCall("eval", [...PY_BUILTINS, ...globals], false, aliases),
     exec: realCall("exec", EXEC_RECEIVERS, false),
     spawn: CALL_CANDIDATE.spawn,
-    Function: realCall("Function", [...GLOBAL_OBJECTS, "self"], false),
-  },
+    Function: realCall("Function", globals, false, aliases),
+  };
+}
+
+const REAL_CALL: Record<CallLanguage, Record<CallName, RegExp>> = {
+  python: realCalls("python"),
+  js: realCalls("js"),
 };
+
+/** A JS/TS global object, as the right-hand side of an alias. */
+const JS_GLOBAL_VALUE = String.raw`(?:globalThis|window|global|self|top|parent|frames|(?:document\s*\??\.\s*)?defaultView)`;
+/** `g = globalThis;`, `const w = window.parent` (#820). */
+const JS_ALIAS = new RegExp(
+  String.raw`(?<![\w$.])([A-Za-z_$][\w$]*)\s*=\s*${JS_GLOBAL_VALUE}(?:\s*\??\.\s*${JS_GLOBAL_VALUE})*\s*(?=[;,)\]}]|$)`,
+  "gm",
+);
+/** `import builtins as b`, `b = builtins`, `b = __builtins__` (#820). */
+const PY_ALIAS =
+  /(?:\bimport\s+(?:builtins|__builtin__)\s+as\s+([A-Za-z_]\w*))|(?:^|[;\s])([A-Za-z_]\w*)\s*=\s*(?:builtins|__builtins__)\s*(?=[;#]|$)/gm;
+
+/** Per-file state for the line rules: language and global aliases (#820). */
+export interface FileScanContext {
+  relPath: string;
+  language: CallLanguage | null;
+  /** Real-call matchers widened by this file's aliases; null: the defaults. */
+  realCalls: Record<CallName, RegExp> | null;
+}
+
+/**
+ * The context for one file. A name the file assigns from the global object
+ * (`g = globalThis`) or imports as `builtins` is a receiver like the global
+ * itself, anywhere in that file: the alias residual of #809, accepted there
+ * and made critical by #820. A bare `g.eval(x)` with no such assignment is
+ * still a method-shaped warning.
+ */
+export function fileScanContext(
+  relPath: string,
+  content: string,
+): FileScanContext {
+  const language = callLanguage(relPath);
+  const aliases = new Set<string>();
+  if (language !== null) {
+    const text = interpretedText(content, language);
+    const re = language === "js" ? JS_ALIAS : PY_ALIAS;
+    for (const m of text.matchAll(re)) aliases.add((m[1] ?? m[2])!);
+  }
+  const receivers = [...aliases].map((a) => a.replace(/\$/g, "\\$"));
+  return {
+    relPath,
+    language,
+    realCalls:
+      language !== null && receivers.length > 0
+        ? realCalls(language, receivers)
+        : null,
+  };
+}
 
 /**
  * Whether a line that `CALL_CANDIDATE[name]` matches can call the builtin.
@@ -152,11 +239,66 @@ export function isRealCall(
   name: CallName,
   line: string,
   relPath: string,
+  context?: FileScanContext,
 ): boolean {
   const language = callLanguage(relPath);
   if (language === null) return true;
-  const matcher = REAL_CALL[language][name];
+  const matcher = (context?.realCalls ?? REAL_CALL[language])[name];
   return matcher.test(line) || matcher.test(interpretedText(line, language));
+}
+
+/**
+ * Whether `line` is a candidate for `name`: its raw text or, in a Python or
+ * JS/TS file, its interpreted text matches (#820). CPython runs `ｅｖａｌ(x)`
+ * as `eval(x)` (NFKC) and JS runs `\u0065val(x)` as `eval(x)`.
+ */
+export function isCallCandidate(
+  name: CallName,
+  line: string,
+  relPath: string,
+): boolean {
+  if (CALL_CANDIDATE[name].test(line)) return true;
+  const language = callLanguage(relPath);
+  if (language === null) return false;
+  const text = interpretedText(line, language);
+  return text !== line && CALL_CANDIDATE[name].test(text);
+}
+
+/** The parts of a line rule `matchLineRule` reads. */
+export interface LineRule {
+  pattern: RegExp;
+  call?: CallName;
+  languages?: FileLanguage[];
+  unless?: RegExp;
+}
+
+/**
+ * How one rule matches one line, shared by `asm audit security` and the
+ * `asm install` / `asm get` preview so both classify a line alike (#820):
+ * `"real"` keeps the rule's own category, `"method"` is a
+ * `METHOD_CALL_CATEGORY` warning, `null` is no match.
+ */
+export function matchLineRule(
+  rule: LineRule,
+  line: string,
+  context: FileScanContext,
+): "real" | "method" | null {
+  if (rule.languages && !rule.languages.includes(context.language ?? "other"))
+    return null;
+  if (rule.call !== undefined) {
+    if (!isCallCandidate(rule.call, line, context.relPath)) return null;
+    return isRealCall(rule.call, line, context.relPath, context)
+      ? "real"
+      : "method";
+  }
+  // The interpreted text too, so `(0, \u0065val)(x)` is still indirect eval.
+  const texts =
+    context.language === null
+      ? [line]
+      : [line, interpretedText(line, context.language)];
+  if (!texts.some((t) => rule.pattern.test(t))) return null;
+  if (texts.some((t) => rule.unless?.test(t))) return null;
+  return "real";
 }
 
 /** A JS/TS `\uXXXX` or `\u{…}` escape, which an identifier may contain. */
@@ -172,7 +314,12 @@ const UNICODE_ESCAPE = /\\u\{([0-9a-fA-F]+)\}|\\u([0-9a-fA-F]{4})/g;
  * matches the raw line.
  */
 function interpretedText(line: string, language: CallLanguage): string {
-  if (language === "python") return line.normalize("NFKC");
+  // ASCII is its own NFKC form, and a line with no `\u` has no escape.
+  if (language === "python") {
+    // eslint-disable-next-line no-control-regex
+    return /^[\x00-\x7f]*$/.test(line) ? line : line.normalize("NFKC");
+  }
+  if (!line.includes("\\u")) return line;
   return line.replace(UNICODE_ESCAPE, (escape, braced, plain) => {
     const codePoint = parseInt(braced ?? plain, 16);
     return codePoint <= 0x10ffff ? String.fromCodePoint(codePoint) : escape;
@@ -183,6 +330,106 @@ function interpretedText(line: string, language: CallLanguage): string {
 // raw NUL or escape sequences to the terminal (#809). Shared with every human
 // formatter since #830; re-exported here for existing importers.
 export { stripControlBytes };
+
+// ─── Indirect and string-based execution (#815, #820) ───────────────────────
+
+/** Rule for execution a line regex can only suspect: a warning. */
+export const POSSIBLE_DYNAMIC_CATEGORY = "Possible dynamic code execution";
+const POSSIBLE_DYNAMIC_DESCRIPTION =
+  'Heuristic: eval used as a value, a computed `["eval"]` or `getattr(…, "eval")` on an unknown object, or a string passed to setTimeout/setInterval. A line rule cannot confirm it runs code: check it by hand';
+
+/**
+ * A shared rule beyond the `CALL_CANDIDATE` calls. `shell` and `code` are
+ * critical (audit "Shell execution" / "Dynamic code execution", preview
+ * "Shell commands" / "Code execution"); `possible` is a
+ * `POSSIBLE_DYNAMIC_CATEGORY` warning in both.
+ */
+export interface DynamicExecRule extends LineRule {
+  kind: "shell" | "code" | "possible";
+}
+
+/** A JS global object as a receiver, `globalThis` through `defaultView`. */
+const GLOBAL_RECEIVER = String.raw`\b(?:globalThis|window|global|self|top|parent|frames|defaultView)\s*(?:\?\.\s*)?`;
+/** A quoted `eval` or `Function` key: `["eval"]`, `['Function']`. */
+const QUOTED_EVAL = String.raw`\[\s*(['"\`])(?:eval|Function)\1\s*\]`;
+/** `(0, eval)(x)`, `(eval as any)(x)`, `(<any>eval)(x)`: eval called indirectly. */
+// The `as` type is bounded so a long line cannot backtrack quadratically.
+const INDIRECT_EVAL =
+  /\beval\s*(?:!\s*|\bas\s+[^()\n]{0,80}?)?\)\s*(?:\?\.\s*)?\(/;
+const GLOBAL_BRACKET_EVAL = new RegExp(GLOBAL_RECEIVER + QUOTED_EVAL);
+const PY_BUILTINS_GETATTR = new RegExp(
+  String.raw`\bgetattr\s*\(\s*(?:${PY_BUILTINS.join("|")})\s*,\s*['"](?:eval|exec)['"]`,
+);
+
+export const DYNAMIC_EXEC_RULES: readonly DynamicExecRule[] = [
+  // Shell `eval "$x"` / `eval $(…)` at a command position. Not `asm eval
+  // "$dir"`: there `eval` is an argument.
+  {
+    kind: "shell",
+    pattern:
+      /(?:^|[;&|({`]|\$\(|\b(?:then|do|else|sudo|command|builtin)\b)\s*eval\s+["'$`]/,
+  },
+  // A download piped into a shell, with or without flags: `curl … | sh`,
+  // `wget -qO- … | sudo bash -s --`, `bash <(curl …)`. The command needs an
+  // argument, so prose shorthand such as "a `curl | sh` installer" is not one.
+  {
+    kind: "shell",
+    pattern:
+      /\b(?:curl|wget)(?:\s+[^\s|\\]+)+\s*\|\s*(?:sudo\s+(?:-\S+\s+)*)?(?:env\s+(?:\w+=\S*\s+)*)?(?:\/\S*\/)?(?:ba|z|da|k|fi)?sh\b|\b(?:ba|z)?sh\s+<\(\s*(?:curl|wget)\b/,
+  },
+  // Python 2's `exec` statement: `exec "code"`, `exec code in ns`.
+  {
+    kind: "code",
+    pattern: /^\s*exec\s+(?:[rbuRBU]{0,2}['"]|[\w.]+\s*(?:$|#|\bin\b))/,
+    languages: ["python"],
+  },
+  { kind: "code", pattern: INDIRECT_EVAL },
+  // `globalThis["eval"](x)`: the global's eval through a computed key.
+  {
+    kind: "code",
+    pattern: GLOBAL_BRACKET_EVAL,
+    languages: ["js", "other"],
+  },
+  {
+    kind: "code",
+    pattern: PY_BUILTINS_GETATTR,
+    languages: ["python", "other"],
+  },
+  // The same on another object: may be a method, so a warning.
+  {
+    kind: "possible",
+    pattern: /\[\s*(['"`])(?:eval|exec|Function|spawn)\1\s*\]\s*(?:\?\.\s*)?\(/,
+    unless: GLOBAL_BRACKET_EVAL,
+    languages: ["js", "other"],
+  },
+  {
+    kind: "possible",
+    pattern: /\bgetattr\s*\([^,\n]+,\s*['"](?:eval|exec)['"]/,
+    unless: PY_BUILTINS_GETATTR,
+    languages: ["python", "other"],
+  },
+  // eval as a value, called later: `f = eval if c else y`, `const f = eval;`,
+  // `c ? eval : y`. Python and JS/TS only, and only between an assignment,
+  // `return` or a ternary and the end of an expression: in a comment or
+  // docstring, "network, eval, git" or "layouts: eval dirs" is prose.
+  {
+    kind: "possible",
+    pattern:
+      /(?:(?<![=!<>])=(?!=)|=>|[?:]|\|\||&&|\b(?:return|yield|else|or|and)\b)\s*eval\s*(?:$|[;)\]}]|:(?!\w)|\b(?:if|else|or|and)\b|\|\||&&|\?\?)/,
+    unless: INDIRECT_EVAL,
+    languages: ["python", "js"],
+  },
+  // A string timer body is code: `setTimeout("run()", 10)`.
+  {
+    kind: "possible",
+    pattern: /\bset(?:Timeout|Interval)\s*\(\s*['"`]/,
+  },
+];
+
+const SHELL_DESCRIPTION =
+  "Commands that execute shell processes or arbitrary system commands";
+const DYNAMIC_DESCRIPTION =
+  "Patterns that execute dynamically constructed code at runtime";
 
 const SCAN_PATTERNS: ScanPattern[] = [
   // Network / Data Exfiltration
@@ -342,6 +589,24 @@ const SCAN_PATTERNS: ScanPattern[] = [
     severity: "warning",
     permissionType: "code-execution",
   },
+  ...DYNAMIC_EXEC_RULES.map(({ kind, ...rule }): ScanPattern =>
+    kind === "possible"
+      ? {
+          ...rule,
+          category: POSSIBLE_DYNAMIC_CATEGORY,
+          description: POSSIBLE_DYNAMIC_DESCRIPTION,
+          severity: "warning",
+        }
+      : {
+          ...rule,
+          category:
+            kind === "shell" ? "Shell execution" : "Dynamic code execution",
+          description:
+            kind === "shell" ? SHELL_DESCRIPTION : DYNAMIC_DESCRIPTION,
+          severity: "critical",
+          permissionType: kind === "shell" ? "shell" : "code-execution",
+        },
+  ),
 
   // File System Access
   {
@@ -515,18 +780,18 @@ export function scanCode(files: FileContent[]): CodeScanCategory[] {
   >();
 
   for (const { relPath, content } of files) {
+    const context = fileScanContext(relPath, content);
     const lines = content.split("\n");
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
       const trimmed = stripControlBytes(line.trim());
 
       for (const pattern of SCAN_PATTERNS) {
-        if (!pattern.pattern.test(line)) continue;
         // A candidate is always reported: critical when it can reach the
         // builtin, otherwise a method-shaped warning (#809).
-        const method =
-          pattern.call !== undefined &&
-          !isRealCall(pattern.call, line, relPath);
+        const hit = matchLineRule(pattern, line, context);
+        if (hit === null) continue;
+        const method = hit === "method";
         const key = method ? METHOD_CALL_CATEGORY : pattern.category;
         if (!categoryMap.has(key)) {
           categoryMap.set(key, {
@@ -583,7 +848,11 @@ export function analyzePermissions(
         if (
           pattern.permissionType &&
           pattern.category === category.category &&
-          pattern.pattern.test(match.match)
+          matchLineRule(
+            pattern,
+            match.match,
+            fileScanContext(match.file, ""),
+          ) !== null
         ) {
           const type = pattern.permissionType;
           if (!permMap.has(type)) {

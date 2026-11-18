@@ -38,10 +38,13 @@ import {
 } from "./utils/fs";
 import {
   CALL_CANDIDATE,
+  DYNAMIC_EXEC_RULES,
   METHOD_CALL_CATEGORY,
-  isRealCall,
+  POSSIBLE_DYNAMIC_CATEGORY,
+  fileScanContext,
+  matchLineRule,
   stripControlBytes,
-  type CallName,
+  type LineRule,
 } from "./security-auditor-scan";
 import {
   readSkillMd,
@@ -790,20 +793,21 @@ export interface SecurityWarning {
   match: string;
 }
 
-// `exec`, `eval` and `Function` use the audit's candidate + real-call rule
-// (#809), so `asm install` and `asm audit security` / `asm update` classify the
-// same lines: a real call is "Shell commands" / "Code execution" (high risk), a
-// method-shaped one such as `obj.eval(` is `METHOD_CALL_CATEGORY` (medium risk).
-const WARNING_PATTERNS: Array<{
-  category: string;
-  pattern: RegExp;
-  /** `pattern` is `CALL_CANDIDATE[call]`; see `isRealCall`. */
-  call?: CallName;
-}> = [
+// `exec`, `spawn`, `eval` and `Function` use the audit's candidate + real-call
+// rule (#809, #820), so `asm install` and `asm audit security` / `asm update`
+// classify the same lines: a real call is "Shell commands" / "Code execution"
+// (high risk), a method-shaped one such as `obj.eval(` is
+// `METHOD_CALL_CATEGORY` (medium risk). The indirect and string-based rules
+// (`DYNAMIC_EXEC_RULES`, #815) are the audit's own, mapped to these
+// categories, with `POSSIBLE_DYNAMIC_CATEGORY` as medium risk.
+const WARNING_PATTERNS: Array<LineRule & { category: string }> = [
   { category: "Shell commands", pattern: /\b(bash|sh\s+-c)\b/ },
   { category: "Shell commands", pattern: CALL_CANDIDATE.exec, call: "exec" },
   { category: "Shell commands", pattern: /\bchild_process\b/ },
   { category: "Shell commands", pattern: /\bBun\.spawn\b/ },
+  // `child_process.spawn`, `pexpect.spawn`, `pty.spawn`, Ruby `spawn(…)`:
+  // critical in the audit, so high risk here (#820).
+  { category: "Shell commands", pattern: CALL_CANDIDATE.spawn, call: "spawn" },
   // As in the audit: `shell.exec(cmd)` is method-shaped, so the import is
   // what keeps a shelljs skill high risk (#809).
   { category: "Shell commands", pattern: /\bshelljs\b/ },
@@ -814,6 +818,15 @@ const WARNING_PATTERNS: Array<{
     call: "Function",
   },
   { category: "Code execution", pattern: /\bnew\s+Function\b/ },
+  ...DYNAMIC_EXEC_RULES.map(({ kind, ...rule }) => ({
+    ...rule,
+    category:
+      kind === "shell"
+        ? "Shell commands"
+        : kind === "code"
+          ? "Code execution"
+          : POSSIBLE_DYNAMIC_CATEGORY,
+  })),
   {
     category: "Credentials",
     pattern: /\b(API_KEY|SECRET|TOKEN|PASSWORD)\s*[=:]/,
@@ -850,12 +863,14 @@ export async function scanForWarnings(
   });
 
   for (const { relPath, content } of files) {
+    const context = fileScanContext(relPath, content);
     const lines = content.split("\n");
     for (let i = 0; i < lines.length; i++) {
-      for (const { category, pattern, call } of WARNING_PATTERNS) {
-        if (!pattern.test(lines[i])) continue;
-        const method =
-          call !== undefined && !isRealCall(call, lines[i], relPath);
+      for (const rule of WARNING_PATTERNS) {
+        const hit = matchLineRule(rule, lines[i], context);
+        if (hit === null) continue;
+        const { category } = rule;
+        const method = hit === "method";
         const match = stripControlBytes(lines[i].trim());
         warnings.push({
           category: method ? METHOD_CALL_CATEGORY : category,
@@ -878,7 +893,11 @@ export const HIGH_RISK_WARNING_CATEGORIES = [
   OUTSIDE_SYMLINK_CATEGORY,
 ];
 /** Warning categories that make an install a medium-risk preview. */
-const MEDIUM_RISK_WARNING_CATEGORIES = ["External URLs", METHOD_CALL_CATEGORY];
+const MEDIUM_RISK_WARNING_CATEGORIES = [
+  "External URLs",
+  METHOD_CALL_CATEGORY,
+  POSSIBLE_DYNAMIC_CATEGORY,
+];
 
 /**
  * Collapse raw `scanForWarnings` output into the High / Medium / Safe label
