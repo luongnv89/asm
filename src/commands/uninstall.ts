@@ -15,28 +15,49 @@ import type { Scope } from "../utils/types";
 import { error, readLine } from "./shared";
 import { errorMessage } from "../utils/errors";
 import type { ParsedArgs } from "../cli";
+import { cmdUninstallLibrary } from "./uninstall-library";
 
 function printUninstallHelp() {
   console.log(`${ansi.bold("Usage:")} asm uninstall <skill-name> [options]
+       asm uninstall <library-entry-name> --library [options]
 
 Remove a skill and its associated rule files. Shows a removal plan
 before proceeding and asks for confirmation.
 
 ${ansi.bold("Options:")}
+  --library          Remove one library original and its library-lock entry,
+                     instead of provider installs (see "asm uninstall
+                     <library-entry-name> --library --help")
   -y, --yes          Skip confirmation prompt
   -s, --scope <s>    Filter: global, project, or both (default: both)
   -p, --tool <name>  Filter by tool/provider (e.g., claude, codex)
+  --json             Output as JSON (--library only)
   --no-color         Disable ANSI colors
   -V, --verbose      Show debug output
+
+${ansi.yellow("Library removal side effects:")} asm keeps no project or activation
+registry. Only the global skill folders of configured providers (including
+disabled ones) and the current project's skill folders are checked. Other
+projects are NOT checked, so deleting a library original can break activation
+links elsewhere and leave those projects unable to load the skill. A clean
+check is not proof that the skill is unused.
 
 ${ansi.bold("Examples:")}
   asm uninstall code-review              ${ansi.dim("Remove with confirmation")}
   asm uninstall code-review -y           ${ansi.dim("Remove without confirmation")}
   asm uninstall code-review -s project   ${ansi.dim("Remove project copy only")}
-  asm uninstall code-review -p claude    ${ansi.dim("Remove from Claude only")}`);
+  asm uninstall code-review -p claude    ${ansi.dim("Remove from Claude only")}
+  asm uninstall code-review --library    ${ansi.dim("Remove the library copy only")}`);
 }
 
 export async function cmdUninstall(args: ParsedArgs) {
+  // `--library` is a distinct removal domain: never fall through to provider
+  // scanning (issue #799).
+  if (args.flags.library) {
+    await cmdUninstallLibrary(args);
+    return;
+  }
+
   if (args.flags.help) {
     printUninstallHelp();
     return;

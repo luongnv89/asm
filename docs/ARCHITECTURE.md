@@ -111,6 +111,7 @@ Each view is an ink/React component:
 | Skill Index         | `skill-index.ts` / `ingester.ts`     | Catalog ingestion, search, and `asm index` subcommands                                                                                               |
 | Repo Bundles        | `repo-bundles.ts`                    | Bundle inference/records derived from indexed repos                                                                                                  |
 | Library             | `library.ts`                         | Local library lifecycle (`install --library`, `activate`, `deactivate`)                                                                              |
+| Library Uninstall   | `library-uninstall.ts`               | Exact removal of one library original plus its `library-lock.json` entry (`asm uninstall --library`)                                                 |
 | Ghost Skills        | `ghost-skills.ts`                    | TUI library ghosts: library skills not installed in the listed scope, with display fields read from the library copy's SKILL.md                      |
 | Skill State         | `skill-state.ts`                     | Disable/enable state persisted to `skill-state.json`                                                                                                 |
 | Skill Tags          | `skill-tags.ts`                      | Local tag overlays (`asm tag add\|remove`) and `--tag` AND filters                                                                                   |
@@ -221,3 +222,47 @@ The uninstaller builds a removal plan that covers:
    - `.windsurf/rules/{skillName}.md`
    - `.github/instructions/{skillName}.instructions.md`
 3. **AGENTS.md blocks** — removes block markers from AGENTS.md files, supporting multiple legacy formats
+
+## Library Uninstall Process (`src/library-uninstall.ts`)
+
+`asm uninstall <library-entry-name> --library` is the symmetric counterpart of
+`asm install --library`: it removes exactly one library original under
+`<config>/library/skills/<entry>` and then its `library-lock.json` entry. There
+is deliberately no `asm library remove` alias.
+
+The flow is:
+
+1. **Reject incompatible flags** — `--tool`/`-p`, `--scope`/`-s`, `--all`,
+   `--force`, and `--machine` (use `--json` instead).
+2. **Resolve exactly one entry** — by the library directory key (the lock key),
+   falling back to an exact, unique frontmatter name. Matching is never fuzzy,
+   partial, or substring; an ambiguous name is an error.
+3. **Validate the managed path** — the target must stay inside
+   `getLibrarySkillsDir()`, match the lock entry key, and not be the local
+   source directory of a `local:` entry.
+4. **Scan references** — every configured provider's global skill folder
+   (including disabled providers) and the current project's skill folder, for
+   symlinks whose target is the library original. An unreadable location blocks
+   removal rather than being reported as "no references".
+5. **Show the mandatory side-effect notice and the scope actually checked.**
+6. **Confirm** — `-y` skips only this prompt; it never skips steps 4–5.
+7. **Remove the directory, then the lock entry** — that order, so an interrupted
+   run leaves a recoverable stale lock entry rather than an untracked directory.
+
+A stale lock entry (directory already missing) can be cleaned up after the
+check. A library directory with no lock entry is never deleted. A partial
+failure exits non-zero and reports what remains (directory and/or lock entry).
+The command does not touch provider installs, same-name independent provider
+copies, or the local source directory of a `local:` entry. `asm deactivate
+<skill> -p <tool> -s <scope>` is a different operation: it removes one
+activation symlink and keeps the library original. `--json` returns the warnings
+and the checked scope.
+
+> **Warning:** asm keeps no project or activation registry. The check covers
+> only the global skill folders of every configured provider (including disabled
+> providers) and the current project's skill folders. Other projects are NOT
+> checked. Deleting a library original can break activation links in other
+> projects, which will then be unable to load the skill. A clean check is NOT
+> proof that the skill is unused everywhere. There is no cascade delete, no
+> force override, no whole-disk scan, and no activation/project registry in this
+> change.
