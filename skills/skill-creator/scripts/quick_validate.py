@@ -83,6 +83,37 @@ def validate_skill(skill_path):
         if any(not isinstance(dependency, str) or not dependency.strip() for dependency in dependencies):
             return False, "Each dependency must be a non-empty skill reference string"
 
+    # Same checks for the plugin-directory form: effort/dependencies/compatibility under metadata.
+    metadata = frontmatter.get('metadata', None)
+    if metadata is not None and not isinstance(metadata, dict):
+        return False, "Metadata must be a YAML mapping"
+    metadata = metadata or {}
+    meta_effort = metadata.get('effort', None)
+    if meta_effort is not None:
+        VALID_EFFORT_LEVELS = {'low', 'medium', 'high', 'xhigh', 'max'}
+        if not isinstance(meta_effort, str) or meta_effort not in VALID_EFFORT_LEVELS:
+            return False, f"metadata.effort '{meta_effort}' is not valid. Allowed values: {', '.join(sorted(VALID_EFFORT_LEVELS))}"
+    meta_dependencies = metadata.get('dependencies', None)
+    if meta_dependencies is not None:
+        if not isinstance(meta_dependencies, str) or not [d for d in meta_dependencies.split(',') if d.strip()]:
+            return False, "metadata.dependencies must be a non-empty comma-separated string of skill references"
+    for key, value in metadata.items():
+        if isinstance(value, (dict, list)):
+            return False, f"metadata.{key} must be a plain value, not a nested {type(value).__name__}"
+
+    # Legacy top-level keys still validate, but the Claude plugin directory refuses them
+    # from community plugins (LOCAL_CODE_FRONTMATTER_KEY).
+    legacy = sorted(set(frontmatter) & {'effort', 'dependencies', 'compatibility', 'allowed-tools'})
+    if legacy:
+        print(
+            f"WARNING: top-level {', '.join(legacy)} in frontmatter. The Claude plugin directory "
+            "refuses frontmatter keys outside its unpublished allow-list from community plugins; "
+            "to be safe, keep only name, description, license and metadata at the top level and "
+            "move effort, dependencies (comma-separated) and compatibility under metadata. "
+            "See skill-creator references/frontmatter-rules.md 'Plugin-directory compatibility'.",
+            file=sys.stderr,
+        )
+
     # Check for unexpected properties (excluding nested keys under metadata)
     unexpected_keys = set(frontmatter.keys()) - ALLOWED_PROPERTIES
     if unexpected_keys:

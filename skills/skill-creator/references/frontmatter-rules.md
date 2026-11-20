@@ -64,11 +64,11 @@ Whenever this skill is used to **review, evaluate, improve, or iterate on an exi
 - **`name` format**: 1–64 chars, lowercase letters/digits/hyphens only, no leading/trailing or consecutive hyphens. 64 is the validator maximum, but keep `name` **≤40 chars**: `asm eval` awards its 4 kebab-case naming points only at ≤40, so a 41–64 char name caps `naming` at 6 and cannot meet Gate 2's `min(categories) >= 8`.
 - **`description` is a single line** (no newlines), with no angle brackets. Target **≤250 characters** to stay within the runtime context budget; **1024 is a hard ceiling** but only the spec-level limit.
 - **Negative-trigger clause**: description names adjacent domains that should _not_ trigger the skill (e.g., "Don't use for …"). `quick_validate.py` emits a warning when it's missing — treat that as a review finding, not noise.
-- **Only allowed top-level keys** appear: `name`, `description`, `license`, `allowed-tools`, `metadata`, `compatibility`, `effort`, `dependencies`. Anything else is a typo or stale field.
-- **`dependencies`** (if present) is a non-empty YAML list of optional skill references accepted by `asm get`; it declares discovery metadata and never causes eager installation.
+- **Only `name`, `description`, `license` and `metadata` at the top level.** `effort`, `dependencies` and `compatibility` go under `metadata` (see "Plugin-directory compatibility" below). `quick_validate.py` still accepts the legacy top-level `effort`, `dependencies`, `compatibility` and `allowed-tools` and warns on each; anything else is a typo or stale field.
+- **`metadata.dependencies`** (if present) is one comma-separated string of optional skill references accepted by `asm get`; it declares discovery metadata and never causes eager installation.
 - **`metadata.version`** is present and follows `MAJOR.MINOR.PATCH`. If missing, flag it and propose `1.0.0`.
 - **`metadata.author`** is present when the skill is published/shared. Normalize alternate keys (`creator`, `owner`, `maintainer`) to `author` under `metadata:`.
-- **`effort`** (if set) is one of `low | medium | high | xhigh | max`.
+- **`metadata.effort`** (if set) is one of `low | medium | high | xhigh | max`.
 - **YAML safety**: any string value containing the special characters listed above is wrapped in double quotes.
 - **Consistency with `docs/README.md`**: skill name, description summary, and author shown to humans should match the frontmatter.
 
@@ -84,7 +84,7 @@ This audit is cheap and catches real regressions, so run it on every review pass
 
 ## Normalizing `asm eval --fix` output
 
-`asm eval --fix` (retrofit-loop Phase 1) writes top-level keys only when one is missing. It appends a top-level `effort:` (inferred from body size) when `effort` is absent; `effort` is an allowed key, so it needs no migration. The two keys below do:
+`asm eval --fix` (retrofit-loop Phase 1) writes top-level keys only when one is missing. It appends a top-level `effort:` (inferred from body size) only when neither `effort` nor `metadata.effort` is set; move an appended one under `metadata:` as `effort: "<level>"`. The two keys below always need migrating:
 
 - **No authorship anywhere** (no `author`, `metadata.author`, `creator`, or `metadata.creator`) → `--fix` appends top-level `author: <git user.name>`.
 - **No version anywhere** (no `metadata.version` or top-level `version`) → `--fix` appends top-level `version: 0.1.0`.
@@ -113,3 +113,10 @@ Migration rules:
 ### Allowed-key drift
 
 Published skills sometimes carry fields invented by older tooling, such as `architecture`, `model`, or `category`. They are not in the allowed set. If the field encodes information used at runtime (rare), move it under `metadata:` — any nested key is accepted. Otherwise drop it and surface the drop as a finding. Never silently delete a non-trivial field.
+
+## Plugin-directory compatibility
+
+The Claude plugin directory applies two rules to plugins from organizations Anthropic hasn't verified. A skill that may ship in such a plugin has to meet both at the source:
+
+- **Frontmatter (`LOCAL_CODE_FRONTMATTER_KEY`).** The allow-list isn't published, so this is the conservative shape. Plain `key: value` lines between two `---` lines. In `SKILL.md`, only `name`, `description`, `license` and `metadata` at the top level, and `metadata` is a one-level map of quoted strings: `version`, `author`, `effort`, `dependencies` (comma-separated) and `compatibility`. Skill-local `agents/*.md` keep only `name` and `description` at the top level; put `role`, `wave` or `version` under `metadata`. Leave out `allowed-tools`.
+- **Files (`LOCAL_CODE_FILE_TYPE`).** Only Markdown, text, JSON, YAML and PNG/JPEG/GIF/WebP/ICO images. Nothing that starts with `#!`, no package-manager configuration (`package.json`, `requirements.txt`, `.npmrc`, …), no NUL bytes, no `:` or `\` in a path. A skill that needs `scripts/`, HTML/JS/CSS templates or other code can't ship in such a plugin: write the steps as instructions the agent follows with its own tools, or ship the skill in a separate plugin offered from your own marketplace. Don't wrap code in a `.md` or `.txt` file to get past the rule.

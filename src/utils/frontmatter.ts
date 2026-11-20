@@ -316,14 +316,24 @@ export function resolveAllowedTools(fm: Record<string, string>): string[] {
 
 /**
  * Optional skill references acquired by a caller only when a run needs them.
+ * Entries use the same names and explicit sources accepted by `asm get` and
+ * `asm deps acquire`. Two forms are read; the top-level key wins when both
+ * exist:
  *
- * This intentionally supports only scalar-string YAML block/flow sequences
- * and legacy comma/whitespace-delimited scalars. Nested collections and
- * non-string entries are rejected. Entries use the same names and explicit
- * sources accepted by `asm get` and `asm deps acquire`.
+ * - Top-level `dependencies` is strict: it supports only scalar-string YAML
+ *   block/flow sequences and legacy comma/whitespace-delimited scalars, and
+ *   throws on nested collections and non-string entries.
+ * - `metadata.dependencies` is the form the Claude plugin directory accepts
+ *   from community plugins: one free-form, comma-separated string. It is
+ *   parsed leniently (split on commas only, each entry trimmed and kept as a
+ *   string, empty entries dropped) and never throws, so an installed skill's
+ *   free-form metadata value cannot break a scan.
  */
 export function resolveSkillDependencies(fm: Record<string, string>): string[] {
-  const raw = (fm.dependencies || "").trim();
+  if (!fm.dependencies) {
+    return dedupeDependencies((fm["metadata.dependencies"] || "").split(","));
+  }
+  const raw = fm.dependencies.trim();
   if (!raw) return [];
 
   let entries: string[];
@@ -390,6 +400,11 @@ export function resolveSkillDependencies(fm: Record<string, string>): string[] {
     entries = tokens.map(parseDependencyScalar);
   }
 
+  return dedupeDependencies(entries);
+}
+
+/** Trim entries, dropping empty ones and duplicates in first-seen order. */
+function dedupeDependencies(entries: string[]): string[] {
   const seen = new Set<string>();
   const dependencies: string[] = [];
   for (const entry of entries) {

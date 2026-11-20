@@ -485,6 +485,19 @@ describe("buildFixPlan", () => {
     );
   });
 
+  it("does not add a top-level effort when metadata.effort is set", () => {
+    const longBody = Array.from({ length: 30 }, (_, i) => `line ${i}`).join(
+      "\n",
+    );
+    const plan = buildFixPlan(
+      `---\nname: x\ndescription: do a thing\nmetadata:\n  effort: "high"\n---\n\n${longBody}\n`,
+    );
+    expect(plan.newContent).not.toMatch(/^effort:/m);
+    expect(plan.applied.some((a) => a.id === "infer-missing-effort")).toBe(
+      false,
+    );
+  });
+
   it("normalises CRLF to LF", () => {
     const plan = buildFixPlan(
       "---\r\nname: x\r\ndescription: do a thing\r\n---\r\n\r\nbody\r\n",

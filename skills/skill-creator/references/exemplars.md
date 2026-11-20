@@ -20,10 +20,10 @@ The archetype for skills that drive a **repeatable multi-step process** where or
 name: release-cut
 description: "Prepare a release: bump the version, update the changelog, tag, and push. Use when asked to release, ship a version, or tag a build. Don't use for deploying to environments, publishing to npm/PyPI, or hotfix backports."
 license: MIT
-effort: medium
 metadata:
   version: 1.2.0
   author: "Jane Doe <jane@example.com>"
+  effort: "medium"
 ---
 ```
 
@@ -102,14 +102,14 @@ The archetype for skills that encode **conventions and judgment**, not a process
 name: postgres-migrations
 description: "Write and review Postgres schema migrations: safe DDL, lock awareness, expand-contract rollouts. Use when writing or reviewing migration files. Don't use for query tuning, ORM model design, or ad-hoc data backfills."
 license: MIT
-effort: low
 metadata:
   version: 2.0.1
   author: "Jane Doe <jane@example.com>"
+  effort: "low"
 ---
 ```
 
-> ✎ `effort: low` — applying known conventions doesn't need deep reasoning; picking the right effort level is part of authoring. The negative triggers fence off the neighbors that share vocabulary (queries, models, backfills).
+> ✎ `metadata.effort: "low"` — applying known conventions doesn't need deep reasoning; picking the right effort level is part of authoring. The negative triggers fence off the neighbors that share vocabulary (queries, models, backfills).
 
 ```markdown
 # Postgres Migrations
@@ -166,10 +166,10 @@ The archetype for skills where the **main agent coordinates and subagents do the
 name: dependency-audit
 description: "Audit dependencies for license and maintenance risk using parallel subagents. Use when asked to audit, vet, or inventory project dependencies. Don't use for CVE/vulnerability scanning, version upgrades, or lockfile conflicts."
 license: MIT
-effort: high
 metadata:
   version: 1.0.3
   author: "Jane Doe <jane@example.com>"
+  effort: "high"
 ---
 ```
 
@@ -247,5 +247,5 @@ orchestrator's context is the step list plus the workers' returns, never the
 - **Description discipline** — verbs first, one clause per real branch, negative triggers naming keyword-sharing neighbors, ≤250 chars.
 - **Checkable bars** — every "done" is a command exit, file state, count, or table verdict; judgment points come with criteria and a tiebreak.
 - **Right-sized structure** — small skill stays one file; conventions split per-topic; orchestration splits per-role into `agents/`. Structure follows the archetype, not habit.
-- **Version + author under `metadata:`**, quoted values where YAML needs it, and an `effort` chosen deliberately.
+- **Version, author and effort under `metadata:`**, quoted values where YAML needs it, and an `effort` chosen deliberately.
 - **Nothing decorative** — no section exists to look complete; each survives the pruning pass because removing it would change agent behavior.

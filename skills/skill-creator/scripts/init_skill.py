@@ -18,10 +18,10 @@ from pathlib import Path
 SKILL_TEMPLATE = """---
 name: {skill_name}
 description: "TODO: one line, <=250 chars - what it does. Use when <triggers>. Don't use for <2-3 adjacent domains>."
-effort: high
 metadata:
   version: 1.0.0
-  author: [TODO: Your Name <email@example.com>]
+  author: "TODO: Your Name <email@example.com>"
+  effort: "high"
 ---
 
 # {skill_title}
