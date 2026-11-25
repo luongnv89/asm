@@ -7,10 +7,18 @@
  */
 
 import type { CategoryResult } from "./evaluator-core";
-import { access, chmod, mkdir, mkdtemp, rm, writeFile } from "fs/promises";
+import {
+  access,
+  chmod,
+  mkdir,
+  mkdtemp,
+  rm,
+  stat,
+  writeFile,
+} from "fs/promises";
 import { constants as fsConstants } from "fs";
 import { tmpdir } from "os";
-import { join } from "path";
+import { delimiter, join } from "path";
 import {
   listSkillFiles,
   readSkillFile,
@@ -376,6 +384,23 @@ interface LintFinding {
   message: string;
 }
 
+/** A lint that did not happen, and why (the text after "lint skipped — "). */
+interface LintSkip {
+  skipped: string;
+}
+
+const MAX_LINT_TEXT = 200;
+
+/**
+ * The first `max` code points of `s`, never splitting a surrogate pair.
+ * The first 2*max UTF-16 units always hold those code points intact.
+ */
+function clip(s: string, max = MAX_LINT_TEXT): string {
+  return Array.from(s.slice(0, 2 * max))
+    .slice(0, max)
+    .join("");
+}
+
 /**
  * The single warning for a linter that ran but exited non-zero without
  * output we could parse: reported, never counted as clean (#884).
@@ -389,21 +414,39 @@ function exitedWarning(
       file: filePath,
       line: 0,
       severity: "warning",
-      message: `Linter exited with code ${result.exitCode}: ${(result.stderr || result.stdout).slice(0, 200)}`,
+      message: `Linter exited with code ${result.exitCode}: ${clip(result.stderr || result.stdout)}`,
     },
   ];
 }
 
+/** True when some PATH entry holds a regular file named `cmd`. */
+async function onPath(cmd: string): Promise<boolean> {
+  for (const dir of (process.env.PATH ?? "").split(delimiter)) {
+    try {
+      if ((await stat(join(dir, cmd))).isFile()) return true;
+    } catch {
+      // Missing or unsearchable entry: not here.
+    }
+  }
+  return false;
+}
+
+/** Spawn failures that mean the linter is there but this user cannot run it. */
+const CANNOT_RUN = new Set(["EACCES", "EPERM", "ENOEXEC"]);
+
 /**
- * Run a linter on a single script file and return structured findings.
- * Returns null when the linter is not installed (or the extension has none).
+ * Run a linter on a single script file and return structured findings, or
+ * why it was skipped: the extension has no linter, the linter is not
+ * installed, or it could not be started for a reason that says nothing
+ * about the script (#884).
  */
 export async function runLinter(
   filePath: string,
   ext: string,
-): Promise<LintFinding[] | null> {
+): Promise<LintFinding[] | LintSkip> {
   const config = LINTER_CONFIG[ext];
-  if (!config) return null;
+  if (!config) return { skipped: `no linter for ${ext || "this file"}` };
+  const notInstalled = { skipped: `${config.command} is not installed` };
 
   try {
     const { runCommand } = await import("./utils/spawn");
@@ -413,8 +456,7 @@ export async function runLinter(
     // ENOENT) as exit 127 instead of rejecting, and 127 is also the shell's
     // "command not found". Skip it so the score does not depend on the host;
     // any other non-zero exit is still reported below.
-    if (result.exitCode === 127) return null;
-
+    if (result.exitCode === 127) return notInstalled;
     if (result.exitCode !== 0) {
       // Parse output based on linter type
       if (ext === ".py") {
@@ -486,18 +528,26 @@ export async function runLinter(
     return [];
   } catch (err: unknown) {
     const code = (err as NodeJS.ErrnoException | null)?.code;
-    // Linter not found — return null to signal "skipped"
-    if (code === "ENOENT") return null;
-    // Installed but cannot be run (EACCES and the like): report it, since
-    // "not installed" would be untrue (#884).
-    return [
-      {
-        file: filePath,
-        line: 0,
-        severity: "warning",
-        message: `Linter could not be run: ${code ?? String(err)}`,
-      },
-    ];
+    if (code === "ENOENT") return notInstalled;
+    // libuv's PATH search reports EACCES, not ENOENT, for a missing binary
+    // when some PATH entry cannot be searched (#884), so look for it first.
+    if (!(await onPath(config.command))) return notInstalled;
+    // Installed but this user cannot run it: report it.
+    if (typeof code === "string" && CANNOT_RUN.has(code)) {
+      return [
+        {
+          file: filePath,
+          line: 0,
+          severity: "warning",
+          message: `Linter could not be run: ${code}`,
+        },
+      ];
+    }
+    // Anything else (EMFILE, ENOMEM, an asm-internal failure) is about this
+    // host or run, not the script: skip without a deduction.
+    return {
+      skipped: `could not start ${config.command}: ${clip(typeof code === "string" ? code : String(err))}`,
+    };
   }
 }
 
@@ -553,7 +603,7 @@ export async function scoreScriptLint(
   const suggestions: string[] = [];
   let score = 10;
   let lintedCount = 0;
-  let skipped = false;
+  const skips: string[] = [];
   const allFindings: LintFinding[] = [];
   let copies: string | null = null;
 
@@ -568,12 +618,11 @@ export async function scoreScriptLint(
       // Not read (it changed, or is not a regular file): nothing to lint.
       if (copy === null) continue;
       const linterResult = await runLinter(copy, ext);
-      if (linterResult === null) {
-        skipped = true;
+      if (!Array.isArray(linterResult)) {
+        skips.push(linterResult.skipped);
         const lang = LINTER_CONFIG[ext]?.language || ext;
-        const linter = LINTER_CONFIG[ext]?.command || "linter";
         findings.push(
-          `[${lang}] ${relPath}: lint skipped — ${linter} is not installed`,
+          `[${lang}] ${relPath}: lint skipped — ${linterResult.skipped}`,
         );
       } else {
         lintedCount++;
@@ -588,11 +637,13 @@ export async function scoreScriptLint(
     if (copies) await rm(copies, { recursive: true, force: true });
   }
 
-  if (lintedCount === 0 && !skipped) {
+  if (lintedCount === 0 && skips.length === 0) {
     findings.push("No bundled scripts found to lint.");
-  } else if (skipped && lintedCount === 0) {
+  } else if (lintedCount === 0) {
     findings.push(
-      "No script was linted: no linter is installed for these scripts.",
+      skips.every((r) => r.endsWith(" is not installed"))
+        ? "No script was linted: no linter is installed for these scripts."
+        : "No script was linted: see the skipped scripts above.",
     );
   } else if (allFindings.length === 0) {
     findings.push(`Linted ${lintedCount} script(s) — no issues found.`);
