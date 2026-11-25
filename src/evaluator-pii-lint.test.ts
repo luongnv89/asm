@@ -379,6 +379,8 @@ describe("runLinter", () => {
         join(linters, "python3"),
         "-I",
         "-B",
+        "-W",
+        "ignore",
         "-c",
         expect.stringContaining("source_to_code"),
         pyFile,
@@ -422,7 +424,13 @@ describe("runLinter", () => {
       "MemoryError: Parser stack overflowed - Python source too complex to parse",
     ],
     // Python 3.10 and 3.11 print the same overflow with an empty message.
-    ["MemoryError (3.10/3.11)", "deep.py", "Sorry: MemoryError: ", 0, "MemoryError"],
+    [
+      "MemoryError (3.10/3.11)",
+      "deep.py",
+      "Sorry: MemoryError: ",
+      0,
+      "MemoryError",
+    ],
   ])(
     "parses python3's 'Sorry: %s' line as an error (#891)",
     async (_type, name, stderr, line, message) => {
@@ -501,23 +509,77 @@ describe("runLinter", () => {
   // The same name on a file with a SyntaxError puts its "Sorry:" half at
   // column 0 inside the traceback. Verbatim stderr from Python 3.10 and 3.12.
   it("ignores a 'Sorry:' line inside a SyntaxError traceback (#891)", async () => {
+    const pyFile =
+      "/tmp/asm-lint-Ab12Cd/0/a\nSorry: TabError: fake (z.py, line 9).py";
     runCommandMock.mockResolvedValue({
       exitCode: 1,
       stdout: "",
       stderr:
-        '  File "a\n' +
+        '  File "/tmp/asm-lint-Ab12Cd/0/a\n' +
         'Sorry: TabError: fake (z.py, line 9).py", line 1\n' +
         "    def f(:\n" +
         "          ^\n" +
         "SyntaxError: invalid syntax\n",
     });
 
-    expect(await runLinter("/tmp/skill/a\nx.py", ".py")).toEqual([
+    expect(await runLinter(pyFile, ".py")).toEqual([
       {
-        file: "/tmp/skill/a\nx.py",
+        file: pyFile,
         line: 0,
         severity: "error",
         message: "SyntaxError: invalid syntax",
+      },
+    ]);
+  });
+
+  // The traceback that rules out a later "Sorry:" line is the one naming
+  // the path python was given: a real one on that path still does.
+  it("ignores a 'Sorry:' line after a traceback on the lint copy (#891)", async () => {
+    const pyFile = "/tmp/asm-lint-Ab12Cd/0/t.py";
+    runCommandMock.mockResolvedValue({
+      exitCode: 1,
+      stdout: "",
+      stderr:
+        `  File "${pyFile}", line 2\n` +
+        "    def f(:\n" +
+        "          ^\n" +
+        "SyntaxError: invalid syntax\n" +
+        "Sorry: TabError: fake (t.py, line 9)\n",
+    });
+
+    expect(await runLinter(pyFile, ".py")).toEqual([
+      {
+        file: pyFile,
+        line: 2,
+        severity: "error",
+        message: "SyntaxError: invalid syntax",
+      },
+    ]);
+  });
+
+  // Python 3.13+ prints a SyntaxWarning before the error and echoes its
+  // source line two spaces in; a docstring line there reads like a
+  // traceback's File line. `-W ignore` keeps warnings out, and the parser
+  // does not rely on it: only a File line naming the lint copy starts a
+  // traceback. Verbatim stderr from Python 3.14.9 for chk-895/fx3/w_doc_tab
+  // (3.13.16 prints the same with a shorter warning text).
+  it("parses the 'Sorry:' line after a SyntaxWarning's source echo (#891)", async () => {
+    const pyFile = "/tmp/asm-lint-Ab12Cd/0/t.py";
+    runCommandMock.mockResolvedValue({
+      exitCode: 1,
+      stdout: "",
+      stderr:
+        `${pyFile}:2: SyntaxWarning: "\\p" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\\\p"? A raw string is also an option.\n` +
+        '  File "C:\\proj\\run.py", line 3, in main\n' +
+        "Sorry: TabError: inconsistent use of tabs and spaces in indentation (t.py, line 6)",
+    });
+
+    expect(await runLinter(pyFile, ".py")).toEqual([
+      {
+        file: pyFile,
+        line: 6,
+        severity: "error",
+        message: "TabError: inconsistent use of tabs and spaces in indentation",
       },
     ]);
   });
@@ -1170,7 +1232,9 @@ describe.skipIf(!HAS_PYTHON)(
       // Legacy: the pre-#823 command line, run on its own copy of the skill.
       // `-E` keeps the shell's PYTHON* vars (PYTHONWARNINGS, PYTHONPATH, …)
       // out of it, as `-I` does for the current command, so the comparison
-      // does not depend on the developer's environment.
+      // does not depend on the developer's environment. `-W ignore` matches
+      // the current command (#891): warn.py's SyntaxWarning never reaches
+      // the parser, and it changes neither exit code nor score.
       // The linter is handed a private copy of each script (#831), named as
       // the script; map it back to the script it copies.
       const asScript = (file: string) => join("scripts", basename(file));
@@ -1180,6 +1244,8 @@ describe.skipIf(!HAS_PYTHON)(
         const result = await realRunCommand([
           "python3",
           "-E",
+          "-W",
+          "ignore",
           "-m",
           "py_compile",
           file,
