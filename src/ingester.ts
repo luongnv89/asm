@@ -71,7 +71,13 @@ export async function ingestRepo(
   sourceInput: string,
   options: IngestOptions = {},
 ): Promise<IngestResult> {
-  await checkGitAvailable();
+  // A missing git (none on an absolute PATH entry, #894) is a reported
+  // failure like a bad source, not a fatal error with a stack trace.
+  try {
+    await checkGitAvailable();
+  } catch (err) {
+    return { success: false, repoIndex: null, error: errorMessage(err) };
+  }
 
   let source: ParsedSource;
   try {
