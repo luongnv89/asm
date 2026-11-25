@@ -449,9 +449,13 @@ describe("runLinter", () => {
     ]);
   });
 
-  it("still warns on a 'Sorry:' line of a type it does not parse (#891)", async () => {
-    const stderr =
-      "Sorry: RecursionError: maximum recursion depth exceeded during compilation";
+  // Only the three types #891 names are parsed from the "Sorry:" form; any
+  // other keeps the generic warning (Python 3.10 prints the ValueError for a
+  // NUL byte; older ones a RecursionError for deep nesting).
+  it.each([
+    "Sorry: RecursionError: maximum recursion depth exceeded during compilation",
+    "Sorry: ValueError: source code string cannot contain null bytes",
+  ])("still warns on %s (#891)", async (stderr) => {
     runCommandMock.mockResolvedValue({ exitCode: 1, stdout: "", stderr });
 
     expect(await runLinter("/tmp/skill/t.py", ".py")).toEqual([

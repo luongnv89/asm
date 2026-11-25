@@ -561,14 +561,14 @@ export async function runLinter(
             pendingLine = parseInt(fileMatch[2], 10);
             continue;
           }
-          const syntaxMatch = line.match(
-            /^\s*(Sorry: )?(SyntaxError|IndentationError|TabError|MemoryError|ImportError|AttributeError|TypeError|ValueError):\s*(.+)$/,
+          const sorryMatch = line.match(
+            /^\s*Sorry: (IndentationError|TabError|MemoryError):\s*(.+)$/,
           );
-          if (syntaxMatch) {
-            let message = syntaxMatch[3].trim();
-            let lineNo = pendingLine;
+          if (sorryMatch) {
+            let message = sorryMatch[2].trim();
+            let lineNo = 0;
             const trailer = message.match(/, line (\d+)\)$/);
-            if (syntaxMatch[1] && trailer) {
+            if (trailer) {
               lineNo = parseInt(trailer[1], 10);
               // Drop the file name: it is the private copy's, not the skill's.
               const tail = `${lineSuffix}${trailer[1]})`;
@@ -578,9 +578,22 @@ export async function runLinter(
             }
             findings.push({
               file: filePath,
-              line: lineNo || 0,
+              line: lineNo,
               severity: "error",
-              message: `${syntaxMatch[2]}: ${message}`,
+              message: `${sorryMatch[1]}: ${message}`,
+            });
+            pendingLine = 0;
+            continue;
+          }
+          const syntaxMatch = line.match(
+            /^\s*(SyntaxError|IndentationError|ImportError|AttributeError|TypeError|ValueError):\s*(.+)$/,
+          );
+          if (syntaxMatch) {
+            findings.push({
+              file: filePath,
+              line: pendingLine || 0,
+              severity: "error",
+              message: `${syntaxMatch[1]}: ${syntaxMatch[2].trim()}`,
             });
             pendingLine = 0;
           }
