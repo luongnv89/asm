@@ -14,9 +14,12 @@ import {
   absolutePathEntries,
   absolutePathEnv,
   DEFAULT_PATH,
+  NO_HOOKS_GIT_PARAMETER,
   NO_PROGRAM_PATH,
   runCommand,
+  untrustedRepoGitEnv,
 } from "./spawn";
+import { execFileSync } from "node:child_process";
 
 // The child process is the running `node` binary rather than shell builtins
 // (`echo`, `false`, `sh -c`, `pwd`): those either don't exist as standalone
@@ -243,3 +246,87 @@ describe.skipIf(process.platform === "win32" || !existsSync("/bin/sh"))(
     });
   },
 );
+
+// Issue #897 — a relative `core.hooksPath` in the user's git config resolves
+// inside a clone asm makes, so git ran a hook the cloned repo ships.
+describe("untrustedRepoGitEnv (#897)", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it("adds core.hooksPath=/dev/null when no git config is inherited", () => {
+    const env = untrustedRepoGitEnv({
+      PATH: "/usr/bin",
+      GIT_SSH_COMMAND: "ssh -i /k",
+    });
+    expect(env).toEqual({
+      PATH: "/usr/bin",
+      GIT_SSH_COMMAND: "ssh -i /k",
+      GIT_CONFIG_PARAMETERS: NO_HOOKS_GIT_PARAMETER,
+    });
+  });
+
+  it("appends to inherited -c config and leaves numbered pairs alone", () => {
+    const base = {
+      PATH: "/usr/bin",
+      GIT_CONFIG_PARAMETERS: "'http.extraheader'='X: 1'",
+      GIT_CONFIG_COUNT: "1",
+      GIT_CONFIG_KEY_0: "credential.helper",
+      GIT_CONFIG_VALUE_0: "/usr/bin/helper",
+    };
+    const env = untrustedRepoGitEnv(base);
+    expect(env).toEqual({
+      ...base,
+      GIT_CONFIG_PARAMETERS: `'http.extraheader'='X: 1' ${NO_HOOKS_GIT_PARAMETER}`,
+    });
+    // The input object is not modified.
+    expect(base.GIT_CONFIG_PARAMETERS).toBe("'http.extraheader'='X: 1'");
+  });
+
+  it.skipIf(process.platform === "win32")(
+    "keeps only the absolute PATH entries, as absolutePathEnv does",
+    () => {
+      expect(untrustedRepoGitEnv({ PATH: `.${delimiter}/usr/bin` }).PATH).toBe(
+        "/usr/bin",
+      );
+    },
+  );
+
+  it("disables hooks on Windows too, where PATH is left alone", () => {
+    const platform = Object.getOwnPropertyDescriptor(process, "platform")!;
+    Object.defineProperty(process, "platform", { value: "win32" });
+    try {
+      const env = untrustedRepoGitEnv({ PATH: `.${delimiter}C:\\bin` });
+      expect(env).toEqual({
+        PATH: `.${delimiter}C:\\bin`,
+        GIT_CONFIG_PARAMETERS: NO_HOOKS_GIT_PARAMETER,
+      });
+    } finally {
+      Object.defineProperty(process, "platform", platform);
+    }
+  });
+
+  it("defaults to process.env", () => {
+    vi.stubEnv("ASM_SPAWN_ENV_TEST", "default-base");
+    expect(untrustedRepoGitEnv().ASM_SPAWN_ENV_TEST).toBe("default-base");
+  });
+
+  // git reads GIT_CONFIG_COUNT pairs, then GIT_CONFIG_PARAMETERS, and the
+  // last value wins: the entry must beat a hooksPath set either way.
+  it("wins over a core.hooksPath set by inherited env config, per real git", () => {
+    const env = untrustedRepoGitEnv({
+      ...process.env,
+      GIT_CONFIG_PARAMETERS: "'core.hooksPath=.githooks'",
+      GIT_CONFIG_COUNT: "1",
+      GIT_CONFIG_KEY_0: "core.hooksPath",
+      GIT_CONFIG_VALUE_0: ".githooks",
+    });
+    const read = (args: string[]) =>
+      execFileSync("git", args, { env, encoding: "utf-8" }).trim();
+    expect(read(["config", "--get", "core.hooksPath"])).toBe("/dev/null");
+    // The other inherited entries still apply.
+    expect(read(["config", "--get-all", "core.hooksPath"]).split("\n")).toEqual(
+      [".githooks", ".githooks", "/dev/null"],
+    );
+  });
+});

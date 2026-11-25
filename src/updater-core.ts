@@ -16,7 +16,7 @@ import { tmpdir } from "os";
 import { debug } from "./logger";
 import { readLock } from "./utils/lock";
 import { parseFrontmatter } from "./utils/frontmatter";
-import { absolutePathEnv } from "./utils/spawn";
+import { absolutePathEnv, untrustedRepoGitEnv } from "./utils/spawn";
 import { fetchRegistryIndex } from "./registry";
 import type { RegistryIndex } from "./registry";
 import type { LockEntry } from "./utils/types";
@@ -63,7 +63,7 @@ export function createPinnedGitEnv(
     }
   }
   env.GIT_DEFAULT_HASH = objectFormat;
-  return absolutePathEnv(env);
+  return untrustedRepoGitEnv(env);
 }
 
 // ─── Types ──────────────────────────────────────────────────────────────────
@@ -212,7 +212,7 @@ export async function getLatestRemoteCommit(
 
     const { stdout } = await execFileAsync("git", args, {
       timeout: 10_000,
-      env: absolutePathEnv(),
+      env: untrustedRepoGitEnv(),
     });
     const advertised = new Map<string, string>();
     for (const line of stdout.split("\n")) {

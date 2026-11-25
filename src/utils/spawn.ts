@@ -49,6 +49,41 @@ export function absolutePathEnv(
   };
 }
 
+/**
+ * `git -c core.hooksPath=/dev/null`, as one GIT_CONFIG_PARAMETERS entry
+ * (#897). No hook can live under `/dev/null`, so git runs none.
+ */
+export const NO_HOOKS_GIT_PARAMETER = "'core.hooksPath=/dev/null'";
+
+/**
+ * absolutePathEnv(base), plus git config that runs no hook, for any child
+ * that runs git against a repo asm does not own: a clone, fetch or checkout
+ * of a remote, a command inside such a clone, and npm or npx, which can
+ * clone in turn (#897). The user's `core.hooksPath` can be relative (such as
+ * `.githooks`), and git resolves it inside the new clone, so it would run a
+ * hook the repo ships before any audit.
+ *
+ * The setting goes in GIT_CONFIG_PARAMETERS, appended the way `git -c`
+ * appends, rather than in GIT_CONFIG_COUNT/KEY_n/VALUE_n:
+ * - git reads GIT_CONFIG_PARAMETERS after GIT_CONFIG_COUNT, so the last
+ *   entry wins over both an inherited `-c` and inherited numbered pairs;
+ * - git before 2.31 ignores GIT_CONFIG_COUNT, and asm supports git 2.20+;
+ * - the `'key=value'` entry form is the one every git version parses.
+ * The user's own entries stay in place, ahead of this one.
+ */
+export function untrustedRepoGitEnv(
+  base: NodeJS.ProcessEnv = process.env,
+): NodeJS.ProcessEnv {
+  const env = absolutePathEnv(base);
+  const inherited = env.GIT_CONFIG_PARAMETERS;
+  return {
+    ...env,
+    GIT_CONFIG_PARAMETERS: inherited
+      ? `${inherited} ${NO_HOOKS_GIT_PARAMETER}`
+      : NO_HOOKS_GIT_PARAMETER,
+  };
+}
+
 export interface RunCommandOptions {
   cwd?: string;
   /**

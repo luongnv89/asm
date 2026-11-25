@@ -9,7 +9,7 @@ import { existsSync } from "fs";
 import { join, dirname } from "path";
 
 import { parseFrontmatter } from "./utils/frontmatter";
-import { absolutePathEnv } from "./utils/spawn";
+import { untrustedRepoGitEnv } from "./utils/spawn";
 
 import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
@@ -90,13 +90,19 @@ function runNpx(
   // `.cmd` shim that execFile cannot launch (see resolveNpxCli). On POSIX the
   // bare `npx` on PATH resolves correctly, so leave that path byte-for-byte
   // unchanged to keep the blast radius of this fix on Windows alone.
+  // `npx skills add` clones the source repo itself, so both paths get git
+  // config that runs no hook (#897).
+  const env = untrustedRepoGitEnv();
   if (process.platform === "win32") {
     const npxCli = resolveNpxCli();
     if (npxCli) {
-      return execFileAsync(process.execPath, [npxCli, ...args], opts);
+      return execFileAsync(process.execPath, [npxCli, ...args], {
+        ...opts,
+        env,
+      });
     }
   }
-  return execFileAsync("npx", args, { ...opts, env: absolutePathEnv() });
+  return execFileAsync("npx", args, { ...opts, env });
 }
 
 export async function checkNpxAvailable(): Promise<void> {

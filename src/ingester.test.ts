@@ -23,6 +23,13 @@ import { dedupeSkillsByName } from "./skill-dedupe";
 import { verifySkill } from "./verifier";
 import type { EvalProvider } from "./eval/types";
 import type { IndexedSkill } from "./utils/types";
+import { existsSync } from "fs";
+import { realpath } from "fs/promises";
+import {
+  HOOKS_PATH_FORMS,
+  makeHookRepo,
+  writeGlobalGitConfig,
+} from "./utils/test-git-hooks";
 
 // ─── Config sandbox for production-ingest tests ─────────────────────────────
 // Production-ingest tests must never write to the real getIndexDir user
@@ -352,6 +359,67 @@ describe("ingestRepo without git (#894)", () => {
     expect(ingestMocks.cloneToTemp).not.toHaveBeenCalled();
   });
 });
+
+// Issue #897 — index ingest clones a repo asm does not own; a relative
+// core.hooksPath in the user's git config ran the hooks it ships.
+describe.skipIf(process.platform === "win32")(
+  "ingestRepo never runs a hook the repo ships (#897)",
+  () => {
+    let base: string;
+    let repo: Awaited<ReturnType<typeof makeHookRepo>>;
+
+    beforeEach(async () => {
+      sandboxIndexDir = await mkdtemp(join(tmpdir(), "asm-index-sandbox-"));
+      base = await realpath(await mkdtemp(join(tmpdir(), "asm-897-ingest-")));
+      repo = await makeHookRepo(base, {
+        "skills/s1/SKILL.md":
+          '---\nname: s1\ndescription: "Say hi when asked. Not for anything else."\n---\n# s1\n\n1. Say hi.\n',
+      });
+      const real =
+        await vi.importActual<typeof import("./installer")>("./installer");
+      ingestMocks.checkGitAvailable.mockResolvedValue(undefined);
+      ingestMocks.cloneToTemp.mockReset();
+      ingestMocks.cloneToTemp.mockImplementation(
+        real.cloneToTemp as () => Promise<string>,
+      );
+      ingestMocks.cleanupTemp.mockReset();
+      ingestMocks.cleanupTemp.mockImplementation(
+        real.cleanupTemp as () => Promise<void>,
+      );
+      ingestMocks.getEvalProviders.mockReturnValue([]);
+    });
+
+    afterEach(async () => {
+      vi.unstubAllEnvs();
+      ingestMocks.cloneToTemp.mockReset();
+      ingestMocks.cleanupTemp.mockReset();
+      ingestMocks.cleanupTemp.mockResolvedValue(undefined);
+      await rm(base, { recursive: true, force: true });
+      if (sandboxIndexDir) {
+        await rm(sandboxIndexDir, { recursive: true, force: true });
+        sandboxIndexDir = null;
+      }
+    });
+
+    it.each(HOOKS_PATH_FORMS)(
+      "hooksPath %s: index ingest github:fake/repo runs no hook",
+      async (_label, hooksPath) => {
+        const url = `file://${repo.bare}`;
+        vi.stubEnv(
+          "GIT_CONFIG_GLOBAL",
+          await writeGlobalGitConfig(base, hooksPath, {
+            "https://github.com/fake/repo.git": url,
+            "git@github.com:fake/repo.git": url,
+          }),
+        );
+        const result = await ingestRepo("github:fake/repo");
+        expect(result.error).toBeUndefined();
+        expect(result.repoIndex?.skills.map((s) => s.name)).toEqual(["s1"]);
+        expect(existsSync(repo.marker)).toBe(false);
+      },
+    );
+  },
+);
 
 describe("parallel skill ingestion (issue #372)", () => {
   let tempDir: string;

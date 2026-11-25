@@ -52,6 +52,11 @@ import {
   cloneToTemp,
 } from "./installer";
 import { absolutePathEntries } from "./utils/spawn";
+import {
+  HOOKS_PATH_FORMS,
+  makeHookRepo,
+  writeGlobalGitConfig,
+} from "./utils/test-git-hooks";
 import { METHOD_CALL_CATEGORY } from "./security-auditor-scan";
 import type { AppConfig, ProviderConfig } from "./utils/types";
 
@@ -645,6 +650,91 @@ describe.skipIf(process.platform === "win32" || !existsSync("/bin/sh"))(
         }
       }
       expect(existsSync(marker)).toBe(false);
+    });
+  },
+);
+
+// Issue #897 — a relative core.hooksPath in the user's global git config
+// resolves inside the fresh clone, so git ran the post-checkout (and
+// reference-transaction) hook the cloned repo ships, before any audit.
+describe.skipIf(process.platform === "win32" || !existsSync("/bin/sh"))(
+  "cloneToTemp never runs a hook the clone ships (#897)",
+  () => {
+    let base: string;
+    let repo: Awaited<ReturnType<typeof makeHookRepo>>;
+
+    beforeEach(async () => {
+      base = await realpath(await mkdtemp(join(tmpdir(), "asm-897-clone-")));
+      repo = await makeHookRepo(base, {
+        "skills/s1/SKILL.md": "---\nname: s1\ndescription: d\n---\nbody\n",
+      });
+    });
+
+    afterEach(async () => {
+      vi.unstubAllEnvs();
+      await rm(base, { recursive: true, force: true });
+    });
+
+    const source = (ref: string | null) => ({
+      owner: "fake",
+      repo: "repo",
+      ref,
+      subpath: null,
+      cloneUrl: `file://${repo.bare}`,
+      sshCloneUrl: `file://${repo.bare}`,
+    });
+
+    async function cloneBoth(): Promise<void> {
+      for (const ref of [null, repo.sha]) {
+        const dir = await cloneToTemp(source(ref), "https");
+        try {
+          expect(existsSync(join(dir, "skills", "s1", "SKILL.md"))).toBe(true);
+          expect(
+            execFileSync("git", ["rev-parse", "HEAD"], {
+              cwd: dir,
+              encoding: "utf-8",
+            }).trim(),
+          ).toBe(repo.sha);
+        } finally {
+          await rm(dir, { recursive: true, force: true });
+        }
+      }
+    }
+
+    test("control: plain git clone with hooksPath .githooks runs the hook", async () => {
+      vi.stubEnv(
+        "GIT_CONFIG_GLOBAL",
+        await writeGlobalGitConfig(base, ".githooks"),
+      );
+      execFileSync("git", [
+        "clone",
+        "-q",
+        `file://${repo.bare}`,
+        join(base, "c"),
+      ]);
+      expect(await readFile(repo.marker, "utf-8")).toMatch(/^post-checkout /m);
+    });
+
+    test.each(HOOKS_PATH_FORMS)(
+      "hooksPath %s: plain and #<sha> clones run no hook",
+      async (_label, hooksPath) => {
+        vi.stubEnv(
+          "GIT_CONFIG_GLOBAL",
+          await writeGlobalGitConfig(base, hooksPath),
+        );
+        await cloneBoth();
+        expect(existsSync(repo.marker)).toBe(false);
+      },
+    );
+
+    test("hooksPath set by inherited -c and GIT_CONFIG_COUNT config: no hook", async () => {
+      vi.stubEnv("GIT_CONFIG_GLOBAL", await writeGlobalGitConfig(base, null));
+      vi.stubEnv("GIT_CONFIG_PARAMETERS", "'core.hooksPath=.githooks'");
+      vi.stubEnv("GIT_CONFIG_COUNT", "1");
+      vi.stubEnv("GIT_CONFIG_KEY_0", "core.hooksPath");
+      vi.stubEnv("GIT_CONFIG_VALUE_0", ".githooks");
+      await cloneBoth();
+      expect(existsSync(repo.marker)).toBe(false);
     });
   },
 );

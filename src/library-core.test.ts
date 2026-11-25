@@ -4,7 +4,7 @@
  * `src/library.ts` facade deliberately does not re-export, so
  * `src/library.test.ts` cannot reach them.
  */
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import {
   mkdir,
   mkdtemp,
@@ -19,6 +19,12 @@ import { tmpdir } from "os";
 import { join, resolve } from "path";
 import { AtomicWritePostRenameError } from "./utils/atomic-file";
 import type { LibrarySkillEntry } from "./utils/types";
+import { existsSync } from "fs";
+import {
+  HOOKS_PATH_FORMS,
+  makeHookRepo,
+  writeGlobalGitConfig,
+} from "./utils/test-git-hooks";
 import {
   cloneRemoteLibrarySource,
   emptyLibraryLock,
@@ -822,3 +828,51 @@ describe("cloneRemoteLibrarySource", () => {
     await expect(readdir(tempDir)).resolves.toEqual([]);
   });
 });
+
+// Issue #897 — library update clones and checks out a repo asm does not own;
+// a relative core.hooksPath in the user's git config ran the hooks it ships.
+describe.skipIf(process.platform === "win32")(
+  "cloneRemoteLibrarySource never runs a hook the repo ships (#897)",
+  () => {
+    let base: string;
+    let repo: Awaited<ReturnType<typeof makeHookRepo>>;
+
+    beforeEach(async () => {
+      base = await realpath(await mkdtemp(join(tmpdir(), "asm-897-library-")));
+      repo = await makeHookRepo(base, {
+        "skills/s1/SKILL.md": "---\nname: s1\ndescription: d\n---\nbody\n",
+      });
+    });
+
+    afterEach(async () => {
+      vi.unstubAllEnvs();
+      await rm(base, { recursive: true, force: true });
+    });
+
+    it.each(HOOKS_PATH_FORMS)(
+      "hooksPath %s: default branch, named ref and commit checkout run no hook",
+      async (_label, hooksPath) => {
+        const url = `file://${repo.bare}`;
+        vi.stubEnv(
+          "GIT_CONFIG_GLOBAL",
+          await writeGlobalGitConfig(base, hooksPath, {
+            "https://github.com/fake/repo.git": url,
+            "https://github.com/fake/repo": url,
+          }),
+        );
+        for (const ref of [null, "main", repo.sha]) {
+          const result = await cloneRemoteLibrarySource(
+            makeEntry({ source: "github:fake/repo", ref }),
+            "s1",
+            join(base, "lib", "library-lock.json"),
+          );
+          expect(result).toMatchObject({ commitHash: repo.sha });
+          if (result.tempDir) {
+            await rm(result.tempDir, { recursive: true, force: true });
+          }
+        }
+        expect(existsSync(repo.marker)).toBe(false);
+      },
+    );
+  },
+);
