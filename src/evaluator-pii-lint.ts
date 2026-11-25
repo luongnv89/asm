@@ -391,6 +391,12 @@ export async function runLinter(
     const { runCommand } = await import("./utils/spawn");
     const result = await runCommand([config.command, ...config.args, filePath]);
 
+    // Not installed (#884): runCommand reports a missing binary (spawn
+    // ENOENT) as exit 127 instead of rejecting, and 127 is also the shell's
+    // "command not found". Skip it so the score does not depend on the host;
+    // any other non-zero exit is still reported below.
+    if (result.exitCode === 127) return null;
+
     if (result.exitCode !== 0) {
       // Parse output based on linter type
       if (ext === ".py") {
@@ -550,8 +556,9 @@ export async function scoreScriptLint(
       if (linterResult === null) {
         skipped = true;
         const lang = LINTER_CONFIG[ext]?.language || ext;
+        const linter = LINTER_CONFIG[ext]?.command || "linter";
         findings.push(
-          `[${lang}] ${relPath}: lint skipped — linter not available`,
+          `[${lang}] ${relPath}: lint skipped — ${linter} is not installed`,
         );
       } else {
         lintedCount++;
@@ -569,7 +576,7 @@ export async function scoreScriptLint(
   if (lintedCount === 0 && !skipped) {
     findings.push("No bundled scripts found to lint.");
   } else if (skipped && lintedCount === 0) {
-    findings.push("No bundled scripts found and linter is unavailable.");
+    findings.push("No script was linted: the linter is not installed.");
   } else if (allFindings.length === 0) {
     findings.push(`Linted ${lintedCount} script(s) — no issues found.`);
   } else {
