@@ -48,7 +48,9 @@ import {
   checkCrossToolLink,
   linkExistingSkill,
   SkillMdOutsideFolderError,
+  cloneToTemp,
 } from "./installer";
+import { absolutePathEntries } from "./utils/spawn";
 import { METHOD_CALL_CATEGORY } from "./security-auditor-scan";
 import type { AppConfig, ProviderConfig } from "./utils/types";
 
@@ -539,7 +541,108 @@ describe("checkGitAvailable", () => {
     // git should be available on CI and dev machines
     await expect(checkGitAvailable()).resolves.toBeUndefined();
   });
+
+  // #894: a PATH with no absolute entry must not find a git the cwd ships.
+  test.skipIf(process.platform === "win32")(
+    "reports git as not found when PATH has only relative entries",
+    async () => {
+      vi.stubEnv("PATH", [".", "bin"].join(":"));
+      try {
+        await expect(checkGitAvailable()).rejects.toThrow(
+          /git is required for installing skills.*no absolute PATH entry/s,
+        );
+      } finally {
+        vi.unstubAllEnvs();
+      }
+    },
+  );
 });
+
+// Issue #894 — git ran with the user's PATH from inside the fresh clone, so
+// with an empty, `.` or relative entry git's filter lookup (git-lfs is set up
+// in the global config) ran an executable the cloned repo ships.
+describe.skipIf(process.platform === "win32" || !existsSync("/bin/sh"))(
+  "cloneToTemp never runs a program the clone ships (#894)",
+  () => {
+    let base: string;
+    let repo: string;
+    let marker: string;
+    let sha: string;
+    const abs = absolutePathEntries().join(":");
+    const git = (args: string[], cwd?: string) =>
+      execFileSync("git", args, { cwd, encoding: "utf-8" }).trim();
+
+    beforeEach(async () => {
+      base = await realpath(await mkdtemp(join(tmpdir(), "asm-894-clone-")));
+      repo = join(base, "repo");
+      marker = join(base, "MARKER");
+      await mkdir(join(repo, "skills", "s1"), { recursive: true });
+      await writeFile(
+        join(repo, "skills", "s1", "SKILL.md"),
+        "---\nname: s1\ndescription: d\n---\nbody\n",
+      );
+      await writeFile(join(repo, ".gitattributes"), "*.md filter=lfs\n");
+      await writeFile(
+        join(repo, "git-lfs"),
+        `#!/bin/sh\necho EXECUTED-BY-GIT > '${marker}'\ncat\n`,
+      );
+      await chmod(join(repo, "git-lfs"), 0o755);
+      git(["init", "-q"], repo);
+      git(["add", "-A"], repo);
+      git(
+        ["-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qm", "init"],
+        repo,
+      );
+      sha = git(["rev-parse", "HEAD"], repo);
+      const globalConfig = join(base, "gitconfig");
+      await writeFile(
+        globalConfig,
+        '[filter "lfs"]\n\tsmudge = git-lfs smudge -- %f\n\trequired = false\n',
+      );
+      vi.stubEnv("GIT_CONFIG_GLOBAL", globalConfig);
+    });
+
+    afterEach(async () => {
+      vi.unstubAllEnvs();
+      await rm(base, { recursive: true, force: true });
+    });
+
+    const source = (ref: string | null) => ({
+      owner: "fake",
+      repo: "repo",
+      ref,
+      subpath: null,
+      cloneUrl: `file://${repo}`,
+      sshCloneUrl: `file://${repo}`,
+    });
+
+    test("control: plain git with PATH .:<abs> runs the clone's git-lfs", () => {
+      execFileSync("git", ["clone", "-q", `file://${repo}`, join(base, "c")], {
+        env: { ...process.env, PATH: `.:${abs}` },
+      });
+      expect(existsSync(marker)).toBe(true);
+    });
+
+    test.each([
+      [".:<abs>", () => `.:${abs}`],
+      ["::<abs>", () => `::${abs}`],
+      ["<abs>:", () => `${abs}:`],
+      ["rel:<abs>", () => `rel:${abs}`],
+    ])("PATH %s: plain and #<sha> clones run nothing", async (_l, path) => {
+      vi.stubEnv("PATH", path());
+      for (const ref of [null, sha]) {
+        const dir = await cloneToTemp(source(ref), "https");
+        try {
+          expect(existsSync(join(dir, "skills", "s1", "SKILL.md"))).toBe(true);
+          expect(git(["rev-parse", "HEAD"], dir)).toBe(sha);
+        } finally {
+          await rm(dir, { recursive: true, force: true });
+        }
+      }
+      expect(existsSync(marker)).toBe(false);
+    });
+  },
+);
 
 // ─── validateSkill tests ───────────────────────────────────────────────────
 
@@ -2588,6 +2691,25 @@ describe("installScriptDependencies", () => {
       },
     );
   });
+
+  // #894: npm runs with cwd inside the skill, so a relative PATH entry would
+  // resolve `npm` (or a nested `git`) against the skill's own files.
+  test.skipIf(process.platform === "win32")(
+    "gives npm only the absolute PATH entries",
+    async () => {
+      const scriptsDir = join(tempDir, "scripts");
+      await mkdir(scriptsDir, { recursive: true });
+      await writeFile(join(scriptsDir, "package.json"), "{}\n");
+      const runner = vi.fn().mockResolvedValue({ stdout: "", stderr: "" });
+      vi.stubEnv("PATH", ".:/usr/bin::rel:/bin");
+      try {
+        await installScriptDependencies(tempDir, runner as any);
+      } finally {
+        vi.unstubAllEnvs();
+      }
+      expect(runner.mock.calls[0][2].env.PATH).toBe("/usr/bin:/bin");
+    },
+  );
 
   test("does not run lifecycle scripts from the skill's scripts/package.json", async () => {
     const scriptsDir = join(tempDir, "scripts");

@@ -7,7 +7,11 @@
  */
 
 import type { CategoryResult } from "./evaluator-core";
-import type { RunCommandOptions } from "./utils/spawn";
+import {
+  absolutePathEntries,
+  absolutePathEnv,
+  type RunCommandOptions,
+} from "./utils/spawn";
 import {
   access,
   chmod,
@@ -19,7 +23,7 @@ import {
 } from "fs/promises";
 import { constants as fsConstants } from "fs";
 import { tmpdir } from "os";
-import { delimiter, isAbsolute, join, resolve } from "path";
+import { join, resolve } from "path";
 import {
   listSkillFiles,
   readSkillFile,
@@ -421,12 +425,6 @@ function exitedWarning(
 }
 
 /**
- * The search path libuv uses when PATH is unset (glibc and macOS
- * `_PATH_DEFPATH`), so an unset PATH finds the same linter as before.
- */
-const DEFAULT_PATH = "/usr/bin:/bin";
-
-/**
  * The linter `cmd` resolved to an absolute path (#890), or null when it is
  * not installed.
  *
@@ -447,8 +445,7 @@ const DEFAULT_PATH = "/usr/bin:/bin";
 export async function resolveLinter(cmd: string): Promise<string | null> {
   if (process.platform === "win32") return cmd;
   let fallback: string | null = null;
-  for (const dir of (process.env.PATH ?? DEFAULT_PATH).split(delimiter)) {
-    if (!isAbsolute(dir)) continue;
+  for (const dir of absolutePathEntries()) {
     const candidate = join(dir, cmd);
     try {
       if (!(await stat(candidate)).isFile()) continue;
@@ -474,17 +471,7 @@ export async function resolveLinter(cmd: string): Promise<string | null> {
  * The rest of the environment is passed through unchanged.
  */
 function linterSpawnOptions(cwd: string | undefined): RunCommandOptions {
-  const opts: RunCommandOptions = cwd === undefined ? {} : { cwd };
-  if (process.platform !== "win32") {
-    opts.env = {
-      ...process.env,
-      PATH: (process.env.PATH ?? DEFAULT_PATH)
-        .split(delimiter)
-        .filter(isAbsolute)
-        .join(delimiter),
-    };
-  }
-  return opts;
+  return { ...(cwd === undefined ? {} : { cwd }), env: absolutePathEnv() };
 }
 
 /** Spawn failures that mean the linter is there but this user cannot run it. */

@@ -52,6 +52,15 @@ describe("createPinnedGitEnv", () => {
     Object.assign(process.env, savedEnv);
   });
 
+  // #894: update and outdated run git inside a fresh fetch of the repo.
+  it.skipIf(process.platform === "win32")(
+    "keeps only the absolute PATH entries",
+    () => {
+      process.env.PATH = ".:/usr/bin::rel:/bin:";
+      expect(createPinnedGitEnv("sha1").PATH).toBe("/usr/bin:/bin");
+    },
+  );
+
   it("sets GIT_DEFAULT_HASH to the requested object format", () => {
     expect(createPinnedGitEnv("sha1").GIT_DEFAULT_HASH).toBe("sha1");
     expect(createPinnedGitEnv("sha256").GIT_DEFAULT_HASH).toBe("sha256");

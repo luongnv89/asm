@@ -25,6 +25,7 @@ import { getLibraryLockPath, getLibrarySkillsDir } from "./config";
 import { debug } from "./logger";
 import { parseFrontmatter, resolveVersion } from "./utils/frontmatter";
 import { createDirSymlink } from "./utils/fs";
+import { absolutePathEnv } from "./utils/spawn";
 import {
   AtomicWritePostRenameError,
   withFileMutationLock,
@@ -405,7 +406,10 @@ export async function cloneRemoteLibrarySource(
   cloneArgs.push(cloneUrl, tempDir);
 
   try {
-    await execFileAsync("git", cloneArgs, { timeout: 60_000 });
+    await execFileAsync("git", cloneArgs, {
+      timeout: 60_000,
+      env: absolutePathEnv(),
+    });
   } catch (err: unknown) {
     const execErr = err as { stderr?: string; message?: string };
     return {
@@ -419,16 +423,19 @@ export async function cloneRemoteLibrarySource(
       await execFileAsync("git", ["checkout", ref], {
         cwd: tempDir,
         timeout: 30_000,
+        env: absolutePathEnv(),
       });
     } catch {
       try {
         await execFileAsync("git", ["fetch", "--depth", "1", "origin", ref], {
           cwd: tempDir,
           timeout: 60_000,
+          env: absolutePathEnv(),
         });
         await execFileAsync("git", ["checkout", "FETCH_HEAD"], {
           cwd: tempDir,
           timeout: 30_000,
+          env: absolutePathEnv(),
         });
       } catch (err: unknown) {
         const execErr = err as { stderr?: string; message?: string };
@@ -444,6 +451,7 @@ export async function cloneRemoteLibrarySource(
     const { stdout } = await execFileAsync("git", ["rev-parse", "HEAD"], {
       cwd: tempDir,
       timeout: 5_000,
+      env: absolutePathEnv(),
     });
     const commitHash = stdout.trim();
     if (!/^[0-9a-f]{40}$/i.test(commitHash)) {

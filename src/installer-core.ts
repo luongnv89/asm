@@ -29,6 +29,7 @@ import {
   resolveTags,
 } from "./utils/frontmatter";
 import { estimateTokenCount } from "./utils/token-count";
+import { absolutePathEnv } from "./utils/spawn";
 import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
 import {
@@ -302,7 +303,7 @@ export async function resolveSubpath(
     const { stdout } = await execFileAsync(
       "git",
       ["ls-remote", "--heads", "--tags", source.cloneUrl],
-      { timeout: 15_000 },
+      { timeout: 15_000, env: absolutePathEnv() },
     );
 
     const refs = new Set<string>();
@@ -396,11 +397,13 @@ export function findDuplicateInstallNames(
 
 export async function checkGitAvailable(): Promise<void> {
   try {
-    await execFileAsync("git", ["--version"]);
+    await execFileAsync("git", ["--version"], { env: absolutePathEnv() });
     debug("install: git available");
   } catch {
+    // Only absolute PATH entries are searched (#894), so a git reached
+    // through `.` or a relative entry is reported as missing.
     throw new Error(
-      "git is required for installing skills. Install git from https://git-scm.com",
+      "git is required for installing skills, and no absolute PATH entry holds it. Install git from https://git-scm.com",
     );
   }
 }
@@ -444,10 +447,12 @@ async function cloneWithUrl(
     // Clone without --depth so we can checkout an arbitrary commit
     await execFileAsync("git", ["clone", "--no-checkout", url, tempDir], {
       timeout: 60_000,
+      env: absolutePathEnv(),
     });
     await execFileAsync("git", ["checkout", ref], {
       cwd: tempDir,
       timeout: 30_000,
+      env: absolutePathEnv(),
     });
     return tempDir;
   }
@@ -458,7 +463,7 @@ async function cloneWithUrl(
   }
   args.push(url, tempDir);
 
-  await execFileAsync("git", args, { timeout: 60_000 });
+  await execFileAsync("git", args, { timeout: 60_000, env: absolutePathEnv() });
   return tempDir;
 }
 
@@ -767,14 +772,14 @@ export async function installScriptDependencies(
       {
         cwd: scriptsDir,
         timeout: 120_000,
-        env: {
+        env: absolutePathEnv({
           ...process.env,
           npm_config_git: "git",
           npm_config_ignore_scripts: "true",
           npm_config_allow_git: "none",
           npm_config_global: "false",
           npm_config_location: "user",
-        },
+        }),
       },
     );
   } catch (err: unknown) {

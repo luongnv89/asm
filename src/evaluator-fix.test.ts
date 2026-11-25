@@ -31,7 +31,8 @@ const fsCtl = vi.hoisted(() => ({
   ) => Promise<unknown>,
 }));
 
-vi.mock("./utils/spawn", () => ({
+vi.mock("./utils/spawn", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("./utils/spawn")>()),
   runCommand: runCommandMock,
 }));
 
