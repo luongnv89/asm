@@ -420,6 +420,8 @@ describe("runLinter", () => {
       0,
       "MemoryError: Parser stack overflowed - Python source too complex to parse",
     ],
+    // Python 3.10 and 3.11 print the same overflow with an empty message.
+    ["MemoryError (3.10/3.11)", "deep.py", "Sorry: MemoryError: ", 0, "MemoryError"],
   ])(
     "parses python3's 'Sorry: %s' line as an error (#891)",
     async (_type, name, stderr, line, message) => {
@@ -449,9 +451,55 @@ describe("runLinter", () => {
     ]);
   });
 
+  // A SyntaxError echoes the offending source line indented by four spaces;
+  // a skill line that reads like the "Sorry:" form is source, not an error.
+  // Verbatim stderr from Python 3.10–3.14 for chk-895/fx/srcsorry.
+  it("ignores a 'Sorry:' line echoed from the source (#891)", async () => {
+    runCommandMock.mockResolvedValue({
+      exitCode: 1,
+      stdout: "",
+      stderr:
+        '  File "t.py", line 1\n' +
+        "    Sorry: TabError: fake (t.py, line 7)\n" +
+        "                   ^\n" +
+        "SyntaxError: invalid syntax\n",
+    });
+
+    expect(await runLinter("/tmp/skill/t.py", ".py")).toEqual([
+      {
+        file: "/tmp/skill/t.py",
+        line: 1,
+        severity: "error",
+        message: "SyntaxError: invalid syntax",
+      },
+    ]);
+  });
+
+  // python prints one compile error; a file name holding a newline and a
+  // second "Sorry:" line must not add another.
+  it("parses only the first 'Sorry:' line (#891)", async () => {
+    runCommandMock.mockResolvedValue({
+      exitCode: 1,
+      stdout: "",
+      stderr:
+        "Sorry: TabError: inconsistent use of tabs and spaces in indentation (a\n" +
+        "Sorry: TabError: fake (z.py, line 9).py, line 3)",
+    });
+
+    expect(await runLinter("/tmp/skill/a\nx.py", ".py")).toEqual([
+      {
+        file: "/tmp/skill/a\nx.py",
+        line: 0,
+        severity: "error",
+        message:
+          "TabError: inconsistent use of tabs and spaces in indentation (a",
+      },
+    ]);
+  });
+
   // Only the three types #891 names are parsed from the "Sorry:" form; any
   // other keeps the generic warning (Python 3.10 prints the ValueError for a
-  // NUL byte; older ones a RecursionError for deep nesting).
+  // NUL byte).
   it.each([
     "Sorry: RecursionError: maximum recursion depth exceeded during compilation",
     "Sorry: ValueError: source code string cannot contain null bytes",

@@ -547,24 +547,31 @@ export async function runLinter(
         //     code
         //           ^
         // SyntaxError: message
-        // Any other compile error is one line (#891), its line number in a
-        // trailing "(<file basename>, line N)" when there is one:
+        // Any other compile error is one line at column 0 (#891), its line
+        // number in a trailing "(<file basename>, line N)" when there is one:
         //   Sorry: TabError: inconsistent use of tabs ... (t.py, line 3)
         //   Sorry: MemoryError: Parser stack overflowed - ...
+        // Only the first counts: python prints one error, and a SyntaxError
+        // echoes the offending source line indented, so a skill line or a
+        // file name holding "Sorry: …" must not add a second.
         const lines = result.stderr.split("\n");
         const findings: LintFinding[] = [];
         const lineSuffix = ` (${basename(filePath)}, line `;
         let pendingLine = 0;
+        let sawSorry = false;
         for (const line of lines) {
           const fileMatch = line.match(/File "([^"]+)", line (\d+)/);
           if (fileMatch) {
             pendingLine = parseInt(fileMatch[2], 10);
             continue;
           }
-          const sorryMatch = line.match(
-            /^\s*Sorry: (IndentationError|TabError|MemoryError):\s*(.+)$/,
-          );
+          const sorryMatch = sawSorry
+            ? null
+            : line.match(
+                /^Sorry: (IndentationError|TabError|MemoryError):\s*(.*)$/,
+              );
           if (sorryMatch) {
+            sawSorry = true;
             let message = sorryMatch[2].trim();
             let lineNo = 0;
             const trailer = message.match(/, line (\d+)\)$/);
@@ -580,7 +587,7 @@ export async function runLinter(
               file: filePath,
               line: lineNo,
               severity: "error",
-              message: `${sorryMatch[1]}: ${message}`,
+              message: message ? `${sorryMatch[1]}: ${message}` : sorryMatch[1],
             });
             pendingLine = 0;
             continue;
