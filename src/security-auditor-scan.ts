@@ -1059,6 +1059,20 @@ const SPEC_OPTIONS: Partial<Record<Ecosystem, ReadonlySet<string>>> = {
 /** Words a runner reads after it, at most: bounds the scan (#886). */
 const RUNNER_WINDOW = 32;
 
+/** Runners that fetch only through a subcommand (`npm exec`, `docker run`). */
+const SUBCOMMAND_RUNNERS = new Set([
+  "npm",
+  "pnpm",
+  "yarn",
+  "bun",
+  "uv",
+  "pipx",
+  "docker",
+  "podman",
+  "deno",
+  "go",
+]);
+
 /** Options known to take no value. */
 const FLAG_OPTIONS: Record<Ecosystem, ReadonlySet<string>> = {
   npm: new Set([
@@ -1228,7 +1242,13 @@ function commandName(token: string): string {
 function fetchRunner(
   tokens: string[],
   i: number,
-): { ecosystem: Ecosystem; next: number; label: string } | null {
+): {
+  ecosystem: Ecosystem;
+  next: number;
+  label: string;
+  /** The subcommand lies past the window: not checked, so a risk. */
+  overflow?: boolean;
+} | null {
   const base = commandName(tokens[i]);
   // `npm --yes exec x`: options may come before the subcommand.
   let k = i + 1;
@@ -1238,6 +1258,17 @@ function fetchRunner(
     tokens[k].startsWith("-")
   )
     k++;
+  if (
+    k < tokens.length &&
+    tokens[k].startsWith("-") &&
+    SUBCOMMAND_RUNNERS.has(base)
+  )
+    return {
+      ecosystem: "npm",
+      next: tokens.length,
+      label: base,
+      overflow: true,
+    };
   const sub = tokens[k]?.toLowerCase();
   const sub2 = tokens[k + 1]?.toLowerCase();
   if (base === "npx" || base === "bunx" || base === "pnpx")
@@ -1271,7 +1302,7 @@ function runnerSpecs(
   tokens: string[],
   start: number,
   ecosystem: Ecosystem,
-): string[] {
+): { specs: string[]; overflow: boolean } {
   const specs: string[] = [];
   const rule = SPEC_RULES[ecosystem];
   let explicit = false;
@@ -1311,9 +1342,10 @@ function runnerSpecs(
       afterUnknown = false;
       continue;
     }
-    break;
+    return { specs, overflow: false };
   }
-  return specs;
+  // The window ran out before the package was settled: fail closed (#886).
+  return { specs, overflow: !explicit && end < tokens.length };
 }
 
 /** Split a command line into words: whitespace and shell separators. */
@@ -1352,7 +1384,16 @@ export function unpinnedFetchRisks(argv: string[]): string[] {
     const runner = fetchRunner(tokens, i);
     if (runner === null) continue;
     const rule = SPEC_RULES[runner.ecosystem];
-    for (const spec of runnerSpecs(tokens, runner.next, runner.ecosystem)) {
+    const { specs, overflow } = runnerSpecs(
+      tokens,
+      runner.next,
+      runner.ecosystem,
+    );
+    if (runner.overflow || overflow)
+      risks.push(
+        `unpinned remote fetch: ${runner.label} (package past the first ${RUNNER_WINDOW} words, not checked)`,
+      );
+    for (const spec of specs) {
       if (!rule.remote(spec) || rule.pinned(spec)) continue;
       risks.push(`unpinned remote fetch: ${runner.label} ${spec}`);
       reported.add(spec);
@@ -1520,15 +1561,31 @@ function note(
 }
 
 /** The 1-based line of the first `"key"` in `content`, else 1. */
-function lineOf(content: string, key: string): number {
-  const at = content.indexOf(JSON.stringify(key));
-  if (at === -1) return 1;
-  let line = 1;
-  for (let i = content.indexOf("\n"); i !== -1 && i < at;) {
-    line++;
-    i = content.indexOf("\n", i + 1);
-  }
-  return line;
+function lineFinder(content: string): (key: string) => number {
+  // Newline offsets, found once per file: each lookup is then a search of
+  // the content for the key plus a binary search, never a newline walk.
+  let newlines: number[] | null = null;
+  return (key) => {
+    const at = content.indexOf(JSON.stringify(key));
+    if (at === -1) return 1;
+    if (newlines === null) {
+      newlines = [];
+      for (
+        let i = content.indexOf("\n");
+        i !== -1;
+        i = content.indexOf("\n", i + 1)
+      )
+        newlines.push(i);
+    }
+    let lo = 0;
+    let hi = newlines.length;
+    while (lo < hi) {
+      const mid = (lo + hi) >> 1;
+      if (newlines[mid] < at) lo = mid + 1;
+      else hi = mid;
+    }
+    return lo + 1;
+  };
 }
 
 interface ConfigScanContext {
@@ -1763,9 +1820,10 @@ function scanConfigFile(
       risks: [...new Set(rest.flatMap((f) => f.risks))],
     });
   }
+  const lineOf = lineFinder(content);
   for (const f of findings) {
     if (f.file === file && (f.kind === "mcp-server" || f.kind === "hook"))
-      f.line = lineOf(content, f.name);
+      f.line = lineOf(f.name);
   }
   return findings;
 }

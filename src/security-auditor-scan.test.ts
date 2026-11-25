@@ -1575,6 +1575,33 @@ describe("scanAgentConfigs (#886)", () => {
     expect(Date.now() - start).toBeLessThan(2_000);
   });
 
+  test("a package past the runner window is a risk, not a pass (QA cycle 3)", () => {
+    const opts = Array.from({ length: 40 }, (_, i) => `--o${i}=1`);
+    expect(unpinnedFetchRisks(["npx", ...opts, "evil-pkg"])).toEqual([
+      "unpinned remote fetch: npx (package past the first 32 words, not checked)",
+    ]);
+    expect(unpinnedFetchRisks(["uvx", ...opts, "evil"])).toHaveLength(1);
+    expect(unpinnedFetchRisks(["npm", ...opts, "exec", "evil"])).toEqual([
+      "unpinned remote fetch: npm (package past the first 32 words, not checked)",
+    ]);
+    // A pinned package inside the window, then the tool's own long argv.
+    expect(unpinnedFetchRisks(["npx", "-y", "x@1.2.3", ...opts])).toEqual([]);
+  });
+
+  test("line lookup is linear on a newline-padded config (QA cycle 3)", () => {
+    const servers: Record<string, unknown> = {};
+    for (let i = 0; i < 99; i++) servers[`s${i}`] = { command: "node" };
+    const content =
+      "\n".repeat(500_000) + JSON.stringify({ mcpServers: servers });
+    expect(content.length).toBeLessThan(512 * 1024);
+    const start = Date.now();
+    for (let n = 0; n < 20; n++) {
+      const found = scanOne(".mcp.json", content);
+      expect(found[98].line).toBe(500_001);
+    }
+    expect(Date.now() - start).toBeLessThan(5_000);
+  });
+
   test("unpinnedFetchRisks reports @latest once", () => {
     expect(unpinnedFetchRisks(["npx", "-y", "x@latest"])).toEqual([
       "unpinned remote fetch: npx x@latest",
