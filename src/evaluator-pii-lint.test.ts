@@ -761,6 +761,26 @@ describe.skipIf(process.platform === "win32")(
       },
     );
 
+    it("still lints when TMPDIR is a relative path", async () => {
+      // The fake opens its file argument the way a real linter does.
+      await writeFile(
+        join(abs, "shellcheck"),
+        `#!/bin/sh\ntest -f "$3" || { echo "no such file: $3" >&2; exit 9; }\necho '[]'\n`,
+      );
+      await chmod(join(abs, "shellcheck"), 0o755);
+      await mkdir(join(base, "rel-tmp"));
+      process.chdir(base);
+      vi.stubEnv("TMPDIR", "rel-tmp");
+      vi.stubEnv("PATH", abs);
+
+      const result = await scoreScriptLint(skill);
+
+      expect(result.score).toBe(10);
+      expect(result.findings).toContain(
+        "Linted 1 script(s) — no issues found.",
+      );
+    });
+
     it("resolves each linter once per run", async () => {
       await writeFile(join(skill, "scripts", "b.sh"), "#!/bin/bash\necho b\n");
       await writeTrap(join(abs, "shellcheck"), join(base, "ABS-USED"), "[]");

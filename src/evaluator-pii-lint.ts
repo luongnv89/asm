@@ -18,7 +18,7 @@ import {
 } from "fs/promises";
 import { constants as fsConstants } from "fs";
 import { tmpdir } from "os";
-import { delimiter, isAbsolute, join } from "path";
+import { delimiter, isAbsolute, join, resolve } from "path";
 import {
   listSkillFiles,
   readSkillFile,
@@ -672,7 +672,9 @@ export async function scoreScriptLint(
       const ext = entry.includes(".") ? "." + entry.split(".").pop() : "";
       if (!SCRIPT_EXTENSIONS.has(ext)) continue;
       const relPath = file.relPath;
-      copies ??= await mkdtemp(join(tmpdir(), "asm-lint-"));
+      // Absolute even under a relative TMPDIR: the linter runs with `copies`
+      // as its cwd (#890), so a relative copy path would not resolve there.
+      copies ??= await mkdtemp(join(resolve(tmpdir()), "asm-lint-"));
       const copy = await lintCopy(file, copies);
       // Not read (it changed, or is not a regular file): nothing to lint.
       if (copy === null) continue;
