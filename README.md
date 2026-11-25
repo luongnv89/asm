@@ -433,6 +433,8 @@ asm audit security ./skills/   # every skill in a collection folder
 
 A local target starts with `./`, `../`, `/` or `~`, or is an existing path that contains `/`; a bare name always means an installed skill. Every scan of a skill's files (audit, `get --audit`, install and get previews, update, publish) stays inside the skill folder: a symlink out of it is a critical finding that is never read, and it makes the verdict at least WARNING. `asm eval` also never reads such a link, but it has no verdict: the link is reported and changes no score (see the eval section below). See [docs/security/symlink-rule.md](docs/security/symlink-rule.md).
 
+The audit and the install preview also list the MCP servers and hooks a skill ships, under **MCP servers and hooks**. They come from `.mcp.json` / `mcp.json`, a `plugin.json` or `gemini-extension.json` with top-level `mcpServers`, and a `settings.json`, `settings.local.json` or `hooks.json` with `hooks`, matched by exact file name. Each server or hook is named with its full command line, and the config is parsed as JSON, never run. Any such config makes the verdict at least WARNING, and so does one that is not valid JSON or is too large to read. A server or hook that fetches remote code without an exact version (`npx -y`, `uvx`, `pipx run`, `docker run`, `@latest`, …) or passes a credential-like variable (`*_TOKEN`, `*_KEY`, `*SECRET`, `*PASSWORD`) makes it DANGEROUS, which also blocks `asm update`.
+
 ```bash
 asm audit security --all
 ```

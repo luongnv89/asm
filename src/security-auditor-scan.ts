@@ -1,9 +1,11 @@
+import { posix } from "path";
 import { debug } from "./logger";
 import type { FileContent } from "./utils/fs";
 import type {
   SourceAnalysis,
   CodeScanMatch,
   CodeScanCategory,
+  ExternalSymlink,
   PermissionRequest,
 } from "./utils/types";
 import { errorMessage } from "./utils/errors";
@@ -906,4 +908,785 @@ export function analyzePermissions(
   );
 
   return permissions;
+}
+
+// ─── MCP server and hook configs (#886) ─────────────────────────────────────
+//
+// A skill can ship the config an agent reads to start tool servers
+// (`.mcp.json`) or run hooks (`settings.json`). Each entry runs a command on
+// the user's machine. Configs are matched by exact file name (any case),
+// anywhere in the folder the confined walk read, and only parsed as JSON:
+// nothing in them is run, and a path they name is looked up only among the
+// files the walk already read, never opened. Decisions use the original
+// strings; only renderers strip control bytes and clip.
+
+/** Audit and install-preview category for these configs (#886). */
+export const AGENT_CONFIG_CATEGORY = "MCP servers and hooks";
+/** Install-preview category for a config finding with a risk: high risk. */
+export const AGENT_CONFIG_RISK_CATEGORY =
+  "MCP servers and hooks (unpinned or credentials)";
+export const AGENT_CONFIG_DESCRIPTION =
+  "MCP servers and hooks the skill ships: an agent that loads the config runs each command on the user's machine";
+
+/** Files that are an MCP config whatever they hold. */
+const MCP_CONFIG_NAMES = new Set([".mcp.json", "mcp.json"]);
+/** Agent configs and manifests: a finding when they hold servers or hooks. */
+const AGENT_CONFIG_NAMES = new Set([
+  ...MCP_CONFIG_NAMES,
+  "plugin.json",
+  "gemini-extension.json",
+  "settings.json",
+  "settings.local.json",
+  "hooks.json",
+]);
+
+/**
+ * Findings listed per config file; the rest fold into one that keeps their
+ * risks. Also bounds the line lookups, each a scan of the file.
+ */
+const MAX_FINDINGS_PER_CONFIG = 100;
+/** How deep the hook walk descends into `hooks`. */
+const MAX_HOOK_DEPTH = 8;
+/** Paths a manifest's `mcpServers` / `hooks` may name that are looked up. */
+const MAX_CONFIG_REFERENCES = 20;
+
+function lowerBaseName(relPath: string): string {
+  return (relPath.split("/").pop() ?? "").toLowerCase();
+}
+
+/** Whether `relPath` names an agent config, by exact name in any case. */
+export function isAgentConfigFile(relPath: string): boolean {
+  return AGENT_CONFIG_NAMES.has(lowerBaseName(relPath));
+}
+
+export interface AgentConfigFinding {
+  /** Config path relative to the skill folder (original string). */
+  file: string;
+  line: number;
+  kind: "mcp-server" | "hook" | "config" | "unreadable";
+  /** Server name, hook event, or what is wrong with the config. */
+  name: string;
+  /** The full command line or URL; empty when there is none. */
+  command: string;
+  /** Why the finding is dangerous; empty: a warning. */
+  risks: string[];
+}
+
+export interface AgentConfigInputs {
+  /** Files the walk read. */
+  files: FileContent[];
+  /** Entries the walk saw but did not read: over the size cap, not regular. */
+  unread?: string[];
+  /** Links the confined walk did not follow; their targets are never read. */
+  externalSymlinks?: ExternalSymlink[];
+}
+
+type JsonObject = Record<string, unknown>;
+
+function isObject(value: unknown): value is JsonObject {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function own(obj: JsonObject, key: string): unknown {
+  return Object.hasOwn(obj, key) ? obj[key] : undefined;
+}
+
+/** An exact version: `1.2.3`, `v1.2.3-rc.1`. Ranges and tags are not. */
+const EXACT_VERSION =
+  /^v?\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/;
+
+/** A local path: running it fetches nothing. */
+function isLocalSpec(spec: string): boolean {
+  return /^(?:\.{1,2}[\\/]|[\\/~]|file:|[A-Za-z]:[\\/])/.test(spec);
+}
+
+/** `name@1.2.3`, `@scope/name@1.2.3`, `npm:name@1.2.3`, `jsr:@s/n@1.2.3`. */
+function isPinnedNpmSpec(spec: string): boolean {
+  const m =
+    /^(?:npm:|jsr:)?(?:@[^/@\s]+\/)?[^/@\s:]+@([^@\s/]+)(?:\/.*)?$/.exec(spec);
+  return m !== null && EXACT_VERSION.test(m[1]);
+}
+
+/** `name==1.2.3`, `name[extra]==1.2.3`, uv's `name@1.2.3`. */
+function isPinnedPySpec(spec: string): boolean {
+  const m = /^[A-Za-z0-9][\w.-]*(?:\[[\w.,\s-]*\])?(?:==|@)([^=@\s,;]+)$/.exec(
+    spec,
+  );
+  return m !== null && EXACT_VERSION.test(m[1]);
+}
+
+/** An image with a digest, or a tag other than `latest`. */
+function isPinnedImage(image: string): boolean {
+  if (/@sha256:[0-9a-f]{64}$/i.test(image)) return true;
+  const name = image.slice(image.lastIndexOf("/") + 1);
+  const colon = name.lastIndexOf(":");
+  return colon !== -1 && name.slice(colon + 1).toLowerCase() !== "latest";
+}
+
+/** `module@v1.2.3`. */
+function isPinnedGoSpec(spec: string): boolean {
+  const at = spec.lastIndexOf("@");
+  return at !== -1 && EXACT_VERSION.test(spec.slice(at + 1));
+}
+
+type Ecosystem = "npm" | "py" | "image" | "deno" | "go";
+
+/** Whether `spec` names remote code, and whether it is pinned. */
+const SPEC_RULES: Record<
+  Ecosystem,
+  { remote: (spec: string) => boolean; pinned: (spec: string) => boolean }
+> = {
+  npm: { remote: (s) => !isLocalSpec(s), pinned: isPinnedNpmSpec },
+  py: { remote: (s) => !isLocalSpec(s), pinned: isPinnedPySpec },
+  image: { remote: () => true, pinned: isPinnedImage },
+  // `deno run main.ts` is local; `npm:`, `jsr:` and URLs are fetched.
+  deno: {
+    remote: (s) => /^(?:npm:|jsr:|https?:)/i.test(s),
+    pinned: (s) => !/^https?:/i.test(s) && isPinnedNpmSpec(s),
+  },
+  // `go run ./cmd` builds local code; `go run mod@version` fetches.
+  go: {
+    remote: (s) => s.includes("@") && !isLocalSpec(s),
+    pinned: isPinnedGoSpec,
+  },
+};
+
+/** Options whose value is a package spec to check. */
+const SPEC_OPTIONS: Partial<Record<Ecosystem, ReadonlySet<string>>> = {
+  npm: new Set(["-p", "--package"]),
+  py: new Set(["--from", "--spec", "--with"]),
+};
+/** Options that take a separate value that is not a package spec. */
+const VALUE_OPTIONS: Record<Ecosystem, ReadonlySet<string>> = {
+  npm: new Set(["--registry", "--cache", "--userconfig", "-c", "--call"]),
+  py: new Set([
+    "-p",
+    "--python",
+    "--index",
+    "--index-url",
+    "-i",
+    "--extra-index-url",
+    "--pip-args",
+    "--python-preference",
+  ]),
+  image: new Set([
+    "-e",
+    "--env",
+    "--env-file",
+    "-v",
+    "--volume",
+    "--mount",
+    "--name",
+    "-p",
+    "--publish",
+    "--network",
+    "--net",
+    "-w",
+    "--workdir",
+    "-u",
+    "--user",
+    "--entrypoint",
+    "--platform",
+    "-l",
+    "--label",
+    "--add-host",
+    "--cap-add",
+    "--cap-drop",
+    "-m",
+    "--memory",
+    "--cpus",
+    "--pull",
+    "--restart",
+    "-h",
+    "--hostname",
+    "--device",
+    "--tmpfs",
+    "--ulimit",
+    "--log-driver",
+    "--security-opt",
+    "--gpus",
+  ]),
+  deno: new Set([
+    "-c",
+    "--config",
+    "--import-map",
+    "--lock",
+    "--cert",
+    "--location",
+  ]),
+  go: new Set([
+    "-C",
+    "-exec",
+    "-tags",
+    "-ldflags",
+    "-gcflags",
+    "-mod",
+    "-modfile",
+    "-p",
+  ]),
+};
+
+/** A runner token's command name: `/usr/bin/npx`, `npx.cmd` -> `npx`. */
+function commandName(token: string): string {
+  return (token.split(/[\\/]/).pop() ?? "")
+    .toLowerCase()
+    .replace(/\.(?:cmd|exe|bat|ps1)$/, "");
+}
+
+/** Where a remote-fetch runner starts at `tokens[i]`, if one does. */
+function fetchRunner(
+  tokens: string[],
+  i: number,
+): { ecosystem: Ecosystem; next: number; label: string } | null {
+  const base = commandName(tokens[i]);
+  const sub = tokens[i + 1]?.toLowerCase();
+  const sub2 = tokens[i + 2]?.toLowerCase();
+  if (base === "npx" || base === "bunx" || base === "pnpx")
+    return { ecosystem: "npm", next: i + 1, label: base };
+  if (base === "npm" && (sub === "exec" || sub === "x"))
+    return { ecosystem: "npm", next: i + 2, label: `npm ${sub}` };
+  if ((base === "pnpm" || base === "yarn") && sub === "dlx")
+    return { ecosystem: "npm", next: i + 2, label: `${base} dlx` };
+  if (base === "bun" && sub === "x")
+    return { ecosystem: "npm", next: i + 2, label: "bun x" };
+  if (base === "uvx") return { ecosystem: "py", next: i + 1, label: "uvx" };
+  if (base === "uv" && sub === "tool" && sub2 === "run")
+    return { ecosystem: "py", next: i + 3, label: "uv tool run" };
+  if (base === "pipx" && sub === "run")
+    return { ecosystem: "py", next: i + 2, label: "pipx run" };
+  if (base === "docker" || base === "podman") {
+    if (sub === "run")
+      return { ecosystem: "image", next: i + 2, label: `${base} run` };
+    if (sub === "container" && sub2 === "run")
+      return { ecosystem: "image", next: i + 3, label: `${base} run` };
+  }
+  if (base === "deno" && sub === "run")
+    return { ecosystem: "deno", next: i + 2, label: "deno run" };
+  if (base === "go" && sub === "run")
+    return { ecosystem: "go", next: i + 2, label: "go run" };
+  return null;
+}
+
+/** The package specs a runner fetches, read from `tokens[start]` on. */
+function runnerSpecs(
+  tokens: string[],
+  start: number,
+  ecosystem: Ecosystem,
+): string[] {
+  const specs: string[] = [];
+  let explicit = false;
+  for (let j = start; j < tokens.length; j++) {
+    const t = tokens[j];
+    if (t === "--") continue;
+    if (t.startsWith("-")) {
+      const eq = t.indexOf("=");
+      const key = eq === -1 ? t : t.slice(0, eq);
+      const value = eq === -1 ? undefined : t.slice(eq + 1);
+      if (SPEC_OPTIONS[ecosystem]?.has(key)) {
+        const spec = value ?? tokens[++j];
+        if (spec !== undefined) {
+          specs.push(spec);
+          if (key !== "--with") explicit = true;
+        }
+      } else if (VALUE_OPTIONS[ecosystem].has(key) && value === undefined) {
+        j++;
+      }
+      continue;
+    }
+    // The first positional is the package, unless an option named it: then
+    // it is the binary to run from that package.
+    if (!explicit) specs.push(t);
+    break;
+  }
+  return specs;
+}
+
+/** Split a command line into words: whitespace and shell separators. */
+function commandTokens(argv: string[]): string[] {
+  return argv
+    .flatMap((a) => a.split(/[\s;&|()`<>]+/))
+    .map((t) => t.replace(/^['"]+|['"]+$/g, ""))
+    .filter((t) => t.length > 0);
+}
+
+/**
+ * Remote code a command line fetches without an exact version (#886):
+ * `npx`, `bunx`, `pnpx`, `npm exec`, `pnpm`/`yarn dlx`, `bun x`, `uvx`,
+ * `uv tool run`, `pipx run`, `docker`/`podman run`, `deno run` and `go run`
+ * with a remote spec that is not pinned, and any `…@latest`.
+ */
+export function unpinnedFetchRisks(argv: string[]): string[] {
+  const tokens = commandTokens(argv);
+  const risks: string[] = [];
+  const reported = new Set<string>();
+  for (let i = 0; i < tokens.length; i++) {
+    const runner = fetchRunner(tokens, i);
+    if (runner === null) continue;
+    const rule = SPEC_RULES[runner.ecosystem];
+    for (const spec of runnerSpecs(tokens, runner.next, runner.ecosystem)) {
+      if (!rule.remote(spec) || rule.pinned(spec)) continue;
+      risks.push(`unpinned remote fetch: ${runner.label} ${spec}`);
+      reported.add(spec);
+    }
+  }
+  // `@latest` with any runner, or one this scan does not know.
+  for (const t of tokens) {
+    if (/@latest$/i.test(t) && !reported.has(t))
+      risks.push(`fetches @latest: ${t}`);
+  }
+  return risks;
+}
+
+/** A name segment that names a credential: `GITHUB_TOKEN`, `apiKey`. */
+export function looksLikeCredential(name: string): boolean {
+  return name
+    .split(/[^A-Za-z0-9]+|(?<=[a-z0-9])(?=[A-Z])/)
+    .some((part) =>
+      /(?:TOKEN|KEY|SECRET|PASSWORD|PASSWD|CREDENTIALS?)$/.test(
+        part.toUpperCase(),
+      ),
+    );
+}
+
+/** `$NAME` and `${NAME}` references in `text`. */
+function envReferences(text: string): string[] {
+  return [...text.matchAll(/\$\{?([A-Za-z_][A-Za-z0-9_]*)/g)].map((m) => m[1]);
+}
+
+/** Credentials a URL carries: a password, or a credential-named parameter. */
+function urlCredentials(url: string): string[] {
+  let parsed: URL;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return [];
+  }
+  const risks: string[] = [];
+  if (parsed.password) risks.push("credential in url: password");
+  for (const key of new Set(parsed.searchParams.keys())) {
+    if (looksLikeCredential(key)) risks.push(`credential in url: ${key}`);
+  }
+  return risks;
+}
+
+/** Credentials a server definition passes to what it starts or calls. */
+function credentialRisks(
+  server: JsonObject,
+  argv: string[],
+  url: string | undefined,
+): string[] {
+  const risks: string[] = [];
+  const passed: string[] = [...argv];
+  const env = own(server, "env");
+  if (isObject(env)) {
+    for (const [key, value] of Object.entries(env)) {
+      if (looksLikeCredential(key)) risks.push(`credential env: ${key}`);
+      if (typeof value === "string") passed.push(value);
+    }
+  }
+  const headers = own(server, "headers");
+  if (isObject(headers)) {
+    for (const [key, value] of Object.entries(headers)) {
+      if (looksLikeCredential(key) || key.toLowerCase() === "authorization")
+        risks.push(`credential header: ${key}`);
+      if (typeof value === "string") passed.push(value);
+    }
+  }
+  if (url !== undefined) {
+    passed.push(url);
+    risks.push(...urlCredentials(url));
+  }
+  for (const text of passed) {
+    for (const ref of envReferences(text)) {
+      if (looksLikeCredential(ref)) risks.push(`credential reference: $${ref}`);
+    }
+  }
+  return risks;
+}
+
+/**
+ * A string, or an array's strings. Nothing else is read: a nested value is
+ * never joined, stringified or walked, so its depth cannot matter.
+ */
+function strings(value: unknown): string[] {
+  if (typeof value === "string") return [value];
+  if (Array.isArray(value))
+    return value.map((v) => (typeof v === "string" ? v : "(not-a-string)"));
+  return [];
+}
+
+/**
+ * Join argv for display: an argument after the command with whitespace is
+ * double-quoted, its characters left as they are (stripped only when
+ * printed). The command is shown as written.
+ */
+function commandLine(argv: string[]): string {
+  return argv
+    .map((a, i) => (i > 0 && /\s|^$/.test(a) ? `"${a}"` : a))
+    .join(" ");
+}
+
+function serverFinding(
+  file: string,
+  name: string,
+  def: unknown,
+): AgentConfigFinding {
+  const server = isObject(def) ? def : {};
+  const argv = [
+    ...strings(own(server, "command")),
+    ...strings(own(server, "args")),
+  ];
+  const url = ["url", "httpUrl", "serverUrl"]
+    .map((k) => own(server, k))
+    .find((v): v is string => typeof v === "string");
+  const risks = [
+    ...unpinnedFetchRisks(argv),
+    ...credentialRisks(server, argv, url),
+  ];
+  return {
+    file,
+    line: 1,
+    kind: "mcp-server",
+    name,
+    command:
+      argv.length > 0
+        ? commandLine(argv)
+        : (url ?? "(no command: not a recognised server entry)"),
+    risks: [...new Set(risks)],
+  };
+}
+
+/** Every `command` under `hooks`, with the event it hangs under. */
+function hookCommands(hooks: JsonObject): Array<[string, string]> {
+  const found: Array<[string, string]> = [];
+  const walk = (value: unknown, event: string, depth: number): void => {
+    if (depth > MAX_HOOK_DEPTH) return;
+    if (Array.isArray(value)) {
+      for (const item of value) walk(item, event, depth + 1);
+      return;
+    }
+    if (!isObject(value)) return;
+    const command = own(value, "command");
+    if (typeof command === "string" || Array.isArray(command))
+      found.push([event, commandLine(strings(command))]);
+    for (const [key, child] of Object.entries(value)) {
+      if (key !== "command") walk(child, event, depth + 1);
+    }
+  };
+  for (const [event, value] of Object.entries(hooks)) walk(value, event, 0);
+  return found;
+}
+
+function note(
+  file: string,
+  kind: "config" | "unreadable",
+  name: string,
+): AgentConfigFinding {
+  return { file, line: 1, kind, name, command: "", risks: [] };
+}
+
+/** The 1-based line of the first `"key"` in `content`, else 1. */
+function lineOf(content: string, key: string): number {
+  const at = content.indexOf(JSON.stringify(key));
+  if (at === -1) return 1;
+  let line = 1;
+  for (let i = content.indexOf("\n"); i !== -1 && i < at;) {
+    line++;
+    i = content.indexOf("\n", i + 1);
+  }
+  return line;
+}
+
+interface ConfigScanContext {
+  /** What the walk read, by relative path. */
+  contents: ReadonlyMap<string, string>;
+  /** What the walk saw and did not read. */
+  unread: ReadonlySet<string>;
+}
+
+/**
+ * The file a manifest path names, relative to the skill folder, or null
+ * when it leaves the folder. A `.claude-plugin/plugin.json` path is relative
+ * to the plugin root, the folder above `.claude-plugin`.
+ */
+function resolveConfigReference(
+  file: string,
+  ref: string,
+  ctx: ConfigScanContext,
+): string | null {
+  const rel = ref.replace(/^\$\{CLAUDE_PLUGIN_ROOT\}[\\/]/, "./");
+  if (/^[\\/~]|^[A-Za-z][\w+.-]*:/.test(rel)) return null;
+  const dir = posix.dirname(file);
+  const bases =
+    posix.basename(dir) === ".claude-plugin"
+      ? [posix.dirname(dir), dir]
+      : [dir];
+  const candidates = bases.map((b) =>
+    posix.normalize(posix.join(b, rel.replace(/\\/g, "/"))),
+  );
+  if (candidates.some((c) => c === ".." || c.startsWith("../"))) return null;
+  return (
+    candidates.find((c) => ctx.contents.has(c) || ctx.unread.has(c)) ??
+    candidates[0]
+  );
+}
+
+/** Findings for a manifest key that names other files instead (#886). */
+function referencedConfigs(
+  file: string,
+  key: "mcpServers" | "hooks",
+  refs: string[],
+  ctx: ConfigScanContext,
+): AgentConfigFinding[] {
+  const findings: AgentConfigFinding[] = [];
+  for (const ref of refs.slice(0, MAX_CONFIG_REFERENCES)) {
+    const target = resolveConfigReference(file, ref, ctx);
+    if (target === null) {
+      findings.push(
+        note(
+          file,
+          "unreadable",
+          `${key} names ${ref}, outside the skill folder: not read`,
+        ),
+      );
+    } else if (isAgentConfigFile(target)) {
+      // Scanned on its own, or reported unread, under its own name.
+      if (!ctx.contents.has(target) && !ctx.unread.has(target))
+        findings.push(
+          note(
+            file,
+            "unreadable",
+            `${key} names ${ref}, not in the skill folder`,
+          ),
+        );
+    } else if (ctx.contents.has(target)) {
+      findings.push(
+        ...scanConfigFile(target, ctx.contents.get(target)!, ctx, {
+          mcp: key === "mcpServers",
+          nested: true,
+        }),
+      );
+    } else {
+      findings.push(
+        note(
+          file,
+          "unreadable",
+          `${key} names ${ref}, ${ctx.unread.has(target) ? "not read" : "not in the skill folder"}`,
+        ),
+      );
+    }
+  }
+  if (refs.length > MAX_CONFIG_REFERENCES) {
+    findings.push(
+      note(
+        file,
+        "unreadable",
+        `${key} names ${refs.length - MAX_CONFIG_REFERENCES} more files: not read`,
+      ),
+    );
+  }
+  return findings;
+}
+
+/** Findings for a config's `mcpServers` (or a `.mcp.json`'s `servers`). */
+function serverFindings(
+  file: string,
+  value: unknown,
+  ctx: ConfigScanContext,
+  nested: boolean,
+): AgentConfigFinding[] {
+  if (isObject(value)) {
+    const entries = Object.entries(value);
+    if (entries.length === 0)
+      return [note(file, "config", "mcpServers is empty")];
+    return entries.map(([name, def]) => serverFinding(file, name, def));
+  }
+  const refs =
+    typeof value === "string" ? [value] : Array.isArray(value) ? value : null;
+  if (refs === null)
+    return [note(file, "config", "mcpServers is not an object")];
+  if (refs.length === 0) return [note(file, "config", "mcpServers is empty")];
+  const findings: AgentConfigFinding[] = [];
+  const paths: string[] = [];
+  for (const item of refs) {
+    if (typeof item === "string") paths.push(item);
+    else if (isObject(item))
+      findings.push(
+        ...Object.entries(item).map(([n, d]) => serverFinding(file, n, d)),
+      );
+    else
+      findings.push(
+        note(file, "config", "mcpServers holds a value that is not an object"),
+      );
+  }
+  if (paths.length > 0) {
+    findings.push(
+      ...(nested
+        ? [
+            note(
+              file,
+              "unreadable",
+              "mcpServers names another file: not followed",
+            ),
+          ]
+        : referencedConfigs(file, "mcpServers", paths, ctx)),
+    );
+  }
+  return findings;
+}
+
+/** Findings for a config's `hooks`. */
+function hookFindings(
+  file: string,
+  value: unknown,
+  ctx: ConfigScanContext,
+  nested: boolean,
+): AgentConfigFinding[] {
+  const refs = typeof value === "string" ? [value] : null;
+  if (refs !== null) {
+    return nested
+      ? [note(file, "unreadable", "hooks names another file: not followed")]
+      : referencedConfigs(file, "hooks", refs, ctx);
+  }
+  const commands = isObject(value) ? hookCommands(value) : [];
+  if (commands.length === 0)
+    return [note(file, "config", "hooks present, no command found")];
+  return commands.map(([event, command]) => ({
+    file,
+    line: 1,
+    kind: "hook" as const,
+    name: event,
+    command,
+    risks: [...new Set(unpinnedFetchRisks([command]))],
+  }));
+}
+
+/** Findings for one config file the walk read. */
+function scanConfigFile(
+  file: string,
+  content: string,
+  ctx: ConfigScanContext,
+  as: { mcp: boolean; nested: boolean } = {
+    mcp: MCP_CONFIG_NAMES.has(lowerBaseName(file)),
+    nested: false,
+  },
+): AgentConfigFinding[] {
+  let data: unknown;
+  try {
+    data = JSON.parse(content.replace(/^\uFEFF/, ""));
+  } catch {
+    return [note(file, "unreadable", "not valid JSON: not parsed")];
+  }
+  if (!isObject(data)) {
+    return as.mcp
+      ? [note(file, "config", "top level is not a JSON object")]
+      : [];
+  }
+  const findings: AgentConfigFinding[] = [];
+  if (Object.hasOwn(data, "mcpServers")) {
+    findings.push(...serverFindings(file, data.mcpServers, ctx, as.nested));
+  } else if (as.mcp && Object.hasOwn(data, "servers")) {
+    findings.push(...serverFindings(file, data.servers, ctx, as.nested));
+  } else if (as.mcp) {
+    findings.push(note(file, "config", "no mcpServers listed"));
+  }
+  if (Object.hasOwn(data, "hooks")) {
+    findings.push(...hookFindings(file, data.hooks, ctx, as.nested));
+  }
+  // Bound what is listed (and the line lookups); the rest keep their risks.
+  if (findings.length > MAX_FINDINGS_PER_CONFIG) {
+    const rest = findings.splice(MAX_FINDINGS_PER_CONFIG - 1);
+    findings.push({
+      ...note(
+        file,
+        "config",
+        `${rest.length} more servers or hooks not listed`,
+      ),
+      risks: [...new Set(rest.flatMap((f) => f.risks))],
+    });
+  }
+  for (const f of findings) {
+    if (f.file === file && (f.kind === "mcp-server" || f.kind === "hook"))
+      f.line = lineOf(content, f.name);
+  }
+  return findings;
+}
+
+/**
+ * MCP servers and hooks a skill ships (#886): one finding per server or hook
+ * command, and one per config asm did not read — not valid JSON, over the
+ * walk's size cap, not a regular file, or a link out of the folder. Shared
+ * by `asm audit security` and the `asm install` / `asm get` preview.
+ */
+export function scanAgentConfigs(
+  inputs: AgentConfigInputs,
+): AgentConfigFinding[] {
+  const ctx: ConfigScanContext = {
+    contents: new Map(inputs.files.map((f) => [f.relPath, f.content])),
+    unread: new Set(inputs.unread ?? []),
+  };
+  const findings: AgentConfigFinding[] = [];
+  for (const file of ctx.unread) {
+    if (isAgentConfigFile(file))
+      findings.push(
+        note(
+          file,
+          "unreadable",
+          "over the size cap or not a regular file: not read",
+        ),
+      );
+  }
+  for (const link of inputs.externalSymlinks ?? []) {
+    if (isAgentConfigFile(link.path))
+      findings.push(
+        note(
+          link.path,
+          "unreadable",
+          `symlink not followed (${link.kind}): not read`,
+        ),
+      );
+  }
+  for (const { relPath, content } of inputs.files) {
+    if (!isAgentConfigFile(relPath)) continue;
+    try {
+      findings.push(...scanConfigFile(relPath, content, ctx));
+    } catch {
+      // A shape this scan did not foresee is a config asm did not read.
+      findings.push(note(relPath, "unreadable", "could not be scanned"));
+    }
+  }
+  return findings;
+}
+
+/** One line for a finding, from the original strings; strip it to print. */
+export function describeAgentConfigFinding(f: AgentConfigFinding): string {
+  const label =
+    f.kind === "mcp-server"
+      ? `MCP server "${f.name}"`
+      : f.kind === "hook"
+        ? `hook ${f.name}`
+        : f.kind === "unreadable"
+          ? `unreadable config (${f.name})`
+          : `config (${f.name})`;
+  // The command line first: a printer clips the end, and the risks are
+  // also told by the severity and category.
+  const risk = f.risks.length > 0 ? ` [${f.risks.join("; ")}]` : "";
+  return f.command ? `${label}: ${f.command}${risk}` : `${label}${risk}`;
+}
+
+/** The audit category for `findings`, or null when there are none. */
+export function agentConfigCategory(
+  findings: AgentConfigFinding[],
+): CodeScanCategory | null {
+  if (findings.length === 0) return null;
+  return {
+    category: AGENT_CONFIG_CATEGORY,
+    description: AGENT_CONFIG_DESCRIPTION,
+    matches: findings.map((f) => ({
+      file: f.file,
+      line: f.line,
+      match: describeAgentConfigFinding(f),
+      severity: f.risks.length > 0 ? "critical" : "warning",
+    })),
+  };
 }

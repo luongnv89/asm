@@ -14,6 +14,9 @@ import {
   scanCode,
   analyzePermissions,
   stripControlBytes,
+  scanAgentConfigs,
+  agentConfigCategory,
+  type AgentConfigFinding,
 } from "./security-auditor-scan";
 
 // ─── Verdict Calculation ─────────────────────────────────────────────────────
@@ -183,6 +186,44 @@ export function applyExternalSymlinks(
   };
 }
 
+/**
+ * Raise a verdict for the MCP servers and hooks a skill ships (#886): any
+ * such config, or one asm could not read, makes it at least `warning`; a
+ * server or hook that fetches unpinned remote code or passes a credential
+ * makes it `dangerous`. Decided on the findings' original strings.
+ */
+export function applyAgentConfigs(
+  verdict: SecurityVerdict,
+  reason: string,
+  findings: AgentConfigFinding[],
+): { verdict: SecurityVerdict; reason: string } {
+  if (findings.length === 0) return { verdict, reason };
+  const risky = findings.filter((f) => f.risks.length > 0);
+  const unread = findings.filter((f) => f.kind === "unreadable");
+  const plural = (n: number, one: string, many: string) =>
+    `${n} ${n === 1 ? one : many}`;
+  let configReason: string;
+  if (risky.length > 0) {
+    configReason = `Skill ships ${plural(risky.length, "MCP server or hook that fetches", "MCP servers or hooks that fetch")} unpinned remote code or ${risky.length === 1 ? "passes" : "pass"} a credential (${[...new Set(risky.map((f) => f.file))].join(", ")}).`;
+  } else {
+    configReason = `Skill ships ${plural(findings.length - unread.length, "MCP server or hook config entry", "MCP server or hook config entries")}${unread.length > 0 ? ` and ${plural(unread.length, "config", "configs")} asm could not read` : ""}; an agent that loads them runs their commands. Review before installing.`;
+  }
+  const target: SecurityVerdict = risky.length > 0 ? "dangerous" : "warning";
+  const rank: Record<SecurityVerdict, number> = {
+    safe: 0,
+    caution: 1,
+    warning: 2,
+    dangerous: 3,
+  };
+  if (rank[verdict] >= rank[target]) {
+    return { verdict, reason: `${reason} ${configReason}` };
+  }
+  return {
+    verdict: target,
+    reason: verdict === "safe" ? configReason : `${configReason} ${reason}`,
+  };
+}
+
 export interface AuditSkillSecurityOptions {
   /**
    * Confined mode, used by every `asm audit security` source — local folder
@@ -229,6 +270,8 @@ export async function auditSkillSecurity(
 
   const links: ExternalSymlink[] = [...(options.externalSymlinks ?? [])];
   const hardLinks: HardLinkNote[] = [];
+  const unread: string[] = [];
+  const onUnreadFile = (relPath: string) => unread.push(relPath);
 
   // Read all files, excluding documentation
   const allFiles =
@@ -248,8 +291,9 @@ export async function auditSkillSecurity(
                     severity: "info",
                     note: "Hard link: content may be shared with a file outside the folder.",
                   }),
+                onUnreadFile,
               }
-            : {},
+            : { onUnreadFile },
         );
   const files = allFiles.filter((f) => !isDocFile(f.relPath));
   const totalLines = files.reduce((sum, f) => sum + f.lineCount, 0);
@@ -262,17 +306,33 @@ export async function auditSkillSecurity(
 
   // Code scanning
   const codeScans = scanCode(files);
+  // MCP servers and hooks the skill ships (#886): parsed, never run.
+  const configs = scanAgentConfigs({
+    files: allFiles,
+    unread,
+    externalSymlinks: links,
+  });
+  const configCategory = agentConfigCategory(configs);
 
   // Permission analysis
   const permissions = analyzePermissions(codeScans);
 
   // Verdict
   const base = calculateVerdict(codeScans, permissions, source);
+  const withConfigs = applyAgentConfigs(base.verdict, base.reason, configs);
   const { verdict, reason } = applyExternalSymlinks(
-    base.verdict,
-    base.reason,
+    withConfigs.verdict,
+    withConfigs.reason,
     links,
   );
+  if (configCategory) {
+    // Most severe first, as `scanCode` sorts (a stable sort).
+    const rank = { critical: 0, warning: 1, info: 2 };
+    const top = (c: CodeScanCategory) =>
+      Math.min(...c.matches.map((m) => rank[m.severity]));
+    codeScans.push(configCategory);
+    codeScans.sort((a, b) => top(a) - top(b));
+  }
 
   return {
     scannedAt: new Date().toISOString(),

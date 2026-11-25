@@ -8,6 +8,12 @@ import {
   stripControlBytes,
   METHOD_CALL_CATEGORY,
   POSSIBLE_DYNAMIC_CATEGORY,
+  AGENT_CONFIG_CATEGORY,
+  AGENT_CONFIG_RISK_CATEGORY,
+  agentConfigCategory,
+  looksLikeCredential,
+  scanAgentConfigs,
+  unpinnedFetchRisks,
 } from "./security-auditor-scan";
 import { scanForWarnings, classifyWarningRisk } from "./installer-core";
 describe("scanCode", () => {
@@ -1038,5 +1044,482 @@ describe("audit and install preview agree on every probe (#820)", () => {
     } finally {
       await rm(root, { recursive: true, force: true });
     }
+  });
+});
+
+// ─── MCP server and hook configs (#886) ─────────────────────────────────────
+
+describe("scanAgentConfigs (#886)", () => {
+  const file = (relPath: string, content: unknown) => {
+    const text =
+      typeof content === "string" ? content : JSON.stringify(content);
+    return { relPath, content: text, lineCount: text.split("\n").length };
+  };
+  const server = (def: unknown) => ({ mcpServers: { srv: def } });
+  const scanOne = (relPath: string, content: unknown) =>
+    scanAgentConfigs({ files: [file(relPath, content)] });
+  const risksOf = (def: unknown) =>
+    scanOne(".mcp.json", server(def)).flatMap((f) => f.risks);
+
+  test("names each server and its full command line, original strings", () => {
+    const findings = scanOne(".mcp.json", {
+      mcpServers: {
+        a: { command: "node", args: ["server.js", "--port", "3000"] },
+        b: { url: "https://mcp.example.com/sse" },
+      },
+    });
+    expect(findings).toEqual([
+      {
+        file: ".mcp.json",
+        line: 1,
+        kind: "mcp-server",
+        name: "a",
+        command: "node server.js --port 3000",
+        risks: [],
+      },
+      {
+        file: ".mcp.json",
+        line: 1,
+        kind: "mcp-server",
+        name: "b",
+        command: "https://mcp.example.com/sse",
+        risks: [],
+      },
+    ]);
+  });
+
+  test("matches config files by exact name, any case, at any depth", () => {
+    const def = server({ command: "node", args: ["s.js"] });
+    const found = scanAgentConfigs({
+      files: [
+        file("scripts/.mcp.json", def),
+        file("MCP.JSON", def),
+        file("references/example-mcp.json", def),
+        file("references/mcp.json.example", def),
+        file("evals/evals.json", def),
+      ],
+    });
+    expect(found.map((f) => f.file)).toEqual(["scripts/.mcp.json", "MCP.JSON"]);
+  });
+
+  test("a manifest or settings file is a finding only with servers or hooks", () => {
+    const found = scanAgentConfigs({
+      files: [
+        file(".claude-plugin/plugin.json", {
+          name: "p",
+          mcpServers: { s: { command: "node", args: ["a.js"] } },
+        }),
+        file("gemini-extension.json", { name: "g", version: "1.0.0" }),
+        file(".claude/settings.json", { permissions: { allow: [] } }),
+        file("plugin.json", ["not", "an", "object"]),
+      ],
+    });
+    expect(found.map((f) => `${f.file}:${f.name}`)).toEqual([
+      ".claude-plugin/plugin.json:s",
+    ]);
+  });
+
+  test("an MCP config is a finding even with no servers", () => {
+    expect(scanOne(".mcp.json", { mcpServers: {} })[0]).toMatchObject({
+      kind: "config",
+      name: "mcpServers is empty",
+      risks: [],
+    });
+    expect(scanOne("mcp.json", {})[0].name).toBe("no mcpServers listed");
+    expect(scanOne(".mcp.json", [1])[0].name).toBe(
+      "top level is not a JSON object",
+    );
+    expect(scanOne("plugin.json", { mcpServers: 5 })[0].name).toBe(
+      "mcpServers is not an object",
+    );
+  });
+
+  test("VS Code's `servers` key counts in an MCP config", () => {
+    const [f] = scanOne(".vscode/mcp.json", {
+      servers: { s: { command: "uvx", args: ["mcp-server-git"] } },
+    });
+    expect(f.name).toBe("s");
+    expect(f.risks).toEqual(["unpinned remote fetch: uvx mcp-server-git"]);
+  });
+
+  test("malformed JSON is unreadable, never dropped", () => {
+    expect(scanOne(".mcp.json", '{"mcpServers": {')).toEqual([
+      {
+        file: ".mcp.json",
+        line: 1,
+        kind: "unreadable",
+        name: "not valid JSON: not parsed",
+        command: "",
+        risks: [],
+      },
+    ]);
+    expect(scanOne("settings.json", "// jsonc\n{}")[0].kind).toBe("unreadable");
+  });
+
+  test("files not read and links out of the folder are unreadable configs", () => {
+    const found = scanAgentConfigs({
+      files: [],
+      unread: [".mcp.json", "big.bin", "scripts/settings.json"],
+      externalSymlinks: [
+        {
+          path: "mcp.json",
+          target: "/elsewhere/mcp.json",
+          kind: "file",
+          severity: "critical",
+          note: "",
+        },
+        {
+          path: "lib",
+          target: "/elsewhere/lib",
+          kind: "directory",
+          severity: "critical",
+          note: "",
+        },
+      ],
+    });
+    expect(found.map((f) => `${f.kind}:${f.file}`)).toEqual([
+      "unreadable:.mcp.json",
+      "unreadable:scripts/settings.json",
+      "unreadable:mcp.json",
+    ]);
+  });
+
+  test.each([
+    ["npx -y x@latest", { command: "npx", args: ["-y", "x@latest"] }],
+    ["npx with no version", { command: "npx", args: ["-y", "some-server"] }],
+    ["npx with a range", { command: "npx", args: ["@s/x@^1.2.0"] }],
+    ["npx with a tag", { command: "npx", args: ["x@next"] }],
+    ["one command string", { command: "npx -y some-server" }],
+    ["--package=", { command: "npx", args: ["--package=evil", "t@1.2.3"] }],
+    ["-p", { command: "npx", args: ["-p", "evil", "t@1.0.0"] }],
+    ["a git spec", { command: "npx", args: ["github:user/repo"] }],
+    ["a path-qualified npx", { command: "/usr/local/bin/npx", args: ["x"] }],
+    [
+      "Windows npx.cmd",
+      { command: "C:\\Program Files\\nodejs\\npx.cmd", args: ["x"] },
+    ],
+    ["cmd /c npx", { command: "cmd", args: ["/c", "npx", "-y", "x"] }],
+    ["bunx", { command: "bunx", args: ["x"] }],
+    ["pnpm dlx", { command: "pnpm", args: ["dlx", "x"] }],
+    ["npm exec", { command: "npm", args: ["exec", "--", "x"] }],
+    ["uvx", { command: "uvx", args: ["mcp-server-fetch"] }],
+    ["uvx -p 3.12", { command: "uvx", args: ["-p", "3.12", "pkg"] }],
+    ["uvx --from", { command: "uvx", args: ["--from", "evil", "t==1.0.0"] }],
+    ["uv tool run", { command: "uv", args: ["tool", "run", "pkg"] }],
+    ["pipx run", { command: "pipx", args: ["run", "pkg"] }],
+    [
+      "pipx run --spec",
+      { command: "pipx", args: ["run", "--spec", "p>=1", "t"] },
+    ],
+    [
+      "docker, no tag",
+      {
+        command: "docker",
+        args: ["run", "-i", "--rm", "-e", "X", "ghcr.io/o/s"],
+      },
+    ],
+    ["docker :latest", { command: "docker", args: ["run", "o/s:latest"] }],
+    ["podman", { command: "podman", args: ["container", "run", "s"] }],
+    ["deno npm:", { command: "deno", args: ["run", "-A", "npm:x"] }],
+    ["deno URL", { command: "deno", args: ["run", "https://x.dev/m.ts"] }],
+    ["go run @main", { command: "go", args: ["run", "example.com/x@main"] }],
+    [
+      "sh -c with @latest",
+      { command: "sh", args: ["-c", "tool@latest serve"] },
+    ],
+  ])("unpinned remote fetch is a risk: %s", (_label, def) => {
+    expect(risksOf(def).length).toBeGreaterThan(0);
+  });
+
+  test.each([
+    ["pinned npx", { command: "npx", args: ["-y", "@scope/x@1.4.2"] }],
+    ["pinned npx -p", { command: "npx", args: ["-p", "x@1.0.0", "bin"] }],
+    ["uvx ==", { command: "uvx", args: ["pkg==1.2.3"] }],
+    ["uvx @", { command: "uvx", args: ["pkg@1.2.3"] }],
+    ["uvx --from", { command: "uvx", args: ["--from", "p[x]==2.0.0", "t"] }],
+    [
+      "pipx --spec",
+      { command: "pipx", args: ["run", "--spec", "p==1.0.0", "t"] },
+    ],
+    [
+      "docker tag",
+      { command: "docker", args: ["run", "-i", "-e", "LOG", "o/s:1.2.3"] },
+    ],
+    [
+      "docker digest",
+      { command: "docker", args: ["run", `o/s@sha256:${"a".repeat(64)}`] },
+    ],
+    ["npx local path", { command: "npx", args: ["./bin/server.js"] }],
+    ["node", { command: "node", args: ["server.js"] }],
+    ["python", { command: "python3", args: ["-m", "server"] }],
+    ["deno local", { command: "deno", args: ["run", "main.ts"] }],
+    ["go run local", { command: "go", args: ["run", "./cmd/server"] }],
+    ["go run pinned", { command: "go", args: ["run", "example.com/x@v1.2.3"] }],
+  ])("pinned or local code is not a risk: %s", (_label, def) => {
+    expect(risksOf(def)).toEqual([]);
+  });
+
+  test("credentials passed to a server are a risk", () => {
+    expect(risksOf({ command: "node", env: { GITHUB_TOKEN: "x" } })).toEqual([
+      "credential env: GITHUB_TOKEN",
+    ]);
+    expect(
+      risksOf({ command: "node", env: { TOKEN: "${GITHUB_TOKEN}" } }),
+    ).toEqual(["credential env: TOKEN", "credential reference: $GITHUB_TOKEN"]);
+    expect(risksOf({ command: "node", env: { X: "$MY_SECRET" } })).toEqual([
+      "credential reference: $MY_SECRET",
+    ]);
+    expect(risksOf({ command: "node", args: ["--key", "${apiKey}"] })).toEqual([
+      "credential reference: $apiKey",
+    ]);
+    expect(
+      risksOf({ url: "https://h.example/mcp?api_key=${API_KEY}&q=1" }),
+    ).toEqual(["credential in url: api_key", "credential reference: $API_KEY"]);
+    expect(risksOf({ url: "https://u:pw@h.example/mcp" })).toEqual([
+      "credential in url: password",
+    ]);
+    expect(
+      risksOf({
+        url: "https://h.example",
+        headers: { Authorization: "Bearer x" },
+      }),
+    ).toEqual(["credential header: Authorization"]);
+    expect(
+      risksOf({ command: "node", env: { LOG_LEVEL: "info", PORT: "3" } }),
+    ).toEqual([]);
+  });
+
+  test("credential names: segments ending TOKEN, KEY, SECRET, PASSWORD", () => {
+    for (const name of [
+      "TOKEN",
+      "GITHUB_TOKEN",
+      "api_key",
+      "apiKey",
+      "OPENAI_API_KEY",
+      "CLIENT_SECRET",
+      "DB_PASSWORD",
+      "accessToken",
+      "AWS_CREDENTIALS",
+    ])
+      expect(looksLikeCredential(name), name).toBe(true);
+    for (const name of ["LOG_LEVEL", "PORT", "KEYBOARD_LAYOUT", "PATH", "HOME"])
+      expect(looksLikeCredential(name), name).toBe(false);
+  });
+
+  test("hooks: each command is listed under its event, same danger rules", () => {
+    const found = scanOne(".claude/settings.json", {
+      hooks: {
+        PreToolUse: [
+          {
+            matcher: "Bash",
+            hooks: [
+              { type: "command", command: "./scripts/check.sh" },
+              { type: "command", command: "npx -y lint-hook@latest" },
+            ],
+          },
+        ],
+        Stop: [{ hooks: [{ type: "prompt", prompt: "done?" }] }],
+      },
+    });
+    expect(found).toEqual([
+      expect.objectContaining({
+        kind: "hook",
+        name: "PreToolUse",
+        command: "./scripts/check.sh",
+        risks: [],
+      }),
+      expect.objectContaining({
+        kind: "hook",
+        name: "PreToolUse",
+        command: "npx -y lint-hook@latest",
+        risks: ["unpinned remote fetch: npx lint-hook@latest"],
+      }),
+    ]);
+    expect(scanOne("hooks.json", { hooks: [] })[0].name).toBe(
+      "hooks present, no command found",
+    );
+  });
+
+  test("valid JSON in an unexpected shape is a finding, never a crash", () => {
+    // Built as text: too deep for JSON.stringify, not for JSON.parse.
+    const deep = "[".repeat(200_000) + '"x"' + "]".repeat(200_000);
+    const deepHooks =
+      '{"h":'.repeat(200_000) + '{"command":"deep"}' + "}".repeat(200_000);
+    const findings = scanAgentConfigs({
+      files: [
+        file(
+          ".mcp.json",
+          `{"mcpServers":{"a":{"command":{}},"b":{"command":"node","args":5},` +
+            `"c":{"command":"node","args":[${deep},7,null]},"d":"not an object",` +
+            `"e":{"command":["npx","x"]}}}`,
+        ),
+        file("settings.json", `{"hooks":${deepHooks}}`),
+      ],
+    });
+    expect(findings.map((f) => f.command)).toEqual([
+      "(no command: not a recognised server entry)",
+      "node",
+      "node (not-a-string) (not-a-string) (not-a-string)",
+      "(no command: not a recognised server entry)",
+      "npx x",
+      "",
+    ]);
+    expect(findings[4].risks).toEqual(["unpinned remote fetch: npx x"]);
+    // Past the hook walk's depth bound: listed as a config with no command.
+    expect(findings[5]).toMatchObject({
+      kind: "config",
+      file: "settings.json",
+    });
+  });
+
+  test("a manifest path is scanned only when the walk read it inside the folder", () => {
+    const files = [
+      file(".claude-plugin/plugin.json", {
+        name: "p",
+        mcpServers: "./config/servers.json",
+        hooks: "${CLAUDE_PLUGIN_ROOT}/hooks/my-hooks.json",
+      }),
+      file("config/servers.json", {
+        mcpServers: { s: { command: "uvx", args: ["srv"] } },
+      }),
+      file("hooks/my-hooks.json", {
+        hooks: { Stop: [{ hooks: [{ type: "command", command: "./x.sh" }] }] },
+      }),
+      file("gemini-extension.json", {
+        mcpServers: ["../../outside.json", "./.mcp.json", "./missing.json"],
+      }),
+      file(".mcp.json", { mcpServers: {} }),
+    ];
+    const found = scanAgentConfigs({ files });
+    expect(found.map((f) => `${f.kind}|${f.file}|${f.name}`)).toEqual([
+      "mcp-server|config/servers.json|s",
+      "hook|hooks/my-hooks.json|Stop",
+      "unreadable|gemini-extension.json|mcpServers names ../../outside.json, outside the skill folder: not read",
+      "unreadable|gemini-extension.json|mcpServers names ./missing.json, not in the skill folder",
+      "config|.mcp.json|mcpServers is empty",
+    ]);
+    expect(found[0].risks).toEqual(["unpinned remote fetch: uvx srv"]);
+    // A referenced file's own references are not followed.
+    const nested = scanAgentConfigs({
+      files: [
+        file("plugin.json", { mcpServers: "a.json" }),
+        file("a.json", { mcpServers: "b.json" }),
+        file("b.json", { mcpServers: { s: { command: "node" } } }),
+      ],
+    });
+    expect(nested.map((f) => `${f.kind}|${f.file}|${f.name}`)).toEqual([
+      "unreadable|a.json|mcpServers names another file: not followed",
+    ]);
+  });
+
+  test("a config with many servers is bounded and keeps every risk", () => {
+    const servers: Record<string, unknown> = {};
+    for (let i = 0; i < 12_000; i++)
+      servers[`s${i}`] = { command: "node", args: ["a.js"] };
+    servers.last = { command: "npx", args: ["-y", "x@latest"] };
+    const content = JSON.stringify({ mcpServers: servers });
+    expect(content.length).toBeLessThan(512 * 1024);
+    const start = Date.now();
+    const found = scanOne(".mcp.json", content);
+    expect(Date.now() - start).toBeLessThan(5_000);
+    expect(found).toHaveLength(100);
+    expect(found[99]).toMatchObject({
+      kind: "config",
+      name: "11902 more servers or hooks not listed",
+      risks: ["unpinned remote fetch: npx x@latest"],
+    });
+  });
+
+  test("findings keep the original strings: control bytes are stripped only at render", () => {
+    const evil = "a\u001b[31mRED\nFAKE\u202e";
+    const found = scanOne(".mcp.json", {
+      mcpServers: { [evil]: { command: `node${evil}`, args: [evil] } },
+    });
+    expect(found[0].name).toBe(evil);
+    expect(found[0].command).toBe(`node${evil} "${evil}"`);
+    const category = agentConfigCategory(found)!;
+    expect(category.category).toBe(AGENT_CONFIG_CATEGORY);
+    expect(category.matches[0].match).toContain(evil);
+    expect(category.matches[0].severity).toBe("warning");
+    expect(agentConfigCategory([])).toBeNull();
+  });
+
+  test("line is where the server's key first appears", () => {
+    const content =
+      '{\n  "mcpServers": {\n    "a": {"command": "node"},\n    "b": {"command": "npx"}\n  }\n}\n';
+    expect(scanOne(".mcp.json", content).map((f) => f.line)).toEqual([3, 4]);
+  });
+
+  test("unpinnedFetchRisks reports @latest once", () => {
+    expect(unpinnedFetchRisks(["npx", "-y", "x@latest"])).toEqual([
+      "unpinned remote fetch: npx x@latest",
+    ]);
+    expect(unpinnedFetchRisks(["./run", "tool@latest"])).toEqual([
+      "fetches @latest: tool@latest",
+    ]);
+  });
+});
+
+describe("install preview: MCP servers and hooks (#886)", () => {
+  async function previewOf(files: Record<string, string>) {
+    const dir = await mkdtemp(join(tmpdir(), "asm-886-preview-"));
+    try {
+      for (const [rel, content] of Object.entries(files)) {
+        await mkdir(dirname(join(dir, rel)), { recursive: true });
+        await writeFile(join(dir, rel), content);
+      }
+      const warnings = await scanForWarnings(dir);
+      return { warnings, risk: classifyWarningRisk(warnings) };
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  }
+  const skill = "---\nname: s\ndescription: d\n---\n# s\n";
+
+  test("a plain server config is medium risk", async () => {
+    const { warnings, risk } = await previewOf({
+      "SKILL.md": skill,
+      ".mcp.json": '{"mcpServers":{"h":{"command":"node","args":["s.js"]}}}',
+    });
+    expect(warnings).toEqual([
+      {
+        category: AGENT_CONFIG_CATEGORY,
+        file: ".mcp.json",
+        line: 1,
+        match: 'MCP server "h": node s.js',
+      },
+    ]);
+    expect(risk).toBe("medium");
+  });
+
+  test("an unreadable config is medium risk, never safe", async () => {
+    const { warnings, risk } = await previewOf({
+      "SKILL.md": skill,
+      ".mcp.json": "{",
+    });
+    expect(warnings.map((w) => w.category)).toEqual([AGENT_CONFIG_CATEGORY]);
+    expect(risk).toBe("medium");
+  });
+
+  test("an unpinned server is high risk", async () => {
+    const { warnings, risk } = await previewOf({
+      "SKILL.md": skill,
+      ".mcp.json":
+        '{"mcpServers":{"h":{"command":"npx","args":["-y","x@latest"]}}}',
+    });
+    expect(warnings.map((w) => w.category)).toEqual([
+      AGENT_CONFIG_RISK_CATEGORY,
+    ]);
+    expect(risk).toBe("high");
+  });
+
+  test("an example JSON under references/ is no finding", async () => {
+    const { warnings, risk } = await previewOf({
+      "SKILL.md": skill,
+      "references/example-mcp.json":
+        '{"mcpServers":{"h":{"command":"npx","args":["-y","x@latest"]}}}',
+    });
+    expect(warnings).toEqual([]);
+    expect(risk).toBe("safe");
   });
 });

@@ -37,12 +37,16 @@ import {
   readFilesRecursive,
 } from "./utils/fs";
 import {
+  AGENT_CONFIG_CATEGORY,
+  AGENT_CONFIG_RISK_CATEGORY,
   CALL_CANDIDATE,
   DYNAMIC_EXEC_RULES,
   METHOD_CALL_CATEGORY,
   POSSIBLE_DYNAMIC_CATEGORY,
+  describeAgentConfigFinding,
   fileScanContext,
   matchLineRule,
+  scanAgentConfigs,
   stripControlBytes,
   type LineRule,
 } from "./security-auditor-scan";
@@ -848,9 +852,13 @@ export async function scanForWarnings(
   options: { root?: string } = {},
 ): Promise<SecurityWarning[]> {
   const warnings: SecurityWarning[] = [];
+  const links: ExternalSymlink[] = [];
+  const unread: string[] = [];
   const files = await readFilesRecursive(dir, {
     root: options.root,
-    onExternalSymlink: (link) =>
+    onUnreadFile: (relPath) => unread.push(relPath),
+    onExternalSymlink: (link) => {
+      links.push(link);
       warnings.push({
         category: OUTSIDE_SYMLINK_CATEGORY,
         file: stripControlBytes(link.path),
@@ -859,8 +867,25 @@ export async function scanForWarnings(
           link.kind === "dangling" || link.kind === "loop"
             ? `symlink ${link.kind === "loop" ? "loops" : "dangles"} -> ${stripControlBytes(link.target)} — not followed`
             : `symlink leaves the skill folder -> ${stripControlBytes(link.target)} (${link.kind}) — not read`,
-      }),
+      });
+    },
   });
+
+  // MCP servers and hooks (#886), as `asm audit security` finds them. Kept
+  // as the original strings; the preview strips and clips them to print.
+  for (const f of scanAgentConfigs({
+    files,
+    unread,
+    externalSymlinks: links,
+  })) {
+    warnings.push({
+      category:
+        f.risks.length > 0 ? AGENT_CONFIG_RISK_CATEGORY : AGENT_CONFIG_CATEGORY,
+      file: f.file,
+      line: f.line,
+      match: describeAgentConfigFinding(f),
+    });
+  }
 
   for (const { relPath, content } of files) {
     const context = fileScanContext(relPath, content);
@@ -891,12 +916,14 @@ export const HIGH_RISK_WARNING_CATEGORIES = [
   "Code execution",
   "Credentials",
   OUTSIDE_SYMLINK_CATEGORY,
+  AGENT_CONFIG_RISK_CATEGORY,
 ];
 /** Warning categories that make an install a medium-risk preview. */
 const MEDIUM_RISK_WARNING_CATEGORIES = [
   "External URLs",
   METHOD_CALL_CATEGORY,
   POSSIBLE_DYNAMIC_CATEGORY,
+  AGENT_CONFIG_CATEGORY,
 ];
 
 /**

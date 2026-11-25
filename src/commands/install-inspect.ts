@@ -223,7 +223,7 @@ export function displaySkillInspection(
   const { warnings, installStatus, riskLabel, plan, crossToolLink } =
     inspection;
   // Author strings, stripped for display only (#834). Warning files and
-  // matches are already stripped by the install scan.
+  // matches are stripped where they are printed below.
   const metadata = stripControlBytesDeep(inspection.metadata);
   sourceStr = stripControlBytes(sourceStr);
 
@@ -311,8 +311,13 @@ export function displaySkillInspection(
           `\n    ${categoryLabel} ${ansi.dim(`(${items.length} match${items.length > 1 ? "es" : ""})`)}`,
         );
         for (const item of items.slice(0, 5)) {
+          // Stripped and clipped here: MCP server and hook findings keep
+          // their original strings (#886).
           const where = item.line > 0 ? `${item.file}:${item.line}` : item.file;
-          console.info(`      ${ansi.dim(where)} -- ${item.match}`);
+          const match = stripControlBytes(item.match);
+          console.info(
+            `      ${ansi.dim(stripControlBytes(where))} -- ${match.length > 140 ? `${match.slice(0, 139)}…` : match}`,
+          );
         }
         if (items.length > 5) {
           console.info(ansi.dim(`      ... and ${items.length - 5} more`));
