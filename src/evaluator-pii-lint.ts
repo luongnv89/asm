@@ -23,7 +23,7 @@ import {
 } from "fs/promises";
 import { constants as fsConstants } from "fs";
 import { tmpdir } from "os";
-import { join, resolve } from "path";
+import { basename, join, resolve } from "path";
 import {
   listSkillFiles,
   readSkillFile,
@@ -332,8 +332,10 @@ const SCRIPT_EXTENSIONS = new Set([".sh", ".bash", ".py"]);
  * same `py_compile.PyCompileError`, and prints what `py_compile`'s CLI
  * prints (the same stderr text and exit code 1). It skips the bytecode
  * write, so the stderr parser below sees the same output as before.
- * Run with `-I -B`: isolated mode keeps the skill folder off `sys.path`,
- * and -B stops any stdlib import from writing bytecode.
+ * Run with `-I -B -W ignore`: isolated mode keeps the skill folder off
+ * `sys.path`, -B stops any stdlib import from writing bytecode, and
+ * `-W ignore` keeps compile warnings (a SyntaxWarning echoes a source line)
+ * out of the stderr the parser reads (#891). -I does not disable -W.
  */
 const PY_SYNTAX_CHECK = [
   "import sys, importlib.machinery, py_compile",
@@ -377,7 +379,7 @@ const LINTER_CONFIG: Record<
   },
   ".py": {
     command: "python3",
-    args: ["-I", "-B", "-c", PY_SYNTAX_CHECK],
+    args: ["-I", "-B", "-W", "ignore", "-c", PY_SYNTAX_CHECK],
     language: "python",
   },
 };
@@ -534,13 +536,57 @@ export async function runLinter(
         //     code
         //           ^
         // SyntaxError: message
+        // Any other compile error is one line at column 0 (#891), its line
+        // number in a trailing "(<file basename>, line N)" when there is one:
+        //   Sorry: TabError: inconsistent use of tabs ... (t.py, line 3)
+        //   Sorry: MemoryError: Parser stack overflowed - ...
+        // python prints one error, either form: once a "Sorry:" line or a
+        // traceback has started, a later "Sorry: …" line comes from a file
+        // name holding a newline, not a second error. The traceback's echoed
+        // source line is indented, so a skill line never matches.
+        // A traceback starts with `  File "<the path python was given>`; only
+        // that path counts, since a warning python printed anyway (3.13+
+        // echoes the source line two spaces in) can hold any other
+        // `  File "…` text, but not the private copy's random folder. Up to
+        // its first newline: a newline in the name splits the line.
         const lines = result.stderr.split("\n");
         const findings: LintFinding[] = [];
+        const lineSuffix = ` (${basename(filePath)}, line `;
+        const tracebackStart = `  File "${filePath.split("\n")[0]}`;
         let pendingLine = 0;
+        let errorStarted = false;
         for (const line of lines) {
+          if (line.startsWith(tracebackStart)) errorStarted = true;
           const fileMatch = line.match(/File "([^"]+)", line (\d+)/);
           if (fileMatch) {
             pendingLine = parseInt(fileMatch[2], 10);
+            continue;
+          }
+          const sorryMatch = errorStarted
+            ? null
+            : line.match(
+                /^Sorry: (IndentationError|TabError|MemoryError):\s*(.*)$/,
+              );
+          if (sorryMatch) {
+            errorStarted = true;
+            let message = sorryMatch[2].trim();
+            let lineNo = 0;
+            const trailer = message.match(/, line (\d+)\)$/);
+            if (trailer) {
+              lineNo = parseInt(trailer[1], 10);
+              // Drop the file name: it is the private copy's, not the skill's.
+              const tail = `${lineSuffix}${trailer[1]})`;
+              if (message.length > tail.length && message.endsWith(tail)) {
+                message = message.slice(0, -tail.length);
+              }
+            }
+            findings.push({
+              file: filePath,
+              line: lineNo,
+              severity: "error",
+              message: message ? `${sorryMatch[1]}: ${message}` : sorryMatch[1],
+            });
+            pendingLine = 0;
             continue;
           }
           const syntaxMatch = line.match(

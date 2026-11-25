@@ -379,6 +379,8 @@ describe("runLinter", () => {
         join(linters, "python3"),
         "-I",
         "-B",
+        "-W",
+        "ignore",
         "-c",
         expect.stringContaining("source_to_code"),
         pyFile,
@@ -391,6 +393,212 @@ describe("runLinter", () => {
         line: 3,
         severity: "error",
         message: "SyntaxError: invalid syntax",
+      },
+    ]);
+  });
+
+  // Issue #891 — python3 prints every compile error but a plain SyntaxError
+  // as one "Sorry: <Type>: …" line. Each stderr below is verbatim what the
+  // lint check printed under Python 3.14.9 for the chk-888 fixtures (mixed
+  // tabs, a bad indent, `x = ` and 200,000 unary minus signs).
+  it.each([
+    [
+      "TabError",
+      "tab.py",
+      "Sorry: TabError: inconsistent use of tabs and spaces in indentation (tab.py, line 3)",
+      3,
+      "TabError: inconsistent use of tabs and spaces in indentation",
+    ],
+    [
+      "IndentationError",
+      "ind.py",
+      "Sorry: IndentationError: unexpected indent (ind.py, line 2)",
+      2,
+      "IndentationError: unexpected indent",
+    ],
+    [
+      "MemoryError",
+      "deep.py",
+      "Sorry: MemoryError: Parser stack overflowed - Python source too complex to parse",
+      0,
+      "MemoryError: Parser stack overflowed - Python source too complex to parse",
+    ],
+    // Python 3.10 and 3.11 print the same overflow with an empty message.
+    [
+      "MemoryError (3.10/3.11)",
+      "deep.py",
+      "Sorry: MemoryError: ",
+      0,
+      "MemoryError",
+    ],
+  ])(
+    "parses python3's 'Sorry: %s' line as an error (#891)",
+    async (_type, name, stderr, line, message) => {
+      const pyFile = `/tmp/asm-lint-x/0/${name}`;
+      runCommandMock.mockResolvedValue({ exitCode: 1, stdout: "", stderr });
+
+      expect(await runLinter(pyFile, ".py")).toEqual([
+        { file: pyFile, line, severity: "error", message },
+      ]);
+    },
+  );
+
+  it("keeps the trailer text when it names another file (#891)", async () => {
+    runCommandMock.mockResolvedValue({
+      exitCode: 1,
+      stdout: "",
+      stderr: "Sorry: IndentationError: unexpected indent (other.py, line 2)",
+    });
+
+    expect(await runLinter("/tmp/skill/t.py", ".py")).toEqual([
+      {
+        file: "/tmp/skill/t.py",
+        line: 2,
+        severity: "error",
+        message: "IndentationError: unexpected indent (other.py, line 2)",
+      },
+    ]);
+  });
+
+  // A SyntaxError echoes the offending source line indented by four spaces;
+  // a skill line that reads like the "Sorry:" form is source, not an error.
+  // Verbatim stderr from Python 3.10–3.14 for chk-895/fx/srcsorry.
+  it("ignores a 'Sorry:' line echoed from the source (#891)", async () => {
+    runCommandMock.mockResolvedValue({
+      exitCode: 1,
+      stdout: "",
+      stderr:
+        '  File "t.py", line 1\n' +
+        "    Sorry: TabError: fake (t.py, line 7)\n" +
+        "                   ^\n" +
+        "SyntaxError: invalid syntax\n",
+    });
+
+    expect(await runLinter("/tmp/skill/t.py", ".py")).toEqual([
+      {
+        file: "/tmp/skill/t.py",
+        line: 1,
+        severity: "error",
+        message: "SyntaxError: invalid syntax",
+      },
+    ]);
+  });
+
+  // python prints one compile error; a file name holding a newline and a
+  // second "Sorry:" line must not add another.
+  it("parses only the first 'Sorry:' line (#891)", async () => {
+    runCommandMock.mockResolvedValue({
+      exitCode: 1,
+      stdout: "",
+      stderr:
+        "Sorry: TabError: inconsistent use of tabs and spaces in indentation (a\n" +
+        "Sorry: TabError: fake (z.py, line 9).py, line 3)",
+    });
+
+    expect(await runLinter("/tmp/skill/a\nx.py", ".py")).toEqual([
+      {
+        file: "/tmp/skill/a\nx.py",
+        line: 0,
+        severity: "error",
+        message:
+          "TabError: inconsistent use of tabs and spaces in indentation (a",
+      },
+    ]);
+  });
+
+  // The same name on a file with a SyntaxError puts its "Sorry:" half at
+  // column 0 inside the traceback. Verbatim stderr from Python 3.10 and 3.12.
+  it("ignores a 'Sorry:' line inside a SyntaxError traceback (#891)", async () => {
+    const pyFile =
+      "/tmp/asm-lint-Ab12Cd/0/a\nSorry: TabError: fake (z.py, line 9).py";
+    runCommandMock.mockResolvedValue({
+      exitCode: 1,
+      stdout: "",
+      stderr:
+        '  File "/tmp/asm-lint-Ab12Cd/0/a\n' +
+        'Sorry: TabError: fake (z.py, line 9).py", line 1\n' +
+        "    def f(:\n" +
+        "          ^\n" +
+        "SyntaxError: invalid syntax\n",
+    });
+
+    expect(await runLinter(pyFile, ".py")).toEqual([
+      {
+        file: pyFile,
+        line: 0,
+        severity: "error",
+        message: "SyntaxError: invalid syntax",
+      },
+    ]);
+  });
+
+  // The traceback that rules out a later "Sorry:" line is the one naming
+  // the path python was given: a real one on that path still does.
+  it("ignores a 'Sorry:' line after a traceback on the lint copy (#891)", async () => {
+    const pyFile = "/tmp/asm-lint-Ab12Cd/0/t.py";
+    runCommandMock.mockResolvedValue({
+      exitCode: 1,
+      stdout: "",
+      stderr:
+        `  File "${pyFile}", line 2\n` +
+        "    def f(:\n" +
+        "          ^\n" +
+        "SyntaxError: invalid syntax\n" +
+        "Sorry: TabError: fake (t.py, line 9)\n",
+    });
+
+    expect(await runLinter(pyFile, ".py")).toEqual([
+      {
+        file: pyFile,
+        line: 2,
+        severity: "error",
+        message: "SyntaxError: invalid syntax",
+      },
+    ]);
+  });
+
+  // Python 3.13+ prints a SyntaxWarning before the error and echoes its
+  // source line two spaces in; a docstring line there reads like a
+  // traceback's File line. `-W ignore` keeps warnings out, and the parser
+  // does not rely on it: only a File line naming the lint copy starts a
+  // traceback. Verbatim stderr from Python 3.14.9 for chk-895/fx3/w_doc_tab
+  // (3.13.16 prints the same with a shorter warning text).
+  it("parses the 'Sorry:' line after a SyntaxWarning's source echo (#891)", async () => {
+    const pyFile = "/tmp/asm-lint-Ab12Cd/0/t.py";
+    runCommandMock.mockResolvedValue({
+      exitCode: 1,
+      stdout: "",
+      stderr:
+        `${pyFile}:2: SyntaxWarning: "\\p" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\\\p"? A raw string is also an option.\n` +
+        '  File "C:\\proj\\run.py", line 3, in main\n' +
+        "Sorry: TabError: inconsistent use of tabs and spaces in indentation (t.py, line 6)",
+    });
+
+    expect(await runLinter(pyFile, ".py")).toEqual([
+      {
+        file: pyFile,
+        line: 6,
+        severity: "error",
+        message: "TabError: inconsistent use of tabs and spaces in indentation",
+      },
+    ]);
+  });
+
+  // Only the three types #891 names are parsed from the "Sorry:" form; any
+  // other keeps the generic warning (Python 3.10 prints the ValueError for a
+  // NUL byte).
+  it.each([
+    "Sorry: RecursionError: maximum recursion depth exceeded during compilation",
+    "Sorry: ValueError: source code string cannot contain null bytes",
+  ])("still warns on %s (#891)", async (stderr) => {
+    runCommandMock.mockResolvedValue({ exitCode: 1, stdout: "", stderr });
+
+    expect(await runLinter("/tmp/skill/t.py", ".py")).toEqual([
+      {
+        file: "/tmp/skill/t.py",
+        line: 0,
+        severity: "warning",
+        message: `Linter exited with code 1: ${stderr}`,
       },
     ]);
   });
@@ -1024,7 +1232,9 @@ describe.skipIf(!HAS_PYTHON)(
       // Legacy: the pre-#823 command line, run on its own copy of the skill.
       // `-E` keeps the shell's PYTHON* vars (PYTHONWARNINGS, PYTHONPATH, …)
       // out of it, as `-I` does for the current command, so the comparison
-      // does not depend on the developer's environment.
+      // does not depend on the developer's environment. `-W ignore` matches
+      // the current command (#891): warn.py's SyntaxWarning never reaches
+      // the parser, and it changes neither exit code nor score.
       // The linter is handed a private copy of each script (#831), named as
       // the script; map it back to the script it copies.
       const asScript = (file: string) => join("scripts", basename(file));
@@ -1034,6 +1244,8 @@ describe.skipIf(!HAS_PYTHON)(
         const result = await realRunCommand([
           "python3",
           "-E",
+          "-W",
+          "ignore",
           "-m",
           "py_compile",
           file,
@@ -1068,6 +1280,15 @@ describe.skipIf(!HAS_PYTHON)(
       // The broken file still yields its located finding and costs score.
       expect(current.findings).toContain(
         "[ERROR] scripts/unclosed.py:1 — SyntaxError: '(' was never closed",
+      );
+      // The "Sorry: <Type>: … (file, line N)" form is located too (#891).
+      expect(current.findings).toEqual(
+        expect.arrayContaining([
+          "[ERROR] scripts/tabs.py:3 — TabError: inconsistent use of tabs and spaces in indentation",
+          expect.stringMatching(
+            /^\[ERROR\] scripts\/indent\.py:2 — IndentationError: expected an indented block/,
+          ),
+        ]),
       );
       expect(current.score).toBeLessThan(10);
     });
