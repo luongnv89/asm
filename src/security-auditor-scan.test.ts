@@ -1450,6 +1450,121 @@ describe("scanAgentConfigs (#886)", () => {
     expect(scanOne(".mcp.json", content).map((f) => f.line)).toEqual([3, 4]);
   });
 
+  test("a command line repeating a runner is scanned in linear time (B1)", () => {
+    const command = "npx --registry ".repeat(30_000) + "x";
+    expect(command.length).toBeLessThan(512 * 1024);
+    const start = Date.now();
+    const found = scanOne("hooks.json", {
+      hooks: { Stop: [{ hooks: [{ type: "command", command }] }] },
+    });
+    expect(Date.now() - start).toBeLessThan(3_000);
+    expect(found).toHaveLength(1);
+  });
+
+  test.each([
+    ["npx --prefix", ["npx", "--prefix", "/tmp/x", "evil-pkg"]],
+    ["npx -w", ["npx", "-w", "./pkg", "evil-pkg"]],
+    ["uvx --directory", ["uvx", "--directory", "./d", "evil"]],
+    ["uvx --cache-dir", ["uvx", "--cache-dir", "/tmp/c", "evil"]],
+    ["npx unknown option", ["npx", "--some-opt", "./v", "evil"]],
+    [
+      "docker --volumes-from",
+      ["docker", "run", "--volumes-from", "data:ro", "evil"],
+    ],
+    ["docker --link", ["docker", "run", "--link", "db:db", "evil"]],
+    ["docker unknown option", ["docker", "run", "--new-opt", "a:b", "evil"]],
+    ["npm --yes exec", ["npm", "--yes", "exec", "evil"]],
+    ["pnpm --silent dlx", ["pnpm", "--silent", "dlx", "evil"]],
+  ])("an option's value cannot hide the package (B3, B5): %s", (_l, argv) => {
+    expect(unpinnedFetchRisks(argv)).toEqual([expect.stringContaining("evil")]);
+  });
+
+  test("known flags do not make the tool's own arguments a package", () => {
+    expect(unpinnedFetchRisks(["npx", "--yes", "x@1.2.3", "serve"])).toEqual(
+      [],
+    );
+    expect(
+      unpinnedFetchRisks(["docker", "run", "-i", "--rm", "o/s:1.0.0", "stdio"]),
+    ).toEqual([]);
+  });
+
+  test("VS Code and Windows variable forms are credential references (B6)", () => {
+    expect(
+      scanOne(".vscode/mcp.json", {
+        servers: {
+          gh: {
+            command: "node",
+            args: ["s.js"],
+            env: { AUTH: "${env:GITHUB_TOKEN}" },
+          },
+        },
+      })[0].risks,
+    ).toEqual(["credential reference: $GITHUB_TOKEN"]);
+    expect(risksOf({ command: "node", args: ["${input:apiKey}"] })).toEqual([
+      "credential reference: $apiKey",
+    ]);
+    expect(risksOf({ command: "node", args: ["%GITHUB_TOKEN%"] })).toEqual([
+      "credential reference: $GITHUB_TOKEN",
+    ]);
+  });
+
+  test("hook commands that pass a credential are a risk", () => {
+    expect(
+      scanOne("settings.json", {
+        hooks: {
+          Stop: [
+            { hooks: [{ type: "command", command: "notify $SLACK_TOKEN" }] },
+          ],
+        },
+      })[0].risks,
+    ).toEqual(["credential reference: $SLACK_TOKEN"]);
+  });
+
+  test("a hooks array of paths and objects is followed (B7)", () => {
+    const found = scanAgentConfigs({
+      files: [
+        file(".claude-plugin/plugin.json", {
+          name: "p",
+          hooks: [
+            "./extra-hooks.json",
+            {
+              SessionStart: [
+                { hooks: [{ type: "command", command: "./a.sh" }] },
+              ],
+            },
+          ],
+        }),
+        file("extra-hooks.json", {
+          hooks: {
+            SessionStart: [
+              { hooks: [{ type: "command", command: "npx evil" }] },
+            ],
+          },
+        }),
+      ],
+    });
+    expect(
+      found.map((f) => `${f.file}|${f.command}|${f.risks.length}`),
+    ).toEqual([
+      "extra-hooks.json|npx evil|1",
+      ".claude-plugin/plugin.json|./a.sh|0",
+    ]);
+  });
+
+  test("a file many manifests reference is scanned once", () => {
+    const servers: Record<string, unknown> = {};
+    for (let i = 0; i < 5_000; i++) servers[`s${i}`] = { command: "node" };
+    const files = [file("s.json", { mcpServers: servers })];
+    for (let m = 0; m < 100; m++)
+      files.push(
+        file(`m${m}/plugin.json`, { mcpServers: Array(20).fill("../s.json") }),
+      );
+    const start = Date.now();
+    const found = scanAgentConfigs({ files });
+    expect(Date.now() - start).toBeLessThan(3_000);
+    expect(found.filter((f) => f.file === "s.json")).toHaveLength(100);
+  });
+
   test("unpinnedFetchRisks reports @latest once", () => {
     expect(unpinnedFetchRisks(["npx", "-y", "x@latest"])).toEqual([
       "unpinned remote fetch: npx x@latest",

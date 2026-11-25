@@ -1056,9 +1056,81 @@ const SPEC_OPTIONS: Partial<Record<Ecosystem, ReadonlySet<string>>> = {
   npm: new Set(["-p", "--package"]),
   py: new Set(["--from", "--spec", "--with"]),
 };
+/** Words a runner reads after it, at most: bounds the scan (#886). */
+const RUNNER_WINDOW = 32;
+
+/** Options known to take no value. */
+const FLAG_OPTIONS: Record<Ecosystem, ReadonlySet<string>> = {
+  npm: new Set([
+    "-y",
+    "--yes",
+    "--no",
+    "--no-install",
+    "-q",
+    "--quiet",
+    "-s",
+    "--silent",
+    "--ignore-existing",
+    "--offline",
+  ]),
+  py: new Set([
+    "-q",
+    "--quiet",
+    "-v",
+    "--verbose",
+    "--offline",
+    "--isolated",
+    "-n",
+    "--no-cache",
+    "--refresh",
+    "--system-site-packages",
+    "--include-deps",
+  ]),
+  image: new Set([
+    "-i",
+    "-t",
+    "-it",
+    "-ti",
+    "-d",
+    "--rm",
+    "--init",
+    "--privileged",
+    "--read-only",
+    "--interactive",
+    "--tty",
+    "--detach",
+    "-P",
+    "--publish-all",
+  ]),
+  deno: new Set([
+    "-A",
+    "--allow-all",
+    "-q",
+    "--quiet",
+    "-r",
+    "--reload",
+    "--no-prompt",
+    "--unstable",
+    "--no-check",
+    "--watch",
+  ]),
+  go: new Set(["-race", "-v", "-x", "-a", "-n", "-work", "-trimpath"]),
+};
+
 /** Options that take a separate value that is not a package spec. */
 const VALUE_OPTIONS: Record<Ecosystem, ReadonlySet<string>> = {
-  npm: new Set(["--registry", "--cache", "--userconfig", "-c", "--call"]),
+  npm: new Set([
+    "--registry",
+    "--cache",
+    "--userconfig",
+    "--globalconfig",
+    "--prefix",
+    "-w",
+    "--workspace",
+    "--loglevel",
+    "-c",
+    "--call",
+  ]),
   py: new Set([
     "-p",
     "--python",
@@ -1068,6 +1140,11 @@ const VALUE_OPTIONS: Record<Ecosystem, ReadonlySet<string>> = {
     "--extra-index-url",
     "--pip-args",
     "--python-preference",
+    "--directory",
+    "--cache-dir",
+    "--project",
+    "--config-file",
+    "--index-strategy",
   ]),
   image: new Set([
     "-e",
@@ -1105,6 +1182,20 @@ const VALUE_OPTIONS: Record<Ecosystem, ReadonlySet<string>> = {
     "--log-driver",
     "--security-opt",
     "--gpus",
+    "--volumes-from",
+    "--link",
+    "--sysctl",
+    "--log-opt",
+    "--ipc",
+    "--pid",
+    "--cidfile",
+    "--shm-size",
+    "--dns",
+    "--expose",
+    "--group-add",
+    "--runtime",
+    "--uts",
+    "--cgroupns",
   ]),
   deno: new Set([
     "-c",
@@ -1139,31 +1230,39 @@ function fetchRunner(
   i: number,
 ): { ecosystem: Ecosystem; next: number; label: string } | null {
   const base = commandName(tokens[i]);
-  const sub = tokens[i + 1]?.toLowerCase();
-  const sub2 = tokens[i + 2]?.toLowerCase();
+  // `npm --yes exec x`: options may come before the subcommand.
+  let k = i + 1;
+  while (
+    k < tokens.length &&
+    k - i <= RUNNER_WINDOW &&
+    tokens[k].startsWith("-")
+  )
+    k++;
+  const sub = tokens[k]?.toLowerCase();
+  const sub2 = tokens[k + 1]?.toLowerCase();
   if (base === "npx" || base === "bunx" || base === "pnpx")
     return { ecosystem: "npm", next: i + 1, label: base };
   if (base === "npm" && (sub === "exec" || sub === "x"))
-    return { ecosystem: "npm", next: i + 2, label: `npm ${sub}` };
+    return { ecosystem: "npm", next: k + 1, label: `npm ${sub}` };
   if ((base === "pnpm" || base === "yarn") && sub === "dlx")
-    return { ecosystem: "npm", next: i + 2, label: `${base} dlx` };
+    return { ecosystem: "npm", next: k + 1, label: `${base} dlx` };
   if (base === "bun" && sub === "x")
-    return { ecosystem: "npm", next: i + 2, label: "bun x" };
+    return { ecosystem: "npm", next: k + 1, label: "bun x" };
   if (base === "uvx") return { ecosystem: "py", next: i + 1, label: "uvx" };
   if (base === "uv" && sub === "tool" && sub2 === "run")
-    return { ecosystem: "py", next: i + 3, label: "uv tool run" };
+    return { ecosystem: "py", next: k + 2, label: "uv tool run" };
   if (base === "pipx" && sub === "run")
-    return { ecosystem: "py", next: i + 2, label: "pipx run" };
+    return { ecosystem: "py", next: k + 1, label: "pipx run" };
   if (base === "docker" || base === "podman") {
     if (sub === "run")
-      return { ecosystem: "image", next: i + 2, label: `${base} run` };
+      return { ecosystem: "image", next: k + 1, label: `${base} run` };
     if (sub === "container" && sub2 === "run")
-      return { ecosystem: "image", next: i + 3, label: `${base} run` };
+      return { ecosystem: "image", next: k + 2, label: `${base} run` };
   }
   if (base === "deno" && sub === "run")
-    return { ecosystem: "deno", next: i + 2, label: "deno run" };
+    return { ecosystem: "deno", next: k + 1, label: "deno run" };
   if (base === "go" && sub === "run")
-    return { ecosystem: "go", next: i + 2, label: "go run" };
+    return { ecosystem: "go", next: k + 1, label: "go run" };
   return null;
 }
 
@@ -1174,28 +1273,44 @@ function runnerSpecs(
   ecosystem: Ecosystem,
 ): string[] {
   const specs: string[] = [];
+  const rule = SPEC_RULES[ecosystem];
   let explicit = false;
-  for (let j = start; j < tokens.length; j++) {
+  // An option this scan does not know may take the next word as its value.
+  let afterUnknown = false;
+  // Bounded: a crafted command line repeating a runner cannot make the
+  // scan quadratic (#886).
+  const end = Math.min(tokens.length, start + RUNNER_WINDOW);
+  for (let j = start; j < end; j++) {
     const t = tokens[j];
     if (t === "--") continue;
     if (t.startsWith("-")) {
       const eq = t.indexOf("=");
       const key = eq === -1 ? t : t.slice(0, eq);
       const value = eq === -1 ? undefined : t.slice(eq + 1);
+      afterUnknown = false;
       if (SPEC_OPTIONS[ecosystem]?.has(key)) {
         const spec = value ?? tokens[++j];
         if (spec !== undefined) {
           specs.push(spec);
           if (key !== "--with") explicit = true;
         }
-      } else if (VALUE_OPTIONS[ecosystem].has(key) && value === undefined) {
-        j++;
+      } else if (VALUE_OPTIONS[ecosystem].has(key)) {
+        if (value === undefined) j++;
+      } else if (value === undefined && !FLAG_OPTIONS[ecosystem].has(key)) {
+        afterUnknown = true;
       }
       continue;
     }
+    if (explicit) break;
+    specs.push(t);
     // The first positional is the package, unless an option named it: then
-    // it is the binary to run from that package.
-    if (!explicit) specs.push(t);
+    // it is the binary to run from that package. After an unknown option a
+    // local or pinned word may be that option's value: the next positional
+    // is checked too, so the package cannot hide behind it.
+    if (afterUnknown && (!rule.remote(t) || rule.pinned(t))) {
+      afterUnknown = false;
+      continue;
+    }
     break;
   }
   return specs;
@@ -1250,7 +1365,12 @@ export function looksLikeCredential(name: string): boolean {
 
 /** `$NAME` and `${NAME}` references in `text`. */
 function envReferences(text: string): string[] {
-  return [...text.matchAll(/\$\{?([A-Za-z_][A-Za-z0-9_]*)/g)].map((m) => m[1]);
+  // `$NAME`, `${NAME}`, VS Code's `${env:NAME}` / `${input:NAME}`, `%NAME%`.
+  return [
+    ...text.matchAll(
+      /\$\{(?:env:|input:)?([A-Za-z_][\w-]*)|\$([A-Za-z_]\w*)|%([A-Za-z_]\w*)%/g,
+    ),
+  ].map((m) => m[1] ?? m[2] ?? m[3]);
 }
 
 /** Credentials a URL carries: a password, or a credential-named parameter. */
@@ -1402,6 +1522,12 @@ interface ConfigScanContext {
   contents: ReadonlyMap<string, string>;
   /** What the walk saw and did not read. */
   unread: ReadonlySet<string>;
+  /**
+   * Referenced files already scanned in this run, as `key:path`: each is
+   * scanned once however many manifests name it, so the work stays linear
+   * in what the walk read (#886).
+   */
+  scanned: Set<string>;
 }
 
 /**
@@ -1460,6 +1586,9 @@ function referencedConfigs(
           ),
         );
     } else if (ctx.contents.has(target)) {
+      // Listed once, under its own name, for the first manifest naming it.
+      if (ctx.scanned.has(`${key}:${target}`)) continue;
+      ctx.scanned.add(`${key}:${target}`);
       findings.push(
         ...scanConfigFile(target, ctx.contents.get(target)!, ctx, {
           mcp: key === "mcpServers",
@@ -1542,23 +1671,38 @@ function hookFindings(
   ctx: ConfigScanContext,
   nested: boolean,
 ): AgentConfigFinding[] {
-  const refs = typeof value === "string" ? [value] : null;
-  if (refs !== null) {
-    return nested
-      ? [note(file, "unreadable", "hooks names another file: not followed")]
-      : referencedConfigs(file, "hooks", refs, ctx);
+  // An object of events, or a path, or an array of paths and objects.
+  const items = isObject(value) ? [] : Array.isArray(value) ? value : [value];
+  const paths = items.filter((v): v is string => typeof v === "string");
+  const findings: AgentConfigFinding[] =
+    paths.length === 0
+      ? []
+      : nested
+        ? [note(file, "unreadable", "hooks names another file: not followed")]
+        : referencedConfigs(file, "hooks", paths, ctx);
+  const commands = isObject(value)
+    ? hookCommands(value)
+    : hookCommands({ hooks: items.filter(isObject) });
+  for (const [event, command] of commands) {
+    findings.push({
+      file,
+      line: 1,
+      kind: "hook",
+      name: event,
+      command,
+      risks: [
+        ...new Set([
+          ...unpinnedFetchRisks([command]),
+          ...envReferences(command)
+            .filter(looksLikeCredential)
+            .map((ref) => `credential reference: $${ref}`),
+        ]),
+      ],
+    });
   }
-  const commands = isObject(value) ? hookCommands(value) : [];
-  if (commands.length === 0)
+  if (findings.length === 0)
     return [note(file, "config", "hooks present, no command found")];
-  return commands.map(([event, command]) => ({
-    file,
-    line: 1,
-    kind: "hook" as const,
-    name: event,
-    command,
-    risks: [...new Set(unpinnedFetchRisks([command]))],
-  }));
+  return findings;
 }
 
 /** Findings for one config file the walk read. */
@@ -1624,6 +1768,7 @@ export function scanAgentConfigs(
   const ctx: ConfigScanContext = {
     contents: new Map(inputs.files.map((f) => [f.relPath, f.content])),
     unread: new Set(inputs.unread ?? []),
+    scanned: new Set(),
   };
   const findings: AgentConfigFinding[] = [];
   for (const file of ctx.unread) {
