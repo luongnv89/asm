@@ -102,7 +102,8 @@ export function noHooksPath(): string {
 }
 
 /**
- * The GIT_CONFIG_PARAMETERS entries that turn off every hook (#897):
+ * The GIT_CONFIG_PARAMETERS entries that turn off hooks (#897), except
+ * where noted:
  * - `core.hooksPath` for the hooks folder;
  * - `hook.<event>.enabled=false`, which git 2.55+ applies to hooks defined
  *   in config (`hook.<name>.command`, git 2.54+) as well; older git ignores
@@ -125,7 +126,7 @@ export function noHooksGitParameters(): string {
 }
 
 /**
- * absolutePathEnv(base), plus git config that runs no hook, for any child
+ * absolutePathEnv(base), plus git config that turns hooks off, for any child
  * that runs git against a repo asm does not own: a clone, fetch or checkout
  * of a remote, a command inside such a clone, npx (`skills add` clones), and
  * npm, which `--allow-git=none` stops from cloning only where its version

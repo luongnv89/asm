@@ -133,8 +133,9 @@ it, git's filter lookup (a `git-lfs` smudge filter in the user's config) ran
 an executable the fresh clone ships. When no `PATH` entry is absolute, these
 commands report that git was not found (not on Windows).
 The git children that work on a repository asm does not own also run with
-every hook turned off. That covers the clone, checkout, fetch, `ls-remote`
-and `rev-parse` above, `npx` (`skills add` clones), and `npm`, whose
+hooks turned off, except in the cases listed below. That covers the clone,
+checkout, fetch, `ls-remote` and `rev-parse` above, `npx` (`skills add`
+clones), and `npm`, whose
 `--allow-git=none` stops it from cloning only where its version knows that
 flag. Without this, a relative `core.hooksPath` in the user's config (such
 as `.githooks`) resolved inside the fresh clone, and git ran the
