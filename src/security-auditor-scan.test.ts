@@ -1893,6 +1893,137 @@ describe("scanAgentConfigs (#886)", () => {
       "unpinned remote fetch: uvx pkg",
     ]);
   });
+
+  // Claude Code loads `mcpServers || <the whole file>` (re-review B1).
+  test("a falsy mcpServers or a servers key does not hide bare servers (B1)", () => {
+    const evil = { command: "npx", args: ["-y", "evil@latest"] };
+    const stop = {
+      Stop: [{ hooks: [{ type: "command", command: "./x.sh" }] }],
+    };
+    for (const wrapper of [
+      { mcpServers: null },
+      { mcpServers: false },
+      { mcpServers: 0 },
+      { servers: {} },
+    ]) {
+      expect(
+        scanOne(".mcp.json", { ...wrapper, evil }).map((f) => [
+          f.name,
+          f.risks,
+        ]),
+        JSON.stringify(wrapper),
+      ).toEqual([["evil", ["unpinned remote fetch: npx evil@latest"]]]);
+    }
+    // A VS Code `servers` map is read beside the bare entries.
+    expect(
+      scanOne("mcp.json", { servers: { a: evil }, b: { command: "node" } }).map(
+        (f) => f.name,
+      ),
+    ).toEqual(["b", "a"]);
+    // A truthy `mcpServers` is all Claude Code loads: siblings are not read.
+    expect(
+      scanOne(".mcp.json", { mcpServers: {}, evil }).map((f) => [
+        f.kind,
+        f.name,
+        f.risks,
+      ]),
+    ).toEqual([["config", "mcpServers is empty", []]]);
+    // `hooks` is scanned as hooks, never listed as a server.
+    expect(
+      scanOne(".mcp.json", { srv: evil, hooks: stop }).map((f) => [
+        f.kind,
+        f.name,
+      ]),
+    ).toEqual([
+      ["mcp-server", "srv"],
+      ["hook", "Stop"],
+    ]);
+    expect(
+      scanOne(".mcp.json", { hooks: stop }).map((f) => [f.kind, f.name]),
+    ).toEqual([
+      ["config", "no mcpServers listed"],
+      ["hook", "Stop"],
+    ]);
+    // An entry with no command, url or type starts nothing: no credential risk.
+    expect(
+      scanOne(".mcp.json", {
+        defaults: { env: { GITHUB_TOKEN: "${GITHUB_TOKEN}" } },
+      }).map((f) => [f.name, f.risks]),
+    ).toEqual([["defaults", []]]);
+    expect(
+      scanOne(".mcp.json", {
+        s: { type: "stdio", env: { GITHUB_TOKEN: "x" } },
+      }).map((f) => f.risks),
+    ).toEqual([["credential env: GITHUB_TOKEN"]]);
+  });
+
+  test("-e at the end of a short-option cluster is -e (B3)", () => {
+    const docker = (...args: string[]) =>
+      risksOf({ command: "docker", args: ["run", ...args, "img:1.0"] });
+    expect(docker("-ie", "GITHUB_TOKEN")).toEqual([
+      "credential env: GITHUB_TOKEN",
+    ]);
+    expect(docker("--rm", "-ite", "GITHUB_PERSONAL_ACCESS_TOKEN")).toEqual([
+      "credential env: GITHUB_PERSONAL_ACCESS_TOKEN",
+    ]);
+    expect(docker("-ieGITHUB_TOKEN")).toEqual(["credential env: GITHUB_TOKEN"]);
+    expect(docker("-dite", "API_KEY=x")).toEqual(["credential env: API_KEY"]);
+    // A boolean cluster takes no value: the image is still checked.
+    expect(
+      risksOf({ command: "docker", args: ["run", "-dit", "evil"] }),
+    ).toEqual(["unpinned remote fetch: docker run evil"]);
+  });
+
+  test("container -e is read up to the image or a shell separator (nit 4)", () => {
+    const docker = (...args: string[]) =>
+      risksOf({ command: "docker", args: ["run", ...args] });
+    expect(docker("--rm", "img:1.0", "node", "-e", "API_KEY_check")).toEqual(
+      [],
+    );
+    expect(docker("img:1.0", "-e", "TOKEN")).toEqual([]);
+    expect(
+      risksOf({ command: "docker run --rm img:1.0 && node -e API_KEY_x" }),
+    ).toEqual([]);
+    expect(risksOf({ command: "docker build . ; node -e API_KEY_x" })).toEqual(
+      [],
+    );
+    // Option values and words before the subcommand do not end the scan.
+    expect(
+      docker("--name", "srv", "-v", "/a:/b", "-e", "TOKEN", "img:1.0"),
+    ).toEqual(["credential env: TOKEN"]);
+    expect(
+      risksOf({
+        command: "docker",
+        args: ["-H", "tcp://x", "run", "-e", "TOKEN", "img:1.0"],
+      }),
+    ).toEqual(["credential env: TOKEN"]);
+    expect(
+      risksOf({
+        command: "docker",
+        args: ["compose", "run", "-e", "API_KEY", "svc"],
+      }),
+    ).toEqual(["credential env: API_KEY"]);
+    // After an option this scan does not know, one word may be its value.
+    expect(docker("--unknown", "v:1.0", "-e", "TOKEN", "img:1.0")).toEqual([
+      "credential env: TOKEN",
+    ]);
+  });
+
+  test("=== is an exact pin; every --with package is checked (nit 3)", () => {
+    expect(unpinnedFetchRisks(["uvx", "pkg===1.0"])).toEqual([]);
+    expect(
+      unpinnedFetchRisks(["uv", "run", "--with", "a==1.0,b==2.0", "s.py"]),
+    ).toEqual([]);
+    expect(
+      unpinnedFetchRisks(["uv", "run", "-w", "a===1.0,b==2", "s.py"]),
+    ).toEqual([]);
+    expect(
+      unpinnedFetchRisks(["uv", "run", "--with", "a==1.0,evil", "s.py"]),
+    ).toEqual(["unpinned remote fetch: uv run evil"]);
+    expect(unpinnedFetchRisks(["uvx", "--with=evil,b==1", "pkg==1"])).toEqual([
+      "unpinned remote fetch: uvx evil",
+    ]);
+  });
 });
 
 describe("install preview: MCP servers and hooks (#886)", () => {

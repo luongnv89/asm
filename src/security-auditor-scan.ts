@@ -1011,15 +1011,16 @@ function isPinnedNpmSpec(spec: string): boolean {
 }
 
 /**
- * `name==1.2.3`, `name[extra]==2025.1`, uv's `name@1.2.3`. `==` with no `*`
- * is an exact pin in PEP 440, whatever the number of parts; `@` keeps the
- * strict three-part form.
+ * `name==1.2.3`, `name[extra]==2025.1`, `name===1.0`, uv's `name@1.2.3`.
+ * `==` with no `*` is an exact pin in PEP 440, whatever the number of parts,
+ * and `===` matches one version string exactly; `@` keeps the strict
+ * three-part form.
  */
 function isPinnedPySpec(spec: string): boolean {
-  const m = /^[A-Za-z0-9][\w.-]*(?:\[[\w.,\s-]*\])?(==|@)([^=@\s,;]+)$/.exec(
-    spec,
-  );
+  const m =
+    /^[A-Za-z0-9][\w.-]*(?:\[[\w.,\s-]*\])?(===|==|@)([^=@\s,;]+)$/.exec(spec);
   if (m === null) return false;
+  if (m[1] === "===") return true;
   return m[1] === "==" ? !m[2].includes("*") : EXACT_VERSION.test(m[2]);
 }
 
@@ -1068,6 +1069,13 @@ const SPEC_OPTIONS: Partial<Record<Ecosystem, ReadonlySet<string>>> = {
 const WITH_OPTIONS = new Set(["--with", "-w"]);
 /** Words a runner reads after it, at most: bounds the scan (#886). */
 const RUNNER_WINDOW = 32;
+/** docker/podman boolean shorthands in one word: `-it`, `-dit`. */
+const CONTAINER_FLAG_CLUSTER = /^-[dtiPq]+$/;
+/**
+ * `-e`, alone or ending such a cluster: `-e`, `-ie`, `-ite`, `-ieNAME`. The
+ * group is the attached value; when empty, the value is the next word.
+ */
+const CONTAINER_ENV_CLUSTER = /^-[dtiPq]*e(.*)$/;
 
 /** Runners that fetch only through a subcommand (`npm exec`, `docker run`). */
 const SUBCOMMAND_RUNNERS = new Set([
@@ -1390,6 +1398,15 @@ function runnerSpecs(
   for (let j = start; j < end; j++) {
     const t = tokens[j];
     if (t === "--") continue;
+    if (ecosystem === "image") {
+      // `-ie NAME` is `-i -e NAME`: NAME is the entry, not the image.
+      const env = CONTAINER_ENV_CLUSTER.exec(t);
+      if (env !== null || CONTAINER_FLAG_CLUSTER.test(t)) {
+        if (env?.[1] === "") j++;
+        afterUnknown = false;
+        continue;
+      }
+    }
     if (t.startsWith("-")) {
       const eq = t.indexOf("=");
       let key = eq === -1 ? t : t.slice(0, eq);
@@ -1408,8 +1425,13 @@ function runnerSpecs(
       if (SPEC_OPTIONS[ecosystem]?.has(key)) {
         const spec = value ?? tokens[++j];
         if (spec !== undefined) {
-          specs.push(spec);
-          if (!WITH_OPTIONS.has(key)) explicit = true;
+          if (WITH_OPTIONS.has(key)) {
+            // `--with a==1.0,b`: each package is fetched, each is checked.
+            specs.push(...spec.split(",").filter((s) => s.length > 0));
+          } else {
+            specs.push(spec);
+            explicit = true;
+          }
         }
       } else if (VALUE_OPTIONS[ecosystem].has(key)) {
         if (value === undefined) j++;
@@ -1546,27 +1568,72 @@ function urlCredentials(url: string): string[] {
 
 /** Commands that pass `-e NAME` / `--env NAME` into a container. */
 const CONTAINER_RUNNERS = new Set(["docker", "podman"]);
+/** Their subcommands whose first positional is the image or container. */
+const CONTAINER_SUBCOMMANDS = new Set(["run", "create", "exec"]);
+/** Stands for a shell separator (`&&`, `;`, `|`) among the words. */
+const SEPARATOR = "\0";
 
 /**
  * Names a container command line passes from the host environment (#886):
- * `-e NAME`, `-e NAME=v`, `-eNAME`, `--env NAME`, `--env=NAME`. Read only
- * after a `docker` or `podman` word, where `-e` means an environment entry.
+ * `-e NAME`, `-e NAME=v`, `-eNAME`, `-ie NAME`, `--env NAME`, `--env=NAME`.
+ * Read after a `docker` or `podman` word, where `-e` means an environment
+ * entry, up to the image (the first positional after `run`), whose own
+ * arguments follow, or a shell separator.
  */
 function containerEnvNames(argv: string[]): string[] {
-  const tokens = commandTokens(argv);
+  const tokens = commandTokens(
+    argv.map((a) => a.replace(/[;&|]+/g, ` ${SEPARATOR} `)),
+  );
   const names: string[] = [];
-  let inContainer = false;
+  // Before the subcommand, after it, or outside a container command line.
+  let state: "off" | "pre" | "run" = "off";
+  // An option this scan does not know may take the next word as its value.
+  let afterUnknown = false;
   for (let i = 0; i < tokens.length; i++) {
     const t = tokens[i];
-    if (CONTAINER_RUNNERS.has(commandName(t))) {
-      inContainer = true;
+    if (t === SEPARATOR) {
+      state = "off";
       continue;
     }
-    if (!inContainer) continue;
+    if (CONTAINER_RUNNERS.has(commandName(t))) {
+      state = "pre";
+      afterUnknown = false;
+      continue;
+    }
+    if (state === "off") continue;
+    if (!t.startsWith("-")) {
+      if (state === "pre") {
+        if (CONTAINER_SUBCOMMANDS.has(t)) state = "run";
+      } else if (!afterUnknown) {
+        state = "off";
+      }
+      afterUnknown = false;
+      continue;
+    }
+    afterUnknown = false;
+    // The option's value, when it is the next word (never a separator).
+    const following = tokens[i + 1] === SEPARATOR ? undefined : tokens[i + 1];
+    const cluster = CONTAINER_ENV_CLUSTER.exec(t);
     let entry: string | undefined;
-    if (t === "-e" || t === "--env") entry = tokens[++i];
+    let takesNext = false;
+    if (t === "--env") takesNext = true;
     else if (t.startsWith("--env=")) entry = t.slice("--env=".length);
-    else if (/^-e[^-]/.test(t)) entry = t.slice(2).replace(/^=/, "");
+    else if (cluster !== null) {
+      if (cluster[1] === "") takesNext = true;
+      else entry = cluster[1].replace(/^=/, "");
+    } else if (VALUE_OPTIONS.image.has(t)) {
+      if (following !== undefined) i++;
+      continue;
+    } else if (
+      !t.includes("=") &&
+      !CONTAINER_FLAG_CLUSTER.test(t) &&
+      !FLAG_OPTIONS.image.has(t)
+    )
+      afterUnknown = true;
+    if (takesNext && following !== undefined) {
+      entry = following;
+      i++;
+    }
     if (entry === undefined) continue;
     const eq = entry.indexOf("=");
     names.push(eq === -1 ? entry : entry.slice(0, eq));
@@ -1647,10 +1714,12 @@ function serverFinding(
   const url = ["url", "httpUrl", "serverUrl"]
     .map((k) => own(server, k))
     .find((v): v is string => typeof v === "string");
-  const risks = [
-    ...unpinnedFetchRisks(argv),
-    ...credentialRisks(server, argv, url),
-  ];
+  // An entry with no command, url or type starts and calls nothing, so the
+  // credentials it names go nowhere.
+  const risks =
+    argv.length > 0 || url !== undefined || own(server, "type") !== undefined
+      ? [...unpinnedFetchRisks(argv), ...credentialRisks(server, argv, url)]
+      : [];
   return {
     file,
     line: 1,
@@ -1815,7 +1884,7 @@ function referencedConfigs(
   return findings;
 }
 
-/** Findings for a config's `mcpServers` (or a `.mcp.json`'s `servers`). */
+/** Findings for a config's `mcpServers`. */
 function serverFindings(
   file: string,
   value: unknown,
@@ -1904,6 +1973,9 @@ function hookFindings(
   return findings;
 }
 
+/** Top-level keys of an MCP config scanned on their own, never as servers. */
+const NOT_SERVER_KEYS = new Set(["mcpServers", "servers", "hooks"]);
+
 /** Findings for one config file the walk read. */
 function scanConfigFile(
   file: string,
@@ -1926,20 +1998,25 @@ function scanConfigFile(
       : [];
   }
   const findings: AgentConfigFinding[] = [];
-  if (Object.hasOwn(data, "mcpServers")) {
-    findings.push(...serverFindings(file, data.mcpServers, ctx, as.nested));
-  } else if (as.mcp && Object.hasOwn(data, "servers")) {
-    findings.push(...serverFindings(file, data.servers, ctx, as.nested));
-  } else if (as.mcp) {
-    // A Claude Code plugin's `.mcp.json` lists its servers at the top level,
-    // with no `mcpServers` wrapper: each entry whose value is an object is a
-    // server (#886).
-    const bare = Object.entries(data).filter(([, def]) => isObject(def));
+  if (as.mcp && !own(data, "mcpServers")) {
+    // Claude Code loads `mcpServers || <the whole file>` and checks each
+    // entry alone: with no truthy `mcpServers`, every top-level object is a
+    // server (a plugin's bare `.mcp.json`), and so is each entry of a VS
+    // Code `servers` object (#886).
+    const vscode = own(data, "servers");
+    const listed = [
+      ...Object.entries(data).filter(
+        ([key, def]) => !NOT_SERVER_KEYS.has(key) && isObject(def),
+      ),
+      ...(isObject(vscode) ? Object.entries(vscode) : []),
+    ];
     findings.push(
-      ...(bare.length > 0
-        ? bare.map(([name, def]) => serverFinding(file, name, def))
+      ...(listed.length > 0
+        ? listed.map(([name, def]) => serverFinding(file, name, def))
         : [note(file, "config", "no mcpServers listed")]),
     );
+  } else if (Object.hasOwn(data, "mcpServers")) {
+    findings.push(...serverFindings(file, data.mcpServers, ctx, as.nested));
   }
   if (Object.hasOwn(data, "hooks")) {
     findings.push(...hookFindings(file, data.hooks, ctx, as.nested));
