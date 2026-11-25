@@ -9,6 +9,7 @@ import {
   AGENT_CONFIG_CATEGORY,
 } from "./security-auditor-scan";
 import {
+  clipText,
   stringifyForOutput,
   stripControlBytesDeep,
 } from "./utils/control-chars";
@@ -78,7 +79,7 @@ function severityIcon(severity: "critical" | "warning" | "info"): string {
 }
 
 function truncate(s: string, max: number): string {
-  return s.length > max ? s.slice(0, max - 3) + "..." : s;
+  return clipText(s, max);
 }
 
 function formatNumber(n: number): string {

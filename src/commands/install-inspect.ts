@@ -25,6 +25,7 @@ import { installLibrarySkill } from "../library";
 import { relative as relativePath } from "path";
 import { toPortableRelativePath } from "../utils/fs";
 import {
+  clipText,
   stripControlBytes,
   stripControlBytesDeep,
 } from "../utils/control-chars";
@@ -316,7 +317,7 @@ export function displaySkillInspection(
           const where = item.line > 0 ? `${item.file}:${item.line}` : item.file;
           const match = stripControlBytes(item.match);
           console.info(
-            `      ${ansi.dim(stripControlBytes(where))} -- ${match.length > 140 ? `${match.slice(0, 139)}…` : match}`,
+            `      ${ansi.dim(stripControlBytes(where))} -- ${clipText(match, 140, "…")}`,
           );
         }
         if (items.length > 5) {

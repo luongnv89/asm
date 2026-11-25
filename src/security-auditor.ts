@@ -198,15 +198,51 @@ export function applyAgentConfigs(
   findings: AgentConfigFinding[],
 ): { verdict: SecurityVerdict; reason: string } {
   if (findings.length === 0) return { verdict, reason };
+  // Counted from what the findings stand for: a config over the listing cap
+  // folds the rest into one note that keeps their count (#886).
+  const isEntry = (f: AgentConfigFinding) =>
+    f.kind === "mcp-server" || f.kind === "hook";
+  let entries = 0;
+  let riskyEntries = 0;
+  let unread = 0;
+  let folded = 0;
+  for (const f of findings) {
+    if (f.folded) {
+      entries += f.folded.entries;
+      riskyEntries += f.folded.risky;
+      unread += f.folded.unread;
+      folded += f.folded.entries;
+    } else if (isEntry(f)) {
+      entries++;
+      if (f.risks.length > 0) riskyEntries++;
+    } else if (f.kind === "unreadable") unread++;
+  }
   const risky = findings.filter((f) => f.risks.length > 0);
-  const unread = findings.filter((f) => f.kind === "unreadable");
+  const count = (n: number) => n.toLocaleString("en-US");
   const plural = (n: number, one: string, many: string) =>
-    `${n} ${n === 1 ? one : many}`;
+    `${count(n)} ${n === 1 ? one : many}`;
+  const shipped = `${plural(entries, "MCP server or hook", "MCP servers or hooks")}${folded > 0 ? ` (first ${count(entries - folded)} listed)` : ""}`;
   let configReason: string;
   if (risky.length > 0) {
-    configReason = `Skill ships ${plural(risky.length, "MCP server or hook that fetches", "MCP servers or hooks that fetch")} unpinned remote code or ${risky.length === 1 ? "passes" : "pass"} a credential (${[...new Set(risky.map((f) => f.file))].join(", ")}).`;
+    const files = [...new Set(risky.map((f) => f.file))].join(", ");
+    configReason =
+      entries === 1
+        ? `Skill ships 1 MCP server or hook that fetches unpinned remote code or passes a credential (${files}).`
+        : `Skill ships ${shipped}; ${count(riskyEntries)} of them ${riskyEntries === 1 ? "fetches" : "fetch"} unpinned remote code or ${riskyEntries === 1 ? "passes" : "pass"} a credential (${files}).`;
   } else {
-    configReason = `Skill ships ${plural(findings.length - unread.length, "MCP server or hook config entry", "MCP server or hook config entries")}${unread.length > 0 ? ` and ${plural(unread.length, "config", "configs")} asm could not read` : ""}; an agent that loads them runs their commands. Review before installing.`;
+    const parts: string[] = [];
+    if (entries > 0) parts.push(shipped);
+    if (unread > 0)
+      parts.push(
+        plural(
+          unread,
+          "config asm could not read",
+          "configs asm could not read",
+        ),
+      );
+    if (parts.length === 0)
+      parts.push("an MCP server or hook config with nothing listed");
+    configReason = `Skill ships ${parts.join(" and ")}; an agent that loads ${entries + unread <= 1 ? "it runs its" : "them runs their"} commands. Review before installing.`;
   }
   const target: SecurityVerdict = risky.length > 0 ? "dangerous" : "warning";
   const rank: Record<SecurityVerdict, number> = {
@@ -218,9 +254,16 @@ export function applyAgentConfigs(
   if (rank[verdict] >= rank[target]) {
     return { verdict, reason: `${reason} ${configReason}` };
   }
+  // Raised: the base reason's reassurance no longer holds.
+  const base = reason
+    .replace(/\s*Generally acceptable but worth reviewing\.$/, "")
+    .trim();
   return {
     verdict: target,
-    reason: verdict === "safe" ? configReason : `${configReason} ${reason}`,
+    reason:
+      verdict === "safe" || base === ""
+        ? configReason
+        : `${configReason} ${base}`,
   };
 }
 

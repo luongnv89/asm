@@ -356,6 +356,27 @@ describe("MCP servers and hooks in the report (#886)", () => {
     expect(output).toContain("... 3 more");
   });
 
+  test("the clip never splits an emoji into a lone surrogate (nit 3)", async () => {
+    // `MCP server "s": node ` is 21 units: the first emoji's high surrogate
+    // sits at index 136, the last one before the 137-unit cut.
+    await writeFile(
+      join(tempDir, ".mcp.json"),
+      JSON.stringify({
+        mcpServers: {
+          s: {
+            command: "node",
+            args: ["a".repeat(115) + "\u{1F600}".repeat(10)],
+          },
+        },
+      }),
+    );
+    const output = formatSecurityReport(await auditSkillSecurity(tempDir, "m"));
+    expect(output).toContain(`node ${"a".repeat(115)}...`);
+    expect(output).not.toMatch(
+      /[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/,
+    );
+  });
+
   test("the update hold names a dangerous config finding", async () => {
     await writeFile(
       join(tempDir, ".mcp.json"),

@@ -968,6 +968,11 @@ export interface AgentConfigFinding {
   command: string;
   /** Why the finding is dangerous; empty: a warning. */
   risks: string[];
+  /**
+   * The cap's fold note only: what the findings it stands for were — the
+   * servers and hooks, how many of them carry a risk, and unread configs.
+   */
+  folded?: { entries: number; risky: number; unread: number };
 }
 
 export interface AgentConfigInputs {
@@ -1005,12 +1010,17 @@ function isPinnedNpmSpec(spec: string): boolean {
   return m !== null && EXACT_VERSION.test(m[1]);
 }
 
-/** `name==1.2.3`, `name[extra]==1.2.3`, uv's `name@1.2.3`. */
+/**
+ * `name==1.2.3`, `name[extra]==2025.1`, uv's `name@1.2.3`. `==` with no `*`
+ * is an exact pin in PEP 440, whatever the number of parts; `@` keeps the
+ * strict three-part form.
+ */
 function isPinnedPySpec(spec: string): boolean {
-  const m = /^[A-Za-z0-9][\w.-]*(?:\[[\w.,\s-]*\])?(?:==|@)([^=@\s,;]+)$/.exec(
+  const m = /^[A-Za-z0-9][\w.-]*(?:\[[\w.,\s-]*\])?(==|@)([^=@\s,;]+)$/.exec(
     spec,
   );
-  return m !== null && EXACT_VERSION.test(m[1]);
+  if (m === null) return false;
+  return m[1] === "==" ? !m[2].includes("*") : EXACT_VERSION.test(m[2]);
 }
 
 /** An image with a digest, or a tag other than `latest`. */
@@ -1052,8 +1062,10 @@ const SPEC_RULES: Record<
 /** Options whose value is a package spec to check. */
 const SPEC_OPTIONS: Partial<Record<Ecosystem, ReadonlySet<string>>> = {
   npm: new Set(["-p", "--package"]),
-  py: new Set(["--from", "--spec", "--with"]),
+  py: new Set(["--from", "--spec", "--with", "-w"]),
 };
+/** Spec options that add a package without naming the one to run. */
+const WITH_OPTIONS = new Set(["--with", "-w"]);
 /** Words a runner reads after it, at most: bounds the scan (#886). */
 const RUNNER_WINDOW = 32;
 
@@ -1125,6 +1137,13 @@ const FLAG_OPTIONS: Record<Ecosystem, ReadonlySet<string>> = {
     "--refresh",
     "--system-site-packages",
     "--include-deps",
+    "--no-project",
+    "--frozen",
+    "--locked",
+    "--no-sync",
+    "--all-extras",
+    "--no-dev",
+    "--script",
   ]),
   image: new Set([
     "-i",
@@ -1185,6 +1204,9 @@ const VALUE_OPTIONS: Record<Ecosystem, ReadonlySet<string>> = {
     "--project",
     "--config-file",
     "--index-strategy",
+    "--extra",
+    "--env-file",
+    "--group",
   ]),
   image: new Set([
     "-e",
@@ -1370,14 +1392,24 @@ function runnerSpecs(
     if (t === "--") continue;
     if (t.startsWith("-")) {
       const eq = t.indexOf("=");
-      const key = eq === -1 ? t : t.slice(0, eq);
-      const value = eq === -1 ? undefined : t.slice(eq + 1);
+      let key = eq === -1 ? t : t.slice(0, eq);
+      let value = eq === -1 ? undefined : t.slice(eq + 1);
+      // A short spec option with its value attached: `-wevil`, `-pevil`.
+      if (
+        value === undefined &&
+        !t.startsWith("--") &&
+        t.length > 2 &&
+        SPEC_OPTIONS[ecosystem]?.has(t.slice(0, 2))
+      ) {
+        key = t.slice(0, 2);
+        value = t.slice(2);
+      }
       afterUnknown = false;
       if (SPEC_OPTIONS[ecosystem]?.has(key)) {
         const spec = value ?? tokens[++j];
         if (spec !== undefined) {
           specs.push(spec);
-          if (key !== "--with") explicit = true;
+          if (!WITH_OPTIONS.has(key)) explicit = true;
         }
       } else if (VALUE_OPTIONS[ecosystem].has(key)) {
         if (value === undefined) j++;
@@ -1386,7 +1418,17 @@ function runnerSpecs(
       }
       continue;
     }
-    if (explicit || optionsOnly) return { specs, overflow: false };
+    if (optionsOnly) {
+      // `uv run`: the command is local unless it is a URL, which uv fetches
+      // and runs. A word after an unknown option may be that option's
+      // value, so the scan goes on: a later `--with` cannot hide behind it.
+      // Options after the command are the command's own, not uv's.
+      if (/^https?:\/\//i.test(t)) specs.push(t);
+      if (!afterUnknown) return { specs, overflow: false };
+      afterUnknown = false;
+      continue;
+    }
+    if (explicit) return { specs, overflow: false };
     specs.push(t);
     // The first positional is the package, unless an option named it: then
     // it is the binary to run from that package. After an unknown option a
@@ -1399,7 +1441,10 @@ function runnerSpecs(
     return { specs, overflow: false };
   }
   // The window ran out before the package was settled: fail closed (#886).
-  return { specs, overflow: !explicit && end < tokens.length };
+  return {
+    specs,
+    overflow: (optionsOnly || !explicit) && end < tokens.length,
+  };
 }
 
 /** Split a command line into words: whitespace and shell separators. */
@@ -1499,6 +1544,36 @@ function urlCredentials(url: string): string[] {
   return risks;
 }
 
+/** Commands that pass `-e NAME` / `--env NAME` into a container. */
+const CONTAINER_RUNNERS = new Set(["docker", "podman"]);
+
+/**
+ * Names a container command line passes from the host environment (#886):
+ * `-e NAME`, `-e NAME=v`, `-eNAME`, `--env NAME`, `--env=NAME`. Read only
+ * after a `docker` or `podman` word, where `-e` means an environment entry.
+ */
+function containerEnvNames(argv: string[]): string[] {
+  const tokens = commandTokens(argv);
+  const names: string[] = [];
+  let inContainer = false;
+  for (let i = 0; i < tokens.length; i++) {
+    const t = tokens[i];
+    if (CONTAINER_RUNNERS.has(commandName(t))) {
+      inContainer = true;
+      continue;
+    }
+    if (!inContainer) continue;
+    let entry: string | undefined;
+    if (t === "-e" || t === "--env") entry = tokens[++i];
+    else if (t.startsWith("--env=")) entry = t.slice("--env=".length);
+    else if (/^-e[^-]/.test(t)) entry = t.slice(2).replace(/^=/, "");
+    if (entry === undefined) continue;
+    const eq = entry.indexOf("=");
+    names.push(eq === -1 ? entry : entry.slice(0, eq));
+  }
+  return names;
+}
+
 /** Credentials a server definition passes to what it starts or calls. */
 function credentialRisks(
   server: JsonObject,
@@ -1507,6 +1582,9 @@ function credentialRisks(
 ): string[] {
   const risks: string[] = [];
   const passed: string[] = [...argv];
+  for (const name of containerEnvNames(argv)) {
+    if (looksLikeCredential(name)) risks.push(`credential env: ${name}`);
+  }
   const env = own(server, "env");
   if (isObject(env)) {
     for (const [key, value] of Object.entries(env)) {
@@ -1853,7 +1931,15 @@ function scanConfigFile(
   } else if (as.mcp && Object.hasOwn(data, "servers")) {
     findings.push(...serverFindings(file, data.servers, ctx, as.nested));
   } else if (as.mcp) {
-    findings.push(note(file, "config", "no mcpServers listed"));
+    // A Claude Code plugin's `.mcp.json` lists its servers at the top level,
+    // with no `mcpServers` wrapper: each entry whose value is an object is a
+    // server (#886).
+    const bare = Object.entries(data).filter(([, def]) => isObject(def));
+    findings.push(
+      ...(bare.length > 0
+        ? bare.map(([name, def]) => serverFinding(file, name, def))
+        : [note(file, "config", "no mcpServers listed")]),
+    );
   }
   if (Object.hasOwn(data, "hooks")) {
     findings.push(...hookFindings(file, data.hooks, ctx, as.nested));
@@ -1861,6 +1947,9 @@ function scanConfigFile(
   // Bound what is listed (and the line lookups); the rest keep their risks.
   if (findings.length > MAX_FINDINGS_PER_CONFIG) {
     const rest = findings.splice(MAX_FINDINGS_PER_CONFIG - 1);
+    const entries = rest.filter(
+      (f) => f.kind === "mcp-server" || f.kind === "hook",
+    );
     findings.push({
       ...note(
         file,
@@ -1868,6 +1957,11 @@ function scanConfigFile(
         `${rest.length} more servers or hooks not listed`,
       ),
       risks: [...new Set(rest.flatMap((f) => f.risks))],
+      folded: {
+        entries: entries.length,
+        risky: entries.filter((f) => f.risks.length > 0).length,
+        unread: rest.filter((f) => f.kind === "unreadable").length,
+      },
     });
   }
   const lineOf = lineFinder(content);

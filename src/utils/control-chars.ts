@@ -53,6 +53,19 @@ export function stripControlBytes(text: string): string {
 }
 
 /**
+ * `text` cut to at most `max` UTF-16 units, `marker` included, for human
+ * output. The cut never lands inside a surrogate pair, so an emoji at the
+ * edge is dropped whole instead of printing as U+FFFD (#886).
+ */
+export function clipText(text: string, max: number, marker = "..."): string {
+  if (text.length <= max) return text;
+  let end = Math.max(0, max - marker.length);
+  const last = text.charCodeAt(end - 1);
+  if (end > 0 && last >= 0xd800 && last <= 0xdbff) end--;
+  return text.slice(0, end) + marker;
+}
+
+/**
  * {@link stripControlBytes} that also replaces TAB with `?`. Use it on a
  * single-line display field (a table cell, a list name), where a TAB would
  * break the column alignment.
