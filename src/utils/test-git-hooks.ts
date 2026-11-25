@@ -15,6 +15,9 @@ export const SHIPPED_HOOKS = [
   "post-index-change",
 ] as const;
 
+/** Shipped next to the hooks; a relative `core.fsmonitor` can name it. */
+export const SHIPPED_FSMONITOR = ".githooks/fsmonitor";
+
 /** The `core.hooksPath` forms #897 tests; `null` leaves it unset. */
 export const HOOKS_PATH_FORMS: [string, string | null][] = [
   ["relative .githooks", ".githooks"],
@@ -56,7 +59,7 @@ export async function makeHookRepo(
     await mkdir(join(repo, rel, ".."), { recursive: true });
     await writeFile(join(repo, rel), content);
   }
-  for (const hook of SHIPPED_HOOKS) {
+  for (const hook of [...SHIPPED_HOOKS, "fsmonitor"]) {
     const file = join(repo, ".githooks", hook);
     await writeFile(
       file,
@@ -76,16 +79,19 @@ export async function makeHookRepo(
 
 /**
  * Write `<base>/gitconfig` with `core.hooksPath = hooksPath` (left out when
- * null) and the given `url.<to>.insteadOf = <from>` rewrites; returns its
- * path, for `GIT_CONFIG_GLOBAL`.
+ * null), `core.fsmonitor = fsmonitor` (left out when undefined) and the given
+ * `url.<to>.insteadOf = <from>` rewrites; returns its path, for
+ * `GIT_CONFIG_GLOBAL`.
  */
 export async function writeGlobalGitConfig(
   base: string,
   hooksPath: string | null,
   insteadOf: Record<string, string> = {},
+  fsmonitor?: string,
 ): Promise<string> {
-  const lines = ['[protocol "file"]', "\tallow = always"];
-  if (hooksPath !== null) lines.push("[core]", `\thooksPath = ${hooksPath}`);
+  const lines = ['[protocol "file"]', "\tallow = always", "[core]"];
+  if (hooksPath !== null) lines.push(`\thooksPath = ${hooksPath}`);
+  if (fsmonitor !== undefined) lines.push(`\tfsmonitor = ${fsmonitor}`);
   for (const [from, to] of Object.entries(insteadOf)) {
     lines.push(`[url "${to}"]`, `\tinsteadOf = ${from}`);
   }

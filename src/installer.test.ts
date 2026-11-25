@@ -2806,6 +2806,31 @@ describe("installScriptDependencies", () => {
     },
   );
 
+  // #897: `npx skills add` clones the source repo itself.
+  test.skipIf(process.platform === "win32" || !existsSync("/bin/sh"))(
+    "gives npx git config that runs no hook",
+    async () => {
+      const bin = await realpath(await mkdtemp(join(tmpdir(), "asm-897-npx-")));
+      const out = join(bin, "env.txt");
+      try {
+        await writeFile(
+          join(bin, "npx"),
+          `#!/bin/sh\nprintf '%s' "$GIT_CONFIG_PARAMETERS" > '${out}'\n`,
+        );
+        await chmod(join(bin, "npx"), 0o755);
+        vi.stubEnv("PATH", `${bin}:/usr/bin:/bin`);
+        vi.stubEnv("GIT_CONFIG_PARAMETERS", "'core.hooksPath=.githooks'");
+        await checkNpxAvailable();
+        expect(await readFile(out, "utf-8")).toBe(
+          `'core.hooksPath=.githooks' ${noHooksGitParameters()}`,
+        );
+      } finally {
+        vi.unstubAllEnvs();
+        await rm(bin, { recursive: true, force: true });
+      }
+    },
+  );
+
   // #897: a git child of npm would clone a repo asm does not own.
   test("gives npm git config that runs no hook, after inherited -c config", async () => {
     const scriptsDir = join(tempDir, "scripts");

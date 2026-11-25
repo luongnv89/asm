@@ -103,13 +103,19 @@ export function noHooksPath(): string {
 
 /**
  * The GIT_CONFIG_PARAMETERS entries that turn off every hook (#897):
- * `core.hooksPath` for the hooks folder, and `hook.<event>.enabled=false`,
- * which git 2.55+ applies to hooks defined in config (`hook.<name>.command`,
- * git 2.54+) as well. Older git ignores the `hook.*` keys.
+ * - `core.hooksPath` for the hooks folder;
+ * - `hook.<event>.enabled=false`, which git 2.55+ applies to hooks defined
+ *   in config (`hook.<name>.command`, git 2.54+) as well; older git ignores
+ *   these keys;
+ * - an empty `core.fsmonitor`: git starts the fsmonitor hook from that
+ *   setting, not from the hooks folder, so a relative value would run a
+ *   file the clone ships on checkout. Git 2.36+ reads empty as false and
+ *   older git as unset (`false` would be a program name there).
  */
 export function noHooksGitParameters(): string {
   return [
     gitConfigParameter("core.hooksPath", noHooksPath()),
+    gitConfigParameter("core.fsmonitor", ""),
     ...GIT_HOOK_EVENTS.map((event) =>
       gitConfigParameter(`hook.${event}.enabled`, "false"),
     ),

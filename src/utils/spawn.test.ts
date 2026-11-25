@@ -345,12 +345,14 @@ describe("untrustedRepoGitEnv (#897)", () => {
   it("wins over a core.hooksPath set by inherited env config, per real git", () => {
     const env = untrustedRepoGitEnv({
       ...process.env,
-      GIT_CONFIG_PARAMETERS: "'core.hooksPath=.githooks'",
+      GIT_CONFIG_PARAMETERS: "'core.hooksPath=.githooks' 'core.fsmonitor=./fs'",
       GIT_CONFIG_COUNT: "1",
       GIT_CONFIG_KEY_0: "core.hooksPath",
       GIT_CONFIG_VALUE_0: ".githooks",
     });
     expect(gitConfig(env, "--get", "core.hooksPath")).toBe(noHooksPath());
+    // An empty core.fsmonitor turns off the fsmonitor hook on every git.
+    expect(gitConfig(env, "--get", "core.fsmonitor")).toBe("");
     // The other inherited entries still apply.
     expect(gitConfig(env, "--get-all", "core.hooksPath").split("\n")).toEqual([
       ".githooks",

@@ -138,8 +138,8 @@ and `rev-parse` above, `npx` (`skills add` clones), and `npm`, whose
 `--allow-git=none` stops it from cloning only where its version knows that
 flag. Without this, a relative `core.hooksPath` in the user's config (such
 as `.githooks`) resolved inside the fresh clone, and git ran the
-`post-checkout` hook the clone ships before any audit. Two settings are added
-after any git config inherited from the environment:
+`post-checkout` hook the clone ships before any audit. These settings are
+added after any git config inherited from the environment:
 
 - `core.hooksPath` points at `/dev/null`, or at the node binary on Windows,
   where Git for Windows would read `/dev/null` as a folder at the drive root.
@@ -148,6 +148,10 @@ after any git config inherited from the environment:
   later this also turns off hooks defined in config (`hook.<name>.command`).
   Git 2.54 has config-defined hooks but not this switch, so on 2.54 a hook
   command in the user's own config still runs.
+- `core.fsmonitor` is set to an empty value, which turns the fsmonitor hook
+  off. Git starts that hook from `core.fsmonitor`, not from the hooks
+  folder, so a relative value (such as `./fsmonitor`) would run a file the
+  clone ships when asm checks out a commit.
 
 `asm publish`, `asm doctor` and the `git config` reads keep the user's
 hooks, because they work on the user's own repository or config.
