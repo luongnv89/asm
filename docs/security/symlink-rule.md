@@ -146,8 +146,12 @@ added after any git config inherited from the environment:
   The Windows form has not been run on Windows.
 - `hook.<event>.enabled=false` is set for every hook event. In git 2.55 and
   later this also turns off hooks defined in config (`hook.<name>.command`).
-  Git 2.54 has config-defined hooks but not this switch, so on 2.54 a hook
-  command in the user's own config still runs.
+  Two cases are not covered, so a hook command in the user's own config
+  still runs there: git 2.54, which has config-defined hooks but not this
+  switch, and a user config that names a hook after an event (such as
+  `hook.post-checkout.command` or `hook.post-checkout.parallel`, which git
+  accepts). Git then reads `hook.post-checkout.enabled` as the switch for
+  that one hook, and the user's other config hooks for `post-checkout` run.
 - `core.fsmonitor` is set to an empty value, which turns the fsmonitor hook
   off. Git starts that hook from `core.fsmonitor`, not from the hooks
   folder, so a relative value (such as `./fsmonitor`) would run a file the

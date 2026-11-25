@@ -106,7 +106,9 @@ export function noHooksPath(): string {
  * - `core.hooksPath` for the hooks folder;
  * - `hook.<event>.enabled=false`, which git 2.55+ applies to hooks defined
  *   in config (`hook.<name>.command`, git 2.54+) as well; older git ignores
- *   these keys;
+ *   these keys. Not covered: git 2.54 itself, and a user hook named after an
+ *   event (`hook.<event>.command` or `.parallel`), which makes git read the
+ *   switch as that one hook's;
  * - an empty `core.fsmonitor`: git starts the fsmonitor hook from that
  *   setting, not from the hooks folder, so a relative value would run a
  *   file the clone ships on checkout. Git 2.36+ reads empty as false and
