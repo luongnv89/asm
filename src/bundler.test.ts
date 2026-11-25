@@ -682,18 +682,73 @@ describe("listPredefinedBundles", () => {
 
 const DATA_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "..", "data");
 
+interface PendingIndexEntry {
+  /** The `data/skill-index/` file this URL was checked against. */
+  indexFile: string;
+  /** That file's `updatedAt` at the check; any index refresh changes it. */
+  indexUpdatedAt: string;
+  reason: string;
+}
+
+const LUONGNV89_SKILLS_INDEX = {
+  indexFile: "luongnv89_skills.json",
+  indexUpdatedAt: "2026-11-06T01:00:30.490Z",
+} as const;
+
+const EXTRAS_MOVE =
+  "moved skills/ -> extras/ upstream (luongnv89/skills#606, 683e311)";
+
 /**
- * Bundle installUrls whose skill exists upstream but postdates the committed
- * `data/skill-index/` snapshot. Each entry must be missing from the index;
- * once an index refresh adds it, the guard test below fails until the entry
- * is deleted here.
+ * Bundle installUrls whose skill exists upstream but is missing from the
+ * committed `data/skill-index/` snapshot. Each entry is pinned to the
+ * `updatedAt` of the index file it was checked against: once that file is
+ * refreshed, the guard test below fails until the entry is re-checked
+ * upstream and either deleted (the index now lists it) or re-pinned.
  */
-const PENDING_INDEX_REFRESH: Record<string, string> = {
-  // luongnv89/skills renamed ship -> cut-release (98ed9e3, #694/#695); the
-  // committed luongnv89_skills.json (updatedAt 2026-11-06) still lists ship.
-  "github:luongnv89/skills:skills/cut-release":
-    "renamed from ship upstream after the 2026-11-06 index refresh",
-};
+const PENDING_INDEX_REFRESH: ReadonlyMap<string, PendingIndexEntry> = new Map([
+  [
+    "github:luongnv89/skills:skills/cut-release",
+    {
+      ...LUONGNV89_SKILLS_INDEX,
+      reason: "renamed from ship upstream (98ed9e3, #694/#695)",
+    },
+  ],
+  [
+    "github:luongnv89/skills:extras/appstore-review-checker",
+    { ...LUONGNV89_SKILLS_INDEX, reason: EXTRAS_MOVE },
+  ],
+  [
+    "github:luongnv89/skills:extras/aso-marketing",
+    { ...LUONGNV89_SKILLS_INDEX, reason: EXTRAS_MOVE },
+  ],
+  [
+    "github:luongnv89/skills:extras/brand-name-checker",
+    { ...LUONGNV89_SKILLS_INDEX, reason: EXTRAS_MOVE },
+  ],
+  [
+    "github:luongnv89/skills:extras/landing-page-generator",
+    { ...LUONGNV89_SKILLS_INDEX, reason: EXTRAS_MOVE },
+  ],
+  [
+    "github:luongnv89/skills:extras/seo-ai-optimizer",
+    { ...LUONGNV89_SKILLS_INDEX, reason: EXTRAS_MOVE },
+  ],
+  [
+    "github:luongnv89/skills:extras/dont-make-me-think",
+    { ...LUONGNV89_SKILLS_INDEX, reason: EXTRAS_MOVE },
+  ],
+]);
+
+interface CommittedIndex {
+  urls: Set<string>;
+  /** `updatedAt` per index file name, for every file that was read. */
+  updatedAtByFile: Map<string, unknown>;
+}
+
+interface BundleEntry {
+  label: string;
+  installUrl: string;
+}
 
 function readJsonDir<T>(dir: string): { file: string; data: T }[] {
   return readdirSync(dir)
@@ -705,22 +760,22 @@ function readJsonDir<T>(dir: string): { file: string; data: T }[] {
     }));
 }
 
-function committedIndexInstallUrls(): Set<string> {
+function readCommittedIndex(): CommittedIndex {
   const urls = new Set<string>();
-  for (const { data } of readJsonDir<{ skills?: { installUrl?: unknown }[] }>(
-    join(DATA_DIR, "skill-index"),
-  )) {
+  const updatedAtByFile = new Map<string, unknown>();
+  for (const { file, data } of readJsonDir<{
+    updatedAt?: unknown;
+    skills?: { installUrl?: unknown }[];
+  }>(join(DATA_DIR, "skill-index"))) {
+    updatedAtByFile.set(file, data.updatedAt);
     for (const skill of data.skills ?? []) {
       if (typeof skill.installUrl === "string") urls.add(skill.installUrl);
     }
   }
-  return urls;
+  return { urls, updatedAtByFile };
 }
 
-function predefinedBundleEntries(): {
-  label: string;
-  installUrl: string;
-}[] {
+function predefinedBundleEntries(): BundleEntry[] {
   return readJsonDir<BundleManifest>(join(DATA_DIR, "bundles")).flatMap(
     ({ file, data }) =>
       data.skills.map((skill) => ({
@@ -730,31 +785,104 @@ function predefinedBundleEntries(): {
   );
 }
 
-describe("predefined bundles resolve in the committed skill index", () => {
-  const indexUrls = committedIndexInstallUrls();
-  const entries = predefinedBundleEntries();
+function unresolvedBundleEntries(
+  entries: BundleEntry[],
+  indexUrls: ReadonlySet<string>,
+  pending: ReadonlyMap<string, PendingIndexEntry>,
+): string[] {
+  return entries
+    .filter((e) => !indexUrls.has(e.installUrl) && !pending.has(e.installUrl))
+    .map((e) => `${e.label} (${e.installUrl})`);
+}
 
-  it("reads a non-empty index and bundle set", () => {
-    expect(indexUrls.size).toBeGreaterThan(1000);
+function stalePendingEntries(
+  pending: ReadonlyMap<string, PendingIndexEntry>,
+  index: CommittedIndex,
+  bundleUrls: ReadonlySet<string>,
+): string[] {
+  const stale: string[] = [];
+  for (const [url, pin] of pending) {
+    if (index.urls.has(url)) {
+      stale.push(`${url}: now in data/skill-index/; delete this entry`);
+    }
+    if (!bundleUrls.has(url)) {
+      stale.push(`${url}: no predefined bundle uses it; delete this entry`);
+    }
+    const actual = index.updatedAtByFile.get(pin.indexFile);
+    if (actual !== pin.indexUpdatedAt) {
+      stale.push(
+        `${url}: pinned to ${pin.indexFile} updatedAt ${pin.indexUpdatedAt}, ` +
+          `but it is now ${String(actual)}. The index was refreshed: re-check ` +
+          `this URL upstream, then delete the entry if the index lists it or ` +
+          `re-pin it to the new updatedAt`,
+      );
+    }
+  }
+  return stale;
+}
+
+describe("predefined bundles resolve in the committed skill index", () => {
+  const index = readCommittedIndex();
+  const entries = predefinedBundleEntries();
+  const bundleUrls = new Set(entries.map((e) => e.installUrl));
+
+  it("reads a non-empty index, including luongnv89_skills.json, and bundle set", () => {
+    expect(index.urls.size).toBeGreaterThan(0);
+    expect(index.updatedAtByFile.has("luongnv89_skills.json")).toBe(true);
     expect(entries.length).toBeGreaterThan(0);
   });
 
   it("every bundle installUrl matches an installUrl in data/skill-index/", () => {
-    const unresolved = entries
-      .filter(
-        (e) =>
-          !indexUrls.has(e.installUrl) &&
-          !(e.installUrl in PENDING_INDEX_REFRESH),
-      )
-      .map((e) => `${e.label} (${e.installUrl})`);
-    expect(unresolved).toEqual([]);
+    expect(
+      unresolvedBundleEntries(entries, index.urls, PENDING_INDEX_REFRESH),
+    ).toEqual([]);
   });
 
-  it("PENDING_INDEX_REFRESH lists only bundle URLs still missing from the index", () => {
-    const bundleUrls = new Set(entries.map((e) => e.installUrl));
-    const stale = Object.keys(PENDING_INDEX_REFRESH).filter(
-      (url) => indexUrls.has(url) || !bundleUrls.has(url),
+  it("PENDING_INDEX_REFRESH lists only bundle URLs still missing from the index it is pinned to", () => {
+    expect(
+      stalePendingEntries(PENDING_INDEX_REFRESH, index, bundleUrls),
+    ).toEqual([]);
+  });
+
+  it("the guard fails for every pinned entry once its index file's updatedAt changes", () => {
+    const refreshed: CommittedIndex = {
+      urls: index.urls,
+      updatedAtByFile: new Map(index.updatedAtByFile).set(
+        "luongnv89_skills.json",
+        "2099-01-01T00:00:00.000Z",
+      ),
+    };
+    const stale = stalePendingEntries(
+      PENDING_INDEX_REFRESH,
+      refreshed,
+      bundleUrls,
     );
-    expect(stale).toEqual([]);
+    expect(stale).toHaveLength(PENDING_INDEX_REFRESH.size);
+    for (const [url, pin] of PENDING_INDEX_REFRESH) {
+      expect(pin.indexFile).toBe("luongnv89_skills.json");
+      expect(stale).toContainEqual(
+        expect.stringMatching(
+          new RegExp(
+            `^${url}: pinned to .*now 2099-01-01T00:00:00\\.000Z\\. .*re-check`,
+          ),
+        ),
+      );
+    }
+  });
+
+  it("allow-list lookups use own keys only (a prototype name does not resolve)", () => {
+    const bogus = ["constructor", "toString", "__proto__"].map(
+      (installUrl) => ({
+        label: "devops.json > bogus",
+        installUrl,
+      }),
+    );
+    expect(
+      unresolvedBundleEntries(bogus, new Set(), PENDING_INDEX_REFRESH),
+    ).toEqual([
+      "devops.json > bogus (constructor)",
+      "devops.json > bogus (toString)",
+      "devops.json > bogus (__proto__)",
+    ]);
   });
 });
