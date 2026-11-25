@@ -1,5 +1,6 @@
 import { describe, test, expect } from "vitest";
 import {
+  clipText,
   stripControlBytes,
   stripControlBytesDeep,
   stripControlBytesLine,
@@ -187,5 +188,21 @@ describe("stringifyForOutput", () => {
       `"${[...all].map((ch) => `\\u00${ch.charCodeAt(0).toString(16)}`).join("")}"`,
     );
     expect(JSON.parse(json)).toBe(all);
+  });
+});
+
+describe("clipText (#886)", () => {
+  test("leaves short text alone and marks a cut", () => {
+    expect(clipText("abc", 3)).toBe("abc");
+    expect(clipText("abcdef", 5)).toBe("ab...");
+    expect(clipText("abcdef", 4, "…")).toBe("abc…");
+  });
+
+  test("never cuts inside a surrogate pair", () => {
+    const smile = "\u{1F600}";
+    // The cut at 3 units would keep only the high surrogate.
+    expect(clipText(`ab${smile}cdef`, 6)).toBe("ab...");
+    expect(clipText(`ab${smile}cdef`, 7)).toBe(`ab${smile}...`);
+    expect(clipText(`${smile}${smile}`, 2, "…")).toBe("…");
   });
 });

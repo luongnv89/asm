@@ -8,6 +8,12 @@ import {
   stripControlBytes,
   METHOD_CALL_CATEGORY,
   POSSIBLE_DYNAMIC_CATEGORY,
+  AGENT_CONFIG_CATEGORY,
+  AGENT_CONFIG_RISK_CATEGORY,
+  agentConfigCategory,
+  looksLikeCredential,
+  scanAgentConfigs,
+  unpinnedFetchRisks,
 } from "./security-auditor-scan";
 import { scanForWarnings, classifyWarningRisk } from "./installer-core";
 describe("scanCode", () => {
@@ -1038,5 +1044,1048 @@ describe("audit and install preview agree on every probe (#820)", () => {
     } finally {
       await rm(root, { recursive: true, force: true });
     }
+  });
+});
+
+// ─── MCP server and hook configs (#886) ─────────────────────────────────────
+
+describe("scanAgentConfigs (#886)", () => {
+  const file = (relPath: string, content: unknown) => {
+    const text =
+      typeof content === "string" ? content : JSON.stringify(content);
+    return { relPath, content: text, lineCount: text.split("\n").length };
+  };
+  const server = (def: unknown) => ({ mcpServers: { srv: def } });
+  const scanOne = (relPath: string, content: unknown) =>
+    scanAgentConfigs({ files: [file(relPath, content)] });
+  const risksOf = (def: unknown) =>
+    scanOne(".mcp.json", server(def)).flatMap((f) => f.risks);
+
+  test("names each server and its full command line, original strings", () => {
+    const findings = scanOne(".mcp.json", {
+      mcpServers: {
+        a: { command: "node", args: ["server.js", "--port", "3000"] },
+        b: { url: "https://mcp.example.com/sse" },
+      },
+    });
+    expect(findings).toEqual([
+      {
+        file: ".mcp.json",
+        line: 1,
+        kind: "mcp-server",
+        name: "a",
+        command: "node server.js --port 3000",
+        risks: [],
+      },
+      {
+        file: ".mcp.json",
+        line: 1,
+        kind: "mcp-server",
+        name: "b",
+        command: "https://mcp.example.com/sse",
+        risks: [],
+      },
+    ]);
+  });
+
+  test("matches config files by exact name, any case, at any depth", () => {
+    const def = server({ command: "node", args: ["s.js"] });
+    const found = scanAgentConfigs({
+      files: [
+        file("scripts/.mcp.json", def),
+        file("MCP.JSON", def),
+        file("references/example-mcp.json", def),
+        file("references/mcp.json.example", def),
+        file("evals/evals.json", def),
+      ],
+    });
+    expect(found.map((f) => f.file)).toEqual(["scripts/.mcp.json", "MCP.JSON"]);
+  });
+
+  test("a manifest or settings file is a finding only with servers or hooks", () => {
+    const found = scanAgentConfigs({
+      files: [
+        file(".claude-plugin/plugin.json", {
+          name: "p",
+          mcpServers: { s: { command: "node", args: ["a.js"] } },
+        }),
+        file("gemini-extension.json", { name: "g", version: "1.0.0" }),
+        file(".claude/settings.json", { permissions: { allow: [] } }),
+        file("plugin.json", ["not", "an", "object"]),
+      ],
+    });
+    expect(found.map((f) => `${f.file}:${f.name}`)).toEqual([
+      ".claude-plugin/plugin.json:s",
+    ]);
+  });
+
+  test("an MCP config is a finding even with no servers", () => {
+    expect(scanOne(".mcp.json", { mcpServers: {} })[0]).toMatchObject({
+      kind: "config",
+      name: "mcpServers is empty",
+      risks: [],
+    });
+    expect(scanOne("mcp.json", {})[0].name).toBe("no mcpServers listed");
+    expect(scanOne(".mcp.json", [1])[0].name).toBe(
+      "top level is not a JSON object",
+    );
+    expect(scanOne("plugin.json", { mcpServers: 5 })[0].name).toBe(
+      "mcpServers is not an object",
+    );
+  });
+
+  test("VS Code's `servers` key counts in an MCP config", () => {
+    const [f] = scanOne(".vscode/mcp.json", {
+      servers: { s: { command: "uvx", args: ["mcp-server-git"] } },
+    });
+    expect(f.name).toBe("s");
+    expect(f.risks).toEqual(["unpinned remote fetch: uvx mcp-server-git"]);
+  });
+
+  test("malformed JSON is unreadable, never dropped", () => {
+    expect(scanOne(".mcp.json", '{"mcpServers": {')).toEqual([
+      {
+        file: ".mcp.json",
+        line: 1,
+        kind: "unreadable",
+        name: "not valid JSON: not parsed",
+        command: "",
+        risks: [],
+      },
+    ]);
+    expect(scanOne("settings.json", "// jsonc\n{}")[0].kind).toBe("unreadable");
+  });
+
+  test("files not read and links out of the folder are unreadable configs", () => {
+    const found = scanAgentConfigs({
+      files: [],
+      unread: [".mcp.json", "big.bin", "scripts/settings.json"],
+      externalSymlinks: [
+        {
+          path: "mcp.json",
+          target: "/elsewhere/mcp.json",
+          kind: "file",
+          severity: "critical",
+          note: "",
+        },
+        {
+          path: "lib",
+          target: "/elsewhere/lib",
+          kind: "directory",
+          severity: "critical",
+          note: "",
+        },
+      ],
+    });
+    expect(found.map((f) => `${f.kind}:${f.file}`)).toEqual([
+      "unreadable:.mcp.json",
+      "unreadable:scripts/settings.json",
+      "unreadable:mcp.json",
+    ]);
+  });
+
+  test.each([
+    ["npx -y x@latest", { command: "npx", args: ["-y", "x@latest"] }],
+    ["npx with no version", { command: "npx", args: ["-y", "some-server"] }],
+    ["npx with a range", { command: "npx", args: ["@s/x@^1.2.0"] }],
+    ["npx with a tag", { command: "npx", args: ["x@next"] }],
+    ["one command string", { command: "npx -y some-server" }],
+    ["--package=", { command: "npx", args: ["--package=evil", "t@1.2.3"] }],
+    ["-p", { command: "npx", args: ["-p", "evil", "t@1.0.0"] }],
+    ["a git spec", { command: "npx", args: ["github:user/repo"] }],
+    ["a path-qualified npx", { command: "/usr/local/bin/npx", args: ["x"] }],
+    [
+      "Windows npx.cmd",
+      { command: "C:\\Program Files\\nodejs\\npx.cmd", args: ["x"] },
+    ],
+    ["cmd /c npx", { command: "cmd", args: ["/c", "npx", "-y", "x"] }],
+    ["bunx", { command: "bunx", args: ["x"] }],
+    ["pnpm dlx", { command: "pnpm", args: ["dlx", "x"] }],
+    ["npm exec", { command: "npm", args: ["exec", "--", "x"] }],
+    ["uvx", { command: "uvx", args: ["mcp-server-fetch"] }],
+    ["uvx -p 3.12", { command: "uvx", args: ["-p", "3.12", "pkg"] }],
+    ["uvx --from", { command: "uvx", args: ["--from", "evil", "t==1.0.0"] }],
+    ["uv tool run", { command: "uv", args: ["tool", "run", "pkg"] }],
+    ["pipx run", { command: "pipx", args: ["run", "pkg"] }],
+    [
+      "pipx run --spec",
+      { command: "pipx", args: ["run", "--spec", "p>=1", "t"] },
+    ],
+    [
+      "docker, no tag",
+      {
+        command: "docker",
+        args: ["run", "-i", "--rm", "-e", "X", "ghcr.io/o/s"],
+      },
+    ],
+    ["docker :latest", { command: "docker", args: ["run", "o/s:latest"] }],
+    ["podman", { command: "podman", args: ["container", "run", "s"] }],
+    ["deno npm:", { command: "deno", args: ["run", "-A", "npm:x"] }],
+    ["deno URL", { command: "deno", args: ["run", "https://x.dev/m.ts"] }],
+    ["go run @main", { command: "go", args: ["run", "example.com/x@main"] }],
+    [
+      "sh -c with @latest",
+      { command: "sh", args: ["-c", "tool@latest serve"] },
+    ],
+  ])("unpinned remote fetch is a risk: %s", (_label, def) => {
+    expect(risksOf(def).length).toBeGreaterThan(0);
+  });
+
+  test.each([
+    ["pinned npx", { command: "npx", args: ["-y", "@scope/x@1.4.2"] }],
+    ["pinned npx -p", { command: "npx", args: ["-p", "x@1.0.0", "bin"] }],
+    ["uvx ==", { command: "uvx", args: ["pkg==1.2.3"] }],
+    ["uvx @", { command: "uvx", args: ["pkg@1.2.3"] }],
+    ["uvx --from", { command: "uvx", args: ["--from", "p[x]==2.0.0", "t"] }],
+    [
+      "pipx --spec",
+      { command: "pipx", args: ["run", "--spec", "p==1.0.0", "t"] },
+    ],
+    [
+      "docker tag",
+      { command: "docker", args: ["run", "-i", "-e", "LOG", "o/s:1.2.3"] },
+    ],
+    [
+      "docker digest",
+      { command: "docker", args: ["run", `o/s@sha256:${"a".repeat(64)}`] },
+    ],
+    ["npx local path", { command: "npx", args: ["./bin/server.js"] }],
+    ["node", { command: "node", args: ["server.js"] }],
+    ["python", { command: "python3", args: ["-m", "server"] }],
+    ["deno local", { command: "deno", args: ["run", "main.ts"] }],
+    ["go run local", { command: "go", args: ["run", "./cmd/server"] }],
+    ["go run pinned", { command: "go", args: ["run", "example.com/x@v1.2.3"] }],
+  ])("pinned or local code is not a risk: %s", (_label, def) => {
+    expect(risksOf(def)).toEqual([]);
+  });
+
+  test("credentials passed to a server are a risk", () => {
+    expect(risksOf({ command: "node", env: { GITHUB_TOKEN: "x" } })).toEqual([
+      "credential env: GITHUB_TOKEN",
+    ]);
+    expect(
+      risksOf({ command: "node", env: { TOKEN: "${GITHUB_TOKEN}" } }),
+    ).toEqual(["credential env: TOKEN", "credential reference: $GITHUB_TOKEN"]);
+    expect(risksOf({ command: "node", env: { X: "$MY_SECRET" } })).toEqual([
+      "credential reference: $MY_SECRET",
+    ]);
+    expect(risksOf({ command: "node", args: ["--key", "${apiKey}"] })).toEqual([
+      "credential reference: $apiKey",
+    ]);
+    expect(
+      risksOf({ url: "https://h.example/mcp?api_key=${API_KEY}&q=1" }),
+    ).toEqual(["credential in url: api_key", "credential reference: $API_KEY"]);
+    expect(risksOf({ url: "https://u:pw@h.example/mcp" })).toEqual([
+      "credential in url: password",
+    ]);
+    expect(
+      risksOf({
+        url: "https://h.example",
+        headers: { Authorization: "Bearer x" },
+      }),
+    ).toEqual(["credential header: Authorization"]);
+    expect(
+      risksOf({ command: "node", env: { LOG_LEVEL: "info", PORT: "3" } }),
+    ).toEqual([]);
+  });
+
+  test("credential names: segments ending TOKEN, KEY, SECRET, PASSWORD", () => {
+    for (const name of [
+      "TOKEN",
+      "GITHUB_TOKEN",
+      "api_key",
+      "apiKey",
+      "OPENAI_API_KEY",
+      "CLIENT_SECRET",
+      "DB_PASSWORD",
+      "accessToken",
+      "AWS_CREDENTIALS",
+    ])
+      expect(looksLikeCredential(name), name).toBe(true);
+    for (const name of ["LOG_LEVEL", "PORT", "KEYBOARD_LAYOUT", "PATH", "HOME"])
+      expect(looksLikeCredential(name), name).toBe(false);
+  });
+
+  test("hooks: each command is listed under its event, same danger rules", () => {
+    const found = scanOne(".claude/settings.json", {
+      hooks: {
+        PreToolUse: [
+          {
+            matcher: "Bash",
+            hooks: [
+              { type: "command", command: "./scripts/check.sh" },
+              { type: "command", command: "npx -y lint-hook@latest" },
+            ],
+          },
+        ],
+        Stop: [{ hooks: [{ type: "prompt", prompt: "done?" }] }],
+      },
+    });
+    expect(found).toEqual([
+      expect.objectContaining({
+        kind: "hook",
+        name: "PreToolUse",
+        command: "./scripts/check.sh",
+        risks: [],
+      }),
+      expect.objectContaining({
+        kind: "hook",
+        name: "PreToolUse",
+        command: "npx -y lint-hook@latest",
+        risks: ["unpinned remote fetch: npx lint-hook@latest"],
+      }),
+    ]);
+    expect(scanOne("hooks.json", { hooks: [] })[0].name).toBe(
+      "hooks present, no command found",
+    );
+  });
+
+  test("valid JSON in an unexpected shape is a finding, never a crash", () => {
+    // Built as text: too deep for JSON.stringify, not for JSON.parse.
+    const deep = "[".repeat(200_000) + '"x"' + "]".repeat(200_000);
+    const deepHooks =
+      '{"h":'.repeat(200_000) + '{"command":"deep"}' + "}".repeat(200_000);
+    const findings = scanAgentConfigs({
+      files: [
+        file(
+          ".mcp.json",
+          `{"mcpServers":{"a":{"command":{}},"b":{"command":"node","args":5},` +
+            `"c":{"command":"node","args":[${deep},7,null]},"d":"not an object",` +
+            `"e":{"command":["npx","x"]}}}`,
+        ),
+        file("settings.json", `{"hooks":${deepHooks}}`),
+      ],
+    });
+    expect(findings.map((f) => f.command)).toEqual([
+      "(no command: not a recognised server entry)",
+      "node",
+      "node (not-a-string) (not-a-string) (not-a-string)",
+      "(no command: not a recognised server entry)",
+      "npx x",
+      "",
+    ]);
+    expect(findings[4].risks).toEqual(["unpinned remote fetch: npx x"]);
+    // Past the hook walk's depth bound: listed as a config with no command.
+    expect(findings[5]).toMatchObject({
+      kind: "config",
+      file: "settings.json",
+    });
+  });
+
+  test("a manifest path is scanned only when the walk read it inside the folder", () => {
+    const files = [
+      file(".claude-plugin/plugin.json", {
+        name: "p",
+        mcpServers: "./config/servers.json",
+        hooks: "${CLAUDE_PLUGIN_ROOT}/hooks/my-hooks.json",
+      }),
+      file("config/servers.json", {
+        mcpServers: { s: { command: "uvx", args: ["srv"] } },
+      }),
+      file("hooks/my-hooks.json", {
+        hooks: { Stop: [{ hooks: [{ type: "command", command: "./x.sh" }] }] },
+      }),
+      file("gemini-extension.json", {
+        mcpServers: ["../../outside.json", "./.mcp.json", "./missing.json"],
+      }),
+      file(".mcp.json", { mcpServers: {} }),
+    ];
+    const found = scanAgentConfigs({ files });
+    expect(found.map((f) => `${f.kind}|${f.file}|${f.name}`)).toEqual([
+      "mcp-server|config/servers.json|s",
+      "hook|hooks/my-hooks.json|Stop",
+      "unreadable|gemini-extension.json|mcpServers names ../../outside.json, outside the skill folder: not read",
+      "unreadable|gemini-extension.json|mcpServers names ./missing.json, not in the skill folder",
+      "config|.mcp.json|mcpServers is empty",
+    ]);
+    expect(found[0].risks).toEqual(["unpinned remote fetch: uvx srv"]);
+    // A referenced file's own references are not followed.
+    const nested = scanAgentConfigs({
+      files: [
+        file("plugin.json", { mcpServers: "a.json" }),
+        file("a.json", { mcpServers: "b.json" }),
+        file("b.json", { mcpServers: { s: { command: "node" } } }),
+      ],
+    });
+    expect(nested.map((f) => `${f.kind}|${f.file}|${f.name}`)).toEqual([
+      "unreadable|a.json|mcpServers names another file: not followed",
+    ]);
+  });
+
+  test("a config with many servers is bounded and keeps every risk", () => {
+    const servers: Record<string, unknown> = {};
+    for (let i = 0; i < 12_000; i++)
+      servers[`s${i}`] = { command: "node", args: ["a.js"] };
+    servers.last = { command: "npx", args: ["-y", "x@latest"] };
+    const content = JSON.stringify({ mcpServers: servers });
+    expect(content.length).toBeLessThan(512 * 1024);
+    const start = Date.now();
+    const found = scanOne(".mcp.json", content);
+    expect(Date.now() - start).toBeLessThan(5_000);
+    expect(found).toHaveLength(100);
+    expect(found[99]).toMatchObject({
+      kind: "config",
+      name: "11902 more servers or hooks not listed",
+      risks: ["unpinned remote fetch: npx x@latest"],
+    });
+  });
+
+  test("findings keep the original strings: control bytes are stripped only at render", () => {
+    const evil = "a\u001b[31mRED\nFAKE\u202e";
+    const found = scanOne(".mcp.json", {
+      mcpServers: { [evil]: { command: `node${evil}`, args: [evil] } },
+    });
+    expect(found[0].name).toBe(evil);
+    expect(found[0].command).toBe(`node${evil} "${evil}"`);
+    const category = agentConfigCategory(found)!;
+    expect(category.category).toBe(AGENT_CONFIG_CATEGORY);
+    expect(category.matches[0].match).toContain(evil);
+    expect(category.matches[0].severity).toBe("warning");
+    expect(agentConfigCategory([])).toBeNull();
+  });
+
+  test("line is where the server's key first appears", () => {
+    const content =
+      '{\n  "mcpServers": {\n    "a": {"command": "node"},\n    "b": {"command": "npx"}\n  }\n}\n';
+    expect(scanOne(".mcp.json", content).map((f) => f.line)).toEqual([3, 4]);
+  });
+
+  test("a command line repeating a runner is scanned in linear time (B1)", () => {
+    const command = "npx --registry ".repeat(30_000) + "x";
+    expect(command.length).toBeLessThan(512 * 1024);
+    const start = Date.now();
+    const found = scanOne("hooks.json", {
+      hooks: { Stop: [{ hooks: [{ type: "command", command }] }] },
+    });
+    expect(Date.now() - start).toBeLessThan(3_000);
+    expect(found).toHaveLength(1);
+  });
+
+  test.each([
+    ["npx --prefix", ["npx", "--prefix", "/tmp/x", "evil-pkg"]],
+    ["npx -w", ["npx", "-w", "./pkg", "evil-pkg"]],
+    ["uvx --directory", ["uvx", "--directory", "./d", "evil"]],
+    ["uvx --cache-dir", ["uvx", "--cache-dir", "/tmp/c", "evil"]],
+    ["npx unknown option", ["npx", "--some-opt", "./v", "evil"]],
+    [
+      "docker --volumes-from",
+      ["docker", "run", "--volumes-from", "data:ro", "evil"],
+    ],
+    ["docker --link", ["docker", "run", "--link", "db:db", "evil"]],
+    ["docker unknown option", ["docker", "run", "--new-opt", "a:b", "evil"]],
+    ["npm --yes exec", ["npm", "--yes", "exec", "evil"]],
+    ["pnpm --silent dlx", ["pnpm", "--silent", "dlx", "evil"]],
+  ])("an option's value cannot hide the package (B3, B5): %s", (_l, argv) => {
+    expect(unpinnedFetchRisks(argv)).toEqual([expect.stringContaining("evil")]);
+  });
+
+  test("known flags do not make the tool's own arguments a package", () => {
+    expect(unpinnedFetchRisks(["npx", "--yes", "x@1.2.3", "serve"])).toEqual(
+      [],
+    );
+    expect(
+      unpinnedFetchRisks(["docker", "run", "-i", "--rm", "o/s:1.0.0", "stdio"]),
+    ).toEqual([]);
+  });
+
+  test("VS Code and Windows variable forms are credential references (B6)", () => {
+    expect(
+      scanOne(".vscode/mcp.json", {
+        servers: {
+          gh: {
+            command: "node",
+            args: ["s.js"],
+            env: { AUTH: "${env:GITHUB_TOKEN}" },
+          },
+        },
+      })[0].risks,
+    ).toEqual(["credential reference: $GITHUB_TOKEN"]);
+    expect(risksOf({ command: "node", args: ["${input:apiKey}"] })).toEqual([
+      "credential reference: $apiKey",
+    ]);
+    expect(risksOf({ command: "node", args: ["%GITHUB_TOKEN%"] })).toEqual([
+      "credential reference: $GITHUB_TOKEN",
+    ]);
+  });
+
+  test("hook commands that pass a credential are a risk", () => {
+    expect(
+      scanOne("settings.json", {
+        hooks: {
+          Stop: [
+            { hooks: [{ type: "command", command: "notify $SLACK_TOKEN" }] },
+          ],
+        },
+      })[0].risks,
+    ).toEqual(["credential reference: $SLACK_TOKEN"]);
+  });
+
+  test("a hooks array of paths and objects is followed (B7)", () => {
+    const found = scanAgentConfigs({
+      files: [
+        file(".claude-plugin/plugin.json", {
+          name: "p",
+          hooks: [
+            "./extra-hooks.json",
+            {
+              SessionStart: [
+                { hooks: [{ type: "command", command: "./a.sh" }] },
+              ],
+            },
+          ],
+        }),
+        file("extra-hooks.json", {
+          hooks: {
+            SessionStart: [
+              { hooks: [{ type: "command", command: "npx evil" }] },
+            ],
+          },
+        }),
+      ],
+    });
+    expect(
+      found.map((f) => `${f.file}|${f.command}|${f.risks.length}`),
+    ).toEqual([
+      "extra-hooks.json|npx evil|1",
+      ".claude-plugin/plugin.json|./a.sh|0",
+    ]);
+  });
+
+  test("a file many manifests reference is scanned once", () => {
+    const servers: Record<string, unknown> = {};
+    for (let i = 0; i < 5_000; i++) servers[`s${i}`] = { command: "node" };
+    const files = [file("s.json", { mcpServers: servers })];
+    for (let m = 0; m < 100; m++)
+      files.push(
+        file(`m${m}/plugin.json`, { mcpServers: Array(20).fill("../s.json") }),
+      );
+    const start = Date.now();
+    const found = scanAgentConfigs({ files });
+    expect(Date.now() - start).toBeLessThan(3_000);
+    expect(found.filter((f) => f.file === "s.json")).toHaveLength(100);
+  });
+
+  test("a word full of quotes is tokenised in linear time (QA cycle 2)", () => {
+    const arg = "x" + '"'.repeat(500_000) + "y";
+    const start = Date.now();
+    expect(unpinnedFetchRisks(["npx", arg])).toEqual([
+      `unpinned remote fetch: npx ${arg}`,
+    ]);
+    expect(unpinnedFetchRisks(["npx", `"'x@1.2.3'"`])).toEqual([]);
+    expect(Date.now() - start).toBeLessThan(2_000);
+  });
+
+  test("a package past the runner window is a risk, not a pass (QA cycle 3)", () => {
+    const opts = Array.from({ length: 40 }, (_, i) => `--o${i}=1`);
+    expect(unpinnedFetchRisks(["npx", ...opts, "evil-pkg"])).toEqual([
+      "unpinned remote fetch: npx (package past the first 32 words, not checked)",
+    ]);
+    expect(unpinnedFetchRisks(["uvx", ...opts, "evil"])).toHaveLength(1);
+    expect(unpinnedFetchRisks(["npm", ...opts, "exec", "evil"])).toEqual([
+      "unpinned remote fetch: npm (package past the first 32 words, not checked)",
+    ]);
+    // A pinned package inside the window, then the tool's own long argv.
+    expect(unpinnedFetchRisks(["npx", "-y", "x@1.2.3", ...opts])).toEqual([]);
+  });
+
+  test("line lookup is linear on a newline-padded config (QA cycle 3)", () => {
+    const servers: Record<string, unknown> = {};
+    for (let i = 0; i < 99; i++) servers[`s${i}`] = { command: "node" };
+    const content =
+      "\n".repeat(500_000) + JSON.stringify({ mcpServers: servers });
+    expect(content.length).toBeLessThan(512 * 1024);
+    const start = Date.now();
+    for (let n = 0; n < 20; n++) {
+      const found = scanOne(".mcp.json", content);
+      expect(found[98].line).toBe(500_001);
+    }
+    expect(Date.now() - start).toBeLessThan(5_000);
+  });
+
+  test.each([
+    [
+      "npm --registry URL exec",
+      ["npm", "--registry", "https://r.example", "exec", "-y", "evil"],
+    ],
+    ["npm --prefix exec", ["npm", "--prefix", "x", "exec", "evil"]],
+    ["pnpm --dir dlx", ["pnpm", "--dir", "x", "dlx", "evil"]],
+    [
+      "uv --directory tool run",
+      ["uv", "--directory", "x", "tool", "run", "evil"],
+    ],
+    [
+      "docker --context run",
+      ["docker", "--context", "default", "run", "evilimg"],
+    ],
+    ["docker -H run", ["docker", "-H", "tcp://h:2375", "run", "evilimg"]],
+  ])(
+    "a global option's value cannot hide the subcommand (QA cycle 4): %s",
+    (_l, argv) => {
+      expect(unpinnedFetchRisks(argv)).toEqual([
+        expect.stringContaining("evil"),
+      ]);
+    },
+  );
+
+  test("other subcommands are not runners", () => {
+    expect(unpinnedFetchRisks(["npm", "install", "x"])).toEqual([]);
+    expect(unpinnedFetchRisks(["npm", "run", "build"])).toEqual([]);
+    expect(unpinnedFetchRisks(["docker", "--context", "c", "ps"])).toEqual([]);
+    expect(unpinnedFetchRisks(["go", "build", "./..."])).toEqual([]);
+    // An unknown option before the subcommand still finds it.
+    expect(unpinnedFetchRisks(["npm", "--new-flag", "exec", "evil"])).toEqual([
+      "unpinned remote fetch: npm exec evil",
+    ]);
+  });
+
+  test("every path a manifest names is scanned, past any count (QA cycle 4)", () => {
+    const paths = Array.from({ length: 25 }, (_, i) => `./s${i}.json`);
+    const files = [file(".claude-plugin/plugin.json", { mcpServers: paths })];
+    for (let i = 0; i < 25; i++)
+      files.push(
+        file(`s${i}.json`, {
+          mcpServers: {
+            [`srv${i}`]:
+              i === 24
+                ? { command: "npx", args: ["-y", "evil"] }
+                : { command: "node" },
+          },
+        }),
+      );
+    const found = scanAgentConfigs({ files });
+    expect(found).toHaveLength(25);
+    expect(found.filter((f) => f.risks.length > 0).map((f) => f.name)).toEqual([
+      "srv24",
+    ]);
+  });
+
+  test("uv run --with fetches the package, not the command (QA cycle 5)", () => {
+    // The argv `mcp install` (MCP Python SDK) and FastMCP write.
+    expect(
+      unpinnedFetchRisks([
+        "uv",
+        "run",
+        "--with",
+        "mcp[cli]",
+        "mcp",
+        "run",
+        "/abs/server.py",
+      ]),
+    ).toEqual(["unpinned remote fetch: uv run mcp[cli]"]);
+    expect(
+      unpinnedFetchRisks([
+        "uv",
+        "run",
+        "--with",
+        "fastmcp",
+        "fastmcp",
+        "run",
+        "server.py",
+      ]),
+    ).toEqual(["unpinned remote fetch: uv run fastmcp"]);
+    expect(
+      unpinnedFetchRisks([
+        "uv",
+        "run",
+        "--with",
+        "mcp[cli]==1.2.3",
+        "mcp",
+        "run",
+        "s.py",
+      ]),
+    ).toEqual([]);
+    expect(unpinnedFetchRisks(["uv", "run", "server.py"])).toEqual([]);
+    expect(
+      unpinnedFetchRisks(["uv", "--directory", "/x", "run", "server.py"]),
+    ).toEqual([]);
+  });
+
+  test("a hooks path to a config scanned on its own adds no note (QA cycle 5)", () => {
+    const found = scanAgentConfigs({
+      files: [
+        file(".claude-plugin/plugin.json", {
+          name: "p",
+          hooks: "./hooks/hooks.json",
+        }),
+        file("hooks/hooks.json", {
+          hooks: {
+            Stop: [{ hooks: [{ type: "command", command: "./x.sh" }] }],
+          },
+        }),
+      ],
+    });
+    expect(found.map((f) => `${f.kind}|${f.file}`)).toEqual([
+      "hook|hooks/hooks.json",
+    ]);
+  });
+
+  test("unpinnedFetchRisks reports @latest once", () => {
+    expect(unpinnedFetchRisks(["npx", "-y", "x@latest"])).toEqual([
+      "unpinned remote fetch: npx x@latest",
+    ]);
+    expect(unpinnedFetchRisks(["./run", "tool@latest"])).toEqual([
+      "fetches @latest: tool@latest",
+    ]);
+  });
+
+  // Shapes copied from Anthropic's official plugin marketplace, whose
+  // `.mcp.json` files list servers with no `mcpServers` wrapper (review B1).
+  test("a .mcp.json with servers at its top level lists each server (B1)", () => {
+    const playwright = scanOne(".mcp.json", {
+      playwright: { command: "npx", args: ["@playwright/mcp@latest"] },
+    });
+    expect(playwright).toEqual([
+      {
+        file: ".mcp.json",
+        line: 1,
+        kind: "mcp-server",
+        name: "playwright",
+        command: "npx @playwright/mcp@latest",
+        risks: ["unpinned remote fetch: npx @playwright/mcp@latest"],
+      },
+    ]);
+    const github = scanOne(".mcp.json", {
+      github: {
+        type: "http",
+        url: "https://api.githubcopilot.com/mcp/",
+        headers: { Authorization: "Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}" },
+      },
+    });
+    expect(github.map((f) => [f.name, f.command, f.risks])).toEqual([
+      [
+        "github",
+        "https://api.githubcopilot.com/mcp/",
+        [
+          "credential header: Authorization",
+          "credential reference: $GITHUB_PERSONAL_ACCESS_TOKEN",
+        ],
+      ],
+    ]);
+    // Non-object entries are not servers; with no object entry, a note.
+    expect(
+      scanOne("mcp.json", { $schema: "x", a: { command: "node" } }).map(
+        (f) => f.name,
+      ),
+    ).toEqual(["a"]);
+    expect(scanOne(".mcp.json", {})[0]).toMatchObject({
+      kind: "config",
+      name: "no mcpServers listed",
+      risks: [],
+    });
+    expect(scanOne(".mcp.json", { version: 1 })[0].name).toBe(
+      "no mcpServers listed",
+    );
+    // Not an MCP config by name: a bare object there is not servers.
+    expect(
+      scanOne(".claude/settings.json", { editor: { command: "npx x" } }),
+    ).toEqual([]);
+  });
+
+  test("a bare server map a plugin manifest names is scanned (B1)", () => {
+    const found = scanAgentConfigs({
+      files: [
+        file(".claude-plugin/plugin.json", {
+          name: "p",
+          mcpServers: "./mcp/servers.json",
+        }),
+        file("mcp/servers.json", {
+          h: {
+            command: "npx",
+            args: ["-y", "evil@latest"],
+            env: { TOKEN: "x" },
+          },
+        }),
+      ],
+    });
+    expect(found.map((f) => [f.file, f.name, f.risks])).toEqual([
+      [
+        "mcp/servers.json",
+        "h",
+        ["unpinned remote fetch: npx evil@latest", "credential env: TOKEN"],
+      ],
+    ]);
+  });
+
+  test("uv run: -w, --with after option values, and a script URL (B2)", () => {
+    const uv = (...args: string[]) =>
+      unpinnedFetchRisks(["uv", "run", ...args]);
+    expect(uv("-w", "evil", "server.py")).toEqual([
+      "unpinned remote fetch: uv run evil",
+    ]);
+    expect(uv("-wevil", "server.py")).toEqual([
+      "unpinned remote fetch: uv run evil",
+    ]);
+    expect(uv("--extra", "cli", "--with", "evil", "server.py")).toEqual([
+      "unpinned remote fetch: uv run evil",
+    ]);
+    expect(uv("--env-file", ".env", "--with", "evil", "server.py")).toEqual([
+      "unpinned remote fetch: uv run evil",
+    ]);
+    // An option this scan does not know, with a value: the scan goes on.
+    expect(uv("--not-known", "v", "--with=evil", "server.py")).toEqual([
+      "unpinned remote fetch: uv run evil",
+    ]);
+    expect(uv("https://evil.example/x.py")).toEqual([
+      "unpinned remote fetch: uv run https://evil.example/x.py",
+    ]);
+    expect(uv("--frozen", "HTTP://evil.example/x.py")).toEqual([
+      "unpinned remote fetch: uv run HTTP://evil.example/x.py",
+    ]);
+    expect(unpinnedFetchRisks(["uvx", "-w", "evil", "pkg==1.2.3"])).toEqual([
+      "unpinned remote fetch: uvx evil",
+    ]);
+    // Pinned or local stays clean; words after the command are its own.
+    expect(uv("-w", "dep==1.2.3", "server.py")).toEqual([]);
+    expect(uv("--extra", "cli", "server.py")).toEqual([]);
+    expect(uv("server.py", "--with", "x")).toEqual([]);
+    expect(uv("server.py", "--url", "https://api.example.com")).toEqual([]);
+  });
+
+  test("credentials passed to a container with -e / --env are a risk (B3)", () => {
+    const docker = (...args: string[]) =>
+      risksOf({ command: "docker", args: ["run", "-i", "--rm", ...args] });
+    const image = "ghcr.io/github/github-mcp-server:v0.5.0";
+    expect(docker("-e", "GITHUB_PERSONAL_ACCESS_TOKEN", image)).toEqual([
+      "credential env: GITHUB_PERSONAL_ACCESS_TOKEN",
+    ]);
+    expect(docker("-e", "TFE_TOKEN=${TFE_TOKEN}", image)).toEqual([
+      "credential env: TFE_TOKEN",
+      "credential reference: $TFE_TOKEN",
+    ]);
+    expect(docker("--env", "API_KEY", image)).toEqual([
+      "credential env: API_KEY",
+    ]);
+    expect(docker("--env=API_TOKEN", image)).toEqual([
+      "credential env: API_TOKEN",
+    ]);
+    expect(docker("--env=DB_PASSWORD=x", image)).toEqual([
+      "credential env: DB_PASSWORD",
+    ]);
+    expect(docker("-eCLIENT_SECRET", image)).toEqual([
+      "credential env: CLIENT_SECRET",
+    ]);
+    expect(
+      risksOf({
+        command: "podman",
+        args: ["container", "run", "-e", "GH_TOKEN", "img:1.0"],
+      }),
+    ).toEqual(["credential env: GH_TOKEN"]);
+    // Benign names, and `-e` outside a container command, are no risk.
+    expect(docker("-e", "DEBUG=1", "--env", "LOG_LEVEL", image)).toEqual([]);
+    expect(docker("--env-file", "TOKEN.env", image)).toEqual([]);
+    expect(
+      risksOf({ command: "node", args: ["-e", "process.env.API_TOKEN"] }),
+    ).toEqual([]);
+  });
+
+  test("== with a version and no * is an exact pin; @ stays strict (nit 1)", () => {
+    for (const spec of ["pkg==1.0", "mcp-server-time==2025.1", "p[x]==2"])
+      expect(unpinnedFetchRisks(["uvx", spec]), spec).toEqual([]);
+    expect(
+      unpinnedFetchRisks(["uv", "run", "--with", "pkg==1.0", "s.py"]),
+    ).toEqual([]);
+    for (const spec of ["pkg==1.*", "pkg@1.0", "pkg==1.0,evil"])
+      expect(unpinnedFetchRisks(["uvx", spec]), spec).toEqual([
+        `unpinned remote fetch: uvx ${spec}`,
+      ]);
+    // `>` splits the word as a shell redirect would; still a risk.
+    expect(unpinnedFetchRisks(["uvx", "pkg>=1.0"])).toEqual([
+      "unpinned remote fetch: uvx pkg",
+    ]);
+  });
+
+  // Claude Code loads `mcpServers || <the whole file>` (re-review B1).
+  test("a falsy mcpServers or a servers key does not hide bare servers (B1)", () => {
+    const evil = { command: "npx", args: ["-y", "evil@latest"] };
+    const stop = {
+      Stop: [{ hooks: [{ type: "command", command: "./x.sh" }] }],
+    };
+    for (const wrapper of [
+      { mcpServers: null },
+      { mcpServers: false },
+      { mcpServers: 0 },
+      { servers: {} },
+    ]) {
+      expect(
+        scanOne(".mcp.json", { ...wrapper, evil }).map((f) => [
+          f.name,
+          f.risks,
+        ]),
+        JSON.stringify(wrapper),
+      ).toEqual([["evil", ["unpinned remote fetch: npx evil@latest"]]]);
+    }
+    // A VS Code `servers` map is read beside the bare entries.
+    expect(
+      scanOne("mcp.json", { servers: { a: evil }, b: { command: "node" } }).map(
+        (f) => f.name,
+      ),
+    ).toEqual(["b", "a"]);
+    // A truthy `mcpServers` is all Claude Code loads: siblings are not read.
+    expect(
+      scanOne(".mcp.json", { mcpServers: {}, evil }).map((f) => [
+        f.kind,
+        f.name,
+        f.risks,
+      ]),
+    ).toEqual([["config", "mcpServers is empty", []]]);
+    // `hooks` is scanned as hooks, never listed as a server.
+    expect(
+      scanOne(".mcp.json", { srv: evil, hooks: stop }).map((f) => [
+        f.kind,
+        f.name,
+      ]),
+    ).toEqual([
+      ["mcp-server", "srv"],
+      ["hook", "Stop"],
+    ]);
+    expect(
+      scanOne(".mcp.json", { hooks: stop }).map((f) => [f.kind, f.name]),
+    ).toEqual([
+      ["config", "no mcpServers listed"],
+      ["hook", "Stop"],
+    ]);
+    // An entry with no command, url or type starts nothing: no credential risk.
+    expect(
+      scanOne(".mcp.json", {
+        defaults: { env: { GITHUB_TOKEN: "${GITHUB_TOKEN}" } },
+      }).map((f) => [f.name, f.risks]),
+    ).toEqual([["defaults", []]]);
+    expect(
+      scanOne(".mcp.json", {
+        s: { type: "stdio", env: { GITHUB_TOKEN: "x" } },
+      }).map((f) => f.risks),
+    ).toEqual([["credential env: GITHUB_TOKEN"]]);
+  });
+
+  test("-e at the end of a short-option cluster is -e (B3)", () => {
+    const docker = (...args: string[]) =>
+      risksOf({ command: "docker", args: ["run", ...args, "img:1.0"] });
+    expect(docker("-ie", "GITHUB_TOKEN")).toEqual([
+      "credential env: GITHUB_TOKEN",
+    ]);
+    expect(docker("--rm", "-ite", "GITHUB_PERSONAL_ACCESS_TOKEN")).toEqual([
+      "credential env: GITHUB_PERSONAL_ACCESS_TOKEN",
+    ]);
+    expect(docker("-ieGITHUB_TOKEN")).toEqual(["credential env: GITHUB_TOKEN"]);
+    expect(docker("-dite", "API_KEY=x")).toEqual(["credential env: API_KEY"]);
+    // A boolean cluster takes no value: the image is still checked.
+    expect(
+      risksOf({ command: "docker", args: ["run", "-dit", "evil"] }),
+    ).toEqual(["unpinned remote fetch: docker run evil"]);
+  });
+
+  test("container -e is read up to the image or a shell separator (nit 4)", () => {
+    const docker = (...args: string[]) =>
+      risksOf({ command: "docker", args: ["run", ...args] });
+    expect(docker("--rm", "img:1.0", "node", "-e", "API_KEY_check")).toEqual(
+      [],
+    );
+    expect(docker("img:1.0", "-e", "TOKEN")).toEqual([]);
+    expect(
+      risksOf({ command: "docker run --rm img:1.0 && node -e API_KEY_x" }),
+    ).toEqual([]);
+    expect(risksOf({ command: "docker build . ; node -e API_KEY_x" })).toEqual(
+      [],
+    );
+    // Option values and words before the subcommand do not end the scan.
+    expect(
+      docker("--name", "srv", "-v", "/a:/b", "-e", "TOKEN", "img:1.0"),
+    ).toEqual(["credential env: TOKEN"]);
+    expect(
+      risksOf({
+        command: "docker",
+        args: ["-H", "tcp://x", "run", "-e", "TOKEN", "img:1.0"],
+      }),
+    ).toEqual(["credential env: TOKEN"]);
+    expect(
+      risksOf({
+        command: "docker",
+        args: ["compose", "run", "-e", "API_KEY", "svc"],
+      }),
+    ).toEqual(["credential env: API_KEY"]);
+    // After an option this scan does not know, one word may be its value.
+    expect(docker("--unknown", "v:1.0", "-e", "TOKEN", "img:1.0")).toEqual([
+      "credential env: TOKEN",
+    ]);
+  });
+
+  test("=== is an exact pin; every --with package is checked (nit 3)", () => {
+    expect(unpinnedFetchRisks(["uvx", "pkg===1.0"])).toEqual([]);
+    expect(
+      unpinnedFetchRisks(["uv", "run", "--with", "a==1.0,b==2.0", "s.py"]),
+    ).toEqual([]);
+    expect(
+      unpinnedFetchRisks(["uv", "run", "-w", "a===1.0,b==2", "s.py"]),
+    ).toEqual([]);
+    expect(
+      unpinnedFetchRisks(["uv", "run", "--with", "a==1.0,evil", "s.py"]),
+    ).toEqual(["unpinned remote fetch: uv run evil"]);
+    expect(unpinnedFetchRisks(["uvx", "--with=evil,b==1", "pkg==1"])).toEqual([
+      "unpinned remote fetch: uvx evil",
+    ]);
+  });
+});
+
+describe("install preview: MCP servers and hooks (#886)", () => {
+  async function previewOf(files: Record<string, string>) {
+    const dir = await mkdtemp(join(tmpdir(), "asm-886-preview-"));
+    try {
+      for (const [rel, content] of Object.entries(files)) {
+        await mkdir(dirname(join(dir, rel)), { recursive: true });
+        await writeFile(join(dir, rel), content);
+      }
+      const warnings = await scanForWarnings(dir);
+      return { warnings, risk: classifyWarningRisk(warnings) };
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  }
+  const skill = "---\nname: s\ndescription: d\n---\n# s\n";
+
+  test("a plain server config is medium risk", async () => {
+    const { warnings, risk } = await previewOf({
+      "SKILL.md": skill,
+      ".mcp.json": '{"mcpServers":{"h":{"command":"node","args":["s.js"]}}}',
+    });
+    expect(warnings).toEqual([
+      {
+        category: AGENT_CONFIG_CATEGORY,
+        file: ".mcp.json",
+        line: 1,
+        match: 'MCP server "h": node s.js',
+      },
+    ]);
+    expect(risk).toBe("medium");
+  });
+
+  test("an unreadable config is medium risk, never safe", async () => {
+    const { warnings, risk } = await previewOf({
+      "SKILL.md": skill,
+      ".mcp.json": "{",
+    });
+    expect(warnings.map((w) => w.category)).toEqual([AGENT_CONFIG_CATEGORY]);
+    expect(risk).toBe("medium");
+  });
+
+  test("an unpinned server is high risk", async () => {
+    const { warnings, risk } = await previewOf({
+      "SKILL.md": skill,
+      ".mcp.json":
+        '{"mcpServers":{"h":{"command":"npx","args":["-y","x@latest"]}}}',
+    });
+    expect(warnings.map((w) => w.category)).toEqual([
+      AGENT_CONFIG_RISK_CATEGORY,
+    ]);
+    expect(risk).toBe("high");
+  });
+
+  test("an example JSON under references/ is no finding", async () => {
+    const { warnings, risk } = await previewOf({
+      "SKILL.md": skill,
+      "references/example-mcp.json":
+        '{"mcpServers":{"h":{"command":"npx","args":["-y","x@latest"]}}}',
+    });
+    expect(warnings).toEqual([]);
+    expect(risk).toBe("safe");
   });
 });

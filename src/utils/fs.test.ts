@@ -154,6 +154,22 @@ describe("readFilesRecursive onExternalSymlink (#779)", () => {
     expect(hard).toContainEqual(["scripts/run.sh", 2]);
   });
 
+  test("names files it does not read via onUnreadFile (#886)", async () => {
+    await writeFile(join(skill, "big.json"), "x".repeat(600 * 1024));
+    const fifo = join(skill, "pipe.json");
+    const made =
+      process.platform !== "win32" && spawnSync("mkfifo", [fifo]).status === 0;
+    const unread: string[] = [];
+    const files = await readFilesRecursive(skill, {
+      onExternalSymlink: () => {},
+      onUnreadFile: (p) => unread.push(p),
+    });
+    expect(unread).toContain("big.json");
+    if (made) expect(unread).toContain("pipe.json");
+    expect(files.some((f) => f.relPath === "big.json")).toBe(false);
+    expect(unread).not.toContain("scripts/run.sh");
+  });
+
   test("links that stay inside the folder are not reported", async () => {
     const { links } = await walk();
     expect(links.some((l) => l.path === "inner.sh")).toBe(false);
