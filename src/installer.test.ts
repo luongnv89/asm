@@ -51,7 +51,7 @@ import {
   SkillMdOutsideFolderError,
   cloneToTemp,
 } from "./installer";
-import { absolutePathEntries } from "./utils/spawn";
+import { absolutePathEntries, NO_HOOKS_GIT_PARAMETER } from "./utils/spawn";
 import {
   HOOKS_PATH_FORMS,
   makeHookRepo,
@@ -2805,6 +2805,25 @@ describe("installScriptDependencies", () => {
       expect(runner.mock.calls[0][2].env.PATH).toBe("/usr/bin:/bin");
     },
   );
+
+  // #897: a git child of npm would clone a repo asm does not own.
+  test("gives npm git config that runs no hook, after inherited -c config", async () => {
+    const scriptsDir = join(tempDir, "scripts");
+    await mkdir(scriptsDir, { recursive: true });
+    await writeFile(join(scriptsDir, "package.json"), "{}\n");
+    const runner = vi.fn().mockResolvedValue({ stdout: "", stderr: "" });
+    vi.stubEnv("GIT_CONFIG_PARAMETERS", "'core.hooksPath=.githooks'");
+    try {
+      await installScriptDependencies(tempDir, runner as any);
+    } finally {
+      vi.unstubAllEnvs();
+    }
+    const env = runner.mock.calls[0][2].env;
+    expect(env.GIT_CONFIG_PARAMETERS).toBe(
+      `'core.hooksPath=.githooks' ${NO_HOOKS_GIT_PARAMETER}`,
+    );
+    expect(env.npm_config_allow_git).toBe("none");
+  });
 
   test("does not run lifecycle scripts from the skill's scripts/package.json", async () => {
     const scriptsDir = join(tempDir, "scripts");
