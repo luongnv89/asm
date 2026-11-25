@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach, afterEach } from "vitest";
+import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import {
   access,
   mkdtemp,
@@ -11,6 +11,7 @@ import {
   realpath,
   symlink,
 } from "fs/promises";
+import { existsSync } from "fs";
 import { tmpdir } from "os";
 import { isAbsolute, join } from "path";
 import { isPathInside } from "./utils/fs";
@@ -35,6 +36,12 @@ import type {
   _UpdateTestOverrides,
 } from "./updater";
 import type { LockEntry } from "./utils/types";
+import {
+  git,
+  HOOKS_PATH_FORMS,
+  makeHookRepo,
+  writeGlobalGitConfig,
+} from "./utils/test-git-hooks";
 
 // ─── shortHash ──────────────────────────────────────────────────────────────
 
@@ -1103,6 +1110,104 @@ async function createBareGitRepo(
 
   return { bareRepoPath: bareDir, commitHash };
 }
+
+// Issue #897 — asm update/outdated fetch and check out a repo asm does not
+// own; a relative core.hooksPath in the user's git config resolved inside
+// that checkout and ran the hooks the repo ships. Also covers the unpinned
+// clone fallback, which #894 left without a marker test.
+describe.skipIf(process.platform === "win32")(
+  "update and outdated never run a hook the repo ships (#897)",
+  () => {
+    let base: string;
+    let repo: Awaited<ReturnType<typeof makeHookRepo>>;
+    let latest: string;
+    let skillsDir: string;
+
+    beforeEach(async () => {
+      base = await realpath(await mkdtemp(join(tmpdir(), "asm-897-update-")));
+      repo = await makeHookRepo(base, {
+        "SKILL.md": "---\nname: hooked\ndescription: d\n---\nv1\n",
+      });
+      await writeFile(
+        join(repo.repo, "SKILL.md"),
+        "---\nname: hooked\ndescription: d\n---\nv2\n",
+      );
+      git(
+        ["-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qam", "v2"],
+        repo.repo,
+      );
+      git(["push", "-q", repo.bare, "HEAD:refs/heads/main"], repo.repo);
+      latest = git(["rev-parse", "HEAD"], repo.repo);
+      skillsDir = join(base, "skills");
+      await mkdir(join(skillsDir, "hooked"), { recursive: true });
+      await writeFile(join(skillsDir, "hooked", "SKILL.md"), "v1\n");
+    });
+
+    afterEach(async () => {
+      vi.unstubAllEnvs();
+      await rm(base, { recursive: true, force: true });
+    });
+
+    const entry = (): LockEntry => ({
+      source: `file://${repo.bare}`,
+      commitHash: repo.sha,
+      ref: null,
+      installedAt: "2026-01-01T00:00:00.000Z",
+      provider: "claude",
+      sourceType: "github",
+    });
+
+    const update = (known?: string) =>
+      updateSkill(
+        "hooked",
+        entry(),
+        false,
+        {
+          auditFn: async () => ({ verdict: "safe" }),
+          loadConfigFn: async () =>
+            ({ providers: [{ name: "claude", global: skillsDir }] }) as any,
+          resolveProviderPathFn: (p: string) => p,
+          writeLockEntryFn: async () => {},
+        },
+        known,
+      );
+
+    test("control: git checkout with hooksPath .githooks runs the hook", async () => {
+      vi.stubEnv(
+        "GIT_CONFIG_GLOBAL",
+        await writeGlobalGitConfig(base, ".githooks"),
+      );
+      git(["clone", "-q", `file://${repo.bare}`, join(base, "c")]);
+      expect(await readFile(repo.marker, "utf-8")).toMatch(/^post-checkout /m);
+    });
+
+    test.each(HOOKS_PATH_FORMS)(
+      "hooksPath %s: outdated, pinned update and clone update run no hook",
+      async (_label, hooksPath) => {
+        vi.stubEnv(
+          "GIT_CONFIG_GLOBAL",
+          await writeGlobalGitConfig(base, hooksPath),
+        );
+        const summary = await checkOutdated({
+          lock: { version: 1, skills: { hooked: entry() } },
+          fetchRegistryIndexFn: async () => null,
+        });
+        expect(summary.entries[0].status).toBe("outdated");
+        // `asm update` passes the commit outdated resolved (pinned path).
+        await expect(update(latest)).resolves.toMatchObject({
+          status: "updated",
+        });
+        // A direct caller without one takes the clone path.
+        await writeFile(join(skillsDir, "hooked", "SKILL.md"), "v1\n");
+        await expect(update()).resolves.toMatchObject({ status: "updated" });
+        expect(
+          await readFile(join(skillsDir, "hooked", "SKILL.md"), "utf-8"),
+        ).toContain("v2");
+        expect(existsSync(repo.marker)).toBe(false);
+      },
+    );
+  },
+);
 
 describe("updateSkill happy path", () => {
   let tempDir: string;

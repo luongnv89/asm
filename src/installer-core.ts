@@ -29,7 +29,7 @@ import {
   resolveTags,
 } from "./utils/frontmatter";
 import { estimateTokenCount } from "./utils/token-count";
-import { absolutePathEnv } from "./utils/spawn";
+import { absolutePathEnv, untrustedRepoGitEnv } from "./utils/spawn";
 import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
 import {
@@ -303,7 +303,7 @@ export async function resolveSubpath(
     const { stdout } = await execFileAsync(
       "git",
       ["ls-remote", "--heads", "--tags", source.cloneUrl],
-      { timeout: 15_000, env: absolutePathEnv() },
+      { timeout: 15_000, env: untrustedRepoGitEnv() },
     );
 
     const refs = new Set<string>();
@@ -447,12 +447,12 @@ async function cloneWithUrl(
     // Clone without --depth so we can checkout an arbitrary commit
     await execFileAsync("git", ["clone", "--no-checkout", url, tempDir], {
       timeout: 60_000,
-      env: absolutePathEnv(),
+      env: untrustedRepoGitEnv(),
     });
     await execFileAsync("git", ["checkout", ref], {
       cwd: tempDir,
       timeout: 30_000,
-      env: absolutePathEnv(),
+      env: untrustedRepoGitEnv(),
     });
     return tempDir;
   }
@@ -463,7 +463,10 @@ async function cloneWithUrl(
   }
   args.push(url, tempDir);
 
-  await execFileAsync("git", args, { timeout: 60_000, env: absolutePathEnv() });
+  await execFileAsync("git", args, {
+    timeout: 60_000,
+    env: untrustedRepoGitEnv(),
+  });
   return tempDir;
 }
 
@@ -772,7 +775,7 @@ export async function installScriptDependencies(
       {
         cwd: scriptsDir,
         timeout: 120_000,
-        env: absolutePathEnv({
+        env: untrustedRepoGitEnv({
           ...process.env,
           npm_config_git: "git",
           npm_config_ignore_scripts: "true",

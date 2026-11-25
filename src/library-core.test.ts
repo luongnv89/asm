@@ -4,7 +4,7 @@
  * `src/library.ts` facade deliberately does not re-export, so
  * `src/library.test.ts` cannot reach them.
  */
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import {
   mkdir,
   mkdtemp,
@@ -19,6 +19,14 @@ import { tmpdir } from "os";
 import { join, resolve } from "path";
 import { AtomicWritePostRenameError } from "./utils/atomic-file";
 import type { LibrarySkillEntry } from "./utils/types";
+import { existsSync } from "fs";
+import {
+  git,
+  HOOKS_PATH_FORMS,
+  makeHookRepo,
+  SHIPPED_FSMONITOR,
+  writeGlobalGitConfig,
+} from "./utils/test-git-hooks";
 import {
   cloneRemoteLibrarySource,
   emptyLibraryLock,
@@ -822,3 +830,86 @@ describe("cloneRemoteLibrarySource", () => {
     await expect(readdir(tempDir)).resolves.toEqual([]);
   });
 });
+
+// Issue #897 — library update clones and checks out a repo asm does not own;
+// a relative core.hooksPath (or core.fsmonitor) in the user's git config ran
+// a hook the repo ships.
+describe.skipIf(process.platform === "win32")(
+  "cloneRemoteLibrarySource never runs a hook the repo ships (#897)",
+  () => {
+    let base: string;
+    let repo: Awaited<ReturnType<typeof makeHookRepo>>;
+    let tip: string;
+
+    beforeEach(async () => {
+      base = await realpath(await mkdtemp(join(tmpdir(), "asm-897-library-")));
+      repo = await makeHookRepo(base, {
+        "skills/s1/SKILL.md": "---\nname: s1\ndescription: d\n---\nbody\n",
+      });
+      // A second commit, so pinning the first one is not the shallow tip and
+      // takes the `fetch <sha>` + `checkout FETCH_HEAD` fallback.
+      await writeFile(join(repo.repo, "skills", "s1", "more.md"), "more\n");
+      git(["add", "-A"], repo.repo);
+      git(
+        ["-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qm", "two"],
+        repo.repo,
+      );
+      git(["push", "-q", repo.bare, "HEAD:refs/heads/main"], repo.repo);
+      tip = git(["rev-parse", "HEAD"], repo.repo);
+    });
+
+    afterEach(async () => {
+      vi.unstubAllEnvs();
+      await rm(base, { recursive: true, force: true });
+    });
+
+    async function cloneAllRefs(): Promise<void> {
+      for (const [ref, expected] of [
+        [null, tip],
+        ["main", tip],
+        [tip, tip],
+        [repo.sha, repo.sha],
+      ] as const) {
+        const result = await cloneRemoteLibrarySource(
+          makeEntry({ source: "github:fake/repo", ref }),
+          "s1",
+          join(base, "lib", "library-lock.json"),
+        );
+        expect(result, String(ref)).toMatchObject({ commitHash: expected });
+        if (result.tempDir) {
+          await rm(result.tempDir, { recursive: true, force: true });
+        }
+      }
+    }
+
+    const insteadOf = () => ({
+      "https://github.com/fake/repo.git": `file://${repo.bare}`,
+      "https://github.com/fake/repo": `file://${repo.bare}`,
+    });
+
+    it.each(HOOKS_PATH_FORMS)(
+      "hooksPath %s: default branch, named ref, tip and older commit run no hook",
+      async (_label, hooksPath) => {
+        vi.stubEnv(
+          "GIT_CONFIG_GLOBAL",
+          await writeGlobalGitConfig(base, hooksPath, insteadOf()),
+        );
+        await cloneAllRefs();
+        expect(existsSync(repo.marker)).toBe(false);
+      },
+    );
+
+    it("relative core.fsmonitor: the clone's fsmonitor program never runs", async () => {
+      vi.stubEnv(
+        "GIT_CONFIG_GLOBAL",
+        await writeGlobalGitConfig(base, null, insteadOf(), SHIPPED_FSMONITOR),
+      );
+      await cloneAllRefs();
+      expect(existsSync(repo.marker)).toBe(false);
+      // Control: a checkout in a populated work tree does run it.
+      git(["clone", "-q", `file://${repo.bare}`, join(base, "c")]);
+      git(["checkout", "-q", "--detach", repo.sha], join(base, "c"));
+      expect(await readFile(repo.marker, "utf-8")).toMatch(/^fsmonitor /m);
+    });
+  },
+);

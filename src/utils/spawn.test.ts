@@ -14,9 +14,15 @@ import {
   absolutePathEntries,
   absolutePathEnv,
   DEFAULT_PATH,
+  GIT_HOOK_EVENTS,
+  gitConfigParameter,
+  noHooksGitParameters,
+  noHooksPath,
   NO_PROGRAM_PATH,
   runCommand,
+  untrustedRepoGitEnv,
 } from "./spawn";
+import { execFileSync } from "node:child_process";
 
 // The child process is the running `node` binary rather than shell builtins
 // (`echo`, `false`, `sh -c`, `pwd`): those either don't exist as standalone
@@ -243,3 +249,138 @@ describe.skipIf(process.platform === "win32" || !existsSync("/bin/sh"))(
     });
   },
 );
+
+// Issue #897 — a relative `core.hooksPath` in the user's git config resolves
+// inside a clone asm makes, so git ran a hook the cloned repo ships.
+describe("untrustedRepoGitEnv (#897)", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  /** Run `git config` with `env` and return stdout, trimmed. */
+  const gitConfig = (env: NodeJS.ProcessEnv, ...args: string[]) =>
+    execFileSync("git", ["config", ...args], { env, encoding: "utf-8" }).trim();
+
+  function withPlatform<T>(platform: NodeJS.Platform, fn: () => T): T {
+    const saved = Object.getOwnPropertyDescriptor(process, "platform")!;
+    Object.defineProperty(process, "platform", { value: platform });
+    try {
+      return fn();
+    } finally {
+      Object.defineProperty(process, "platform", saved);
+    }
+  }
+
+  it("adds the no-hooks config when no git config is inherited", () => {
+    const env = untrustedRepoGitEnv({
+      PATH: "/usr/bin",
+      GIT_SSH_COMMAND: "ssh -i /k",
+    });
+    expect(env).toEqual({
+      PATH: "/usr/bin",
+      GIT_SSH_COMMAND: "ssh -i /k",
+      GIT_CONFIG_PARAMETERS: noHooksGitParameters(),
+    });
+  });
+
+  it("appends to inherited -c config and leaves numbered pairs alone", () => {
+    const base = {
+      PATH: "/usr/bin",
+      GIT_CONFIG_PARAMETERS: "'http.extraheader'='X: 1'",
+      GIT_CONFIG_COUNT: "1",
+      GIT_CONFIG_KEY_0: "credential.helper",
+      GIT_CONFIG_VALUE_0: "/usr/bin/helper",
+    };
+    const env = untrustedRepoGitEnv(base);
+    expect(env).toEqual({
+      ...base,
+      GIT_CONFIG_PARAMETERS: `'http.extraheader'='X: 1' ${noHooksGitParameters()}`,
+    });
+    // The input object is not modified.
+    expect(base.GIT_CONFIG_PARAMETERS).toBe("'http.extraheader'='X: 1'");
+  });
+
+  it.skipIf(process.platform === "win32")(
+    "keeps only the absolute PATH entries, as absolutePathEnv does",
+    () => {
+      expect(untrustedRepoGitEnv({ PATH: `.${delimiter}/usr/bin` }).PATH).toBe(
+        "/usr/bin",
+      );
+    },
+  );
+
+  it("points core.hooksPath at /dev/null, or at the node binary on Windows", () => {
+    expect(withPlatform("linux", noHooksPath)).toBe("/dev/null");
+    expect(withPlatform("darwin", noHooksPath)).toBe("/dev/null");
+    // Git for Windows reads /dev/null as a folder at the drive root.
+    expect(withPlatform("win32", noHooksPath)).toBe(process.execPath);
+  });
+
+  it("disables hooks on Windows too, where PATH is left alone", () => {
+    const env = withPlatform("win32", () =>
+      untrustedRepoGitEnv({ PATH: `.${delimiter}C:\\bin` }),
+    );
+    expect(env.PATH).toBe(`.${delimiter}C:\\bin`);
+    expect(env.GIT_CONFIG_PARAMETERS).toContain(
+      gitConfigParameter("core.hooksPath", process.execPath),
+    );
+  });
+
+  it("defaults to process.env", () => {
+    vi.stubEnv("ASM_SPAWN_ENV_TEST", "default-base");
+    expect(untrustedRepoGitEnv().ASM_SPAWN_ENV_TEST).toBe("default-base");
+  });
+
+  it("quotes values the way git reads them back", () => {
+    const value = `C:\\Program Files\\it's "node".exe`;
+    const env = {
+      ...process.env,
+      GIT_CONFIG_PARAMETERS: gitConfigParameter("asm.test", value),
+    };
+    expect(gitConfig(env, "--get", "asm.test")).toBe(value);
+  });
+
+  // git reads GIT_CONFIG_COUNT pairs, then GIT_CONFIG_PARAMETERS, and the
+  // last value wins: the entry must beat a hooksPath set either way.
+  it("wins over a core.hooksPath set by inherited env config, per real git", () => {
+    const env = untrustedRepoGitEnv({
+      ...process.env,
+      GIT_CONFIG_PARAMETERS: "'core.hooksPath=.githooks' 'core.fsmonitor=./fs'",
+      GIT_CONFIG_COUNT: "1",
+      GIT_CONFIG_KEY_0: "core.hooksPath",
+      GIT_CONFIG_VALUE_0: ".githooks",
+    });
+    expect(gitConfig(env, "--get", "core.hooksPath")).toBe(noHooksPath());
+    // An empty core.fsmonitor turns off the fsmonitor hook on every git.
+    expect(gitConfig(env, "--get", "core.fsmonitor")).toBe("");
+    // The other inherited entries still apply.
+    expect(gitConfig(env, "--get-all", "core.hooksPath").split("\n")).toEqual([
+      ".githooks",
+      ".githooks",
+      noHooksPath(),
+    ]);
+  });
+
+  // git 2.54 added hooks defined in config; git 2.55 added the per-event
+  // switch that also turns those off.
+  it("turns off every hook event, after a user's hook.<event>.enabled=true", () => {
+    const env = untrustedRepoGitEnv({
+      ...process.env,
+      GIT_CONFIG_PARAMETERS: "'hook.post-checkout.enabled=true'",
+    });
+    for (const event of GIT_HOOK_EVENTS) {
+      expect(gitConfig(env, "--get", `hook.${event}.enabled`), event).toBe(
+        "false",
+      );
+    }
+    expect(GIT_HOOK_EVENTS).toEqual(
+      expect.arrayContaining([
+        "post-checkout",
+        "post-index-change",
+        "reference-transaction",
+        "pre-auto-gc",
+        "post-merge",
+      ]),
+    );
+  });
+});

@@ -51,7 +51,12 @@ import {
   SkillMdOutsideFolderError,
   cloneToTemp,
 } from "./installer";
-import { absolutePathEntries } from "./utils/spawn";
+import { absolutePathEntries, noHooksGitParameters } from "./utils/spawn";
+import {
+  HOOKS_PATH_FORMS,
+  makeHookRepo,
+  writeGlobalGitConfig,
+} from "./utils/test-git-hooks";
 import { METHOD_CALL_CATEGORY } from "./security-auditor-scan";
 import type { AppConfig, ProviderConfig } from "./utils/types";
 
@@ -645,6 +650,91 @@ describe.skipIf(process.platform === "win32" || !existsSync("/bin/sh"))(
         }
       }
       expect(existsSync(marker)).toBe(false);
+    });
+  },
+);
+
+// Issue #897 — a relative core.hooksPath in the user's global git config
+// resolves inside the fresh clone, so git ran the post-checkout (and
+// reference-transaction) hook the cloned repo ships, before any audit.
+describe.skipIf(process.platform === "win32" || !existsSync("/bin/sh"))(
+  "cloneToTemp never runs a hook the clone ships (#897)",
+  () => {
+    let base: string;
+    let repo: Awaited<ReturnType<typeof makeHookRepo>>;
+
+    beforeEach(async () => {
+      base = await realpath(await mkdtemp(join(tmpdir(), "asm-897-clone-")));
+      repo = await makeHookRepo(base, {
+        "skills/s1/SKILL.md": "---\nname: s1\ndescription: d\n---\nbody\n",
+      });
+    });
+
+    afterEach(async () => {
+      vi.unstubAllEnvs();
+      await rm(base, { recursive: true, force: true });
+    });
+
+    const source = (ref: string | null) => ({
+      owner: "fake",
+      repo: "repo",
+      ref,
+      subpath: null,
+      cloneUrl: `file://${repo.bare}`,
+      sshCloneUrl: `file://${repo.bare}`,
+    });
+
+    async function cloneBoth(): Promise<void> {
+      for (const ref of [null, repo.sha]) {
+        const dir = await cloneToTemp(source(ref), "https");
+        try {
+          expect(existsSync(join(dir, "skills", "s1", "SKILL.md"))).toBe(true);
+          expect(
+            execFileSync("git", ["rev-parse", "HEAD"], {
+              cwd: dir,
+              encoding: "utf-8",
+            }).trim(),
+          ).toBe(repo.sha);
+        } finally {
+          await rm(dir, { recursive: true, force: true });
+        }
+      }
+    }
+
+    test("control: plain git clone with hooksPath .githooks runs the hook", async () => {
+      vi.stubEnv(
+        "GIT_CONFIG_GLOBAL",
+        await writeGlobalGitConfig(base, ".githooks"),
+      );
+      execFileSync("git", [
+        "clone",
+        "-q",
+        `file://${repo.bare}`,
+        join(base, "c"),
+      ]);
+      expect(await readFile(repo.marker, "utf-8")).toMatch(/^post-checkout /m);
+    });
+
+    test.each(HOOKS_PATH_FORMS)(
+      "hooksPath %s: plain and #<sha> clones run no hook",
+      async (_label, hooksPath) => {
+        vi.stubEnv(
+          "GIT_CONFIG_GLOBAL",
+          await writeGlobalGitConfig(base, hooksPath),
+        );
+        await cloneBoth();
+        expect(existsSync(repo.marker)).toBe(false);
+      },
+    );
+
+    test("hooksPath set by inherited -c and GIT_CONFIG_COUNT config: no hook", async () => {
+      vi.stubEnv("GIT_CONFIG_GLOBAL", await writeGlobalGitConfig(base, null));
+      vi.stubEnv("GIT_CONFIG_PARAMETERS", "'core.hooksPath=.githooks'");
+      vi.stubEnv("GIT_CONFIG_COUNT", "1");
+      vi.stubEnv("GIT_CONFIG_KEY_0", "core.hooksPath");
+      vi.stubEnv("GIT_CONFIG_VALUE_0", ".githooks");
+      await cloneBoth();
+      expect(existsSync(repo.marker)).toBe(false);
     });
   },
 );
@@ -2715,6 +2805,50 @@ describe("installScriptDependencies", () => {
       expect(runner.mock.calls[0][2].env.PATH).toBe("/usr/bin:/bin");
     },
   );
+
+  // #897: `npx skills add` clones the source repo itself.
+  test.skipIf(process.platform === "win32" || !existsSync("/bin/sh"))(
+    "gives npx git config that runs no hook",
+    async () => {
+      const bin = await realpath(await mkdtemp(join(tmpdir(), "asm-897-npx-")));
+      const out = join(bin, "env.txt");
+      try {
+        await writeFile(
+          join(bin, "npx"),
+          `#!/bin/sh\nprintf '%s' "$GIT_CONFIG_PARAMETERS" > '${out}'\n`,
+        );
+        await chmod(join(bin, "npx"), 0o755);
+        vi.stubEnv("PATH", `${bin}:/usr/bin:/bin`);
+        vi.stubEnv("GIT_CONFIG_PARAMETERS", "'core.hooksPath=.githooks'");
+        await checkNpxAvailable();
+        expect(await readFile(out, "utf-8")).toBe(
+          `'core.hooksPath=.githooks' ${noHooksGitParameters()}`,
+        );
+      } finally {
+        vi.unstubAllEnvs();
+        await rm(bin, { recursive: true, force: true });
+      }
+    },
+  );
+
+  // #897: a git child of npm would clone a repo asm does not own.
+  test("gives npm git config that runs no hook, after inherited -c config", async () => {
+    const scriptsDir = join(tempDir, "scripts");
+    await mkdir(scriptsDir, { recursive: true });
+    await writeFile(join(scriptsDir, "package.json"), "{}\n");
+    const runner = vi.fn().mockResolvedValue({ stdout: "", stderr: "" });
+    vi.stubEnv("GIT_CONFIG_PARAMETERS", "'core.hooksPath=.githooks'");
+    try {
+      await installScriptDependencies(tempDir, runner as any);
+    } finally {
+      vi.unstubAllEnvs();
+    }
+    const env = runner.mock.calls[0][2].env;
+    expect(env.GIT_CONFIG_PARAMETERS).toBe(
+      `'core.hooksPath=.githooks' ${noHooksGitParameters()}`,
+    );
+    expect(env.npm_config_allow_git).toBe("none");
+  });
 
   test("does not run lifecycle scripts from the skill's scripts/package.json", async () => {
     const scriptsDir = join(tempDir, "scripts");

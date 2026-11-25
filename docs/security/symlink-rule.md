@@ -132,6 +132,35 @@ plus `asm publish` and `asm doctor`) and the `npm` and `npx` it runs. Without
 it, git's filter lookup (a `git-lfs` smudge filter in the user's config) ran
 an executable the fresh clone ships. When no `PATH` entry is absolute, these
 commands report that git was not found (not on Windows).
+The git children that work on a repository asm does not own also run with
+hooks turned off, except in the cases listed below. That covers the clone,
+checkout, fetch, `ls-remote` and `rev-parse` above, `npx` (`skills add`
+clones), and `npm`, whose
+`--allow-git=none` stops it from cloning only where its version knows that
+flag. Without this, a relative `core.hooksPath` in the user's config (such
+as `.githooks`) resolved inside the fresh clone, and git ran the
+`post-checkout` hook the clone ships before any audit. These settings are
+added after any git config inherited from the environment (`asm outdated`
+and pinned updates drop inherited git config first, as before):
+
+- `core.hooksPath` points at `/dev/null`, or at the node binary on Windows,
+  where Git for Windows would read `/dev/null` as a folder at the drive root.
+  The Windows form has not been run on Windows.
+- `hook.<event>.enabled=false` is set for every hook event. In git 2.55 and
+  later this also turns off hooks defined in config (`hook.<name>.command`).
+  Two cases are not covered, so a hook command in the user's own config
+  still runs there: git 2.54, which has config-defined hooks but not this
+  switch, and a user config that names a hook after an event (such as
+  `hook.post-checkout.command` or `hook.post-checkout.parallel`, which git
+  accepts). Git then reads `hook.post-checkout.enabled` as the switch for
+  that one hook, and the user's other config hooks for `post-checkout` run.
+- `core.fsmonitor` is set to an empty value, which turns the fsmonitor hook
+  off. Git starts that hook from `core.fsmonitor`, not from the hooks
+  folder, so a relative value (such as `./fsmonitor`) would run a file the
+  clone ships when asm checks out a commit.
+
+`asm publish`, `asm doctor` and the `git config` reads keep the user's
+hooks, because they work on the user's own repository or config.
 
 In a collection (`asm eval skills/`), a child that is a link to a folder
 whose real path holds a `SKILL.md` is a skill folder in its own right, as

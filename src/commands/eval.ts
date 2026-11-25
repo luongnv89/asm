@@ -42,7 +42,7 @@ import {
   redirectConsoleToStderr,
 } from "../utils/machine";
 import { errorMessage } from "../utils/errors";
-import { absolutePathEnv } from "../utils/spawn";
+import { untrustedRepoGitEnv } from "../utils/spawn";
 import {
   checkThresholds,
   countVerdicts,
@@ -205,7 +205,7 @@ export async function fetchRemoteSkillDir(
     const { stdout } = await execFileAsync(
       "git",
       ["-C", tempDir, "rev-parse", "HEAD"],
-      { timeout: 5_000, env: absolutePathEnv() },
+      { timeout: 5_000, env: untrustedRepoGitEnv() },
     );
     const sha = stdout.trim();
     if (/^[0-9a-f]{40}$/i.test(sha)) commitSha = sha;
