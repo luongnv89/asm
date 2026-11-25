@@ -47,9 +47,9 @@
       "description": "Coordinate Xcode build benchmarking, analysis, optimization, and verification"
     },
     {
-      "name": "release-manager",
-      "installUrl": "github:luongnv89/skills:skills/release-manager",
-      "description": "Automate the full release lifecycle"
+      "name": "cut-release",
+      "installUrl": "github:luongnv89/skills:skills/cut-release",
+      "description": "Run a release end to end, autonomous by default: version bump everywhere, changelog, docs, landing page, tag, push, GitHub release, PyPI/npm. Use to ship, cut, or tag a release. Don't use for routine commits, pull requests, or marketplace publishing."
     },
     {
       "name": "appstore-review-checker",

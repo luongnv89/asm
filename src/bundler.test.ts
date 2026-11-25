@@ -1,7 +1,9 @@
 import { describe, expect, it, beforeEach, afterEach } from "vitest";
 import { mkdtemp, writeFile, readdir, rm } from "fs/promises";
-import { join } from "path";
+import { readdirSync, readFileSync } from "fs";
+import { dirname, join, resolve } from "path";
 import { tmpdir } from "os";
+import { fileURLToPath } from "url";
 import {
   validateBundle,
   buildBundle,
@@ -673,5 +675,86 @@ describe("listPredefinedBundles", () => {
         }
       }
     }
+  });
+});
+
+// ─── Predefined bundles resolve in the committed index (#885) ─────────────
+
+const DATA_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "..", "data");
+
+/**
+ * Bundle installUrls whose skill exists upstream but postdates the committed
+ * `data/skill-index/` snapshot. Each entry must be missing from the index;
+ * once an index refresh adds it, the guard test below fails until the entry
+ * is deleted here.
+ */
+const PENDING_INDEX_REFRESH: Record<string, string> = {
+  // luongnv89/skills renamed ship -> cut-release (98ed9e3, #694/#695); the
+  // committed luongnv89_skills.json (updatedAt 2026-11-06) still lists ship.
+  "github:luongnv89/skills:skills/cut-release":
+    "renamed from ship upstream after the 2026-11-06 index refresh",
+};
+
+function readJsonDir<T>(dir: string): { file: string; data: T }[] {
+  return readdirSync(dir)
+    .filter((f) => f.endsWith(".json"))
+    .sort()
+    .map((file) => ({
+      file,
+      data: JSON.parse(readFileSync(join(dir, file), "utf-8")) as T,
+    }));
+}
+
+function committedIndexInstallUrls(): Set<string> {
+  const urls = new Set<string>();
+  for (const { data } of readJsonDir<{ skills?: { installUrl?: unknown }[] }>(
+    join(DATA_DIR, "skill-index"),
+  )) {
+    for (const skill of data.skills ?? []) {
+      if (typeof skill.installUrl === "string") urls.add(skill.installUrl);
+    }
+  }
+  return urls;
+}
+
+function predefinedBundleEntries(): {
+  label: string;
+  installUrl: string;
+}[] {
+  return readJsonDir<BundleManifest>(join(DATA_DIR, "bundles")).flatMap(
+    ({ file, data }) =>
+      data.skills.map((skill) => ({
+        label: `${file} > ${skill.name}`,
+        installUrl: skill.installUrl,
+      })),
+  );
+}
+
+describe("predefined bundles resolve in the committed skill index", () => {
+  const indexUrls = committedIndexInstallUrls();
+  const entries = predefinedBundleEntries();
+
+  it("reads a non-empty index and bundle set", () => {
+    expect(indexUrls.size).toBeGreaterThan(1000);
+    expect(entries.length).toBeGreaterThan(0);
+  });
+
+  it("every bundle installUrl matches an installUrl in data/skill-index/", () => {
+    const unresolved = entries
+      .filter(
+        (e) =>
+          !indexUrls.has(e.installUrl) &&
+          !(e.installUrl in PENDING_INDEX_REFRESH),
+      )
+      .map((e) => `${e.label} (${e.installUrl})`);
+    expect(unresolved).toEqual([]);
+  });
+
+  it("PENDING_INDEX_REFRESH lists only bundle URLs still missing from the index", () => {
+    const bundleUrls = new Set(entries.map((e) => e.installUrl));
+    const stale = Object.keys(PENDING_INDEX_REFRESH).filter(
+      (url) => indexUrls.has(url) || !bundleUrls.has(url),
+    );
+    expect(stale).toEqual([]);
   });
 });
