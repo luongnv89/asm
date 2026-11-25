@@ -18,6 +18,7 @@ import {
   resolveProviderPath,
 } from "./config";
 import { readLock } from "./utils/lock";
+import { absolutePathEnv } from "./utils/spawn";
 import { REGISTRY_INDEX_URL } from "./registry";
 import { buildShadowingReport } from "./utils/path-shadowing";
 import type { AppConfig, LockFile } from "./utils/types";
@@ -58,6 +59,7 @@ export async function checkGitAvailable(
   try {
     const { stdout } = await exec("git", ["--version"], {
       timeout: 5_000,
+      env: absolutePathEnv(),
     });
     const version = stdout.trim().replace("git version ", "");
     return { name: "Git available", status: "pass", message: version };
@@ -78,6 +80,7 @@ export async function checkGitVersion(
   try {
     const { stdout } = await exec("git", ["--version"], {
       timeout: 5_000,
+      env: absolutePathEnv(),
     });
     const match = stdout.match(/(\d+)\.(\d+)/);
     if (!match) {
@@ -132,6 +135,7 @@ export async function checkGhAvailable(
   try {
     const { stdout } = await exec("gh", ["--version"], {
       timeout: 5_000,
+      env: absolutePathEnv(),
     });
     const firstLine = stdout.trim().split("\n")[0];
     const match = firstLine.match(/(\d+\.\d+\.\d+)/);
@@ -154,6 +158,7 @@ export async function checkGhAuthenticated(
   try {
     const { stdout } = await exec("gh", ["auth", "status"], {
       timeout: 10_000,
+      env: absolutePathEnv(),
     });
     // Extract username without leaking token.
     // NOTE: This regex is fragile — the `gh auth status` output format varies

@@ -2,6 +2,7 @@ import { readFileSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 import { spawnSync } from "child_process";
+import { absolutePathEnv } from "./spawn";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -35,6 +36,7 @@ export function getCommitHash(): string {
       encoding: "utf-8",
       stdio: ["pipe", "pipe", "ignore"],
       timeout: 5000,
+      env: absolutePathEnv(),
     });
     _commit = result.stdout?.trim() || _commit;
   } catch {

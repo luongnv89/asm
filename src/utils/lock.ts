@@ -4,6 +4,7 @@ import { promisify } from "util";
 import { getLockPath } from "../config";
 import { debug } from "../logger";
 import { withFileMutationLock, writeTextFileAtomically } from "./atomic-file";
+import { absolutePathEnv } from "./spawn";
 import type { LockFile, LockEntry } from "./types";
 
 const execFileAsync = promisify(execFile);
@@ -144,6 +145,7 @@ export async function getCommitHash(repoDir: string): Promise<string | null> {
     const { stdout } = await execFileAsync("git", ["rev-parse", "HEAD"], {
       cwd: repoDir,
       timeout: 5_000,
+      env: absolutePathEnv(),
     });
     return stdout.trim() || null;
   } catch {

@@ -8,6 +8,7 @@ import { getConfigDir, loadConfig } from "./config";
 import { resolveProviderPath } from "./config";
 import { copySkillTree } from "./utils/fs";
 import { writeLockEntry } from "./utils/lock";
+import { absolutePathEnv } from "./utils/spawn";
 import type {
   LockEntry,
   SecurityAuditReport,
@@ -333,7 +334,10 @@ export async function updateSkill(
       cloneArgs.push(cloneUrl, tempDir);
 
       try {
-        await execFileAsync("git", cloneArgs, { timeout: 60_000 });
+        await execFileAsync("git", cloneArgs, {
+          timeout: 60_000,
+          env: absolutePathEnv(),
+        });
       } catch (cloneErr: unknown) {
         const execErr = cloneErr as { stderr?: string; message?: string };
         return {
@@ -354,6 +358,7 @@ export async function updateSkill(
         const { stdout } = await execFileAsync("git", ["rev-parse", "HEAD"], {
           cwd: tempDir,
           timeout: 5_000,
+          env: absolutePathEnv(),
         });
         newCommit = stdout.trim().toLowerCase();
       } catch {

@@ -333,6 +333,26 @@ describe("ingestRepo path containment", () => {
   });
 });
 
+describe("ingestRepo without git (#894)", () => {
+  afterEach(() => {
+    ingestMocks.checkGitAvailable.mockReset();
+    ingestMocks.checkGitAvailable.mockResolvedValue(undefined);
+  });
+
+  it("reports a missing git as a failed result instead of throwing", async () => {
+    ingestMocks.checkGitAvailable.mockRejectedValue(
+      new Error("git is required for installing skills"),
+    );
+    ingestMocks.cloneToTemp.mockReset();
+    await expect(ingestRepo("github:o/r")).resolves.toEqual({
+      success: false,
+      repoIndex: null,
+      error: "git is required for installing skills",
+    });
+    expect(ingestMocks.cloneToTemp).not.toHaveBeenCalled();
+  });
+});
+
 describe("parallel skill ingestion (issue #372)", () => {
   let tempDir: string;
   let repoName: string;
