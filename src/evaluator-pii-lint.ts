@@ -19,7 +19,7 @@ import {
 } from "fs/promises";
 import { constants as fsConstants } from "fs";
 import { tmpdir } from "os";
-import { delimiter, isAbsolute, join, resolve } from "path";
+import { basename, delimiter, isAbsolute, join, resolve } from "path";
 import {
   listSkillFiles,
   readSkillFile,
@@ -547,8 +547,13 @@ export async function runLinter(
         //     code
         //           ^
         // SyntaxError: message
+        // Any other compile error is one line (#891), its line number in a
+        // trailing "(<file basename>, line N)" when there is one:
+        //   Sorry: TabError: inconsistent use of tabs ... (t.py, line 3)
+        //   Sorry: MemoryError: Parser stack overflowed - ...
         const lines = result.stderr.split("\n");
         const findings: LintFinding[] = [];
+        const lineSuffix = ` (${basename(filePath)}, line `;
         let pendingLine = 0;
         for (const line of lines) {
           const fileMatch = line.match(/File "([^"]+)", line (\d+)/);
@@ -557,14 +562,25 @@ export async function runLinter(
             continue;
           }
           const syntaxMatch = line.match(
-            /^\s*(SyntaxError|IndentationError|ImportError|AttributeError|TypeError|ValueError):\s*(.+)$/,
+            /^\s*(Sorry: )?(SyntaxError|IndentationError|TabError|MemoryError|ImportError|AttributeError|TypeError|ValueError):\s*(.+)$/,
           );
           if (syntaxMatch) {
+            let message = syntaxMatch[3].trim();
+            let lineNo = pendingLine;
+            const trailer = message.match(/, line (\d+)\)$/);
+            if (syntaxMatch[1] && trailer) {
+              lineNo = parseInt(trailer[1], 10);
+              // Drop the file name: it is the private copy's, not the skill's.
+              const tail = `${lineSuffix}${trailer[1]})`;
+              if (message.length > tail.length && message.endsWith(tail)) {
+                message = message.slice(0, -tail.length);
+              }
+            }
             findings.push({
               file: filePath,
-              line: pendingLine || 0,
+              line: lineNo || 0,
               severity: "error",
-              message: `${syntaxMatch[1]}: ${syntaxMatch[2].trim()}`,
+              message: `${syntaxMatch[2]}: ${message}`,
             });
             pendingLine = 0;
           }

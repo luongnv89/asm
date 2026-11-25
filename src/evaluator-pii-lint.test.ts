@@ -393,6 +393,76 @@ describe("runLinter", () => {
       },
     ]);
   });
+
+  // Issue #891 — python3 prints every compile error but a plain SyntaxError
+  // as one "Sorry: <Type>: …" line. Each stderr below is verbatim what the
+  // lint check printed under Python 3.14.9 for the chk-888 fixtures (mixed
+  // tabs, a bad indent, `x = ` and 200,000 unary minus signs).
+  it.each([
+    [
+      "TabError",
+      "tab.py",
+      "Sorry: TabError: inconsistent use of tabs and spaces in indentation (tab.py, line 3)",
+      3,
+      "TabError: inconsistent use of tabs and spaces in indentation",
+    ],
+    [
+      "IndentationError",
+      "ind.py",
+      "Sorry: IndentationError: unexpected indent (ind.py, line 2)",
+      2,
+      "IndentationError: unexpected indent",
+    ],
+    [
+      "MemoryError",
+      "deep.py",
+      "Sorry: MemoryError: Parser stack overflowed - Python source too complex to parse",
+      0,
+      "MemoryError: Parser stack overflowed - Python source too complex to parse",
+    ],
+  ])(
+    "parses python3's 'Sorry: %s' line as an error (#891)",
+    async (_type, name, stderr, line, message) => {
+      const pyFile = `/tmp/asm-lint-x/0/${name}`;
+      runCommandMock.mockResolvedValue({ exitCode: 1, stdout: "", stderr });
+
+      expect(await runLinter(pyFile, ".py")).toEqual([
+        { file: pyFile, line, severity: "error", message },
+      ]);
+    },
+  );
+
+  it("keeps the trailer text when it names another file (#891)", async () => {
+    runCommandMock.mockResolvedValue({
+      exitCode: 1,
+      stdout: "",
+      stderr: "Sorry: IndentationError: unexpected indent (other.py, line 2)",
+    });
+
+    expect(await runLinter("/tmp/skill/t.py", ".py")).toEqual([
+      {
+        file: "/tmp/skill/t.py",
+        line: 2,
+        severity: "error",
+        message: "IndentationError: unexpected indent (other.py, line 2)",
+      },
+    ]);
+  });
+
+  it("still warns on a 'Sorry:' line of a type it does not parse (#891)", async () => {
+    const stderr =
+      "Sorry: RecursionError: maximum recursion depth exceeded during compilation";
+    runCommandMock.mockResolvedValue({ exitCode: 1, stdout: "", stderr });
+
+    expect(await runLinter("/tmp/skill/t.py", ".py")).toEqual([
+      {
+        file: "/tmp/skill/t.py",
+        line: 0,
+        severity: "warning",
+        message: `Linter exited with code 1: ${stderr}`,
+      },
+    ]);
+  });
 });
 
 // Issue #884 — a missing shellcheck cost each .sh file a point ("Linter
@@ -1067,6 +1137,15 @@ describe.skipIf(!HAS_PYTHON)(
       // The broken file still yields its located finding and costs score.
       expect(current.findings).toContain(
         "[ERROR] scripts/unclosed.py:1 — SyntaxError: '(' was never closed",
+      );
+      // The "Sorry: <Type>: … (file, line N)" form is located too (#891).
+      expect(current.findings).toEqual(
+        expect.arrayContaining([
+          "[ERROR] scripts/tabs.py:3 — TabError: inconsistent use of tabs and spaces in indentation",
+          expect.stringMatching(
+            /^\[ERROR\] scripts\/indent\.py:2 — IndentationError: expected an indented block/,
+          ),
+        ]),
       );
       expect(current.score).toBeLessThan(10);
     });
