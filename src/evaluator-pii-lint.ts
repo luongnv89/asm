@@ -377,8 +377,26 @@ interface LintFinding {
 }
 
 /**
+ * The single warning for a linter that ran but exited non-zero without
+ * output we could parse: reported, never counted as clean (#884).
+ */
+function exitedWarning(
+  filePath: string,
+  result: { exitCode: number; stdout: string; stderr: string },
+): LintFinding[] {
+  return [
+    {
+      file: filePath,
+      line: 0,
+      severity: "warning",
+      message: `Linter exited with code ${result.exitCode}: ${(result.stderr || result.stdout).slice(0, 200)}`,
+    },
+  ];
+}
+
+/**
  * Run a linter on a single script file and return structured findings.
- * Returns null when the linter is unavailable.
+ * Returns null when the linter is not installed (or the extension has none).
  */
 export async function runLinter(
   filePath: string,
@@ -427,7 +445,9 @@ export async function runLinter(
             pendingLine = 0;
           }
         }
-        return findings;
+        // A bad flag (exit 2), a signal (-1) or a broken interpreter prints
+        // no SyntaxError line; report it rather than call the file clean.
+        return findings.length > 0 ? findings : exitedWarning(filePath, result);
       }
 
       // Shellcheck JSON output — shellcheck --format=json1 emits the report
@@ -460,29 +480,24 @@ export async function runLinter(
         return findings;
       } catch {
         // If JSON parsing fails, fall back to stderr text
-        return [
-          {
-            file: filePath,
-            line: 0,
-            severity: "warning",
-            message: `Linter exited with code ${result.exitCode}: ${(result.stderr || result.stdout).slice(0, 200)}`,
-          },
-        ];
+        return exitedWarning(filePath, result);
       }
     }
     return [];
   } catch (err: unknown) {
+    const code = (err as NodeJS.ErrnoException | null)?.code;
     // Linter not found — return null to signal "skipped"
-    if (
-      err &&
-      typeof err === "object" &&
-      "code" in err &&
-      (err as { code?: string }).code === "ENOENT"
-    ) {
-      return null;
-    }
-    // Other errors — treat as skipped
-    return null;
+    if (code === "ENOENT") return null;
+    // Installed but cannot be run (EACCES and the like): report it, since
+    // "not installed" would be untrue (#884).
+    return [
+      {
+        file: filePath,
+        line: 0,
+        severity: "warning",
+        message: `Linter could not be run: ${code ?? String(err)}`,
+      },
+    ];
   }
 }
 
@@ -576,7 +591,9 @@ export async function scoreScriptLint(
   if (lintedCount === 0 && !skipped) {
     findings.push("No bundled scripts found to lint.");
   } else if (skipped && lintedCount === 0) {
-    findings.push("No script was linted: the linter is not installed.");
+    findings.push(
+      "No script was linted: no linter is installed for these scripts.",
+    );
   } else if (allFindings.length === 0) {
     findings.push(`Linted ${lintedCount} script(s) — no issues found.`);
   } else {

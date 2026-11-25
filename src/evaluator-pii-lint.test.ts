@@ -166,19 +166,22 @@ describe("runLinter", () => {
   });
 
   it.each([
-    ["a bad flag", 3, "", "shellcheck: unrecognized option `--bogus'"],
-    ["a crash", 2, "", "shellcheck: internal error"],
-    ["a signal kill", -1, "", ""],
+    [".sh", "a bad flag", 3, "", "shellcheck: unrecognized option `--bogus'"],
+    [".sh", "a crash", 2, "", "shellcheck: internal error"],
+    [".sh", "a signal kill", -1, "", ""],
+    [".py", "a bad flag", 2, "", "unknown option -I"],
+    [".py", "a signal kill", -1, "", ""],
   ])(
-    "still reports a linter that is installed but exits non-zero for %s",
-    async (_label, exitCode, stdout, stderr) => {
+    "still reports a %s linter that is installed but exits non-zero for %s",
+    async (ext, _label, exitCode, stdout, stderr) => {
+      const file = `/tmp/skill/script${ext}`;
       runCommandMock.mockResolvedValue({ exitCode, stdout, stderr });
 
-      const findings = await runLinter(SH_FILE, ".sh");
+      const findings = await runLinter(file, ext);
 
       expect(findings).toEqual([
         {
-          file: SH_FILE,
+          file,
           line: 0,
           severity: "warning",
           message: `Linter exited with code ${exitCode}: ${stderr}`,
@@ -193,6 +196,21 @@ describe("runLinter", () => {
     );
 
     expect(await runLinter(SH_FILE, ".sh")).toBeNull();
+  });
+
+  it("reports a linter that is installed but cannot be run", async () => {
+    runCommandMock.mockRejectedValue(
+      Object.assign(new Error("spawn shellcheck EACCES"), { code: "EACCES" }),
+    );
+
+    expect(await runLinter(SH_FILE, ".sh")).toEqual([
+      {
+        file: SH_FILE,
+        line: 0,
+        severity: "warning",
+        message: "Linter could not be run: EACCES",
+      },
+    ]);
   });
 
   it("returns null for extensions without a configured linter", async () => {
@@ -238,13 +256,17 @@ describe("runLinter", () => {
 describe("scoreScriptLint without shellcheck installed (#884)", () => {
   let base: string;
 
-  async function writeShSkill(dir: string): Promise<void> {
+  async function writeShSkill(
+    dir: string,
+    script = "wait.sh",
+    body = "#!/bin/bash\necho hi\n",
+  ): Promise<void> {
     await mkdir(join(dir, "scripts"), { recursive: true });
     await writeFile(
       join(dir, "SKILL.md"),
-      `---\nname: p4\ndescription: "Use when testing."\nlicense: MIT\n---\n\n# P4\n\n1. Run \`scripts/wait.sh\`.\n`,
+      `---\nname: p4\ndescription: "Use when testing."\nlicense: MIT\n---\n\n# P4\n\n1. Run \`scripts/${script}\`.\n`,
     );
-    await writeFile(join(dir, "scripts", "wait.sh"), "#!/bin/bash\necho hi\n");
+    await writeFile(join(dir, "scripts", script), body);
   }
 
   beforeEach(async () => {
@@ -257,24 +279,31 @@ describe("scoreScriptLint without shellcheck installed (#884)", () => {
     await rm(base, { recursive: true, force: true });
   });
 
-  it("scores a clean .sh skill 10 and says the lint was skipped", async () => {
-    const dir = join(base, "p4");
-    await writeShSkill(dir);
-    runCommandMock.mockResolvedValue({
-      exitCode: 127,
-      stdout: "",
-      stderr: "spawn shellcheck ENOENT",
-    });
+  it.each([
+    ["wait.sh", "#!/bin/bash\necho hi\n", "shellcheck", "bash/shell"],
+    ["ok.py", 'print("hi")\n', "python3", "python"],
+  ])(
+    "scores a clean %s skill 10 and says the lint was skipped",
+    async (script, body, linter, lang) => {
+      const dir = join(base, "p4");
+      await writeShSkill(dir, script, body);
+      runCommandMock.mockResolvedValue({
+        exitCode: 127,
+        stdout: "",
+        stderr: `spawn ${linter} ENOENT`,
+      });
 
-    const result = await scoreScriptLint(dir);
+      const result = await scoreScriptLint(dir);
 
-    expect(result.score).toBe(10);
-    expect(result.findings).toEqual([
-      "[bash/shell] scripts/wait.sh: lint skipped — shellcheck is not installed",
-      "No script was linted: the linter is not installed.",
-    ]);
-    expect(result.findings.join("\n")).not.toMatch(/WARNING|code 127/);
-  });
+      expect(runCommandMock.mock.calls[0][0][0]).toBe(linter);
+      expect(result.score).toBe(10);
+      expect(result.findings).toEqual([
+        `[${lang}] scripts/${script}: lint skipped — ${linter} is not installed`,
+        "No script was linted: no linter is installed for these scripts.",
+      ]);
+      expect(result.findings.join("\n")).not.toMatch(/WARNING|code 127/);
+    },
+  );
 
   it("skips through the real runCommand when PATH has no shellcheck", async () => {
     const dir = join(base, "p4");
