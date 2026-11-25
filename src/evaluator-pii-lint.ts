@@ -435,10 +435,13 @@ const DEFAULT_PATH = "/usr/bin:/bin";
  * ships. Like execvp, the first executable regular file wins; when no entry
  * holds one, the first regular file found is returned so spawning it fails
  * with EACCES and #884's "could not be run" warning still applies.
- * Missing, unsearchable and non-directory entries are passed over.
+ * Missing, unsearchable and non-directory entries are passed over. Unlike
+ * execvp, a hit whose start fails with ENOENT (a shim whose interpreter is
+ * gone) is not retried with a later entry: the lint is skipped as not
+ * installed.
  *
  * Windows keeps the bare name: its lookup adds PATHEXT extensions, which
- * this search does not model.
+ * this search does not model, and starts in the spawn's cwd (see runLinter).
  */
 export async function resolveLinter(cmd: string): Promise<string | null> {
   if (process.platform === "win32") return cmd;
@@ -467,18 +470,29 @@ const CANNOT_RUN = new Set(["EACCES", "EPERM", "ENOEXEC"]);
 /** Per-run memo of resolveLinter results, keyed by command name. */
 export type LinterPaths = Map<string, Promise<string | null>>;
 
+export interface RunLinterOptions {
+  /** Resolve each linter once per run (#890). */
+  paths?: LinterPaths;
+  /**
+   * The linter's working directory. scoreScriptLint passes its private copy
+   * folder so a linter that looks up another program (an `env bash` shebang,
+   * a version-manager shim) through a relative PATH entry never finds one the
+   * skill ships in the caller's cwd (#890). Omitted: the caller's cwd.
+   */
+  cwd?: string;
+}
+
 /**
  * Run a linter on a single script file and return structured findings, or
  * why it was skipped: the extension has no linter, the linter is not
  * installed, or it could not be started for a reason that says nothing
  * about the script (#884). The linter is spawned by the absolute path
- * resolveLinter finds (#890), never by its bare name; pass `paths` to
- * resolve each linter once per run.
+ * resolveLinter finds (#890), never by its bare name.
  */
 export async function runLinter(
   filePath: string,
   ext: string,
-  paths: LinterPaths = new Map(),
+  { paths = new Map(), cwd }: RunLinterOptions = {},
 ): Promise<LintFinding[] | LintSkip> {
   const config = LINTER_CONFIG[ext];
   if (!config) return { skipped: `no linter for ${ext || "this file"}` };
@@ -494,7 +508,10 @@ export async function runLinter(
 
   try {
     const { runCommand } = await import("./utils/spawn");
-    const result = await runCommand([linter, ...config.args, filePath]);
+    const argv = [linter, ...config.args, filePath];
+    const result = await (cwd === undefined
+      ? runCommand(argv)
+      : runCommand(argv, { cwd }));
 
     // Not installed (#884): runCommand reports a missing binary (spawn
     // ENOENT) as exit 127 instead of rejecting, and 127 is also the shell's
@@ -659,7 +676,10 @@ export async function scoreScriptLint(
       const copy = await lintCopy(file, copies);
       // Not read (it changed, or is not a regular file): nothing to lint.
       if (copy === null) continue;
-      const linterResult = await runLinter(copy, ext, linterPaths);
+      const linterResult = await runLinter(copy, ext, {
+        paths: linterPaths,
+        cwd: copies,
+      });
       if (!Array.isArray(linterResult)) {
         skips.push(linterResult.skipped);
         const lang = LINTER_CONFIG[ext]?.language || ext;

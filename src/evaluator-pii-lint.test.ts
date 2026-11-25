@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { spawnSync } from "child_process";
+import { existsSync } from "fs";
 import {
   chmod,
   lstat,
@@ -460,7 +461,9 @@ describe("scoreScriptLint without shellcheck installed (#884)", () => {
     vi.stubEnv("PATH", emptyBin);
     const { runCommand } =
       await vi.importActual<typeof import("./utils/spawn")>("./utils/spawn");
-    runCommandMock.mockImplementation((argv: string[]) => runCommand(argv));
+    runCommandMock.mockImplementation(
+      (argv: string[], opts?: { cwd?: string }) => runCommand(argv, opts),
+    );
 
     const result = await scoreScriptLint(dir);
 
@@ -534,16 +537,21 @@ describe("scoreScriptLint without shellcheck installed (#884)", () => {
     ]);
   });
 
-  it("skips as not installed when an unsearchable PATH entry turns ENOENT into EACCES", async () => {
+  // libuv reported EACCES here (#884); the lookup is now asm's own (#890),
+  // so the unsearchable entry is passed over and nothing is spawned.
+  it("skips as not installed when only an unsearchable PATH entry precedes", async () => {
     const dir = join(base, "p4");
     await writeShSkill(dir);
-    vi.stubEnv("PATH", join(base, "empty-bin"));
-    runCommandMock.mockRejectedValue(
-      Object.assign(new Error("spawn shellcheck EACCES"), { code: "EACCES" }),
+    const locked = join(base, "locked");
+    await mkdir(locked);
+    await chmod(locked, 0o000);
+    vi.stubEnv("PATH", [locked, join(base, "empty-bin")].join(delimiter));
+
+    const result = await scoreScriptLint(dir).finally(() =>
+      chmod(locked, 0o700),
     );
 
-    const result = await scoreScriptLint(dir);
-
+    expect(runCommandMock).not.toHaveBeenCalled();
     expect(result.score).toBe(10);
     expect(result.findings).toEqual([
       "[bash/shell] scripts/wait.sh: lint skipped — shellcheck is not installed",
@@ -556,7 +564,7 @@ describe("scoreScriptLint without shellcheck installed (#884)", () => {
     await writeShSkill(dir);
     await writeFile(join(dir, "scripts", "ok.py"), 'print("hi")\n');
     runCommandMock.mockImplementation(async (argv: string[]) => {
-      if (argv[0] === "python3")
+      if (basename(argv[0]) === "python3")
         return { exitCode: 127, stdout: "", stderr: "spawn python3 ENOENT" };
       throw Object.assign(new Error("spawn shellcheck EMFILE"), {
         code: "EMFILE",
@@ -565,6 +573,7 @@ describe("scoreScriptLint without shellcheck installed (#884)", () => {
     const bin = join(base, "bin");
     await mkdir(bin);
     await writeFile(join(bin, "shellcheck"), "");
+    await writeFile(join(bin, "python3"), "");
     vi.stubEnv("PATH", bin);
 
     const result = await scoreScriptLint(dir);
@@ -644,7 +653,9 @@ describe.skipIf(process.platform === "win32")(
       runCommandMock.mockReset();
       const { runCommand } =
         await vi.importActual<typeof import("./utils/spawn")>("./utils/spawn");
-      runCommandMock.mockImplementation((argv: string[]) => runCommand(argv));
+      runCommandMock.mockImplementation(
+        (argv: string[], opts?: { cwd?: string }) => runCommand(argv, opts),
+      );
     });
 
     afterEach(async () => {
@@ -708,6 +719,45 @@ describe.skipIf(process.platform === "win32")(
         expect(result.findings).toContain(
           "[WARNING] scripts/a.sh:2 — Quote this.",
         );
+      },
+    );
+
+    it("runs the linter outside the skill folder", async () => {
+      const cwdFile = join(base, "LINTER-CWD");
+      await writeFile(
+        join(abs, "shellcheck"),
+        `#!/bin/sh\npwd > '${cwdFile}'\necho '[]'\n`,
+      );
+      await chmod(join(abs, "shellcheck"), 0o755);
+      vi.stubEnv("PATH", [".", abs, "/usr/bin", "/bin"].join(delimiter));
+
+      await scoreScriptLint(skill);
+
+      const { readFile, realpath } = await import("fs/promises");
+      const linterCwd = (await readFile(cwdFile, "utf8")).trim();
+      expect(relative(await realpath(skill), linterCwd)).toMatch(/^\.\./);
+      expect(basename(linterCwd)).toMatch(/^asm-lint-/);
+    });
+
+    // A linter that is a script finding its interpreter on PATH (`env bash`,
+    // pyenv/asdf shims) must not pick up one the skill ships.
+    it.skipIf(!existsSync("/usr/bin/env"))(
+      "never runs a program the skill ships through the linter's own PATH lookup",
+      async () => {
+        await writeTrap(join(skill, "asm890-interp"), join(base, "MARKER"), "");
+        await writeFile(
+          join(abs, "shellcheck"),
+          "#!/usr/bin/env asm890-interp\n",
+        );
+        await chmod(join(abs, "shellcheck"), 0o755);
+        vi.stubEnv("PATH", [".", abs, "/usr/bin", "/bin"].join(delimiter));
+
+        await scoreScriptLint(skill);
+
+        expect(runCommandMock.mock.calls.map((c) => c[0][0])).toContain(
+          join(abs, "shellcheck"),
+        );
+        expect(await markerWritten()).toBe(false);
       },
     );
 
