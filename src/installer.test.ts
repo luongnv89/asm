@@ -12,6 +12,7 @@ import {
   symlink,
   readFile,
   realpath,
+  copyFile,
 } from "fs/promises";
 import { existsSync } from "fs";
 import { execFileSync } from "child_process";
@@ -587,6 +588,10 @@ describe.skipIf(process.platform === "win32" || !existsSync("/bin/sh"))(
         `#!/bin/sh\necho EXECUTED-BY-GIT > '${marker}'\ncat\n`,
       );
       await chmod(join(repo, "git-lfs"), 0o755);
+      // The same program under rel/, for the `rel:<abs>` PATH form.
+      await mkdir(join(repo, "rel"));
+      await copyFile(join(repo, "git-lfs"), join(repo, "rel", "git-lfs"));
+      await chmod(join(repo, "rel", "git-lfs"), 0o755);
       git(["init", "-q"], repo);
       git(["add", "-A"], repo);
       git(
