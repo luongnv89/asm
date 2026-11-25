@@ -1320,8 +1320,22 @@ function runnerSpecs(
 function commandTokens(argv: string[]): string[] {
   return argv
     .flatMap((a) => a.split(/[\s;&|()`<>]+/))
-    .map((t) => t.replace(/^['"]+|['"]+$/g, ""))
+    .map(trimQuotes)
     .filter((t) => t.length > 0);
+}
+
+/**
+ * `t` without leading and trailing quotes. A loop, not a regex: an
+ * alternation anchored at the end backtracks quadratically on a long run of
+ * quotes inside an untrusted word (#886).
+ */
+function trimQuotes(t: string): string {
+  const quote = (c: string) => c === '"' || c === "'";
+  let start = 0;
+  let end = t.length;
+  while (start < end && quote(t[start])) start++;
+  while (end > start && quote(t[end - 1])) end--;
+  return t.slice(start, end);
 }
 
 /**

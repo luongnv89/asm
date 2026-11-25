@@ -1565,6 +1565,16 @@ describe("scanAgentConfigs (#886)", () => {
     expect(found.filter((f) => f.file === "s.json")).toHaveLength(100);
   });
 
+  test("a word full of quotes is tokenised in linear time (QA cycle 2)", () => {
+    const arg = "x" + '"'.repeat(500_000) + "y";
+    const start = Date.now();
+    expect(unpinnedFetchRisks(["npx", arg])).toEqual([
+      `unpinned remote fetch: npx ${arg}`,
+    ]);
+    expect(unpinnedFetchRisks(["npx", `"'x@1.2.3'"`])).toEqual([]);
+    expect(Date.now() - start).toBeLessThan(2_000);
+  });
+
   test("unpinnedFetchRisks reports @latest once", () => {
     expect(unpinnedFetchRisks(["npx", "-y", "x@latest"])).toEqual([
       "unpinned remote fetch: npx x@latest",

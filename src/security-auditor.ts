@@ -328,8 +328,9 @@ export async function auditSkillSecurity(
   if (configCategory) {
     // Most severe first, as `scanCode` sorts (a stable sort).
     const rank = { critical: 0, warning: 1, info: 2 };
+    // A loop, not `Math.min(...)`: no argument-count limit on large lists.
     const top = (c: CodeScanCategory) =>
-      Math.min(...c.matches.map((m) => rank[m.severity]));
+      c.matches.reduce((min, m) => Math.min(min, rank[m.severity]), 2);
     codeScans.push(configCategory);
     codeScans.sort((a, b) => top(a) - top(b));
   }
