@@ -29,6 +29,7 @@ import {
   resolveTags,
 } from "./utils/frontmatter";
 import { estimateTokenCount } from "./utils/token-count";
+import { absolutePathEnv } from "./utils/spawn";
 import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
 import {
@@ -37,12 +38,16 @@ import {
   readFilesRecursive,
 } from "./utils/fs";
 import {
+  AGENT_CONFIG_CATEGORY,
+  AGENT_CONFIG_RISK_CATEGORY,
   CALL_CANDIDATE,
   DYNAMIC_EXEC_RULES,
   METHOD_CALL_CATEGORY,
   POSSIBLE_DYNAMIC_CATEGORY,
+  describeAgentConfigFinding,
   fileScanContext,
   matchLineRule,
+  scanAgentConfigs,
   stripControlBytes,
   type LineRule,
 } from "./security-auditor-scan";
@@ -298,7 +303,7 @@ export async function resolveSubpath(
     const { stdout } = await execFileAsync(
       "git",
       ["ls-remote", "--heads", "--tags", source.cloneUrl],
-      { timeout: 15_000 },
+      { timeout: 15_000, env: absolutePathEnv() },
     );
 
     const refs = new Set<string>();
@@ -392,11 +397,13 @@ export function findDuplicateInstallNames(
 
 export async function checkGitAvailable(): Promise<void> {
   try {
-    await execFileAsync("git", ["--version"]);
+    await execFileAsync("git", ["--version"], { env: absolutePathEnv() });
     debug("install: git available");
   } catch {
+    // Only absolute PATH entries are searched (#894), so a git reached
+    // through `.` or a relative entry is reported as missing.
     throw new Error(
-      "git is required for installing skills. Install git from https://git-scm.com",
+      "git is required for installing skills, and no absolute PATH entry holds it. Install git from https://git-scm.com",
     );
   }
 }
@@ -440,10 +447,12 @@ async function cloneWithUrl(
     // Clone without --depth so we can checkout an arbitrary commit
     await execFileAsync("git", ["clone", "--no-checkout", url, tempDir], {
       timeout: 60_000,
+      env: absolutePathEnv(),
     });
     await execFileAsync("git", ["checkout", ref], {
       cwd: tempDir,
       timeout: 30_000,
+      env: absolutePathEnv(),
     });
     return tempDir;
   }
@@ -454,7 +463,7 @@ async function cloneWithUrl(
   }
   args.push(url, tempDir);
 
-  await execFileAsync("git", args, { timeout: 60_000 });
+  await execFileAsync("git", args, { timeout: 60_000, env: absolutePathEnv() });
   return tempDir;
 }
 
@@ -763,14 +772,14 @@ export async function installScriptDependencies(
       {
         cwd: scriptsDir,
         timeout: 120_000,
-        env: {
+        env: absolutePathEnv({
           ...process.env,
           npm_config_git: "git",
           npm_config_ignore_scripts: "true",
           npm_config_allow_git: "none",
           npm_config_global: "false",
           npm_config_location: "user",
-        },
+        }),
       },
     );
   } catch (err: unknown) {
@@ -848,9 +857,13 @@ export async function scanForWarnings(
   options: { root?: string } = {},
 ): Promise<SecurityWarning[]> {
   const warnings: SecurityWarning[] = [];
+  const links: ExternalSymlink[] = [];
+  const unread: string[] = [];
   const files = await readFilesRecursive(dir, {
     root: options.root,
-    onExternalSymlink: (link) =>
+    onUnreadFile: (relPath) => unread.push(relPath),
+    onExternalSymlink: (link) => {
+      links.push(link);
       warnings.push({
         category: OUTSIDE_SYMLINK_CATEGORY,
         file: stripControlBytes(link.path),
@@ -859,8 +872,25 @@ export async function scanForWarnings(
           link.kind === "dangling" || link.kind === "loop"
             ? `symlink ${link.kind === "loop" ? "loops" : "dangles"} -> ${stripControlBytes(link.target)} — not followed`
             : `symlink leaves the skill folder -> ${stripControlBytes(link.target)} (${link.kind}) — not read`,
-      }),
+      });
+    },
   });
+
+  // MCP servers and hooks (#886), as `asm audit security` finds them. Kept
+  // as the original strings; the preview strips and clips them to print.
+  for (const f of scanAgentConfigs({
+    files,
+    unread,
+    externalSymlinks: links,
+  })) {
+    warnings.push({
+      category:
+        f.risks.length > 0 ? AGENT_CONFIG_RISK_CATEGORY : AGENT_CONFIG_CATEGORY,
+      file: f.file,
+      line: f.line,
+      match: describeAgentConfigFinding(f),
+    });
+  }
 
   for (const { relPath, content } of files) {
     const context = fileScanContext(relPath, content);
@@ -891,12 +921,14 @@ export const HIGH_RISK_WARNING_CATEGORIES = [
   "Code execution",
   "Credentials",
   OUTSIDE_SYMLINK_CATEGORY,
+  AGENT_CONFIG_RISK_CATEGORY,
 ];
 /** Warning categories that make an install a medium-risk preview. */
 const MEDIUM_RISK_WARNING_CATEGORIES = [
   "External URLs",
   METHOD_CALL_CATEGORY,
   POSSIBLE_DYNAMIC_CATEGORY,
+  AGENT_CONFIG_CATEGORY,
 ];
 
 /**

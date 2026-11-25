@@ -9,6 +9,7 @@ import { existsSync } from "fs";
 import { join, dirname } from "path";
 
 import { parseFrontmatter } from "./utils/frontmatter";
+import { absolutePathEnv } from "./utils/spawn";
 
 import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
@@ -95,7 +96,7 @@ function runNpx(
       return execFileAsync(process.execPath, [npxCli, ...args], opts);
     }
   }
-  return execFileAsync("npx", args, opts);
+  return execFileAsync("npx", args, { ...opts, env: absolutePathEnv() });
 }
 
 export async function checkNpxAvailable(): Promise<void> {

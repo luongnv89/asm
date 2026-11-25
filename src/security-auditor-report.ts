@@ -4,8 +4,12 @@ import type {
   SecurityAuditReport,
   SecurityVerdict,
 } from "./utils/types";
-import { stripControlBytes } from "./security-auditor-scan";
 import {
+  stripControlBytes,
+  AGENT_CONFIG_CATEGORY,
+} from "./security-auditor-scan";
+import {
+  clipText,
   stringifyForOutput,
   stripControlBytesDeep,
 } from "./utils/control-chars";
@@ -75,7 +79,7 @@ function severityIcon(severity: "critical" | "warning" | "info"): string {
 }
 
 function truncate(s: string, max: number): string {
-  return s.length > max ? s.slice(0, max - 3) + "..." : s;
+  return clipText(s, max);
 }
 
 function formatNumber(n: number): string {
@@ -91,10 +95,25 @@ function visibleLength(s: string): number {
   return stripAnsi(s).length;
 }
 
-function deduplicateMatches(matches: CodeScanMatch[]): CodeScanMatch[] {
+/** MCP server and hook findings listed before "... N more" (#886). */
+const AGENT_CONFIG_SHOWN = 10;
+/** Width a server or hook finding is clipped to when printed (#886). */
+const AGENT_CONFIG_WIDTH = 140;
+
+/**
+ * One finding per line, except in `AGENT_CONFIG_CATEGORY` (#886), where
+ * several servers can share a line of one config: keyed by the original
+ * match too, so none is collapsed.
+ */
+function deduplicateMatches(
+  matches: CodeScanMatch[],
+  byMatch = false,
+): CodeScanMatch[] {
   const seen = new Map<string, CodeScanMatch>();
   for (const m of matches) {
-    const key = `${m.file}:${m.line}`;
+    const key = byMatch
+      ? JSON.stringify([m.file, m.line, m.match])
+      : `${m.file}:${m.line}`;
     const existing = seen.get(key);
     if (
       !existing ||
@@ -137,7 +156,10 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
   // rendered (#830). Below the strip, strings are only printed or compared
   // with fixed constants (verdict, severity, category).
   const findingsByCategory = report.codeScans.map((category) => {
-    const deduped = deduplicateMatches(category.matches);
+    const deduped = deduplicateMatches(
+      category.matches,
+      category.category === AGENT_CONFIG_CATEGORY,
+    );
     return stripControlBytesDeep({
       deduped,
       fileGroups: groupMatchesByFile(deduped),
@@ -305,6 +327,24 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
         lines.push(headerLeft + " ".repeat(headerGap) + permSuffix);
       } else {
         lines.push(headerLeft);
+      }
+
+      // MCP servers and hooks (#886): every finding names a server or hook
+      // and its command line, so each gets its own line, clipped here.
+      if (category.category === AGENT_CONFIG_CATEGORY) {
+        for (const m of dedupedMatches.slice(0, AGENT_CONFIG_SHOWN)) {
+          const text = truncate(m.match, AGENT_CONFIG_WIDTH);
+          lines.push(
+            `     ${color.dim(`${truncate(m.file, 40)}:${m.line}`)} ${color.dim("--")} ${m.severity === "critical" ? text : color.dim(text)}`,
+          );
+        }
+        if (dedupedMatches.length > AGENT_CONFIG_SHOWN) {
+          lines.push(
+            `     ${color.dim(`... ${dedupedMatches.length - AGENT_CONFIG_SHOWN} more`)}`,
+          );
+        }
+        lines.push("");
+        continue;
       }
 
       // Matches grouped by file (above, on the originals), rendered compactly

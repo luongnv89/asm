@@ -1,7 +1,22 @@
-import { describe, expect, it } from "vitest";
-import { realpath } from "node:fs/promises";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import {
+  chmod,
+  mkdtemp,
+  readFile,
+  realpath,
+  rm,
+  writeFile,
+} from "node:fs/promises";
+import { existsSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { runCommand } from "./spawn";
+import { delimiter, join } from "node:path";
+import {
+  absolutePathEntries,
+  absolutePathEnv,
+  DEFAULT_PATH,
+  NO_PROGRAM_PATH,
+  runCommand,
+} from "./spawn";
 
 // The child process is the running `node` binary rather than shell builtins
 // (`echo`, `false`, `sh -c`, `pwd`): those either don't exist as standalone
@@ -86,3 +101,145 @@ describe("runCommand", () => {
     expect(exitCode).toBe(127);
   });
 });
+
+// Issue #894 — git and gh were started with the user's full PATH, so an
+// empty, `.` or relative entry let git's filter lookup (git-lfs) or the spawn
+// itself run a file shipped by the repo asm had just cloned into the cwd.
+describe("absolutePathEnv (#894)", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  const abs = "/opt/asm894/bin";
+  it.skipIf(process.platform === "win32").each([
+    [".:<abs>", `.${delimiter}${abs}`],
+    ["::<abs>", `${delimiter}${delimiter}${abs}`],
+    ["<abs>:", `${abs}${delimiter}`],
+    ["rel:<abs>", `rel${delimiter}${abs}`],
+    ["../x:<abs>:~/bin", `../x${delimiter}${abs}${delimiter}~/bin`],
+  ])("keeps only the absolute entries of PATH %s", (_label, path) => {
+    expect(absolutePathEnv({ PATH: path }).PATH).toBe(abs);
+    expect(absolutePathEntries(path)).toEqual([abs]);
+  });
+
+  it.skipIf(process.platform === "win32")(
+    "keeps the order and the rest of the environment",
+    () => {
+      const env = absolutePathEnv({
+        PATH: ["/b", ".", "/a"].join(delimiter),
+        GIT_SSH_COMMAND: "ssh -i /k",
+      });
+      expect(env).toEqual({
+        PATH: ["/b", "/a"].join(delimiter),
+        GIT_SSH_COMMAND: "ssh -i /k",
+      });
+    },
+  );
+
+  it.skipIf(process.platform === "win32")(
+    "uses a directory that cannot exist when no entry is absolute",
+    () => {
+      // An empty PATH would be read as the cwd by node, sh, env and git.
+      expect(absolutePathEnv({ PATH: `.${delimiter}bin` }).PATH).toBe(
+        NO_PROGRAM_PATH,
+      );
+      expect(absolutePathEnv({ PATH: "" }).PATH).toBe(NO_PROGRAM_PATH);
+    },
+  );
+
+  it.skipIf(process.platform === "win32")(
+    "uses libuv's default search path when PATH is unset",
+    () => {
+      expect(absolutePathEnv({}).PATH).toBe(DEFAULT_PATH);
+    },
+  );
+
+  it.skipIf(process.platform === "win32")(
+    "does not modify the environment it is given",
+    () => {
+      const base = { PATH: `.${delimiter}/usr/bin` };
+      absolutePathEnv(base);
+      expect(base.PATH).toBe(`.${delimiter}/usr/bin`);
+    },
+  );
+
+  it("returns the environment unchanged on Windows", () => {
+    const platform = Object.getOwnPropertyDescriptor(process, "platform")!;
+    Object.defineProperty(process, "platform", { value: "win32" });
+    try {
+      const base = { PATH: `.${delimiter}C:\\bin` };
+      expect(absolutePathEnv(base)).toBe(base);
+    } finally {
+      Object.defineProperty(process, "platform", platform);
+    }
+  });
+
+  it("defaults to process.env", () => {
+    vi.stubEnv("ASM_SPAWN_ENV_TEST", "default-base");
+    expect(absolutePathEnv().ASM_SPAWN_ENV_TEST).toBe("default-base");
+  });
+});
+
+describe.skipIf(process.platform === "win32" || !existsSync("/bin/sh"))(
+  "runCommand child PATH (#894)",
+  () => {
+    let dir: string;
+    afterEach(async () => {
+      vi.unstubAllEnvs();
+      if (dir) await rm(dir, { recursive: true, force: true });
+    });
+
+    /** A cwd shipping an executable `name` that writes a marker. */
+    async function cwdShipping(name: string): Promise<string> {
+      dir = await realpath(await mkdtemp(join(tmpdir(), "asm-894-spawn-")));
+      await writeFile(
+        join(dir, name),
+        `#!/bin/sh\necho EXECUTED > '${join(dir, "MARKER")}'\n`,
+      );
+      await chmod(join(dir, name), 0o755);
+      return dir;
+    }
+
+    it("gives the child only the absolute PATH entries", async () => {
+      vi.stubEnv("PATH", [".", "", "rel", "/usr/bin", "/bin"].join(delimiter));
+      const { stdout } = await runCommand([
+        node,
+        "-e",
+        "process.stdout.write(process.env.PATH)",
+      ]);
+      expect(stdout).toBe(["/usr/bin", "/bin"].join(delimiter));
+    });
+
+    it("filters the PATH of an env option too", async () => {
+      const { stdout } = await runCommand(
+        [node, "-e", "process.stdout.write(process.env.PATH)"],
+        { env: { ...process.env, PATH: `.${delimiter}/bin` } },
+      );
+      expect(stdout).toBe("/bin");
+    });
+
+    it.each([["."], [""], [`.${delimiter}rel`]])(
+      "never runs the cwd's program when PATH is %j (exit 127 instead)",
+      async (path) => {
+        const cwd = await cwdShipping("asm894-tool");
+        vi.stubEnv("PATH", path);
+        const { exitCode } = await runCommand(["asm894-tool"], { cwd });
+        expect(exitCode).toBe(127);
+        expect(existsSync(join(cwd, "MARKER"))).toBe(false);
+      },
+    );
+
+    it("never runs a program the cwd ships through the child's own lookup", async () => {
+      const cwd = await cwdShipping("asm894-tool");
+      vi.stubEnv("PATH", [".", "/usr/bin", "/bin"].join(delimiter));
+      const { exitCode } = await runCommand(["/bin/sh", "-c", "asm894-tool"], {
+        cwd,
+      });
+      expect(exitCode).toBe(127);
+      expect(existsSync(join(cwd, "MARKER"))).toBe(false);
+      // Control: the same lookup with the unfiltered PATH does run it.
+      await runCommand(["/bin/sh", "-c", "PATH=.:$PATH asm894-tool"], { cwd });
+      expect(await readFile(join(cwd, "MARKER"), "utf-8")).toBe("EXECUTED\n");
+    });
+  },
+);

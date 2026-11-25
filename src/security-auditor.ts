@@ -14,6 +14,9 @@ import {
   scanCode,
   analyzePermissions,
   stripControlBytes,
+  scanAgentConfigs,
+  agentConfigCategory,
+  type AgentConfigFinding,
 } from "./security-auditor-scan";
 
 // ─── Verdict Calculation ─────────────────────────────────────────────────────
@@ -183,6 +186,87 @@ export function applyExternalSymlinks(
   };
 }
 
+/**
+ * Raise a verdict for the MCP servers and hooks a skill ships (#886): any
+ * such config, or one asm could not read, makes it at least `warning`; a
+ * server or hook that fetches unpinned remote code or passes a credential
+ * makes it `dangerous`. Decided on the findings' original strings.
+ */
+export function applyAgentConfigs(
+  verdict: SecurityVerdict,
+  reason: string,
+  findings: AgentConfigFinding[],
+): { verdict: SecurityVerdict; reason: string } {
+  if (findings.length === 0) return { verdict, reason };
+  // Counted from what the findings stand for: a config over the listing cap
+  // folds the rest into one note that keeps their count (#886).
+  const isEntry = (f: AgentConfigFinding) =>
+    f.kind === "mcp-server" || f.kind === "hook";
+  let entries = 0;
+  let riskyEntries = 0;
+  let unread = 0;
+  let folded = 0;
+  for (const f of findings) {
+    if (f.folded) {
+      entries += f.folded.entries;
+      riskyEntries += f.folded.risky;
+      unread += f.folded.unread;
+      folded += f.folded.entries;
+    } else if (isEntry(f)) {
+      entries++;
+      if (f.risks.length > 0) riskyEntries++;
+    } else if (f.kind === "unreadable") unread++;
+  }
+  const risky = findings.filter((f) => f.risks.length > 0);
+  const count = (n: number) => n.toLocaleString("en-US");
+  const plural = (n: number, one: string, many: string) =>
+    `${count(n)} ${n === 1 ? one : many}`;
+  const shipped = `${plural(entries, "MCP server or hook", "MCP servers or hooks")}${folded > 0 ? ` (first ${count(entries - folded)} listed)` : ""}`;
+  let configReason: string;
+  if (risky.length > 0) {
+    const files = [...new Set(risky.map((f) => f.file))].join(", ");
+    configReason =
+      entries === 1
+        ? `Skill ships 1 MCP server or hook that fetches unpinned remote code or passes a credential (${files}).`
+        : `Skill ships ${shipped}; ${count(riskyEntries)} of them ${riskyEntries === 1 ? "fetches" : "fetch"} unpinned remote code or ${riskyEntries === 1 ? "passes" : "pass"} a credential (${files}).`;
+  } else {
+    const parts: string[] = [];
+    if (entries > 0) parts.push(shipped);
+    if (unread > 0)
+      parts.push(
+        plural(
+          unread,
+          "config asm could not read",
+          "configs asm could not read",
+        ),
+      );
+    if (parts.length === 0)
+      parts.push("an MCP server or hook config with nothing listed");
+    configReason = `Skill ships ${parts.join(" and ")}; an agent that loads ${entries + unread <= 1 ? "it runs its" : "them runs their"} commands. Review before installing.`;
+  }
+  const target: SecurityVerdict = risky.length > 0 ? "dangerous" : "warning";
+  const rank: Record<SecurityVerdict, number> = {
+    safe: 0,
+    caution: 1,
+    warning: 2,
+    dangerous: 3,
+  };
+  if (rank[verdict] >= rank[target]) {
+    return { verdict, reason: `${reason} ${configReason}` };
+  }
+  // Raised: the base reason's reassurance no longer holds.
+  const base = reason
+    .replace(/\s*Generally acceptable but worth reviewing\.$/, "")
+    .trim();
+  return {
+    verdict: target,
+    reason:
+      verdict === "safe" || base === ""
+        ? configReason
+        : `${configReason} ${base}`,
+  };
+}
+
 export interface AuditSkillSecurityOptions {
   /**
    * Confined mode, used by every `asm audit security` source — local folder
@@ -229,6 +313,8 @@ export async function auditSkillSecurity(
 
   const links: ExternalSymlink[] = [...(options.externalSymlinks ?? [])];
   const hardLinks: HardLinkNote[] = [];
+  const unread: string[] = [];
+  const onUnreadFile = (relPath: string) => unread.push(relPath);
 
   // Read all files, excluding documentation
   const allFiles =
@@ -248,8 +334,9 @@ export async function auditSkillSecurity(
                     severity: "info",
                     note: "Hard link: content may be shared with a file outside the folder.",
                   }),
+                onUnreadFile,
               }
-            : {},
+            : { onUnreadFile },
         );
   const files = allFiles.filter((f) => !isDocFile(f.relPath));
   const totalLines = files.reduce((sum, f) => sum + f.lineCount, 0);
@@ -262,17 +349,34 @@ export async function auditSkillSecurity(
 
   // Code scanning
   const codeScans = scanCode(files);
+  // MCP servers and hooks the skill ships (#886): parsed, never run.
+  const configs = scanAgentConfigs({
+    files: allFiles,
+    unread,
+    externalSymlinks: links,
+  });
+  const configCategory = agentConfigCategory(configs);
 
   // Permission analysis
   const permissions = analyzePermissions(codeScans);
 
   // Verdict
   const base = calculateVerdict(codeScans, permissions, source);
+  const withConfigs = applyAgentConfigs(base.verdict, base.reason, configs);
   const { verdict, reason } = applyExternalSymlinks(
-    base.verdict,
-    base.reason,
+    withConfigs.verdict,
+    withConfigs.reason,
     links,
   );
+  if (configCategory) {
+    // Most severe first, as `scanCode` sorts (a stable sort).
+    const rank = { critical: 0, warning: 1, info: 2 };
+    // A loop, not `Math.min(...)`: no argument-count limit on large lists.
+    const top = (c: CodeScanCategory) =>
+      c.matches.reduce((min, m) => Math.min(min, rank[m.severity]), 2);
+    codeScans.push(configCategory);
+    codeScans.sort((a, b) => top(a) - top(b));
+  }
 
   return {
     scannedAt: new Date().toISOString(),

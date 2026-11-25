@@ -125,6 +125,13 @@ in asm's temporary copy folder with only the absolute `PATH` entries, so a
 linter that looks up another program (an `env bash` shebang, a
 version-manager shim) cannot reach the skill through a relative or `..`
 entry either, even when `TMPDIR` is inside the skill (not on Windows).
+The same `PATH` rule covers every `git` and `gh` child asm starts (clone,
+checkout, fetch, `ls-remote` and `rev-parse` for `asm install`, `asm eval
+github:…`, `asm update`, `asm outdated`, `asm index ingest` and the library,
+plus `asm publish` and `asm doctor`) and the `npm` and `npx` it runs. Without
+it, git's filter lookup (a `git-lfs` smudge filter in the user's config) ran
+an executable the fresh clone ships. When no `PATH` entry is absolute, these
+commands report that git was not found (not on Windows).
 
 In a collection (`asm eval skills/`), a child that is a link to a folder
 whose real path holds a `SKILL.md` is a skill folder in its own right, as

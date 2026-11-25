@@ -295,3 +295,101 @@ describe("describeSecurityHold (#791)", () => {
     );
   });
 });
+
+describe("MCP servers and hooks in the report (#886)", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "asm-test-886-fmt-"));
+    await writeFile(join(tempDir, "SKILL.md"), "---\nname: m\n---\n# m\n");
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  test("lists every server on its own line, stripped and clipped at render", async () => {
+    const evil = "e\u001b[31mRED\nFAKE: safe\u202e";
+    await writeFile(
+      join(tempDir, ".mcp.json"),
+      JSON.stringify({
+        mcpServers: {
+          [evil]: { command: "node", args: ["x".repeat(300)] },
+          plain: { command: "npx", args: ["-y", "x@latest"] },
+        },
+      }),
+    );
+    const report = await auditSkillSecurity(tempDir, "m");
+    const output = formatSecurityReport(report);
+    // Both servers share line 1 of the config: neither is collapsed.
+    expect(output).toContain(
+      '.mcp.json:1 -- MCP server "e?[31mRED?FAKE: safe?"',
+    );
+    expect(output).toContain(
+      'MCP server "plain": npx -y x@latest [unpinned remote fetch: npx x@latest]',
+    );
+    expect(output).not.toContain("x".repeat(200));
+    // eslint-disable-next-line no-control-regex
+    expect(output).not.toMatch(/\u001b|\u202e/);
+    expect(output).not.toContain("RED\nFAKE");
+    // JSON keeps the original strings, escaped.
+    const json = JSON.parse(formatSecurityReportJSON(report));
+    const category = json.codeScans.find(
+      (c: { category: string }) => c.category === "MCP servers and hooks",
+    );
+    expect(category.matches.map((m: { match: string }) => m.match)).toContain(
+      `MCP server "${evil}": node ${"x".repeat(300)}`,
+    );
+    expect(formatSecurityReportJSON(report)).not.toMatch(/\u202e/);
+  });
+
+  test("lists ten findings, then how many more", async () => {
+    const servers: Record<string, unknown> = {};
+    for (let i = 0; i < 13; i++) servers[`s${i}`] = { command: "node" };
+    await writeFile(
+      join(tempDir, ".mcp.json"),
+      JSON.stringify({ mcpServers: servers }),
+    );
+    const output = formatSecurityReport(await auditSkillSecurity(tempDir, "m"));
+    expect(output).toContain('MCP server "s9"');
+    expect(output).not.toContain('MCP server "s10"');
+    expect(output).toContain("... 3 more");
+  });
+
+  test("the clip never splits an emoji into a lone surrogate (nit 3)", async () => {
+    // `MCP server "s": node ` is 21 units: the first emoji's high surrogate
+    // sits at index 136, the last one before the 137-unit cut.
+    await writeFile(
+      join(tempDir, ".mcp.json"),
+      JSON.stringify({
+        mcpServers: {
+          s: {
+            command: "node",
+            args: ["a".repeat(115) + "\u{1F600}".repeat(10)],
+          },
+        },
+      }),
+    );
+    const output = formatSecurityReport(await auditSkillSecurity(tempDir, "m"));
+    expect(output).toContain(`node ${"a".repeat(115)}...`);
+    expect(output).not.toMatch(
+      /[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/,
+    );
+  });
+
+  test("the update hold names a dangerous config finding", async () => {
+    await writeFile(
+      join(tempDir, ".mcp.json"),
+      '{"mcpServers":{"h":{"command":"uvx","args":["srv"]}}}',
+    );
+    const report = await auditSkillSecurity(tempDir, "m");
+    expect(report.verdict).toBe("dangerous");
+    const hold = describeSecurityHold(report, {
+      verdict: "dangerous — update blocked",
+      prefix: "Security audit",
+      action: "install it anyway",
+      findings: 5,
+    });
+    expect(hold.findings).toEqual([".mcp.json:1 (MCP servers and hooks)"]);
+  });
+});

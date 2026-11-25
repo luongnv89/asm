@@ -28,6 +28,7 @@ import {
 } from "../bundler";
 import type { BundleSkillRef } from "../utils/types";
 import { errorMessage } from "../utils/errors";
+import { absolutePathEnv } from "../utils/spawn";
 import { join as joinPath } from "path";
 
 import { error, readLine } from "./shared";
@@ -178,6 +179,7 @@ export async function cmdBundle(args: ParsedArgs) {
           await execFileAsync("git", ["config", "user.name"], {
             encoding: "utf-8",
             timeout: 5000,
+            env: absolutePathEnv(),
           })
         ).stdout.trim();
         if (gitUser) author = gitUser;

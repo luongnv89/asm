@@ -16,6 +16,7 @@ import { tmpdir } from "os";
 import { debug } from "./logger";
 import { readLock } from "./utils/lock";
 import { parseFrontmatter } from "./utils/frontmatter";
+import { absolutePathEnv } from "./utils/spawn";
 import { fetchRegistryIndex } from "./registry";
 import type { RegistryIndex } from "./registry";
 import type { LockEntry } from "./utils/types";
@@ -62,7 +63,7 @@ export function createPinnedGitEnv(
     }
   }
   env.GIT_DEFAULT_HASH = objectFormat;
-  return env;
+  return absolutePathEnv(env);
 }
 
 // ─── Types ──────────────────────────────────────────────────────────────────
@@ -175,6 +176,23 @@ export async function poolAll<T, R>(
 
 // ─── Remote Commit Resolution ───────────────────────────────────────────────
 
+/** Why a lookup failed when no absolute PATH entry holds git (#894). */
+export const GIT_NOT_FOUND =
+  "git not found: no absolute PATH entry holds it (relative entries are skipped)";
+
+/** Whether starting `git` fails because no absolute PATH entry holds it. */
+export async function isGitMissing(): Promise<boolean> {
+  try {
+    await execFileAsync("git", ["--version"], {
+      timeout: 5_000,
+      env: absolutePathEnv(),
+    });
+    return false;
+  } catch (err) {
+    return (err as NodeJS.ErrnoException).code === "ENOENT";
+  }
+}
+
 /**
  * Get the latest commit hash from a remote git repository.
  * Times out after 10 seconds.
@@ -192,7 +210,10 @@ export async function getLatestRemoteCommit(
       args.push("HEAD");
     }
 
-    const { stdout } = await execFileAsync("git", args, { timeout: 10_000 });
+    const { stdout } = await execFileAsync("git", args, {
+      timeout: 10_000,
+      env: absolutePathEnv(),
+    });
     const advertised = new Map<string, string>();
     for (const line of stdout.split("\n")) {
       const [hash, advertisedRef] = line.trim().split(/\s+/);
@@ -695,6 +716,8 @@ export async function checkOutdated(
       remoteWaiters.shift()?.();
     }
   };
+  // Asked once, and only after a lookup failed: is git missing altogether?
+  let gitMissing: Promise<boolean> | undefined;
   const remoteCommits = new Map<string, Promise<string | null>>();
   const resolveRemote = (url: string, ref: string | null) => {
     const key = `${url}\n${ref ?? ""}`;
@@ -815,7 +838,9 @@ export async function checkOutdated(
         source: entry.source,
         sourceType,
         status: "error" as OutdatedStatus,
-        error: "Failed to fetch remote commit",
+        error: (await (gitMissing ??= isGitMissing()))
+          ? GIT_NOT_FOUND
+          : "Failed to fetch remote commit",
       };
     }
 

@@ -383,6 +383,11 @@ export interface WalkFilesOptions {
    * when the walk went through that path.
    */
   shownAs?: string;
+  /**
+   * Called for an entry that is neither a regular file nor a folder (a
+   * FIFO, socket or device): never opened, only named (#886).
+   */
+  onOtherEntry?: (relPath: string) => void;
 }
 
 const DEFAULT_SKIP = (name: string) =>
@@ -543,6 +548,8 @@ export async function walkFiles(
             stats: s,
             ...(report ? { root: rootReal } : {}),
           });
+        } else {
+          options.onOtherEntry?.(relPath);
         }
       } catch {
         // The entry may have failed because its folder was swapped (it is
@@ -583,6 +590,12 @@ export interface ReadFilesRecursiveOptions {
   root?: string;
   /** See `WalkFilesOptions.anchored`. */
   anchored?: boolean;
+  /**
+   * Called for each non-binary file the walk found but did not read: over
+   * `MAX_FILE_SIZE`, not readable as a bounded regular file, or not a
+   * regular file at all (a FIFO, socket or device, never opened) (#886).
+   */
+  onUnreadFile?: (relPath: string) => void;
 }
 
 export async function readFilesRecursive(
@@ -598,13 +611,19 @@ export async function readFilesRecursive(
         ? `.${name.split(".").pop()!.toLowerCase()}`
         : "";
       if (BINARY_EXTENSIONS.has(ext)) return;
-      if (stats.size > MAX_FILE_SIZE) return;
+      if (stats.size > MAX_FILE_SIZE) {
+        options.onUnreadFile?.(relPath);
+        return;
+      }
       if (confined && stats.nlink > 1) {
         options.onHardLink?.(relPath, stats.nlink);
       }
 
       const content = await readBoundedTextFile(fullPath, MAX_FILE_SIZE, root);
-      if (content === null) return;
+      if (content === null) {
+        options.onUnreadFile?.(relPath);
+        return;
+      }
       results.push({
         relPath,
         content,
@@ -615,6 +634,7 @@ export async function readFilesRecursive(
       onExternalSymlink: options.onExternalSymlink,
       root: options.root,
       anchored: options.anchored,
+      onOtherEntry: options.onUnreadFile,
     },
   );
   return results;

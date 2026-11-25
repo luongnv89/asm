@@ -31,10 +31,55 @@ import {
   getLatestRemoteCommit,
   inspectSkillFolders,
   readSkillVersion,
+  isGitMissing,
+  GIT_NOT_FOUND,
 } from "./updater-core";
 import { updateSkills } from "./updater-updates";
 import type { LockEntry } from "./utils/types";
 import type { RegistryIndex } from "./registry";
+
+// ─── git missing (#894) ─────────────────────────────────────────────────────
+
+describe.skipIf(process.platform === "win32")("git missing (#894)", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  const lock = {
+    version: 1 as const,
+    skills: {
+      s1: {
+        source: "github:fake/repo:skills/s1",
+        commitHash: "a".repeat(40),
+        ref: null,
+        installedAt: "2026-01-01T00:00:00.000Z",
+        provider: "claude",
+      },
+    },
+  } as unknown as import("./utils/types").LockFile;
+
+  it("isGitMissing is false with the normal PATH", async () => {
+    await expect(isGitMissing()).resolves.toBe(false);
+  });
+
+  it("checkOutdated says git is not found when PATH has no absolute entry", async () => {
+    vi.stubEnv("PATH", ".:rel");
+    await expect(isGitMissing()).resolves.toBe(true);
+    const summary = await checkOutdated({
+      lock,
+      getLatestRemoteCommitFn: async () => null,
+    });
+    expect(summary.entries[0].error).toBe(GIT_NOT_FOUND);
+  });
+
+  it("keeps the fetch failure message when git is there", async () => {
+    const summary = await checkOutdated({
+      lock,
+      getLatestRemoteCommitFn: async () => null,
+    });
+    expect(summary.entries[0].error).toBe("Failed to fetch remote commit");
+  });
+});
 
 // ─── createPinnedGitEnv ─────────────────────────────────────────────────────
 
@@ -51,6 +96,15 @@ describe("createPinnedGitEnv", () => {
     }
     Object.assign(process.env, savedEnv);
   });
+
+  // #894: update and outdated run git inside a fresh fetch of the repo.
+  it.skipIf(process.platform === "win32")(
+    "keeps only the absolute PATH entries",
+    () => {
+      process.env.PATH = ".:/usr/bin::rel:/bin:";
+      expect(createPinnedGitEnv("sha1").PATH).toBe("/usr/bin:/bin");
+    },
+  );
 
   it("sets GIT_DEFAULT_HASH to the requested object format", () => {
     expect(createPinnedGitEnv("sha1").GIT_DEFAULT_HASH).toBe("sha1");

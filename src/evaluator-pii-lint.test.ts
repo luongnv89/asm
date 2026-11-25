@@ -30,7 +30,8 @@ import { evaluateSkill } from "./evaluator";
 
 const runCommandMock = vi.hoisted(() => vi.fn());
 
-vi.mock("./utils/spawn", () => ({
+vi.mock("./utils/spawn", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("./utils/spawn")>()),
   runCommand: runCommandMock,
 }));
 
