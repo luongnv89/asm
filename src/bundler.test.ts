@@ -704,6 +704,9 @@ const EXTRAS_MOVE =
  * `updatedAt` of the index file it was checked against: once that file is
  * refreshed, the guard test below fails until the entry is re-checked
  * upstream and either deleted (the index now lists it) or re-pinned.
+ *
+ * Every new entry needs an upstream existence check (the SKILL.md at that
+ * path on the repo's default branch, with the commit SHA) cited in its PR.
  */
 const PENDING_INDEX_REFRESH: ReadonlyMap<string, PendingIndexEntry> = new Map([
   [
@@ -795,6 +798,16 @@ function unresolvedBundleEntries(
     .map((e) => `${e.label} (${e.installUrl})`);
 }
 
+/**
+ * The `data/skill-index/` file that indexes a `github:` installUrl:
+ * `github:<owner>/<repo>[#ref][:path]` -> `<owner>_<repo>.json`, the name
+ * `scripts/preindex.ts` writes. Undefined for any other URL shape.
+ */
+function expectedIndexFile(installUrl: string): string | undefined {
+  const m = /^github:([^/:#]+)\/([^/:#]+)(?:[#:]|$)/.exec(installUrl);
+  return m ? `${m[1]}_${m[2]}.json` : undefined;
+}
+
 function stalePendingEntries(
   pending: ReadonlyMap<string, PendingIndexEntry>,
   index: CommittedIndex,
@@ -802,6 +815,13 @@ function stalePendingEntries(
 ): string[] {
   const stale: string[] = [];
   for (const [url, pin] of pending) {
+    const expectedFile = expectedIndexFile(url);
+    if (pin.indexFile !== expectedFile) {
+      stale.push(
+        `${url}: pinned to ${pin.indexFile}, but this URL is indexed in ` +
+          `${String(expectedFile)}; pin it to that file`,
+      );
+    }
     if (index.urls.has(url)) {
       stale.push(`${url}: now in data/skill-index/; delete this entry`);
     }
@@ -845,21 +865,18 @@ describe("predefined bundles resolve in the committed skill index", () => {
   });
 
   it("the guard fails for every pinned entry once its index file's updatedAt changes", () => {
-    const refreshed: CommittedIndex = {
-      urls: index.urls,
-      updatedAtByFile: new Map(index.updatedAtByFile).set(
-        "luongnv89_skills.json",
-        "2099-01-01T00:00:00.000Z",
-      ),
-    };
+    const updatedAtByFile = new Map(index.updatedAtByFile);
+    for (const pin of PENDING_INDEX_REFRESH.values()) {
+      updatedAtByFile.set(pin.indexFile, "2099-01-01T00:00:00.000Z");
+    }
+    const refreshed: CommittedIndex = { urls: index.urls, updatedAtByFile };
     const stale = stalePendingEntries(
       PENDING_INDEX_REFRESH,
       refreshed,
       bundleUrls,
     );
     expect(stale).toHaveLength(PENDING_INDEX_REFRESH.size);
-    for (const [url, pin] of PENDING_INDEX_REFRESH) {
-      expect(pin.indexFile).toBe("luongnv89_skills.json");
+    for (const url of PENDING_INDEX_REFRESH.keys()) {
       expect(stale).toContainEqual(
         expect.stringMatching(
           new RegExp(
@@ -868,6 +885,46 @@ describe("predefined bundles resolve in the committed skill index", () => {
         ),
       );
     }
+  });
+
+  it("derives the index file from a github: installUrl's owner and repo", () => {
+    expect(
+      [
+        "github:luongnv89/skills:extras/aso-marketing",
+        "github:anthropics/skills:skills/pdf",
+        "github:owner/repo#main:skills/x",
+        "github:owner/repo",
+        "constructor",
+        "https://github.com/owner/repo",
+      ].map(expectedIndexFile),
+    ).toEqual([
+      "luongnv89_skills.json",
+      "anthropics_skills.json",
+      "owner_repo.json",
+      "owner_repo.json",
+      undefined,
+      undefined,
+    ]);
+  });
+
+  it("the guard fails when a pin names an index file other than its repo's", () => {
+    const url = "github:twostraws/NoSuchRepo:dead-skill";
+    const pending = new Map([
+      [
+        url,
+        {
+          ...LUONGNV89_SKILLS_INDEX,
+          indexUpdatedAt: String(
+            index.updatedAtByFile.get("luongnv89_skills.json"),
+          ),
+          reason: "x",
+        },
+      ],
+    ]);
+    expect(stalePendingEntries(pending, index, new Set([url]))).toEqual([
+      `${url}: pinned to luongnv89_skills.json, but this URL is indexed in ` +
+        `twostraws_NoSuchRepo.json; pin it to that file`,
+    ]);
   });
 
   it("allow-list lookups use own keys only (a prototype name does not resolve)", () => {
