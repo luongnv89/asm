@@ -7,6 +7,7 @@
  */
 
 import type { CategoryResult } from "./evaluator-core";
+import type { RunCommandOptions } from "./utils/spawn";
 import {
   access,
   chmod,
@@ -464,6 +465,28 @@ export async function resolveLinter(cmd: string): Promise<string | null> {
   return fallback;
 }
 
+/**
+ * How runLinter starts a linter: in `cwd` and, off Windows, with a PATH cut
+ * down to its absolute entries (#890). A linter that looks up another
+ * program (an `env bash` shebang, a version-manager shim) would otherwise
+ * resolve an empty, `.`, relative or `..` entry against its cwd, and from a
+ * TMPDIR inside the skill a `..` entry climbs back into the skill folder.
+ * The rest of the environment is passed through unchanged.
+ */
+function linterSpawnOptions(cwd: string | undefined): RunCommandOptions {
+  const opts: RunCommandOptions = cwd === undefined ? {} : { cwd };
+  if (process.platform !== "win32") {
+    opts.env = {
+      ...process.env,
+      PATH: (process.env.PATH ?? DEFAULT_PATH)
+        .split(delimiter)
+        .filter(isAbsolute)
+        .join(delimiter),
+    };
+  }
+  return opts;
+}
+
 /** Spawn failures that mean the linter is there but this user cannot run it. */
 const CANNOT_RUN = new Set(["EACCES", "EPERM", "ENOEXEC"]);
 
@@ -509,9 +532,7 @@ export async function runLinter(
   try {
     const { runCommand } = await import("./utils/spawn");
     const argv = [linter, ...config.args, filePath];
-    const result = await (cwd === undefined
-      ? runCommand(argv)
-      : runCommand(argv, { cwd }));
+    const result = await runCommand(argv, linterSpawnOptions(cwd));
 
     // Not installed (#884): runCommand reports a missing binary (spawn
     // ENOENT) as exit 127 instead of rejecting, and 127 is also the shell's

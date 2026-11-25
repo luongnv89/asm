@@ -49,6 +49,29 @@ describe("runCommand", () => {
     expect(await realpath(stdout.trim())).toBe(dir);
   });
 
+  it("passes the env option to the child", async () => {
+    const { stdout, exitCode } = await runCommand(
+      [node, "-e", "console.log(process.env.ASM_SPAWN_ENV_TEST ?? 'unset')"],
+      { env: { ...process.env, ASM_SPAWN_ENV_TEST: "from-option" } },
+    );
+    expect(exitCode).toBe(0);
+    expect(stdout.trim()).toBe("from-option");
+  });
+
+  it("inherits the parent's environment without an env option", async () => {
+    process.env.ASM_SPAWN_ENV_TEST = "from-parent";
+    try {
+      const { stdout } = await runCommand([
+        node,
+        "-e",
+        "console.log(process.env.ASM_SPAWN_ENV_TEST ?? 'unset')",
+      ]);
+      expect(stdout.trim()).toBe("from-parent");
+    } finally {
+      delete process.env.ASM_SPAWN_ENV_TEST;
+    }
+  });
+
   it("rejects when argv is empty", async () => {
     await expect(runCommand([])).rejects.toThrow(/non-empty argv/);
   });

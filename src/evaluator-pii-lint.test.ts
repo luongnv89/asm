@@ -116,12 +116,10 @@ describe("runLinter", () => {
     const findings = await runLinter(SH_FILE, ".sh");
 
     // --norc: no .shellcheckrc can enable external sources (#825); never -x.
-    expect(runCommandMock).toHaveBeenCalledWith([
-      join(linters, "shellcheck"),
-      "--norc",
-      "--format=json1",
-      SH_FILE,
-    ]);
+    expect(runCommandMock).toHaveBeenCalledWith(
+      [join(linters, "shellcheck"), "--norc", "--format=json1", SH_FILE],
+      expect.anything(),
+    );
     expect(findings).toEqual([
       {
         file: SH_FILE,
@@ -375,14 +373,17 @@ describe("runLinter", () => {
 
     // Issue #823 — an in-memory compile, not `-m py_compile` (which writes
     // __pycache__ next to the source).
-    expect(runCommandMock).toHaveBeenCalledWith([
-      join(linters, "python3"),
-      "-I",
-      "-B",
-      "-c",
-      expect.stringContaining("source_to_code"),
-      pyFile,
-    ]);
+    expect(runCommandMock).toHaveBeenCalledWith(
+      [
+        join(linters, "python3"),
+        "-I",
+        "-B",
+        "-c",
+        expect.stringContaining("source_to_code"),
+        pyFile,
+      ],
+      expect.anything(),
+    );
     expect(findings).toEqual([
       {
         file: pyFile,
@@ -761,6 +762,50 @@ describe.skipIf(process.platform === "win32")(
       },
     );
 
+    // With the TMPDIR inside the skill, the copy folder is too, and a `..`
+    // PATH entry resolved against the linter's cwd climbs back into the
+    // skill. The linter's own PATH keeps only absolute entries.
+    const insideTmp: [string, string, string, string][] = [
+      ["relative TMPDIR tmp, PATH ..:<abs>", "tmp", "..", "tmp"],
+      ["TMPDIR <skill>/tmp, PATH ..:<abs>", "<skill>/tmp", "..", "tmp"],
+      ["TMPDIR <skill>/sub, PATH ../..:<abs>", "<skill>/sub", "../..", "."],
+    ];
+
+    it
+      .skipIf(!existsSync("/usr/bin/env") || !existsSync("/bin/sh"))
+      .each(insideTmp)(
+      "never runs a program the skill ships with %s",
+      async (_label, tmp, rel, trapDir) => {
+        await mkdir(join(skill, "tmp"));
+        await mkdir(join(skill, "sub"));
+        for (const name of ["bash", "asm890helper"]) {
+          await writeTrap(join(skill, trapDir, name), join(base, "MARKER"), "");
+        }
+        const used = join(base, "ABS-USED");
+        for (const [name, out] of [
+          ["shellcheck", "[]"],
+          ["python3", ""],
+        ]) {
+          await writeFile(
+            join(abs, name),
+            `#!/usr/bin/env bash\nasm890helper >/dev/null 2>&1\nsh -c asm890helper >/dev/null 2>&1\necho ok > '${used}'\nprintf '%s' '${out}'\n`,
+          );
+          await chmod(join(abs, name), 0o755);
+        }
+        vi.stubEnv("TMPDIR", tmp.replace("<skill>", skill));
+        vi.stubEnv("PATH", [rel, abs, "/usr/bin", "/bin"].join(delimiter));
+
+        const result = await scoreScriptLint(skill);
+
+        expect(await markerWritten()).toBe(false);
+        expect(existsSync(used)).toBe(true);
+        expect(result.score).toBe(10);
+        expect(result.findings).toContain(
+          "Linted 2 script(s) — no issues found.",
+        );
+      },
+    );
+
     it("still lints when TMPDIR is a relative path", async () => {
       // The fake opens its file argument the way a real linter does.
       await writeFile(
@@ -785,6 +830,12 @@ describe.skipIf(process.platform === "win32")(
       await writeFile(join(skill, "scripts", "b.sh"), "#!/bin/bash\necho b\n");
       await writeTrap(join(abs, "shellcheck"), join(base, "ABS-USED"), "[]");
       vi.stubEnv("PATH", abs);
+      // The first spawn deletes the linter, so a second resolution would
+      // find nothing and skip b.sh as not installed.
+      runCommandMock.mockImplementation(async () => {
+        await rm(join(abs, "shellcheck"), { force: true });
+        return { exitCode: 0, stdout: "[]", stderr: "" };
+      });
 
       const result = await scoreScriptLint(skill);
 
@@ -792,6 +843,9 @@ describe.skipIf(process.platform === "win32")(
         join(abs, "shellcheck"),
         join(abs, "shellcheck"),
       ]);
+      expect(result.findings.join("\n")).not.toContain(
+        "shellcheck is not installed",
+      );
       expect(result.findings).toContain(
         "[python] scripts/a.py: lint skipped — python3 is not installed",
       );
