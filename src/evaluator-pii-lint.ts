@@ -18,7 +18,7 @@ import {
 } from "fs/promises";
 import { constants as fsConstants } from "fs";
 import { tmpdir } from "os";
-import { delimiter, join } from "path";
+import { delimiter, isAbsolute, join } from "path";
 import {
   listSkillFiles,
   readSkillFile,
@@ -419,38 +419,82 @@ function exitedWarning(
   ];
 }
 
-/** True when some PATH entry holds a regular file named `cmd`. */
-async function onPath(cmd: string): Promise<boolean> {
-  for (const dir of (process.env.PATH ?? "").split(delimiter)) {
+/**
+ * The search path libuv uses when PATH is unset (glibc and macOS
+ * `_PATH_DEFPATH`), so an unset PATH finds the same linter as before.
+ */
+const DEFAULT_PATH = "/usr/bin:/bin";
+
+/**
+ * The linter `cmd` resolved to an absolute path (#890), or null when it is
+ * not installed.
+ *
+ * Only absolute PATH entries are searched: an empty, `.` or relative entry
+ * names the current directory or a folder under it, which can be the skill
+ * being evaluated, and spawning the bare name would run a file the skill
+ * ships. Like execvp, the first executable regular file wins; when no entry
+ * holds one, the first regular file found is returned so spawning it fails
+ * with EACCES and #884's "could not be run" warning still applies.
+ * Missing, unsearchable and non-directory entries are passed over.
+ *
+ * Windows keeps the bare name: its lookup adds PATHEXT extensions, which
+ * this search does not model.
+ */
+export async function resolveLinter(cmd: string): Promise<string | null> {
+  if (process.platform === "win32") return cmd;
+  let fallback: string | null = null;
+  for (const dir of (process.env.PATH ?? DEFAULT_PATH).split(delimiter)) {
+    if (!isAbsolute(dir)) continue;
+    const candidate = join(dir, cmd);
     try {
-      if ((await stat(join(dir, cmd))).isFile()) return true;
+      if (!(await stat(candidate)).isFile()) continue;
     } catch {
-      // Missing or unsearchable entry: not here.
+      continue; // Missing or unsearchable entry: not here.
+    }
+    try {
+      await access(candidate, fsConstants.X_OK);
+      return candidate;
+    } catch {
+      fallback ??= candidate;
     }
   }
-  return false;
+  return fallback;
 }
 
 /** Spawn failures that mean the linter is there but this user cannot run it. */
 const CANNOT_RUN = new Set(["EACCES", "EPERM", "ENOEXEC"]);
 
+/** Per-run memo of resolveLinter results, keyed by command name. */
+export type LinterPaths = Map<string, Promise<string | null>>;
+
 /**
  * Run a linter on a single script file and return structured findings, or
  * why it was skipped: the extension has no linter, the linter is not
  * installed, or it could not be started for a reason that says nothing
- * about the script (#884).
+ * about the script (#884). The linter is spawned by the absolute path
+ * resolveLinter finds (#890), never by its bare name; pass `paths` to
+ * resolve each linter once per run.
  */
 export async function runLinter(
   filePath: string,
   ext: string,
+  paths: LinterPaths = new Map(),
 ): Promise<LintFinding[] | LintSkip> {
   const config = LINTER_CONFIG[ext];
   if (!config) return { skipped: `no linter for ${ext || "this file"}` };
   const notInstalled = { skipped: `${config.command} is not installed` };
 
+  let resolved = paths.get(config.command);
+  if (!resolved) {
+    resolved = resolveLinter(config.command);
+    paths.set(config.command, resolved);
+  }
+  const linter = await resolved;
+  if (linter === null) return notInstalled;
+
   try {
     const { runCommand } = await import("./utils/spawn");
-    const result = await runCommand([config.command, ...config.args, filePath]);
+    const result = await runCommand([linter, ...config.args, filePath]);
 
     // Not installed (#884): runCommand reports a missing binary (spawn
     // ENOENT) as exit 127 instead of rejecting, and 127 is also the shell's
@@ -529,10 +573,7 @@ export async function runLinter(
   } catch (err: unknown) {
     const code = (err as NodeJS.ErrnoException | null)?.code;
     if (code === "ENOENT") return notInstalled;
-    // libuv's PATH search reports EACCES, not ENOENT, for a missing binary
-    // when some PATH entry cannot be searched (#884), so look for it first.
-    if (!(await onPath(config.command))) return notInstalled;
-    // Installed but this user cannot run it: report it.
+    // Installed (resolveLinter found it) but this user cannot run it.
     if (typeof code === "string" && CANNOT_RUN.has(code)) {
       return [
         {
@@ -606,6 +647,7 @@ export async function scoreScriptLint(
   const skips: string[] = [];
   const allFindings: LintFinding[] = [];
   let copies: string | null = null;
+  const linterPaths: LinterPaths = new Map();
 
   try {
     for (const file of (files ?? (await listSkillFiles(skillPath))).files) {
@@ -617,7 +659,7 @@ export async function scoreScriptLint(
       const copy = await lintCopy(file, copies);
       // Not read (it changed, or is not a regular file): nothing to lint.
       if (copy === null) continue;
-      const linterResult = await runLinter(copy, ext);
+      const linterResult = await runLinter(copy, ext, linterPaths);
       if (!Array.isArray(linterResult)) {
         skips.push(linterResult.skipped);
         const lang = LINTER_CONFIG[ext]?.language || ext;
