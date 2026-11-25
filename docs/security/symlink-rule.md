@@ -140,7 +140,8 @@ clones), and `npm`, whose
 flag. Without this, a relative `core.hooksPath` in the user's config (such
 as `.githooks`) resolved inside the fresh clone, and git ran the
 `post-checkout` hook the clone ships before any audit. These settings are
-added after any git config inherited from the environment:
+added after any git config inherited from the environment (`asm outdated`
+and pinned updates drop inherited git config first, as before):
 
 - `core.hooksPath` points at `/dev/null`, or at the node binary on Windows,
   where Git for Windows would read `/dev/null` as a folder at the drive root.
