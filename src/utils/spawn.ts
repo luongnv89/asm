@@ -50,37 +50,98 @@ export function absolutePathEnv(
 }
 
 /**
- * `git -c core.hooksPath=/dev/null`, as one GIT_CONFIG_PARAMETERS entry
- * (#897). No hook can live under `/dev/null`, so git runs none.
+ * Every hook event githooks(5) lists (git 2.56), for `hook.<event>.enabled`.
  */
-export const NO_HOOKS_GIT_PARAMETER = "'core.hooksPath=/dev/null'";
+export const GIT_HOOK_EVENTS = [
+  "applypatch-msg",
+  "pre-applypatch",
+  "post-applypatch",
+  "pre-commit",
+  "pre-merge-commit",
+  "prepare-commit-msg",
+  "commit-msg",
+  "post-commit",
+  "pre-rebase",
+  "post-checkout",
+  "post-merge",
+  "pre-push",
+  "pre-receive",
+  "update",
+  "proc-receive",
+  "post-receive",
+  "post-update",
+  "reference-transaction",
+  "push-to-checkout",
+  "pre-auto-gc",
+  "post-rewrite",
+  "sendemail-validate",
+  "fsmonitor-watchman",
+  "p4-changelist",
+  "p4-prepare-changelist",
+  "p4-post-changelist",
+  "p4-pre-submit",
+  "post-index-change",
+] as const;
+
+/**
+ * One GIT_CONFIG_PARAMETERS entry, in the `'key=value'` form every git
+ * version parses (the newer `'key'='value'` form needs git 2.31).
+ */
+export function gitConfigParameter(key: string, value: string): string {
+  return `'${`${key}=${value}`.replace(/'/g, "'\\''")}'`;
+}
+
+/**
+ * A `core.hooksPath` no hook can be found under. `/dev/null` is a device,
+ * not a folder. Git for Windows would read `/dev/null` as `\dev\null` on the
+ * current drive, a folder any user can create at the drive root, so Windows
+ * gets the node binary instead: a regular file, so not a folder either.
+ */
+export function noHooksPath(): string {
+  return process.platform === "win32" ? process.execPath : "/dev/null";
+}
+
+/**
+ * The GIT_CONFIG_PARAMETERS entries that turn off every hook (#897):
+ * `core.hooksPath` for the hooks folder, and `hook.<event>.enabled=false`,
+ * which git 2.55+ applies to hooks defined in config (`hook.<name>.command`,
+ * git 2.54+) as well. Older git ignores the `hook.*` keys.
+ */
+export function noHooksGitParameters(): string {
+  return [
+    gitConfigParameter("core.hooksPath", noHooksPath()),
+    ...GIT_HOOK_EVENTS.map((event) =>
+      gitConfigParameter(`hook.${event}.enabled`, "false"),
+    ),
+  ].join(" ");
+}
 
 /**
  * absolutePathEnv(base), plus git config that runs no hook, for any child
  * that runs git against a repo asm does not own: a clone, fetch or checkout
- * of a remote, a command inside such a clone, and npm or npx, which can
- * clone in turn (#897). The user's `core.hooksPath` can be relative (such as
- * `.githooks`), and git resolves it inside the new clone, so it would run a
- * hook the repo ships before any audit.
+ * of a remote, a command inside such a clone, npx (`skills add` clones), and
+ * npm, which `--allow-git=none` stops from cloning only where its version
+ * knows that flag (#897). The user's `core.hooksPath` can be relative (such
+ * as `.githooks`), and git resolves it inside the new clone, so it would run
+ * a hook the repo ships before any audit. A hook command in the user's config
+ * with a relative path would do the same.
  *
- * The setting goes in GIT_CONFIG_PARAMETERS, appended the way `git -c`
+ * The settings go in GIT_CONFIG_PARAMETERS, appended the way `git -c`
  * appends, rather than in GIT_CONFIG_COUNT/KEY_n/VALUE_n:
  * - git reads GIT_CONFIG_PARAMETERS after GIT_CONFIG_COUNT, so the last
  *   entry wins over both an inherited `-c` and inherited numbered pairs;
- * - git before 2.31 ignores GIT_CONFIG_COUNT, and asm supports git 2.20+;
- * - the `'key=value'` entry form is the one every git version parses.
- * The user's own entries stay in place, ahead of this one.
+ * - git before 2.31 ignores GIT_CONFIG_COUNT, and asm supports git 2.20+.
+ * The user's own entries stay in place, ahead of these.
  */
 export function untrustedRepoGitEnv(
   base: NodeJS.ProcessEnv = process.env,
 ): NodeJS.ProcessEnv {
   const env = absolutePathEnv(base);
   const inherited = env.GIT_CONFIG_PARAMETERS;
+  const noHooks = noHooksGitParameters();
   return {
     ...env,
-    GIT_CONFIG_PARAMETERS: inherited
-      ? `${inherited} ${NO_HOOKS_GIT_PARAMETER}`
-      : NO_HOOKS_GIT_PARAMETER,
+    GIT_CONFIG_PARAMETERS: inherited ? `${inherited} ${noHooks}` : noHooks,
   };
 }
 

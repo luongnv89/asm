@@ -51,7 +51,7 @@ import {
   SkillMdOutsideFolderError,
   cloneToTemp,
 } from "./installer";
-import { absolutePathEntries, NO_HOOKS_GIT_PARAMETER } from "./utils/spawn";
+import { absolutePathEntries, noHooksGitParameters } from "./utils/spawn";
 import {
   HOOKS_PATH_FORMS,
   makeHookRepo,
@@ -2820,7 +2820,7 @@ describe("installScriptDependencies", () => {
     }
     const env = runner.mock.calls[0][2].env;
     expect(env.GIT_CONFIG_PARAMETERS).toBe(
-      `'core.hooksPath=.githooks' ${NO_HOOKS_GIT_PARAMETER}`,
+      `'core.hooksPath=.githooks' ${noHooksGitParameters()}`,
     );
     expect(env.npm_config_allow_git).toBe("none");
   });

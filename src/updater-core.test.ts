@@ -35,7 +35,7 @@ import {
   GIT_NOT_FOUND,
 } from "./updater-core";
 import { updateSkills } from "./updater-updates";
-import { NO_HOOKS_GIT_PARAMETER } from "./utils/spawn";
+import { noHooksGitParameters } from "./utils/spawn";
 import type { LockEntry } from "./utils/types";
 import type { RegistryIndex } from "./registry";
 
@@ -152,7 +152,7 @@ describe("createPinnedGitEnv", () => {
     expect(env.GIT_CONFIG).toBeUndefined();
     expect(env.GIT_CONFIG_COUNT).toBeUndefined();
     // The inherited value is dropped; only the no-hooks entry remains (#897).
-    expect(env.GIT_CONFIG_PARAMETERS).toBe(NO_HOOKS_GIT_PARAMETER);
+    expect(env.GIT_CONFIG_PARAMETERS).toBe(noHooksGitParameters());
     expect(env.GIT_CONFIG_KEY_0).toBeUndefined();
     expect(env.GIT_CONFIG_VALUE_0).toBeUndefined();
     expect(env.GIT_CONFIG_KEY_12).toBeUndefined();
