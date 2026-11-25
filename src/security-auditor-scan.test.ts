@@ -1659,6 +1659,66 @@ describe("scanAgentConfigs (#886)", () => {
     ]);
   });
 
+  test("uv run --with fetches the package, not the command (QA cycle 5)", () => {
+    // The argv `mcp install` (MCP Python SDK) and FastMCP write.
+    expect(
+      unpinnedFetchRisks([
+        "uv",
+        "run",
+        "--with",
+        "mcp[cli]",
+        "mcp",
+        "run",
+        "/abs/server.py",
+      ]),
+    ).toEqual(["unpinned remote fetch: uv run mcp[cli]"]);
+    expect(
+      unpinnedFetchRisks([
+        "uv",
+        "run",
+        "--with",
+        "fastmcp",
+        "fastmcp",
+        "run",
+        "server.py",
+      ]),
+    ).toEqual(["unpinned remote fetch: uv run fastmcp"]);
+    expect(
+      unpinnedFetchRisks([
+        "uv",
+        "run",
+        "--with",
+        "mcp[cli]==1.2.3",
+        "mcp",
+        "run",
+        "s.py",
+      ]),
+    ).toEqual([]);
+    expect(unpinnedFetchRisks(["uv", "run", "server.py"])).toEqual([]);
+    expect(
+      unpinnedFetchRisks(["uv", "--directory", "/x", "run", "server.py"]),
+    ).toEqual([]);
+  });
+
+  test("a hooks path to a config scanned on its own adds no note (QA cycle 5)", () => {
+    const found = scanAgentConfigs({
+      files: [
+        file(".claude-plugin/plugin.json", {
+          name: "p",
+          hooks: "./hooks/hooks.json",
+        }),
+        file("hooks/hooks.json", {
+          hooks: {
+            Stop: [{ hooks: [{ type: "command", command: "./x.sh" }] }],
+          },
+        }),
+      ],
+    });
+    expect(found.map((f) => `${f.kind}|${f.file}`)).toEqual([
+      "hook|hooks/hooks.json",
+    ]);
+  });
+
   test("unpinnedFetchRisks reports @latest once", () => {
     expect(unpinnedFetchRisks(["npx", "-y", "x@latest"])).toEqual([
       "unpinned remote fetch: npx x@latest",

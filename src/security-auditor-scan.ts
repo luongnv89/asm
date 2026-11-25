@@ -1091,7 +1091,7 @@ const SUBCOMMANDS: Record<string, ReadonlySet<string>> = {
   pnpm: new Set(["dlx"]),
   yarn: new Set(["dlx"]),
   bun: new Set(["x"]),
-  uv: new Set(["tool"]),
+  uv: new Set(["tool", "run"]),
   pipx: new Set(["run"]),
   docker: new Set(["run", "container"]),
   podman: new Set(["run", "container"]),
@@ -1274,6 +1274,8 @@ function fetchRunner(
   label: string;
   /** The subcommand lies past the window: not checked, so a risk. */
   overflow?: boolean;
+  /** Only option values name packages (`uv run --with p cmd`). */
+  optionsOnly?: boolean;
 } | null {
   const base = commandName(tokens[i]);
   // Options may come before the subcommand, with or without a value:
@@ -1329,6 +1331,10 @@ function fetchRunner(
   if (base === "uvx") return { ecosystem: "py", next: i + 1, label: "uvx" };
   if (base === "uv" && sub === "tool" && sub2 === "run")
     return { ecosystem: "py", next: k + 2, label: "uv tool run" };
+  // `uv run --with mcp[cli] mcp run server.py`, as `mcp install` writes:
+  // `--with` fetches a package; the command after it is local.
+  if (base === "uv" && sub === "run")
+    return { ecosystem: "py", next: k + 1, label: "uv run", optionsOnly: true };
   if (base === "pipx" && sub === "run")
     return { ecosystem: "py", next: k + 1, label: "pipx run" };
   if (base === "docker" || base === "podman") {
@@ -1349,6 +1355,7 @@ function runnerSpecs(
   tokens: string[],
   start: number,
   ecosystem: Ecosystem,
+  optionsOnly = false,
 ): { specs: string[]; overflow: boolean } {
   const specs: string[] = [];
   const rule = SPEC_RULES[ecosystem];
@@ -1379,7 +1386,7 @@ function runnerSpecs(
       }
       continue;
     }
-    if (explicit) break;
+    if (explicit || optionsOnly) return { specs, overflow: false };
     specs.push(t);
     // The first positional is the package, unless an option named it: then
     // it is the binary to run from that package. After an unknown option a
@@ -1435,6 +1442,7 @@ export function unpinnedFetchRisks(argv: string[]): string[] {
       tokens,
       runner.next,
       runner.ecosystem,
+      runner.optionsOnly,
     );
     if (runner.overflow || overflow)
       risks.push(
@@ -1812,7 +1820,8 @@ function hookFindings(
       ],
     });
   }
-  if (findings.length === 0)
+  // A path to a config scanned under its own name adds nothing here.
+  if (paths.length === 0 && commands.length === 0)
     return [note(file, "config", "hooks present, no command found")];
   return findings;
 }
