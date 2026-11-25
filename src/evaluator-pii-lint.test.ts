@@ -497,6 +497,30 @@ describe("runLinter", () => {
     ]);
   });
 
+  // The same name on a file with a SyntaxError puts its "Sorry:" half at
+  // column 0 inside the traceback. Verbatim stderr from Python 3.10 and 3.12.
+  it("ignores a 'Sorry:' line inside a SyntaxError traceback (#891)", async () => {
+    runCommandMock.mockResolvedValue({
+      exitCode: 1,
+      stdout: "",
+      stderr:
+        '  File "a\n' +
+        'Sorry: TabError: fake (z.py, line 9).py", line 1\n' +
+        "    def f(:\n" +
+        "          ^\n" +
+        "SyntaxError: invalid syntax\n",
+    });
+
+    expect(await runLinter("/tmp/skill/a\nx.py", ".py")).toEqual([
+      {
+        file: "/tmp/skill/a\nx.py",
+        line: 0,
+        severity: "error",
+        message: "SyntaxError: invalid syntax",
+      },
+    ]);
+  });
+
   // Only the three types #891 names are parsed from the "Sorry:" form; any
   // other keeps the generic warning (Python 3.10 prints the ValueError for a
   // NUL byte).

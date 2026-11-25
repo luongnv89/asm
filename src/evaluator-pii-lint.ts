@@ -551,27 +551,29 @@ export async function runLinter(
         // number in a trailing "(<file basename>, line N)" when there is one:
         //   Sorry: TabError: inconsistent use of tabs ... (t.py, line 3)
         //   Sorry: MemoryError: Parser stack overflowed - ...
-        // Only the first counts: python prints one error, and a SyntaxError
-        // echoes the offending source line indented, so a skill line or a
-        // file name holding "Sorry: …" must not add a second.
+        // python prints one error, either form: once a "Sorry:" line or a
+        // traceback has started, a later "Sorry: …" line comes from a file
+        // name holding a newline, not a second error. The traceback's echoed
+        // source line is indented, so a skill line never matches.
         const lines = result.stderr.split("\n");
         const findings: LintFinding[] = [];
         const lineSuffix = ` (${basename(filePath)}, line `;
         let pendingLine = 0;
-        let sawSorry = false;
+        let errorStarted = false;
         for (const line of lines) {
+          if (line.startsWith('  File "')) errorStarted = true;
           const fileMatch = line.match(/File "([^"]+)", line (\d+)/);
           if (fileMatch) {
             pendingLine = parseInt(fileMatch[2], 10);
             continue;
           }
-          const sorryMatch = sawSorry
+          const sorryMatch = errorStarted
             ? null
             : line.match(
                 /^Sorry: (IndentationError|TabError|MemoryError):\s*(.*)$/,
               );
           if (sorryMatch) {
-            sawSorry = true;
+            errorStarted = true;
             let message = sorryMatch[2].trim();
             let lineNo = 0;
             const trailer = message.match(/, line (\d+)\)$/);
