@@ -218,11 +218,7 @@ describe.skipIf(process.platform === "win32" || !existsSync("/bin/sh"))(
       expect(stdout).toBe("/bin");
     });
 
-    it.each([
-      ["."],
-      [""],
-      [`.${delimiter}rel`],
-    ])(
+    it.each([["."], [""], [`.${delimiter}rel`]])(
       "never runs the cwd's program when PATH is %j (exit 127 instead)",
       async (path) => {
         const cwd = await cwdShipping("asm894-tool");
