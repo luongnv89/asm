@@ -116,7 +116,15 @@ at most 8 times per real folder, so folders that link to each other cannot
 make the walk explode. Hidden folders and `node_modules` are skipped by
 name, but a link with such a name that leaves the folder is still
 reported. `shellcheck` runs with `--norc`, so a `.shellcheckrc` in or above
-the skill cannot make it follow `source` lines out of the folder.
+the skill cannot make it follow `source` lines out of the folder. Each linter
+(`shellcheck`, `python3`) is run only from an absolute `PATH` entry, so an
+empty, `.` or relative entry cannot make `asm eval` run a file of that name
+the skill ships; with no absolute hit the lint is skipped as not installed
+(on Windows the linter is still started by name). The linter itself starts
+in asm's temporary copy folder with only the absolute `PATH` entries, so a
+linter that looks up another program (an `env bash` shebang, a
+version-manager shim) cannot reach the skill through a relative or `..`
+entry either, even when `TMPDIR` is inside the skill (not on Windows).
 
 In a collection (`asm eval skills/`), a child that is a link to a folder
 whose real path holds a `SKILL.md` is a skill folder in its own right, as

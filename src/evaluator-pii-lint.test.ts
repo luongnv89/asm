@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { spawnSync } from "child_process";
+import { existsSync } from "fs";
 import {
   chmod,
   lstat,
@@ -14,6 +15,7 @@ import { basename, delimiter, dirname, join, relative } from "path";
 import {
   isPlaceholderEmail,
   isReservedEmailDomain,
+  resolveLinter,
   runLinter,
   scorePII,
   scoreScriptLint,
@@ -39,13 +41,35 @@ type LintFindings = Exclude<
   { skipped: string }
 >;
 
+/**
+ * An absolute folder holding executable `shellcheck` and `python3` stand-ins,
+ * made the whole PATH. runLinter spawns only a linter it resolves from an
+ * absolute PATH entry (#890), so the runCommand-mocked tests need one there.
+ */
+async function fakeLinterPath(base: string): Promise<string> {
+  const bin = join(base, "linters");
+  await mkdir(bin, { recursive: true });
+  for (const name of ["shellcheck", "python3"]) {
+    await writeFile(join(bin, name), "#!/bin/sh\nexit 0\n");
+    await chmod(join(bin, name), 0o755);
+  }
+  vi.stubEnv("PATH", bin);
+  return bin;
+}
+
 describe("runLinter", () => {
-  beforeEach(() => {
+  let linters: string;
+  let linterBase: string;
+
+  beforeEach(async () => {
     runCommandMock.mockReset();
+    linterBase = await mkdtemp(join(tmpdir(), "lint-890-bin-"));
+    linters = await fakeLinterPath(linterBase);
   });
 
-  afterEach(() => {
+  afterEach(async () => {
     vi.unstubAllEnvs();
+    await rm(linterBase, { recursive: true, force: true });
   });
 
   it("extracts file/line/severity/message from shellcheck JSON on stdout", async () => {
@@ -92,12 +116,10 @@ describe("runLinter", () => {
     const findings = await runLinter(SH_FILE, ".sh");
 
     // --norc: no .shellcheckrc can enable external sources (#825); never -x.
-    expect(runCommandMock).toHaveBeenCalledWith([
-      "shellcheck",
-      "--norc",
-      "--format=json1",
-      SH_FILE,
-    ]);
+    expect(runCommandMock).toHaveBeenCalledWith(
+      [join(linters, "shellcheck"), "--norc", "--format=json1", SH_FILE],
+      expect.anything(),
+    );
     expect(findings).toEqual([
       {
         file: SH_FILE,
@@ -351,14 +373,17 @@ describe("runLinter", () => {
 
     // Issue #823 — an in-memory compile, not `-m py_compile` (which writes
     // __pycache__ next to the source).
-    expect(runCommandMock).toHaveBeenCalledWith([
-      "python3",
-      "-I",
-      "-B",
-      "-c",
-      expect.stringContaining("source_to_code"),
-      pyFile,
-    ]);
+    expect(runCommandMock).toHaveBeenCalledWith(
+      [
+        join(linters, "python3"),
+        "-I",
+        "-B",
+        "-c",
+        expect.stringContaining("source_to_code"),
+        pyFile,
+      ],
+      expect.anything(),
+    );
     expect(findings).toEqual([
       {
         file: pyFile,
@@ -390,9 +415,12 @@ describe("scoreScriptLint without shellcheck installed (#884)", () => {
     await writeFile(join(dir, "scripts", script), body);
   }
 
+  let linters: string;
+
   beforeEach(async () => {
     base = await mkdtemp(join(tmpdir(), "lint-884-"));
     runCommandMock.mockReset();
+    linters = await fakeLinterPath(base);
   });
 
   afterEach(async () => {
@@ -416,7 +444,7 @@ describe("scoreScriptLint without shellcheck installed (#884)", () => {
 
       const result = await scoreScriptLint(dir);
 
-      expect(runCommandMock.mock.calls[0][0][0]).toBe(linter);
+      expect(runCommandMock.mock.calls[0][0][0]).toBe(join(linters, linter));
       expect(result.score).toBe(10);
       expect(result.findings).toEqual([
         `[${lang}] scripts/${script}: lint skipped — ${linter} is not installed`,
@@ -434,12 +462,14 @@ describe("scoreScriptLint without shellcheck installed (#884)", () => {
     vi.stubEnv("PATH", emptyBin);
     const { runCommand } =
       await vi.importActual<typeof import("./utils/spawn")>("./utils/spawn");
-    runCommandMock.mockImplementation((argv: string[]) => runCommand(argv));
+    runCommandMock.mockImplementation(
+      (argv: string[], opts?: { cwd?: string }) => runCommand(argv, opts),
+    );
 
     const result = await scoreScriptLint(dir);
 
-    expect(runCommandMock).toHaveBeenCalledTimes(1);
-    expect(runCommandMock.mock.calls[0][0][0]).toBe("shellcheck");
+    // Not resolved on PATH (#890): skipped before anything is spawned.
+    expect(runCommandMock).not.toHaveBeenCalled();
     expect(result.score).toBe(10);
     expect(result.findings[0]).toBe(
       "[bash/shell] scripts/wait.sh: lint skipped — shellcheck is not installed",
@@ -508,16 +538,21 @@ describe("scoreScriptLint without shellcheck installed (#884)", () => {
     ]);
   });
 
-  it("skips as not installed when an unsearchable PATH entry turns ENOENT into EACCES", async () => {
+  // libuv reported EACCES here (#884); the lookup is now asm's own (#890),
+  // so the unsearchable entry is passed over and nothing is spawned.
+  it("skips as not installed when only an unsearchable PATH entry precedes", async () => {
     const dir = join(base, "p4");
     await writeShSkill(dir);
-    vi.stubEnv("PATH", join(base, "empty-bin"));
-    runCommandMock.mockRejectedValue(
-      Object.assign(new Error("spawn shellcheck EACCES"), { code: "EACCES" }),
+    const locked = join(base, "locked");
+    await mkdir(locked);
+    await chmod(locked, 0o000);
+    vi.stubEnv("PATH", [locked, join(base, "empty-bin")].join(delimiter));
+
+    const result = await scoreScriptLint(dir).finally(() =>
+      chmod(locked, 0o700),
     );
 
-    const result = await scoreScriptLint(dir);
-
+    expect(runCommandMock).not.toHaveBeenCalled();
     expect(result.score).toBe(10);
     expect(result.findings).toEqual([
       "[bash/shell] scripts/wait.sh: lint skipped — shellcheck is not installed",
@@ -530,7 +565,7 @@ describe("scoreScriptLint without shellcheck installed (#884)", () => {
     await writeShSkill(dir);
     await writeFile(join(dir, "scripts", "ok.py"), 'print("hi")\n');
     runCommandMock.mockImplementation(async (argv: string[]) => {
-      if (argv[0] === "python3")
+      if (basename(argv[0]) === "python3")
         return { exitCode: 127, stdout: "", stderr: "spawn python3 ENOENT" };
       throw Object.assign(new Error("spawn shellcheck EMFILE"), {
         code: "EMFILE",
@@ -539,6 +574,7 @@ describe("scoreScriptLint without shellcheck installed (#884)", () => {
     const bin = join(base, "bin");
     await mkdir(bin);
     await writeFile(join(bin, "shellcheck"), "");
+    await writeFile(join(bin, "python3"), "");
     vi.stubEnv("PATH", bin);
 
     const result = await scoreScriptLint(dir);
@@ -567,6 +603,311 @@ describe("scoreScriptLint without shellcheck installed (#884)", () => {
     expect(result.findings).toEqual(["No bundled scripts found to lint."]);
   });
 });
+
+// Issue #890 — the linters were spawned by bare name, so a PATH with an
+// empty, `.` or relative entry made `asm eval` run a `shellcheck` or
+// `python3` the evaluated skill ships when the cwd was the skill folder.
+// runLinter now spawns only a linter resolved from an absolute PATH entry.
+
+describe.skipIf(process.platform === "win32")(
+  "linter lookup ignores cwd-relative PATH entries (#890)",
+  () => {
+    let base: string;
+    let skill: string;
+    let abs: string;
+    let prevCwd: string;
+
+    /** An executable that leaves `marker` behind and prints `out`. */
+    async function writeTrap(
+      path: string,
+      marker: string,
+      out: string,
+      exitCode = 0,
+    ): Promise<void> {
+      await writeFile(
+        path,
+        `#!/bin/sh\necho EXECUTED > '${marker}'\nprintf '%s' '${out}'\nexit ${exitCode}\n`,
+      );
+      await chmod(path, 0o755);
+    }
+
+    beforeEach(async () => {
+      base = await mkdtemp(join(tmpdir(), "lint-890-"));
+      skill = join(base, "skill");
+      abs = join(base, "abs-bin");
+      await mkdir(join(skill, "scripts"), { recursive: true });
+      await mkdir(join(skill, "bin"));
+      await mkdir(abs);
+      await writeFile(
+        join(skill, "SKILL.md"),
+        '---\nname: cwdlint\ndescription: "Run a deploy check when the user asks."\n---\n# cwdlint\n',
+      );
+      await writeFile(join(skill, "scripts", "a.sh"), "#!/bin/bash\necho hi\n");
+      await writeFile(join(skill, "scripts", "a.py"), 'print("hi")\n');
+      // The skill ships both linters at its root and under bin/.
+      for (const dir of [skill, join(skill, "bin")]) {
+        await writeTrap(join(dir, "shellcheck"), join(base, "MARKER"), "[]");
+        await writeTrap(join(dir, "python3"), join(base, "MARKER"), "");
+      }
+      prevCwd = process.cwd();
+      process.chdir(skill);
+      runCommandMock.mockReset();
+      const { runCommand } =
+        await vi.importActual<typeof import("./utils/spawn")>("./utils/spawn");
+      runCommandMock.mockImplementation(
+        (argv: string[], opts?: { cwd?: string }) => runCommand(argv, opts),
+      );
+    });
+
+    afterEach(async () => {
+      process.chdir(prevCwd);
+      vi.unstubAllEnvs();
+      await rm(base, { recursive: true, force: true });
+    });
+
+    async function markerWritten(): Promise<boolean> {
+      return (await readdir(base)).includes("MARKER");
+    }
+
+    const forms: [string, (a: string) => string][] = [
+      [".:<abs>", (a) => [".", a].join(delimiter)],
+      ["::<abs>", (a) => ["", "", a].join(delimiter)],
+      ["<abs>:", (a) => [a, ""].join(delimiter)],
+      ["bin:<abs>", (a) => ["bin", a].join(delimiter)],
+    ];
+
+    it.each(forms)(
+      "never runs the skill's shellcheck or python3 with PATH %s",
+      async (_form, pathOf) => {
+        vi.stubEnv("PATH", pathOf(abs));
+
+        const result = await scoreScriptLint(skill);
+
+        expect(await markerWritten()).toBe(false);
+        expect(runCommandMock).not.toHaveBeenCalled();
+        expect(result.score).toBe(10);
+        expect(result.findings).toEqual([
+          "[python] scripts/a.py: lint skipped — python3 is not installed",
+          "[bash/shell] scripts/a.sh: lint skipped — shellcheck is not installed",
+          "No script was linted: no linter is installed for these scripts.",
+        ]);
+      },
+    );
+
+    it.each(forms)(
+      "lints with the linters in the absolute entry under PATH %s",
+      async (_form, pathOf) => {
+        const used = join(base, "ABS-USED");
+        await writeTrap(
+          join(abs, "shellcheck"),
+          used,
+          JSON.stringify({
+            comments: [{ line: 2, level: "warning", message: "Quote this." }],
+          }),
+          1,
+        );
+        await writeTrap(join(abs, "python3"), used, "");
+        vi.stubEnv("PATH", pathOf(abs));
+
+        const result = await scoreScriptLint(skill);
+
+        expect(await markerWritten()).toBe(false);
+        expect(runCommandMock.mock.calls.map((c) => c[0][0]).sort()).toEqual([
+          join(abs, "python3"),
+          join(abs, "shellcheck"),
+        ]);
+        expect(result.score).toBe(9);
+        expect(result.findings).toContain(
+          "[WARNING] scripts/a.sh:2 — Quote this.",
+        );
+      },
+    );
+
+    it("runs the linter outside the skill folder", async () => {
+      const cwdFile = join(base, "LINTER-CWD");
+      await writeFile(
+        join(abs, "shellcheck"),
+        `#!/bin/sh\npwd > '${cwdFile}'\necho '[]'\n`,
+      );
+      await chmod(join(abs, "shellcheck"), 0o755);
+      vi.stubEnv("PATH", [".", abs, "/usr/bin", "/bin"].join(delimiter));
+
+      await scoreScriptLint(skill);
+
+      const { readFile, realpath } = await import("fs/promises");
+      const linterCwd = (await readFile(cwdFile, "utf8")).trim();
+      expect(relative(await realpath(skill), linterCwd)).toMatch(/^\.\./);
+      expect(basename(linterCwd)).toMatch(/^asm-lint-/);
+    });
+
+    // A linter that is a script finding its interpreter on PATH (`env bash`,
+    // pyenv/asdf shims) must not pick up one the skill ships.
+    it.skipIf(!existsSync("/usr/bin/env"))(
+      "never runs a program the skill ships through the linter's own PATH lookup",
+      async () => {
+        await writeTrap(join(skill, "asm890-interp"), join(base, "MARKER"), "");
+        await writeFile(
+          join(abs, "shellcheck"),
+          "#!/usr/bin/env asm890-interp\n",
+        );
+        await chmod(join(abs, "shellcheck"), 0o755);
+        vi.stubEnv("PATH", [".", abs, "/usr/bin", "/bin"].join(delimiter));
+
+        await scoreScriptLint(skill);
+
+        expect(runCommandMock.mock.calls.map((c) => c[0][0])).toContain(
+          join(abs, "shellcheck"),
+        );
+        expect(await markerWritten()).toBe(false);
+      },
+    );
+
+    // With the TMPDIR inside the skill, the copy folder is too, and a `..`
+    // PATH entry resolved against the linter's cwd climbs back into the
+    // skill. The linter's own PATH keeps only absolute entries.
+    const insideTmp: [string, string, string, string][] = [
+      ["relative TMPDIR tmp, PATH ..:<abs>", "tmp", "..", "tmp"],
+      ["TMPDIR <skill>/tmp, PATH ..:<abs>", "<skill>/tmp", "..", "tmp"],
+      ["TMPDIR <skill>/sub, PATH ../..:<abs>", "<skill>/sub", "../..", "."],
+    ];
+
+    it
+      .skipIf(!existsSync("/usr/bin/env") || !existsSync("/bin/sh"))
+      .each(insideTmp)(
+      "never runs a program the skill ships with %s",
+      async (_label, tmp, rel, trapDir) => {
+        await mkdir(join(skill, "tmp"));
+        await mkdir(join(skill, "sub"));
+        for (const name of ["bash", "asm890helper"]) {
+          await writeTrap(join(skill, trapDir, name), join(base, "MARKER"), "");
+        }
+        const used = join(base, "ABS-USED");
+        for (const [name, out] of [
+          ["shellcheck", "[]"],
+          ["python3", ""],
+        ]) {
+          await writeFile(
+            join(abs, name),
+            `#!/usr/bin/env bash\nasm890helper >/dev/null 2>&1\nsh -c asm890helper >/dev/null 2>&1\necho ok > '${used}'\nprintf '%s' '${out}'\n`,
+          );
+          await chmod(join(abs, name), 0o755);
+        }
+        vi.stubEnv("TMPDIR", tmp.replace("<skill>", skill));
+        vi.stubEnv("PATH", [rel, abs, "/usr/bin", "/bin"].join(delimiter));
+
+        const result = await scoreScriptLint(skill);
+
+        expect(await markerWritten()).toBe(false);
+        expect(existsSync(used)).toBe(true);
+        expect(result.score).toBe(10);
+        expect(result.findings).toContain(
+          "Linted 2 script(s) — no issues found.",
+        );
+      },
+    );
+
+    it("still lints when TMPDIR is a relative path", async () => {
+      // The fake opens its file argument the way a real linter does.
+      await writeFile(
+        join(abs, "shellcheck"),
+        `#!/bin/sh\ntest -f "$3" || { echo "no such file: $3" >&2; exit 9; }\necho '[]'\n`,
+      );
+      await chmod(join(abs, "shellcheck"), 0o755);
+      await mkdir(join(base, "rel-tmp"));
+      process.chdir(base);
+      vi.stubEnv("TMPDIR", "rel-tmp");
+      vi.stubEnv("PATH", abs);
+
+      const result = await scoreScriptLint(skill);
+
+      expect(result.score).toBe(10);
+      expect(result.findings).toContain(
+        "Linted 1 script(s) — no issues found.",
+      );
+    });
+
+    it("resolves each linter once per run", async () => {
+      await writeFile(join(skill, "scripts", "b.sh"), "#!/bin/bash\necho b\n");
+      await writeTrap(join(abs, "shellcheck"), join(base, "ABS-USED"), "[]");
+      vi.stubEnv("PATH", abs);
+      // The first spawn deletes the linter, so a second resolution would
+      // find nothing and skip b.sh as not installed.
+      runCommandMock.mockImplementation(async () => {
+        await rm(join(abs, "shellcheck"), { force: true });
+        return { exitCode: 0, stdout: "[]", stderr: "" };
+      });
+
+      const result = await scoreScriptLint(skill);
+
+      expect(runCommandMock.mock.calls.map((c) => c[0][0])).toEqual([
+        join(abs, "shellcheck"),
+        join(abs, "shellcheck"),
+      ]);
+      expect(result.findings.join("\n")).not.toContain(
+        "shellcheck is not installed",
+      );
+      expect(result.findings).toContain(
+        "[python] scripts/a.py: lint skipped — python3 is not installed",
+      );
+    });
+
+    it("still finds a linter behind an unsearchable PATH entry", async () => {
+      const locked = join(base, "locked");
+      await mkdir(locked);
+      await chmod(locked, 0o000);
+      await writeTrap(join(abs, "shellcheck"), join(base, "ABS-USED"), "[]");
+      vi.stubEnv("PATH", [locked, ".", abs].join(delimiter));
+
+      try {
+        expect(await resolveLinter("shellcheck")).toBe(join(abs, "shellcheck"));
+      } finally {
+        await chmod(locked, 0o700);
+      }
+    });
+
+    it("prefers the first executable file, like execvp", async () => {
+      const first = join(base, "first");
+      await mkdir(first);
+      await writeFile(join(first, "shellcheck"), "not a program");
+      await chmod(join(first, "shellcheck"), 0o644);
+      await writeTrap(join(abs, "shellcheck"), join(base, "ABS-USED"), "[]");
+      vi.stubEnv("PATH", [first, abs].join(delimiter));
+
+      expect(await resolveLinter("shellcheck")).toBe(join(abs, "shellcheck"));
+    });
+
+    it("falls back to a non-executable file so the spawn reports EACCES", async () => {
+      await writeFile(join(abs, "shellcheck"), "not a program");
+      await chmod(join(abs, "shellcheck"), 0o644);
+      vi.stubEnv("PATH", [".", abs].join(delimiter));
+
+      expect(await resolveLinter("shellcheck")).toBe(join(abs, "shellcheck"));
+      const findings = await runLinter(join(skill, "scripts", "a.sh"), ".sh");
+      expect(findings).toEqual([
+        {
+          file: join(skill, "scripts", "a.sh"),
+          line: 0,
+          severity: "warning",
+          message: "Linter could not be run: EACCES",
+        },
+      ]);
+      expect(await markerWritten()).toBe(false);
+    });
+
+    it("ignores a directory named like the linter", async () => {
+      await mkdir(join(abs, "shellcheck"));
+      vi.stubEnv("PATH", abs);
+
+      expect(await resolveLinter("shellcheck")).toBeNull();
+    });
+
+    it("searches /usr/bin:/bin when PATH is unset, as libuv does", async () => {
+      vi.stubEnv("PATH", undefined);
+
+      expect(["/usr/bin/sh", "/bin/sh"]).toContain(await resolveLinter("sh"));
+    });
+  },
+);
 
 // Issue #823 — `python3 -m py_compile` wrote __pycache__/<name>.cpython-*.pyc
 // into the evaluated skill's folder (PYTHONDONTWRITEBYTECODE does not stop

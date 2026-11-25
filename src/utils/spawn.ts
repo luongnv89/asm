@@ -5,6 +5,8 @@
 
 export interface RunCommandOptions {
   cwd?: string;
+  /** The child's environment. Omitted: the parent's `process.env`. */
+  env?: NodeJS.ProcessEnv;
 }
 
 export interface RunCommandResult {
@@ -26,6 +28,7 @@ export async function runCommand(
   return new Promise((resolvePromise, rejectPromise) => {
     const child = spawn(cmd, args, {
       cwd: opts.cwd,
+      env: opts.env,
       stdio: ["ignore", "pipe", "pipe"],
     });
     let stdout = "";
