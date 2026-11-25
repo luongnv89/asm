@@ -947,8 +947,6 @@ const AGENT_CONFIG_NAMES = new Set([
 const MAX_FINDINGS_PER_CONFIG = 100;
 /** How deep the hook walk descends into `hooks`. */
 const MAX_HOOK_DEPTH = 8;
-/** Paths a manifest's `mcpServers` / `hooks` may name that are looked up. */
-const MAX_CONFIG_REFERENCES = 20;
 
 function lowerBaseName(relPath: string): string {
   return (relPath.split("/").pop() ?? "").toLowerCase();
@@ -1072,6 +1070,34 @@ const SUBCOMMAND_RUNNERS = new Set([
   "deno",
   "go",
 ]);
+
+/** Which option lists a subcommand runner's leading options use. */
+const RUNNER_ECOSYSTEM: Record<string, Ecosystem> = {
+  npm: "npm",
+  pnpm: "npm",
+  yarn: "npm",
+  bun: "npm",
+  uv: "py",
+  pipx: "py",
+  docker: "image",
+  podman: "image",
+  deno: "deno",
+  go: "go",
+};
+
+/** The first word of each subcommand that fetches (`uv tool run`). */
+const SUBCOMMANDS: Record<string, ReadonlySet<string>> = {
+  npm: new Set(["exec", "x"]),
+  pnpm: new Set(["dlx"]),
+  yarn: new Set(["dlx"]),
+  bun: new Set(["x"]),
+  uv: new Set(["tool"]),
+  pipx: new Set(["run"]),
+  docker: new Set(["run", "container"]),
+  podman: new Set(["run", "container"]),
+  deno: new Set(["run"]),
+  go: new Set(["run"]),
+};
 
 /** Options known to take no value. */
 const FLAG_OPTIONS: Record<Ecosystem, ReadonlySet<string>> = {
@@ -1250,25 +1276,46 @@ function fetchRunner(
   overflow?: boolean;
 } | null {
   const base = commandName(tokens[i]);
-  // `npm --yes exec x`: options may come before the subcommand.
+  // Options may come before the subcommand, with or without a value:
+  // `npm --yes exec x`, `npm --prefix p exec x`, `docker -H h run img`.
+  // A word right after an option may be its value, so the subcommand is
+  // looked for past it; the first other word ends the search.
   let k = i + 1;
-  while (
-    k < tokens.length &&
-    k - i <= RUNNER_WINDOW &&
-    tokens[k].startsWith("-")
-  )
-    k++;
-  if (
-    k < tokens.length &&
-    tokens[k].startsWith("-") &&
-    SUBCOMMAND_RUNNERS.has(base)
-  )
-    return {
-      ecosystem: "npm",
-      next: tokens.length,
-      label: base,
-      overflow: true,
-    };
+  if (SUBCOMMAND_RUNNERS.has(base)) {
+    const subs = SUBCOMMANDS[base];
+    const flags = FLAG_OPTIONS[RUNNER_ECOSYSTEM[base]];
+    let afterOption = false;
+    // A subcommand word taken as an option's value (`npm --prefix x exec`):
+    // used when no later word is a subcommand (`npm --opt exec pkg`).
+    let skippedSub = -1;
+    for (; ; k++) {
+      if (k >= tokens.length) {
+        if (skippedSub !== -1) k = skippedSub;
+        break;
+      }
+      if (k - i > RUNNER_WINDOW)
+        // Still among options past the window: not settled, fail closed.
+        return {
+          ecosystem: "npm",
+          next: tokens.length,
+          label: base,
+          overflow: true,
+        };
+      const t = tokens[k];
+      if (t.startsWith("-")) {
+        afterOption = !t.includes("=") && !flags.has(t);
+        continue;
+      }
+      const isSub = subs.has(t.toLowerCase());
+      if (afterOption) {
+        if (isSub && skippedSub === -1) skippedSub = k;
+        afterOption = false;
+        continue;
+      }
+      if (!isSub && skippedSub !== -1) k = skippedSub;
+      break;
+    }
+  }
   const sub = tokens[k]?.toLowerCase();
   const sub2 = tokens[k + 1]?.toLowerCase();
   if (base === "npx" || base === "bunx" || base === "pnpx")
@@ -1636,7 +1683,10 @@ function referencedConfigs(
   ctx: ConfigScanContext,
 ): AgentConfigFinding[] {
   const findings: AgentConfigFinding[] = [];
-  for (const ref of refs.slice(0, MAX_CONFIG_REFERENCES)) {
+  // Every path is looked up: each target is scanned once per run
+  // (`ctx.scanned`), and a long list folds into the per-config cap, which
+  // keeps every risk (#886).
+  for (const ref of new Set(refs)) {
     const target = resolveConfigReference(file, ref, ctx);
     if (target === null) {
       findings.push(
@@ -1675,15 +1725,6 @@ function referencedConfigs(
         ),
       );
     }
-  }
-  if (refs.length > MAX_CONFIG_REFERENCES) {
-    findings.push(
-      note(
-        file,
-        "unreadable",
-        `${key} names ${refs.length - MAX_CONFIG_REFERENCES} more files: not read`,
-      ),
-    );
   }
   return findings;
 }

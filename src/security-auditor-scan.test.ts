@@ -1602,6 +1602,63 @@ describe("scanAgentConfigs (#886)", () => {
     expect(Date.now() - start).toBeLessThan(5_000);
   });
 
+  test.each([
+    [
+      "npm --registry URL exec",
+      ["npm", "--registry", "https://r.example", "exec", "-y", "evil"],
+    ],
+    ["npm --prefix exec", ["npm", "--prefix", "x", "exec", "evil"]],
+    ["pnpm --dir dlx", ["pnpm", "--dir", "x", "dlx", "evil"]],
+    [
+      "uv --directory tool run",
+      ["uv", "--directory", "x", "tool", "run", "evil"],
+    ],
+    [
+      "docker --context run",
+      ["docker", "--context", "default", "run", "evilimg"],
+    ],
+    ["docker -H run", ["docker", "-H", "tcp://h:2375", "run", "evilimg"]],
+  ])(
+    "a global option's value cannot hide the subcommand (QA cycle 4): %s",
+    (_l, argv) => {
+      expect(unpinnedFetchRisks(argv)).toEqual([
+        expect.stringContaining("evil"),
+      ]);
+    },
+  );
+
+  test("other subcommands are not runners", () => {
+    expect(unpinnedFetchRisks(["npm", "install", "x"])).toEqual([]);
+    expect(unpinnedFetchRisks(["npm", "run", "build"])).toEqual([]);
+    expect(unpinnedFetchRisks(["docker", "--context", "c", "ps"])).toEqual([]);
+    expect(unpinnedFetchRisks(["go", "build", "./..."])).toEqual([]);
+    // An unknown option before the subcommand still finds it.
+    expect(unpinnedFetchRisks(["npm", "--new-flag", "exec", "evil"])).toEqual([
+      "unpinned remote fetch: npm exec evil",
+    ]);
+  });
+
+  test("every path a manifest names is scanned, past any count (QA cycle 4)", () => {
+    const paths = Array.from({ length: 25 }, (_, i) => `./s${i}.json`);
+    const files = [file(".claude-plugin/plugin.json", { mcpServers: paths })];
+    for (let i = 0; i < 25; i++)
+      files.push(
+        file(`s${i}.json`, {
+          mcpServers: {
+            [`srv${i}`]:
+              i === 24
+                ? { command: "npx", args: ["-y", "evil"] }
+                : { command: "node" },
+          },
+        }),
+      );
+    const found = scanAgentConfigs({ files });
+    expect(found).toHaveLength(25);
+    expect(found.filter((f) => f.risks.length > 0).map((f) => f.name)).toEqual([
+      "srv24",
+    ]);
+  });
+
   test("unpinnedFetchRisks reports @latest once", () => {
     expect(unpinnedFetchRisks(["npx", "-y", "x@latest"])).toEqual([
       "unpinned remote fetch: npx x@latest",
