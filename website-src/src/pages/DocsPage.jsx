@@ -713,9 +713,11 @@ asm install ~/my-skills/awesome-skill`}</CodeBlock>
               [
                 "-s, --scope <scope>",
                 <>
-                  <code>global</code> or <code>project</code> (not{" "}
-                  <code>both</code>) — a TTY shows the scope picker; non-TTY or{" "}
-                  <code>-y</code> defaults to <code>global</code>
+                  <code>global</code>, <code>project</code>, or{" "}
+                  <code>both</code> — an explicit <code>both</code> activates
+                  in both scopes. Without the flag a TTY shows the scope picker
+                  and non-TTY or <code>-y</code> defaults to{" "}
+                  <code>global</code>
                 </>,
               ],
               [
